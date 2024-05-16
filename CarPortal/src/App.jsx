@@ -35,38 +35,50 @@ import BiddingDealerPendingReq from "./pages/bidding/BiddingDealerPendingReq";
 import Uploadimages2 from "./ui/UploadImages2";
 import CarVerify from "./pages/CarVerify";
 import InspectorList from "./pages/adminpages/InspectorList";
+import CarInspectionTable from "./pages/CarInspectionTable";
 
 
 export default function App() {
   return (
     <>
-      <CarVerify/>
-      <InspectorList/>
-    
-    <Routes>
-      
-      <Route path="/" element={<Home />} />
-      <Route element={<AppLayout />}>
-      <Route path="signin" element={<LoginCard />} />
-      <Route path="signup" element={<SimpleRegistrationForm />} />
-      
-        <Route path="/carlist" element={<BuyCar />} />
-        <Route path="/carlist/cardetails/:carId" element={<CarDetailsById />} />
-        <Route path="/biddinglist/cardetails/:carId" element={<BiddingCarDetailsById />} />
-        <Route path="/pendinrequest/:userid" element={<PendingRequest/>}/>
-        <Route path="/user/booking/:id"  element={<UserConfirmBooking/>} />
-        <Route
-          element={
-            <AdminMiddleware allowedRoles={[...Object.values(onlyAdmin)]} />
-          }
-        >
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/admin/dealer/info/:id" element={<AdminDealerInfo />} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route element={<AppLayout />}>
+          <Route path="signin" element={<LoginCard />} />
+          <Route path="signup" element={<SimpleRegistrationForm />} />
+
+          <Route path="/carlist" element={<BuyCar />} />
           <Route
-            path="/admin/dealer/edit/:userid/:id"
-            element={<AdminDealerEdit />}
+            path="/carlist/cardetails/:carId"
+            element={<CarDetailsById />}
           />
-        </Route>
+          <Route
+            path="/biddinglist/cardetails/:carId"
+            element={<BiddingCarDetailsById />}
+          />
+          <Route path="/pendinrequest/:userid" element={<PendingRequest />} />
+          <Route path="/user/booking/:id" element={<UserConfirmBooking />} />
+          <Route
+            element={
+              <AdminMiddleware allowedRoles={[...Object.values(onlyAdmin)]} />
+            }
+          >
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/carverify" element={<CarVerify />} />
+            <Route path="/inspector" element={<InspectorList />} />
+            <Route
+              path="/CarInspectionTable"
+              element={<CarInspectionTable />}
+            />
+            <Route
+              path="/admin/dealer/info/:id"
+              element={<AdminDealerInfo />}
+            />
+            <Route
+              path="/admin/dealer/edit/:userid/:id"
+              element={<AdminDealerEdit />}
+            />
+          </Route>
 
           <Route
             element={
@@ -76,17 +88,32 @@ export default function App() {
             <Route path="/dealer/:id" element={<DealerDashboard />} />
             <Route path="/dealer/:id/addcar" element={<AddDealerCar />} />
             <Route path="/dealer/:id/uploadimage" element={<Uploadimages2 />} />
-            <Route path="/dealer/:id/car/edit/:carId" element={<EditDealerCar />} />
-            <Route path="/dealer/:id/booking/confirm" element={<OrderDealer/>}/>
-            <Route path="/dealer/:id/allpending" element={<DealerAllPendingRequest/>}/>
-            <Route path="/car/:CarId/pendinguser" element={<DealerPendingRequest/>}/>
+            <Route
+              path="/dealer/:id/car/edit/:carId"
+              element={<EditDealerCar />}
+            />
+            <Route
+              path="/dealer/:id/booking/confirm"
+              element={<OrderDealer />}
+            />
+            <Route
+              path="/dealer/:id/allpending"
+              element={<DealerAllPendingRequest />}
+            />
+            <Route
+              path="/car/:CarId/pendinguser"
+              element={<DealerPendingRequest />}
+            />
           </Route>
 
           <Route path="/bidding" element={<BiddingMainPage />} />
           <Route path="/bidding/:userid/addcar" element={<BiddingAddCar />} />
           <Route path="/bidding/:id/editcar" element={<BiddingEditCar />} />
           <Route path="/bidding/:id/:carid/settimer" element={<SetTimer />} />
-          <Route path="/car/:CarId/pendingreq" element={<BiddingDealerPendingReq/>}/>
+          <Route
+            path="/car/:CarId/pendingreq"
+            element={<BiddingDealerPendingReq />}
+          />
         </Route>
 
         <Route element={<AppLayout2 />}>
@@ -94,13 +121,8 @@ export default function App() {
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/cookiepolicy" element={<CookiePolicy />} />
-
-          
-
-          
         </Route>
-
       </Routes>
-      </>
+    </>
   );
 }
