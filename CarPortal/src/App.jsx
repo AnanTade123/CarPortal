@@ -33,10 +33,16 @@ import BiddingCarDetailsById from "./pages/bidding/BiddingCarDetailsById";
 import DealerPendingRequest from "./pages/dealer/DealerPendingRequest";
 import BiddingDealerPendingReq from "./pages/bidding/BiddingDealerPendingReq";
 import Uploadimages2 from "./ui/UploadImages2";
+import CarVerify from "./pages/CarVerify";
+import InspectorList from "./pages/adminpages/InspectorList";
 
 
 export default function App() {
   return (
+    <>
+      <CarVerify/>
+      <InspectorList/>
+    
     <Routes>
       
       <Route path="/" element={<Home />} />
@@ -95,6 +101,6 @@ export default function App() {
         </Route>
 
       </Routes>
-    
+      </>
   );
 }
