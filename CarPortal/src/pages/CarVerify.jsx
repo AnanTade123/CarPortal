@@ -21,15 +21,15 @@ function CarVerify() {
           <div className="w-full flex justify-center">
             <div className="mt-5 flex flex-col justify-center">
               <div className="flex">
-                <div className="text-lg mt-3 font-[latto] font-medium text-black">
+                <div className="flex text-lg mt-3 font-[latto] font-medium text-black">
                   Part Name:
-                </div>
                 <Input
                   label="Part Name"
                   placeholder="Enter part name"
                   value={partName}
                   onChange={(e) => setPartName(e.target.value)}
                 />
+                </div>
               </div>
               <div className="flex">
                 <div className="mt-3 font-[latto] text-lg font-medium text-black">

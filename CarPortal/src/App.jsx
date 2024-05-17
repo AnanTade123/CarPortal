@@ -33,15 +33,15 @@ import BiddingCarDetailsById from "./pages/bidding/BiddingCarDetailsById";
 import DealerPendingRequest from "./pages/dealer/DealerPendingRequest";
 import BiddingDealerPendingReq from "./pages/bidding/BiddingDealerPendingReq";
 import Uploadimages2 from "./ui/UploadImages2";
-import CarVerify from "./pages/CarVerify";
 import InspectorList from "./pages/adminpages/InspectorList";
+import CarVerify from "./pages/CarVerify";
+import AdminInspectorEdit from "./pages/adminpages/AdminInspectorEdit";
 
 
 export default function App() {
   return (
     <>
       <CarVerify/>
-      <InspectorList/>
     
     <Routes>
       
@@ -66,6 +66,8 @@ export default function App() {
             path="/admin/dealer/edit/:userid/:id"
             element={<AdminDealerEdit />}
           />
+          <Route path="/inspectorEdit" element={<AdminInspectorEdit/>} />
+          <Route path="/inspector" element={<InspectorList/>} />
         </Route>
 
           <Route
