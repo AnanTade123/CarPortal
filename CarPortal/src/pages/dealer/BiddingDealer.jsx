@@ -15,19 +15,31 @@ import StatusDialogeBox from "../../ui/StatusDialogeBox";
 import BiddingDailogeBox from "../../ui/BiddingDialogeBox";
 import PlaceBid from "./PlaceBid";
 import BiddingSetTime from "../../ui/BiddingSetTime";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
 
 
 const BiddingDealer = () => {
   const {id} = useParams()
   console.log(id)
-  const { data, isLoading,error } = useBiddingCarByDealerIdQuery();
+  const token = Cookies.get("token");
+  let jwtDecodes
+  if(token){
+     jwtDecodes = jwtDecode(token);
+  }
+  console.log("Token ",jwtDecodes);
+
+ const UserID = jwtDecodes?.userId;
+ console.log("User ID",UserID)
+
+  const { data, isLoading,error } = useBiddingCarByDealerIdQuery(UserID);
   console.log(data);
   
   if (isLoading) {
     return <p>Loading..</p>;
   }
-  const userId = data[0].userId; // Access userId from the first object
-  console.log('User ID:', userId);
+  // const userId = data[0].userId; // Access userId from the first object
+  // console.log('User ID:', userId);
   const columns = [
     {
       Header: "ID",
@@ -79,7 +91,7 @@ const BiddingDealer = () => {
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
-             <BiddingSetTime userid={userId} biddingcarid={cell.row.values.beadingCarId}/>
+             <BiddingSetTime userid={UserID} biddingcarid={cell.row.values.beadingCarId}/>
              </div>
           </div>
         );
@@ -94,7 +106,7 @@ const BiddingDealer = () => {
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
-             <BiddingDailogeBox userid={userId} biddingcarid={cell.row.values.beadingCarId}/>
+             <BiddingDailogeBox userid={UserID} biddingcarid={cell.row.values.beadingCarId}/>
              </div>
           </div>
         );
@@ -109,7 +121,7 @@ const BiddingDealer = () => {
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
-             <PlaceBid userid={userId} id={id}/>
+             <PlaceBid userid={UserID} id={id}/>
              </div>
           </div>
         );
@@ -206,7 +218,14 @@ const BiddingDealer = () => {
   return (
     <>
      {error?.status===404 ? (
+      <div>
            <p className="text-3xl font-semibold ">No Data Available</p>
+           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+              <Link to={`/bidding/${UserID}/addcar`}>
+                <Button>Add Car</Button>
+              </Link>
+            </div>
+            </div>
         ):( <Card className="h-full w-full">
         <CardHeader floated={false} shadow={false} className="rounded-none">
           <div className=" flex items-center justify-between gap-8">
@@ -219,7 +238,7 @@ const BiddingDealer = () => {
               </Typography>
             </div>
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-              <Link to={`/bidding/1207/addcar`}>
+              <Link to={`/bidding/${UserID}/addcar`}>
                 <Button>Add Car</Button>
               </Link>
             </div>

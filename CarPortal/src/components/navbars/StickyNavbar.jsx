@@ -37,7 +37,17 @@ console.log(userRole)
           color="blue-gray"
           className={`p-3 rounded-md font-normal ${window.location.pathname === "/admin" ? "bg-indigo-200 text-white" : ""}`}
         >
-          Dashboard
+          Dealer List
+        </Typography>
+      </Link>
+      <Link to={"/inspector"}>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className={`p-3 rounded-md font-normal ${window.location.pathname === "/inspector" ? "bg-indigo-200 text-white" : ""}`}
+        >
+          Inspector List
         </Typography>
       </Link>
     </>
@@ -159,14 +169,7 @@ console.log(userRole)
       {adminDashboard}
       {dealerDashboard}
       {userDashboard}
-      {/* <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        Docs
-      </Typography> */}
+
     </ul>
   );
 

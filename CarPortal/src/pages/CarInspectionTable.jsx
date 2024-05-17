@@ -9,30 +9,30 @@ import {
   CardFooter,
 } from "@material-tailwind/react";
 import {
-  //   useDeleteDealerMutation,
+  useDeleteDealerMutation,
   useGetAllDealerQuery,
-} from "../../services/dealerAPI";
-import TableComponent from "../../components/table/TableComponent";
+} from "../services/dealerAPI";
+import TableComponent from "../components/table/TableComponent";
 import { useState } from "react";
+//import { AddDealerForm } from "../../components/admin/AddDealerForm";
 import { Link } from "react-router-dom";
-import { AddInspectorForm } from "../AddInspectorForm";
 
-export default function InspectorList() {
+const CarInspectionTable = () => {
   const [pageNo, setPageNo] = useState(0);
   console.log(pageNo);
   const { data, isLoading, error } = useGetAllDealerQuery(pageNo);
 
-  //   const [deleteDealer] = useDeleteDealerMutation();
+  const [deleteDealer] = useDeleteDealerMutation();
 
   const navigate = useNavigate();
   if (error?.status === 401) {
     return navigate("/signin");
   }
   console.log(pageNo);
-  //   const deleteDealerHandler = async (id) => {
-  //     const res = await deleteDealer(id);
-  //     console.log(res);
-  //   };
+  const deleteDealerHandler = async (id) => {
+    const res = await deleteDealer(id);
+    console.log(res);
+  };
   const nextHandler = () => {
     setPageNo((prevPageNo) => {
       // Check if the error status is 404
@@ -51,25 +51,16 @@ export default function InspectorList() {
 
   const columns = [
     {
-      Header: "ID",
-      accessor: "dealer_id",
+      Header: "Part",
+      accessor: "partName",
     },
     {
-      Header: "First Name",
-      accessor: "firstName",
-    },
-
-    {
-      Header: "Last Name ",
-      accessor: "lastName",
+      Header: "Car ID",
+      accessor: "carId",
     },
     {
-      Header: "Location",
-      accessor: "area",
-    },
-    {
-      Header: "Phone",
-      accessor: "mobileNo",
+      Header: "Condition",
+      accessor: "partCondition",
     },
 
     {
@@ -86,9 +77,7 @@ export default function InspectorList() {
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
-              <Link
-              //   to={`/admin/dealer/info/${cell.row.values.dealer_id}`}
-              >
+              <Link to={`/admin/dealer/info/${cell.row.values.dealer_id}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -107,7 +96,7 @@ export default function InspectorList() {
               </Link>
 
               <Link
-              to={`/admin/inspector/edit/${cell.row.values.userId}/${cell.row.values.dealer_id}`}
+                to={`/admin/dealer/edit/${cell.row.values.userId}/${cell.row.values.dealer_id}`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -126,7 +115,7 @@ export default function InspectorList() {
                 </svg>
               </Link>
               <div
-              // onClick={() => deleteDealerHandler(cell.row.values.dealer_id)}
+                onClick={() => deleteDealerHandler(cell.row.values.dealer_id)}
               >
                 <Tooltip content="Delete">
                   <svg
@@ -160,6 +149,7 @@ export default function InspectorList() {
     dealerApiData = data?.list;
   }
   console.log(dealerApiData);
+
   return (
     <>
       <Card className="h-full w-full">
@@ -167,14 +157,11 @@ export default function InspectorList() {
           <div className=" flex items-center justify-between gap-8">
             <div>
               <Typography variant="h5" color="blue-gray">
-                Inspector List
+                Car Inspection
               </Typography>
               <Typography color="gray" className="mt-1 font-normal">
-                See information about all members
+                See information about the Car
               </Typography>
-            </div>
-            <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-              <AddInspectorForm />
             </div>
           </div>
         </CardHeader>
@@ -211,4 +198,6 @@ export default function InspectorList() {
       </Card>
     </>
   );
-}
+};
+
+export default CarInspectionTable;

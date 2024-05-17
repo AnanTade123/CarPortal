@@ -15,34 +15,31 @@ function CarVerify() {
   };
 
   return (
-    <div className="w-full flex justify-center ">
+    <div className="w-full flex justify-center mt-10">
       <CardUi>
         <div className="min-w-[30rem]">
           <div className="w-full flex justify-center">
             <div className="mt-5 flex flex-col justify-center">
-              <div className="flex">
-                <div className="flex text-lg mt-3 font-[latto] font-medium text-black">
-                  Part Name:
+              <div>
+                <p className="font-semibold text-[2rem] text-green-800">Car Verify</p>
+              </div>
+              <div className="mt-5 w-72">
+               
                 <Input
                   label="Part Name"
-                  placeholder="Enter part name"
                   value={partName}
                   onChange={(e) => setPartName(e.target.value)}
                 />
-                </div>
               </div>
-              <div className="flex">
-                <div className="mt-3 font-[latto] text-lg font-medium text-black">
-                  Part Condition:
-                </div>
+              <div className="mt-5">
+               
                 <Input
                   label="Part Condition"
-                  placeholder="Enter part condition"
                   value={partCondition}
                   onChange={(e) => setPartCondition(e.target.value)}
                 />
               </div>
-              <div>
+              <div className="mt-5">
                 <Button color="green" onClick={handleSubmit} className="items-center text-center">
                   Submit
                 </Button>

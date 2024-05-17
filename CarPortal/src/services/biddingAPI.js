@@ -13,8 +13,9 @@ export const biddingAPI = apiSlice.injectEndpoints({
     }),
 
     biddingCarByDealerId: builder.query({
-      query: () => ({
-        url: `/BeadingCarController/getByUserId1/1207`,
+      query: (UserID) => ({
+        url: `/BeadingCarController/getByUserId1/${UserID}`,
+        transferResponse: console.log(UserID),
         method: "GET",
       }),
       providesTags: ["BIDDING"],
