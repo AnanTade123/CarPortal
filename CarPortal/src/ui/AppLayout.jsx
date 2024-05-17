@@ -7,7 +7,7 @@ const AppLayout = () => {
   return (
     <div>
       <div className="min-h-screen flex flex-col">
-        <nav>
+        <nav className="sticky top-0 z-10">
           <StickyNavbar />
         </nav>
         <main className="flex-grow  ">

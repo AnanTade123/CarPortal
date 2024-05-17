@@ -67,7 +67,7 @@ export default function App() {
             <Route path="/carverify" element={<CarVerify />} />
             <Route path="/inspector" element={<InspectorList />} />
             <Route
-              path="/CarInspectionTable"
+              path="/CarInspection"
               element={<CarInspectionTable />}
             />
             <Route
