@@ -107,7 +107,7 @@ export default function InspectorList() {
               </Link>
 
               <Link
-              // to={`/admin/dealer/edit/${cell.row.values.userId}/${cell.row.values.dealer_id}`}
+              to={`/admin/inspector/edit/${cell.row.values.userId}/${cell.row.values.dealer_id}`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

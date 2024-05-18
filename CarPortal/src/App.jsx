@@ -33,9 +33,10 @@ import BiddingCarDetailsById from "./pages/bidding/BiddingCarDetailsById";
 import DealerPendingRequest from "./pages/dealer/DealerPendingRequest";
 import BiddingDealerPendingReq from "./pages/bidding/BiddingDealerPendingReq";
 import Uploadimages2 from "./ui/UploadImages2";
-import CarVerify from "./pages/CarVerify";
 import InspectorList from "./pages/adminpages/InspectorList";
 import CarInspectionTable from "./pages/CarInspectionTable";
+import CarVerify from "./pages/CarVerify";
+import AdminInspectorEdit from "./pages/adminpages/AdminInspectorEdit";
 
 
 export default function App() {
@@ -77,6 +78,10 @@ export default function App() {
             <Route
               path="/admin/dealer/edit/:userid/:id"
               element={<AdminDealerEdit />}
+            />
+            <Route
+              path="/admin/inspector/edit/:userid/:id"
+              element={<AdminInspectorEdit />}
             />
           </Route>
 
