@@ -1,30 +1,26 @@
 import { Carousel, IconButton } from "@material-tailwind/react";
-import {useGetCarImageByIdQuery} from "../services/carAPI"
+import { useGetCarImageByIdQuery } from "../services/carAPI";
 
 // eslint-disable-next-line react/prop-types
-export function CarouselCustomArrows({carId}) {
+export function CarouselCustomArrows({ carId }) {
 
-  console.log(carId)
-  const {data ,isLoading,error} = useGetCarImageByIdQuery({carId})
-  console.log(data)
-
-  const handleImageData = (blob) => {
-    const url = URL.createObjectURL(blob); // Create a temporary URL for the blob
-    return <img src={url} alt="Car Image" className="h-full w-full object-contain" />;
-  };
+  console.log("Carid in customearrow",carId)
+  const { data, isLoading, error } = useGetCarImageByIdQuery({ carId })
+  console.log("Data of image",data)
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error fetching car image</div>;
+
   return (
     <Carousel
-      className="rounded-xl "
+      className="rounded-xl"
       prevArrow={({ handlePrev }) => (
         <IconButton
           variant="text"
           color="white"
           size="lg"
           onClick={handlePrev}
-          className="!absolute top-2/4 left-4 -translate-y-2/4 "
+          className="!absolute top-2/4 left-4 -translate-y-2/4"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -67,18 +63,14 @@ export function CarouselCustomArrows({carId}) {
         </IconButton>
       )}
     >
-      
-      {data && handleImageData(data)}
-      {/* <img
-        src="https://imgd.aeplcdn.com/370x208/n/zgaerbb_1693951.jpg?q=80"
-        alt="image 2"
-        className="h-full w-full object-contain"
-      />
-      <img
-        src="https://imgd.aeplcdn.com/370x208/n/7mudrbb_1693947.jpg?q=80"
-        alt="image 3"
-        className="h-full w-full object-contain"
-      /> */}
+      {data && data.object.map((item) => (
+        <img
+          key={item.documentId}
+          src={item.documentLink}
+          alt={`Car Image ${item.documentId}`}
+          className="h-full w-full object-contain"
+        />
+      ))}
     </Carousel>
   );
 }

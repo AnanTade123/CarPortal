@@ -22,6 +22,7 @@ import Cookies from "js-cookie";
 const BiddingDealer = () => {
   const {id} = useParams()
   console.log(id)
+  
   const token = Cookies.get("token");
   let jwtDecodes
   if(token){
