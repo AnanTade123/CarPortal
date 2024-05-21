@@ -30,7 +30,6 @@ export function SimpleRegistrationForm() {
     city: "",
     roles: "USER",
     document: 0,
-    shopName: "",
     area: "",
     status: false,
     userType: "",
@@ -308,7 +307,7 @@ export function SimpleRegistrationForm() {
               error={errors.area}
             />
 
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
+            {/* <Typography variant="h6" color="blue-gray" className="-mb-3">
               Shop Name
             </Typography>
             <Inputs
@@ -317,7 +316,7 @@ export function SimpleRegistrationForm() {
               value={formStateData.shopName}
               onChange={handleChange}
               // error={errors.area}
-            />
+            /> */}
 
           </div>
           <Checkbox

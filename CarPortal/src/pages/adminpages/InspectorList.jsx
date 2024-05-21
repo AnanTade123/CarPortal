@@ -162,7 +162,17 @@ export default function InspectorList() {
   console.log(dealerApiData);
   return (
     <>
-      <Card className="h-full w-full">
+
+    {error.status === 404 ? (
+        <div>
+           <p className="text-3xl font-semibold ">No Data Available</p>
+           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+              <AddInspectorForm />
+            </div>
+            </div>
+            ):
+            ( 
+            <Card className="h-full w-full">
         <CardHeader floated={false} shadow={false} className="rounded-none">
           <div className=" flex items-center justify-between gap-8">
             <div>
@@ -208,7 +218,8 @@ export default function InspectorList() {
             </Button>
           </div>
         </CardFooter>
-      </Card>
+      </Card>)}
+     
     </>
   );
 }
