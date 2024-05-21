@@ -70,28 +70,28 @@ const ContactUs = () => {
 
                 <div className="mb-8">
                     <h2 className="text-xl font-semibold mb-3">Customer Support</h2>
-                    <p>Email: <a href="mailto:support@carbysell.com">support@carbysell.com</a></p>
+                    <p>Email: <a href="mailto:support@carsforum.com">support@carsforum.com</a></p>
                     <p>Phone: +1-800-CAR-SELL (1-800-227-7355)</p>
                     <p>Working Hours: Monday to Friday, 9:00 AM - 5:00 PM (IST)</p>
                 </div>
 
                 <div className="mb-8">
                     <h2 className="text-xl font-semibold mb-3">Sales Department</h2>
-                    <p>Email: <a href="mailto:sales@carbysell.com">sales@carbysell.com</a></p>
+                    <p>Email: <a href="mailto:sales@carsforum.com">sales@carsforum.com</a></p>
                     <p>Phone: +1-800-555-SELL (1-800-555-7355)</p>
                     <p>Working Hours: Monday to Friday, 9:00 AM - 6:00 PM (IST)</p>
                 </div>
 
                 <div className="mb-8">
                     <h2 className="text-xl font-semibold mb-3">Technical Support</h2>
-                    <p>Email: <a href="mailto:techsupport@carbysell.com">techsupport@carbysell.com</a></p>
+                    <p>Email: <a href="mailto:techsupport@carsforum.com">techsupport@carsforum.com</a></p>
                     <p>Phone: +1-800-123-HELP (1-800-123-4357)</p>
                     <p>Working Hours: Monday to Friday, 8:00 AM - 7:00 PM (IST)</p>
                 </div>
 
                 <div className="mb-8">
                     <h2 className="text-xl font-semibold mb-3">Visit Us</h2>
-                    <p>CarBySell Headquarters</p>
+                    <p>CarsForum Headquarters</p>
                     <p>123 Car Avenue</p>
                     <p>Pune, Maharashtra, 441122</p>
                     <p>India</p>
