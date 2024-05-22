@@ -11,6 +11,7 @@ import {
 } from "react-table";
 
 const TableComponent = ({ columns, data }) => {
+  
   console.log(data)
   const {
     getTableProps,
@@ -33,7 +34,7 @@ const TableComponent = ({ columns, data }) => {
     useSortBy,
     usePagination
   );
-
+  if (!data) return null; 
   // const { globalFilter, pageIndex } = state;
 
   return (
