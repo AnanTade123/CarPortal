@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  Input,
-  Button,
-  Checkbox,
-  Typography,
-
-} from "@material-tailwind/react";
+import { Input, Button, Checkbox, Typography } from "@material-tailwind/react";
 import { useCountries } from "use-react-countries";
 import {
   Menu,
@@ -16,7 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import Inputs from "../forms/Inputs";
 import CardUi from "../ui/CardUi";
-import {useSignUpMutation} from "../services/authAPI"
+import { useSignUpMutation } from "../services/authAPI";
 
 export function SimpleRegistrationForm() {
   const [SignUp] = useSignUpMutation();
@@ -48,21 +42,18 @@ export function SimpleRegistrationForm() {
     agreeTerms: "",
   });
 
-  
-
   const handleChange = (e) => {
     const { name, value, checked, type } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: type === "checkbox" ? checked : value,
     }));
-  
+
     // Validate input fields
     if (type !== "checkbox") {
       validateInput(name, value);
     }
   };
-  
 
   const validateInput = (name, value) => {
     let error = "";
@@ -103,7 +94,7 @@ export function SimpleRegistrationForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     // Validate all fields before submission
     let hasError = false;
     Object.keys(formStateData).forEach((key) => {
@@ -112,7 +103,7 @@ export function SimpleRegistrationForm() {
         hasError = true;
       }
     });
-  
+
     // Validate password separately
     if (formStateData.password.trim() === "") {
       setErrors((prevErrors) => ({
@@ -121,7 +112,7 @@ export function SimpleRegistrationForm() {
       }));
       hasError = true;
     }
-  
+
     if (!hasError) {
       // Your form submission logic goes here
       console.log("Form data submitted:", formStateData);
@@ -130,12 +121,11 @@ export function SimpleRegistrationForm() {
     try {
       const { data } = await SignUp(formStateData);
       console.log(data);
-      alert("Register Sucessfully")
+      alert("Register Sucessfully");
     } catch (error) {
       console.log(error);
     }
   };
-  
 
   const { countries } = useCountries();
   const defaultCountryIndex = countries.findIndex(
@@ -149,11 +139,9 @@ export function SimpleRegistrationForm() {
   return (
     <div className="h-auto mt-10 flex justify-center items-center">
       <CardUi color="transparent" shadow={false}>
-      
-          <Typography variant="h3" color="black" className="text-center">
-            Sign Up
-          </Typography>
-        
+        <Typography variant="h3" color="black" className="text-center">
+          Sign Up
+        </Typography>
 
         <form
           onSubmit={handleSubmit}
@@ -169,6 +157,7 @@ export function SimpleRegistrationForm() {
               value={formStateData.firstName}
               onChange={handleChange}
               error={errors.firstName}
+              required={"required"}
             />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Last Name
@@ -179,6 +168,7 @@ export function SimpleRegistrationForm() {
               value={formStateData.lastName}
               onChange={handleChange}
               error={errors.lastName}
+              required={"required"}
             />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Email
@@ -190,6 +180,7 @@ export function SimpleRegistrationForm() {
               value={formStateData.email}
               onChange={handleChange}
               error={errors.email}
+              required={"required"}
             />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Mobile Number
@@ -248,6 +239,7 @@ export function SimpleRegistrationForm() {
                 value={formStateData.mobileNo}
                 onChange={handleChange}
                 type={"number"}
+                required={"required"}
                 // error={errors.mobileNumber}
               />
             </div>
@@ -261,8 +253,21 @@ export function SimpleRegistrationForm() {
               value={formStateData.password}
               onChange={handleChange}
               error={errors.password}
+              required={"required"}
             />
-
+            {/* <Typography variant="h6" color="blue-gray" className="-mb-3">
+              Select Role
+            </Typography>
+            <select
+        className="border border-gray-400 p-3 rounded-md"
+        name="roles" // Make sure name matches the state property name
+        value={formStateData.roles} // Bind selected value to form state
+        onChange={handleChange}
+      >
+        <option value="">Select</option>
+        <option value="DEALER">Dealer</option>
+        <option value="USER">User</option>
+      </select> */}
 
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Address
@@ -273,6 +278,7 @@ export function SimpleRegistrationForm() {
               value={formStateData.address}
               onChange={handleChange}
               error={errors.address}
+              required={"required"}
             />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               City
@@ -283,6 +289,7 @@ export function SimpleRegistrationForm() {
               value={formStateData.city}
               onChange={handleChange}
               error={errors.city}
+              required={"required"}
             />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Area
@@ -293,10 +300,8 @@ export function SimpleRegistrationForm() {
               value={formStateData.area}
               onChange={handleChange}
               error={errors.area}
+              required={"required"}
             />
-
-          
-
           </div>
           <Checkbox
             label={

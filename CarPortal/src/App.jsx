@@ -37,6 +37,7 @@ import InspectorList from "./pages/adminpages/InspectorList";
 import CarInspectionTable from "./pages/CarInspectionTable";
 import CarVerify from "./pages/CarVerify";
 import AdminInspectorEdit from "./pages/adminpages/AdminInspectorEdit";
+import ChangePassword from "./pages/dealer/ChangePassword";
 
 
 export default function App() {
@@ -47,6 +48,7 @@ export default function App() {
         <Route element={<AppLayout />}>
           <Route path="signin" element={<LoginCard />} />
           <Route path="signup" element={<SimpleRegistrationForm />} />
+          <Route path="changePassword" element={<ChangePassword />} />
 
           <Route path="/carlist" element={<BuyCar />} />
           <Route
@@ -67,10 +69,7 @@ export default function App() {
             <Route path="/admin" element={<Admin />} />
             <Route path="/carverify" element={<CarVerify />} />
             <Route path="/inspector" element={<InspectorList />} />
-            <Route
-              path="/CarInspection"
-              element={<CarInspectionTable />}
-            />
+            <Route path="/CarInspection" element={<CarInspectionTable />} />
             <Route
               path="/admin/dealer/info/:id"
               element={<AdminDealerInfo />}
