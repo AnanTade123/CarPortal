@@ -117,7 +117,7 @@ export default function BiddingEditCar() {
       <div>
         <form onSubmit={handleSubmit} className="w-[50rem]">
           <div className="flex justify-center">
-            <p className="text-3xl font-semibold m-4">Edit Car</p>
+            <p className="text-3xl font-semibold m-4">Bidding Edit Car</p>
           </div>
           {/* first part */}
           <div className="flex ">

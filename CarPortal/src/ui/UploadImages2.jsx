@@ -6,11 +6,24 @@ import { Button } from "@material-tailwind/react";
 import { useParams } from "react-router-dom";
 import { useDealerIdByCarQuery } from "../services/carAPI";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
 
 export default function Uploadimages2() {
   const [images, setImages] = React.useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const token = Cookies.get("token");
+  let jwtDecodes
+  if(token){
+     jwtDecodes = jwtDecode(token);
+  }
+  console.log("Token ",jwtDecodes);
+
+ const UserID = jwtDecodes?.userId;
+ console.log("User ID",UserID)
+
   const { data } = useDealerIdByCarQuery({ id, pageNo: 0 });
 
   const lastCarId = data?.list?.length > 0 ? data?.list[data?.list.length - 1].carId : null;
@@ -32,17 +45,18 @@ export default function Uploadimages2() {
   
     const formData = new FormData();
     for (const image of images) {
-      formData.append('file', image);
+      formData.append('image', image);
     }
   
     try {
       
-      const response = await addCarImages({ formData, lastCarId }).unwrap();
+      const response = await addCarImages({ formData, lastCarId, UserID }).unwrap();
       console.log(response);
       console.log("try block is running")
       
     } catch (error) {
       console.error(error);
+      console.log("catch block is running")
     }
     navigate(-2)
   };
