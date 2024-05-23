@@ -42,7 +42,7 @@ export function AccordionCustom() {
           className="text-lg md:text-xl "
           onClick={() => handleOpen(2)}
         >
-          What benefits CarBySell give us?
+          What benefits Cartechindia give us?
         </AccordionHeader>
         <AccordionBody className="text-sm md:text-xl">
           Accessing helpful tips and advice on maintaining a second hand car.
@@ -80,7 +80,7 @@ export function AccordionCustom() {
           className="text-lg md:text-xl "
           onClick={() => handleOpen(5)}
         >
-          Will CarBySell give us history of vehicle?
+          Will Cartechindia give us history of vehicle?
         </AccordionHeader>
         <AccordionBody className="text-sm md:text-xl">
           Yes, We Verify important details such as ownership history, accident
@@ -92,7 +92,7 @@ export function AccordionCustom() {
           className="text-lg md:text-xl "
           onClick={() => handleOpen(6)}
         >
-          Will CarBySell help me with car finance?
+          Will Cartechindia help me with car finance?
         </AccordionHeader>
         <AccordionBody className="text-sm md:text-xl">
           Absolutely, buyers can choose to avail financing through Autocar
@@ -108,7 +108,7 @@ export function AccordionCustom() {
           className="text-lg md:text-xl "
           onClick={() => handleOpen(7)}
         >
-          Will CarBySell Give us extended warrenty?
+          Will Cartechindia Give us extended warrenty?
         </AccordionHeader>
         <AccordionBody className="text-sm md:text-xl">
           Protect your investment with our extended warranty options. Get peace

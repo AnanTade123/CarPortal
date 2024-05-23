@@ -15,16 +15,16 @@ const AboutUs = () => {
                 </div>
                 <div className="flex items-center flex-col">
                     {/* <img src={PreferableIcon} alt="BM" className="h-20" /> */}
-                    <p className="mt-8 text-black text-6xl font-serif text-center">About CarBySell</p>
+                    <p className="mt-8 text-black text-6xl font-serif text-center">About Cartechindia</p>
 
                     <p className="mt-12 text-black text-3xl font-serif text-center">World-class Cars | Our Mission</p>
-                    <p className="mt-12 text-black text-xl font-serif text-center">At CarBySell, our mission is to provide a seamless and trustworthy <br/> platform for buying and selling second-hand cars. <br/> We strive to make the car buying experience convenient, transparent, and enjoyable for every customer.</p>
+                    <p className="mt-12 text-black text-xl font-serif text-center">At Cartechindia, our mission is to provide a seamless and trustworthy <br/> platform for buying and selling second-hand cars. <br/> We strive to make the car buying experience convenient, transparent, and enjoyable for every customer.</p>
 
                     <p className="mt-16 text-black text-4xl font-serif text-center">Your world-class SecondHand Cars here</p>
                     <p className="mt-12 text-black text-xl font-serif text-center">At SecondHandCars, we are passionate about providing high-quality, reliable second-hand cars to our customers. With years of experience in the automotive industry, we understand the importance of trust, transparency, and customer satisfaction.</p>
 
                     <p className="mt-16 text-black text-4xl font-serif text-center">Who We Are</p>
-                    <p className="mt-12 text-black text-xl font-serif text-center">CarBySell is a team of passionate car enthusiasts dedicated to revolutionizing the way people buy and sell used cars. With years of experience in the automotive industry, our team brings expertise, integrity, and innovation to every aspect of our business.</p>
+                    <p className="mt-12 text-black text-xl font-serif text-center">Cartechindia is a team of passionate car enthusiasts dedicated to revolutionizing the way people buy and sell used cars. With years of experience in the automotive industry, our team brings expertise, integrity, and innovation to every aspect of our business.</p>
 
                     <p className="mt-16 text-black text-4xl font-serif text-center">What We Offer</p>
                     <p className="mt-12 text-black text-xl font-serif text-center"><span className="font-bold text-xl">Wide Selection:</span> We offer a diverse range of second-hand cars, including sedans, SUVs, trucks, and more, to suit every budget and preference. <br/>

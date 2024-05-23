@@ -161,19 +161,29 @@ export default function Admin() {
   console.log(dealerApiData);
   return (
     <>
-      <Card className="h-full w-full">
+
+    {dealerApiData.status===404 ? (
+        <div>
+           <p className="text-3xl font-semibold ">No Data Available</p>
+           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+           <AddDealerForm />
+            </div>
+            </div>
+            ):
+            ( 
+            <Card className="h-full w-full">
         <CardHeader floated={false} shadow={false} className="rounded-none">
           <div className=" flex items-center justify-between gap-8">
             <div>
               <Typography variant="h5" color="blue-gray">
-                Dealer list
+               Dealer List
               </Typography>
               <Typography color="gray" className="mt-1 font-normal">
                 See information about all members
               </Typography>
             </div>
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-              <AddDealerForm />
+            <AddDealerForm />
             </div>
           </div>
         </CardHeader>
@@ -207,7 +217,9 @@ export default function Admin() {
             </Button>
           </div>
         </CardFooter>
-      </Card>
+      </Card>)}
+     
     </>
   );
 }
+{/* <AddDealerForm /> */}

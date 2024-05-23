@@ -30,7 +30,6 @@ export function SimpleRegistrationForm() {
     city: "",
     roles: "USER",
     document: 0,
-    shopName: "",
     area: "",
     status: false,
     userType: "",
@@ -316,7 +315,7 @@ export function SimpleRegistrationForm() {
               required={"required"}
             />
 
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
+            {/* <Typography variant="h6" color="blue-gray" className="-mb-3">
               Shop Name
             </Typography>
             <Inputs

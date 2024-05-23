@@ -10,7 +10,7 @@ function CookiePolicy() {
               </div>
               <div className="mx-4 my-6 md:ml-20 md:mr-12 lg:ml-36 lg:mr-24">
                   <p className="text-3xl font-bold">Introduction</p>
-                  <p className="mt-8 text-lg">CarBySell is committed to protecting your privacy. We aim to provide trustworthy, industry-leading products and services so that you can focus on building meaningful connections. Our approach to privacy is to provide you with clear information about our data practices. That’s why we have tried to keep legal and technical jargon to a minimum.</p>
+                  <p className="mt-8 text-lg">Cartechindia is committed to protecting your privacy. We aim to provide trustworthy, industry-leading products and services so that you can focus on building meaningful connections. Our approach to privacy is to provide you with clear information about our data practices. That’s why we have tried to keep legal and technical jargon to a minimum.</p>
                   <p className="mt-4 text-lg">This Cookie Policy explains what cookies are, what types of cookies are placed on your device when you visit our website and how we use them.</p>
                   <p className="mt-4 text-lg">This Cookie Policy does not address how we deal with your personal information generally.</p>
               
@@ -60,7 +60,7 @@ function CookiePolicy() {
                   <p className="mt-4 text-lg"><b>Google™ Cookies</b></p>
                   <p className="mt-4 text-lg"><b>Stuff Google Wants to Make Sure You Know about Google’s Data Collection Technology</b></p>
                   <p className="mt-4 text-lg"><b>Google™ Maps API Cookies</b></p>
-                  <p className="mt-4 text-lg">Some features of our website and some CarBySell services rely on the use of Google™ Maps API Cookies. Such cookies will be stored on your device.</p>
+                  <p className="mt-4 text-lg">Some features of our website and some Cartechindia services rely on the use of Google™ Maps API Cookies. Such cookies will be stored on your device.</p>
                   <p className="mt-4 text-lg">When browsing this website and using the services relying on Google™ Maps API cookies, you consent to the storage, collection of such cookies on your device and to the access, usage and sharing by Google of the data collected thereby.</p>
                   <p className="mt-4 text-lg">Google™ manages the information and your choices pertaining to Google™ Maps API Cookies via an interface separate from that supplied by your browser. For more information, please see https://www.google.com/policies/technologies/cookies/.</p>
                   <p className="mt-4 text-lg"><b>Google Analytics</b></p>
@@ -70,9 +70,9 @@ function CookiePolicy() {
                   <p className="text-3xl font-bold mt-8">How to contact us?</p>
   
                   <p className="mt-6 text-lg">If you have questions about this Cookie Policy, here’s how you can reach us:</p>
-                  <p className="mt-6 text-lg">Online: contact@theCarBySell.me</p>
-                  <p className="mt-6 text-lg">By phone:</p>
-                  <p className="mt-6 text-lg">By post: CarBySell Pvt. Ltd. 1128, 3rd floor, Rd Number 36, Jubilee Square, Jubilee Hills, Pune, Maharashtra 500033</p>
+                  <p className="mt-6 text-lg">Online: asif.attar@caryanam.in</p>
+                  <p className="mt-6 text-lg">By phone: 7755994123</p>
+                  {/* <p className="mt-6 text-lg">By post: Cartechindia Pvt. Ltd. 1128, 3rd floor, Rd Number 36, Jubilee Square, Jubilee Hills, Pune, Maharashtra 500033</p> */}
               </div>
       </div>
     )

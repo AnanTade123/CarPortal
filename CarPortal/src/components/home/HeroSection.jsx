@@ -17,7 +17,7 @@ const HeroSection = () => {
     <div className="flex justify-between   ">
       <div className="md:p-12 p-4 h-auto bg-blue-100 w-full">
         <p className="flex justify-center items-center md:justify-start font-latto text-xs md:mt-8 md:text-lg opacity-0 animate-slidein [--slidein-delay:300ms]">
-          Welcomes to CarBySell
+          Welcomes to Cartechindia
         </p>
         <p className="flex justify-center items-center md:justify-start text-md md:mb-3 md:text-4xl font-Merriweather animate-slidein [--slidein-delay:600ms] opacity-0 ">
           Your Journey to Exceptional
