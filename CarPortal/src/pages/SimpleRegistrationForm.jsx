@@ -150,11 +150,11 @@ export function SimpleRegistrationForm() {
   return (
     <div className="h-auto mt-10 flex justify-center items-center">
       <CardUi color="transparent" shadow={false}>
-      
-          <Typography variant="h3" color="black" className="text-center">
-            Sign Up
-          </Typography>
-        
+
+        <Typography variant="h3" color="black" className="text-center">
+          Sign Up
+        </Typography>
+
 
         <form
           onSubmit={handleSubmit}
@@ -170,6 +170,7 @@ export function SimpleRegistrationForm() {
               value={formStateData.firstName}
               onChange={handleChange}
               error={errors.firstName}
+              required={"required"}
             />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Last Name
@@ -180,6 +181,7 @@ export function SimpleRegistrationForm() {
               value={formStateData.lastName}
               onChange={handleChange}
               error={errors.lastName}
+              required={"required"}
             />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Email
@@ -191,6 +193,7 @@ export function SimpleRegistrationForm() {
               value={formStateData.email}
               onChange={handleChange}
               error={errors.email}
+              required={"required"}
             />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Mobile Number
@@ -249,6 +252,7 @@ export function SimpleRegistrationForm() {
                 value={formStateData.mobileNo}
                 onChange={handleChange}
                 type={"number"}
+                required={"required"}
                 // error={errors.mobileNumber}
               />
             </div>
@@ -262,6 +266,7 @@ export function SimpleRegistrationForm() {
               value={formStateData.password}
               onChange={handleChange}
               error={errors.password}
+              required={"required"}
             />
             {/* <Typography variant="h6" color="blue-gray" className="-mb-3">
               Select Role
@@ -286,6 +291,7 @@ export function SimpleRegistrationForm() {
               value={formStateData.address}
               onChange={handleChange}
               error={errors.address}
+              required={"required"}
             />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               City
@@ -296,6 +302,7 @@ export function SimpleRegistrationForm() {
               value={formStateData.city}
               onChange={handleChange}
               error={errors.city}
+              required={"required"}
             />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Area
@@ -306,6 +313,7 @@ export function SimpleRegistrationForm() {
               value={formStateData.area}
               onChange={handleChange}
               error={errors.area}
+              required={"required"}
             />
 
             <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -316,9 +324,10 @@ export function SimpleRegistrationForm() {
               name="shopName"
               value={formStateData.shopName}
               onChange={handleChange}
+              required={"required"}
               // error={errors.area}
             />
-
+            
           </div>
           <Checkbox
             label={
@@ -340,6 +349,7 @@ export function SimpleRegistrationForm() {
             name="status"
             checked={formStateData.status}
             onChange={handleChange}
+            required={"required"}
             // error={errors.agreeTerms}
           />
           <Button className="mt-6" fullWidth type="submit">
