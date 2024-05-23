@@ -12,8 +12,8 @@ export const apiSlice = createApi({
     prepareHeaders: (headers, { getState }) => {
       // console.log(headers, "prepareHeaders");
       // console.log(getState().auth.token);
-      const token =  Cookies.get('token')
-      
+      const token =  Cookies.get("token");
+
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }
@@ -21,7 +21,7 @@ export const apiSlice = createApi({
     },
   }),
 
- 
+
   tagTypes: ["User", "Admin", "Dealer", "CAR","DEALERBOOKING"],
   endpoints: (builder) => ({}),
   // onError: async (error) => {
