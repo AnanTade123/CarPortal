@@ -1,4 +1,4 @@
-import GridCarList from "../../components/buyCar/GridCarList"
+import GridList2 from "../../components/buyCar/GridList2"
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useGetAllCarQuery } from "../../services/carAPI";
@@ -20,7 +20,7 @@ const BiddingMainPage = () => {
   }
   return (
     <>
-    <GridCarList data={data} />
+    <GridList2 data={data} />
       
     </>
   )

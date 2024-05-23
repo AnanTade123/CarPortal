@@ -251,12 +251,17 @@ console.log(userRole)
       <Collapse open={openNav}>
         {navList}
         <div className="flex items-center gap-x-1">
+          <Link to="/signin">
           <Button fullWidth variant="text" size="sm" className="">
-            <span>Log In</span>
+            <span>Sing In</span>
           </Button>
+          </Link>
+
+          <Link to="/signup">
           <Button fullWidth variant="gradient" size="sm" className="">
-            <span>Sign in</span>
+            <span>Sign up</span>
           </Button>
+          </Link>
         </div>
       </Collapse>
     </Navbar>

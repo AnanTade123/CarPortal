@@ -11,7 +11,7 @@ const BuyCar = () => {
   const { data, error, isLoading } = useFilterCarQuery( urlState);
 
   const navigate = useNavigate();
- 
+ console.log(data)
 
   if (isLoading) {
     return <p>Loading...</p>;

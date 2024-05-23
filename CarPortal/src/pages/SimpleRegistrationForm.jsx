@@ -262,19 +262,7 @@ export function SimpleRegistrationForm() {
               onChange={handleChange}
               error={errors.password}
             />
-            {/* <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Select Role
-            </Typography>
-            <select
-        className="border border-gray-400 p-3 rounded-md"
-        name="roles" // Make sure name matches the state property name
-        value={formStateData.roles} // Bind selected value to form state
-        onChange={handleChange}
-      >
-        <option value="">Select</option>
-        <option value="DEALER">Dealer</option>
-        <option value="USER">User</option>
-      </select> */}
+
 
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Address
@@ -307,16 +295,7 @@ export function SimpleRegistrationForm() {
               error={errors.area}
             />
 
-            {/* <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Shop Name
-            </Typography>
-            <Inputs
-              label={"Shop Name"}
-              name="shopName"
-              value={formStateData.shopName}
-              onChange={handleChange}
-              // error={errors.area}
-            /> */}
+          
 
           </div>
           <Checkbox
