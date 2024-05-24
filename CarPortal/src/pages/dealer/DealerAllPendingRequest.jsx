@@ -21,7 +21,7 @@ const DealerAllPendingRequest = () => {
     }
 
     if(error){
-        return <p>error</p>
+        return <p>No Data Available</p>
     }
 
   return (

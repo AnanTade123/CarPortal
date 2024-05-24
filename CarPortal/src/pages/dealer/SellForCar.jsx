@@ -28,11 +28,6 @@ const SellForCar = () => {
   const { data, isLoading, error } = useDealerIdByCarQuery({ id, pageNo });
   console.log(data);
   
-
- 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
   console.log(error);
 const deleteDealerHandler=async(carId)=>{
 console.log(carId)
@@ -181,6 +176,12 @@ console.log(res)
   }
   console.log(dealerApiData);
   return (
+    <>
+    {error?.status === 404 ? (
+      <div>
+        <p>No Data Available</p>
+      </div>
+    ):( 
     <div>
       <p>Sell for car</p>
       <Card className="h-full w-full">
@@ -237,7 +238,9 @@ console.log(res)
           </div>
         </CardFooter>
       </Card>
-    </div>
+    </div>)}
+   
+    </>
   );
 };
 

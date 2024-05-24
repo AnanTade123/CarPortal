@@ -49,7 +49,7 @@ const OrderDealer = () => {
     return <p>Loading.....</p>;
   }
   if (error) {
-    return <p>error</p>;
+    return <p>No Data Available</p>;
   }
   return <>{renderData}</>;
 };
