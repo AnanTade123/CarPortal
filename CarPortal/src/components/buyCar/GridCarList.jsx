@@ -26,7 +26,7 @@ console.log(page)
       const nextPage = page + 1; // Increment page here
       console.log(nextPage);
       const res = await fetch(
-        `https://cf-production.up.railway.app/cars/mainFilter/${nextPage}`
+        `https://carsel-production.up.railway.app/cars/mainFilter/${nextPage}`
       );
       const data = await res.json();
       console.log(data);
