@@ -92,7 +92,7 @@ const PriceCard = ({
       <div className="flex justify-center align-middle items-center my-3">
         <div className="text-center">
           <div className="text-xl font-bold text-black font-[latto]">
-            ₹{price} Lakh
+            ₹{price} 
           </div>
           <div className="uppercase text-blue-900 text-xs font-[lotto]">
             Understand Price

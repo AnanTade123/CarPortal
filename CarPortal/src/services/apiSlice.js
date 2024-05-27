@@ -8,11 +8,11 @@ import Cookies from "js-cookie";
 export const apiSlice = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://cf-production.up.railway.app/",
+    baseUrl: "https://carsel-production.up.railway.app/",
     prepareHeaders: (headers, { getState }) => {
       // console.log(headers, "prepareHeaders");
       // console.log(getState().auth.token);
-      const token =  Cookies.get("token");
+      const token = Cookies.get("token");
 
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
@@ -21,8 +21,7 @@ export const apiSlice = createApi({
     },
   }),
 
-
-  tagTypes: ["User", "Admin", "Dealer", "CAR","DEALERBOOKING"],
+  tagTypes: ["User", "Admin", "Dealer", "CAR", "DEALERBOOKING"],
   endpoints: (builder) => ({}),
   // onError: async (error) => {
   //   if (error.status === 401) { // Unauthorized error

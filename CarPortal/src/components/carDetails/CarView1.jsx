@@ -38,9 +38,9 @@ import en2 from '../Img_UI/Engines_Img/en2.webp';
 import en3 from '../Img_UI/Engines_Img/en3.webp';
 
 const CarView1 = () => {
-  const [img360, setImg360] = useState(true);
+  // const [img360, setImg360] = useState(true);
   const [interior, setInterior] = useState(false);
-  const [exterior, setExterior] = useState(false);
+  const [exterior, setExterior] = useState(true);
   const [features, setFeatures] = useState(false);
   const [tyres, setTyres] = useState(false);
   const [engines, setEngines] = useState(false);
@@ -132,45 +132,45 @@ const CarView1 = () => {
         </div>
         <div className="max-w-lg mx-auto m-5 mb-10 overflow-x-auto scrollbar">
           <div className="flex space-x-4 justify-between">
-            <div
+            {/* <div
               className="mb-8 p-2 bg-cover bg-center text-white h-20 w-28 rounded-lg cursor-pointer"
               style={{ backgroundImage: `url(${Engine})` }}
               onClick={() => { setImg360(true); setInterior(false); setExterior(false); setFeatures(false); setTyres(false); setEngines(false) }}
             >
               <span className="flex items-center font-bold">IMAGE360</span>
-            </div>
+            </div> */}
             <div
               className="mb-8 p-2 bg-cover bg-center text-white h-20 w-28 rounded-lg cursor-pointer"
               style={{ backgroundImage: `url(${Exterior})` }}
-              onClick={() => { setImg360(false); setInterior(false); setExterior(true); setFeatures(false); setTyres(false); setEngines(false) }}
+              onClick={() => {  setInterior(false); setExterior(true); setFeatures(false); setTyres(false); setEngines(false) }}
             >
               <span className="flex items-center font-bold">EXTERIOR</span>
             </div>
             <div
               className="mb-8 p-2 bg-cover bg-center text-white h-20 w-28 rounded-lg cursor-pointer"
               style={{ backgroundImage: `url(${Interior})` }}
-              onClick={() => { setImg360(false); setInterior(true); setExterior(false); setFeatures(false); setTyres(false); setEngines(false) }}
+              onClick={() => {  setInterior(true); setExterior(false); setFeatures(false); setTyres(false); setEngines(false) }}
             >
               <span className="flex items-center font-bold">INTERIOR</span>
             </div>
             <div
               className="mb-8 p-2 bg-cover bg-center text-white h-20 w-28 rounded-lg cursor-pointer"
               style={{ backgroundImage: `url(${Features})` }}
-              onClick={() => { setImg360(false); setInterior(false); setExterior(false); setFeatures(true); setTyres(false); setEngines(false) }}
+              onClick={() => {  setInterior(false); setExterior(false); setFeatures(true); setTyres(false); setEngines(false) }}
             >
               <span className="flex items-center font-bold">FEATURES</span>
             </div>
             <div
               className="mb-8 p-2 bg-cover bg-center text-white h-20 w-28 rounded-lg cursor-pointer"
               style={{ backgroundImage: `url(${Tyres})` }}
-              onClick={() => { setImg360(false); setInterior(false); setExterior(false); setFeatures(false); setTyres(true); setEngines(false) }}
+              onClick={() => {  setInterior(false); setExterior(false); setFeatures(false); setTyres(true); setEngines(false) }}
             >
               <span className="flex items-center font-bold">TYRES</span>
             </div>
             <div
               className="mb-8 p-2 bg-cover bg-center text-white h-20 w-28 rounded-lg cursor-pointer"
               style={{ backgroundImage: `url(${Engine})` }}
-              onClick={() => { setImg360(false); setInterior(false); setExterior(false); setFeatures(false); setTyres(false); setEngines(true) }}
+              onClick={() => {  setInterior(false); setExterior(false); setFeatures(false); setTyres(false); setEngines(true) }}
             >
               <span className="flex items-center font-bold">ENGINES</span>
             </div>
