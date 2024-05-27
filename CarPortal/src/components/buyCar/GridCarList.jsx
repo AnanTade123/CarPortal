@@ -27,7 +27,7 @@ console.log(page)
       const nextPage = page + 1; // Increment page here
       console.log(nextPage)
       const res = await fetch(
-        `https://carresel-production.up.railway.app/cars/mainFilter/${nextPage}`
+        `https://carsel-production.up.railway.app/cars/mainFilter/${nextPage}`
       );
       const data = await res.json();
       console.log(data);
@@ -64,7 +64,7 @@ console.log(page)
           <InfiniteScroll
           dataLength={posts.length}
           next={fetchData}
-          // hasMore={true}
+           hasMore={true}
           loader={<p>Loading...</p>}
         scrollableTarget="scrollableDiv"
         endMessage={ <p></p>}

@@ -13,7 +13,6 @@ export default function Uploadimages2() {
   const [images, setImages] = React.useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
-
   const token = Cookies.get("token");
   let jwtDecodes
   if(token){
