@@ -48,7 +48,7 @@ export default function App() {
         <Route element={<AppLayout />}>
           <Route path="signin" element={<LoginCard />} />
           <Route path="signup" element={<SimpleRegistrationForm />} />
-          <Route path="changePassword" element={<ChangePassword />} />
+          <Route path="/changePassword" element={<ChangePassword />} />
 
           <Route path="/carlist" element={<BuyCar />} />
           <Route
