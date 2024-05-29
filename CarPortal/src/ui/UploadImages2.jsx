@@ -21,7 +21,7 @@ export default function UploadImages() {
   }
 
   const UserID = jwtDecodes?.userId;
-  const { data } = useDealerIdByCarQuery({ id, pageNo: 2 });
+  const { data } = useDealerIdByCarQuery({ id, pageNo: 0 });
 
   const lastCarId =
     data?.list?.length > 0 ? data?.list[data?.list.length - 1].carId : null;

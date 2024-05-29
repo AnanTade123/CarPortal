@@ -73,13 +73,16 @@ console.log(brand.toUpperCase())
             <div className="w-auto flex justify-center">
               <Slider
                 className="overflow-hidden w-fit"
-                color="blue"
+                color="black"
                 defaultValue={200000}
                 step={10000}
                 min={200000}
                 max={10000000}
                 onChange={(e) => setValue(e.target.value)}
               />
+            </div>
+            <div>
+              <p className="font-semibold">Filters</p>
             </div>
             <select
               name="area"

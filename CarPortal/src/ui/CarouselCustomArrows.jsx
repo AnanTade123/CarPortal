@@ -63,14 +63,19 @@ export function CarouselCustomArrows({ carId }) {
         </IconButton>
       )}
     >
-      {data && data.object.map((item) => (
-        <img
-          key={item.documentId}
-          src={item.documentLink}
-          alt={`Car Image ${item.documentId}`}
-          className="h-full w-full object-contain"
-        />
-      ))}
+     
+  {data && data.object.map((item) => (
+    
+      <img
+      key={item.documentId}
+        src={item.documentLink}
+        alt={`Car Image ${item.documentId}`}
+        className=" object-contain  w-[18rem] h-[16rem]"
+      />
+   
+  ))}
+
+
     </Carousel>
   );
 }

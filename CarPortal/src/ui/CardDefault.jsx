@@ -9,8 +9,8 @@ const carid = data?.carId
 console.log(carid)
   return (
     <Card className="mt-6 w-96">
-      <div className="p-2">
-        <CarouselCustomArrows carId={carid} />
+      <div className="w-[18rem] h-[16rem] ">
+        <CarouselCustomArrows  carId={carid} />
       </div>
       <CardBody>
         <Typography>{data.year}</Typography>
