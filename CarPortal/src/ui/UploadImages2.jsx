@@ -1,69 +1,17 @@
-import { useState } from 'react';
-import { useAddCarImagesMutation } from '../services/dealerAPI';
-import { Button } from '@material-tailwind/react';
-import { useParams } from 'react-router-dom';
-import { useDealerIdByCarQuery } from '../services/carAPI';
-import { useNavigate } from 'react-router-dom';
-import {jwtDecode} from 'jwt-decode'; // Note: The import is corrected
-import Cookies from 'js-cookie';
+
+import Exterior from './Exterior';
+import Interior from './Interior';
+import Tyre from './Tyre';
+import Features from './Features';
+import Engine from './Engine';
 
 export default function UploadImages() {
-  const [images, setImages] = useState([]);
-  const [document, setDocument] = useState('');
-  // eslint-disable-next-line no-unused-vars
-  const navigate = useNavigate();
-  const { id } = useParams();
-  const token = Cookies.get('token');
-  let jwtDecodes;
-
-  if (token) {
-    jwtDecodes = jwtDecode(token);
-  }
-
-  const UserID = jwtDecodes?.userId;
-  const { data } = useDealerIdByCarQuery({ id, pageNo: 2 });
-
-  const lastCarId =
-    data?.list?.length > 0 ? data?.list[data?.list.length - 1].carId : null;
-
-  const [addCarImages] = useAddCarImagesMutation();
-
-  const readImages = (event) => {
-    const files = Array.from(event.target.files);
-    setImages(files);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!lastCarId || !images.length) {
-      console.error('lastCarId or images is not defined');
-      return;
-    }
-
-    const formData = new FormData();
-    for (const image of images) {
-      formData.append('image', image);
-    }
-
-    try {
-      const response = await addCarImages({
-        formData,
-        document,
-        lastCarId,
-        UserID,
-      }).unwrap();
-      console.log(response);
-      setImages("")
-    } catch (error) {
-      console.error(error);
-    }
-    // navigate(-2);
-  };
 
   return (
-    <div className="flex flex-col justify-center items-center align-middle min-h-screen">
-      <form
+    
+    // <div className="flex flex-col justify-center items-center align-middle min-h-screen">
+    <>
+      {/* <form
         onSubmit={(e) => {
           setDocument('Exterior');
           handleSubmit(e);
@@ -82,9 +30,13 @@ export default function UploadImages() {
             Upload Exterior Car Images
           </Button>
         </div>
-      </form>
-
-      <form
+      </form> */}
+      <Exterior/>
+      <Interior/>
+      <Tyre/>
+      <Features/>
+      <Engine/>
+      {/* <form
         onSubmit={(e) => {
           setDocument('Interior');
           handleSubmit(e);
@@ -103,9 +55,9 @@ export default function UploadImages() {
             Upload Interior Car Images
           </Button>
         </div>
-      </form>
+      </form> */}
 
-      <form
+      {/* <form
         onSubmit={(e) => {
           setDocument('Tyre');
           handleSubmit(e);
@@ -124,9 +76,9 @@ export default function UploadImages() {
             Upload Car Tyre Images
           </Button>
         </div>
-      </form>
+      </form> */}
 
-      <form
+      {/* <form
         onSubmit={(e) => {
           setDocument('Features');
           handleSubmit(e);
@@ -145,9 +97,9 @@ export default function UploadImages() {
             Upload Car Features Images
           </Button>
         </div>
-      </form>
+      </form> */}
 
-      <form
+      {/* <form
         onSubmit={(e) => {
           setDocument('Engine');
           handleSubmit(e);
@@ -166,7 +118,9 @@ export default function UploadImages() {
             Upload Car Engine Images
           </Button>
         </div>
-      </form>
-    </div>
+      </form> */}
+      </>
+    // </div>
+   
   );
 }
