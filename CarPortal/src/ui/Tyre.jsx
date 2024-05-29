@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useAddCarImagesMutation } from '../services/dealerAPI';
-import { Button } from '@material-tailwind/react';
+import { Button, Dialog, DialogHeader, DialogBody, DialogFooter } from '@material-tailwind/react';
 import { useParams } from 'react-router-dom';
 import { useDealerIdByCarQuery } from '../services/carAPI';
 // import { decode } from 'jwt-decode'; // Use named import
 // import Cookies from 'js-cookie';
 
 export default function Tyre() {
-  const [showForm, setShowForm] = useState(false); // State to control the form display
+  const [openDialog, setOpenDialog] = useState(false); // State to control the dialog display
   const [images, setImages] = useState([]);
   const [document, setDocument] = useState('');
   const { id } = useParams();
@@ -52,18 +52,18 @@ export default function Tyre() {
       }).unwrap();
       console.log(response);
       setImages([]);
-      setShowForm(false); // Close the form after submission
+      setOpenDialog(false); // Close the dialog after submission
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleButtonClick = () => {
-    setShowForm(true); // Show the form
+  const handleOpenDialog = () => {
+    setOpenDialog(true); // Show the dialog
   };
 
-  const handleCloseForm = () => {
-    setShowForm(false); // Close the form
+  const handleCloseDialog = () => {
+    setOpenDialog(false); // Close the dialog
   };
 
   return (
@@ -71,41 +71,112 @@ export default function Tyre() {
       <Button
         type="button"
         className="bg-indigo-500 w-64 h-10 text-white"
-        onClick={handleButtonClick}
+        onClick={handleOpenDialog}
       >
         Upload Tyre Car Images
       </Button>
-      {showForm && (
-        <form
-          onSubmit={(e) => {
-            setDocument('Tyre');
-            handleSubmit(e);
-          }}
-          className="flex flex-col mt-4 space-y-2"
-        >
-          {[...Array(4)].map((_, idx) => (
-            <div className='flex space-x-2' key={idx}>
-              <input
-                type="file"
-                accept="image/*"
-                multiple
-                required
-                onChange={readImages}
-              />
-              <Button type="submit" className="bg-indigo-500 w-40 h-10 text-white">
-                Upload
-              </Button>
-            </div>
-          ))}
+      <Dialog open={openDialog} handler={setOpenDialog} size="md">
+        <DialogHeader>Upload Tyre Car Images</DialogHeader>
+        <DialogBody>
+          <form
+            onSubmit={(e) => {
+              setDocument('Tyre');
+              handleSubmit(e);
+            }}
+            className="flex flex-col space-y-2"
+          >
+            {/* {[...Array(4)].map((_, idx) => ( */}
+              <div className="flex space-x-2 space-y-2">
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  required
+                  onChange={readImages}
+                />
+                <Button type="submit" className="bg-indigo-500 w-40 h-10 text-white">
+                  Upload
+                </Button>
+              </div>
+            {/* ))} */}
+          </form>
+          <form
+            onSubmit={(e) => {
+              setDocument('Tyre');
+              handleSubmit(e);
+            }}
+            className="flex flex-col space-y-2"
+          >
+            {/* {[...Array(4)].map((_, idx) => ( */}
+              <div className="flex space-x-2 space-y-2">
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  required
+                  onChange={readImages}
+                />
+                <Button type="submit" className="bg-indigo-500 w-40 h-10 text-white">
+                  Upload
+                </Button>
+              </div>
+            {/* ))} */}
+          </form>
+          <form
+            onSubmit={(e) => {
+              setDocument('Tyre');
+              handleSubmit(e);
+            }}
+            className="flex flex-col space-y-2"
+          >
+            {/* {[...Array(4)].map((_, idx) => ( */}
+              <div className="flex space-x-2 space-y-2">
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  required
+                  onChange={readImages}
+                />
+                <Button type="submit" className="bg-indigo-500 w-40 h-10 text-white">
+                  Upload
+                </Button>
+              </div>
+            {/* ))} */}
+          </form>
+          <form
+            onSubmit={(e) => {
+              setDocument('Tyre');
+              handleSubmit(e);
+            }}
+            className="flex flex-col space-y-2"
+          >
+            {/* {[...Array(4)].map((_, idx) => ( */}
+              <div className="flex space-x-2 space-y-2">
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  required
+                  onChange={readImages}
+                />
+                <Button type="submit" className="bg-indigo-500 w-40 h-10 text-white">
+                  Upload
+                </Button>
+              </div>
+            {/* ))} */}
+          </form>
+        </DialogBody>
+        <DialogFooter>
           <Button
             type="button"
-            className="bg-red-500 w-40 h-10 text-white mt-4"
-            onClick={handleCloseForm}
+            className="bg-red-500 w-40 h-10 mr-[7rem] text-white"
+            onClick={handleCloseDialog}
           >
             Close
           </Button>
-        </form>
-      )}
+        </DialogFooter>
+      </Dialog>
     </div>
   );
 }
