@@ -3,20 +3,24 @@ import { useAddCarImagesMutation } from '../services/dealerAPI';
 import { Button, Dialog, DialogHeader, DialogBody, DialogFooter } from '@material-tailwind/react';
 import { useParams } from 'react-router-dom';
 import { useDealerIdByCarQuery } from '../services/carAPI';
-// import { decode } from 'jwt-decode'; // Use named import
-// import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode'; // Use named import
+import Cookies from 'js-cookie';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Engine() {
   const [openDialog, setOpenDialog] = useState(false); // State to control the dialog display
   const [images, setImages] = useState([]);
   const [document, setDocument] = useState('');
+  // eslint-disable-next-line no-unused-vars
+  // const navigate = useNavigate();
   const { id } = useParams();
-  // const token = Cookies.get('token');
+  const token = Cookies.get('token');
   let jwtDecodes;
 
-  // if (token) {
-  //   jwtDecodes = decode(token); // Use named import
-  // }
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
 
   const UserID = jwtDecodes?.userId;
   const { data } = useDealerIdByCarQuery({ id, pageNo: 2 });
@@ -32,17 +36,17 @@ export default function Engine() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (!lastCarId || !images.length) {
       console.error('lastCarId or images is not defined');
       return;
     }
-
+  
     const formData = new FormData();
     for (const image of images) {
       formData.append('image', image);
     }
-
+  
     try {
       const response = await addCarImages({
         formData,
@@ -51,12 +55,14 @@ export default function Engine() {
         UserID,
       }).unwrap();
       console.log(response);
-      setImages([]);
-      setOpenDialog(false); // Close the dialog after submission
+      toast.success("Uploaded Successfully");
+      setImages([]); // Clear images after successful upload
     } catch (error) {
       console.error(error);
+      toast.error("Upload Failed");
     }
   };
+  
 
   const handleOpenDialog = () => {
     setOpenDialog(true); // Show the dialog
@@ -67,7 +73,8 @@ export default function Engine() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center align-middle min-h-screen space-y-4">
+    <div className="">
+      
       <Button
         type="button"
         className="bg-indigo-500 w-64 h-10 text-white"
@@ -75,7 +82,8 @@ export default function Engine() {
       >
         Upload Engine Car Images
       </Button>
-      <Dialog open={openDialog} handler={setOpenDialog} size="md">
+      <Dialog open={openDialog} handler={setOpenDialog} size="md" dismiss={{ backdrop: false }}>
+      <ToastContainer />
         <DialogHeader>Upload Engine Car Images</DialogHeader>
         <DialogBody>
           <form
@@ -85,20 +93,17 @@ export default function Engine() {
             }}
             className="flex flex-col space-y-2"
           >
-            {/* {[...Array(4)].map((_, idx) => ( */}
-              <div className="flex space-x-2 space-y-2">
-                <input
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  required
-                  onChange={readImages}
-                />
-                <Button type="submit" className="bg-indigo-500 w-40 h-10 text-white">
-                  Upload
-                </Button>
-              </div>
-            {/* ))} */}
+            <div className="flex space-x-2 space-y-2">
+              <input
+                type="file"
+                accept="image/*"
+                required
+                onChange={readImages}
+              />
+              <Button type="submit" className="bg-indigo-500 w-40 h-10 text-white">
+                Upload
+              </Button>
+            </div>
           </form>
           <form
             onSubmit={(e) => {
@@ -107,20 +112,17 @@ export default function Engine() {
             }}
             className="flex flex-col space-y-2"
           >
-            {/* {[...Array(4)].map((_, idx) => ( */}
-              <div className="flex space-x-2 space-y-2">
-                <input
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  required
-                  onChange={readImages}
-                />
-                <Button type="submit" className="bg-indigo-500 w-40 h-10 text-white">
-                  Upload
-                </Button>
-              </div>
-            {/* ))} */}
+            <div className="flex space-x-2 space-y-2">
+              <input
+                type="file"
+                accept="image/*"
+                required
+                onChange={readImages}
+              />
+              <Button type="submit" className="bg-indigo-500 w-40 h-10 text-white">
+                Upload
+              </Button>
+            </div>
           </form>
           <form
             onSubmit={(e) => {
@@ -129,20 +131,17 @@ export default function Engine() {
             }}
             className="flex flex-col space-y-2"
           >
-            {/* {[...Array(4)].map((_, idx) => ( */}
-              <div className="flex space-x-2 space-y-2">
-                <input
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  required
-                  onChange={readImages}
-                />
-                <Button type="submit" className="bg-indigo-500 w-40 h-10 text-white">
-                  Upload
-                </Button>
-              </div>
-            {/* ))} */}
+            <div className="flex space-x-2 space-y-2">
+              <input
+                type="file"
+                accept="image/*"
+                required
+                onChange={readImages}
+              />
+              <Button type="submit" className="bg-indigo-500 w-40 h-10 text-white">
+                Upload
+              </Button>
+            </div>
           </form>
           <form
             onSubmit={(e) => {
@@ -151,20 +150,17 @@ export default function Engine() {
             }}
             className="flex flex-col space-y-2"
           >
-            {/* {[...Array(4)].map((_, idx) => ( */}
-              <div className="flex space-x-2 space-y-2">
-                <input
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  required
-                  onChange={readImages}
-                />
-                <Button type="submit" className="bg-indigo-500 w-40 h-10 text-white">
-                  Upload
-                </Button>
-              </div>
-            {/* ))} */}
+            <div className="flex space-x-2 space-y-2">
+              <input
+                type="file"
+                accept="image/*"
+                required
+                onChange={readImages}
+              />
+              <Button type="submit" className="bg-indigo-500 w-40 h-10 text-white">
+                Upload
+              </Button>
+            </div>
           </form>
         </DialogBody>
         <DialogFooter>
