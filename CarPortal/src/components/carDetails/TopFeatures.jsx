@@ -80,13 +80,16 @@ const TopFeatures = () => {
                 ABS - Anti-lock Braking System
               </div>
             </div>
-            <div className="flex justify-end items-center mt-12">
-              <div className="flex gap-2 px-20 py-3 items-center bg-[#002441] text-white text-sm rounded-2xl uppercase font-[latto] ">
-                <div>View Inspection Report</div>
-                <div>
-                  <IoIosArrowForward className="w-[1.2rem] h-[1.5rem]" color="white" />
-                </div>
-              </div>
+          </div>
+        </div>
+        <div className="flex justify-center items-center mt-12">
+          <div className="flex gap-2 px-20 py-3 items-center bg-[#002441] text-white text-sm rounded-2xl uppercase font-[latto] ">
+            <div>View Inspection Report</div>
+            <div>
+              <IoIosArrowForward
+                className="w-[1.2rem] h-[1.5rem]"
+                color="white"
+              />
             </div>
           </div>
         </div>
