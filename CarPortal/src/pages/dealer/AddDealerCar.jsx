@@ -5,9 +5,71 @@ import { Textarea } from "@material-tailwind/react";
 import { useCarRegisterMutation } from "../../services/carAPI";
 import { useNavigate, useParams } from "react-router";
 
+const carData = {
+  Kia: ["Sonet", "Seltos", "Carnival"],
+  Volkswagen: ["Polo", "Vento", "Taigun", "Virtus"],
+  Mahindra: [
+    "XUV300",
+    "XUV301",
+    "XUV302",
+    "XUV303",
+    "XUV304",
+    "XUV305",
+    "XUV306",
+    "XUV307",
+    "XUV308",
+    "XUV700",
+    "XUV701",
+    "XUV702",
+    "XUV703",
+    "Thar",
+    "Scorpio",
+    "Bolero",
+    "Marazzo",
+  ],
+  Suzuki: ["Swift", "Baleno", "Vitara Brezza", "Ertiga"],
+  Citroen: ["C3", "C3 Aircross", "eC3", "C5 Aircross"],
+  Tata: [
+    "Tigor",
+    "Altroz",
+    "Harrier",
+    "Safari",
+    "Hexa",
+    "Tigor EV",
+    "Nexon EV",
+    "Punch",
+  ],
+  Maruti: [
+    "Alto K10",
+    "Dzire",
+    "Wagon R",
+    "XL6",
+    "Celerio",
+    "Jimny",
+    "Ignis",
+    "Eeco",
+    "Invicto",
+    "Ciaz",
+  ],
+  Hyundai: [
+    "Verna",
+    "i20",
+    "Venue",
+    "Creta",
+    "Santro",
+    "Grand i10 Nios",
+    "Aura",
+    "Exter",
+    "Alcazar",
+  ],
+  Honda: ["City", "Amaze", "WR-V"],
+  BMW: ["3 Series", "5 Series", "X1", "X3", "X5", "7 Series", "X7"],
+  Others: [],
+};
+
 export default function AddDealerCar() {
-  const [carRegister] = useCarRegisterMutation()
-//  const [mult, setMult] = React.useState([]);
+  const [carRegister] = useCarRegisterMutation();
+  //  const [mult, setMult] = React.useState([]);
   const [formData, setFormData] = useState({
     //features
     acFeature: false,
@@ -37,21 +99,21 @@ export default function AddDealerCar() {
     tyre: "",
     dealer_id: "",
   });
-const {id} = useParams()
-console.log(id)
- const navigate = useNavigate()
-const date = new Date(); // Create a new Date object with the current date
+  const { id } = useParams();
+  console.log(id);
+  const navigate = useNavigate();
+  const date = new Date(); // Create a new Date object with the current date
   const year = date.getFullYear(); // Get the year (e.g., 2024)
   const month = String(date.getMonth() + 1).padStart(2, "0"); // Get the month (0-indexed, so add 1), pad with leading zero if needed
   const day = String(date.getDate()).padStart(2, "0"); // Get the day of the month, pad with leading zero if needed
- 
-  const formattedDate = `${year}-${month}-${day}`;
- // console.log(formattedDate)
 
-//  const handleFileChange = (e) => {
-//   setMult(Array.from(e.target.files));
-// };
-  const handleSubmit = async(event) => {
+  const formattedDate = `${year}-${month}-${day}`;
+  // console.log(formattedDate)
+
+  //  const handleFileChange = (e) => {
+  //   setMult(Array.from(e.target.files));
+  // };
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     // Prepare the form data to send to the backend
@@ -102,23 +164,35 @@ const date = new Date(); // Create a new Date object with the current date
 
       year: formData.year,
 
-       dealer_id: id,
+      dealer_id: id,
 
       date: formattedDate,
     };
-   
-    const res = await carRegister(data)
-   
-    if(res?.data?.status === 'success'){
-      alert('car added')
-      navigate(`/dealer/${id}/uploadimage`)
+
+    const res = await carRegister(data);
+
+    if (res?.data?.status === "success") {
+      alert("car added");
+      navigate(`/dealer/${id}/uploadimage`);
     }
-  
   };
 
-  
+  //Two field Brands and Model
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [modelOptions, setModelOptions] = useState([]);
 
-  
+  const handleBrandChange = (event) => {
+    const brand = event.target.value;
+    setSelectedBrand(brand);
+    setModelOptions(carData[brand] || []);
+    setFormData({
+      ...formData,
+      brand,
+      model: "", // Reset model when brand changes
+    });
+  };
+  //End Brands and Model
+
   return (
     <div className="flex justify-center">
       <div>
@@ -127,35 +201,144 @@ const date = new Date(); // Create a new Date object with the current date
             <p className="text-3xl font-semibold m-4">Add Dealer Car</p>
           </div>
           {/* first part */}
-          <div className="flex ">
-            <div className="w-full">
-              <Inputs
-                label={"Brand"}
-                type={"text"}
-                name={"Brand"}
-                value={formData.brand}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    brand: event.target.value,
-                  })
-                }
-              />
+          <div className="flex gap-2">
+            <div className="mt-5 w-full">
+              {/* <select
+                required
+                className="w-full border-2 border-gray-400 p-2 rounded-md"
+                // name="transmission"
+                // value={formData.transmission}
+                // onChange={(event) => {
+                //   setFormData({
+                //     ...formData,
+                //     transmission: event.target.value,
+                //   });
+                // }}
+              >
+                <option>Brands</option>
+                <option>Kia</option>
+                <option>Volkswagen</option>
+                <option>Mahindra</option>
+                <option>Suzuki</option>
+                <option>Citroen</option>
+                <option>Tata</option>
+                <option>Maruti</option>
+                <option>Hyundai</option>
+                <option>Honda</option>
+                <option>BMW</option>
+                <option>Others</option>
+              </select> */}
+              <select
+                required
+                className="w-full border-2 border-gray-400 p-2 rounded-md"
+                value={selectedBrand}
+                onChange={handleBrandChange}
+              >
+                <option value="">Brands</option>
+                {Object.keys(carData).map((brand) => (
+                  <option key={brand} value={brand}>
+                    {brand}
+                  </option>
+                ))}
+              </select>
             </div>
 
-            <div className="ml-2 w-full">
-              <Inputs
-                label={"model"}
-                type={"text"}
-                name={"model"}
-                value={formData.model}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    model: event.target.value,
-                  })
-                }
-              />
+            <div className="mt-5 w-full">
+              {/* <select
+                required
+                className="w-full border-2 border-gray-400 p-2 rounded-md"
+                // name="transmission"
+                // value={formData.transmission}
+                // onChange={(event) => {
+                //   setFormData({
+                //     ...formData,
+                //     transmission: event.target.value,
+                //   });
+                // }}
+              >
+                <option>Models</option>
+                <option>Sonet</option>
+                <option>Seltos</option>
+                <option>Carnival</option>
+                <option>Polo</option>
+                <option>Vento</option>
+                <option>Taigun</option>
+                <option>Virtus</option>
+                <option>XUV300</option>
+                <option>XUV301</option>
+                <option>XUV302</option>
+                <option>XUV303</option>
+                <option>XUV304</option>
+                <option>XUV305</option>
+                <option>XUV306</option>
+                <option>XUV307</option>
+                <option>XUV308</option>
+                <option>XUV700</option>
+                <option>XUV701</option>
+                <option>XUV702</option>
+                <option>XUV703</option>
+                <option>Thar</option>
+                <option>Scorpio</option>
+                <option>Bolero</option>
+                <option>Marazzo</option>
+                <option>Swift</option>
+                <option>Baleno</option>
+                <option>Vitara Brezza</option>
+                <option>Ertiga</option>
+                <option>C3</option>
+                <option>C3 Aircross</option>
+                <option>eC3</option>
+                <option>C5 Aircross</option>
+                <option>Tigor</option>
+                <option>Altroz</option>
+                <option>Harrier</option>
+                <option>Safari</option>
+                <option>Hexa</option>
+                <option>Tigor EV</option>
+                <option>Nexon EV</option>
+                <option>Punch</option>
+                <option>Alto K10</option>
+                <option>Dzire</option>
+                <option>Wagon R</option>
+                <option>XL6</option>
+                <option>Celerio</option>
+                <option>Jimny</option>
+                <option>Ignis</option>
+                <option>Eeco</option>
+                <option>Invicto</option>
+                <option>Ciaz</option>
+                <option>Verna</option>
+                <option>i20</option>
+                <option>Venue</option>
+                <option>Creta</option>
+                <option>Santro</option>
+                <option>Grand i10 Nios</option>
+                <option>Aura</option>
+                <option>Exter</option>
+                <option>Alcazar</option>
+                <option>City</option>
+                <option>Amaze</option>
+                <option>WR-V</option>
+                <option>3 Series</option>
+                <option>5 Series</option>
+                <option>X1</option>
+                <option>X3</option>
+                <option>X5</option>
+                <option>7 Series</option>
+                <option>X7</option>
+              </select> */}
+              <select
+                required
+                className="w-full border-2 border-gray-400 p-2 rounded-md"
+                disabled={!selectedBrand}
+              >
+                <option value="">Models</option>
+                {modelOptions.map((model) => (
+                  <option key={model} value={model}>
+                    {model}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 
@@ -194,7 +377,6 @@ const date = new Date(); // Create a new Date object with the current date
 
           {/* third part */}
           <div className="flex">
-          
             <div className="mt-5 w-full">
               <select
                 required
@@ -484,7 +666,7 @@ const date = new Date(); // Create a new Date object with the current date
           {/* tenth part */}
 
           <div className="mt-5">
-          {/* <input
+            {/* <input
         type="file"
         accept="image/*"
         multiple
@@ -492,8 +674,8 @@ const date = new Date(); // Create a new Date object with the current date
         onChange={handleFileChange}
       /> */}
 
-      <div>
-        {/* {mult.map((file, index) => (
+            <div>
+              {/* {mult.map((file, index) => (
           <img
             key={index}
             src={URL.createObjectURL(file)}
@@ -501,7 +683,7 @@ const date = new Date(); // Create a new Date object with the current date
             style={{ maxWidth: '500px', maxHeight: '500px', margin: '5px' }}
           />
         ))} */}
-      </div>
+            </div>
           </div>
 
           {/* eleventh part */}
