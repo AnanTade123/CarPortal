@@ -30,6 +30,17 @@ export function StickyNavbar() {
 console.log(userRole)
   const adminDashboard = userRole?.includes("ADMIN") ? (
     <>
+    <Link to={"/bidding"}>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className={`p-3 rounded-md font-normal ${window.location.pathname === "/bidding" ? "bg-indigo-200 text-white" : ""}`}
+        >
+          Live
+        </Typography>
+      </Link>
+
       <Link to={"/admin"}>
         <Typography
           as="li"
@@ -50,8 +61,11 @@ console.log(userRole)
           Inspector List
         </Typography>
       </Link>
+
+      
     </>
   ) : null;
+
   const dealerDashboard = userRole?.includes("DEALER") ? (
     <>
       <Link to={"/carlist"}>
@@ -65,7 +79,17 @@ console.log(userRole)
         </Typography>
       </Link>
      
-    
+      <Link to={"/bidding"}>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className={`p-3 rounded-md font-normal ${window.location.pathname === "/bidding" ? "bg-indigo-200 text-white" : ""}`}
+        >
+          Live
+        </Typography>
+      </Link>
+
       <Link to={`/dealer/${jwtDecodes?.dealerId}`}>
         <Typography
           as="li"
@@ -97,8 +121,11 @@ console.log(userRole)
         Confirm Booking  
         </Typography>
       </Link>
+
+      
     </>
   ) : null;
+
    const userDashboard = userRole?.includes("USER") ? (
     <>
       <Link to={`/pendinrequest/${jwtDecodes?.userId}`}>
@@ -156,16 +183,6 @@ console.log(userRole)
       </Link>
       }
       
-      <Link to={"/bidding"}>
-        <Typography
-          as="li"
-          variant="small"
-          color="blue-gray"
-          className={`p-3 rounded-md font-normal ${window.location.pathname === "/bidding" ? "bg-indigo-200 text-white" : ""}`}
-        >
-          Live
-        </Typography>
-      </Link>
       {adminDashboard}
       {dealerDashboard}
       {userDashboard}

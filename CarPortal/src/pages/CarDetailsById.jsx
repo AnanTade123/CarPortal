@@ -63,6 +63,7 @@ const CarDetailsById = () => {
           year={year}
           carInsurance={carInsurance}
           kmDriven={kmDriven}
+          carId = {carId}
         />
       </div>
       <div className="p-4 sticky top-0">

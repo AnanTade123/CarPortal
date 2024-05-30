@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
-import ThreeSixty from "react-360-view";
 import { Card, Carousel } from '@material-tailwind/react';
 
 import Exterior from '/cars/Exterior.webp';
@@ -36,8 +35,10 @@ import t5 from '../Img_UI/Tyres_Img/t5.webp';
 import en1 from '../Img_UI/Engines_Img/en1.webp';
 import en2 from '../Img_UI/Engines_Img/en2.webp';
 import en3 from '../Img_UI/Engines_Img/en3.webp';
+import { useGetCarImageByIdQuery } from '../../services/carAPI';
 
-const CarView1 = () => {
+// eslint-disable-next-line react/prop-types
+const CarView1 = ({carId}) => {
   // const [img360, setImg360] = useState(true);
   const [interior, setInterior] = useState(false);
   const [exterior, setExterior] = useState(true);
@@ -46,6 +47,7 @@ const CarView1 = () => {
   const [engines, setEngines] = useState(false);
   console.log(exterior);
 
+  const { data, isLoading, error } = useGetCarImageByIdQuery( carId )
   const interiorImages = [i1, i2, i3, i4, i5, i6];
   const exteriorImages = [e1, e2, e3, e4, e5, e6];
   const featuresImages = [f1, f2, f3];
@@ -53,6 +55,7 @@ const CarView1 = () => {
   const enginesImages = [en1, en2, en3];
 
   const renderImagesCarousel = (imagesArray) => {
+
     return (
       <Carousel autoplay="true">
         {imagesArray.map((imageUrl, index) => (

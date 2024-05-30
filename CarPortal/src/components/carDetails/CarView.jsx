@@ -13,6 +13,7 @@ const CarView = ({
   year,
   carInsurance,
   kmDriven,
+  carId
 }) => {
   console.log(
     fuelType,
@@ -25,7 +26,7 @@ const CarView = ({
   );
   return (
     <div>
-      <CarView1 />
+      <CarView1 carId = {carId} />
       <KnowYourCar
         fuelType={fuelType}
         registration={registration}
