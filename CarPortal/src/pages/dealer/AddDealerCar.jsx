@@ -7,7 +7,6 @@ import { useNavigate, useParams } from "react-router";
 
 export default function AddDealerCar() {
   const [carRegister] = useCarRegisterMutation()
-//  const [mult, setMult] = React.useState([]);
   const [formData, setFormData] = useState({
     //features
     acFeature: false,
@@ -46,11 +45,7 @@ const date = new Date(); // Create a new Date object with the current date
   const day = String(date.getDate()).padStart(2, "0"); // Get the day of the month, pad with leading zero if needed
  
   const formattedDate = `${year}-${month}-${day}`;
- // console.log(formattedDate)
 
-//  const handleFileChange = (e) => {
-//   setMult(Array.from(e.target.files));
-// };
   const handleSubmit = async(event) => {
     event.preventDefault();
 
