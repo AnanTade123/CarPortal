@@ -180,6 +180,11 @@ console.log(res)
     {error?.status === 404 ? (
       <div>
         <p>No Data Available</p>
+        <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+              <Link to={`/dealer/${id}/addcar`}>
+                <Button>Add Car</Button>
+              </Link>
+            </div>
       </div>
     ):( 
     <div>

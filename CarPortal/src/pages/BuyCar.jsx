@@ -8,14 +8,15 @@ import Cookies from "js-cookie";
 const BuyCar = () => {
   const [urlState, setUrlState] = useState();
  
+  // eslint-disable-next-line no-unused-vars
   const { data, error, isLoading } = useFilterCarQuery( urlState);
 
   const navigate = useNavigate();
  console.log(data)
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
+  // if (isLoading) {
+  //   return <p>Loading...</p>;
+  // }
 
   if (error?.status == 401) {
     Cookies.remove("token");

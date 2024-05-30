@@ -15,7 +15,9 @@ const GridCarList = ({ data, error }) => {
     if (data?.list && Array.isArray(data.list)) {
       setPosts(data.list);
     } else if (error) {
-      alert("Data not found");
+      <div>
+        <p>Data not Found</p>
+      </div>
     }
   }, [data, error]);
 
