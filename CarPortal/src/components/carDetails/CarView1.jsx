@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
-import { Card, Carousel } from "@material-tailwind/react";
+import {  Carousel } from "@material-tailwind/react";
 
 import Exterior from "/cars/Exterior.webp";
 import Interior from "../Img_UI/Interior.webp";
@@ -8,33 +8,6 @@ import Features from "../Img_UI/Features.webp";
 import Tyres from "../Img_UI/Tyres.webp";
 import Engine from "../Img_UI/Engine.webp";
 
-import i1 from "../Img_UI/Interior_Img/i1.webp";
-import i2 from "../Img_UI/Interior_Img/i2.webp";
-import i3 from "../Img_UI/Interior_Img/i3.webp";
-import i4 from "../Img_UI/Interior_Img/i4.webp";
-import i5 from "../Img_UI/Interior_Img/i5.webp";
-import i6 from "../Img_UI/Interior_Img/i6.webp";
-
-import e1 from "../Img_UI/Exterior_Img/e1.webp";
-import e2 from "../Img_UI/Exterior_Img/e2.webp";
-import e3 from "../Img_UI/Exterior_Img/e3.webp";
-import e4 from "../Img_UI/Exterior_Img/e4.webp";
-import e5 from "../Img_UI/Exterior_Img/e5.webp";
-import e6 from "../Img_UI/Exterior_Img/e6.webp";
-
-import f1 from "../Img_UI/Features_Img/f1.webp";
-import f2 from "../Img_UI/Features_Img/f2.webp";
-import f3 from "../Img_UI/Features_Img/f3.webp";
-
-import t1 from "../Img_UI/Tyres_Img/t1.webp";
-import t2 from "../Img_UI/Tyres_Img/t2.webp";
-import t3 from "../Img_UI/Tyres_Img/t3.webp";
-import t4 from "../Img_UI/Tyres_Img/t4.webp";
-import t5 from "../Img_UI/Tyres_Img/t5.webp";
-
-import en1 from "../Img_UI/Engines_Img/en1.webp";
-import en2 from "../Img_UI/Engines_Img/en2.webp";
-import en3 from "../Img_UI/Engines_Img/en3.webp";
 import { useGetCarImageByIdQuery } from "../../services/carAPI";
 
 // eslint-disable-next-line react/prop-types
@@ -48,30 +21,17 @@ const CarView1 = ({ carId }) => {
   console.log(exterior);
 
   const { data, isLoading, error } = useGetCarImageByIdQuery({ carId });
-  const interiorImages = [i1, i2, i3, i4, i5, i6];
-  const exteriorImages = [e1, e2, e3, e4, e5, e6];
-  const featuresImages = [f1, f2, f3];
-  const tyresImages = [t1, t2, t3, t4, t5];
-  const enginesImages = [en1, en2, en3];
+  console.log(data)
+
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error fetching car image</div>;
 
-  const renderImagesCarousel = (imagesArray) => {
-    return (
-      <Carousel autoplay="true">
-        {imagesArray.map((imageUrl, index) => (
-          <div key={index}>
-            <img
-              className="object-cover w-full h-64 sm:h-80 md:h-96"
-              src={imageUrl}
-              alt={`Image ${index + 1}`}
-            />
-          </div>
-        ))}
-      </Carousel>
-    );
-  };
+  const ExteriorImages = data.object.filter(item => item.documentType === 'Exterior');
+  const InteriorImages = data.object.filter(item => item.documentType === 'Interior');
+  const TyreImages = data.object.filter(item => item.documentType === 'Tyre');
+  const FeaturesImages = data.object.filter(item => item.documentType === 'Features');
+  const EngineImages = data.object.filter(item => item.documentType === 'Engine');
 
   const ChooseCarColor = () => {
     return (
@@ -97,33 +57,68 @@ const CarView1 = ({ carId }) => {
         )} */}
 
         {interior && (
-          <Card className="bg-white rounded-lg  shadow-md">
-            
-          </Card>
+          <Carousel className="bg-white rounded-lg shadow-md">
+          {InteriorImages.map((item) => (
+            <img
+              key={item.documentId}
+              src={item.documentLink}
+              alt={`Car Image ${item.documentId}`}
+              className="object-contain w-full h-full"
+            />
+          ))}
+        </Carousel>
         )}
 
         {exterior && (
-          <Card className="bg-white rounded-lg overflow-hidden shadow-md">
-            {renderImagesCarousel(exteriorImages)}
-          </Card>
+          <Carousel className="bg-white rounded-lg shadow-md">
+          {ExteriorImages.map((item) => (
+            <img
+              key={item.documentId}
+              src={item.documentLink}
+              alt={`Car Image ${item.documentId}`}
+              className="object-contain w-full h-full"
+            />
+          ))}
+        </Carousel>
         )}
 
         {features && (
-          <Card className="bg-white rounded-lg overflow-hidden shadow-md">
-            {renderImagesCarousel(featuresImages)}
-          </Card>
+          <Carousel className="bg-white rounded-lg shadow-md">
+          {FeaturesImages.map((item) => (
+            <img
+              key={item.documentId}
+              src={item.documentLink}
+              alt={`Car Image ${item.documentId}`}
+              className="object-contain w-full h-full"
+            />
+          ))}
+        </Carousel>
         )}
 
         {tyres && (
-          <Card className="bg-white rounded-lg overflow-hidden shadow-md">
-            {renderImagesCarousel(tyresImages)}
-          </Card>
+           <Carousel className="bg-white rounded-lg shadow-md">
+           {TyreImages.map((item) => (
+             <img
+               key={item.documentId}
+               src={item.documentLink}
+               alt={`Car Image ${item.documentId}`}
+               className="object-contain w-full h-full"
+             />
+           ))}
+         </Carousel>
         )}
 
         {engines && (
-          <Card className="bg-white rounded-lg overflow-hidden shadow-md">
-            {renderImagesCarousel(enginesImages)}
-          </Card>
+          <Carousel className="bg-white rounded-lg shadow-md">
+          {EngineImages.map((item) => (
+            <img
+              key={item.documentId}
+              src={item.documentLink}
+              alt={`Car Image ${item.documentId}`}
+              className="object-contain w-full h-full"
+            />
+          ))}
+        </Carousel>
         )}
       </div>
     );

@@ -189,6 +189,14 @@ export default function AddDealerCar() {
   };
   //End Brands and Model
 
+  const handleModelChange = (event) => {
+    const model = event.target.value;
+    setFormData({
+      ...formData,
+      model,
+    });
+  };
+
   return (
     <div className="flex justify-center">
       <div>
@@ -220,6 +228,8 @@ export default function AddDealerCar() {
               <select
                 required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
+                value={formData.model}
+                onChange={handleModelChange}
                 disabled={!selectedBrand}
               >
                 <option value="">Models</option>
