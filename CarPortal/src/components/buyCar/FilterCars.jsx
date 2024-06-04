@@ -62,8 +62,9 @@ console.log(brand.toUpperCase())
     <Card className="p-4">
       <div className="space-y-4  ">
         <form onSubmit={submitHandle}>
+          
           <div className="mb-1 flex flex-col gap-6 ">
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
+            <Typography variant="h6" color="blue-gray" className="-mb-8">
               Price Range
             </Typography>
             <div className="flex justify-center items-center">
@@ -96,6 +97,25 @@ console.log(brand.toUpperCase())
               <option>Baner</option>
               <option>Hinjewadi</option>
               <option>Viman Nagar</option>
+              <option>Koregaon Park</option>
+              <option>Aundh</option>
+              <option>Kothrud</option>
+              <option>Hadapsar</option>
+              <option>Shivajinagar</option>
+              <option>Kalyani Nagar</option>
+              <option>Pimpri-Chinchwad</option>
+              <option>Erandwane</option>
+              <option>Magarpatta</option>
+              <option>Wadgaon Sheri</option>
+              <option>Katraj</option>
+              <option>Model Colony</option>
+              <option>Pune Cantonment</option>
+              <option>Senapati Bapat Road</option>
+              <option>Bhosari</option>
+              <option>Boat Club Road</option>
+              <option>Chakan</option>
+              <option>Bavdhan</option>
+              
             </select>
             <select
               name="year"
@@ -104,6 +124,19 @@ console.log(brand.toUpperCase())
               className="border border-gray-700 h-10 rounded-lg"
             >
               <option>Select Year</option>
+              <option>2005</option>
+              <option>2006</option>
+              <option>2007</option>
+              <option>2008</option>
+              <option>2009</option>
+              <option>2010</option>
+              <option>2011</option>
+              <option>2012</option>
+              <option>2013</option>
+              <option>2014</option>
+              <option>2015</option>
+              <option>2016</option>
+              <option>2017</option>
               <option>2018</option>
               <option>2019</option>
               <option>2020</option>
@@ -126,6 +159,11 @@ console.log(brand.toUpperCase())
               <option>Kia</option>
               <option>Suzuki</option>
               <option>Volkswagen</option>
+              <option>BMW</option>
+              <option>Mercedes</option>
+              <option>Skoda</option>
+              <option>Citroen</option>
+              <option>Maruti</option>
             </select>
             <select
               name="model"
@@ -163,6 +201,16 @@ console.log(brand.toUpperCase())
               <option> Transmission</option>
               <option>Manual</option>
               <option>Automatic</option>
+            </select>
+            <select
+              name="ownership"
+              onChange={handleChange}
+              value={filterForm.transmission}
+              className="border border-gray-700 h-10 rounded-lg"
+            >
+              <option>Ownership</option>
+              <option>First Owner</option>
+              <option>Second Owner</option>
             </select>
           </div>
           <div className="flex gap-5 mt-5">

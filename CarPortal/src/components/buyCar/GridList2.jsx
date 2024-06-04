@@ -32,7 +32,7 @@ console.log(page)
       );
       const data = await res.json();
       console.log(data);
-      // eslint-disable-next-line no-unsafe-optional-chaining
+      // eslint-disable-nex9t-line no-unsafe-optional-chaining
       if (data.message === "unsuccess") {
         return setLastPage("your are in last page");
       }
