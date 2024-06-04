@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Tooltip } from "@material-tailwind/react";
+import StatusDialogeBox2 from "../../ui/StatusDialogeBox2";
 import {
   Card,
   CardHeader,
@@ -77,6 +78,20 @@ export default function Admin() {
       Header: "user id",
       accessor: "userId",
       disableSortBy: true,
+    },
+    {
+      Header: "Status",
+      accessor: "carStatus",
+      Cell: (cell) => {
+        console.log(cell.row.values.carStatus);
+        return (
+          <div>
+            <div className="flex gap-2 justify-center items-center  ">
+             <StatusDialogeBox2 status={cell.row.values.dealer_id}/>
+             </div>
+          </div>
+        );
+      },
     },
 
     {
