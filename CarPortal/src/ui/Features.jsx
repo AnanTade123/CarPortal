@@ -23,9 +23,10 @@ export default function Features() {
   }
 
   const UserID = jwtDecodes?.userId;
-  const { data } = useDealerIdByCarQuery({ id, pageNo: 2 });
+  const { data } = useDealerIdByCarQuery({ id, pageNo: 0 });
 
-  const lastCarId = data?.list?.length > 0 ? data?.list[data?.list.length - 1].carId : null;
+  //const lastCarId = data?.list?.length > 0 ? data?.list[data?.list.length - 1].carId : null;
+  const firstCarId = data?.list?.length > 0 ? data?.list[0].carId : null;
 
   const [addCarImages] = useAddCarImagesMutation();
 
@@ -37,7 +38,7 @@ export default function Features() {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    if (!lastCarId || !images.length) {
+    if (!firstCarId || !images.length) {
       console.error('lastCarId or images is not defined');
       return;
     }
@@ -51,7 +52,7 @@ export default function Features() {
       const response = await addCarImages({
         formData,
         document,
-        lastCarId,
+        firstCarId,
         UserID,
       }).unwrap();
       console.log(response);
