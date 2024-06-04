@@ -24,14 +24,14 @@ const ContactUs = () => {
       );
   };
   return (
-    <div className="flex justify-center mt-[5rem] mb-10">
+    <div className="flex justify-center mt-[5rem] mb-10 px-4">
       <Card className="w-full max-w-[50rem] p-5 shadow-lg">
         <CardBody className="mb-6 p-0">
           <Typography
             variant="h3"
             className="text-center flex justify-center items-center"
           >
-            <img src={WhatsApp} alt="whats" className="w-10" /> Still in doubt?
+            <img src={WhatsApp} alt="whats" className="w-8" /> Still in doubt?
             We are here to help you out!
           </Typography>
           <form ref={form} onSubmit={sendEmail}>

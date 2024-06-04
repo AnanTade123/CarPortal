@@ -36,73 +36,75 @@ const PriceCard = ({
   console.log(userRole);
   return (
     <CardUi>
-      <p className="font-extrabold text-2xl text-black uppercase font-[latto]">
-        {year} {brand} {model}
-      </p>
-      <p className="uppercase font-[Merriweather]">
-        {color} {bodyType} . MANUAL
-      </p>
-      <div className="my-4 flex gap-2">
-        <Chip
-          variant="outlined"
-          value={`${kmDriven} KM`}
-          className="text-sm text-black font-[latto] hover:bg-gray-900 hover:text-white"
-        />
-        <Chip
-          variant="outlined"
-          value={`${ownerSerial} Owner`}
-          className="text-base text-black font-[latto] hover:bg-gray-900 hover:text-white"
-        />
-        <Chip
-          variant="outlined"
-          value={`${fuelType}`}
-          className="text-base text-black font-[latto] hover:bg-gray-900 hover:text-white"
-        />
-        <Chip
-          variant="outlined"
-          value={`${registration}`}
-          className="text-base text-black font-[latto] hover:bg-gray-900 hover:text-white"
-        />
-      </div>
-      <div className="flex align-bottom items-baseline gap-3">
-        <IoHome />
-        <div className=" mt-4 text-base font-[lotto]">
-          Home Test Drive Available
+      <div className="w-3/4 md:w-full">
+        <p className="font-extrabold text-2xl text-black uppercase font-[latto]">
+          {year} {brand} {model}
+        </p>
+        <p className="uppercase font-[Merriweather]">
+          {color} {bodyType} . MANUAL
+        </p>
+        <div className="my-4 flex gap-2">
+          <Chip
+            variant="outlined"
+            value={`${kmDriven} KM`}
+            className="text-sm text-black font-[latto] hover:bg-gray-900 hover:text-white"
+          />
+          <Chip
+            variant="outlined"
+            value={`${ownerSerial} Owner`}
+            className="text-base text-black font-[latto] hover:bg-gray-900 hover:text-white"
+          />
+          <Chip
+            variant="outlined"
+            value={`${fuelType}`}
+            className="text-base text-black font-[latto] hover:bg-gray-900 hover:text-white"
+          />
+          <Chip
+            variant="outlined"
+            value={`${registration}`}
+            className="text-base text-black font-[latto] hover:bg-gray-900 hover:text-white"
+          />
         </div>
-      </div>
-      <div className="flex align-bottom items-baseline gap-3">
-        <FaLocationDot />
-        <div className=" mt-4 text-base text-blue-900 font-[lotto]">
-          Parked at: {area},{city}
-        </div>
-      </div>
-      <div className="flex align-bottom items-baseline gap-3">
-        <FaFileAlt />
-        <div className=" mt-4 text-base text-blue-900 font-[lotto]">
-          View Inspection Report
-        </div>
-      </div>
-      <div className="flex align-bottom items-baseline gap-3">
-        <IoLogoWhatsapp />
-        <div className=" mt-4 mb-6 text-base text-blue-900 font-[lotto]">
-          Get Service History Report
-        </div>
-      </div>
-      <hr className="border-gray-400" />
-      <div className="flex justify-center align-middle items-center my-3">
-        <div className="text-center">
-          <div className="text-xl font-bold text-black font-[latto]">
-            ₹{price} 
-          </div>
-          <div className="uppercase text-blue-900 text-xs font-[lotto]">
-            Understand Price
+        <div className="flex align-bottom items-baseline gap-3">
+          <IoHome />
+          <div className=" mt-4 text-base font-[lotto]">
+            Home Test Drive Available
           </div>
         </div>
-      </div>
+        <div className="flex align-bottom items-baseline gap-3">
+          <FaLocationDot />
+          <div className=" mt-4 text-base text-blue-900 font-[lotto]">
+            Parked at: {area},{city}
+          </div>
+        </div>
+        <div className="flex align-bottom items-baseline gap-3">
+          <FaFileAlt />
+          <div className=" mt-4 text-base text-blue-900 font-[lotto]">
+            View Inspection Report
+          </div>
+        </div>
+        <div className="flex align-bottom items-baseline gap-3">
+          <IoLogoWhatsapp />
+          <div className=" mt-4 mb-6 text-base text-blue-900 font-[lotto]">
+            Get Service History Report
+          </div>
+        </div>
+        <hr className="border-gray-400" />
+        <div className="flex justify-center align-middle items-center my-3">
+          <div className="text-center">
+            <div className="text-xl font-bold text-black font-[latto]">
+              ₹{price}
+            </div>
+            <div className="uppercase text-blue-900 text-xs font-[lotto]">
+              Understand Price
+            </div>
+          </div>
+        </div>
 
-      {userRole == "DEALER" ? null : (
-        <DialogBox price={price} dealer_id={dealer_id} carId={carId} />
-      )}
+        {userRole == "DEALER" ? null : (
+          <DialogBox price={price} dealer_id={dealer_id} carId={carId} />
+        )}
+      </div>
     </CardUi>
   );
 };
