@@ -48,9 +48,9 @@ export const dealerAPI = apiSlice.injectEndpoints({
     }),
 
     addCarImages: builder.mutation({
-      query: ({ formData, document, lastCarId,UserID}) => ({
-        url: `/uploadFile/add?documentType=${document}&userId=${UserID}&carId=${lastCarId}`,
-        transerResponse:console.log("APi response",formData, lastCarId,document,UserID),
+      query: ({ formData, document, firstCarId,UserID}) => ({
+        url: `/uploadFile/add?documentType=${document}&userId=${UserID}&carId=${firstCarId}`,
+        transerResponse:console.log("APi response",formData, firstCarId,document,UserID),
         method: 'POST',
         body: formData,
       }),

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import {
   Navbar,
@@ -22,7 +23,11 @@ export function StickyNavbar() {
   }
   
   console.log(jwtDecodes);
-  const userRole = token ? jwtDecodes?.authorities :null;
+  const userRole = token ? jwtDecodes?.authorities[0] :null;
+  console.log(userRole)
+  // eslint-disable-next-line no-unused-vars
+  const DealerId = token ? jwtDecodes?.dealerId :null;
+  const UserId = token ? jwtDecodes?.userId :null;
 
   const location = useLocation();
   const active = location.pathname === `/dealer/${jwtDecodes?.dealerId}`;
@@ -202,7 +207,7 @@ console.log(userRole)
           <div className="mr-4 hidden lg:block">{navList}</div>
           <div className="flex items-center gap-x-1">
             {token ? (
-              <Profile />
+              <Profile userId={UserId} dealer_id = {DealerId} userrole={userRole} />
             ) : (
               <>
                 <Link to="/signin">
