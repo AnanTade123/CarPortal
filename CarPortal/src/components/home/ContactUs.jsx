@@ -24,7 +24,7 @@ const ContactUs = () => {
       );
   };
   return (
-    <div className="flex justify-center mt-[5rem] mb-10">
+    <div className="flex justify-center mt-[2rem] md:mt-[5rem] mb-10">
       <Card className="w-full max-w-[50rem] p-5 shadow-lg">
         <CardBody className="mb-6 p-0">
           <Typography
