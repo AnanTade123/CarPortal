@@ -61,7 +61,7 @@ export default function FooterF() {
                 </ul>
             </div>
             <hr className="my-8 border-blue-gray-50" />
-            <div className="flex gap-4 text-blue-gray-900 sm:justify-center">
+            <div className="flex gap-4 text-blue-gray-900 justify-center items-center align-middle">
                 <Typography as="a" href="#" className="opacity-80 transition-opacity hover:opacity-100">
                     <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path

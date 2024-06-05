@@ -43,7 +43,7 @@ const PriceCard = ({
         <p className="uppercase font-[Merriweather]">
           {color} {bodyType} . MANUAL
         </p>
-        <div className="my-4 flex gap-2">
+        <div className="my-4 flex gap-2 overflow-x-auto scrollbar">
           <Chip
             variant="outlined"
             value={`${kmDriven} KM`}
