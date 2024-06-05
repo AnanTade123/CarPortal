@@ -198,24 +198,26 @@ console.log(brand.toUpperCase())
               value={filterForm.transmission}
               className="border border-gray-700 h-10 rounded-lg"
             >
-              <option> Transmission</option>
+              <option>Transmission</option>
               <option>Manual</option>
               <option>Automatic</option>
             </select>
             <select
               name="ownership"
               onChange={handleChange}
-              value={filterForm.transmission}
+              value={filterForm.ownership}
               className="border border-gray-700 h-10 rounded-lg"
             >
               <option>Ownership</option>
-              <option>First Owner</option>
-              <option>Second Owner</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
             </select>
           </div>
           <div className="flex gap-5 mt-5">
-            <Button type="submit">Search</Button>
-            <Button onClick={resetForm}>Reset</Button>
+            <Button type="submit" className="bg-indigo-200">Search</Button>
+            <Button onClick={resetForm} className="bg-indigo-200">Reset</Button>
           </div>
         </form>
       </div>

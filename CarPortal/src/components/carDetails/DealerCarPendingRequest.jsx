@@ -8,7 +8,7 @@ const DealerCarPendingRequest = ({ item }) => {
   return (
     <div className="w-full flex justify-center ">
       <CardUi>
-        <div className="min-w-[30rem]">
+        <div className="md:min-w-[30rem] w-[20rem]">
           <div className="flex justify-between">
             <Chip
               variant="outlined"
