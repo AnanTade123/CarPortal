@@ -36,7 +36,7 @@ export default function StatusDialogeBox2({ dealerId }) { // Pass dealerId as a 
   const handleConfirm = async () => {
     try {
       // Call the mutation with the updated status
-      await mutateDealerStatus({ variables: { dealerId, status: isActive } });
+      await mutateDealerStatus({  dealerId, status: isActive  });
 
       // Handle successful response
       console.log("Dealer status updated successfully!");

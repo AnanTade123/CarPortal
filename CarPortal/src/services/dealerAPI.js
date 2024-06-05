@@ -60,7 +60,7 @@ export const dealerAPI = apiSlice.injectEndpoints({
     dealerStatus: builder.mutation({
       query: () => ({
         url: `/dealer/statusUpdate?dealerId=19&status=true`,
-        method: 'PUT',
+        method: 'PATCH',
         
       }),
       invalidatesTags: ['Dealer'],
