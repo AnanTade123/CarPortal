@@ -81,13 +81,12 @@ export default function Admin() {
     },
     {
       Header: "Status",
-      accessor: "carStatus",
+      accessor: "dealerStatus",
       Cell: (cell) => {
-        const { dealer_id } = cell.row.values; // Extract dealer_id from the row
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
-              <StatusDialogeBox2 dealer_id={dealer_id} />
+              <StatusDialogeBox2 dealer_id={cell.row.values.dealer_id} />
             </div>
           </div>
         );

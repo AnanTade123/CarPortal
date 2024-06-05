@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/prop-types */
 import React from "react";
 import {
@@ -7,17 +8,16 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-import {useDealerStatusMutation} from "../services/dealerAPI";
+import { useDealerStatusMutation,useGetDealerQuery } from "../services/dealerAPI";
 
-export default function StatusDialogeBox2({ dealerId }) { // Pass dealerId as a prop
+export default function StatusDialogeBox2({ dealer_id }) {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => setOpen(!open);
 
-  // Use a boolean state variable for status
   const [isActive, setIsActive] = React.useState(true); // Assume initial state is active
 
-  const [mutateDealerStatus, { isLoading, error }] = useDealerStatusMutation();
+  const [dealerStatus, { isLoading, error }] = useDealerStatusMutation();
 
   const handleSelectChange = (event) => {
     const newIsActive = event.target.value === "true";
@@ -32,20 +32,40 @@ export default function StatusDialogeBox2({ dealerId }) { // Pass dealerId as a 
     return isActive ? "ACTIVE" : "DISABLE";
   };
 
-  // Function to handle confirm and update backend
-  const handleConfirm = async () => {
-    try {
-      // Call the mutation with the updated status
-      await mutateDealerStatus({  dealerId, status: isActive  });
+  // const [id, setId] = React.useState();
+  var id;
+  console.log(id)
+const handleConfirm = async () => {
 
-      // Handle successful response
-      console.log("Dealer status updated successfully!");
-      setOpen(false); // Close the dialog
-    } catch (error) {
-      // Handle errors appropriately (e.g., display an error message)
-      console.error("Error updating dealer status:", error);
-    }
-  };
+  try {
+    // Ensure dealerId is logged before calling mutation
+    console.log("Updating dealer with ID:", dealer_id, "to status:", isActive);
+    
+    // Call the mutation with the updated status
+    const res = await dealerStatus({ dealer_id, status: isActive });
+    console.log(res);
+     // Update the dealerId state
+     
+    console.log("Dealer status updated successfully!");
+    setOpen(false); // Close the dialog
+    
+  } catch (error) {
+    // Handle errors appropriately (e.g., display an error message)
+    console.error("Error updating dealer status:", error);
+  }
+  
+   id = dealer_id
+console.log(id)
+  
+};
+const { data } = useGetDealerQuery(id);
+  console.log(data)
+// useEffect(() => {
+//   if (id) {
+    
+//     console.log(data);
+//   }
+// }, [id]); // Run the effect when dealerId changes
 
   return (
     <>
@@ -57,7 +77,7 @@ export default function StatusDialogeBox2({ dealerId }) { // Pass dealerId as a 
         <DialogBody className="flex justify-center">
           <select
             className="border border-gray-400 p-4 rounded-md"
-            value={isActive ? "true" : "false"} // Set value based on isActive
+            value={isActive ? "true" : "false"}
             onChange={handleSelectChange}
           >
             <option value="">Select</option>
