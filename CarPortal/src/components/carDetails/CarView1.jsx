@@ -125,12 +125,12 @@ const CarView1 = ({ carId }) => {
   };
 
   return (
-    <div className="container mx-auto mt-20 px-4 sm:px-6 lg:px-8">
+    <div className="w-4/5 md:w-full container mt-5 md:mt-20 px-2 md:px-4 lg:px-8">
       <div className="flex flex-col justify-between">
         <div className="max-w-lg mx-auto mb-5">
           <ChooseCarColor />
         </div>
-        <div className="max-w-lg mx-auto m-5 mb-10 overflow-x-auto scrollbar">
+        <div className="w-11/12 max-w-xl mx-auto m-5 mb-10 overflow-x-auto scrollbar">
           <div className="flex space-x-4 justify-between">
             {/* <div
               className="mb-8 p-2 bg-cover bg-center text-white h-20 w-28 rounded-lg cursor-pointer"
@@ -140,7 +140,7 @@ const CarView1 = ({ carId }) => {
               <span className="flex items-center font-bold">IMAGE360</span>
             </div> */}
             <div
-              className="mb-8 p-2 bg-cover bg-center text-white h-20 w-28 rounded-lg cursor-pointer"
+              className="mb-8 p-2 bg-cover bg-center text-white h-12 md:h-20 w-20 md:w-28 rounded-lg cursor-pointer"
               style={{ backgroundImage: `url(${Exterior})` }}
               onClick={() => {
                 setInterior(false);
@@ -150,10 +150,12 @@ const CarView1 = ({ carId }) => {
                 setEngines(false);
               }}
             >
-              <span className="flex items-center font-bold">EXTERIOR</span>
+              <span className="flex text-sm md:text-base items-center font-bold">
+                EXTERIOR
+              </span>
             </div>
             <div
-              className="mb-8 p-2 bg-cover bg-center text-white h-20 w-28 rounded-lg cursor-pointer"
+              className="mb-8 p-2 bg-cover bg-center text-white h-12 md:h-20 w-20 md:w-28 rounded-lg cursor-pointer"
               style={{ backgroundImage: `url(${Interior})` }}
               onClick={() => {
                 setInterior(true);
@@ -163,10 +165,12 @@ const CarView1 = ({ carId }) => {
                 setEngines(false);
               }}
             >
-              <span className="flex items-center font-bold">INTERIOR</span>
+              <span className="flex text-sm md:text-base items-center font-bold">
+                INTERIOR
+              </span>
             </div>
             <div
-              className="mb-8 p-2 bg-cover bg-center text-white h-20 w-28 rounded-lg cursor-pointer"
+              className="mb-8 p-2 bg-cover bg-center text-white h-12 md:h-20 w-20 md:w-28 rounded-lg cursor-pointer"
               style={{ backgroundImage: `url(${Features})` }}
               onClick={() => {
                 setInterior(false);
@@ -176,10 +180,12 @@ const CarView1 = ({ carId }) => {
                 setEngines(false);
               }}
             >
-              <span className="flex items-center font-bold">FEATURES</span>
+              <span className="flex text-sm md:text-base items-center font-bold">
+                FEATURES
+              </span>
             </div>
             <div
-              className="mb-8 p-2 bg-cover bg-center text-white h-20 w-28 rounded-lg cursor-pointer"
+              className="mb-8 p-2 bg-cover bg-center text-white h-12 md:h-20 w-20 md:w-28 rounded-lg cursor-pointer"
               style={{ backgroundImage: `url(${Tyres})` }}
               onClick={() => {
                 setInterior(false);
@@ -189,10 +195,12 @@ const CarView1 = ({ carId }) => {
                 setEngines(false);
               }}
             >
-              <span className="flex items-center font-bold">TYRES</span>
+              <span className="flex text-sm md:text-base items-center font-bold">
+                TYRES
+              </span>
             </div>
             <div
-              className="mb-8 p-2 bg-cover bg-center text-white h-20 w-28 rounded-lg cursor-pointer"
+              className="mb-8 p-2 bg-cover bg-center text-white h-12 md:h-20 w-20 md:w-28 rounded-lg cursor-pointer"
               style={{ backgroundImage: `url(${Engine})` }}
               onClick={() => {
                 setInterior(false);
@@ -202,7 +210,9 @@ const CarView1 = ({ carId }) => {
                 setEngines(true);
               }}
             >
-              <span className="flex items-center font-bold">ENGINES</span>
+              <span className="flex text-sm md:text-base items-center font-bold">
+                ENGINES
+              </span>
             </div>
           </div>
         </div>

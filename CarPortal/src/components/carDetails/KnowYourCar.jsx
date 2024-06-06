@@ -34,14 +34,14 @@ const KnowYourCar = ({
   );
   return (
     <>
-      <p className="text-2xl text-black font-bold my-6 ml-12 font-[Merriweather]">
+      <p className="text-2xl text-black font-bold my-6 md:ml-12 font-[Merriweather]">
         Know your Car
       </p>
       <CardUi>
-        <div>
-          <div className="flex justify-between">
-            <div className="flex items-center gap-6 mr-6">
-              <div className="bg-blue-50 py-3 px-2 rounded-xl">
+        <div className="w-3/4 h-max md:w-full">
+          <div className="md:flex md:justify-between">
+            <div className="flex items-center gap-6 md:mr-6">
+              <div className="bg-blue-50 py-3 md:px-2 rounded-xl">
                 <IoLogoModelS className="w-12 h-8" />
               </div>
               <div className="flex flex-col">
@@ -53,7 +53,7 @@ const KnowYourCar = ({
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-3 mr-6">
+            <div className="flex items-center gap-6 mr-6 mt-11">
               <div className="bg-blue-50 py-3 px-2 rounded-xl">
                 <GrServices className="w-12 h-8" />
               </div>
@@ -81,120 +81,121 @@ const KnowYourCar = ({
               </div>
             </div>
           </div>
-        </div>
-        <div className="px-3 flex justify-between mt-10">
-          <div className="flex flex-col">
-            <div className="flex items-center gap-5">
-              <div>
-                <FaRegWindowMaximize className="w-5 h-5" />
+
+          <div className="max-w-full flex justify-start gap-10 px-4 md:justify-between mt-10 flex-wrap">
+            <div className="flex flex-col">
+              <div className="flex items-center gap-5">
+                <div>
+                  <FaRegWindowMaximize className="w-5 h-5" />
+                </div>
+                <div className="flex flex-col">
+                  <div className="font-[latto]">Reg Year</div>
+                  <div className="font-bold text-black text-sm mt-2 font-[latto] uppercase">
+                    {registration}
+                  </div>
+                </div>
               </div>
-              <div className="flex flex-col">
-                <div className="font-[latto]">Reg Year</div>
-                <div className="font-bold text-black text-sm mt-2 font-[latto] uppercase">
-                  {registration}
+              <div className="flex items-center gap-5 mt-6">
+                <div>
+                  <FaCalendarDay className="w-5 h-5" />
+                </div>
+                <div className="flex flex-col">
+                  <div className="font-[latto]">Make Year</div>
+                  <div className="font-bold text-black text-sm mt-2 font-[latto]">
+                    {year}
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-5 mt-6">
+                <div>
+                  <FaRoad className="w-5 h-5" />
+                </div>
+                <div className="flex flex-col">
+                  <div className="font-[latto]">Reg Number</div>
+                  <div className="font-bold text-black text-sm mt-2 font-[latto]">
+                    ABC-1234567
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-5 mt-6">
+                <div>
+                  <BsFillFuelPumpFill className="w-5 h-5" />
+                </div>
+                <div className="flex flex-col">
+                  <div className="font-[latto]">Fuel Type</div>
+                  <div className="font-bold text-black text-sm mt-2 font-[latto]">
+                    {fuelType}
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-5 mt-6">
-              <div>
-                <FaCalendarDay className="w-5 h-5" />
+            <div className="flex flex-col">
+              <div className="flex items-center gap-5">
+                <div>
+                  <PiEngineFill className="w-5 h-5" />
+                </div>
+                <div className="flex flex-col">
+                  <div className="font-[latto]">Engine Capacity</div>
+                  <div className="font-bold text-black text-sm mt-2 font-[latto]">
+                    1551 cc
+                  </div>
+                </div>
               </div>
-              <div className="flex flex-col">
-                <div className="font-[latto]">Make Year</div>
-                <div className="font-bold text-black text-sm mt-2 font-[latto]">
-                  {year}
+              <div className="flex items-center gap-5 mt-6">
+                <div>
+                  <AiFillInsurance className="w-5 h-5" />
+                </div>
+                <div className="flex flex-col">
+                  <div className="font-[latto]">Insurance</div>
+                  <div className="font-bold text-black text-sm mt-2 font-[latto]">
+                    Upto 25/12/2025
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-5 mt-6">
+                <div>
+                  <FaKey className="w-5 h-5" />
+                </div>
+                <div className="flex flex-col">
+                  <div className="font-[latto]">Spare Key</div>
+                  <div className="font-bold text-black text-sm mt-2 font-[latto]">
+                    Yes
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-5 mt-6">
-              <div>
-                <FaRoad className="w-5 h-5" />
-              </div>
-              <div className="flex flex-col">
-                <div className="font-[latto]">Reg Number</div>
-                <div className="font-bold text-black text-sm mt-2 font-[latto]">
-                  ABC-1234567
+            <div className="flex flex-col">
+              <div className="flex items-center gap-5">
+                <div>
+                  <GiCarWheel className="w-5 h-5" />
+                </div>
+                <div className="flex flex-col">
+                  <div className="font-[latto]">Transimission</div>
+                  <div className="font-bold text-black text-sm mt-2 font-[latto]">
+                    {transmission}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="flex items-center gap-5 mt-6">
-              <div>
-                <BsFillFuelPumpFill className="w-5 h-5" />
-              </div>
-              <div className="flex flex-col">
-                <div className="font-[latto]">Fuel Type</div>
-                <div className="font-bold text-black text-sm mt-2 font-[latto]">
-                  {fuelType}
+              <div className="flex items-center gap-5  mt-6">
+                <div>
+                  <MdDriveEta className="w-5 h-5" />
+                </div>
+                <div className="flex flex-col">
+                  <div className="font-[latto]">KM Driven</div>
+                  <div className="font-bold text-black text-sm mt-2 font-[latto]">
+                    {kmDriven}
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <div className="flex items-center gap-5">
-              <div>
-                <PiEngineFill className="w-5 h-5" />
-              </div>
-              <div className="flex flex-col">
-                <div className="font-[latto]">Engine Capacity</div>
-                <div className="font-bold text-black text-sm mt-2 font-[latto]">
-                  1551 cc
+              <div className="flex items-center gap-5 mt-6">
+                <div>
+                  <IoIosMan className="w-5 h-5" />
                 </div>
-              </div>
-            </div>
-            <div className="flex items-center gap-5 mt-6">
-              <div>
-                <AiFillInsurance className="w-5 h-5" />
-              </div>
-              <div className="flex flex-col">
-                <div className="font-[latto]">Insurance</div>
-                <div className="font-bold text-black text-sm mt-2 font-[latto]">
-                  Upto 25/12/2025
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center gap-5 mt-6">
-              <div>
-                <FaKey className="w-5 h-5" />
-              </div>
-              <div className="flex flex-col">
-                <div className="font-[latto]">Spare Key</div>
-                <div className="font-bold text-black text-sm mt-2 font-[latto]">
-                  Yes
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <div className="flex items-center gap-5">
-              <div>
-                <GiCarWheel className="w-5 h-5" />
-              </div>
-              <div className="flex flex-col">
-                <div className="font-[latto]">Transimission</div>
-                <div className="font-bold text-black text-sm mt-2 font-[latto]">
-                  {transmission}
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center gap-5  mt-6">
-              <div>
-                <MdDriveEta className="w-5 h-5" />
-              </div>
-              <div className="flex flex-col">
-                <div className="font-[latto]">KM Driven</div>
-                <div className="font-bold text-black text-sm mt-2 font-[latto]">
-                  {kmDriven}
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center gap-5 mt-6">
-              <div>
-                <IoIosMan className="w-5 h-5" />
-              </div>
-              <div className="flex flex-col ">
-                <div className="font-[latto]">Ownership</div>
-                <div className="font-bold text-black text-sm mt-2 font-[latto]">
-                  {ownerSerial}
+                <div className="flex flex-col ">
+                  <div className="font-[latto]">Ownership</div>
+                  <div className="font-bold text-black text-sm mt-2 font-[latto]">
+                    {ownerSerial}
+                  </div>
                 </div>
               </div>
             </div>

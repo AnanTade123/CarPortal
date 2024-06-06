@@ -16,7 +16,7 @@ export function AccordionCustom() {
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
   return (
-    <div className="container px-5 md:px-0  mx-auto mt-[5rem]">
+    <div className="container px-4 mt-[5rem]">
       <div className="text-2xl md:text-4xl md:text-center ">
         {" "}
         Frequently Asked Question{" "}

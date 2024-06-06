@@ -38,6 +38,7 @@ import CarInspectionTable from "./pages/CarInspectionTable";
 import CarVerify from "./pages/CarVerify";
 import AdminInspectorEdit from "./pages/adminpages/AdminInspectorEdit";
 import ChangePassword from "./pages/dealer/ChangePassword";
+import DealerEdit from "./pages/dealer/DealerEdit";
 
 
 export default function App() {
@@ -92,6 +93,11 @@ export default function App() {
             <Route path="/dealer/:id" element={<DealerDashboard />} />
             <Route path="/dealer/:id/addcar" element={<AddDealerCar />} />
             <Route path="/dealer/:id/uploadimage" element={<Uploadimages2 />} />
+            <Route
+              path="/dealer/:id/edit"
+              element={<DealerEdit />}
+            />
+
             <Route
               path="/dealer/:id/car/edit/:carId"
               element={<EditDealerCar />}

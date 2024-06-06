@@ -16,8 +16,8 @@ const InspectionReport = () => {
         Inspection Report
       </div>
       <CardUi>
-        <div className="flex justify-between w-full gap-4">
-          <div className="w-1/2 text-lg font-[latto]">
+        <div className="px-5 flex flex-col md:flex md:flex-row md:justify-between md:w-full gap-4">
+          <div className="w-3/4 md:w-1/2 text-lg font-[latto]">
             We aim to provide our customers with a reliable drive. Every car we
             sell is refurbished by experts at our Mega Refurbishment Labs.
           </div>
@@ -48,7 +48,7 @@ const InspectionReport = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col mt-5">
+        <div className="flex flex-col mt-5 md:w-full w-3/4">
           <div className="mt-2">
             <CardUi>
               <div className="flex justify-between w-full align-middle items-center">
@@ -143,8 +143,8 @@ const InspectionReport = () => {
             </div>
           </CardUi>
         </div>
-        <div className="flex justify-center items-center mt-12">
-          <div className="flex gap-2 px-20 py-3 items-center bg-[#002441] text-white text-sm rounded-2xl uppercase font-[latto] ">
+        <div className="flex w-3/4 justify-center items-center mt-12 md:w-full">
+          <div className="flex gap-2 px-10 py-2 md:px-20 md:py-3 items-center bg-[#002441] text-white text-sm rounded-2xl uppercase font-[latto] ">
             <div>View Inspection Report</div>
             <div>
               <IoIosArrowForward

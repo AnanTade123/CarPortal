@@ -207,7 +207,7 @@ console.log(userRole)
           <div className="mr-4 hidden lg:block">{navList}</div>
           <div className="flex items-center gap-x-1">
             {token ? (
-              <Profile userId={UserId} dealer_id = {DealerId} userrole={userRole} />
+              <Profile dealer_id = {DealerId} userrole={userRole} />
             ) : (
               <>
                 <Link to="/signin">
