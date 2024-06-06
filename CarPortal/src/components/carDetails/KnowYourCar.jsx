@@ -38,8 +38,8 @@ const KnowYourCar = ({
         Know your Car
       </p>
       <CardUi>
-        <div>
-          <div className="flex justify-between">
+        <div >
+          <div className="flex justify-between ">
             <div className="flex items-center gap-6 mr-6">
               <div className="bg-blue-50 py-3 px-2 rounded-xl">
                 <IoLogoModelS className="w-12 h-8" />
