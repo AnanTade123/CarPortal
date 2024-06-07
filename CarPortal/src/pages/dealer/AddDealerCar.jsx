@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Inputs from "../../forms/Inputs";
-import { Textarea } from "@material-tailwind/react";
+import { Textarea, Input } from "@material-tailwind/react";
 // import React from "react";
 import { useCarRegisterMutation } from "../../services/carAPI";
 import { useNavigate, useParams } from "react-router";
@@ -27,7 +27,16 @@ const carData = {
     "Bolero",
     "Marazzo",
   ],
-  Suzuki: ["Swift", "Baleno", "Vitara Brezza", "Ertiga"],
+  MarutiSuzuki: ["Swift", "Baleno", "Vitara Brezza", "Ertiga", "Alto K10",
+  "Dzire",
+  "Wagon R",
+  "XL6",
+  "Celerio",
+  "Jimny",
+  "Ignis",
+  "Eeco",
+  "Invicto",
+  "Ciaz",],
   Citroen: ["C3", "C3 Aircross", "eC3", "C5 Aircross"],
   Tata: [
     "Tigor",
@@ -39,18 +48,7 @@ const carData = {
     "Nexon EV",
     "Punch",
   ],
-  Maruti: [
-    "Alto K10",
-    "Dzire",
-    "Wagon R",
-    "XL6",
-    "Celerio",
-    "Jimny",
-    "Ignis",
-    "Eeco",
-    "Invicto",
-    "Ciaz",
-  ],
+  
   Hyundai: [
     "Verna",
     "i20",
@@ -64,7 +62,49 @@ const carData = {
   ],
   Honda: ["City", "Amaze", "WR-V"],
   BMW: ["3 Series", "5 Series", "X1", "X3", "X5", "7 Series", "X7"],
+  Toyota: [],
+  ISUZU: [],
+  Skoda: [],
+  LandRover: [],
+  Fiat: [],
+  Nissan: [],
+  Volvo: [],
   Others: [],
+};
+
+const cityOptions = {
+  Pune: ["MH-12"],
+  PimpriChichwad: ["MH-14"],
+  Mumbai: ["MH-01", "MH-02", "MH-03", "MH-47"],
+  Amravati: ["MH-27"],
+  Yavatmal: ["MH-29"],
+  Chandrapur: ["MH-34"],
+  Kolhapur: ["MH-09"],
+  Solapur: ["MH-13", "MH-45"],
+  Nanded: ["MH-32"],
+  Latur: ["MH-32"],
+  Satara: ["MH-11"],
+  Sangli: ["MH-10"],
+  Nashik: ["MH-15", "MH-51"],
+  Beed: ["MH-32"],
+  Jalna: ["MH-32"],
+  Nagpur: ["MH-31", "MH-49  "],
+  Gondia: ["MH-35"],
+  Gadchiroli: ["MH-33"],
+  Bhandara: ["MH-36"],
+  Washim: ["MH-37"],
+  Jalgaon: ["MH-19"],
+  Akola: ["MH-30"],
+  Buldhana: ["MH-28"],
+  Dhule: ["MH-18"],
+  Nandurbar: ["MH-39"],
+  Thane: ["MH-04", "MH-05", "MH-48"],
+  Raigad: ["MH-06"],
+  Ratnagiri: ["MH-08"],
+  Sindhudurg: ["MH-07"],
+  Ahmednagar: ["MH-16"],
+  Dharashiv: ["MH-25"],
+  SambhajiNagar: ["MH-20"],
 };
 
 export default function AddDealerCar() {
@@ -91,12 +131,12 @@ export default function AddDealerCar() {
     carInsurance: "",
     registration: "",
     description: "",
-    safetyDescription: "",
+    title: "",
     area: "",
     carStatus: "Active",
-    noOfWheels: "",
+    // noOfWheels: "",
     ownerSerial: "",
-    tyre: "",
+    // tyre: "",
     dealer_id: "",
   });
   const { id } = useParams();
@@ -108,7 +148,7 @@ export default function AddDealerCar() {
   const day = String(date.getDate()).padStart(2, "0"); // Get the day of the month, pad with leading zero if needed
 
   const formattedDate = `${year}-${month}-${day}`;
- 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -140,7 +180,7 @@ export default function AddDealerCar() {
 
       model: formData.model,
 
-      noOfWheels: formData.noOfWheels,
+      // noOfWheels: formData.noOfWheels,
 
       ownerSerial: formData.ownerSerial,
 
@@ -152,11 +192,11 @@ export default function AddDealerCar() {
 
       registration: formData.registration,
 
-      safetyDescription: formData.safetyDescription,
+      title: formData.title,
 
       transmission: formData.transmission,
 
-      tyre: formData.tyre,
+      // tyre: formData.tyre,
 
       year: formData.year,
 
@@ -176,6 +216,8 @@ export default function AddDealerCar() {
   //Two field Brands and Model
   const [selectedBrand, setSelectedBrand] = useState("");
   const [modelOptions, setModelOptions] = useState([]);
+  const [formDataC, setFormDataC] = useState({ carInsurance: "" });
+  const [showCalendar, setShowCalendar] = useState(false);
 
   const handleBrandChange = (event) => {
     const brand = event.target.value;
@@ -188,13 +230,29 @@ export default function AddDealerCar() {
     });
   };
   //End Brands and Model
-
+  // Model Change
   const handleModelChange = (event) => {
     const model = event.target.value;
     setFormData({
       ...formData,
       model,
     });
+  };
+
+  // City Change
+  const handleCityChange = (event) => {
+    const city = event.target.value;
+    setFormData({ ...formData, city, registration: "" });
+  };
+
+  // Car Insurance ValidDate
+  const handleChange = (event) => {
+    const value = event.target.value === "true";
+    setFormDataC({
+      ...formDataC,
+      carInsurance: value,
+    });
+    setShowCalendar(value);
   };
 
   return (
@@ -207,7 +265,6 @@ export default function AddDealerCar() {
           {/* first part */}
           <div className="flex gap-2">
             <div className="mt-5 w-full">
-             
               <select
                 required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -224,7 +281,6 @@ export default function AddDealerCar() {
             </div>
 
             <div className="mt-5 w-full">
-              
               <select
                 required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -245,39 +301,181 @@ export default function AddDealerCar() {
           {/* second part */}
           <div className="flex">
             <div className="mt-5 w-full">
-              <Inputs
-                label={"price"}
-                type={"number"}
-                name={"price"}
-                value={formData.price}
+              <select
+              className="w-full border-2 border-gray-400 p-2 rounded-md"
+                label={"Car Variant"}
+                type={"text"}
+                name={"cVariant"}
+                value={formData.cVariant}
                 onChange={(event) =>
                   setFormData({
                     ...formData,
-                    price: event.target.value,
+                    cVariant: event.target.value,
                   })
                 }
-              />
+              >
+              <option>HTE 1.2</option>
+              <option>HTK 1.2</option>
+              <option>HTK+ 1.2</option>
+              <option>HTX 1.2</option>
+              <option>HTX+ 1.2</option>
+              <option>GTX+ 1.0 Turbo</option>
+              <option>GTX+ 1.5 Diesel</option>
+              <option>HTE</option>
+              <option>HTK</option>
+              <option>HTK+</option>
+              <option>HTX</option>
+              <option>GTX</option>
+              <option>GTX+</option>
+              <option>GTX+ Diesel</option>
+              <option>Premium</option>
+              <option>Prestige</option>
+              <option>Limousine</option>
+              <option>Trendline 1.0L</option>
+              <option>Comfortline 1.0L</option>
+              <option>Highline Plus 1.0L</option>
+              <option>GT 1.0L</option>
+              <option>Highline 1.0L</option>
+              <option>Highline 2.0L</option>
+              <option>Dynamic 1.0L</option>
+              <option>PerformanceLine 1.5L</option>
+              <option>W4</option>
+              <option>W6</option>
+              <option>W8</option>
+              <option>W8(0)</option>
+              <option>W8(0)Sportz</option>
+              <option>W8(0)Dual Tone</option>
+              <option>W8(0)Sportz Dual Tone</option>
+              <option>W8(0)AMT</option>
+              <option>W8(0)AMT Dual Tone</option>
+              <option>AX3</option>
+              <option>AX5</option>
+              <option>AX7</option>
+              <option>AX7 L</option>
+              <option>AX OPT 4-Str Convertible Top</option>
+              <option>LX 4-Str Convertible Top</option>
+              <option>LX 4-Str Hard Top</option>
+              <option>S3 Plus 2.0 4WD 7S</option>
+              <option>S5 2.0 7S</option>
+              <option>S7 2.0 7S</option>
+              <option>S9 2.0 4WD 7S</option>
+              <option>S11 2.0 4WD 7S</option>
+              <option>B2</option>
+              <option>B4</option>
+              <option>B6 Opt</option>
+              <option>B6</option>
+              <option>B6 Opt Dual Tone</option>
+              <option>M2</option>
+              <option>M4</option>
+              <option>LXI</option>
+              <option>VXI</option>
+              <option>ZXI</option>
+              <option>ZXI AMT</option>
+              <option>VXI AT</option>
+              <option>VXI+ AT</option>
+              <option>ZXI+</option>
+              <option>ZXI+ Dual</option>
+              <option>ZXI+ Dual Tone</option>
+              <option>ZXI+ AMT</option>
+              <option>ZXI+ AMT Dual Tone</option>
+              <option>Sigma</option>
+              <option>Sigma MT</option>
+              <option>Delta</option>
+              <option>Delta MT</option>
+              <option>Delta AT</option>
+              <option>Zeta</option>
+              <option>Zeta MT</option>
+              <option>Zeta AT</option>
+              <option>Zeta AMT</option>
+              <option>Alpha</option>
+              <option>Alpha MT</option>
+              <option>Alpha AT</option>
+              <option>Alpha AMT</option>
+              <option>VXI AT</option>
+              <option>ZXI AT</option>
+              <option>ZXI+ AT</option>
+              <option>ZXI+ Dual Tone AT</option>
+              <option>XE</option>
+              <option>XM</option>
+              <option>XT</option>
+              <option>XZ</option>
+              <option>XZ+</option>
+              <option>XMA</option>
+              <option>XZA</option>
+              <option>XZA+</option>
+              <option>XZ+ Dual</option>
+              <option>XZ+ AMT</option>
+              <option>XZ+ AMT</option>
+              <option>XZ+ DT</option>
+              <option>XZA DT</option>
+              <option>Gold</option>
+              <option>XT+</option>
+              <option>Adventure</option>
+              <option>XTA</option>
+              <option>XT 4*4</option>
+              <option>XTA 4*4</option>
+              <option>XTA 4*4</option>
+              <option>XZ Lux</option>
+              <option>Pure iCNG</option>
+              <option>Adventure Rhythm Pack MT</option>
+              <option>Adventure AMT</option>
+              <option>Accomplished MT</option>
+              <option>Accomplished Dazzle Pack MT</option>
+              <option>Accomplished MT Sunroof</option>
+              <option>Accomplished AMT</option>
+              <option>Accomplished AMT Sunroof</option>
+              <option>Accomplished Dazzle MT Sunroof</option>
+              <option>Accomplished Dazzle AMT Sunroof</option>
+              <option>Accomplished Dazzle Pack AMT</option>
+              <option>Accomplished iCNG</option>
+              <option>Accomplished Dazzle Sunroof CNG</option>
+              <option>Adventure iCNG</option>
+              <option>Adventure Dazzle iCNG</option>
+              <option>Creative</option>
+              <option>Creative AMT</option>
+              <option>Creative Flagship MT</option>
+              <option>Creative Flagship Dual Tone AMT</option>
+              <option>Creative Dual Tone MT Sunroof</option> 
+              <option>Creative Dual Tone AMT</option> 
+              <option>Creative Dual Tone AMT Sunroof</option> 
+              <option>LDI</option> 
+              <option>VDI</option> 
+              <option>ZDI</option> 
+              <option>ZDI+</option> 
+              <option>VDI AT</option> 
+              <option>VDI AGS</option> 
+              <option>ZDI+ AT</option> 
+              <option>ZDI AGS</option> 
+              <option>ZDI+ Dual</option> 
+              <option>LXI (0)</option> 
+              <option>VXI</option> 
+              <option>VXI (0)</option> 
+              <option>VXI AMT</option> 
+              <option>VXI CNG</option> 
+              <option>VXI AMT (0)</option> 
+              <option>VXI AGS</option> 
+              <option>ZXI CNG</option> 
+              <option>ZXI AGS</option> 
+              <option>ZXI+</option> 
+              <option>ZXI+ AGS</option> 
+              <option>ZXI AMT</option> 
+              <option>STD</option> 
+              <option>STD (0)</option> 
+              <option>Zeta MT Petrol</option> 
+              <option>Zeta AT Petrol</option> 
+              <option>Zeta MT CNG</option> 
+              <option>Alpha MT Petrol</option> 
+              <option>Alpha AT Petrol</option> 
+              <option>Alpha AT</option> 
+              <option>Alpha MT Dual Tone</option> 
+              <option>Alpha Plus MT Petrol</option> 
+              <option>Alpha Plus AT Petrol</option> 
+              <option>Alpha Plus AT Petrol Dual Tone</option> 
+              <option>Alpha Plus MT Petrol Dual Tone</option> 
+              </select> 
             </div>
 
             <div className="mt-5 ml-2 w-full">
-              <Inputs
-                label={"year"}
-                type={"number"}
-                name={"year"}
-                value={formData.year}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    year: event.target.value,
-                  })
-                }
-              />
-            </div>
-          </div>
-
-          {/* third part */}
-          <div className="flex">
-            <div className="mt-5 w-full">
               <select
                 required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -295,28 +493,58 @@ export default function AddDealerCar() {
                 <option>Manual</option>
               </select>
             </div>
+          </div>
+          <div className="flex">
+            <div className="mt-5 w-full">
+              <Inputs
+                label={"Price"}
+                type={"number"}
+                name={"price"}
+                value={formData.price}
+                onChange={(event) =>
+                  setFormData({
+                    ...formData,
+                    price: event.target.value,
+                  })
+                }
+              />
+            </div>
 
             <div className="mt-5 ml-2 w-full">
               <select
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
-                name="bodyType"
-                required
-                value={formData.bodyType}
-                onChange={(event) => {
+                label={"year"}
+                type={"number"}
+                name={"year"}
+                value={formData.year}
+                onChange={(event) =>
                   setFormData({
                     ...formData,
-                    bodyType: event.target.value,
-                  });
-                }}
+                    year: event.target.value,
+                  })
+                }
               >
-                <option>Body Type</option>
-                <option>Sedan</option>
-                <option>Hatchback</option>
-                <option>SUV</option>
-                <option>MUV</option>
-                <option>Coupe</option>
-                <option>Convertibles</option>
-                <option>Pickup Trucks</option>
+                <option>Year</option>
+                <option>2005</option>
+                <option>2006</option>
+                <option>2007</option>
+                <option>2008</option>
+                <option>2009</option>
+                <option>2010</option>
+                <option>2011</option>
+                <option>2012</option>
+                <option>2013</option>
+                <option>2014</option>
+                <option>2015</option>
+                <option>2016</option>
+                <option>2017</option>
+                <option>2018</option>
+                <option>2019</option>
+                <option>2020</option>
+                <option>2021</option>
+                <option>2022</option>
+                <option>2023</option>
+                <option>2024</option>
               </select>
             </div>
           </div>
@@ -324,7 +552,8 @@ export default function AddDealerCar() {
           {/* fourth part */}
           <div className="flex">
             <div className="mt-5 w-full">
-              <Inputs
+              <select
+                className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label={"Color"}
                 type={"text"}
                 name={"color"}
@@ -335,11 +564,26 @@ export default function AddDealerCar() {
                     color: event.target.value,
                   })
                 }
-              />
+              >
+                <option>Color</option>
+                <option>Red</option>
+                <option>Blue</option>
+                <option>Yellow</option>
+                <option>Pink</option>
+                <option>Purple</option>
+                <option>White</option>
+                <option>Black</option>
+                <option>Orange</option>
+                <option>Green</option>
+                <option>Brown</option>
+                <option>Gold</option>
+                <option>Aqua</option>
+              </select>
             </div>
 
             <div className="mt-5 ml-2 w-full">
-              <Inputs
+              <select
+                className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label={"Owner Serial"}
                 type={"number"}
                 name={"ownerSerial"}
@@ -350,7 +594,14 @@ export default function AddDealerCar() {
                     ownerSerial: event.target.value,
                   })
                 }
-              />
+              >
+                <option>Owner Serial</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
             </div>
           </div>
 
@@ -375,19 +626,29 @@ export default function AddDealerCar() {
               <select
                 required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
-                name="msalary"
+                name="carInsurance"
                 value={formData.carInsurance}
-                onChange={(event) => {
-                  setFormData({
-                    ...formData,
-                    carInsurance: event.target.value,
-                  });
-                }}
+                onChange={handleChange}
               >
-                <option>Car Insurance</option>
+                <option value="">Car Insurance</option>
                 <option value={true}>Yes</option>
                 <option value={false}>No</option>
               </select>
+              {showCalendar && (
+                <div className="mt-3">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                    htmlFor="date"
+                  >
+                    Select Date
+                  </label>
+                  <input
+                    type="date"
+                    id="date"
+                    className="w-full border-2 border-gray-400 p-2 rounded-md"
+                  />
+                </div>
+              )}
             </div>
           </div>
 
@@ -425,41 +686,8 @@ export default function AddDealerCar() {
                 <option>Petrol</option>
                 <option>Diesel</option>
                 <option>Electric</option>
-                <option>Bio-Fuel</option>
+                <option>CNG</option>
               </select>
-            </div>
-          </div>
-
-          {/* seventh part */}
-          <div className="flex">
-            <div className="mt-5 w-full">
-              <Inputs
-                label={"No Of Wheels"}
-                type={"number"}
-                name={"noOfWheels"}
-                value={formData.noOfWheels}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    noOfWheels: event.target.value,
-                  })
-                }
-              />
-            </div>
-
-            <div className="mt-5 ml-2 w-full">
-              <Inputs
-                label={"Tyre"}
-                type={"text"}
-                name={"tyre"}
-                value={formData.tyre}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    tyre: event.target.value,
-                  })
-                }
-              />
             </div>
           </div>
 
@@ -467,33 +695,58 @@ export default function AddDealerCar() {
 
           <div className="flex">
             <div className="mt-5 w-full">
-              <Inputs
+              <select
+                className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label={"City"}
                 type={"text"}
                 name={"city"}
                 value={formData.city}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    city: event.target.value,
-                  })
-                }
-              />
+                onChange={handleCityChange}
+              >
+                <option>City</option>
+                {Object.keys(cityOptions).map((city) => (
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </select>
             </div>
+
             <div className="mt-5 ml-2 w-full">
-              <Inputs
-                label={"Area"}
+              <select
+                className="w-full border-2 border-gray-400 p-2 rounded-md"
+                label={"Registration"}
                 type={"text"}
-                name={"area"}
-                value={formData.area}
+                name={"registration"}
+                value={formData.registration}
                 onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    area: event.target.value,
-                  })
+                  setFormData({ ...formData, registration: event.target.value })
                 }
-              />
+                disabled={!formData.city}
+              >
+                {/* <option>Registration</option> */}
+                {cityOptions[formData.city]?.map((reg) => (
+                  <option key={reg} value={reg}>
+                    {reg}
+                  </option>
+                ))}
+              </select>
             </div>
+          </div>
+          {/* </div> */}
+          <div className="mt-5 w-[50%]">
+            <Inputs
+              label={"Area"}
+              type={"text"}
+              name={"area"}
+              value={formData.area}
+              onChange={(event) =>
+                setFormData({
+                  ...formData,
+                  area: event.target.value,
+                })
+              }
+            />
           </div>
 
           {/* ninth part */}
@@ -565,8 +818,6 @@ export default function AddDealerCar() {
 
           {/* tenth part */}
 
-    
-
           {/* eleventh part */}
 
           <div className="mt-5">
@@ -589,22 +840,22 @@ export default function AddDealerCar() {
           </div>
           {/* twelth part */}
 
-          <div className="mt-5">
-            <h4>Safety Description</h4>
+          <div className="mt-5 mb-2">
+            <h4>Title</h4>
             <div className="formrow">
-              <Textarea
+              <Input
                 required
                 className="form-control"
-                name="safetyDescription"
-                placeholder="Safety Description"
-                value={formData.safetyDescription}
+                name="title"
+                placeholder="Title"
+                value={formData.title}
                 onChange={(event) => {
                   setFormData({
                     ...formData,
-                    safetyDescription: event.target.value,
+                    title: event.target.value,
                   });
                 }}
-              ></Textarea>
+              ></Input>
             </div>
           </div>
 
