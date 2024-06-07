@@ -22,7 +22,7 @@ export default function Admin() {
   const [pageNo, setPageNo] = useState(0);
   console.log(pageNo);
   const { data, isLoading, error } = useGetAllDealerQuery(pageNo);
-
+console.log(data)
   const [deleteDealer] = useDeleteDealerMutation();
 
 
@@ -81,12 +81,14 @@ export default function Admin() {
     },
     {
       Header: "Status",
-      accessor: "dealerStatus",
+      accessor: "status",
       Cell: (cell) => {
+        const a = cell.row.values.status
+        console.log(a)
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
-              <StatusDialogeBox2 dealer_id={cell.row.values.dealer_id} />
+              <StatusDialogeBox2 dealer_id={cell.row.values.dealer_id} status={cell.row.values.status} />
             </div>
           </div>
         );

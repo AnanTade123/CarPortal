@@ -8,14 +8,15 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-import { useDealerStatusMutation,useGetDealerQuery } from "../services/dealerAPI";
+import { useDealerStatusMutation } from "../services/dealerAPI";
 
-export default function StatusDialogeBox2({ dealer_id }) {
+export default function StatusDialogeBox2({ dealer_id, status }) {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => setOpen(!open);
 
-  const [isActive, setIsActive] = React.useState(true); // Assume initial state is active
+  // Initialize isActive state based on the passed status prop
+  const [isActive, setIsActive] = React.useState(status);
 
   const [dealerStatus, { isLoading, error }] = useDealerStatusMutation();
 
@@ -32,40 +33,24 @@ export default function StatusDialogeBox2({ dealer_id }) {
     return isActive ? "ACTIVE" : "DISABLE";
   };
 
-  // const [id, setId] = React.useState();
-  var id;
-  console.log(id)
-const handleConfirm = async () => {
+  const handleConfirm = async () => {
+    try {
+      // Ensure dealerId is logged before calling mutation
+      console.log("Updating dealer with ID:", dealer_id, "to status:", isActive);
 
-  try {
-    // Ensure dealerId is logged before calling mutation
-    console.log("Updating dealer with ID:", dealer_id, "to status:", isActive);
-    
-    // Call the mutation with the updated status
-    const res = await dealerStatus({ dealer_id, status: isActive });
-    console.log(res);
-     // Update the dealerId state
-     
-    console.log("Dealer status updated successfully!");
-    setOpen(false); // Close the dialog
-    
-  } catch (error) {
-    // Handle errors appropriately (e.g., display an error message)
-    console.error("Error updating dealer status:", error);
-  }
-  
-   id = dealer_id
-console.log(id)
-  
-};
-const { data } = useGetDealerQuery(id);
-  console.log(data)
-// useEffect(() => {
-//   if (id) {
-    
-//     console.log(data);
-//   }
-// }, [id]); // Run the effect when dealerId changes
+      // Call the mutation with the updated status
+      const res = await dealerStatus({ dealer_id, status: isActive });
+      console.log(res);
+      // Update the dealerId state
+
+      console.log("Dealer status updated successfully!");
+      setOpen(false); // Close the dialog
+
+    } catch (error) {
+      // Handle errors appropriately (e.g., display an error message)
+      console.error("Error updating dealer status:", error);
+    }
+  };
 
   return (
     <>
