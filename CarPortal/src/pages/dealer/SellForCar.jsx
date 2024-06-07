@@ -1,6 +1,7 @@
 import { useDealerIdByCarQuery } from "../../services/carAPI";
 import { Tooltip } from "@material-tailwind/react";
 import { useState } from "react";
+// eslint-disable-next-line no-unused-vars
 import TableComponent from "../../components/table/TableComponent";
 import {
   Card,
@@ -9,6 +10,11 @@ import {
   Button,
   CardBody,
   CardFooter,
+  Tabs,
+  TabsHeader,
+  TabsBody,
+  Tab,
+  TabPanel,
 } from "@material-tailwind/react";
 import { Link, useParams } from "react-router-dom";
 import { useCarRemoveMutation } from "../../services/carAPI";
@@ -19,16 +25,16 @@ import StatusDialogeBox from "../../ui/StatusDialogeBox";
 const SellForCar = () => {
   const [pageNo, setPageNo] = useState(0);
   const { id } = useParams();
-  console.log(id)
+
   const [carRemove] = useCarRemoveMutation()
-  console.log(pageNo);
+
 
   
-  console.log(pageNo);
-  const { data, isLoading, error } = useDealerIdByCarQuery({ id, pageNo });
-  console.log(data);
   
-  console.log(error);
+  const { data, isLoading, error } = useDealerIdByCarQuery({ id, pageNo });
+
+  
+
 const deleteDealerHandler=async(carId)=>{
 console.log(carId)
 const res = await carRemove({id,carId})
@@ -49,6 +55,9 @@ console.log(res)
       }
     });
   };
+
+  
+  // eslint-disable-next-line no-unused-vars
   const columns = [
     {
       Header: "ID",
@@ -168,6 +177,8 @@ console.log(res)
     },
   ];
 
+  
+
   let dealerApiData;
   if (isLoading) {
     return <p>isLoading</p>;
@@ -175,6 +186,18 @@ console.log(res)
     dealerApiData = data?.list;
   }
   console.log(dealerApiData);
+  const data1 = [
+    {
+      label: "All Cars",
+      value: "html",
+      desc: <TableComponent columns={columns} data={dealerApiData} /> ,
+    },
+    {
+      label: "Sold Cars",
+      value: "react",
+      desc: `Because it's about motivating the doers. Because I'm here
+      to follow my dreams and inspire other people to follow their dreams, too.`,
+    },]
   return (
     <>
     {error?.status === 404 ? (
@@ -210,8 +233,29 @@ console.log(res)
         {error ? (
           <p className="text-center">car is not found</p>
         ) : (
-          <CardBody className="overflow-scroll px-0">
-            <TableComponent columns={columns} data={dealerApiData} />
+          <CardBody className=" px-0">
+           
+            <Tabs value="html" className="w-full">
+      <TabsHeader
+        className="bg-transperant "
+        indicatorProps={{
+          className: "bg-indigo-200 shadow-none !text-black font-bold ",
+        }}
+      >
+        {data1.map(({ label, value }) => (
+          <Tab key={value} value={value}>
+            {label}
+          </Tab>
+        ))}
+      </TabsHeader>
+      <TabsBody>
+        {data1.map(({ value, desc }) => (
+          <TabPanel key={value} value={value}>
+            {desc}
+          </TabPanel>
+        ))}
+      </TabsBody>
+    </Tabs>
           </CardBody>
         )}
 
