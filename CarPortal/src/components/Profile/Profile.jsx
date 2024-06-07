@@ -11,7 +11,7 @@ import {
 import { useDispatch } from "react-redux";
 import { logout } from "../../features/authSlice";
 import { Link, useNavigate } from "react-router-dom";
-const Profile = ({userId,dealer_id,userrole}) => {
+const Profile = ({dealer_id,userrole}) => {
 
   const userLocal =JSON.parse(localStorage.getItem('userInfo')) 
   console.log(userLocal)
@@ -56,7 +56,7 @@ const Profile = ({userId,dealer_id,userrole}) => {
           </MenuItem>
 
           {userrole === 'DEALER' ? (
-    <Link to={`/dealer/edit/${userId}/${dealer_id}`}>
+    <Link to={`/dealer/${dealer_id}/edit`}>
       <MenuItem className="flex items-center gap-2">
         <svg
           width="16"
