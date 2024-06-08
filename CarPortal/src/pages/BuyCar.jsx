@@ -28,7 +28,7 @@ const BuyCar = () => {
         <div className="md:col-span-1 sticky top-0">
           <FilterCars setUrlState={setUrlState} />
         </div>
-        <div className="md:col-span-3 max-h-screen overflow-scroll no-scrollbar ">
+        <div className="md:col-span-3 no-scrollbar ">
           <GridCarList data={data} error={error} />
         </div>
       </div>
