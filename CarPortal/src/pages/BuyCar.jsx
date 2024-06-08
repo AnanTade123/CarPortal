@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 const BuyCar = () => {
   const [urlState, setUrlState] = useState();
- 
+ console.log(urlState)
   // eslint-disable-next-line no-unused-vars
   const { data, error, isLoading } = useFilterCarQuery( urlState);
 
