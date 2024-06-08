@@ -61,14 +61,26 @@ const carData = {
     "Alcazar",
   ],
   Honda: ["City", "Amaze", "WR-V"],
-  BMW: ["3 Series", "5 Series", "X1", "X3", "X5", "7 Series", "X7"],
+  BMW: ["3 Series", "5 Series", "X1", "X3", "X5", "7 Series", "X7", "iX1", "i4", "i7", "i5", "iX1", "XM", "BMW M340i", "2 Series Gran Coupe", "M4"],
   Toyota: [],
   ISUZU: [],
   Skoda: [],
-  LandRover: [],
+  LandRover: ["Discovery","Range Rover Sport","Discovery Sport","Range Rover","Defender","Range Rover Velar","Range Rover Evoque",""],
   Fiat: [],
   Nissan: [],
   Volvo: [],
+  AstonMartin: [],
+  McLaren: [],
+  Ferrari: [],
+  Maserati: [],
+  MINI: [],
+  Bugatti: [],
+  ForceMotors: ["Trax Cruiser"],
+  Force: ["Gurkha"],
+  Bentley: ["Bentayga", "Flying Spur", "Continental"],
+  Audi: ["e-tron","Q8","A8L","RS Q8","RS5","Q5","A6","Q7","S5","e-tron GT","Q3 Sportback","Q3","A4"],
+  Porsche: ["911","Taycan","Macan","Cayenne","Panamera","718","Taycan Cross Turismo","Cayenne Coupe","Macan Turbo EV"],
+  MercedesBenz: ["EQC","AMG GT","AMG G-Class","AMG E-Class","AMG C-Class","S-Class Coupe","C-Class Coupe","E-Class Coupe","GLS","GLE","GLC","GLB","GLA","S-Class","E-Class","C-Class","A-Class Limousine"],
   Others: [],
 };
 
@@ -472,6 +484,243 @@ export default function AddDealerCar() {
               <option>Alpha Plus AT Petrol</option> 
               <option>Alpha Plus AT Petrol Dual Tone</option> 
               <option>Alpha Plus MT Petrol Dual Tone</option> 
+              <option>5 Seater Standard</option> 
+              <option>7 Seater Standard</option> 
+              <option>Cargo Standard</option> 
+              <option>Cargo CNG</option> 
+              <option>5 Seater AC</option> 
+              <option>5 Seater CNG</option> 
+              <option>Tour V 5 Seater AC</option> 
+              <option>Tour V 5 Seater CNG</option> 
+              <option>Zeta+ 7 Seater</option> 
+              <option>Alpha+ 7 Seater</option> 
+              <option>Alpha+ 8 Seater</option> 
+              <option>A 200</option> 
+              <option>A 200d</option> 
+              <option>C 200</option> 
+              <option>C 200d</option> 
+              <option>E 200</option> 
+              <option>E 220d</option> 
+              <option>E 350d</option> 
+              <option>S 350d</option> 
+              <option>S 400d</option> 
+              <option>S 450</option> 
+              <option>GLA 200</option> 
+              <option>GLA 220d</option> 
+              <option>GLB 200</option> 
+              <option>GLB 201</option> 
+              <option>GLB 220d</option> 
+              <option>GLB 250</option> 
+              <option>GLB 35 AMG</option> 
+              <option>GLC 200</option> 
+              <option>GLB 201</option> 
+              <option>GLC 220d</option> 
+              <option>GLC 300</option> 
+              <option>GLC 301</option> 
+              <option>GLC 43 AMG</option> 
+              <option>GLC 53 AMG</option> 
+              <option>GLE 350</option> 
+              <option>GLE 351</option> 
+              <option>GLE 400d</option> 
+              <option>GLE 450 AMG</option> 
+              <option>GLS 450</option> 
+              <option>GLS 451</option> 
+              <option>GLS 580</option> 
+              <option>GLS 581</option> 
+              <option>GLS 400d</option> 
+              <option>C 200 Coupe</option> 
+              <option>C 300 Coupe</option> 
+              <option>AMG C 43 Coupe</option> 
+              <option>AMG E 53 Coupe</option> 
+              <option>AMG E 63 Coupe</option> 
+              <option>Coupe 200 Coupe</option> 
+              <option>Coupe 300 Coupe</option> 
+              <option>S 450 Coupe</option> 
+              <option>S 560 Coupe</option> 
+              <option>AMG S 63 Coupe</option> 
+              <option>AMG S 65 Coupe</option> 
+              <option>A 35</option> 
+              <option>A 36</option> 
+              <option>C 63</option> 
+              <option>C 64</option> 
+              <option>C 64 S</option> 
+              <option>E 63</option> 
+              <option>E 64</option> 
+              <option>E 63 S</option> 
+              <option>G 63</option> 
+              <option>G 64</option> 
+              <option>GT</option> 
+              <option>GT S</option> 
+              <option>GT C</option> 
+              <option>GT R</option> 
+              <option>GT R Pro</option> 
+              <option>GT Black Series</option> 
+              <option>EQC 400</option> 
+              <option>SE R-Dynamic Petrol</option> 
+              <option>SE R-Dynamic Diesel</option> 
+              <option>HSE Dynamic 2.0 Petrol</option> 
+              <option>HSE Dynamic 2.0 Diesel</option> 
+              <option>110 SE 2.0 Petrol</option> 
+              <option>110 HSE 2.0 Petrol</option> 
+              <option>90 HSE 2.0 Petrol</option> 
+              <option>90 X-Dynamic HSE 2.0 Petrol</option> 
+              <option>SE 3.0 Petrol</option> 
+              <option>SE 3.0 Diesel</option> 
+              <option>SE 4.4 Petrol</option> 
+              <option>SE LWB 3.0 Petrol</option> 
+              <option>SE Dynamic 3.0 Petrol</option> 
+              <option>SE Dynamic 3.0 Diesel</option> 
+              <option>HSE Dynamic 3.0 Diesel</option> 
+              <option>HSE Dynamic 3.0 Petrol</option> 
+              <option>S 2.0 Petrol</option> 
+              <option>S 3.0 Petrol</option> 
+              <option>HSE R-Dynamic 2.0 Petrol</option> 
+              <option>Carrera</option> 
+              <option>Carrera T</option> 
+              <option>Carrera Cabriolet</option> 
+              <option>Carrera S</option> 
+              <option>RWD</option> 
+              <option>4S</option> 
+              <option>GTS</option> 
+              <option>Turbo</option> 
+              <option>Base</option> 
+              <option>S</option> 
+              <option>S</option> 
+              <option>G3</option> 
+              <option>Cayman</option> 
+              <option>Cayman Style Edition</option> 
+              <option>Boxster</option> 
+              <option>Boxster Style Edition</option> 
+              <option>Taycan Cross 4S</option> 
+              <option>Taycan Cross Turbo</option> 
+              <option>Taycan Cross Turbo S</option> 
+              <option>Electric SUV</option> 
+              <option>Premium 40 TFSI</option> 
+              <option>Premium Plus 45 TFSI</option> 
+              <option>Premium Plus 40 TFSI</option> 
+              <option>Technology 40 TFSI</option> 
+              <option>40 TFSI Premium</option> 
+              <option>40 TFSI Premium Plus</option> 
+              <option>Bold Edition</option> 
+              <option>Technology Plus S-line</option> 
+              <option>RS</option> 
+              <option>S5 Sportback 3.0 TFSI</option> 
+              <option>Premium Plus 55 TFSI</option> 
+              <option>Technology 55 TFSI w/o Matrix</option> 
+              <option>Technology 45 TFSI w/o Matrix</option> 
+              <option>Technology 55 TFSI</option> 
+              <option>Technology 45 TFSI</option> 
+              <option>Celebration</option> 
+              <option>Celebration Edition</option> 
+              <option>55 TFSI quattro</option> 
+              <option>Sportback</option> 
+              <option>Sportback e-tron</option> 
+              <option>4.0L TFSI</option> 
+              <option>Technology</option> 
+              <option>e-tron</option> 
+              <option>Audi 50</option> 
+              <option>Audi 55</option> 
+              <option>Audi 55 Technology</option> 
+              <option>GT V8</option> 
+              <option>GTC V8</option> 
+              <option>GT S V8</option> 
+              <option>GT Azure V8</option> 
+              <option>GT Speed</option> 
+              <option>V6 Hybrid</option> 
+              <option>V8</option> 
+              <option>V8 Hybrid</option> 
+              <option>S V8</option> 
+              <option>S Hybrid</option> 
+              <option>EWB</option> 
+              <option>S</option> 
+              <option>Azure</option> 
+              <option>EWB Azure</option> 
+              <option>3 Door</option> 
+              <option>5 Door</option> 
+              <option>9 STR</option> 
+              <option>9 STR AC</option> 
+              <option>12 STR</option> 
+              <option>12 STR AC</option> 
+              <option>Divo W16</option> 
+              <option>Veyron 16.4 Grand Sport</option> 
+              <option>Cooper S</option> 
+              <option>Cooper S (Steptronic Sport)</option> 
+              <option>Countryman Cooper S JCW Inspired</option> 
+              <option>Cooper SE 3-Door</option> 
+              <option>Cooper SE Charged Edition</option> 
+              <option>GT Hybrid</option> 
+              <option>Modena S</option> 
+              <option>Modena</option> 
+              <option>Trofeo</option> 
+              <option>Coupe</option> 
+              <option>4.7 V8</option> 
+              <option>Sport Diesel</option> 
+              <option>MC Diesel</option> 
+              <option>4.7 MC</option> 
+              <option>Shine</option> 
+              <option>You 1.2 5 STR</option> 
+              <option>Plus 1.2 5 STR</option> 
+              <option>Plus 1.2 5 STR Dual Tone</option> 
+              <option>Plus 1.2 5 STR Vibe Pack</option> 
+              <option>Plus 1.2 7 STR</option> 
+              <option>Plus 1.2 5 STR Vibe Pack Dual Tone</option> 
+              <option>Plus 1.2 7 STR Dual Tone</option> 
+              <option>Plus 1.2 7 STR Vibe Pack</option> 
+              <option>Max 1.2 5 STR</option> 
+              <option>Plus 1.2 7 STR Vibe Pack Dual Tone</option> 
+              <option>Max 1.2 5 STR Dual Tone</option> 
+              <option>Max 1.2 5 STR Vibe Pack</option> 
+              <option>Max 1.2 7 STR</option> 
+              <option>Shine Dual Tone</option> 
+              <option>Shine Vibe Pack Dual Tone</option> 
+              <option>Live</option> 
+              <option>Feel Blu Edition 1.2 Petrol</option> 
+              <option>Feel</option> 
+              <option>Feel Vibe Pack</option> 
+              <option>Feel Dual Tone</option> 
+              <option>V12</option> 
+              <option>3.0 Petrol</option> 
+              <option>Coupe</option> 
+              <option>Berlinetta</option> 
+              <option>M</option> 
+              <option>Petrol</option> 
+              <option>Spider</option> 
+              <option>750S Coupe</option> 
+              <option>750S Spider</option> 
+              <option>McLaren GT Coupe</option> 
+              <option>B5 Ultimate</option> 
+              <option>B6 Ultimate</option> 
+              <option>Recharge Single</option> 
+              <option>E80</option> 
+              <option>Aston Martin DB12 4.0-litre</option> 
+              <option>Evolution</option> 
+              <option>Twin Turbo</option> 
+              <option>707</option> 
+              <option>V8</option> 
+              <option>Competition</option> 
+              <option>sDrive18i M Sport</option> 
+              <option>sDrive18d M Sport</option> 
+              <option>740i M Sport</option> 
+              <option>740d M Sport</option> 
+              <option>220i M Sport</option> 
+              <option>220i M Sport Pro</option> 
+              <option>M Performance Edition</option> 
+              <option>220d M Sport</option> 
+              <option>M340i xDrive</option> 
+              <option>xDrive40i M Sport</option> 
+              <option>xDrive40d M Sport</option> 
+              <option>330Li M Sport</option> 
+              <option>320Ld M Sport</option> 
+              <option>330Li M Sport Pro Edition</option> 
+              <option>Plug-in Hybrid</option> 
+              <option>xDrive30 M Sport</option> 
+              <option>M40i xDrive</option> 
+              <option>eDrive35 M Sport</option> 
+              <option>eDrive40 M Sport</option> 
+              <option>eDrive50 M Sport</option> 
+              <option>eDrive60 M Sport</option> 
+              <option>M70 xDrive</option> 
+              <option>M60 xDrive</option> 
               </select> 
             </div>
 
