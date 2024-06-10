@@ -8,8 +8,8 @@ export function CardDefault({ data }) {
 const carid = data?.carId
 console.log(carid)
   return (
-    <Card className="mt-6 w-96">
-      <div className="w-[18rem] h-[16rem] ">
+    <Card className="mt-6 w-96 flex justify-center items-center align-middle">
+      <div className="w-[18rem] h-[16rem]">
         <CarouselCustomArrows  carId={carid} />
       </div>
       <CardBody>
