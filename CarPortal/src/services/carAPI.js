@@ -6,7 +6,7 @@ export const carApi = apiSlice.injectEndpoints({
       query: (urlState) => {
         console.log(urlState);
         return {
-          url: `/cars/mainFilter/${0}?${urlState}`,
+          url: `/cars/mainFilter?minPrice=&maxPrice=&area=&year=&brand=&model=&transmission=&fuel_type= `,
           method: "GET",
         };
       },
@@ -86,6 +86,14 @@ export const carApi = apiSlice.injectEndpoints({
       providesTags: ["CAR"],
     }),
 
+    ConfirmBooking: builder.query({
+      query: () => ({
+        url: `/confirmBooking/book`,
+        method : "POST"
+      }),
+      providesTags: ["CAR"],
+    }),
+
     getPendingrequest : builder.query({
       query : ({CarId,currentpage}) => ({
         url : `/booking/getPendingBookingDetailsByCarID?pageNo=${currentpage}&CarId=${CarId}`,
@@ -136,5 +144,6 @@ export const {
   useUserAllCarRequestQuery,
   useGetAllUserConfirmQuery,
   useGetPendingrequestQuery,
-  useGetCarImageByIdQuery
+  useGetCarImageByIdQuery,
+  useConfirmBookingQuery
 } = carApi;
