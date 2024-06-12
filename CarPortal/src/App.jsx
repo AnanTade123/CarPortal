@@ -39,6 +39,7 @@ import CarVerify from "./pages/CarVerify";
 import AdminInspectorEdit from "./pages/adminpages/AdminInspectorEdit";
 import ChangePassword from "./pages/dealer/ChangePassword";
 import DealerEdit from "./pages/dealer/DealerEdit";
+import TransactionByAccount from "./pages/transaction/TransactionByAccount";
 
 
 export default function App() {
@@ -82,6 +83,10 @@ export default function App() {
             <Route
               path="/admin/inspector/edit/:userid/:id"
               element={<AdminInspectorEdit />}
+            />
+            <Route
+              path="/transactionbyaccount"
+              element={<TransactionByAccount />}
             />
           </Route>
 
