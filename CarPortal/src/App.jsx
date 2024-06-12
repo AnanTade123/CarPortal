@@ -141,6 +141,7 @@ export default function App() {
         </Route>
         
       </Routes>
+      <Wallet/>
     </>
   );
 }
