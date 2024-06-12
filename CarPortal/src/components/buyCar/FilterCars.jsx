@@ -178,7 +178,7 @@ console.log(brand.toUpperCase())
               <option>i20</option>
               <option>Sonet</option>
               <option>Virtus</option>
-              <option>Creata</option>
+              <option>Creta</option>
             </select>
             <select
               name="fuelType"
