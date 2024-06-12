@@ -8,58 +8,14 @@ import { useNavigate, useParams } from "react-router";
 const carData = {
   Kia: ["Sonet", "Seltos", "Carnival"],
   Volkswagen: ["Polo", "Vento", "Taigun", "Virtus"],
-  Mahindra: [
-    "XUV300",
-    "XUV301",
-    "XUV302",
-    "XUV303",
-    "XUV304",
-    "XUV305",
-    "XUV306",
-    "XUV307",
-    "XUV308",
-    "XUV700",
-    "XUV701",
-    "XUV702",
-    "XUV703",
-    "Thar",
-    "Scorpio",
-    "Bolero",
-    "Marazzo",
-  ],
-  MarutiSuzuki: ["Swift", "Baleno", "Vitara Brezza", "Ertiga", "Alto K10",
-  "Dzire",
-  "Wagon R",
-  "XL6",
-  "Celerio",
-  "Jimny",
-  "Ignis",
-  "Eeco",
-  "Invicto",
-  "Ciaz",],
+  Mahindra: ["XUV300", "XUV301", "XUV302", "XUV303", "XUV304", "XUV305", "XUV306", "XUV307", "XUV308", "XUV700", "XUV701",
+    "XUV702", "XUV703", "Thar", "Scorpio", "Bolero", "Marazzo"],
+  MarutiSuzuki: ["Swift", "Baleno", "Vitara Brezza", "Ertiga", "Alto K10", "Dzire", "Wagon R", "XL6", "Celerio", "Jimny",
+  "Ignis", "Eeco", "Invicto", "Ciaz",],
   Citroen: ["C3", "C3 Aircross", "eC3", "C5 Aircross"],
-  Tata: [
-    "Tigor",
-    "Altroz",
-    "Harrier",
-    "Safari",
-    "Hexa",
-    "Tigor EV",
-    "Nexon EV",
-    "Punch",
-  ],
+  Tata: ["Tigor", "Altroz", "Harrier", "Safari", "Hexa", "Tigor EV", "Nexon EV", "Punch"],
   
-  Hyundai: [
-    "Verna",
-    "i20",
-    "Venue",
-    "Creta",
-    "Santro",
-    "Grand i10 Nios",
-    "Aura",
-    "Exter",
-    "Alcazar",
-  ],
+  Hyundai: ["Verna", "i20", "Venue", "Creta", "Santro", "Grand i10 Nios", "Aura", "Exter", "Alcazar"],
   Honda: ["City", "Amaze", "WR-V"],
   BMW: ["3 Series", "5 Series", "X1", "X3", "X5", "7 Series", "X7", "iX1", "i4", "i7", "i5", "iX1", "XM", "BMW M340i", "2 Series Gran Coupe", "M4"],
   Toyota: [],
@@ -146,9 +102,7 @@ export default function AddDealerCar() {
     title: "",
     area: "",
     carStatus: "Active",
-    cVariant : "",
     ownerSerial: "",
-    insurancedate : "",
     dealer_id: "",
   });
   const { id } = useParams();
@@ -201,14 +155,10 @@ export default function AddDealerCar() {
       rearParkingCameraFeature: formData.rearParkingCameraFeature,
 
       registration: formData.registration,
- 
-      transmission: formData.transmission,
-      
+
       title: formData.title,
 
-      variant: formData.cVariant,
-
-      carInsuranceDate: formData.insurancedate,
+      transmission: formData.transmission,
 
       year: formData.year,
 
@@ -228,7 +178,7 @@ export default function AddDealerCar() {
   //Two field Brands and Model
   const [selectedBrand, setSelectedBrand] = useState("");
   const [modelOptions, setModelOptions] = useState([]);
- // const [formDataC, setFormDataC] = useState({ carInsurance: "" });
+  const [formDataC, setFormDataC] = useState({ carInsurance: "" });
   const [showCalendar, setShowCalendar] = useState(false);
 
   const handleBrandChange = (event) => {
@@ -259,31 +209,23 @@ export default function AddDealerCar() {
 
   // Car Insurance ValidDate
   const handleChange = (event) => {
-    const value = event.target.value === 'true';
-    setFormData((prevFormData) => ({
-      ...prevFormData,
+    const value = event.target.value === "true";
+    setFormDataC({
+      ...formDataC,
       carInsurance: value,
-    }));
+    });
     setShowCalendar(value);
   };
 
-  const handleDateChange = (e) => {
-    setFormData({
-      ...formData,
-      insurancedate: e.target.value,
-    });
-  };
-
-
   return (
-    <div className="md:flex justify-center m-6 md:m-0">
+    <div className="flex justify-center">
       <div>
-        <form onSubmit={handleSubmit} className="w-full md:w-[50rem]">
+        <form onSubmit={handleSubmit} className="w-[50rem]">
           <div className="flex justify-center">
             <p className="text-3xl font-semibold m-4">Add Dealer Car</p>
           </div>
           {/* first part */}
-          <div className="md:flex gap-2">
+          <div className="flex gap-2">
             <div className="mt-5 w-full">
               <select
                 required
@@ -319,7 +261,7 @@ export default function AddDealerCar() {
           </div>
 
           {/* second part */}
-          <div className="md:flex">
+          <div className="flex">
             <div className="mt-5 w-full">
               <select
               className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -334,8 +276,8 @@ export default function AddDealerCar() {
                   })
                 }
               >
-              <option>Select</option>
               <option>HTE 1.2</option>
+              <option>HTK 1.2</option>
               <option>HTK+ 1.2</option>
               <option>HTX 1.2</option>
               <option>HTX+ 1.2</option>
@@ -732,7 +674,7 @@ export default function AddDealerCar() {
               </select> 
             </div>
 
-            <div className="mt-5 md:ml-2 w-full">
+            <div className="mt-5 ml-2 w-full">
               <select
                 required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -751,7 +693,7 @@ export default function AddDealerCar() {
               </select>
             </div>
           </div>
-          <div className="md:flex">
+          <div className="flex">
             <div className="mt-5 w-full">
               <Inputs
                 label={"Price"}
@@ -767,7 +709,7 @@ export default function AddDealerCar() {
               />
             </div>
 
-            <div className="mt-5 md:ml-2 w-full">
+            <div className="mt-5 ml-2 w-full">
               <select
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label={"year"}
@@ -807,7 +749,7 @@ export default function AddDealerCar() {
           </div>
 
           {/* fourth part */}
-          <div className="md:flex">
+          <div className="flex">
             <div className="mt-5 w-full">
               <select
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -838,7 +780,7 @@ export default function AddDealerCar() {
               </select>
             </div>
 
-            <div className="mt-5 md:ml-2 w-full">
+            <div className="mt-5 ml-2 w-full">
               <select
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label={"Owner Serial"}
@@ -863,8 +805,8 @@ export default function AddDealerCar() {
           </div>
 
           {/* fifth part */}
-          <div className="md:flex">
-            {/* <div className="mt-5 w-full">
+          <div className="flex">
+            <div className="mt-5 w-full">
               <Inputs
                 label={"Registration"}
                 type={"text"}
@@ -877,56 +819,40 @@ export default function AddDealerCar() {
                   })
                 }
               />
-            </div> */}
-            <div className="mt-5 w-full">
-            <Inputs
-              label={"Area"}
-              type={"text"}
-              name={"area"}
-              value={formData.area}
-              onChange={(event) =>
-                setFormData({
-                  ...formData,
-                  area: event.target.value,
-                })
-              }
-            />
-          </div>
+            </div>
 
-            <div className="mt-5 md:ml-2 w-full">
-            <select
-        required
-        className="w-full border-2 border-gray-400 p-2 rounded-md"
-        name="carInsurance"
-        value={formData.carInsurance}
-        onChange={handleChange}
-      >
-        <option value="">Car Insurance</option>
-        <option value={true}>Yes</option>
-        <option value={false}>No</option>
-      </select>
+            <div className="mt-5 ml-2 w-full">
+              <select
+                required
+                className="w-full border-2 border-gray-400 p-2 rounded-md"
+                name="carInsurance"
+                value={formData.carInsurance}
+                onChange={handleChange}
+              >
+                <option value="">Car Insurance</option>
+                <option value={true}>Yes</option>
+                <option value={false}>No</option>
+              </select>
               {showCalendar && (
-        <div className="mt-3">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="date"
-          >
-            Select Date
-          </label>
-          <input
-            type="date"
-            id="date"
-            value={formData.insurancedate}
-            onChange={handleDateChange}
-            className="w-full border-2 border-gray-400 p-2 rounded-md"
-          />
-        </div>
-      )}
+                <div className="mt-3">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                    htmlFor="date"
+                  >
+                    Select Date
+                  </label>
+                  <input
+                    type="date"
+                    id="date"
+                    className="w-full border-2 border-gray-400 p-2 rounded-md"
+                  />
+                </div>
+              )}
             </div>
           </div>
 
           {/* sixth part */}
-          <div className="md:flex">
+          <div className="flex">
             <div className="mt-5 w-full">
               <Inputs
                 label={"Km Driven"}
@@ -942,7 +868,7 @@ export default function AddDealerCar() {
               />
             </div>
 
-            <div className="mt-5 md:ml-2 w-full">
+            <div className="mt-5 ml-2 w-full">
               <select
                 required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -966,7 +892,7 @@ export default function AddDealerCar() {
 
           {/* eight part */}
 
-          <div className="md:flex">
+          <div className="flex">
             <div className="mt-5 w-full">
               <select
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -985,7 +911,7 @@ export default function AddDealerCar() {
               </select>
             </div>
 
-            <div className="mt-5 md:ml-2 w-full">
+            <div className="mt-5 ml-2 w-full">
               <select
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label={"Registration"}
@@ -999,7 +925,7 @@ export default function AddDealerCar() {
               >
                 {/* <option>Registration</option> */}
                 {cityOptions[formData.city]?.map((reg) => (
-                  <option key={reg} value={formData.registration}>
+                  <option key={reg} value={reg}>
                     {reg}
                   </option>
                 ))}
@@ -1007,10 +933,23 @@ export default function AddDealerCar() {
             </div>
           </div>
           {/* </div> */}
-          
+          <div className="mt-5 w-[50%]">
+            <Inputs
+              label={"Area"}
+              type={"text"}
+              name={"area"}
+              value={formData.area}
+              onChange={(event) =>
+                setFormData({
+                  ...formData,
+                  area: event.target.value,
+                })
+              }
+            />
+          </div>
 
           {/* ninth part */}
-          <div className="md:flex">
+          <div className="flex">
             <div className="mt-5 ml-5">
               <input
                 label={"Music Feature"}
@@ -1079,6 +1018,27 @@ export default function AddDealerCar() {
           {/* tenth part */}
 
           {/* eleventh part */}
+
+          <div className="mt-5">
+            <h4>Vehicle Description</h4>
+            <div className="formrow">
+              <Textarea
+                required
+                className="form-control"
+                name="description"
+                placeholder="Vehicle Description"
+                value={formData.description}
+                onChange={(event) => {
+                  setFormData({
+                    ...formData,
+                    description: event.target.value,
+                  });
+                }}
+              ></Textarea>
+            </div>
+          </div>
+          {/* twelth part */}
+
           <div className="mt-5 mb-2">
             <h4>Title</h4>
             <div className="formrow">
@@ -1098,32 +1058,9 @@ export default function AddDealerCar() {
             </div>
           </div>
 
-          {/* twelth part */}
-          <div className="mt-5">
-            <h4>Vehicle Description</h4>
-            <div className="formrow">
-              <Textarea
-                required
-                className="form-control"
-                name="description"
-                placeholder="Vehicle Description"
-                value={formData.description}
-                onChange={(event) => {
-                  setFormData({
-                    ...formData,
-                    description: event.target.value,
-                  });
-                }}
-              ></Textarea>
-            </div>
-          </div>
-          
-
-          
-
           <button
             type="submit"
-            className="p-3 mt-3 bg-indigo-400 rounded-md w-28 text-white"
+            className="p-3 bg-indigo-400 rounded-md w-28 text-white"
             value="Add  Car"
           >
             {" "}
