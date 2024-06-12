@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 
 import FilterCars from "../components/buyCar/FilterCars";
@@ -9,7 +10,7 @@ const BuyCar = () => {
   const [urlState, setUrlState] = useState();
  console.log(urlState)
   // eslint-disable-next-line no-unused-vars
-  const { data, error, isLoading } = useFilterCarQuery( urlState);
+  const { data, error } = useFilterCarQuery(urlState);
 
   const navigate = useNavigate();
  console.log(data)
