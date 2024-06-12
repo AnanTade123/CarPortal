@@ -56,6 +56,15 @@ export const dealerAPI = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Dealer'],
     }),
+
+    dealerStatus: builder.mutation({
+      query: () => ({
+        url: `/dealer/statusUpdate?dealerId=19&status=true`,
+        method: 'PATCH',
+        
+      }),
+      invalidatesTags: ['Dealer'],
+    }),
     
     
   }),
@@ -68,6 +77,7 @@ export const {
   useGetEditDealerMutation,
   useGetAllDealerCompleteBookingQuery,
   useGetAllDealerPendingBookingQuery,
-  useAddCarImagesMutation
+  useAddCarImagesMutation,
+  useDealerStatusMutation
   
 } = dealerAPI;

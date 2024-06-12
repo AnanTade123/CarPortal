@@ -14,8 +14,8 @@ const TopFeatures = () => {
         Top Features
       </div>
       <CardUi>
-        <div className="w-full flex gap-7">
-          <div className="w-1/2 h-52">
+        <div className="w-full md:w-full md:flex gap-7">
+          <div className="w-3/4 md:w-1/2 md:h-52">
             <Carousel
               className="rounded-xl"
               navigation={({ setActiveIndex, activeIndex, length }) => (
@@ -49,7 +49,7 @@ const TopFeatures = () => {
               />
             </Carousel>
           </div>
-          <div className="w-1/2 flex flex-col">
+          <div className="md:w-1/2 flex flex-col">
             <div className="flex">
               <RiSteering2Fill className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
               <div className="font-semibold text-black font-[latto] text-lg">
@@ -82,8 +82,8 @@ const TopFeatures = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center items-center mt-12">
-          <div className="flex gap-2 px-20 py-3 items-center bg-[#002441] text-white text-sm rounded-2xl uppercase font-[latto] ">
+        <div className="flex w-3/4 justify-center items-center mt-12 md:w-full">
+          <div className="flex gap-2 px-10 py-2 md:px-20 md:py-3 items-center bg-[#002441] text-white text-sm rounded-2xl uppercase font-[latto] ">
             <div>View Inspection Report</div>
             <div>
               <IoIosArrowForward
