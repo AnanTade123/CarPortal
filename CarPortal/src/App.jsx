@@ -40,6 +40,7 @@ import AdminInspectorEdit from "./pages/adminpages/AdminInspectorEdit";
 import ChangePassword from "./pages/dealer/ChangePassword";
 import DealerEdit from "./pages/dealer/DealerEdit";
 import TransactionByAccount from "./pages/transaction/TransactionByAccount";
+import CardDetailss from "./pages/transaction/CardDetailss";
 
 
 export default function App() {
@@ -88,6 +89,7 @@ export default function App() {
               path="/transactionbyaccount"
               element={<TransactionByAccount />}
             />
+            
           </Route>
 
           <Route
@@ -130,7 +132,7 @@ export default function App() {
             element={<BiddingDealerPendingReq />}
           />
         </Route>
-
+           <Route path="/trans" element={<CardDetailss/>}/>
         <Route element={<AppLayout2 />}>
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contactus" element={<ContactUs />} />

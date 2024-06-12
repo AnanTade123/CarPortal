@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Inputs from "../../forms/Inputs";
- 
-export default function cardDetails() {
+
+function CardDetailss() {
     const [formData, setFormData] = useState({
      
       // fields
@@ -27,11 +27,16 @@ export default function cardDetails() {
           accountId: formData.accountId,
          
         };
+        console.log(data)
 }
  
 return(
-    <div className="mt-5 w-full">
-         <form onSubmit={handleSubmit} >
+    <div className="flex justify-center mt-5">
+         <form onSubmit={handleSubmit} className="w-[25rem] gap-4">
+          <div className="space-y-5">
+          <div className="flex justify-center">
+            <p className="text-3xl font-semibold m-4">Transaction</p>
+          </div>
     <Inputs
       label={"panCard"}
       type={"text"}
@@ -92,8 +97,19 @@ return(
         })
       }
     />
+    <button
+            type="submit"
+            className="p-3 bg-indigo-400 rounded-md w-28 text-white"
+            value="Add  Car"
+          >
+            {" "}
+            Submit
+          </button>
+    </div>
     </form>
   </div>
  
 )
 }
+
+export default CardDetailss;
