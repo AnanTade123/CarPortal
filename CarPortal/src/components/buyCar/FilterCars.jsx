@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { Card } from "@material-tailwind/react";
 import { Button, Slider, Typography } from "@material-tailwind/react";
@@ -7,12 +8,12 @@ const FilterCars = ({ setUrlState }) => {
 
   console.log(value);
   const [filterForm, setFilterForm] = useState({
-    area: "",
-    year: "",
-    brand: "",
-    model: "",
-    fuelType: "",
-    transmission: "",
+    area: '',
+    year: '',
+    brand: '',
+    model: '',
+    fuelType: '',
+    transmission: '',
   });
 
   const handleChange = (e) => {
@@ -23,22 +24,30 @@ const FilterCars = ({ setUrlState }) => {
 
   const submitHandle = (e) => {
     e.preventDefault();
-    const { area, year, brand, model, fuelType, transmission } = filterForm;
-    const minPrice = 3999; // Assuming this is your default minimum price
-    const maxPrice = value; // Maximum price from the slider
-    let url = ``;
-console.log(brand.toUpperCase())
+   // const { area, year, brand, model, fuelType, transmission } = filterForm;
+    // const minPrice = 3999; // Assuming this is your default minimum price
+    // const maxPrice = value; // Maximum price from the slider
+    filterForm.brand.toUpperCase()
+    const url = {
+      Area : filterForm.area,
+      Year : filterForm.year,
+      Brand : filterForm.brand.toUpperCase(),
+      Model : filterForm.model,
+      FuleType : filterForm.fuelType,
+      Transmission : filterForm.transmission
+    };
+//console.log(brand.toUpperCase())
     // Append selected filters to the URL if they are not empty
-    if (minPrice) url += `&minPrice=${minPrice}`;
-    if (maxPrice > minPrice) url += `&maxPrice=${maxPrice}`;
-    if (area) url += `&area=${area}`;
-    if (year) url += `&year=${year}`;
-    if (brand) url += `&brand=${brand}`;
-    if (model) url += `&model=${model}`;
+    // if (minPrice) url += `&minPrice=${minPrice}`;
+    // if (maxPrice > minPrice) url += `&maxPrice=${maxPrice}`;
+    // if (area) url += `&area=${area}`;
+    // if (year) url += `&year=${year}`;
+    // if (brand) url += `&brand=${brand}`;
+    // if (model) url += `&model=${model}`;
 
-    if (transmission) url += `&transmission=${transmission}`;
-    if (fuelType) url += `&fuel_type=${fuelType}`;
-    
+    // if (transmission) url += `&transmission=${transmission}`;
+    // if (fuelType) url += `&fuel_type=${fuelType}`;
+    //const url = Object.fromEntries(Object.entries(url1).filter(([_, v]) => v !== ""));
     setUrlState(url);
 
     

@@ -1,12 +1,24 @@
+/* eslint-disable no-unused-vars */
 import { apiSlice } from "./apiSlice";
 
 export const carApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     filterCar: builder.query({
       query: (urlState) => {
-        console.log(urlState);
+        // Destructure and provide default values
+        const {
+          minPrice = '',
+          maxPrice = '',
+          Area = '',
+          Year = '',
+          Brand = '',
+          Model = '',
+          Transmission = '',
+          FuleType = ''
+        } = urlState || {};
+    console.log(urlState)
         return {
-          url: `/cars/mainFilter?minPrice=&maxPrice=&area=&year=&brand=&model=&transmission=&fuel_type= `,
+          url: `/cars/mainFilter?minPrice=${minPrice}&maxPrice=${maxPrice}&area=${Area}&year=${Year}&brand=${Brand}&model=${Model}&transmission=${Transmission}&fuel_type=${FuleType}`,
           method: "GET",
         };
       },
