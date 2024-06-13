@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Inputs from "../../forms/Inputs";
-import { useNavigate, useParams } from "react-router";
+
 
 export default function Wallet() {
     const [formData, setFormData] = useState({
@@ -22,13 +22,17 @@ export default function Wallet() {
           openingBalance: formData.openingBalance,
           
         };
+        console.log(data);
 }
 
 return(
-    <div className="mt-5 w-full">
-         <form onSubmit={handleSubmit} >
+    <div className="flex justify-center ">
+         <form onSubmit={handleSubmit} className="w-[25rem]">
+          
+          <div className="mt-5 space-y-5">
+          <p className="text-2xl font-semibold m-4">Wallet</p>
     <Inputs
-      label={"panCard"}
+      label={"PanCard"}
       type={"text"}
       name={"panCard"}
       value={formData.panCard}
@@ -40,7 +44,7 @@ return(
       }
     />
      <Inputs
-      label={"status"}
+      label={"Status"}
       type={"text"}
       name={"status"}
       value={formData.status}
@@ -52,7 +56,7 @@ return(
       }
     />
      <Inputs
-      label={"openingBalance"}
+      label={"OpeningBalance"}
       type={"number"}
       name={"openingBalance"}
       value={formData.openingBalance}
@@ -63,6 +67,15 @@ return(
         })
       }
     />
+      <button
+            type="submit"
+            className="p-3 bg-indigo-400 rounded-md w-28 text-white"
+            value="Add  Car"
+          >
+            {" "}
+            Submit
+          </button>
+    </div>
     </form>
   </div>
 

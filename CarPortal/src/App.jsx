@@ -40,6 +40,8 @@ import AdminInspectorEdit from "./pages/adminpages/AdminInspectorEdit";
 import ChangePassword from "./pages/dealer/ChangePassword";
 import DealerEdit from "./pages/dealer/DealerEdit";
 import TransactionByAccount from "./pages/transaction/TransactionByAccount";
+import Wallet from "./pages/transaction/Wallet";
+import TransactionController from "./pages/transaction/TransactionController";
 import CardDetailss from "./pages/transaction/CardDetailss";
 
 
@@ -89,7 +91,14 @@ export default function App() {
               path="/transactionbyaccount"
               element={<TransactionByAccount />}
             />
-            
+             <Route
+              path="/wallet"
+              element={<Wallet/>}
+            />
+            <Route
+              path="/transactioncontroller"
+              element={<TransactionController/>}
+            />
           </Route>
 
           <Route
@@ -141,7 +150,6 @@ export default function App() {
         </Route>
         
       </Routes>
-      <Wallet/>
     </>
   );
 }
