@@ -275,7 +275,7 @@ console.log(userRole)
         <div className="flex items-center gap-x-1">
           <Link to="/signin">
           <Button fullWidth variant="text" size="sm" className="">
-            <span>Sing In</span>
+            <span>Sign In</span>
           </Button>
           </Link>
 
