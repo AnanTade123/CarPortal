@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useDealerIdByCarQuery } from "../../services/carAPI";
 import { Tooltip } from "@material-tailwind/react";
 import { useState } from "react";
@@ -277,20 +278,20 @@ const SellForCar = () => {
     dealerApiData = data?.list;
   }
   console.log(dealerApiData);
-  const data1 = [
-    {
-      label: "All Cars",
-      value: "html",
-      desc: <TableComponent columns={columns} data={dealerApiData} />,
-    },
-    {
-      label: "Sold Cars",
-      value: "react",
-      desc: <TableComponent columns={columns1} data={dealerApiData} />,
-      // desc: `Because it's about motivating the doers. Because I'm here
-      // to follow my dreams and inspire other people to follow their dreams, too.`,
-    },
-  ];
+  // const data1 = [
+  //   {
+  //     label: "All Cars",
+  //     value: "html",
+  //     desc: <TableComponent columns={columns} data={dealerApiData} />,
+  //   },
+  //   {
+  //     label: "Sold Cars",
+  //     value: "react",
+  //     desc: <TableComponent columns={columns1} data={dealerApiData} />,
+  //     // desc: `Because it's about motivating the doers. Because I'm here
+  //     // to follow my dreams and inspire other people to follow their dreams, too.`,
+  //   },
+  // ];
   return (
     <>
       {error?.status === 404 ? (
@@ -322,7 +323,7 @@ const SellForCar = () => {
                   </Link>
                 </div>
               </div>
-              <div className="flex justify-center gap-10 mt-3">
+              {/* <div className="flex justify-center gap-10 mt-3">
                 <div className="flex flex-col items-center align-middle bg-blue-200 px-3 py-2 rounded-lg">
                   <div className="font-bold text-base text-black">All Cars</div>
                   <div className="text-white font-bold">200</div>
@@ -333,13 +334,17 @@ const SellForCar = () => {
                   </div>
                   <div className="text-white font-bold">96</div>
                 </div>
+              </div> */}
+
+              <div>
+              <TableComponent columns={columns} data={dealerApiData} />
               </div>
             </CardHeader>
             {error ? (
               <p className="text-center">car is not found</p>
             ) : (
               <CardBody className=" px-0">
-                <Tabs value="html" className="w-full">
+                {/* <Tabs value="html" className="w-full">
                   <TabsHeader
                     className="bg-transperant "
                     indicatorProps={{
@@ -360,7 +365,7 @@ const SellForCar = () => {
                       </TabPanel>
                     ))}
                   </TabsBody>
-                </Tabs>
+                </Tabs> */}
               </CardBody>
             )}
 

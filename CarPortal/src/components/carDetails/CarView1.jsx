@@ -70,7 +70,7 @@ const CarView1 = ({ carId }) => {
         )}
 
         {exterior && (
-          <Carousel className="bg-white rounded-lg shadow-md">
+          <Carousel className="bg-gray-900 rounded-lg shadow-md ">
           {ExteriorImages.map((item) => (
             <img
               key={item.documentId}
@@ -109,7 +109,7 @@ const CarView1 = ({ carId }) => {
         )}
 
         {engines && (
-          <Carousel className="bg-white rounded-lg shadow-md">
+          <Carousel className="bg-white rounded-lg shadow-md ">
           {EngineImages.map((item) => (
             <img
               key={item.documentId}

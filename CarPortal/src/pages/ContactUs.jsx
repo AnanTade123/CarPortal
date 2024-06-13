@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Input, Textarea, Card, Button } from "@material-tailwind/react";
 import { useState } from "react";
 
@@ -30,7 +31,7 @@ const ContactUs = () => {
         </div>
       </div>
       <div className=" container mx-auto my-10 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
+        {/* <div>
           <h2 className="text-xl font-semibold mb-3">Feedback</h2>
           <p>
             We value your feedback. Share your thoughts, suggestions, or
@@ -85,7 +86,7 @@ const ContactUs = () => {
               </div>
             </Card>
           </form>
-        </div>
+        </div> */}
 
         <div>
           {/* <h1 className="text-3xl font-bold mb-5">Contact Us</h1> */}
