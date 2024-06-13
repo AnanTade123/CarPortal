@@ -86,12 +86,14 @@ export function AddDealerForm() {
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
+                  required={"required"}
                 />
                 <Inputs
                   label="Last Name"
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
+                  required={"required"}
                 />
               </div>
               <Inputs
@@ -100,12 +102,14 @@ export function AddDealerForm() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
+                required={"required"}
               />
               <Inputs
                 label="Mobile Number"
                 name="mobileNo"
                 value={formData.mobileNo}
                 onChange={handleChange}
+                required={"required"}
               />
               <Inputs
                 label="Password"
@@ -113,6 +117,7 @@ export function AddDealerForm() {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
+                required={"required"}
               />
               <div className="flex gap-2">
                 <Inputs
@@ -120,12 +125,14 @@ export function AddDealerForm() {
                   name="area"
                   value={formData.area}
                   onChange={handleChange}
+                  required={"required"}
                 />
                 <Inputs
                   label="City"
                   name="city"
                   value={formData.city}
                   onChange={handleChange}
+                  required={"required"}
                 />
               </div>
               <Inputs
@@ -133,12 +140,14 @@ export function AddDealerForm() {
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
+                required={"required"}
               />
               <Inputs
                 label="Shop Name"
                 name="shopName"
                 value={formData.shopName}
                 onChange={handleChange}
+                required={"required"}
               />
               <Button type="submit">Add</Button>
             </form>
