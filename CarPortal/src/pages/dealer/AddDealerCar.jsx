@@ -218,14 +218,14 @@ export default function AddDealerCar() {
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="md:flex justify-center m-6 md:m-0">
       <div>
-        <form onSubmit={handleSubmit} className="w-[50rem]">
+        <form onSubmit={handleSubmit} className="w-full md:w-[50rem]">
           <div className="flex justify-center">
             <p className="text-3xl font-semibold m-4">Add Dealer Car</p>
           </div>
           {/* first part */}
-          <div className="flex gap-2">
+          <div className="md:flex gap-2">
             <div className="mt-5 w-full">
               <select
                 required
@@ -261,7 +261,7 @@ export default function AddDealerCar() {
           </div>
 
           {/* second part */}
-          <div className="flex">
+          <div className="md:flex">
             <div className="mt-5 w-full">
               <select
               className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -674,7 +674,7 @@ export default function AddDealerCar() {
               </select> 
             </div>
 
-            <div className="mt-5 ml-2 w-full">
+            <div className="mt-5 md:ml-2 w-full">
               <select
                 required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -693,7 +693,7 @@ export default function AddDealerCar() {
               </select>
             </div>
           </div>
-          <div className="flex">
+          <div className="md:flex">
             <div className="mt-5 w-full">
               <Inputs
                 label={"Price"}
@@ -709,7 +709,7 @@ export default function AddDealerCar() {
               />
             </div>
 
-            <div className="mt-5 ml-2 w-full">
+            <div className="mt-5 md:ml-2 w-full">
               <select
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label={"year"}
@@ -749,7 +749,7 @@ export default function AddDealerCar() {
           </div>
 
           {/* fourth part */}
-          <div className="flex">
+          <div className="md:flex">
             <div className="mt-5 w-full">
               <select
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -780,7 +780,7 @@ export default function AddDealerCar() {
               </select>
             </div>
 
-            <div className="mt-5 ml-2 w-full">
+            <div className="mt-5 md:ml-2 w-full">
               <select
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label={"Owner Serial"}
@@ -805,7 +805,7 @@ export default function AddDealerCar() {
           </div>
 
           {/* fifth part */}
-          <div className="flex">
+          <div className="md:flex">
             <div className="mt-5 w-full">
               <Inputs
                 label={"Registration"}
@@ -821,7 +821,7 @@ export default function AddDealerCar() {
               />
             </div>
 
-            <div className="mt-5 ml-2 w-full">
+            <div className="mt-5 md:ml-2 w-full">
               <select
                 required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -852,7 +852,7 @@ export default function AddDealerCar() {
           </div>
 
           {/* sixth part */}
-          <div className="flex">
+          <div className="md:flex">
             <div className="mt-5 w-full">
               <Inputs
                 label={"Km Driven"}
@@ -868,7 +868,7 @@ export default function AddDealerCar() {
               />
             </div>
 
-            <div className="mt-5 ml-2 w-full">
+            <div className="mt-5 md:ml-2 w-full">
               <select
                 required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -892,7 +892,7 @@ export default function AddDealerCar() {
 
           {/* eight part */}
 
-          <div className="flex">
+          <div className="md:flex">
             <div className="mt-5 w-full">
               <select
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -911,7 +911,7 @@ export default function AddDealerCar() {
               </select>
             </div>
 
-            <div className="mt-5 ml-2 w-full">
+            <div className="mt-5 md:ml-2 w-full">
               <select
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label={"Registration"}
@@ -933,7 +933,7 @@ export default function AddDealerCar() {
             </div>
           </div>
           {/* </div> */}
-          <div className="mt-5 w-[50%]">
+          <div className="mt-5 md:w-[50%]">
             <Inputs
               label={"Area"}
               type={"text"}
@@ -949,7 +949,7 @@ export default function AddDealerCar() {
           </div>
 
           {/* ninth part */}
-          <div className="flex">
+          <div className="md:flex">
             <div className="mt-5 ml-5">
               <input
                 label={"Music Feature"}
@@ -1060,7 +1060,7 @@ export default function AddDealerCar() {
 
           <button
             type="submit"
-            className="p-3 bg-indigo-400 rounded-md w-28 text-white"
+            className="p-3 mt-3 bg-indigo-400 rounded-md w-28 text-white"
             value="Add  Car"
           >
             {" "}
