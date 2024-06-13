@@ -15,7 +15,7 @@ console.log(carid)
       <CardBody>
         <Typography>{data.year}</Typography>
         <Typography variant="h5" color="blue-gray" className="mb-2">
-           {data.brand} {data.model} {data.carId}
+           {data.brand} {data.model} 
         </Typography>
         <p className="text-sm uppercase">
           {data.kmDriven} {data.fuelType} {data.transmission}
