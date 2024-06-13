@@ -100,10 +100,16 @@ const PriceCard = ({
             </div>
           </div>
         </div>
-
-        {userRole == "DEALER" ? null : (
-          <DialogBox price={price} dealer_id={dealer_id} carId={carId} />
-        )}
+        <div className="flex justify-center items-center align-middle mb-3">
+          {userRole == "DEALER" ? null : (
+            <DialogBox
+              price={price}
+              dealer_id={dealer_id}
+              carId={carId}
+              className
+            />
+          )}
+        </div>
       </div>
     </CardUi>
   );
