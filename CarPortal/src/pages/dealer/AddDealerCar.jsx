@@ -198,7 +198,7 @@ export default function AddDealerCar() {
   };
 
   return (
-    <div className="md:flex justify-center m-4 md:m-0">
+    <div className="md:flex justify-center m-6 md:m-0">
       <div>
         <form onSubmit={handleSubmit} className="w-full md:w-[50rem]">
           <div className="flex justify-center">
