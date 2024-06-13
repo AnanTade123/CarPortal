@@ -334,7 +334,7 @@ export default function AddDealerCar() {
                   })
                 }
               >
-              <option>Select</option>
+              <option>Car Variant</option>
               <option>HTE 1.2</option>
               <option>HTK+ 1.2</option>
               <option>HTX 1.2</option>
