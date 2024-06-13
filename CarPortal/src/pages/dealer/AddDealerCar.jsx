@@ -864,20 +864,7 @@ export default function AddDealerCar() {
 
           {/* fifth part */}
           <div className="md:flex">
-            {/* <div className="mt-5 w-full">
-              <Inputs
-                label={"Registration"}
-                type={"text"}
-                name={"registration"}
-                value={formData.registration}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    registration: event.target.value,
-                  })
-                }
-              />
-            </div> */}
+          
             <div className="mt-5 w-full">
             <Inputs
               label={"Area"}
@@ -986,24 +973,23 @@ export default function AddDealerCar() {
             </div>
 
             <div className="mt-5 md:ml-2 w-full">
-              <select
-                className="w-full border-2 border-gray-400 p-2 rounded-md"
-                label={"Registration"}
-                type={"text"}
-                name={"registration"}
-                value={formData.registration}
-                onChange={(event) =>
-                  setFormData({ ...formData, registration: event.target.value })
-                }
-                disabled={!formData.city}
-              >
-                {/* <option>Registration</option> */}
-                {cityOptions[formData.city]?.map((reg) => (
-                  <option key={reg} value={formData.registration}>
-                    {reg}
-                  </option>
-                ))}
-              </select>
+            <select
+  className="w-full border-2 border-gray-400 p-2 rounded-md"
+  label={"Registration"}
+  name={"registration"}
+  value={formData.registration}
+  onChange={(event) =>
+    setFormData({ ...formData, registration: event.target.value })
+  }
+  disabled={!formData.city}
+>
+  {cityOptions[formData.city]?.map((reg) => (
+    <option key={reg} value={reg}>
+      {reg}
+    </option>
+  ))}
+</select>
+
             </div>
           </div>
           {/* </div> */}

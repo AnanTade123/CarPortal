@@ -17,6 +17,9 @@ console.log(carid)
         <Typography variant="h5" color="blue-gray" className="mb-2">
            {data.brand} {data.model} 
         </Typography>
+        <Typography variant="h7" color="blue-gray" className="mb-2">
+            {data.title}
+        </Typography>
         <p className="text-sm uppercase">
           {data.kmDriven} {data.fuelType} {data.transmission}
         </p>
