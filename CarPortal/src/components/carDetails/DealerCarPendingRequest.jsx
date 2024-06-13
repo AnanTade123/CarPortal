@@ -3,10 +3,26 @@
 import { Button, Chip } from "@material-tailwind/react";
 import CardUi from "../../ui/CardUi";
 import { Link } from "react-router-dom";
+// eslint-disable-next-line no-unused-vars
+import {useConfirmBookingQuery} from "../../services/carAPI"
 const DealerCarPendingRequest = ({ item }) => {
   console.log(item);
+
+
+  // eslint-disable-next-line no-unused-vars
+  //const [ConfirmBooking] = useConfirmBookingQuery();
+
+  function handleConfirmBook () {
+
+    // try {
+      
+    // } catch (error) {
+      
+    // }
+  }
   return (
     <div className="w-full flex justify-center ">
+      <form onSubmit={handleConfirmBook}>
       <CardUi>
         <div className="md:min-w-[30rem] w-[20rem]">
           <div className="flex justify-between">
@@ -77,6 +93,7 @@ const DealerCarPendingRequest = ({ item }) => {
           </div>
         </div>
       </CardUi>
+      </form>
     </div>
   );
 };

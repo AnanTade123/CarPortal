@@ -117,15 +117,15 @@ export default function BiddingAddCar() {
     setMult(Array.from(e.target.files));
   }
   return (
-    <div className="flex justify-center">
+    <div className="md:flex justify-center m-6 md:m-0">
       <div>
-        <form onSubmit={handleSubmit} className="w-[50rem]">
+        <form onSubmit={handleSubmit} className="w-full md:w-[50rem]">
           <div className="flex justify-center">
             <p className="text-3xl font-semibold m-4">Add Bidding Car</p>
           </div>
           {/* first part */}
-          <div className="flex ">
-            <div className="w-full">
+          <div className="md:flex">
+            <div className="mt-5 w-full">
               <Inputs
                 label={"Brand"}
                 type={"text"}
@@ -140,7 +140,7 @@ export default function BiddingAddCar() {
               />
             </div>
 
-            <div className="ml-2 w-full">
+            <div className="mt-5 md:ml-2 w-full">
               <Inputs
                 label={"model"}
                 type={"text"}
@@ -157,7 +157,7 @@ export default function BiddingAddCar() {
           </div>
 
           {/* second part */}
-          <div className="flex">
+          <div className="md:flex">
             <div className="mt-5 w-full">
               <Inputs
                 label={"price"}
@@ -173,7 +173,7 @@ export default function BiddingAddCar() {
               />
             </div>
 
-            <div className="mt-5 ml-2 w-full">
+            <div className="mt-5 md:ml-2 w-full">
               <Inputs
                 label={"year"}
                 type={"number"}
@@ -190,7 +190,7 @@ export default function BiddingAddCar() {
           </div>
 
           {/* third part */}
-          <div className="flex">
+          <div className="md:flex">
            
             <div className="mt-5 w-full">
               <select
@@ -211,7 +211,7 @@ export default function BiddingAddCar() {
               </select>
             </div>
 
-            <div className="mt-5 ml-2 w-full">
+            <div className="mt-5 md:ml-2 w-full">
               <select
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 name="bodyType"
@@ -237,7 +237,7 @@ export default function BiddingAddCar() {
           </div>
 
           {/* fourth part */}
-          <div className="flex">
+          <div className="md:flex">
             <div className="mt-5 w-full">
               <Inputs
                 label={"Color"}
@@ -253,7 +253,7 @@ export default function BiddingAddCar() {
               />
             </div>
 
-            <div className="mt-5 ml-2 w-full">
+            <div className="mt-5 md:ml-2 w-full">
               <Inputs
                 label={"Owner Serial"}
                 type={"number"}
@@ -270,7 +270,7 @@ export default function BiddingAddCar() {
           </div>
 
           {/* fifth part */}
-          <div className="flex">
+          <div className="md:flex">
             <div className="mt-5 w-full">
               <Inputs
                 label={"Registration"}
@@ -286,7 +286,7 @@ export default function BiddingAddCar() {
               />
             </div>
 
-            <div className="mt-5 ml-2 w-full">
+            <div className="mt-5 md:ml-2 w-full">
               <select
                 required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -307,7 +307,7 @@ export default function BiddingAddCar() {
           </div>
 
           {/* sixth part */}
-          <div className="flex">
+          <div className="md:flex">
             <div className="mt-5 w-full">
               <Inputs
                 label={"Km Driven"}
@@ -323,7 +323,7 @@ export default function BiddingAddCar() {
               />
             </div>
 
-            <div className="mt-5 ml-2 w-full">
+            <div className="mt-5 md:ml-2 w-full">
               <select
                 required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -346,7 +346,7 @@ export default function BiddingAddCar() {
           </div>
 
           {/* seventh part */}
-          <div className="flex">
+          <div className="md:flex">
             <div className="mt-5 w-full">
               <Inputs
                 label={"No Of Wheels"}
@@ -362,7 +362,7 @@ export default function BiddingAddCar() {
               />
             </div>
 
-            <div className="mt-5 ml-2 w-full">
+            <div className="mt-5 md:ml-2 w-full">
               <Inputs
                 label={"Tyre"}
                 type={"text"}
@@ -380,7 +380,7 @@ export default function BiddingAddCar() {
 
           {/* eight part */}
 
-          <div className="flex">
+          <div className="md:flex">
             <div className="mt-5 w-full">
               <Inputs
                 label={"City"}
@@ -395,7 +395,7 @@ export default function BiddingAddCar() {
                 }
               />
             </div>
-            <div className="mt-5 ml-2 w-full">
+            <div className="mt-5 md:ml-2 w-full">
               <Inputs
                 label={"Area"}
                 type={"text"}
@@ -412,7 +412,7 @@ export default function BiddingAddCar() {
           </div>
 
           {/* ninth part */}
-          <div className="flex">
+          <div className="md:flex">
             <div className="mt-5 ml-5">
               <input
                 label={"Music Feature"}
@@ -543,7 +543,7 @@ export default function BiddingAddCar() {
 
           <button
             type="submit"
-            className="p-3 bg-indigo-400 rounded-md w-28 text-white"
+            className="p-3 mt-3 bg-indigo-400 rounded-md w-28 text-white"
             value="Add  Car"
           >
             {" "}

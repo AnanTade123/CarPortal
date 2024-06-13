@@ -1,12 +1,24 @@
+/* eslint-disable no-unused-vars */
 import { apiSlice } from "./apiSlice";
 
 export const carApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     filterCar: builder.query({
       query: (urlState) => {
-        console.log(urlState);
+        // Destructure and provide default values
+        const {
+          minPrice = '',
+          maxPrice = '',
+          Area = '',
+          Year = '',
+          Brand = '',
+          Model = '',
+          Transmission = '',
+          FuleType = ''
+        } = urlState || {};
+    console.log(urlState)
         return {
-          url: `/cars/mainFilter/${0}?${urlState}`,
+          url: `/cars/mainFilter?minPrice=${minPrice}&maxPrice=${maxPrice}&area=${Area}&year=${Year}&brand=${Brand}&model=${Model}&transmission=${Transmission}&fuel_type=${FuleType}`,
           method: "GET",
         };
       },
@@ -86,6 +98,14 @@ export const carApi = apiSlice.injectEndpoints({
       providesTags: ["CAR"],
     }),
 
+    ConfirmBooking: builder.query({
+      query: () => ({
+        url: `/confirmBooking/book`,
+        method : "POST"
+      }),
+      providesTags: ["CAR"],
+    }),
+
     getPendingrequest : builder.query({
       query : ({CarId,currentpage}) => ({
         url : `/booking/getPendingBookingDetailsByCarID?pageNo=${currentpage}&CarId=${CarId}`,
@@ -136,5 +156,6 @@ export const {
   useUserAllCarRequestQuery,
   useGetAllUserConfirmQuery,
   useGetPendingrequestQuery,
-  useGetCarImageByIdQuery
+  useGetCarImageByIdQuery,
+  useConfirmBookingQuery
 } = carApi;
