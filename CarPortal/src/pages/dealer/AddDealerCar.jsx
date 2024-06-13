@@ -141,7 +141,7 @@ export default function AddDealerCar() {
     fuelType: "",
     kmDriven: "",
     carInsurance: "",
-    registration: "",
+    registration: '',
     description: "",
     title: "",
     area: "",
@@ -200,7 +200,7 @@ export default function AddDealerCar() {
 
       rearParkingCameraFeature: formData.rearParkingCameraFeature,
 
-      registration: formData.registration,
+      registration: formData.city,
  
       transmission: formData.transmission,
       
@@ -953,45 +953,42 @@ export default function AddDealerCar() {
 
           {/* eight part */}
 
-          <div className="md:flex">
-            <div className="mt-5 w-full">
-              <select
-                className="w-full border-2 border-gray-400 p-2 rounded-md"
-                label={"City"}
-                type={"text"}
-                name={"city"}
-                value={formData.city}
-                onChange={handleCityChange}
-              >
-                <option>City</option>
-                {Object.keys(cityOptions).map((city) => (
-                  <option key={city} value={city}>
-                    {city}
-                  </option>
-                ))}
-              </select>
-            </div>
+           <div className="md:flex">
+      <div className="mt-5 w-full">
+        <select
+          className="w-full border-2 border-gray-400 p-2 rounded-md"
+          name="city"
+          value={formData.city}
+          onChange={handleCityChange}
+        >
+          <option value="">City</option>
+          {Object.keys(cityOptions).map((city) => (
+            <option key={city} value={city}>
+              {city}
+            </option>
+          ))}
+        </select>
+      </div>
 
-            <div className="mt-5 md:ml-2 w-full">
-            <select
-  className="w-full border-2 border-gray-400 p-2 rounded-md"
-  label={"Registration"}
-  name={"registration"}
-  value={formData.registration}
-  onChange={(event) =>
-    setFormData({ ...formData, registration: event.target.value })
-  }
-  disabled={!formData.city}
->
-  {cityOptions[formData.city]?.map((reg) => (
-    <option key={reg} value={reg}>
-      {reg}
-    </option>
-  ))}
-</select>
-
-            </div>
-          </div>
+      <div className="mt-5 md:ml-2 w-full">
+        <select
+          className="w-full border-2 border-gray-400 p-2 rounded-md"
+          name="registration"
+          value={formData.registration}
+          onChange={(event) =>
+            setFormData({ ...formData, registration: event.target.value })
+          }
+          disabled={!formData.city}
+        >
+          <option value="">Registration</option>
+          {cityOptions[formData.city]?.map((reg) => (
+            <option key={reg} value={reg}>
+              {reg}
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
           {/* </div> */}
           
 
