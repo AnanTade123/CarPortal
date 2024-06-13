@@ -25,7 +25,7 @@ const CarView1 = ({ carId }) => {
 
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error fetching car image</div>;
+  if (error) return <div className="font-[Merriweather]">Image not available</div>;
 
   const ExteriorImages = data.object.filter(item => item.documentType === 'Exterior');
   const InteriorImages = data.object.filter(item => item.documentType === 'Interior');

@@ -62,7 +62,7 @@ export default function FooterF() {
             </div>
             <hr className="my-8 border-blue-gray-50" />
             <div className="flex gap-4 text-blue-gray-900 justify-center items-center align-middle">
-                <Typography as="a" href="#" className="opacity-80 transition-opacity hover:opacity-100">
+                <Typography as="a" href="https://www.facebook.com/" className="opacity-80 transition-opacity hover:opacity-100">
                     <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path
                             fillRule="evenodd"
@@ -71,7 +71,7 @@ export default function FooterF() {
                         />
                     </svg>
                 </Typography>
-                <Typography as="a" href="#" className="opacity-80 transition-opacity hover:opacity-100">
+                <Typography as="a" href="https://www.instagram.com/accounts/login/" className="opacity-80 transition-opacity hover:opacity-100">
                     <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path
                             fillRule="evenodd"

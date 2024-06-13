@@ -41,7 +41,7 @@ const PriceCard = ({
           {year} {brand} {model}
         </p>
         <p className="uppercase font-[Merriweather]">
-          {color} {bodyType} . MANUAL
+          {color} {bodyType} &  MANUAL
         </p>
         <div className="my-4 flex gap-2 overflow-x-auto scrollbar">
           <Chip

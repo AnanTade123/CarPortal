@@ -6,15 +6,17 @@ import { Link } from "react-router-dom";
 const UserCardPendingRequest = ({ item }) => {
   console.log(item);
   return (
-    <div className="w-full flex justify-center ">
+    <div className="w-96px items-center flex justify-center ">
       <CardUi>
         <div className="min-w-[30rem]">
-          <div className="flex justify-between">
+          <div className="flex justify-between mr-10">
+            <div className="md:ml-10">
             <Chip
               variant="outlined"
               value={`${item?.date}`}
               className="rounded-full font-[latto] text-sm"
             ></Chip>
+            </div>
             <Chip
               color="amber"
               value={`${item?.status}`}
