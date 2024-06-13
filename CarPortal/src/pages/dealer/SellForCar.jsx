@@ -322,6 +322,18 @@ const SellForCar = () => {
                   </Link>
                 </div>
               </div>
+              <div className="flex justify-center gap-10 mt-3">
+                <div className="flex flex-col items-center align-middle bg-blue-200 px-3 py-2 rounded-lg">
+                  <div className="font-bold text-base text-black">All Cars</div>
+                  <div className="text-white font-bold">200</div>
+                </div>
+                <div className="flex flex-col items-center align-middle bg-blue-200 px-3 py-2 rounded-lg">
+                  <div className="font-bold text-base text-black">
+                    Sold Cars
+                  </div>
+                  <div className="text-white font-bold">96</div>
+                </div>
+              </div>
             </CardHeader>
             {error ? (
               <p className="text-center">car is not found</p>
