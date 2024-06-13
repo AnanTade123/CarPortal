@@ -160,7 +160,7 @@ export default function AddDealerCar() {
       
       title: formData.title,
 
-      transmission: formData.transmission,
+      // transmission: formData.transmission,
 
       year: formData.year,
 
