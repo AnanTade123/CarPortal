@@ -56,7 +56,7 @@ const cityOptions = {
   Nashik: ["MH-15", "MH-51"],
   Beed: ["MH-23"],
   Jalna: ["MH-21"],
-  Nagpur: ["MH-31", "MH-49  "],
+  Nagpur: ["MH-31", "MH-49", "MH-40"],
   Gondia: ["MH-35"],
   Gadchiroli: ["MH-33"],
   Bhandara: ["MH-36"],
@@ -276,6 +276,7 @@ export default function AddDealerCar() {
                   })
                 }
               >
+              <option>Car Variant</option>
               <option>HTE 1.2</option>
               <option>HTK 1.2</option>
               <option>HTK+ 1.2</option>
