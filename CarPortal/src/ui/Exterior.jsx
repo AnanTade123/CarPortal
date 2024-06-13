@@ -4,7 +4,7 @@ import { useAddCarImagesMutation } from '../services/dealerAPI';
 import { Button, Dialog, DialogHeader, DialogBody, DialogFooter } from '@material-tailwind/react';
 import { useParams } from 'react-router-dom';
 import { useDealerIdByCarQuery } from '../services/carAPI';
-import jwtDecode from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 import Cookies from 'js-cookie';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
