@@ -98,10 +98,12 @@ export const carApi = apiSlice.injectEndpoints({
       providesTags: ["CAR"],
     }),
 
-    ConfirmBooking: builder.query({
-      query: () => ({
+    ConfirmBooking: builder.mutation({
+      query: (formdata) => ({
         url: `/confirmBooking/book`,
-        method : "POST"
+        transferResponse: console.log(formdata),
+        method : "POST",
+        body :formdata
       }),
       providesTags: ["CAR"],
     }),
@@ -157,5 +159,5 @@ export const {
   useGetAllUserConfirmQuery,
   useGetPendingrequestQuery,
   useGetCarImageByIdQuery,
-  useConfirmBookingQuery
+  useConfirmBookingMutation
 } = carApi;
