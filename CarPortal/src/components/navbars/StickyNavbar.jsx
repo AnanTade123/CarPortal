@@ -56,7 +56,7 @@ console.log(userRole)
           Dealer List
         </Typography>
       </Link>
-      <Link to={"/inspector"}>
+      {/* <Link to={"/inspector"}>
         <Typography
           as="li"
           variant="small"
@@ -65,7 +65,7 @@ console.log(userRole)
         >
           Inspector List
         </Typography>
-      </Link>
+      </Link> */}
 
       
     </>
