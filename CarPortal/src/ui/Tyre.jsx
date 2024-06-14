@@ -1,21 +1,19 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAddCarImagesMutation } from '../services/dealerAPI';
 import { Button, Dialog, DialogHeader, DialogBody, DialogFooter } from '@material-tailwind/react';
 import { useParams } from 'react-router-dom';
 import { useDealerIdByCarQuery } from '../services/carAPI';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode'; // Use named import
 import Cookies from 'js-cookie';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Tyre() {
-  const [openDialog, setOpenDialog] = useState(false);
-  const [images1, setImages1] = useState([]);
-  const [images2, setImages2] = useState([]);
-  const [images3, setImages3] = useState([]);
-  const [images4, setImages4] = useState([]);
+  const [openDialog, setOpenDialog] = useState(false); // State to control the dialog display
+  const [images, setImages] = useState([]);
   const [document, setDocument] = useState('');
+  // eslint-disable-next-line no-unused-vars
+  // const navigate = useNavigate();
   const { id } = useParams();
   const token = Cookies.get('token');
   let jwtDecodes;
@@ -27,27 +25,29 @@ export default function Tyre() {
   const UserID = jwtDecodes?.userId;
   const { data } = useDealerIdByCarQuery({ id, pageNo: 0 });
 
+  //const lastCarId = data?.list?.length > 0 ? data?.list[data?.list.length - 1].carId : null;
   const firstCarId = data?.list?.length > 0 ? data?.list[0].carId : null;
-  console.log(firstCarId);
 
   const [addCarImages] = useAddCarImagesMutation();
 
-  const readImages = (event, setImageFunction) => {
+  const readImages = (event) => {
     const files = Array.from(event.target.files);
-    setImageFunction(files);
+    setImages(files);
   };
 
-  const handleSubmit = async (images) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
     if (!firstCarId || !images.length) {
-      console.error('firstCarId or images is not defined');
+      console.error('lastCarId or images is not defined');
       return;
     }
-
+  
     const formData = new FormData();
     for (const image of images) {
       formData.append('image', image);
     }
-
+  
     try {
       const response = await addCarImages({
         formData,
@@ -57,6 +57,7 @@ export default function Tyre() {
       }).unwrap();
       console.log(response);
       toast.success("Uploaded Successfully");
+      setImages([]); // Clear images after successful upload
     } catch (error) {
       console.error(error);
       toast.error("Upload Failed");
@@ -64,21 +65,15 @@ export default function Tyre() {
   };
 
   const handleOpenDialog = () => {
-    setOpenDialog(true);
+    setOpenDialog(true); // Show the dialog
   };
 
   const handleCloseDialog = () => {
-    setOpenDialog(false);
+    setOpenDialog(false); // Close the dialog
   };
 
-  useEffect(() => {
-    if (document) {
-      handleSubmit();
-    }
-  }, [document]);
-
   return (
-    <div className=" ">
+    <div className="">
       <Button
         type="button"
         className="bg-indigo-500 w-64 h-10 text-white"
@@ -87,88 +82,92 @@ export default function Tyre() {
         Upload Tyre Car Images
       </Button>
       <Dialog open={openDialog} handler={setOpenDialog} size="md" dismiss={{ backdrop: false }}>
-        <ToastContainer />
+      <ToastContainer />
         <DialogHeader>Upload Tyre Car Images</DialogHeader>
         <DialogBody>
           <form
             onSubmit={(e) => {
-              e.preventDefault();
               setDocument('Tyre');
-              handleSubmit(images1);
+              handleSubmit(e);
             }}
             className="flex flex-col space-y-2"
           >
-            <div className="flex space-x-2 space-y-2">
-              <input
-                type="file"
-                accept="image/*"
-                required
-                onChange={(e) => readImages(e, setImages1)}
-              />
-              <Button type="submit" className="bg-indigo-500 w-40 h-10 text-white">
-                Upload
-              </Button>
-            </div>
+
+              <div className="flex space-x-2 space-y-2">
+                <input
+                  type="file"
+                  accept="image/*"
+                  required
+                  onChange={readImages}
+                />
+                <Button type="submit" className="bg-indigo-500 w-40 h-10 text-white">
+                  Upload
+                </Button>
+              </div>
+            
           </form>
           <form
             onSubmit={(e) => {
-              e.preventDefault();
               setDocument('Tyre');
-              handleSubmit(images2);
+              handleSubmit(e);
             }}
             className="flex flex-col space-y-2"
           >
-            <div className="flex space-x-2 space-y-2">
-              <input
-                type="file"
-                accept="image/*"
-                required
-                onChange={(e) => readImages(e, setImages2)}
-              />
-              <Button type="submit" className="bg-indigo-500 w-40 h-10 text-white">
-                Upload
-              </Button>
-            </div>
+        
+              <div className="flex space-x-2 space-y-2">
+                <input
+                  type="file"
+                  accept="image/*"
+                  required
+                  onChange={readImages}
+                />
+                <Button type="submit" className="bg-indigo-500 w-40 h-10 text-white">
+                  Upload
+                </Button>
+              </div>
+            
           </form>
           <form
             onSubmit={(e) => {
-              e.preventDefault();
               setDocument('Tyre');
-              handleSubmit(images3);
+              handleSubmit(e);
             }}
             className="flex flex-col space-y-2"
           >
-            <div className="flex space-x-2 space-y-2">
-              <input
-                type="file"
-                accept="image/*"
-                required
-                onChange={(e) => readImages(e, setImages3)}
-              />
-              <Button type="submit" className="bg-indigo-500 w-40 h-10 text-white">
-                Upload
-              </Button>
-            </div>
+            
+              <div className="flex space-x-2 space-y-2">
+                <input
+                  type="file"
+                  accept="image/*"
+                  required
+                  onChange={readImages}
+                />
+                <Button type="submit" className="bg-indigo-500 w-40 h-10 text-white">
+                  Upload
+                </Button>
+              </div>
+           
           </form>
           <form
             onSubmit={(e) => {
-              e.preventDefault();
               setDocument('Tyre');
-              handleSubmit(images4);
+              handleSubmit(e);
             }}
             className="flex flex-col space-y-2"
           >
-            <div className="flex space-x-2 space-y-2">
-              <input
-                type="file"
-                accept="image/*"
-                required
-                onChange={(e) => readImages(e, setImages4)}
-              />
-              <Button type="submit" className="bg-indigo-500 w-40 h-10 text-white">
-                Upload
-              </Button>
-            </div>
+     
+              <div className="flex space-x-2 space-y-2">
+                <input
+                  type="file"
+                  accept="image/*"
+                  required
+                  onChange={readImages}
+                />
+                <Button type="submit" className="bg-indigo-500 w-40 h-10 text-white">
+                  Upload
+                </Button>
+              </div>
+           
           </form>
         </DialogBody>
         <DialogFooter>
