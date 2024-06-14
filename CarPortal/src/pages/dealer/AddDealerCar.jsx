@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import Inputs from "../../forms/Inputs";
+import Inputs from "../../forms/Inputs";
 import { Textarea, Input } from "@material-tailwind/react";
 // import React from "react";
 import { useCarRegisterMutation } from "../../services/carAPI";
@@ -304,6 +304,12 @@ console.log(data)
   //   setFormData({ ...formData, city, registration: "" });
   // };
 
+
+  const handleCityChange = (event) => {
+    const city = event.target.value;
+    setFormData({ ...formData, city, registration: "" });
+  };
+  
   // Car Insurance ValidDate
   const handleChange = (event) => {
     const value = event.target.value === 'true';
