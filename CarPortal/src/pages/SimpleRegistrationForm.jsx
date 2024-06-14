@@ -70,7 +70,7 @@ export function SimpleRegistrationForm() {
         break;
       case "mobileNumber":
         error = !/^\d{10}$/.test(value)
-          ? "Mobile number must be 10 digits"
+          ? "Mobile number must be 10 digits" 
           : "";
         break;
       case "address":

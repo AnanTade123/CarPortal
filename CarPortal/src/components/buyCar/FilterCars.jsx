@@ -8,35 +8,37 @@ const FilterCars = ({ setUrlState }) => {
 
   console.log(value);
   const [filterForm, setFilterForm] = useState({
-    area: '',
-    year: '',
-    brand: '',
-    model: '',
-    fuelType: '',
-    transmission: '',
+    area: "",
+    year: "",
+    brand: "",
+    model: "",
+    fuelType: "",
+    transmission: "",
+    ownership: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
+
     setFilterForm({ ...filterForm, [name]: value });
   };
 
   const submitHandle = (e) => {
     e.preventDefault();
-   // const { area, year, brand, model, fuelType, transmission } = filterForm;
+    // const { area, year, brand, model, fuelType, transmission } = filterForm;
     // const minPrice = 3999; // Assuming this is your default minimum price
     // const maxPrice = value; // Maximum price from the slider
-    filterForm.brand.toUpperCase()
+    filterForm.brand.toUpperCase();
     const url = {
-      Area : filterForm.area,
-      Year : filterForm.year,
-      Brand : filterForm.brand.toUpperCase(),
-      Model : filterForm.model,
-      FuleType : filterForm.fuelType,
-      Transmission : filterForm.transmission
+      Area: filterForm.area,
+      Year: filterForm.year,
+      Brand: filterForm.brand.toUpperCase(),
+      Model: filterForm.model,
+      FuleType: filterForm.fuelType,
+      Transmission: filterForm.transmission,
+      ownership: filterForm.ownership,
     };
-//console.log(brand.toUpperCase())
+    //console.log(brand.toUpperCase())
     // Append selected filters to the URL if they are not empty
     // if (minPrice) url += `&minPrice=${minPrice}`;
     // if (maxPrice > minPrice) url += `&maxPrice=${maxPrice}`;
@@ -49,8 +51,6 @@ const FilterCars = ({ setUrlState }) => {
     // if (fuelType) url += `&fuel_type=${fuelType}`;
     //const url = Object.fromEntries(Object.entries(url1).filter(([_, v]) => v !== ""));
     setUrlState(url);
-
-    
   };
 
   const resetForm = () => {
@@ -62,16 +62,16 @@ const FilterCars = ({ setUrlState }) => {
       model: "",
       fuelType: "",
       transmission: "",
+      ownership: "",
     });
   };
   console.log(new Intl.NumberFormat("en-IN").format(value));
   const formattedAmount = new Intl.NumberFormat("en-IN").format(value);
-  
+
   return (
     <Card className="p-4">
       <div className="space-y-4  ">
         <form onSubmit={submitHandle}>
-          
           <div className="mb-1 flex flex-col gap-6 ">
             <Typography variant="h6" color="blue-gray" className="-mb-8">
               Price Range
@@ -124,7 +124,6 @@ const FilterCars = ({ setUrlState }) => {
               <option>Boat Club Road</option>
               <option>Chakan</option>
               <option>Bavdhan</option>
-              
             </select>
             <select
               name="year"
@@ -225,8 +224,12 @@ const FilterCars = ({ setUrlState }) => {
             </select>
           </div>
           <div className="flex gap-5 mt-5">
-            <Button type="submit" className="bg-indigo-200">Search</Button>
-            <Button onClick={resetForm} className="bg-indigo-200">Reset</Button>
+            <Button type="submit" className="bg-indigo-200">
+              Search
+            </Button>
+            <Button onClick={resetForm} className="bg-indigo-200">
+              Reset
+            </Button>
           </div>
         </form>
       </div>
