@@ -158,10 +158,6 @@ export default function AddDealerCar() {
       
       title: formData.title,
 
-      variant : formData.cVariant,
-
-      carInsuranceDate :formData.insurancedate ,
-
       year: formData.year,
 
       dealer_id: id,
