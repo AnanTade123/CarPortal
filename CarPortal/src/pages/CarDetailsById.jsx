@@ -10,18 +10,13 @@ const CarDetailsById = () => {
   const navigate = useNavigate();
   const { carId } = useParams();
 
-  const { data, isLoading, isError, error } = useGetCarByIdQuery(carId);
+  const { data, isLoading, error } = useGetCarByIdQuery(carId);
   console.log(data)
 
   if (isLoading) {
     return <p>Loading...</p>;
   }
-  console.log(data);
-  console.log(carId);
-  console.log(isLoading);
-  console.log(isError);
-  console.log(error);
-  console.log(error);
+ 
   if (error?.status === 401) {
     console.log("navigate");
 

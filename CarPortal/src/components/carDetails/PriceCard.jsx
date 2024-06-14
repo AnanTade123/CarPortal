@@ -41,7 +41,7 @@ const PriceCard = ({
           {year} {brand} {model}
         </p>
         <p className="uppercase font-[Merriweather]">
-          {color} {bodyType} . MANUAL
+          {color} {bodyType} &  MANUAL
         </p>
         <div className="my-4 flex gap-2 overflow-x-auto scrollbar">
           <Chip
@@ -100,10 +100,16 @@ const PriceCard = ({
             </div>
           </div>
         </div>
-
-        {userRole == "DEALER" ? null : (
-          <DialogBox price={price} dealer_id={dealer_id} carId={carId} />
-        )}
+        <div className="flex justify-center items-center align-middle mb-3">
+          {userRole == "DEALER" ? null : (
+            <DialogBox
+              price={price}
+              dealer_id={dealer_id}
+              carId={carId}
+              className
+            />
+          )}
+        </div>
       </div>
     </CardUi>
   );

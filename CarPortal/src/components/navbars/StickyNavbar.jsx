@@ -35,7 +35,7 @@ export function StickyNavbar() {
 console.log(userRole)
   const adminDashboard = userRole?.includes("ADMIN") ? (
     <>
-    <Link to={"/bidding"}>
+    {/* <Link to={"/bidding"}>
         <Typography
           as="li"
           variant="small"
@@ -44,7 +44,7 @@ console.log(userRole)
         >
           Live
         </Typography>
-      </Link>
+      </Link> */}
 
       <Link to={"/admin"}>
         <Typography
@@ -56,7 +56,7 @@ console.log(userRole)
           Dealer List
         </Typography>
       </Link>
-      <Link to={"/inspector"}>
+      {/* <Link to={"/inspector"}>
         <Typography
           as="li"
           variant="small"
@@ -65,7 +65,7 @@ console.log(userRole)
         >
           Inspector List
         </Typography>
-      </Link>
+      </Link> */}
 
       
     </>
@@ -84,7 +84,7 @@ console.log(userRole)
         </Typography>
       </Link>
      
-      <Link to={"/bidding"}>
+      {/* <Link to={"/bidding"}>
         <Typography
           as="li"
           variant="small"
@@ -93,7 +93,7 @@ console.log(userRole)
         >
           Live
         </Typography>
-      </Link>
+      </Link> */}
 
       <Link to={`/dealer/${jwtDecodes?.dealerId}`}>
         <Typography

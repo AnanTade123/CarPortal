@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { UserPlusIcon } from "@heroicons/react/24/solid";
-import { Button, Dialog, CardBody, Typography } from "@material-tailwind/react";
-import Inputs from "../../forms/Inputs";
+import { Button, Dialog, CardBody, Typography, Input } from "@material-tailwind/react";
 import CardUi from "../../ui/CardUi";
 import { useSignUpMutation } from "../../services/authAPI";
 
@@ -26,7 +25,7 @@ export function AddDealerForm() {
     status: false,
     userType: "",
   });
-  
+
   // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,7 +42,7 @@ export function AddDealerForm() {
     try {
       const { data } = await SignUp(formData);
       console.log(data);
-      alert("Register Sucessfully")
+      alert("Register Successfully");
     } catch (error) {
       console.log(error);
     }
@@ -58,6 +57,10 @@ export function AddDealerForm() {
       city: "",
       address: "",
       shopName: "",
+      roles: "DEALER",
+      document: 0,
+      status: false,
+      userType: "",
     });
     // Close the dialog
     setOpen(false);
@@ -80,66 +83,75 @@ export function AddDealerForm() {
             <Typography variant="h4" color="blue-gray">
               Add Dealer
             </Typography>
-            <form onSubmit={handleSubmit} className="space-y-3  ">
-              <div className="flex md:flex-row flex-col  md:gap-2 gap-3 ">
-                <Inputs
+            <form onSubmit={handleSubmit} className="space-y-3">
+              <div className="flex gap-2">
+                <Input
                   label="First Name"
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
+                  required="required"
                 />
-                <Inputs
+                <Input
                   label="Last Name"
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
+                  required="required"
                 />
               </div>
-              <Inputs
+              <Input
                 label="Email"
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
+                required="required"
               />
-              <Inputs
+              <Input
                 label="Mobile Number"
                 name="mobileNo"
                 value={formData.mobileNo}
                 onChange={handleChange}
+                required="required"
               />
-              <Inputs
+              <Input
                 label="Password"
                 type="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
+                required="required"
               />
-              <div className="flex md:flex-row flex-col md:gap-2 gap-3">
-                <Inputs
+              <div className="flex gap-2">
+                <Input
                   label="Area"
                   name="area"
                   value={formData.area}
                   onChange={handleChange}
+                  required="required"
                 />
-                <Inputs
+                <Input
                   label="City"
                   name="city"
                   value={formData.city}
                   onChange={handleChange}
+                  required="required"
                 />
               </div>
-              <Inputs
+              <Input
                 label="Address"
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
+                required="required"
               />
-              <Inputs
+              <Input
                 label="Shop Name"
                 name="shopName"
                 value={formData.shopName}
                 onChange={handleChange}
+                required="required"
               />
               <Button type="submit">Add</Button>
             </form>

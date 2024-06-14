@@ -104,6 +104,8 @@ export default function AddDealerCar() {
     carStatus: "Active",
     ownerSerial: "",
     dealer_id: "",
+    cVariant : "",
+    carInsuranceDate :""
   });
   const { id } = useParams();
   console.log(id);
@@ -115,6 +117,7 @@ export default function AddDealerCar() {
 
   const formattedDate = `${year}-${month}-${day}`;
 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -125,8 +128,6 @@ export default function AddDealerCar() {
       musicFeature: formData.musicFeature,
 
       area: formData.area,
-
-      bodyType: formData.bodyType,
 
       brand: formData.brand,
 
@@ -156,9 +157,13 @@ export default function AddDealerCar() {
 
       registration: formData.registration,
 
+      transmission: formData.transmission,
+      
       title: formData.title,
 
-      transmission: formData.transmission,
+      variant : formData.cVariant ,
+
+      carInsuranceDate :formData.carInsuranceDate ,
 
       year: formData.year,
 
@@ -170,15 +175,15 @@ export default function AddDealerCar() {
     const res = await carRegister(data);
 
     if (res?.data?.status === "success") {
-      alert("car added");
-      navigate(`/dealer/${id}/uploadimage`);
+      alert("Car added");
+      navigate(`/dealer/${id}/uploadimage`); // Corrected URL string with backticks (`) for interpolation
     }
   };
 
   //Two field Brands and Model
   const [selectedBrand, setSelectedBrand] = useState("");
   const [modelOptions, setModelOptions] = useState([]);
-  const [formDataC, setFormDataC] = useState({ carInsurance: "" });
+  //const [formDataC, setFormDataC] = useState({ carInsurance: "" });
   const [showCalendar, setShowCalendar] = useState(false);
 
   const handleBrandChange = (event) => {
@@ -209,12 +214,20 @@ export default function AddDealerCar() {
 
   // Car Insurance ValidDate
   const handleChange = (event) => {
-    const value = event.target.value === "true";
-    setFormDataC({
-      ...formDataC,
+    const value = event.target.value === 'true';
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       carInsurance: value,
-    });
+    }));
     setShowCalendar(value);
+  };
+
+  const handleDateChange = (event) => {
+    const { value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      insurancedate: value,
+    }));
   };
 
   return (
@@ -276,6 +289,7 @@ export default function AddDealerCar() {
                   })
                 }
               >
+              <option>Select variant</option>
               <option>HTE 1.2</option>
               <option>HTK 1.2</option>
               <option>HTK+ 1.2</option>
@@ -806,48 +820,52 @@ export default function AddDealerCar() {
 
           {/* fifth part */}
           <div className="md:flex">
-            <div className="mt-5 w-full">
-              <Inputs
-                label={"Registration"}
-                type={"text"}
-                name={"registration"}
-                value={formData.registration}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    registration: event.target.value,
-                  })
-                }
-              />
-            </div>
+          <div className="mt-5 w-full">
+            <Inputs
+              label={"Area"}
+              type={"text"}
+              name={"area"}
+              value={formData.area}
+              onChange={(event) =>
+                setFormData({
+                  ...formData,
+                  area: event.target.value,
+                })
+              }
+            />
+          </div>
 
             <div className="mt-5 md:ml-2 w-full">
-              <select
-                required
-                className="w-full border-2 border-gray-400 p-2 rounded-md"
-                name="carInsurance"
-                value={formData.carInsurance}
-                onChange={handleChange}
-              >
-                <option value="">Car Insurance</option>
-                <option value={true}>Yes</option>
-                <option value={false}>No</option>
-              </select>
-              {showCalendar && (
-                <div className="mt-3">
-                  <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="date"
-                  >
-                    Select Date
-                  </label>
-                  <input
-                    type="date"
-                    id="date"
-                    className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  />
-                </div>
-              )}
+            <select
+        required
+        className="w-full border-2 border-gray-400 p-2 rounded-md"
+        name="carInsurance"
+        value={formData.carInsurance}
+        onChange={handleChange}
+      >
+        <option value="">Car Insurance</option>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+      </select>
+      {showCalendar && (
+        <div className="mt-3">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="date"
+          >
+            Select Date
+          </label>
+          <input
+            type="date"
+            id="date"
+            value={formData.insurancedate}
+            onChange={handleDateChange}
+            className="w-full border-2 border-gray-400 p-2 rounded-md"
+          />
+        </div>
+      )}
+
+
             </div>
           </div>
 
@@ -933,20 +951,7 @@ export default function AddDealerCar() {
             </div>
           </div>
           {/* </div> */}
-          <div className="mt-5 md:w-[50%]">
-            <Inputs
-              label={"Area"}
-              type={"text"}
-              name={"area"}
-              value={formData.area}
-              onChange={(event) =>
-                setFormData({
-                  ...formData,
-                  area: event.target.value,
-                })
-              }
-            />
-          </div>
+         
 
           {/* ninth part */}
           <div className="md:flex">
@@ -1016,7 +1021,24 @@ export default function AddDealerCar() {
           </div>
 
           {/* tenth part */}
-
+          <div className="mt-5 mb-2">
+            <h4>Title</h4>
+            <div className="formrow">
+              <Input
+                required
+                className="form-control"
+                name="title"
+                placeholder="Title"
+                value={formData.title}
+                onChange={(event) => {
+                  setFormData({
+                    ...formData,
+                    title: event.target.value,
+                  });
+                }}
+              ></Input>
+            </div>
+          </div>
           {/* eleventh part */}
 
           <div className="mt-5">
@@ -1039,7 +1061,7 @@ export default function AddDealerCar() {
           </div>
           {/* twelth part */}
 
-          <div className="mt-5 mb-2">
+          {/* <div className="mt-5 mb-2">
             <h4>Title</h4>
             <div className="formrow">
               <Input
@@ -1056,7 +1078,7 @@ export default function AddDealerCar() {
                 }}
               ></Input>
             </div>
-          </div>
+          </div> */}
 
           <button
             type="submit"

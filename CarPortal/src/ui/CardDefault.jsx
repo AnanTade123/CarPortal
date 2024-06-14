@@ -8,14 +8,17 @@ export function CardDefault({ data }) {
 const carid = data?.carId
 console.log(carid)
   return (
-    <Card className="mt-6 w-96 md:m-0 m-3">
+    <Card className="mt-6 w-96 md:m-0 m-3 items-center">
       <div className="w-[18rem] h-[16rem] ">
         <CarouselCustomArrows  carId={carid} />
       </div>
-      <CardBody>
+      <CardBody className="mb-10">
         <Typography>{data.year}</Typography>
         <Typography variant="h5" color="blue-gray" className="mb-2">
            {data.brand} {data.model} 
+        </Typography>
+        <Typography variant="h7" color="blue-gray" className="mb-2">
+            {data.title}
         </Typography>
         <p className="text-sm uppercase">
           {data.kmDriven} {data.fuelType} {data.transmission}

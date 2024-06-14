@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unsafe-optional-chaining */
 import CarView1 from "./CarView1";
@@ -37,7 +38,7 @@ const CarView = ({
         kmDriven={kmDriven}
       />
       <InspectionReport/>
-      <TopFeatures/>
+      {/* <TopFeatures/> */}
     </div>
   );
 };
