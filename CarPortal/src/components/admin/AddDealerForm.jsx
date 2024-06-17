@@ -79,12 +79,12 @@ export function AddDealerForm() {
       >
         <CardUi>
           <div className="md:flex justify-center m-5 md:m-0">
-          <CardBody className="flex flex-col gap-4 ">
+          <CardBody className="flex flex-col gap-4 justify-center">
             <Typography variant="h4" color="blue-gray">
               Add Dealer
             </Typography>
-            <form onSubmit={handleSubmit} className="space-y-3">
-              <div className="flex gap-2">
+            <form onSubmit={handleSubmit} className="space-y-3 md:w-full w-[220px]">
+              <div className="flex md:flex-row flex-col gap-2 ">
                 <Input
                   label="First Name"
                   name="firstName"
@@ -123,7 +123,7 @@ export function AddDealerForm() {
                 onChange={handleChange}
                 required="required"
               />
-              <div className="flex gap-2">
+              <div className="flex gap-2 md:flex-row flex-col">
                 <Input
                   label="Area"
                   name="area"
