@@ -105,7 +105,7 @@ export default function AddDealerCar() {
     ownerSerial: "",
     dealer_id: "",
     cVariant : "",
-    carInsuranceDate :""
+    insurancedate :""
   });
   const { id } = useParams();
   console.log(id);
@@ -135,7 +135,7 @@ export default function AddDealerCar() {
 
       carStatus: "ACTIVE",
 
-      city: formData.city,
+     // city: formData.city,
 
       color: formData.color,
 
@@ -163,7 +163,7 @@ export default function AddDealerCar() {
 
       variant : formData.cVariant ,
 
-      carInsuranceDate :formData.carInsuranceDate ,
+      carInsuranceDate :formData.insurancedate ,
 
       year: formData.year,
 
@@ -208,8 +208,12 @@ export default function AddDealerCar() {
 
   // City Change
   const handleCityChange = (event) => {
-    const city = event.target.value;
-    setFormData({ ...formData, city, registration: "" });
+    const selectedCity = event.target.value;
+  setFormData({
+    ...formData,
+    city: selectedCity,
+    registration: '', // Reset registration when city changes
+  });
   };
 
   // Car Insurance ValidDate
@@ -911,44 +915,43 @@ export default function AddDealerCar() {
           {/* eight part */}
 
           <div className="md:flex">
-            <div className="mt-5 w-full">
-              <select
-                className="w-full border-2 border-gray-400 p-2 rounded-md"
-                label={"City"}
-                type={"text"}
-                name={"city"}
-                value={formData.city}
-                onChange={handleCityChange}
-              >
-                <option>City</option>
-                {Object.keys(cityOptions).map((city) => (
-                  <option key={city} value={city}>
-                    {city}
-                  </option>
-                ))}
-              </select>
-            </div>
+          <div className="mt-5 w-full">
+  <select
+    className="w-full border-2 border-gray-400 p-2 rounded-md"
+    label="City"
+    name="city"
+    value={formData.city}
+    onChange={handleCityChange}
+  >
+    <option value="">Select City</option>
+    {Object.keys(cityOptions).map((city) => (
+      <option key={city} value={city}>
+        {city}
+      </option>
+    ))}
+  </select>
+</div>
 
-            <div className="mt-5 ml-2 w-full">
-              <select
-                className="w-full border-2 border-gray-400 p-2 rounded-md"
-                label={"Registration"}
-                type={"text"}
-                name={"registration"}
-                value={formData.registration}
-                onChange={(event) =>
-                  setFormData({ ...formData, registration: event.target.value })
-                }
-                disabled={!formData.city}
-              >
-                {/* <option>Registration</option> */}
-                {cityOptions[formData.city]?.map((reg) => (
-                  <option key={reg} value={reg}>
-                    {reg}
-                  </option>
-                ))}
-              </select>
-            </div>
+<div className="mt-5 ml-2 w-full">
+  <select
+    className="w-full border-2 border-gray-400 p-2 rounded-md"
+    label="Registration"
+    name="registration"
+    value={formData.registration}
+    onChange={(event) =>
+      setFormData({ ...formData, registration: event.target.value })
+    }
+    disabled={!formData.city}
+  >
+    <option value="">Select Registration</option>
+    {formData.city && cityOptions[formData.city]?.map((reg) => (
+      <option key={reg} value={reg}>
+        {reg}
+      </option>
+    ))}
+  </select>
+</div>
+
           </div>
           {/* </div> */}
          
