@@ -26,6 +26,12 @@ export function AddDealerForm() {
     userType: "",
   });
 
+  // Validation state
+  const [errors, setErrors] = useState({
+    email: "",
+    mobileNo: ""
+  });
+
   // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,9 +41,32 @@ export function AddDealerForm() {
     }));
   };
 
+  // Validate email
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  // Validate mobile number
+  const validateMobileNo = (mobileNo) => {
+    const mobileNoRegex = /^\d{10}$/; // Adjust the pattern according to your requirements
+    return mobileNoRegex.test(mobileNo);
+  };
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate form data
+    const emailError = validateEmail(formData.email) ? "" : "Invalid email address";
+    const mobileNoError = validateMobileNo(formData.mobileNo) ? "" : "Invalid mobile number";
+    setErrors({ email: emailError, mobileNo: mobileNoError });
+
+    // If there are validation errors, do not proceed
+    if (emailError || mobileNoError) {
+      return;
+    }
+
     // Perform form submission logic here, e.g., send data to backend
     try {
       const { data } = await SignUp(formData);
@@ -78,7 +107,7 @@ export function AddDealerForm() {
         className="bg-transparent shadow-none"
       >
         <CardUi>
-          <CardBody className="flex flex-col gap-4 ">
+          <CardBody className="flex flex-col gap-4">
             <Typography variant="h4" color="blue-gray">
               Add Dealer
             </Typography>
@@ -89,14 +118,14 @@ export function AddDealerForm() {
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
-                  required="required"
+                  required
                 />
                 <Input
                   label="Last Name"
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
-                  required="required"
+                  required
                 />
               </div>
               <Input
@@ -105,22 +134,31 @@ export function AddDealerForm() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                required="required"
+                error={errors.email}
+                required
               />
+              {errors.email && (
+                <Typography color="red">{errors.email}</Typography>
+              )}
               <Input
                 label="Mobile Number"
+                type="tel"
                 name="mobileNo"
                 value={formData.mobileNo}
                 onChange={handleChange}
-                required="required"
+                error={errors.mobileNo}
+                required
               />
+              {errors.mobileNo && (
+                <Typography color="red">{errors.mobileNo}</Typography>
+              )}
               <Input
                 label="Password"
                 type="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                required="required"
+                required
               />
               <div className="flex gap-2">
                 <Input
@@ -128,14 +166,14 @@ export function AddDealerForm() {
                   name="area"
                   value={formData.area}
                   onChange={handleChange}
-                  required="required"
+                  required
                 />
                 <Input
                   label="City"
                   name="city"
                   value={formData.city}
                   onChange={handleChange}
-                  required="required"
+                  required
                 />
               </div>
               <Input
@@ -143,14 +181,14 @@ export function AddDealerForm() {
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
-                required="required"
+                required
               />
               <Input
                 label="Shop Name"
                 name="shopName"
                 value={formData.shopName}
                 onChange={handleChange}
-                required="required"
+                required
               />
               <Button type="submit">Add</Button>
             </form>
