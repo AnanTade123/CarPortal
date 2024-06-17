@@ -4,7 +4,7 @@ import { Card } from "@material-tailwind/react";
 import { Button, Slider, Typography } from "@material-tailwind/react";
 // eslint-disable-next-line react/prop-types
 const FilterCars = ({ setUrlState }) => {
-  const [value, setValue] = useState(200000);
+  const [value, setValue] = useState();
 
   console.log(value);
   const [filterForm, setFilterForm] = useState({

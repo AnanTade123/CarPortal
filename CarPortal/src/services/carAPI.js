@@ -18,7 +18,7 @@ export const carApi = apiSlice.injectEndpoints({
         } = urlState || {};
     console.log(urlState)
         return {
-          url: `/cars/mainFilter?minPrice=${MinPrice}&maxPrice=${MaxPrice}&area=${Area}&year=${Year}&brand=${Brand}&model=${Model}&transmission=${Transmission}&fuel_type=${FuleType}`,
+          url: `/cars/mainFilter?minPrice=${MinPrice}&maxPrice=${MaxPrice}&area=${Area}&year=${Year}&brand=${Brand}&model=${Model}&transmission=${Transmission}&fuelType=${FuleType}`,
           method: "GET",
         };
       },
