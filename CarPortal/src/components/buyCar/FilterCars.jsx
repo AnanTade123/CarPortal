@@ -25,8 +25,8 @@ const FilterCars = ({ setUrlState }) => {
   const submitHandle = (e) => {
     e.preventDefault();
    // const { area, year, brand, model, fuelType, transmission } = filterForm;
-    // const minPrice = 3999; // Assuming this is your default minimum price
-    // const maxPrice = value; // Maximum price from the slider
+     const minPrice = 3999; // Assuming this is your default minimum price
+     const maxPrice = value; // Maximum price from the slider
     filterForm.brand.toUpperCase()
     const url = {
       Area : filterForm.area,
@@ -34,7 +34,9 @@ const FilterCars = ({ setUrlState }) => {
       Brand : filterForm.brand.toUpperCase(),
       Model : filterForm.model,
       FuleType : filterForm.fuelType,
-      Transmission : filterForm.transmission
+      Transmission : filterForm.transmission,
+      MinPrice: minPrice,
+      MaxPrice : maxPrice
     };
 //console.log(brand.toUpperCase())
     // Append selected filters to the URL if they are not empty
@@ -211,7 +213,7 @@ const FilterCars = ({ setUrlState }) => {
               <option>Manual</option>
               <option>Automatic</option>
             </select>
-            <select
+            {/* <select
               name="ownership"
               onChange={handleChange}
               value={filterForm.ownership}
@@ -222,7 +224,7 @@ const FilterCars = ({ setUrlState }) => {
               <option>2</option>
               <option>3</option>
               <option>4</option>
-            </select>
+            </select> */}
           </div>
           <div className="flex gap-5 mt-5">
             <Button type="submit" className="bg-indigo-200">Search</Button>

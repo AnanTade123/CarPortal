@@ -9,7 +9,7 @@ export function CarouselCustomArrows({ carId }) {
   console.log("Data of image",data)
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error fetching car image</div>;
+  if (error) return <div>No Image Available</div>;
 
   return (
     <Carousel
