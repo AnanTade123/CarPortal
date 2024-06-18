@@ -56,15 +56,16 @@ const FilterCars = ({ setUrlState }) => {
 
   const resetForm = () => {
     setValue(200000);
-    setFilterForm({
+    const data = {
       area: "",
       year: "",
       brand: "",
       model: "",
       fuelType: "",
       transmission: "",
-      ownership: "",
-    });
+    }
+    setFilterForm(data);
+    setUrlState(data);
   };
   console.log(new Intl.NumberFormat("en-IN").format(value));
   const formattedAmount = new Intl.NumberFormat("en-IN").format(value);
