@@ -988,7 +988,7 @@ export default function AddDealerCar() {
               </select>
             </div>
           </div>
-          <div className="flex">
+          <div className="md:flex">
             <div className="mt-5 w-full">
               <Input
                 label="Price"
@@ -1004,7 +1004,7 @@ export default function AddDealerCar() {
               />
             </div>
 
-            <div className="mt-5 ml-2 w-full">
+            <div className="mt-5 md:ml-2 w-full">
               <select
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label={"year"}
@@ -1338,7 +1338,7 @@ export default function AddDealerCar() {
 
           <button
             type="submit"
-            className="p-3 bg-indigo-400 rounded-md w-28 text-white"
+            className="p-3 mt-3 bg-indigo-400 rounded-md w-28 text-white"
             value="Add  Car"
           >
             {" "}
