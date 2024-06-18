@@ -45,7 +45,7 @@ const DealerCarPendingRequest = ({ item }) => {
     <div className="w-full flex justify-center">
       <form onSubmit={handleConfirmBook}>
         <CardUi>
-          <div className="md:min-w-[30rem] w-[20rem]">
+          <div className="md:min-w-[30rem] w-[20rem] m-4">
             <div className="flex justify-between">
               <Chip
                 variant="outlined"

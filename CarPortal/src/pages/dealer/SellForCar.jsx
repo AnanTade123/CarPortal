@@ -336,7 +336,7 @@ const SellForCar = () => {
                 </div>
               </div> */}
 
-              <div>
+              <div className="overflow-scroll px-0">
               <TableComponent columns={columns} data={dealerApiData} />
               </div>
             </CardHeader>
