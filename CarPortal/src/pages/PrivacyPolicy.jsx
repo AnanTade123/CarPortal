@@ -10,7 +10,7 @@ function PrivacyPolicy() {
             </div>
             <div className="mx-4 my-6 md:ml-20 md:mr-12 lg:ml-36 lg:mr-24">
                 <p className="text-3xl font-bold">Our Commitment to You</p>
-                <p className="mt-6 text-lg">At Cartechindia, your privacy is a top priority. Your privacy is at the core of the way we design and build the services and products you know and love, so that you can fully trust them and focus on building meaningful connections.</p>
+                <p className="mt-6 text-lg">At CarTechIndia, your privacy is a top priority. Your privacy is at the core of the way we design and build the services and products you know and love, so that you can fully trust them and focus on building meaningful connections.</p>
                 <p className="mt-4 text-lg">We appreciate that you put your trust in us when you provide us with your information and we do not take this lightly.</p>
                 <p className="mt-4 text-lg">We do not compromise with your privacy. We design all of our products and services with your privacy in mind. We involve experts from various fields, including legal, security, engineering, product design and others to make sure that no decision is taken without respect for your privacy.</p>
                 <p className="mt-4 text-lg">We strive to be transparent in the way we process your data. Because we use many of the same online services you do, we know that insufficient information and overly complicated language are common issues in privacy policies. We take the exact opposite approach: we have written our Privacy Policy and related documents in plain language. We actually want you to read our policies and understand our privacy practices!</p>
@@ -18,7 +18,7 @@ function PrivacyPolicy() {
 
                 <p className="text-3xl font-bold mt-8">Privacy Policy</p>
 
-                <p className="mt-6 text-xl">Welcome to Cartechindia’s Privacy Policy. Thank you for taking the time to read it.</p>
+                <p className="mt-6 text-xl">Welcome to CarTechIndia’s Privacy Policy. Thank you for taking the time to read it.</p>
                 <p className="mt-4 text-lg">We appreciate that you trust us with your information and we intend to always keep that trust. This starts with making sure you understand the information we collect, why we collect it, how it is used and your choices regarding your information. This Policy describes our privacy practices in plain language, keeping legal and technical jargon to a minimum.</p>
                 <p className="mt-4 ml-8 text-lg">1. Who We Are <br />
                     2. Where This Privacy Policy Applies <br />
@@ -33,11 +33,11 @@ function PrivacyPolicy() {
 
                 <p className="text-2xl font-bold mt-8">1. Who We Are</p>
                 <p className="mt-6 text-lg">The company that is responsible for your information under this Privacy Policy (the “data controller”) is:</p>
-                {/* <p className="mt-4 text-lg">Cartechindia Pvt. Ltd. <br/> 1128, 3rd floor, Rd Number 36, <br/> Jubilee Square, Jubilee Hills, <br/> Pune, Maharashtra 500033.</p> */}
+                {/* <p className="mt-4 text-lg">CarTechIndia Pvt. Ltd. <br/> 1128, 3rd floor, Rd Number 36, <br/> Jubilee Square, Jubilee Hills, <br/> Pune, Maharashtra 500033.</p> */}
 
                 <p className="text-2xl font-bold mt-8">2. Where This Privacy Policy Applies</p>
 
-                <p className="mt-6 text-lg">This Privacy Policy applies to websites, apps, events and other services operated by Cartechindia. For simplicity, we refer to all of these as our “services” in this Privacy Policy.</p>
+                <p className="mt-6 text-lg">This Privacy Policy applies to websites, apps, events and other services operated by CarTechIndia. For simplicity, we refer to all of these as our “services” in this Privacy Policy.</p>
 
                 <p className="text-2xl font-bold mt-8">3. Information We Collect</p>
 
@@ -53,8 +53,8 @@ function PrivacyPolicy() {
                 <p className="mt-6 text-2xl">Information we receive from others</p>
                 <p className="mt-4 text-lg">In addition to the information you provide us directly, we receive information about you from others, including:</p>
                 <p className="mt-4 ml-8 text-lg"><b>Other Users </b> Other users may provide information about you as they use our services. For instance, we may collect information about you from other users if they contact us about you. <br />
-                    <b>Social Media</b> You may be able to use your social media login (such as Facebook Login) to create and log into your Cartechindia account. This saves you from having to remember yet another user name and password and allows you to share some information from your social media account with us. <br />
-                    <b>Other Partners</b> We may receive info about you from other social networking platforms or from our partners, for instance where Cartechindia ads are published on a partner’s websites and platforms (in which case they may pass along details on a campaign’s success).</p>
+                    <b>Social Media</b> You may be able to use your social media login (such as Facebook Login) to create and log into your CarTechIndia account. This saves you from having to remember yet another user name and password and allows you to share some information from your social media account with us. <br />
+                    <b>Other Partners</b> We may receive info about you from other social networking platforms or from our partners, for instance where CarTechIndia ads are published on a partner’s websites and platforms (in which case they may pass along details on a campaign’s success).</p>
 
                 <p className="mt-6 text-2xl">Information collected when you use our services</p>
                 <p className="mt-4 text-lg">When you use our services, we collect information about which features you’ve used, how you’ve used them and the devices you use to access our services. See below for more details:</p>
@@ -66,7 +66,7 @@ function PrivacyPolicy() {
 
                 <p className="text-2xl font-bold mt-8">4. Cookies and Other Similar Data Collection Technologies</p>
                 <p className="mt-6 text-lg">We use and may allow others to use cookies and similar technologies (e.g., web beacons, pixels) to recognize you and/or your device(s). We use cookie related information (such as authenticating you, remembering your preferences and settings, analyzing site traffic and trends, delivering and measuring the effectiveness of advertising campaigns, allowing you to use social features) and how you can better control their use, through your browser settings and other tools.</p>
-                <p className="mt-4 text-lg">Some web browsers (including Safari, Internet Explorer, Firefox and Chrome) have a “Do Not Track” (“DNT”) feature that tells a website that a user does not want to have his or her online activity tracked. If a website that responds to a DNT signal receives a DNT signal, the browser can block that website from collecting certain information about the browser’s user. Not all browsers offer a DNT option and DNT signals are not yet uniform. For this reason, many businesses, including Cartechindia, do not currently respond to DNT signals.</p>
+                <p className="mt-4 text-lg">Some web browsers (including Safari, Internet Explorer, Firefox and Chrome) have a “Do Not Track” (“DNT”) feature that tells a website that a user does not want to have his or her online activity tracked. If a website that responds to a DNT signal receives a DNT signal, the browser can block that website from collecting certain information about the browser’s user. Not all browsers offer a DNT option and DNT signals are not yet uniform. For this reason, many businesses, including CarTechIndia, do not currently respond to DNT signals.</p>
 
                 <p className="text-2xl font-bold mt-8">5. How We Use Information</p>
                 <p className="mt-6 text-lg">The main reason we use your information is to deliver and improve our services. Additionally, we use your info to help keep you safe and to provide you with advertising that may be of interest to you. Read on for a more detailed explanation of the various reasons we use your information, together with practical examples.</p>
@@ -138,7 +138,7 @@ function PrivacyPolicy() {
                 <p className="mt-4 text-lg">If you have questions about this Privacy Policy, here’s how you can reach us:</p>
                 <p className="mt-4 text-lg">Online: <u>asif.attar@caryanam.in</u></p>
                 <p className="mt-4 text-lg">By phone: 7755994123</p>
-                {/* <p className="mt-4 text-lg">By post: Cartechindia Pvt. Ltd. 1128, 3rd floor, Rd Number 36, Jubilee Square, Jubilee Hills, Pune, Maharashtra 500033</p> */}
+                {/* <p className="mt-4 text-lg">By post: CarTechIndia Pvt. Ltd. 1128, 3rd floor, Rd Number 36, Jubilee Square, Jubilee Hills, Pune, Maharashtra 500033</p> */}
             </div>
         </div>
     )
