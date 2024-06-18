@@ -57,7 +57,7 @@ export function SimpleRegistrationForm() {
 
   const validateInput = (name, value) => {
     let error = "";
-
+    let validationErrors = {};
     switch (name) {
       case "firstName":
         error = value.trim() === "" ? "First name is required" : "";
@@ -68,11 +68,12 @@ export function SimpleRegistrationForm() {
       case "email":
         error = !/\S+@\S+\.\S+/.test(value) ? "Invalid email address" : "";
         break;
-      case "mobileNumber":
-        error = !/^\d{10}$/.test(value)
-          ? "Mobile number must be 10 digits"
-          : "";
-        break;
+        case "mobileNumber":
+          // Validate if the mobile number consists of exactly 10 digits
+          if (!/^\d{10}$/.test(value)) {
+            validationErrors.mobileNumber = "Mobile number must be 10 digits";
+          }
+          break;
       case "address":
         error = value.trim() === "" ? "Address is required" : "";
         break;
