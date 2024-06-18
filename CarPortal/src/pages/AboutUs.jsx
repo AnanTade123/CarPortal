@@ -2,8 +2,14 @@
 import logoleft from "/carslogo/logoleft.png";
 import logotop from "/carslogo/logotop.png";
 import logoright from "/carslogo/logoright.png";
+import { useEffect } from "react";
+
 
 const AboutUs = () => {
+    
+useEffect(()=>{
+    window.scrollTo(0,0);
+},[]);
   return (
     <div className="flex flex-col bg-light-blue-50 h-auto md:h-auto">
             <div className="flex justify-center items-center">
