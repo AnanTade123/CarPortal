@@ -18,7 +18,6 @@ const CarDetailsById = () => {
   }
  
   if (error?.status === 401) {
-    console.log("navigate");
 
     navigate("/signin");
     return null
