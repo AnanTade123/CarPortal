@@ -1,6 +1,10 @@
+import { useEffect } from "react"
 
 
 function PrivacyPolicy() {
+    useEffect(()=>{
+        window.scrollTo(0,0);
+    },[]);
     return (
         <div className="max-w-screen-3xl mx-auto bg-light-blue-50">
             <div className="flex justify-center items-center bg-light-blue-200 h-auto">
