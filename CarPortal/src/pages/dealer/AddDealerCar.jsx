@@ -8,24 +8,82 @@ import { useNavigate, useParams } from "react-router";
 const carData = {
   Kia: ["Sonet", "Seltos", "Carnival"],
   Volkswagen: ["Polo", "Vento", "Taigun", "Virtus"],
-  Mahindra: ["XUV300", "XUV301", "XUV302", "XUV303", "XUV304", "XUV305", "XUV306", "XUV307", "XUV308", "XUV700", "XUV701",
-    "XUV702", "XUV703", "Thar", "Scorpio", "Bolero", "Marazzo"],
-  MarutiSuzuki: ["Swift", "Baleno", "Vitara Brezza", "Ertiga", "Alto K10", "Dzire", "Wagon R", "XL6", "Celerio", "Jimny",
-  "Ignis", "Eeco", "Invicto", "Ciaz",],
+  Mahindra: ["XUV300", "XUV700", "Thar", "Scorpio", "Bolero", "Marazzo"],
+  MarutiSuzuki: [
+    "Swift",
+    "Baleno",
+    "Vitara Brezza",
+    "Ertiga",
+    "Alto K10",
+    "Dzire",
+    "Wagon R",
+    "XL6",
+    "Celerio",
+    "Jimny",
+    "Ignis",
+    "Eeco",
+    "Invicto",
+    "Ciaz",
+  ],
   Citroen: ["C3", "C3 Aircross", "eC3", "C5 Aircross"],
-  Tata: ["Tigor", "Altroz", "Harrier", "Safari", "Hexa", "Tigor EV", "Nexon EV", "Punch"],
-  
-  Hyundai: ["Verna", "i20", "Venue", "Creta", "Santro", "Grand i10 Nios", "Aura", "Exter", "Alcazar"],
+  Tata: [
+    "Tigor",
+    "Altroz",
+    "Harrier",
+    "Safari",
+    "Hexa",
+    "Tigor EV",
+    "Nexon EV",
+    "Punch",
+  ],
+
+  Hyundai: [
+    "Verna",
+    "i20",
+    "Venue",
+    "Creta",
+    "Santro",
+    "Grand i10 Nios",
+    "Aura",
+    "Exter",
+    "Alcazar",
+  ],
   Honda: ["City", "Amaze", "WR-V"],
-  BMW: ["3 Series", "5 Series", "X1", "X3", "X5", "7 Series", "X7", "iX1", "i4", "i7", "i5", "iX1", "XM", "BMW M340i", "2 Series Gran Coupe", "M4"],
+  BMW: [
+    "3 Series",
+    "5 Series",
+    "X1",
+    "X3",
+    "X5",
+    "7 Series",
+    "X7",
+    "iX1",
+    "i4",
+    "i7",
+    "i5",
+    "iX1",
+    "XM",
+    "BMW M340i",
+    "2 Series Gran Coupe",
+    "M4",
+  ],
   Toyota: [],
   ISUZU: [],
   Skoda: [],
-  LandRover: ["Discovery","Range Rover Sport","Discovery Sport","Range Rover","Defender","Range Rover Velar","Range Rover Evoque",""],
+  LandRover: [
+    "Discovery",
+    "Range Rover Sport",
+    "Discovery Sport",
+    "Range Rover",
+    "Defender",
+    "Range Rover Velar",
+    "Range Rover Evoque",
+    "",
+  ],
   Fiat: [],
   Nissan: [],
   Volvo: [],
-  AstonMartin: [],
+  AstonMartin: ["Aston Martin DB12", "DB11", "DBX", "Vantage"],
   McLaren: [],
   Ferrari: [],
   Maserati: [],
@@ -34,10 +92,615 @@ const carData = {
   ForceMotors: ["Trax Cruiser"],
   Force: ["Gurkha"],
   Bentley: ["Bentayga", "Flying Spur", "Continental"],
-  Audi: ["e-tron","Q8","A8L","RS Q8","RS5","Q5","A6","Q7","S5","e-tron GT","Q3 Sportback","Q3","A4"],
-  Porsche: ["911","Taycan","Macan","Cayenne","Panamera","718","Taycan Cross Turismo","Cayenne Coupe","Macan Turbo EV"],
-  MercedesBenz: ["EQC","AMG GT","AMG G-Class","AMG E-Class","AMG C-Class","S-Class Coupe","C-Class Coupe","E-Class Coupe","GLS","GLE","GLC","GLB","GLA","S-Class","E-Class","C-Class","A-Class Limousine"],
+  Audi: [
+    "e-tron",
+    "Q8",
+    "A8L",
+    "RS Q8",
+    "RS5",
+    "Q5",
+    "A6",
+    "Q7",
+    "S5",
+    "e-tron GT",
+    "Q3 Sportback",
+    "Q3",
+    "A4",
+  ],
+  Porsche: [
+    "911",
+    "Taycan",
+    "Macan",
+    "Cayenne",
+    "Panamera",
+    "718",
+    "Taycan Cross Turismo",
+    "Cayenne Coupe",
+    "Macan Turbo EV",
+  ],
+  MercedesBenz: [
+    "EQC",
+    "AMG GT",
+    "AMG G-Class",
+    "AMG E-Class",
+    "AMG C-Class",
+    "S-Class Coupe",
+    "C-Class Coupe",
+    "E-Class Coupe",
+    "GLS",
+    "GLE",
+    "GLC",
+    "GLB",
+    "GLA",
+    "S-Class",
+    "E-Class",
+    "C-Class",
+    "A-Class Limousine",
+  ],
   Others: [],
+};
+
+const carVariantData = {
+  Sonet: ["HTE 1.2", "HTK+ 1.2", "GTX+ 1.0 Turbo", "GTX+ 1.5 Diesel"],
+  Seltos: ["HTE", "HTK", "HTK+", "HTX", "GTX", "GTX+", "GTX+ Diesel"],
+  Carnival: ["Premium", "Prestige", "Limousine"],
+  Polo: ["Trendline 1.0L", "Comfortline 1.0L", "Highline Plus 1.0L", "GT 1.0L"],
+  Vento: [
+    "Trendline 1.0L",
+    "Comfortline 1.0L",
+    "Highline 1.0L",
+    "Highline Plus 1.0L",
+  ],
+  Taigun: [
+    "Comfortline 2.0L",
+    "Highline 2.0L",
+    "Comfortline 1.0L",
+    "Highline Plus 1.0L",
+  ],
+  Virtus: ["Dynamic 1.0L", "Performance Line 1.5L"],
+  XUV300: ["W2", "W4", "W6", "W8"],
+  XUV700: ["AX3", "AX5", "AX7", "AX7 L"],
+  Thar: [
+    "AX Std 6-Str Soft Top",
+    "AX OPT 4-Str Convertible Top",
+    "LX 4-Str Convertible Top",
+    "LX 4-Str Hard Top",
+  ],
+  Scorpio: [
+    "S3 Plus 2.0 4WD 7S",
+    "S5 2.0 7S",
+    "S7 2.0 7S",
+    "S9 2.0 4WD 7S",
+    "S11 2.0 4WD 7S",
+  ],
+  Bolero: ["B2", "B4", "B6", "B6 Opt", "B6 Opt Dual Tone"],
+  Marazzo: ["M2", "m4"],
+  Swift: [
+    "LXI",
+    "VXI",
+    "ZXI",
+    "ZXI+",
+    "ZXI+ Dual Tone",
+    "ZXI+ AMT",
+    "ZXI+ AMT Dual Tone",
+  ],
+  Baleno: ["Delta", "Sigma", "Zeta", "Alpha"],
+  "Vitara Brezza": ["LXI", "VXI", "ZXI", "ZXI+"],
+  Ertiga: [
+    "LXI",
+    "VXI",
+    "ZXI",
+    "ZXI+",
+    "ZXI AT",
+    "ZXI+ AT",
+    "ZXI+ Dual Tone",
+    "ZXI+ Dual Tone AT",
+  ],
+  Tigor: [
+    "XE",
+    "XM",
+    "XT",
+    "XZ",
+    "XZ+",
+    "XMA",
+    "XZA",
+    "XZA+",
+    "XZ+ Dual",
+    "XZ+ AMT",
+    "XZ+ Dual",
+  ],
+  Altroz: [
+    "XE",
+    "XM",
+    "XT",
+    "XZ",
+    "XZ+",
+    "XMA",
+    "XZA",
+    "XZA+",
+    "XZ+ Dual",
+    "XZ+ AMT",
+    "XZ+ Dual",
+  ],
+  Harrier: [
+    "XE",
+    "XM",
+    "XT",
+    "XZ",
+    "XZ+",
+    "XMA",
+    "XZA",
+    "XZA+",
+    "XZA DT",
+    "XZ+ DT",
+  ],
+  Safari: [
+    "Gold",
+    "XE",
+    "XM",
+    "XT",
+    "XT+",
+    "XZ",
+    "XZ+",
+    "Adventure",
+    "XZA",
+    "XZA+",
+  ],
+  Hexa: ["XE", "XM", "XMA", "XT", "XTA", "XT 4*4", "XTA 4*4"],
+  "Tigor EV": ["XM", "XZ", "XZ+"],
+  "Nexon EV": ["XM", "XZ", "XZ+", "XZ+ Lux"],
+  Punch: [
+    "Pure iCNG",
+    "Adventure Rhythm Pack MT",
+    "Adventure AMT",
+    "Accomplished MT",
+    "Adventure iCNG",
+    "Adventure Rhythm Pack AMT",
+    "Accomplished Dazzle Pack MT",
+    "Adventure Rhythm iCNG",
+    "Accomplished MT Sunroof",
+    "Accomplished Dazzle MT Sunroof",
+  ],
+  AltoK10: ["LXI", "LXI (0)", "VXI", "VXI (0)", "VXI AMT", "VXI AMT (0)"],
+  Dzire: [
+    "LXI",
+    "VXI",
+    "VXI AGS",
+    "ZXI",
+    "ZXI AGS",
+    "ZXI+",
+    "ZXI+ AGS",
+    "LDI",
+    "VDI",
+    "VDI AGS",
+    "ZDI",
+    "ZDI AGS",
+    "ZDI+",
+    "ZDI+ AGS",
+  ],
+  WagonR: [
+    "LXI",
+    "LXI (0)",
+    "VXI",
+    "VXI (0)",
+    "VXI AGS",
+    "VXI AGS (0)",
+    "VXI+",
+    "VXI+ AGS",
+    "VXI+ AGS (0)",
+    "ZXI",
+    "ZXI AMT",
+  ],
+  SPresso: [
+    "STD",
+    "STD(0)",
+    "LXI",
+    "LXI (0)",
+    "VXI",
+    "VXI AGS",
+    "VXI+",
+    "VXI+ AGS",
+  ],
+  XL6: [
+    "Zeta MT Petrol",
+    "Zeta MT CNG",
+    "Alpha MT Petrol",
+    "Zeta AT Petrol",
+    "Alpha Plus MT Petrol",
+    "Alpha Plus MT Petrol Dual Tone",
+    "Alpha AT Petrol",
+    "Alpha Plus AT Petrol",
+    "Alpha Plus AT Petrol Dual Tone",
+  ],
+  Celerio: [
+    "LXI",
+    "VXI",
+    "ZXI",
+    "ZXI+",
+    "VXI AMT",
+    "ZXI AMT",
+    "ZXI+ AMT",
+    "VXI CNG",
+    "ZXI CNG",
+  ],
+  Jimny: [
+    "Zeta MT",
+    "Alpha MT",
+    "Alpha MT Dual Tone",
+    "Alpha AT",
+    "Alpha AT Dual Tone",
+  ],
+  Ignis: [
+    "Sigma MT",
+    "Delta MT",
+    "Zeta MT",
+    "Alpha MT",
+    "Delta AMT",
+    "Zeta AMT",
+    "Alpha AMT",
+  ],
+  Eeco: [
+    "5 Seater Standard",
+    "5 Seater AC",
+    "7 Seater Standard",
+    "5 Seater CNG",
+    "Cargo Standard",
+    "Cargo CNG",
+    "Tour V 5 Seater AC",
+    "Tour V 5 Seater CNG",
+  ],
+  Invicto: ["Zeta+ 7-seater", "Alpha+ 7-seater", "Alpha+ 8-seater"],
+  Ciaz: [
+    "Sigma MT",
+    "Delta MT",
+    "Zeta MT",
+    "Alpha MT",
+    "Delta AT",
+    "Zeta AT",
+    "Alpha AT",
+  ],
+  "A-Class Limousine": ["A 200", "A 200d"],
+  "C-Class": ["C 200", "C 200d"],
+  "E-Class": ["E 200", "E 200d", "E 350d", ""],
+  "S-Class": ["S 350d", "S 400d", "S 450"],
+  GLA: ["GLA 200", "GLA 200d"],
+  GLB: ["GLB 200", "GLB 201", "GLB 220d", "GLB 250", "GLB 251", "GLB 35 AMG"],
+  GLC: ["GLC 200", "GLC 201", "GLC 220d", "GLC 300", "GLC 301", "GLC 43 AMG"],
+  GLE: ["GLE 350", "GLE 351", "GLE 400d", "GLE 450 AMG", "GLE 53 AMG"],
+  GLS: ["GLS 450", "GLS 451", "GLS 580", "GLS 581", "GLS 400d"],
+  "C-Class Coupe": ["C 200 Coupe", "C 300 Coupe", "AMG C 43 Coupe"],
+  "E-Class Coupe": [
+    "E 200 Coupe",
+    "E 300 Coupe",
+    "AMG E 53 Coupe",
+    "AMG E 63 Coupe",
+  ],
+  "S-Class Coupe": [
+    "S 450 Coupe",
+    "S 560 Coupe",
+    "AMG S 53 Coupe",
+    "AMG S 63 Coupe",
+    "AMG S 65 Coupe",
+  ],
+  "AMG A-Class": [
+    "A 35",
+    "A 36",
+  ],
+  "AMG C-Class": [
+    "C 63",
+    "C 64",
+    "C 63 S",
+  ],
+  "AMG E-Class": [
+    "E 63",
+    "E 64",
+    "E 63 S",
+  ],
+  "AMG G-Class": [
+    "C 63",
+    "C 64",
+  ],
+  "AMG GT": [
+    "GT",
+    "GT S",
+    "GT C",
+    "GT R",
+    "GT R Pro",
+    "GT Balck Series",
+  ],
+  EQC:[
+    "EQC 400"
+  ],
+  "Range Rover Evoque":[
+    "SE R-Dynamic Petrol",
+    "SE R-Dynamic Deisel"
+  ],
+  "Range Rover Velar":[
+    "HSE Dynamic 2.0 Petrol",
+    "HSE Dynamic 2.0 Deisel"
+  ],
+  Defender:[
+    "110 SE 2.0 Petrol",
+    "90 HSE 2.0 Petrol",
+    "90 X-Dynamic HSE 2.0 Petrol",
+    "110 HSE 2.0 Petrol"
+  ],
+  "Range Rover":[
+    "SE 3.0 Petrol",
+    "SE 4.4 Petrol",
+    "SE 3.0 Deisel",
+    "SE LWB 3.0 Petrol",
+  ],
+  "Discovery Sport":[
+    "SE R-Dynamic Petrol",
+    "SE R-Dynamic Deisel",
+  ],
+  Discovery:[
+    "S 2.0 Petrol",
+    "S 3.0 Petrol",
+    "HSE R-Dynamic 2.0 Petrol",
+    "S 3.0 Diesel"
+  ],
+  911:[
+    "Carrera",
+    "Carrera T",
+    "Carrera Cabriolet",
+    "Carrera S"
+  ],
+  Taycan:[
+    "RWD",
+    "4S",
+    "GTS",
+    "Turbo"
+  ],
+  Macan:[
+    "S",
+    "GTS",
+  ],
+  Cayenne:[
+    "Base"
+  ],
+  Panamera:[
+    "G3"
+  ],
+  718:[
+    "Cayman",
+    "Boxster",
+    "Cayman Style Edition",
+    "Boxster Style Edition"
+  ],
+  A4:[
+    "Premium 40 TFSI",
+    "Premium Plus 40 TFSI",
+    "Technology 40 TFSI"
+  ],
+  Q3:[
+    "40 TFSI Premium",
+    "40 TFSI Premium Plus",
+    "40 TFSI Technology",
+    "Bold Edition",
+  ],
+  "Q3 Sportback":[
+    "Technology Plus S-line",
+    "Bold Edition",
+  ],
+  "e-tron GT":[
+    "S",
+    "RS"
+  ],
+  S5:[
+    "S5 Sportback 3.0 TFSI",
+  ],
+  Q7:[
+    "Premium Plus 55 TFSI",
+    "Technology 55 TFSI w/o Matrix",
+    "Technology 55 TFSI",
+    "Bold Edition",
+  ],
+  A6:[
+    "Premium Plus 45 TFSI",
+    "Technology 45 TFSI W/O Matrix",
+    "Technology 45 TFSI"
+  ],
+  Q5:[
+    "Premium Plus 45 TFSI",
+    "Technology 45 TFSI",
+  ],
+  Q8:[
+    "Celebration",
+    "55 TFSI quattro"
+  ],
+  RS5:[
+    "Sportback"
+  ],
+  "RS Q8":[
+    "4.0L TFSI"
+  ],
+  "A8 L":[
+    "Celebration Edition",
+    "Technology"
+  ],
+  Continental:[
+    "GT V8",
+    "GTC V8",
+    "GT S V8",
+    "GT Azure V8",
+    "GT Speed"
+  ],
+  "Flying Spur":[
+    "V6 Hybrid",
+    "V8",
+    "V8 Hybrid",
+    "S V8",
+    "S Hybrid"
+  ],
+  Bentayga:[
+    "V8",
+    "EWB",
+    "S",
+    "Azure",
+    "EWB Azure",
+  ],
+  Gurkha:[
+    "3 Door",
+    "5 Door"
+  ],
+  "Trax Cruiser":[
+    "9 STR",
+    "12 STR",
+    "9 STR AC",
+    "12 STR AC",
+  ],
+  Divo:[
+    "W16"
+  ],
+  Veyron:[
+    "Veyron 16.4 Grand Sport"
+  ],
+  Cooper:[
+    "Cooper S",
+    "Cooper S (Steptronic Sport)"
+  ],
+  Countryman:[
+    "Countryman Cooper S JCW Inspired"
+  ],
+  "Cooper SE":[
+    "Cooper SE 3-Door",
+    "Cooper SE Charged Edition"
+  ],
+  "Cooper 3 DOOR":[
+    "S"
+  ],
+  Ghibli:[
+    "GT Hybrid",
+    "Modena S",
+    "Trofeo"
+  ],
+  Quattroporte:[
+    "GT",
+    "Modena","Trofeo"
+  ],
+  MC20:[
+    "Coupe"
+  ],
+  Levante:[
+    "GT Hybrid",
+    "Modena",
+    "Modena S",
+    "Trofeo"
+  ],
+  GranTurismo:[
+    "4.7 V8",
+    "Sport Diesel",
+    "MC Diesel",
+    "4.7 MC"
+  ],
+  C3:[
+    "Shine"
+  ],
+  "C3 Aircross":[
+    "You 1.2 5 STR",
+    "Plus 1.2 5 STR",
+    "Plus 1.2 5 STR Dual Tone",
+    "Plus 1.2 5 STR Vibe Pack",
+    "Plus 1.2 7 STR",
+    "Plus 1.2 5 STR Vibe Pack Dual Tone",
+    "Plus 1.2 7 STR Dual Tone",
+    "Plus 1.2 7 STR Vibe Pack",
+    "Max 1.2 5 STR",
+    "Plus 1.2 7 STR Vibe Pack Dual Tone",
+    "Max 1.2 5 STR Dual Tone",
+    "Max 1.2 5 STR Vibe Pack",
+    "Max 1.2 7 STR",
+    "Max 1.2 5 STR Vibe Pack Dual Tone",
+    "Max 1.2 7 STR Dual Tone",
+    "Max 1.2 7 STR Vibe Pack",
+    "Plus 1.2 5 STR AT",
+    "Max 1.2 7 STR Vibe Pack Dual Tone",
+    "Plus 1.2 5 STR AT Dual Tone",
+    "Plus 1.2 5 STR AT Vibe Pack",
+    "Plus 1.2 5 STR AT Vibe Pack Dual Tone","Max 1.2 5 STR AT","Max 1.2 7 STR AT Vibe Pack Dual Tone","Max 1.2 7 STR AT Vibe Pack","Max 1.2 7 STR AT Dual Tone","Max 1.2 5 STR AT Vibe Pack Dual Tone"
+  ],
+  "C5 Aircross":[
+    "Shine Dual Tone"
+  ],
+  eC3:[
+    "Shine Vibe Pack Dual Tone","Live","Feel Blu Edition 1.2 Petrol","Feel","Feel Vibe Pack","Feel Dual Tone","Feel Vibe Pack Dual Tone","Shine Blu Edition 1.2 Petrol","Shine","Shine Vibe Pack","Shine Dual Tone","Shine Vibe Pack Dual Tone"
+  ],
+  "Purosangue SUV":[
+    "V12"
+  ],
+  "296 GTB":[
+    "3.0 Petrol"
+  ],
+  Roma:[
+    "Coupe"
+  ],
+  "F8 Tributo":[
+    "Berlinetta"
+  ],
+  "Portofino M":[
+    "M"
+  ],
+  "720S":[
+    "Spider"
+  ],
+  "McLaren 750S":[
+    "750S Coupe",
+    "750S Spider",
+    "McLaren GT Coupe",
+  ],
+  S90:[
+    "B5 Ultimate",""
+  ],
+  XC60:[
+    "B5 Ultimate",""
+  ],
+  XC90:[
+    "B6 Ultimate"
+  ],
+  XC40:[
+    "Recharge Single"
+  ],
+  "C40 Recharge":[
+    "E80"
+  ],
+  "Aston Martin DB12":[
+    "Aston Martin DB12 4.0-litre"
+  ],
+  DB11:[
+    "Evolution"
+  ],
+  DBX:[
+    "Twin Turbo","707"
+  ],
+  Vantage:[
+    "V8"
+  ],
+  
+  i5: ["M60 xDrive"],
+  iX1: ["xDrive30 M Sport"],
+  i7: ["M70 xDrive", "xDrive60 M Sport", "eDrive50 M Sport"],
+  i4: ["eDrive40 M Sport", "eDrive35 M Sport"],
+  X3: ["M40i xDrive"],
+  IX1: ["xDrive30 M Sport"],
+  XM: ["Plug-in Hybrid"],
+  M4: ["Competition"],
+  X1: ["sDrive18i M Sport", "sDrive18d M Sport"],
+  "7 Series": ["740i M Sport", "740d M Sport"],
+  "2 Series Gran Coupe": [
+    "220i M Sport",
+    "220i M Sport Pro",
+    "M Performance Edition",
+    "220d M Sport",
+  ],
+  "BMW M340i": ["M340i xDrive"],
+  X7: ["xDrive40i M Sport", "xDrive40d M Sport"],
+  "3 Series Gran Limousine": [
+    "330Li M Sport",
+    "320Ld M Sport",
+    "330Li M Sport Pro Edition",
+  ],
 };
 
 const cityOptions = {
@@ -49,13 +712,13 @@ const cityOptions = {
   Chandrapur: ["MH-34"],
   Kolhapur: ["MH-09"],
   Solapur: ["MH-13", "MH-45"],
-  Nanded: ["MH-32"],
-  Latur: ["MH-32"],
+  Nanded: ["MH-26"],
+  Latur: ["MH-24"],
   Satara: ["MH-11"],
   Sangli: ["MH-10"],
   Nashik: ["MH-15", "MH-51"],
   Beed: ["MH-32"],
-  Jalna: ["MH-32"],
+  Jalna: ["MH-21"],
   Nagpur: ["MH-31", "MH-49  "],
   Gondia: ["MH-35"],
   Gadchiroli: ["MH-33"],
@@ -104,8 +767,8 @@ export default function AddDealerCar() {
     carStatus: "Active",
     ownerSerial: "",
     dealer_id: "",
-    cVariant : "",
-    insurancedate :""
+    cVariant: "",
+    insurancedate: "",
   });
   const { id } = useParams();
   console.log(id);
@@ -117,10 +780,9 @@ export default function AddDealerCar() {
 
   const formattedDate = `${year}-${month}-${day}`;
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    console.log(formData);
     // Prepare the form data to send to the backend
     const data = {
       acFeature: formData.acFeature,
@@ -135,7 +797,7 @@ export default function AddDealerCar() {
 
       carStatus: "ACTIVE",
 
-     // city: formData.city,
+      // city: formData.city,
 
       color: formData.color,
 
@@ -158,12 +820,12 @@ export default function AddDealerCar() {
       registration: formData.registration,
 
       transmission: formData.transmission,
-      
+
       title: formData.title,
 
-      variant : formData.cVariant ,
+      variant: formData.cVariant,
 
-      carInsuranceDate :formData.insurancedate ,
+      carInsuranceDate: formData.insurancedate,
 
       year: formData.year,
 
@@ -171,9 +833,9 @@ export default function AddDealerCar() {
 
       date: formattedDate,
     };
-
+    console.log(data);
     const res = await carRegister(data);
-
+    console.log(res);
     if (res?.data?.status === "success") {
       alert("Car added");
       navigate(`/dealer/${id}/uploadimage`); // Corrected URL string with backticks (`) for interpolation
@@ -183,6 +845,7 @@ export default function AddDealerCar() {
   //Two field Brands and Model
   const [selectedBrand, setSelectedBrand] = useState("");
   const [modelOptions, setModelOptions] = useState([]);
+  const [variantOptions, setVariantOptions] = useState([]);
   //const [formDataC, setFormDataC] = useState({ carInsurance: "" });
   const [showCalendar, setShowCalendar] = useState(false);
 
@@ -200,25 +863,33 @@ export default function AddDealerCar() {
   // Model Change
   const handleModelChange = (event) => {
     const model = event.target.value;
+    setVariantOptions(carVariantData[model] || []);
     setFormData({
       ...formData,
       model,
     });
   };
 
-  // City Change
+  const handleVariantChange = (event) => {
+    const cVariant = event.target.value;
+    setFormData({
+      ...formData,
+      cVariant,
+    });
+  };
+
   const handleCityChange = (event) => {
     const selectedCity = event.target.value;
-  setFormData({
-    ...formData,
-    city: selectedCity,
-    registration: '', // Reset registration when city changes
-  });
+    setFormData({
+      ...formData,
+      city: selectedCity,
+      registration: "", // Reset registration when city changes
+    });
   };
 
   // Car Insurance ValidDate
   const handleChange = (event) => {
-    const value = event.target.value === 'true';
+    const value = event.target.value === "true";
     setFormData((prevFormData) => ({
       ...prevFormData,
       carInsurance: value,
@@ -281,418 +952,24 @@ export default function AddDealerCar() {
           <div className="md:flex">
             <div className="mt-5 w-full">
               <select
-              className="w-full border-2 border-gray-400 p-2 rounded-md"
+                className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label={"Car Variant"}
                 type={"text"}
                 name={"cVariant"}
                 value={formData.cVariant}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    cVariant: event.target.value,
-                  })
-                }
+                onChange={handleVariantChange}
+                disabled={!modelOptions}
               >
-              <option>Select variant</option>
-              <option>HTE 1.2</option>
-              <option>HTK 1.2</option>
-              <option>HTK+ 1.2</option>
-              <option>HTX 1.2</option>
-              <option>HTX+ 1.2</option>
-              <option>GTX+ 1.0 Turbo</option>
-              <option>GTX+ 1.5 Diesel</option>
-              <option>HTE</option>
-              <option>HTK</option>
-              <option>HTK+</option>
-              <option>HTX</option>
-              <option>GTX</option>
-              <option>GTX+</option>
-              <option>GTX+ Diesel</option>
-              <option>Premium</option>
-              <option>Prestige</option>
-              <option>Limousine</option>
-              <option>Trendline 1.0L</option>
-              <option>Comfortline 1.0L</option>
-              <option>Highline Plus 1.0L</option>
-              <option>GT 1.0L</option>
-              <option>Highline 1.0L</option>
-              <option>Highline 2.0L</option>
-              <option>Dynamic 1.0L</option>
-              <option>PerformanceLine 1.5L</option>
-              <option>W4</option>
-              <option>W6</option>
-              <option>W8</option>
-              <option>W8(0)</option>
-              <option>W8(0)Sportz</option>
-              <option>W8(0)Dual Tone</option>
-              <option>W8(0)Sportz Dual Tone</option>
-              <option>W8(0)AMT</option>
-              <option>W8(0)AMT Dual Tone</option>
-              <option>AX3</option>
-              <option>AX5</option>
-              <option>AX7</option>
-              <option>AX7 L</option>
-              <option>AX OPT 4-Str Convertible Top</option>
-              <option>LX 4-Str Convertible Top</option>
-              <option>LX 4-Str Hard Top</option>
-              <option>S3 Plus 2.0 4WD 7S</option>
-              <option>S5 2.0 7S</option>
-              <option>S7 2.0 7S</option>
-              <option>S9 2.0 4WD 7S</option>
-              <option>S11 2.0 4WD 7S</option>
-              <option>B2</option>
-              <option>B4</option>
-              <option>B6 Opt</option>
-              <option>B6</option>
-              <option>B6 Opt Dual Tone</option>
-              <option>M2</option>
-              <option>M4</option>
-              <option>LXI</option>
-              <option>VXI</option>
-              <option>ZXI</option>
-              <option>ZXI AMT</option>
-              <option>VXI AT</option>
-              <option>VXI+ AT</option>
-              <option>ZXI+</option>
-              <option>ZXI+ Dual</option>
-              <option>ZXI+ Dual Tone</option>
-              <option>ZXI+ AMT</option>
-              <option>ZXI+ AMT Dual Tone</option>
-              <option>Sigma</option>
-              <option>Sigma MT</option>
-              <option>Delta</option>
-              <option>Delta MT</option>
-              <option>Delta AT</option>
-              <option>Zeta</option>
-              <option>Zeta MT</option>
-              <option>Zeta AT</option>
-              <option>Zeta AMT</option>
-              <option>Alpha</option>
-              <option>Alpha MT</option>
-              <option>Alpha AT</option>
-              <option>Alpha AMT</option>
-              <option>VXI AT</option>
-              <option>ZXI AT</option>
-              <option>ZXI+ AT</option>
-              <option>ZXI+ Dual Tone AT</option>
-              <option>XE</option>
-              <option>XM</option>
-              <option>XT</option>
-              <option>XZ</option>
-              <option>XZ+</option>
-              <option>XMA</option>
-              <option>XZA</option>
-              <option>XZA+</option>
-              <option>XZ+ Dual</option>
-              <option>XZ+ AMT</option>
-              <option>XZ+ AMT</option>
-              <option>XZ+ DT</option>
-              <option>XZA DT</option>
-              <option>Gold</option>
-              <option>XT+</option>
-              <option>Adventure</option>
-              <option>XTA</option>
-              <option>XT 4*4</option>
-              <option>XTA 4*4</option>
-              <option>XTA 4*4</option>
-              <option>XZ Lux</option>
-              <option>Pure iCNG</option>
-              <option>Adventure Rhythm Pack MT</option>
-              <option>Adventure AMT</option>
-              <option>Accomplished MT</option>
-              <option>Accomplished Dazzle Pack MT</option>
-              <option>Accomplished MT Sunroof</option>
-              <option>Accomplished AMT</option>
-              <option>Accomplished AMT Sunroof</option>
-              <option>Accomplished Dazzle MT Sunroof</option>
-              <option>Accomplished Dazzle AMT Sunroof</option>
-              <option>Accomplished Dazzle Pack AMT</option>
-              <option>Accomplished iCNG</option>
-              <option>Accomplished Dazzle Sunroof CNG</option>
-              <option>Adventure iCNG</option>
-              <option>Adventure Dazzle iCNG</option>
-              <option>Creative</option>
-              <option>Creative AMT</option>
-              <option>Creative Flagship MT</option>
-              <option>Creative Flagship Dual Tone AMT</option>
-              <option>Creative Dual Tone MT Sunroof</option> 
-              <option>Creative Dual Tone AMT</option> 
-              <option>Creative Dual Tone AMT Sunroof</option> 
-              <option>LDI</option> 
-              <option>VDI</option> 
-              <option>ZDI</option> 
-              <option>ZDI+</option> 
-              <option>VDI AT</option> 
-              <option>VDI AGS</option> 
-              <option>ZDI+ AT</option> 
-              <option>ZDI AGS</option> 
-              <option>ZDI+ Dual</option> 
-              <option>LXI (0)</option> 
-              <option>VXI</option> 
-              <option>VXI (0)</option> 
-              <option>VXI AMT</option> 
-              <option>VXI CNG</option> 
-              <option>VXI AMT (0)</option> 
-              <option>VXI AGS</option> 
-              <option>ZXI CNG</option> 
-              <option>ZXI AGS</option> 
-              <option>ZXI+</option> 
-              <option>ZXI+ AGS</option> 
-              <option>ZXI AMT</option> 
-              <option>STD</option> 
-              <option>STD (0)</option> 
-              <option>Zeta MT Petrol</option> 
-              <option>Zeta AT Petrol</option> 
-              <option>Zeta MT CNG</option> 
-              <option>Alpha MT Petrol</option> 
-              <option>Alpha AT Petrol</option> 
-              <option>Alpha AT</option> 
-              <option>Alpha MT Dual Tone</option> 
-              <option>Alpha Plus MT Petrol</option> 
-              <option>Alpha Plus AT Petrol</option> 
-              <option>Alpha Plus AT Petrol Dual Tone</option> 
-              <option>Alpha Plus MT Petrol Dual Tone</option> 
-              <option>5 Seater Standard</option> 
-              <option>7 Seater Standard</option> 
-              <option>Cargo Standard</option> 
-              <option>Cargo CNG</option> 
-              <option>5 Seater AC</option> 
-              <option>5 Seater CNG</option> 
-              <option>Tour V 5 Seater AC</option> 
-              <option>Tour V 5 Seater CNG</option> 
-              <option>Zeta+ 7 Seater</option> 
-              <option>Alpha+ 7 Seater</option> 
-              <option>Alpha+ 8 Seater</option> 
-              <option>A 200</option> 
-              <option>A 200d</option> 
-              <option>C 200</option> 
-              <option>C 200d</option> 
-              <option>E 200</option> 
-              <option>E 220d</option> 
-              <option>E 350d</option> 
-              <option>S 350d</option> 
-              <option>S 400d</option> 
-              <option>S 450</option> 
-              <option>GLA 200</option> 
-              <option>GLA 220d</option> 
-              <option>GLB 200</option> 
-              <option>GLB 201</option> 
-              <option>GLB 220d</option> 
-              <option>GLB 250</option> 
-              <option>GLB 35 AMG</option> 
-              <option>GLC 200</option> 
-              <option>GLB 201</option> 
-              <option>GLC 220d</option> 
-              <option>GLC 300</option> 
-              <option>GLC 301</option> 
-              <option>GLC 43 AMG</option> 
-              <option>GLC 53 AMG</option> 
-              <option>GLE 350</option> 
-              <option>GLE 351</option> 
-              <option>GLE 400d</option> 
-              <option>GLE 450 AMG</option> 
-              <option>GLS 450</option> 
-              <option>GLS 451</option> 
-              <option>GLS 580</option> 
-              <option>GLS 581</option> 
-              <option>GLS 400d</option> 
-              <option>C 200 Coupe</option> 
-              <option>C 300 Coupe</option> 
-              <option>AMG C 43 Coupe</option> 
-              <option>AMG E 53 Coupe</option> 
-              <option>AMG E 63 Coupe</option> 
-              <option>Coupe 200 Coupe</option> 
-              <option>Coupe 300 Coupe</option> 
-              <option>S 450 Coupe</option> 
-              <option>S 560 Coupe</option> 
-              <option>AMG S 63 Coupe</option> 
-              <option>AMG S 65 Coupe</option> 
-              <option>A 35</option> 
-              <option>A 36</option> 
-              <option>C 63</option> 
-              <option>C 64</option> 
-              <option>C 64 S</option> 
-              <option>E 63</option> 
-              <option>E 64</option> 
-              <option>E 63 S</option> 
-              <option>G 63</option> 
-              <option>G 64</option> 
-              <option>GT</option> 
-              <option>GT S</option> 
-              <option>GT C</option> 
-              <option>GT R</option> 
-              <option>GT R Pro</option> 
-              <option>GT Black Series</option> 
-              <option>EQC 400</option> 
-              <option>SE R-Dynamic Petrol</option> 
-              <option>SE R-Dynamic Diesel</option> 
-              <option>HSE Dynamic 2.0 Petrol</option> 
-              <option>HSE Dynamic 2.0 Diesel</option> 
-              <option>110 SE 2.0 Petrol</option> 
-              <option>110 HSE 2.0 Petrol</option> 
-              <option>90 HSE 2.0 Petrol</option> 
-              <option>90 X-Dynamic HSE 2.0 Petrol</option> 
-              <option>SE 3.0 Petrol</option> 
-              <option>SE 3.0 Diesel</option> 
-              <option>SE 4.4 Petrol</option> 
-              <option>SE LWB 3.0 Petrol</option> 
-              <option>SE Dynamic 3.0 Petrol</option> 
-              <option>SE Dynamic 3.0 Diesel</option> 
-              <option>HSE Dynamic 3.0 Diesel</option> 
-              <option>HSE Dynamic 3.0 Petrol</option> 
-              <option>S 2.0 Petrol</option> 
-              <option>S 3.0 Petrol</option> 
-              <option>HSE R-Dynamic 2.0 Petrol</option> 
-              <option>Carrera</option> 
-              <option>Carrera T</option> 
-              <option>Carrera Cabriolet</option> 
-              <option>Carrera S</option> 
-              <option>RWD</option> 
-              <option>4S</option> 
-              <option>GTS</option> 
-              <option>Turbo</option> 
-              <option>Base</option> 
-              <option>S</option> 
-              <option>S</option> 
-              <option>G3</option> 
-              <option>Cayman</option> 
-              <option>Cayman Style Edition</option> 
-              <option>Boxster</option> 
-              <option>Boxster Style Edition</option> 
-              <option>Taycan Cross 4S</option> 
-              <option>Taycan Cross Turbo</option> 
-              <option>Taycan Cross Turbo S</option> 
-              <option>Electric SUV</option> 
-              <option>Premium 40 TFSI</option> 
-              <option>Premium Plus 45 TFSI</option> 
-              <option>Premium Plus 40 TFSI</option> 
-              <option>Technology 40 TFSI</option> 
-              <option>40 TFSI Premium</option> 
-              <option>40 TFSI Premium Plus</option> 
-              <option>Bold Edition</option> 
-              <option>Technology Plus S-line</option> 
-              <option>RS</option> 
-              <option>S5 Sportback 3.0 TFSI</option> 
-              <option>Premium Plus 55 TFSI</option> 
-              <option>Technology 55 TFSI w/o Matrix</option> 
-              <option>Technology 45 TFSI w/o Matrix</option> 
-              <option>Technology 55 TFSI</option> 
-              <option>Technology 45 TFSI</option> 
-              <option>Celebration</option> 
-              <option>Celebration Edition</option> 
-              <option>55 TFSI quattro</option> 
-              <option>Sportback</option> 
-              <option>Sportback e-tron</option> 
-              <option>4.0L TFSI</option> 
-              <option>Technology</option> 
-              <option>e-tron</option> 
-              <option>Audi 50</option> 
-              <option>Audi 55</option> 
-              <option>Audi 55 Technology</option> 
-              <option>GT V8</option> 
-              <option>GTC V8</option> 
-              <option>GT S V8</option> 
-              <option>GT Azure V8</option> 
-              <option>GT Speed</option> 
-              <option>V6 Hybrid</option> 
-              <option>V8</option> 
-              <option>V8 Hybrid</option> 
-              <option>S V8</option> 
-              <option>S Hybrid</option> 
-              <option>EWB</option> 
-              <option>S</option> 
-              <option>Azure</option> 
-              <option>EWB Azure</option> 
-              <option>3 Door</option> 
-              <option>5 Door</option> 
-              <option>9 STR</option> 
-              <option>9 STR AC</option> 
-              <option>12 STR</option> 
-              <option>12 STR AC</option> 
-              <option>Divo W16</option> 
-              <option>Veyron 16.4 Grand Sport</option> 
-              <option>Cooper S</option> 
-              <option>Cooper S (Steptronic Sport)</option> 
-              <option>Countryman Cooper S JCW Inspired</option> 
-              <option>Cooper SE 3-Door</option> 
-              <option>Cooper SE Charged Edition</option> 
-              <option>GT Hybrid</option> 
-              <option>Modena S</option> 
-              <option>Modena</option> 
-              <option>Trofeo</option> 
-              <option>Coupe</option> 
-              <option>4.7 V8</option> 
-              <option>Sport Diesel</option> 
-              <option>MC Diesel</option> 
-              <option>4.7 MC</option> 
-              <option>Shine</option> 
-              <option>You 1.2 5 STR</option> 
-              <option>Plus 1.2 5 STR</option> 
-              <option>Plus 1.2 5 STR Dual Tone</option> 
-              <option>Plus 1.2 5 STR Vibe Pack</option> 
-              <option>Plus 1.2 7 STR</option> 
-              <option>Plus 1.2 5 STR Vibe Pack Dual Tone</option> 
-              <option>Plus 1.2 7 STR Dual Tone</option> 
-              <option>Plus 1.2 7 STR Vibe Pack</option> 
-              <option>Max 1.2 5 STR</option> 
-              <option>Plus 1.2 7 STR Vibe Pack Dual Tone</option> 
-              <option>Max 1.2 5 STR Dual Tone</option> 
-              <option>Max 1.2 5 STR Vibe Pack</option> 
-              <option>Max 1.2 7 STR</option> 
-              <option>Shine Dual Tone</option> 
-              <option>Shine Vibe Pack Dual Tone</option> 
-              <option>Live</option> 
-              <option>Feel Blu Edition 1.2 Petrol</option> 
-              <option>Feel</option> 
-              <option>Feel Vibe Pack</option> 
-              <option>Feel Dual Tone</option> 
-              <option>V12</option> 
-              <option>3.0 Petrol</option> 
-              <option>Coupe</option> 
-              <option>Berlinetta</option> 
-              <option>M</option> 
-              <option>Petrol</option> 
-              <option>Spider</option> 
-              <option>750S Coupe</option> 
-              <option>750S Spider</option> 
-              <option>McLaren GT Coupe</option> 
-              <option>B5 Ultimate</option> 
-              <option>B6 Ultimate</option> 
-              <option>Recharge Single</option> 
-              <option>E80</option> 
-              <option>Aston Martin DB12 4.0-litre</option> 
-              <option>Evolution</option> 
-              <option>Twin Turbo</option> 
-              <option>707</option> 
-              <option>V8</option> 
-              <option>Competition</option> 
-              <option>sDrive18i M Sport</option> 
-              <option>sDrive18d M Sport</option> 
-              <option>740i M Sport</option> 
-              <option>740d M Sport</option> 
-              <option>220i M Sport</option> 
-              <option>220i M Sport Pro</option> 
-              <option>M Performance Edition</option> 
-              <option>220d M Sport</option> 
-              <option>M340i xDrive</option> 
-              <option>xDrive40i M Sport</option> 
-              <option>xDrive40d M Sport</option> 
-              <option>330Li M Sport</option> 
-              <option>320Ld M Sport</option> 
-              <option>330Li M Sport Pro Edition</option> 
-              <option>Plug-in Hybrid</option> 
-              <option>xDrive30 M Sport</option> 
-              <option>M40i xDrive</option> 
-              <option>eDrive35 M Sport</option> 
-              <option>eDrive40 M Sport</option> 
-              <option>eDrive50 M Sport</option> 
-              <option>eDrive60 M Sport</option> 
-              <option>M70 xDrive</option> 
-              <option>M60 xDrive</option> 
-              </select> 
+                <option value="">Car Variant</option>
+                {variantOptions.map((cVariant) => (
+                  <option key={cVariant} value={cVariant}>
+                    {cVariant}
+                  </option>
+                ))}
+              </select>
             </div>
 
-            <div className="mt-5 ml-2 w-full">
+            <div className="mt-5 md:ml-2 w-full">
               <select
                 required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -713,10 +990,10 @@ export default function AddDealerCar() {
           </div>
           <div className="flex">
             <div className="mt-5 w-full">
-              <Inputs
-                label={"Price"}
-                type={"number"}
-                name={"price"}
+              <Input
+                label="Price"
+                type="number"
+                name="price"
                 value={formData.price}
                 onChange={(event) =>
                   setFormData({
@@ -798,7 +1075,7 @@ export default function AddDealerCar() {
               </select>
             </div>
 
-            <div className="mt-5 ml-2 w-full">
+            <div className="mt-5 md:ml-2 w-full">
               <select
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label={"Owner Serial"}
@@ -824,62 +1101,60 @@ export default function AddDealerCar() {
 
           {/* fifth part */}
           <div className="md:flex">
-          <div className="mt-5 w-full">
-            <Inputs
-              label={"Area"}
-              type={"text"}
-              name={"area"}
-              value={formData.area}
-              onChange={(event) =>
-                setFormData({
-                  ...formData,
-                  area: event.target.value,
-                })
-              }
-            />
-          </div>
+            <div className="mt-5 w-full">
+              <Inputs
+                label={"Area"}
+                type={"text"}
+                name={"area"}
+                value={formData.area}
+                onChange={(event) =>
+                  setFormData({
+                    ...formData,
+                    area: event.target.value,
+                  })
+                }
+              />
+            </div>
 
             <div className="mt-5 md:ml-2 w-full">
-            <select
-        required
-        className="w-full border-2 border-gray-400 p-2 rounded-md"
-        name="carInsurance"
-        value={formData.carInsurance}
-        onChange={handleChange}
-      >
-        <option value="">Car Insurance</option>
-        <option value="true">Yes</option>
-        <option value="false">No</option>
-      </select>
-      {showCalendar && (
-        <div className="mt-3">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="date"
-          >
-            Select Date
-          </label>
-          <input
-            type="date"
-            id="date"
-            value={formData.insurancedate}
-            onChange={handleDateChange}
-            className="w-full border-2 border-gray-400 p-2 rounded-md"
-          />
-        </div>
-      )}
-
-
+              <select
+                required
+                className="w-full border-2 border-gray-400 p-2 rounded-md"
+                name="carInsurance"
+                value={formData.carInsurance}
+                onChange={handleChange}
+              >
+                <option value="">Car Insurance</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+              {showCalendar && (
+                <div className="mt-3">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                    htmlFor="date"
+                  >
+                    Select Date
+                  </label>
+                  <input
+                    type="date"
+                    id="date"
+                    value={formData.insurancedate}
+                    onChange={handleDateChange}
+                    className="w-full border-2 border-gray-400 p-2 rounded-md"
+                  />
+                </div>
+              )}
             </div>
           </div>
 
           {/* sixth part */}
           <div className="md:flex">
             <div className="mt-5 w-full">
-              <Inputs
-                label={"Km Driven"}
-                type={"number"}
-                name={"kmDriven"}
+              <Input
+                label="Km Driven"
+                type="number"
+                name="kmDriven"
                 value={formData.kmDriven}
                 onChange={(event) =>
                   setFormData({
@@ -915,54 +1190,51 @@ export default function AddDealerCar() {
           {/* eight part */}
 
           <div className="md:flex">
-          <div className="mt-5 w-full">
-  <select
-    className="w-full border-2 border-gray-400 p-2 rounded-md"
-    label="City"
-    name="city"
-    value={formData.city}
-    onChange={handleCityChange}
-  >
-    <option value="">Select City</option>
-    {Object.keys(cityOptions).map((city) => (
-      <option key={city} value={city}>
-        {city}
-      </option>
-    ))}
-  </select>
-</div>
+            <div className="mt-5 w-full">
+              <select
+                className="w-full border-2 border-gray-400 p-2 rounded-md"
+                label="City"
+                name="city"
+                value={formData.city}
+                onChange={handleCityChange}
+              >
+                <option value="">Select City</option>
+                {Object.keys(cityOptions).map((city) => (
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-<div className="mt-5 ml-2 w-full">
-  <select
-    className="w-full border-2 border-gray-400 p-2 rounded-md"
-    label="Registration"
-    name="registration"
-    value={formData.registration}
-    onChange={(event) =>
-      setFormData({ ...formData, registration: event.target.value })
-    }
-    disabled={!formData.city}
-  >
-    <option value="">Select Registration</option>
-    {formData.city && cityOptions[formData.city]?.map((reg) => (
-      <option key={reg} value={reg}>
-        {reg}
-      </option>
-    ))}
-  </select>
-</div>
-
+            <div className="mt-5 ml-2 w-full">
+              <select
+                className="w-full border-2 border-gray-400 p-2 rounded-md"
+                label="Registration"
+                name="registration"
+                value={formData.registration}
+                onChange={(event) =>
+                  setFormData({ ...formData, registration: event.target.value })
+                }
+                disabled={!formData.city}
+              >
+                <option value="">Select Registration</option>
+                {formData.city &&
+                  cityOptions[formData.city]?.map((reg) => (
+                    <option key={reg} value={reg}>
+                      {reg}
+                    </option>
+                  ))}
+              </select>
+            </div>
           </div>
-          {/* </div> */}
-         
-
           {/* ninth part */}
           <div className="md:flex">
             <div className="mt-5 ml-5">
               <input
-                label={"Music Feature"}
-                type={"checkbox"}
-                name={"musicFeature"}
+                label="Music Feature"
+                type="checkbox"
+                name="musicFeature"
                 value={formData.musicFeature}
                 onChange={(event) =>
                   setFormData({
@@ -976,9 +1248,9 @@ export default function AddDealerCar() {
 
             <div className="mt-5 ml-5">
               <input
-                label={"Power Window Feature"}
-                type={"checkbox"}
-                name={"powerWindowFeature"}
+                label="Power Window Feature"
+                type="checkbox"
+                name="powerWindowFeature"
                 value={formData.powerWindowFeature}
                 onChange={(event) =>
                   setFormData({
@@ -992,9 +1264,9 @@ export default function AddDealerCar() {
 
             <div className="mt-5 ml-5">
               <input
-                label={"Ac Feature"}
-                type={"checkbox"}
-                name={"acFeature"}
+                label="Ac Feature"
+                type="checkbox"
+                name="acFeature"
                 value={formData.acFeature}
                 onChange={(event) =>
                   setFormData({
@@ -1008,9 +1280,9 @@ export default function AddDealerCar() {
 
             <div className="mt-5 ml-5">
               <input
-                label={"Rear Parking Camera Feature"}
-                type={"checkbox"}
-                name={"rearParkingCameraFeature"}
+                label="Rear Parking Camera Feature"
+                type="checkbox"
+                name="rearParkingCameraFeature"
                 value={formData.rearParkingCameraFeature}
                 onChange={(event) =>
                   setFormData({
@@ -1063,25 +1335,6 @@ export default function AddDealerCar() {
             </div>
           </div>
           {/* twelth part */}
-
-          {/* <div className="mt-5 mb-2">
-            <h4>Title</h4>
-            <div className="formrow">
-              <Input
-                required
-                className="form-control"
-                name="title"
-                placeholder="Title"
-                value={formData.title}
-                onChange={(event) => {
-                  setFormData({
-                    ...formData,
-                    title: event.target.value,
-                  });
-                }}
-              ></Input>
-            </div>
-          </div> */}
 
           <button
             type="submit"
