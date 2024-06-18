@@ -9,7 +9,7 @@ const carid = data?.carId
 console.log(carid)
   return (
     <Card className="mt-6 w-96 md:m-0 m-3">
-      <div className="w-[18rem] h-[16rem] ">
+      <div className="w-[18rem] h-[12rem] mt-2  ">
         <CarouselCustomArrows  carId={carid} />
       </div>
       <CardBody>
