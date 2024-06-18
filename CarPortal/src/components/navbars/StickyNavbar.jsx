@@ -22,9 +22,9 @@ export function StickyNavbar() {
      jwtDecodes = jwtDecode(token);
   }
   
-  console.log(jwtDecodes);
+  
   const userRole = token ? jwtDecodes?.authorities[0] :null;
-  console.log(userRole)
+  
   // eslint-disable-next-line no-unused-vars
   const DealerId = token ? jwtDecodes?.dealerId :null;
   const UserId = token ? jwtDecodes?.userId :null;
@@ -32,7 +32,7 @@ export function StickyNavbar() {
   const location = useLocation();
   const active = location.pathname === `/dealer/${jwtDecodes?.dealerId}`;
  
-console.log(userRole)
+
   const adminDashboard = userRole?.includes("ADMIN") ? (
     <>
     {/* <Link to={"/bidding"}>
@@ -56,7 +56,7 @@ console.log(userRole)
           Dealer List
         </Typography>
       </Link>
-      {/* <Link to={"/inspector"}>
+      <Link to={"/inspector"}>
         <Typography
           as="li"
           variant="small"
@@ -65,7 +65,7 @@ console.log(userRole)
         >
           Inspector List
         </Typography>
-      </Link> */}
+      </Link>
 
       
     </>

@@ -79,13 +79,20 @@ const carDataF = {
   ],
   Fiat: [],
   Nissan: [],
-  Volvo: ["S90","XC60","XC90","XC40","C40 Recharge"],
+  Volvo: ["S90", "XC60", "XC90", "XC40", "C40 Recharge"],
   AstonMartin: ["Aston Martin DB12", "DB11", "DBX", "Vantage"],
-  McLaren: ["720S","750S","GT"],
-  Ferrari: ["Purosangue SUV","296 GTB","Roma","F8 Tributo","Portofino M","296 GTS 3.0"],
-  Maserati: ["Ghibli","MC20","Quattroporte","Levante","GranTurismo"],
-  MINI: ["Cooper","Countryman","Cooper SE","Cooper 3 Door"],
-  Bugatti: ["Divo","Veyron"],
+  McLaren: ["720S", "750S", "GT"],
+  Ferrari: [
+    "Purosangue SUV",
+    "296 GTB",
+    "Roma",
+    "F8 Tributo",
+    "Portofino M",
+    "296 GTS 3.0",
+  ],
+  Maserati: ["Ghibli", "MC20", "Quattroporte", "Levante", "GranTurismo"],
+  MINI: ["Cooper", "Countryman", "Cooper SE", "Cooper 3 Door"],
+  Bugatti: ["Divo", "Veyron"],
   ForceMotors: ["Trax Cruiser"],
   Force: ["Gurkha"],
   Bentley: ["Bentayga", "Flying Spur", "Continental"],
@@ -200,15 +207,16 @@ const FilterCars = ({ setUrlState }) => {
     setValue(200000);
     setSelectedBrand("");
     setModelOptions([]);
-    setFilterForm({
+    const data = {
       area: "",
       year: "",
       brand: "",
       model: "",
       fuelType: "",
       transmission: "",
-      ownership: "",
-    });
+    };
+    setFilterForm(data);
+    setUrlState(data);
   };
 
   const formattedAmount = new Intl.NumberFormat("en-IN").format(value);

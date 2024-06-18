@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { useNavigate } from "react-router-dom";
-import { Tooltip } from "@material-tailwind/react";
-import StatusDialogeBox2 from "../../ui/StatusDialogeBox2";
 import {
   Card,
   CardHeader,
@@ -15,7 +13,6 @@ import {
 } from "../../services/inspectorapi";
 import TableComponent from "../../components/table/TableComponent";
 import { useState } from "react";
-import { AddDealerForm } from "../../components/admin/AddDealerForm";
 import { Link } from "react-router-dom";
 import { AddInspectorForm } from "../AddInspectorForm";
 
@@ -40,7 +37,7 @@ console.log(data)
     setPageNo((prevPageNo) => {
       // Check if the error status is 404
       if (error?.status === 404) {
-        console.log("click");
+        
         console.log(prevPageNo);
         // Display message or perform any action indicating that it's the last page
         console.log("You are on the last page.");
