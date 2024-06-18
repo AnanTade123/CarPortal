@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Input, Textarea, Card, Button } from "@material-tailwind/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -20,6 +20,10 @@ const ContactUs = () => {
   const handleSend = () => {
     console.log(formData);
   };
+
+  useEffect(()=>{
+    window.scrollTo(0,0);
+  },[])
 
   return (
     <div className="bg-light-blue-50">
