@@ -21,20 +21,20 @@ import Cookies from "js-cookie";
 
 const BiddingDealer = () => {
   const {id} = useParams()
-  console.log(id)
+  
   
   const token = Cookies.get("token");
   let jwtDecodes
   if(token){
      jwtDecodes = jwtDecode(token);
   }
-  console.log("Token ",jwtDecodes);
+ 
 
  const UserID = jwtDecodes?.userId;
- console.log("User ID",UserID)
+ 
 
   const { data, isLoading,error } = useBiddingCarByDealerIdQuery(UserID);
-  console.log(data);
+  
   
   if (isLoading) {
     return <p>Loading..</p>;

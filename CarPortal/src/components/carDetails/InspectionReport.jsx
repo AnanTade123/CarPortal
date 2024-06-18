@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import CardUi from "../../ui/CardUi";
 import forwardarrow from "/carslogo/forwardarrow.png";
 import { FaCar } from "react-icons/fa";
@@ -144,7 +145,7 @@ const InspectionReport = () => {
           </CardUi>
         </div>
         <div className="flex w-3/4 justify-center items-center mt-12 md:w-full">
-          <div className="flex gap-2 px-10 py-2 md:px-20 md:py-3 items-center bg-[#002441] text-white text-sm rounded-2xl uppercase font-[latto] ">
+          {/* <div className="flex gap-2 px-10 py-2 md:px-20 md:py-3 items-center bg-[#002441] text-white text-sm rounded-2xl uppercase font-[latto] ">
             <div>View Inspection Report</div>
             <div>
               <IoIosArrowForward
@@ -152,7 +153,7 @@ const InspectionReport = () => {
                 color="white"
               />
             </div>
-          </div>
+          </div> */}
         </div>
       </CardUi>
     </>
