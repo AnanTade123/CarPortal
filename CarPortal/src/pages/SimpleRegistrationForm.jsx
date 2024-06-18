@@ -11,6 +11,8 @@ import { Link } from "react-router-dom";
 import Inputs from "../forms/Inputs";
 import CardUi from "../ui/CardUi";
 import { useSignUpMutation } from "../services/authAPI";
+import { toast, ToastContainer } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 export function SimpleRegistrationForm() {
   const [SignUp] = useSignUpMutation();
@@ -29,7 +31,7 @@ export function SimpleRegistrationForm() {
     userType: "",
   });
   // const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({
     firstName: "",
     lastName: "",
@@ -122,7 +124,10 @@ export function SimpleRegistrationForm() {
     try {
       const { data } = await SignUp(formStateData);
       console.log(data);
-      alert("Register Sucessfully");
+      toast.success("Login Sucessfully");
+        setTimeout(() => {
+          navigate("/signin");
+        }, 1000);
     } catch (error) {
       console.log(error);
     }
@@ -140,6 +145,7 @@ export function SimpleRegistrationForm() {
   return (
     <div className="h-auto mt-10 flex justify-center items-center">
       <CardUi color="transparent" shadow={false}>
+      <ToastContainer />
         <Typography variant="h3" color="black" className="text-center">
           Sign Up
         </Typography>

@@ -21,7 +21,9 @@ export function StickyNavbar() {
   if(token){
      jwtDecodes = jwtDecode(token);
   }
-  
+  if(token){
+    console.log(token)
+ }
   
   const userRole = token ? jwtDecodes?.authorities[0] :null;
   
@@ -270,7 +272,15 @@ export function StickyNavbar() {
           </IconButton>
         </div>
       </div>
+      <>
+
       <Collapse open={openNav}>
+      {token ? (
+              <div>
+                {navList}
+              </div>
+            ) : (
+             <div>
         {navList}
         <div className="flex items-center gap-x-1">
           <Link to="/signin">
@@ -285,7 +295,10 @@ export function StickyNavbar() {
           </Button>
           </Link>
         </div>
-      </Collapse>
+        </div>
+            )}
+            </Collapse>
+      </>
     </Navbar>
   );
 }
