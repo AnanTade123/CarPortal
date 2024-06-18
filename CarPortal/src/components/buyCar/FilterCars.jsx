@@ -2,9 +2,166 @@
 import { useState } from "react";
 import { Card } from "@material-tailwind/react";
 import { Button, Slider, Typography } from "@material-tailwind/react";
+
+const carDataF = {
+  Kia: ["Sonet", "Seltos", "Carnival"],
+  Volkswagen: ["Polo", "Vento", "Taigun", "Virtus"],
+  Mahindra: ["XUV300", "XUV700", "Thar", "Scorpio", "Bolero", "Marazzo"],
+  MarutiSuzuki: [
+    "Swift",
+    "Baleno",
+    "Vitara Brezza",
+    "Ertiga",
+    "Alto K10",
+    "Dzire",
+    "Wagon R",
+    "XL6",
+    "Celerio",
+    "Jimny",
+    "Ignis",
+    "Eeco",
+    "Invicto",
+    "Ciaz",
+  ],
+  Citroen: ["C3", "C3 Aircross", "eC3", "C5 Aircross"],
+  Tata: [
+    "Tigor",
+    "Altroz",
+    "Harrier",
+    "Safari",
+    "Hexa",
+    "Tigor EV",
+    "Nexon EV",
+    "Punch",
+  ],
+  Hyundai: [
+    "Verna",
+    "i20",
+    "Venue",
+    "Creta",
+    "Santro",
+    "Grand i10 Nios",
+    "Aura",
+    "Exter",
+    "Alcazar",
+  ],
+  Honda: ["City", "Amaze", "WR-V"],
+  BMW: [
+    "3 Series",
+    "5 Series",
+    "X1",
+    "X3",
+    "X5",
+    "7 Series",
+    "X7",
+    "iX1",
+    "i4",
+    "i7",
+    "i5",
+    "iX1",
+    "XM",
+    "BMW M340i",
+    "2 Series Gran Coupe",
+    "M4",
+  ],
+  Toyota: [],
+  ISUZU: [],
+  Skoda: [],
+  LandRover: [
+    "Discovery",
+    "Range Rover Sport",
+    "Discovery Sport",
+    "Range Rover",
+    "Defender",
+    "Range Rover Velar",
+    "Range Rover Evoque",
+    "",
+  ],
+  Fiat: [],
+  Nissan: [],
+  Volvo: ["S90","XC60","XC90","XC40","C40 Recharge"],
+  AstonMartin: ["Aston Martin DB12", "DB11", "DBX", "Vantage"],
+  McLaren: ["720S","750S","GT"],
+  Ferrari: ["Purosangue SUV","296 GTB","Roma","F8 Tributo","Portofino M","296 GTS 3.0"],
+  Maserati: ["Ghibli","MC20","Quattroporte","Levante","GranTurismo"],
+  MINI: ["Cooper","Countryman","Cooper SE","Cooper 3 Door"],
+  Bugatti: ["Divo","Veyron"],
+  ForceMotors: ["Trax Cruiser"],
+  Force: ["Gurkha"],
+  Bentley: ["Bentayga", "Flying Spur", "Continental"],
+  Audi: [
+    "e-tron",
+    "Q8",
+    "A8L",
+    "RS Q8",
+    "RS5",
+    "Q5",
+    "A6",
+    "Q7",
+    "S5",
+    "e-tron GT",
+    "Q3 Sportback",
+    "Q3",
+    "A4",
+  ],
+  Porsche: [
+    "911",
+    "Taycan",
+    "Macan",
+    "Cayenne",
+    "Panamera",
+    "718",
+    "Taycan Cross Turismo",
+    "Cayenne Coupe",
+    "Macan Turbo EV",
+  ],
+  MercedesBenz: [
+    "EQC",
+    "AMG GT",
+    "AMG G-Class",
+    "AMG E-Class",
+    "AMG C-Class",
+    "S-Class Coupe",
+    "C-Class Coupe",
+    "E-Class Coupe",
+    "GLS",
+    "GLE",
+    "GLC",
+    "GLB",
+    "GLA",
+    "S-Class",
+    "E-Class",
+    "C-Class",
+    "A-Class Limousine",
+  ],
+  Others: [],
+};
+
 // eslint-disable-next-line react/prop-types
 const FilterCars = ({ setUrlState }) => {
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [modelOptions, setModelOptions] = useState([]);
   const [value, setValue] = useState();
+
+  const handleBrandChange = (event) => {
+    const brand = event.target.value;
+    console.log("brand", carDataF[brand]);
+    setSelectedBrand(brand);
+    setModelOptions(carDataF[brand] || []);
+    setFilterForm({
+      ...filterForm,
+      brand,
+      model: "", // Reset model when brand changes
+    });
+  };
+
+  const handleModelChange = (event) => {
+    const model = event.target.value;
+    setFilterForm({
+      ...filterForm,
+      model,
+    });
+  };
 
   console.log(value);
   const [filterForm, setFilterForm] = useState({
@@ -19,43 +176,30 @@ const FilterCars = ({ setUrlState }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFilterForm({ ...filterForm, [name]: value });
   };
 
   const submitHandle = (e) => {
     e.preventDefault();
-   // const { area, year, brand, model, fuelType, transmission } = filterForm;
-     const minPrice = 3999; // Assuming this is your default minimum price
-     const maxPrice = value; // Maximum price from the slider
-    filterForm.brand.toUpperCase()
+    const minPrice = 3999; // Assuming this is your default minimum price
+    const maxPrice = value; // Maximum price from the slider
     const url = {
-      Area : filterForm.area,
-      Year : filterForm.year,
-      Brand : filterForm.brand.toUpperCase(),
-      Model : filterForm.model,
-      FuleType : filterForm.fuelType,
-      Transmission : filterForm.transmission,
+      Area: filterForm.area,
+      Year: filterForm.year,
+      Brand: filterForm.brand.toUpperCase(),
+      Model: filterForm.model,
+      FuleType: filterForm.fuelType,
+      Transmission: filterForm.transmission,
       MinPrice: minPrice,
-      MaxPrice : maxPrice
+      MaxPrice: maxPrice,
     };
-    //console.log(brand.toUpperCase())
-    // Append selected filters to the URL if they are not empty
-    // if (minPrice) url += `&minPrice=${minPrice}`;
-    // if (maxPrice > minPrice) url += `&maxPrice=${maxPrice}`;
-    // if (area) url += `&area=${area}`;
-    // if (year) url += `&year=${year}`;
-    // if (brand) url += `&brand=${brand}`;
-    // if (model) url += `&model=${model}`;
-
-    // if (transmission) url += `&transmission=${transmission}`;
-    // if (fuelType) url += `&fuel_type=${fuelType}`;
-    //const url = Object.fromEntries(Object.entries(url1).filter(([_, v]) => v !== ""));
     setUrlState(url);
   };
 
   const resetForm = () => {
     setValue(200000);
+    setSelectedBrand("");
+    setModelOptions([]);
     setFilterForm({
       area: "",
       year: "",
@@ -66,14 +210,14 @@ const FilterCars = ({ setUrlState }) => {
       ownership: "",
     });
   };
-  console.log(new Intl.NumberFormat("en-IN").format(value));
+
   const formattedAmount = new Intl.NumberFormat("en-IN").format(value);
 
   return (
     <Card className="p-4">
-      <div className="space-y-4  ">
+      <div className="space-y-4">
         <form onSubmit={submitHandle}>
-          <div className="mb-1 flex flex-col gap-6 ">
+          <div className="mb-1 flex flex-col gap-6">
             <Typography variant="h6" color="blue-gray" className="-mb-8">
               Price Range
             </Typography>
@@ -97,7 +241,7 @@ const FilterCars = ({ setUrlState }) => {
             </div>
             <select
               name="area"
-              className="border border-gray-700 h-10 rounded-lg md:w-[50%] lg:w-full "
+              className="border border-gray-700 h-10 rounded-lg md:w-[50%] lg:w-full"
               value={filterForm.area}
               onChange={handleChange}
             >
@@ -156,38 +300,30 @@ const FilterCars = ({ setUrlState }) => {
             </select>
             <select
               name="brand"
-              onChange={handleChange}
-              value={filterForm.brand}
+              onChange={handleBrandChange}
+              value={selectedBrand}
               className="border border-gray-700 h-10 rounded-lg"
             >
-              <option>Select Brand</option>
-              <option>Tata</option>
-              <option>Honda</option>
-              <option>Hyundai</option>
-              <option>Mahindra</option>
-              <option>Kia</option>
-              <option>Suzuki</option>
-              <option>Volkswagen</option>
-              <option>BMW</option>
-              <option>Mercedes</option>
-              <option>Skoda</option>
-              <option>Citroen</option>
-              <option>Maruti</option>
+              <option value="">Brands</option>
+              {Object.keys(carDataF).map((brand) => (
+                <option key={brand} value={brand}>
+                  {brand}
+                </option>
+              ))}
             </select>
             <select
               name="model"
-              onChange={handleChange}
+              onChange={handleModelChange}
               value={filterForm.model}
+              disabled={!selectedBrand}
               className="border border-gray-700 h-10 rounded-lg"
             >
-              <option>Select Model</option>
-              <option>Harrier</option>
-              <option>Verna</option>
-              <option>Swift</option>
-              <option>i20</option>
-              <option>Sonet</option>
-              <option>Virtus</option>
-              <option>Creta</option>
+              <option value="">Models</option>
+              {modelOptions.map((model) => (
+                <option key={model} value={model}>
+                  {model}
+                </option>
+              ))}
             </select>
             <select
               name="fuelType"
@@ -195,7 +331,7 @@ const FilterCars = ({ setUrlState }) => {
               value={filterForm.fuelType}
               className="border border-gray-700 h-10 rounded-lg"
             >
-              <option> Fuel Type</option>
+              <option>Fuel Type</option>
               <option>Petrol</option>
               <option>Diesel</option>
               <option>Electric</option>
@@ -211,18 +347,6 @@ const FilterCars = ({ setUrlState }) => {
               <option>Manual</option>
               <option>Automatic</option>
             </select>
-            {/* <select
-              name="ownership"
-              onChange={handleChange}
-              value={filterForm.ownership}
-              className="border border-gray-700 h-10 rounded-lg"
-            >
-              <option>Ownership</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-            </select> */}
           </div>
           <div className="flex gap-5 mt-5">
             <Button type="submit" className="bg-indigo-200">
