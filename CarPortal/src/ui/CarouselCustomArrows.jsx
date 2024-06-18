@@ -70,7 +70,7 @@ export function CarouselCustomArrows({ carId }) {
       key={item.documentId}
         src={item.documentLink}
         alt={`Car Image ${item.documentId}`}
-        className=" w-[18rem] mt-3 h-[12rem] rounded-lg"
+        className=" w-[18rem] mt-5 h-[12rem] rounded-lg"
       />
    
   ))}
