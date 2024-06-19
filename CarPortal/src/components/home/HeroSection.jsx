@@ -74,11 +74,11 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="absolute  right-0 ">
+      <div className="absolute right-0 ">
         <img
           alt="car"
           src={carGroup}
-          className="w-[16rem] hidden md:w-[50rem] md:block"
+          className="w-[16rem] hidden md:w-[50rem] md:block "
         />
       </div>
     </div>
