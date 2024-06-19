@@ -249,7 +249,7 @@ const FilterCars = ({ setUrlState }) => {
             </div>
             <select
               name="area"
-              className="border border-gray-700 h-10 rounded-lg md:w-[50%] lg:w-full"
+              className="border border-gray-700 h-10 rounded-lg md:w-full lg:w-full"
               value={filterForm.area}
               onChange={handleChange}
             >
@@ -356,7 +356,7 @@ const FilterCars = ({ setUrlState }) => {
               <option>Automatic</option>
             </select>
           </div>
-          <div className="flex gap-5 mt-5">
+          <div className="flex gap-5 mt-5 md:flex-col lg:flex">
             <Button type="submit" className="bg-indigo-200">
               Search
             </Button>
