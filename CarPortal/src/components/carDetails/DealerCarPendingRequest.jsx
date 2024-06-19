@@ -1,21 +1,30 @@
 /* eslint-disable react/prop-types */
-import { Button, Chip } from "@material-tailwind/react";
+import { Button, Dialog, DialogBody, DialogFooter, Chip } from "@material-tailwind/react";
 import CardUi from "../../ui/CardUi";
 import { Link, useParams } from "react-router-dom";
 import { useConfirmBookingMutation } from "../../services/carAPI";
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 import Cookies from "js-cookie";
+import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import { useState } from "react";
 
 const DealerCarPendingRequest = ({ item }) => {
-  console.log(item);
+ 
   const { id } = useParams();
-  console.log(id);
+  
+
+  const [open, setOpen] = useState(false);
+ 
+  const handleOpen = () => setOpen(!open);
+
+  const navigate = useNavigate();
   const token = Cookies.get("token");
   let jwtDecodes;
   if (token) {
     jwtDecodes = jwtDecode(token);
   }
-  console.log("Token ", jwtDecodes);
+  
 
   const UserID = jwtDecodes?.userId;
   console.log("User ID", UserID);
@@ -34,16 +43,41 @@ const DealerCarPendingRequest = ({ item }) => {
     try {
       // Sending the necessary data to the API
       const response = await ConfirmBooking(formdata);
-      alert("Sold")
+      toast.success("Car added");
+      setOpen(!open)
+      setTimeout(() => {
+        navigate(`/dealer/${id}/booking/confirm`);
+      }, 1000);
       console.log('Booking confirmed:', response);
     } catch (error) {
-      console.error("Error confirming booking:", error);
+      toast.error("Car not added");
+      setOpen(!open)
     }
   };
 
   return (
     <div className="w-full flex justify-center">
+      <ToastContainer />
       <form onSubmit={handleConfirmBook}>
+        <Dialog open={open} handler={handleOpen}>
+        
+          <DialogBody className="flex justify-center">
+            <p className="font-semibold text-xl">Are You Sure You Want to Sell the Car?</p>
+          </DialogBody>
+          <DialogFooter>
+            <Button
+              variant="text"
+              color="red"
+              onClick={handleOpen}
+              className="mr-1"
+            >
+              <span>No</span>
+            </Button>
+            <Button variant="gradient" color="green" onClick={handleConfirmBook}>
+              <span>Yes</span>
+            </Button>
+          </DialogFooter>
+        </Dialog>
         <CardUi>
           <div className="md:min-w-[30rem] w-[20rem] m-4">
             <div className="flex justify-between">
@@ -90,9 +124,9 @@ const DealerCarPendingRequest = ({ item }) => {
                     </Button>
                   </Link>
                   <Button
-                    type="submit"
                     color="green"
                     className="flex gap-2 items-center mt-3 font-[latto]"
+                    onClick={handleOpen}
                   >
                     <span>Confirm Request</span>
                     <svg
