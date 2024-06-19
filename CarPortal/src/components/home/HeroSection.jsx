@@ -75,7 +75,6 @@ const HeroSection = () => {
       </div>
 
       <div className="absolute right-0 ">
-      <div className="absolute right-0 ">
         <img
           alt="car"
           src={carGroup}
