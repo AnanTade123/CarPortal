@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { useNavigate } from "react-router-dom";
-import { Tooltip } from "@material-tailwind/react";
+import { DialogBody, Tooltip } from "@material-tailwind/react";
 import StatusDialogeBox2 from "../../ui/StatusDialogeBox2";
 import {
   Card,
@@ -8,6 +9,8 @@ import {
   Button,
   CardBody,
   CardFooter,
+  Dialog,
+  DialogFooter,
 } from "@material-tailwind/react";
 import {
   useDeleteDealerMutation,
@@ -24,13 +27,24 @@ export default function Admin() {
   const { data, isLoading, error } = useGetAllDealerQuery(pageNo);
 console.log(data)
   const [deleteDealer] = useDeleteDealerMutation();
+  const [open, setOpen] = useState(false);
+  const [deleteid ,setDeleteid] = useState()
+ 
+  const handleOpen = (id) => {
+    setOpen(!open);
+    setDeleteid(id);
+  };
 
+  const handleOpen1 = (id) => {
+    deleteDealerHandler(deleteid)
+    setOpen(!open)
+  };
 
   const navigate = useNavigate();
   if (error?.status === 401) {
     return navigate("/signin");
   }
-  console.log(pageNo);
+
   const deleteDealerHandler = async (id) => {
     const res = await deleteDealer(id);
     console.log(res);
@@ -141,9 +155,9 @@ console.log(data)
                 </svg>
               </Link>
               <div
-                onClick={() => deleteDealerHandler(cell.row.values.dealer_id)}
+                onClick={() => handleOpen(cell.row.values.dealer_id)}
               >
-                <Tooltip content="Delete">
+                <Tooltip content="Delete" >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -174,7 +188,7 @@ console.log(data)
   } else {
     dealerApiData = data?.list;
   }
-  console.log(dealerApiData);
+ console.log(dealerApiData)
   return (
     <>
 
@@ -186,8 +200,26 @@ console.log(data)
             </div>
             </div>
             ):
-            ( 
+            ( <div>
             <Card className="h-full w-full">
+      <Dialog open={open} handler={handleOpen}>
+      <DialogBody className="flex justify-center" >
+        <p className="font-semibold text-xl">Are you sure want to delete?</p> 
+        </DialogBody>
+        <DialogFooter className="flex justify-center">
+          <Button
+            variant="text"
+            color="red"
+            onClick={handleOpen}
+            className="mr-1"
+          >
+            <span>Cancel</span>
+          </Button>
+          <Button variant="gradient" color="green" onClick={handleOpen1}>
+            <span>Confirm</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
         <CardHeader floated={false} shadow={false} className="rounded-none">
           <div className=" flex items-center justify-between gap-8">
             <div>
@@ -233,7 +265,7 @@ console.log(data)
             </Button>
           </div>
         </CardFooter>
-      </Card>)}
+      </Card></div>)}
      
     </>
   );

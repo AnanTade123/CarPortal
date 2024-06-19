@@ -8,13 +8,23 @@ import Inputs from "../../forms/Inputs";
 import React from "react";
 import { useEffect } from "react";
 import { Button } from "@material-tailwind/react";
-//import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode"
+import Cookies from "js-cookie";
+
 const DealerEdit = () => {
-  const { userid, id } = useParams();
+  const { id } = useParams();
   const { data: dealerID } = useGetDealerQuery(id);
-  console.log(dealerID);
-  console.log(userid);
+
+  const token = Cookies.get("token");
+  let jwtDecodes
+  if(token){
+     jwtDecodes = jwtDecode(token);
+  }
+  
+  console.log(jwtDecodes);
+  const userid = token ? jwtDecodes?.userId :null;
+ 
   const [getEditDealer] = useGetEditDealerMutation(userid);
   const [inputField, setInputField] = React.useState({
     firstName: "",
@@ -41,13 +51,13 @@ const navigate = useNavigate()
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     console.log(inputField);
-    console.log("clck");
+    
     try {
       const res = await getEditDealer({ id: userid, inputField });
       console.log(res);
     if(res.data.status ==='success'){
       alert("changes successful")
-      navigate('/admin')
+      navigate('/')
     }
     } catch (error) {
       console.log(error);

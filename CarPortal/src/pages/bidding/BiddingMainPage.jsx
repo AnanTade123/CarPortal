@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import GridList2 from "../../components/buyCar/GridList2"
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
@@ -14,10 +15,10 @@ const BiddingMainPage = () => {
     return <p>Loading...</p>;
   }
 
-  if (error?.status == 401) {
-    Cookies.remove("token");
-    navigate("/signin");
-  }
+  // if (error?.status == 401) {
+  //   Cookies.remove("token");
+  //   navigate("/signin");
+  // }
   return (
     <>
     <GridList2 data={data} />

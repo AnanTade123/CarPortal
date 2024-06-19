@@ -25,7 +25,7 @@ const CarView1 = ({ carId }) => {
 
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error fetching car image</div>;
+  if (error) return <div className="font-[Merriweather]">Image not available</div>;
 
   const ExteriorImages = data.object.filter(item => item.documentType === 'Exterior');
   const InteriorImages = data.object.filter(item => item.documentType === 'Interior');
@@ -35,7 +35,7 @@ const CarView1 = ({ carId }) => {
 
   const ChooseCarColor = () => {
     return (
-      <div className="container mx-auto">
+      <div className="container mx-auto w-[20rem] h-[20rem] md:w-[30rem]">
         {/* {img360 && (
           <div className="max-w-md mx-auto mb-5">
             <div className="flex justify-center">
@@ -70,7 +70,7 @@ const CarView1 = ({ carId }) => {
         )}
 
         {exterior && (
-          <Carousel className="bg-white rounded-lg shadow-md">
+          <Carousel className="bg-gray-900 rounded-lg shadow-md ">
           {ExteriorImages.map((item) => (
             <img
               key={item.documentId}
@@ -109,7 +109,7 @@ const CarView1 = ({ carId }) => {
         )}
 
         {engines && (
-          <Carousel className="bg-white rounded-lg shadow-md">
+          <Carousel className="bg-white rounded-lg shadow-md ">
           {EngineImages.map((item) => (
             <img
               key={item.documentId}

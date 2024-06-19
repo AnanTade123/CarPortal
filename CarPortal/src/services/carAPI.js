@@ -7,8 +7,8 @@ export const carApi = apiSlice.injectEndpoints({
       query: (urlState) => {
         // Destructure and provide default values
         const {
-          minPrice = '',
-          maxPrice = '',
+          MinPrice = '',
+          MaxPrice = '',
           Area = '',
           Year = '',
           Brand = '',
@@ -18,7 +18,7 @@ export const carApi = apiSlice.injectEndpoints({
         } = urlState || {};
     console.log(urlState)
         return {
-          url: `/cars/mainFilter?minPrice=${minPrice}&maxPrice=${maxPrice}&area=${Area}&year=${Year}&brand=${Brand}&model=${Model}&transmission=${Transmission}&fuel_type=${FuleType}`,
+          url: `/cars/mainFilter?minPrice=${MinPrice}&maxPrice=${MaxPrice}&area=${Area}&year=${Year}&brand=${Brand}&model=${Model}&transmission=${Transmission}&fuelType=${FuleType}`,
           method: "GET",
         };
       },
@@ -98,10 +98,12 @@ export const carApi = apiSlice.injectEndpoints({
       providesTags: ["CAR"],
     }),
 
-    ConfirmBooking: builder.query({
-      query: () => ({
+    ConfirmBooking: builder.mutation({
+      query: (formdata) => ({
         url: `/confirmBooking/book`,
-        method : "POST"
+        transferResponse: console.log(formdata),
+        method : "POST",
+        body :formdata
       }),
       providesTags: ["CAR"],
     }),
@@ -157,5 +159,5 @@ export const {
   useGetAllUserConfirmQuery,
   useGetPendingrequestQuery,
   useGetCarImageByIdQuery,
-  useConfirmBookingQuery
+  useConfirmBookingMutation
 } = carApi;

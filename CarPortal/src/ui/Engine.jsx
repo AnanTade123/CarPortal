@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function Engine() {
   const [openDialog, setOpenDialog] = useState(false); // State to control the dialog display
   const [images, setImages] = useState([]);
-  const [document, setDocument] = useState('');
+  const [document, setDocument] = useState('Engine');
   // eslint-disable-next-line no-unused-vars
   // const navigate = useNavigate();
   const { id } = useParams();

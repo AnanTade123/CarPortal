@@ -11,6 +11,8 @@ import Inputs from "../forms/Inputs";
 import { useBookingRequestMutation } from "../services/carAPI";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router";
+import { toast, ToastContainer } from 'react-toastify';
+
 export default function DialogBox({ price, dealer_id, carId }) {
   console.log(carId);
   const navigate = useNavigate()
@@ -58,7 +60,7 @@ console.log(formData)
     const res = await bookingRequest(formData);
     console.log(res);
     if (res?.data) {
-      alert("request send");
+      toast.success("Login Sucessfully");
       setInoutForm("");
     }
     if (res.error) {
@@ -68,6 +70,7 @@ console.log(formData)
   };
   return (
     <>
+     <ToastContainer />
       <Button onClick={handleOpen} variant="gradient">
         Buy Car
       </Button>

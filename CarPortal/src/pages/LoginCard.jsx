@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import {
@@ -12,7 +13,7 @@ import {
 import { useState } from "react";
 import { useSignInMutation } from "../services/authAPI";
 import { setToken } from "../features/authSlice";
-
+import { toast, ToastContainer } from 'react-toastify';
 import { useDispatch } from "react-redux";
 import { jwtDecode } from "jwt-decode";
 import { Visibility, VisibilityOff } from '@material-ui/icons';
@@ -41,19 +42,19 @@ export function LoginCard() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formStateData);
     try {
       const { data } = await signIn(formStateData);
-      console.log(data);
+      
       if (data) {
-        console.log(data);
-
+         
         const jwtDecodes = jwtDecode(data);
         const jwtDecodesJson = JSON.stringify(jwtDecodes);
         localStorage.setItem("userInfo", jwtDecodesJson);
-        console.log(jwtDecodes);
-        navigate("/");
-        alert("You are sucessfully login");
+        
+        toast.success("Login Sucessfully");
+        setTimeout(() => {
+          navigate("/");
+        }, 1000); 
         dispatch(setToken(data));
       } else {
         alert("email and password is not match");
@@ -64,11 +65,14 @@ export function LoginCard() {
       console.log(error);
       // Handle sign-in error
     }
+
+    
   };
 
   return (
     <div className="flex justify-center items-center h-screen">
       <Card className="w-96">
+      <ToastContainer />
         <CardHeader
           variant="gradient"
           color="gray"

@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { Input, Textarea, Card, Button } from "@material-tailwind/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -20,6 +21,10 @@ const ContactUs = () => {
     console.log(formData);
   };
 
+  useEffect(()=>{
+    window.scrollTo(0,0);
+  },[])
+
   return (
     <div className="bg-light-blue-50">
       <div className="flex justify-center items-center bg-light-blue-200 h-auto">
@@ -30,7 +35,7 @@ const ContactUs = () => {
         </div>
       </div>
       <div className=" container mx-auto my-10 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
+        {/* <div>
           <h2 className="text-xl font-semibold mb-3">Feedback</h2>
           <p>
             We value your feedback. Share your thoughts, suggestions, or
@@ -85,9 +90,9 @@ const ContactUs = () => {
               </div>
             </Card>
           </form>
-        </div>
+        </div> */}
 
-        <div>
+        <div >
           {/* <h1 className="text-3xl font-bold mb-5">Contact Us</h1> */}
           <p className="text-lg mb-5">
             Have questions? We are here to help. Get in touch with us using the

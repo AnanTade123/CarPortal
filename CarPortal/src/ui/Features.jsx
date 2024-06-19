@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import { useAddCarImagesMutation } from '../services/dealerAPI';
 import { Button, Dialog, DialogHeader, DialogBody, DialogFooter } from '@material-tailwind/react';
@@ -11,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function Features() {
   const [openDialog, setOpenDialog] = useState(false); // State to control the dialog display
   const [images, setImages] = useState([]);
-  const [document, setDocument] = useState('');
+  const [document, setDocument] = useState('Features');
   // eslint-disable-next-line no-unused-vars
   // const navigate = useNavigate();
   const { id } = useParams();
@@ -87,7 +88,7 @@ export default function Features() {
         <DialogBody>
           <form
             onSubmit={(e) => {
-              setDocument('Features');
+              
               handleSubmit(e);
             }}
             className="flex flex-col space-y-2"
@@ -108,7 +109,7 @@ export default function Features() {
           </form>
           <form
             onSubmit={(e) => {
-              setDocument('Features');
+              
               handleSubmit(e);
             }}
             className="flex flex-col space-y-2"
@@ -129,7 +130,7 @@ export default function Features() {
           </form>
           <form
             onSubmit={(e) => {
-              setDocument('Features');
+              
               handleSubmit(e);
             }}
             className="flex flex-col space-y-2"
@@ -150,7 +151,7 @@ export default function Features() {
           </form>
           <form
             onSubmit={(e) => {
-              setDocument('Features');
+              
               handleSubmit(e);
             }}
             className="flex flex-col space-y-2"

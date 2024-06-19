@@ -6,15 +6,17 @@ import { Link } from "react-router-dom";
 const UserCardPendingRequest = ({ item }) => {
   console.log(item);
   return (
-    <div className="w-full flex justify-center ">
+    <div className="w-96px items-center flex justify-center mx-8">
       <CardUi>
-        <div className="min-w-[30rem]">
-          <div className="flex justify-between">
+        <div className="md:min-w-[30rem] min-w-[20rem]">
+          <div className="flex justify-between mr-4">
+            <div className="md:ml-10 ml-4">
             <Chip
               variant="outlined"
               value={`${item?.date}`}
               className="rounded-full font-[latto] text-sm"
             ></Chip>
+            </div>
             <Chip
               color="amber"
               value={`${item?.status}`}
@@ -31,7 +33,7 @@ const UserCardPendingRequest = ({ item }) => {
               </div>
 
               <Link to={`/carlist/cardetails/${item?.carId}`}>
-                <Button className="flex gap-2 items-center mt-3 font-[latto]">
+                <Button className="flex gap-2 items-center mt-3 mb-3 md:mb-0 font-[latto]">
                   <span>Car Details </span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

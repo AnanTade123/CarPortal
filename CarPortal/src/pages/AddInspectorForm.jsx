@@ -80,12 +80,13 @@ export function AddInspectorForm() {
         className="bg-transparent shadow-none"
       >
         <CardUi>
+        <div className="md:flex justify-center m-5 md:m-0">
           <CardBody className="flex flex-col gap-4 ">
             <Typography variant="h4" color="blue-gray">
               Add Inspector
             </Typography>
             <form onSubmit={handleSubmit} className="space-y-3  ">
-              <div className="flex gap-2">
+              <div className="flex md:flex-row flex-col  md:gap-2 gap-3">
                 <Inputs
                   label="First Name"
                   name="firstName"
@@ -135,6 +136,7 @@ export function AddInspectorForm() {
               <Button type="submit">Add</Button>
             </form>
           </CardBody>
+          </div>
         </CardUi>
       </Dialog>
     </>

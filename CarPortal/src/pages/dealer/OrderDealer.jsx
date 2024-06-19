@@ -13,6 +13,10 @@ const OrderDealer = () => {
   });
   console.log(data);
   console.log(error);
+
+  if(error){
+    return <p>No Data Available</p>
+}
   const renderData = data?.bookings?.map((item, index) => {
     console.log(item);
     return (
