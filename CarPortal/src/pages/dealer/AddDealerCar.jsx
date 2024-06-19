@@ -823,7 +823,7 @@ export default function AddDealerCar() {
 
             <div className="mt-5 md:ml-2 w-full">
               <select
-                required
+                
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 name="carInsurance"
                 value={formData.carInsurance}
