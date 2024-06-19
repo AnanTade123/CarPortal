@@ -47,7 +47,7 @@ const CarDetailsById = () => {
 
 
   return (
-    <div className="grid grid-flow-row-dense md:grid-cols-3 gap-2 container mx-auto">
+    <div className="grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3 gap-2 container mx-auto">
       <div className="p-4 md:col-span-2 max-h-screen overflow-scroll no-scrollbar ">
         <CarView
           fuelType={fuelType}
