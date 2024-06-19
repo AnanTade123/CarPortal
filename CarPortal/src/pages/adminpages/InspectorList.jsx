@@ -82,8 +82,8 @@ console.log(data)
     
 
     {
-      Header: "Edit",
-      accessor: "Edit",
+      Header: "Actions",
+      accessor: "Actions",
       Cell: (cell) => {
         console.log(cell.row.values.dealer_id);
         return (
