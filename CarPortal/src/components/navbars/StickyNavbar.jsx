@@ -140,7 +140,7 @@ export function StickyNavbar() {
           as="li"
           variant="small"
           color="blue-gray"
-          className={`p-3 rounded-md font-normal ${window.location.pathname === "/pendinrequest" ? "bg-indigo-200 text-white" : ""}`}
+          className={`p-3 rounded-md font-normal ${window.location.pathname === `/pendinrequest/${jwtDecodes?.userId}` ? "bg-indigo-200 text-white" : ""}`}
         >
           All Request
         </Typography>
