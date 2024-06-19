@@ -57,7 +57,7 @@ export function LoginCard() {
         }, 1000); 
         dispatch(setToken(data));
       } else {
-        alert("email and password is not match");
+        toast.error("email and password is not match");
       }
 
       // Handle successful sign-in, such as redirecting to a different page

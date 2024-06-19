@@ -4,6 +4,7 @@ import { Textarea, Input } from "@material-tailwind/react";
 // import React from "react";
 import { useCarRegisterMutation } from "../../services/carAPI";
 import { useNavigate, useParams } from "react-router";
+import { toast, ToastContainer } from 'react-toastify';
 
 const carData = {
   Kia: ["Sonet", "Seltos", "Carnival"],
@@ -175,8 +176,13 @@ export default function AddDealerCar() {
     const res = await carRegister(data);
 
     if (res?.data?.status === "success") {
-      alert("Car added");
-      navigate(`/dealer/${id}/uploadimage`); // Corrected URL string with backticks (`) for interpolation
+
+      toast.success(" Car added");
+      setTimeout(() => {
+        navigate(`/dealer/${id}/uploadimage`);
+      }, 1000);
+      
+       // Corrected URL string with backticks (`) for interpolation
     }
   };
 
@@ -237,6 +243,7 @@ export default function AddDealerCar() {
   return (
     <div className="md:flex justify-center m-6 md:m-0">
       <div>
+      <ToastContainer />
         <form onSubmit={handleSubmit} className="w-full md:w-[50rem]">
           <div className="flex justify-center">
             <p className="text-3xl font-semibold m-4">Add Dealer Car</p>
