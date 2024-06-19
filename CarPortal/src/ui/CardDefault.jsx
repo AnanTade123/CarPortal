@@ -9,10 +9,10 @@ const carid = data?.carId
 console.log(carid)
   return (
     <Card className="mt-6 w-96 md:m-0 m-3 items-center">
-      <div className="w-[18rem]  h-[16rem] ">
+      <div className="w-[18rem] h-[16rem] ">
         <CarouselCustomArrows  carId={carid} />
       </div>
-      <CardBody className="mb-10">
+      <CardBody className="mb-5">
         <Typography>{data.year}</Typography>
         <Typography variant="h5" color="blue-gray" className="mb-2">
            {data.brand} {data.model} 
