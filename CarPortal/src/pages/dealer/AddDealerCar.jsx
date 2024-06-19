@@ -907,8 +907,8 @@ export default function AddDealerCar() {
 
   return (
     <div className="md:flex justify-center m-6 md:m-0">
-      <div>
-        <form onSubmit={handleSubmit} className="w-full md:w-[50rem]">
+      <div className="w-full md:max-w-2xl lg:max-w-3xl">
+        <form onSubmit={handleSubmit} className="w-full">
           <div className="flex justify-center">
             <p className="text-3xl font-semibold m-4">Add Dealer Car</p>
           </div>
