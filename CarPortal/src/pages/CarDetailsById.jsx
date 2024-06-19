@@ -3,6 +3,7 @@ import CarView from "../components/carDetails/CarView";
 import PriceCard from "../components/carDetails/PriceCard";
 import { useParams } from "react-router-dom";
 import { useGetCarByIdQuery } from "../services/carAPI";
+
 // import { redirectToSignIn } from "../services/apiSlice";
 import { useNavigate } from "react-router-dom";
 
@@ -42,13 +43,11 @@ const CarDetailsById = () => {
 
   } = data?.object;
  
-
-
-
-
   return (
-    <div className="grid grid-flow-row-dense md:grid-cols-3 gap-2 container mx-auto">
+    <>
+    <div className="grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3 gap-2 container mx-auto">
       <div className="p-4 md:col-span-2 max-h-screen overflow-scroll no-scrollbar ">
+    
         <CarView
           fuelType={fuelType}
           registration={registration}
@@ -79,6 +78,7 @@ const CarDetailsById = () => {
         />
       </div>
     </div>
+    </>
   );
 };
 

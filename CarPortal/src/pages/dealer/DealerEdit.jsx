@@ -11,6 +11,7 @@ import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode"
 import Cookies from "js-cookie";
+import { toast, ToastContainer } from 'react-toastify';
 
 const DealerEdit = () => {
   const { id } = useParams();
@@ -22,7 +23,6 @@ const DealerEdit = () => {
      jwtDecodes = jwtDecode(token);
   }
   
-  console.log(jwtDecodes);
   const userid = token ? jwtDecodes?.userId :null;
  
   const [getEditDealer] = useGetEditDealerMutation(userid);
@@ -56,8 +56,10 @@ const navigate = useNavigate()
       const res = await getEditDealer({ id: userid, inputField });
       console.log(res);
     if(res.data.status ==='success'){
-      alert("changes successful")
-      navigate('/')
+      toast.success(" Sucessfully Edit");
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
     }
     } catch (error) {
       console.log(error);
@@ -81,6 +83,7 @@ const navigate = useNavigate()
   }, [dealerID, userid]);
   return (
     <div className="mx-auto container flex justify-center w-[50%]">
+      <ToastContainer />
       <forms className="w-full border border-gray-500 px-2 py-2 rounded-md mt-2 mb-2">
         <div className="mt-5">
           <p className="text-3xl font-semibold">Edit Dealer Details </p>
