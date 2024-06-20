@@ -43,6 +43,7 @@ import TransactionByAccount from "./pages/transaction/TransactionByAccount";
 import Wallet from "./pages/transaction/Wallet";
 import TransactionController from "./pages/transaction/TransactionController";
 import EditImage from "./pages/dealer/EditImage";
+import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
 
 
 export default function App() {
@@ -75,6 +76,7 @@ export default function App() {
             <Route path="/carverify" element={<CarVerify />} />
             <Route path="/inspector" element={<InspectorList />} />
             <Route path="/CarInspection" element={<CarInspectionTable />} />
+            <Route path="/admin/inspector/info/:ProfileId" element={<AdminInspectorInfo />} />
             <Route
               path="/admin/dealer/info/:id"
               element={<AdminDealerInfo />}
