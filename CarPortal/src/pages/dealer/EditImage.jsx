@@ -60,14 +60,14 @@ const EditImage = () => {
                   }}
                 />
                 <IoCloseCircle
-                  className="absolute h-8 w-8 top-2 right-2 cursor-pointer text-red-500"
+                  className="absolute md:h-8 md:w-8 top-2 right-2 cursor-pointer text-red-500"
                   onClick={() => handleDeleteImage(index)}
                 />
               </div>
             ))}
-            <div className="flex items-center justify-center border-2 border-dashed border-gray-400 p-4">
+            <div className="md:h-56 md:w-[17.5rem] ml-1 flex items-center justify-center border-2 border-dashed border-gray-400 p-4">
               <label className="cursor-pointer">
-                <IoAddCircleOutline className="h-12 w-12 text-gray-400" />
+                <IoAddCircleOutline className="md:h-36 md:w-36 text-gray-400" />
                 <input
                   type="file"
                   accept="image/*"

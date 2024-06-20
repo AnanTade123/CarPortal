@@ -142,7 +142,7 @@ export default function App() {
             element={<BiddingDealerPendingReq />}
           />
         </Route>
-
+           {/* <Route path="/trans" element={<CardDetailss/>}/> */}
         <Route element={<AppLayout2 />}>
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contactus" element={<ContactUs />} />

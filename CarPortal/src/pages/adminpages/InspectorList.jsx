@@ -164,7 +164,7 @@ console.log(data)
   return (
     <>
 
-    {dealerApiData.status===401 ? (
+    {dealerApiData.status===404 ? (
         <div>
            <p className="text-3xl font-semibold ">No Data Available</p>
            <div className="flex shrink-0 flex-col gap-2 sm:flex-row">

@@ -12,7 +12,7 @@ console.log(carid)
       <div className="w-[18rem] h-[16rem] ">
         <CarouselCustomArrows  carId={carid} />
       </div>
-      <CardBody className="mb-10">
+      <CardBody className="mb-5">
         <Typography>{data.year}</Typography>
         <Typography variant="h5" color="blue-gray" className="mb-2">
            {data.brand} {data.model} 

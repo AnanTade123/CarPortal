@@ -9,11 +9,11 @@ export function CarouselCustomArrows({ carId }) {
   console.log("Data of image",data)
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>No Image Available</div>;
-
+  if (error) return <div className="text-center mt-5">No Image Available <img className="w-[12rem] ml-12 opacity-50" src="..\public\cars\no-image-available.png" alt="no image" /></div>;
+ 
   return (
     <Carousel
-      className="rounded-xl"
+      className="rounded-xl md:w-56 lg:w-72"
       prevArrow={({ handlePrev }) => (
         <IconButton
           variant="text"
@@ -70,7 +70,7 @@ export function CarouselCustomArrows({ carId }) {
       key={item.documentId}
         src={item.documentLink}
         alt={`Car Image ${item.documentId}`}
-        className=" object-contain  w-[18rem] h-[16rem]"
+        className=" w-[18rem] mt-3 h-[12rem] md:h-[15rem] rounded-lg"
       />
    
   ))}
