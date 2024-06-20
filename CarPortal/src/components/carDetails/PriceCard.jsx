@@ -37,7 +37,7 @@ const PriceCard = ({
   return (
     <CardUi>
       <div className="w-full md:w-full">
-        <p className="font-extrabold text-2xl text-black uppercase font-[latto]">
+        <p className="font-extrabold text-2xl text-black uppercase font-[latto] ml-2 md:ml-0">
           {year} {brand} {model}
         </p>
         <p className="uppercase font-[Merriweather] ml-2 md:ml-0">
