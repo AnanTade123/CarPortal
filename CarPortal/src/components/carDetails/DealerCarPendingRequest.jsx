@@ -59,6 +59,7 @@ const DealerCarPendingRequest = ({ item }) => {
     <div className="w-full flex justify-center">
       <ToastContainer />
       <form onSubmit={handleConfirmBook}>
+
         <Dialog open={open} handler={handleOpen}>
         
           <DialogBody className="flex justify-center">
@@ -78,6 +79,8 @@ const DealerCarPendingRequest = ({ item }) => {
             </Button>
           </DialogFooter>
         </Dialog>
+
+<div className="shadow-xl rounded-lg">
         <CardUi>
           <div className="md:min-w-[30rem] w-[20rem] m-4">
             <div className="flex justify-between">
@@ -149,6 +152,7 @@ const DealerCarPendingRequest = ({ item }) => {
             </div>
           </div>
         </CardUi>
+        </div>
       </form>
     </div>
   );
