@@ -42,6 +42,7 @@ import DealerEdit from "./pages/dealer/DealerEdit";
 import TransactionByAccount from "./pages/transaction/TransactionByAccount";
 import Wallet from "./pages/transaction/Wallet";
 import TransactionController from "./pages/transaction/TransactionController";
+import EditImage from "./pages/dealer/EditImage";
 
 
 export default function App() {
@@ -117,6 +118,7 @@ export default function App() {
               path="/dealer/:id/car/edit/:carId"
               element={<EditDealerCar />}
             />
+            <Route path="/editimage" element={<EditImage />} />
             <Route
               path="/dealer/:id/booking/confirm"
               element={<OrderDealer />}

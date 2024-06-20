@@ -1,5 +1,5 @@
 // import { useNavigate, useParams } from "react-router-dom";
-// import { useGetDealerQuery } from "../../services/dealerAPI";
+// import { useGetDealerQuery } from "../../services/inspectorapi";
 // import { IoChevronBack } from "react-icons/io5";
 // import { Button } from "@material-tailwind/react";
 
