@@ -16,7 +16,7 @@ const carData = {
     "Ertiga",
     "Alto K10",
     "Dzire",
-    "Wagon R",
+    "WagonR",
     "XL6",
     "Celerio",
     "Jimny",
@@ -982,6 +982,7 @@ export default function AddDealerCar() {
                   });
                 }}
               >
+              
                 <option>Transmission</option>
                 <option>Automatic</option>
                 <option>Manual</option>

@@ -5,6 +5,7 @@ import { Textarea } from "@material-tailwind/react";
 import {useBiddingCarRegisterMutation} from "../../services/biddingAPI"
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
 
 export default function BiddingAddCar() {
 
@@ -101,12 +102,15 @@ export default function BiddingAddCar() {
     console.log(data);
 
     try {
-      const { data1} = await biddingCarRegister(data);
+      const  data1 = await biddingCarRegister(data);
       console.log(data1)
-      alert("Car Added")
-      navigate(-1)
+      toast.success(" Car added");
+      setTimeout(()=> {
+        navigate(-1)
+      },1000)
+      
     } catch (error) {
-      console.log(error)
+      toast.error("Fail to add car");
     }
    
   };
@@ -119,6 +123,7 @@ export default function BiddingAddCar() {
   return (
     <div className="md:flex justify-center m-6 md:m-0">
       <div>
+      <ToastContainer />
         <form onSubmit={handleSubmit} className="w-full md:w-[50rem]">
           <div className="flex justify-center">
             <p className="text-3xl font-semibold m-4">Add Bidding Car</p>

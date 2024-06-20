@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import Inputs from "../../forms/Inputs";
-import { Textarea } from "@material-tailwind/react";
+import { Input, Textarea } from "@material-tailwind/react";
 import React from "react";
 import {
   useCarUpdateMutation,
@@ -36,13 +37,13 @@ export default function EditDealerCar() {
     carInsurance: "",
     registration: "",
     description: "",
-    safetyDescription: "",
+    title: "",
     area: "",
     carStatus: "Active",
-    noOfWheels: "",
     ownerSerial: "",
-    tyre: "",
-    dealer_id: id,
+    dealer_id: "",
+    cVariant: "",
+    insurancedate: "",
   });
   const date = new Date(); // Create a new Date object with the current date
   const year = date.getFullYear(); // Get the year (e.g., 2024)
@@ -50,7 +51,7 @@ export default function EditDealerCar() {
   const day = String(date.getDate()).padStart(2, "0"); // Get the day of the month, pad with leading zero if needed
 
   const formattedDate = `${year}-${month}-${day}`;
-
+  const [showCalendar, setShowCalendar] = useState(false);
   useEffect(() => {
     if (Carid) {
       const { object } = Carid;
@@ -68,12 +69,11 @@ export default function EditDealerCar() {
         carInsurance: object?.carInsurance || "",
         registration: object?.registration || "",
         description: object?.description || "",
-        safetyDescription: object?.safetyDescription || "",
         area: object?.area || "",
-        noOfWheels: object?.noOfWheels || "",
         ownerSerial: object?.ownerSerial || "",
         tyre: object?.tyre || "",
         dealer_id: object?.dealer_id || "",
+        title: object?.title || "",
       });
     }
   }, [Carid]);
@@ -88,15 +88,13 @@ export default function EditDealerCar() {
 
       area: formData.area,
 
-      bodyType: formData.bodyType,
-
       brand: formData.brand,
 
       carInsurance: formData.carInsurance,
 
       carStatus: "ACTIVE",
 
-      city: formData.city,
+      // city: formData.city,
 
       color: formData.color,
 
@@ -108,8 +106,6 @@ export default function EditDealerCar() {
 
       model: formData.model,
 
-      noOfWheels: formData.noOfWheels,
-
       ownerSerial: formData.ownerSerial,
 
       powerWindowFeature: formData.powerWindowFeature,
@@ -120,11 +116,13 @@ export default function EditDealerCar() {
 
       registration: formData.registration,
 
-      safetyDescription: formData.safetyDescription,
-
       transmission: formData.transmission,
 
-      tyre: formData.tyre,
+      title: formData.title,
+
+      variant: formData.cVariant,
+
+      carInsuranceDate: formData.insurancedate,
 
       year: formData.year,
 
@@ -137,7 +135,7 @@ export default function EditDealerCar() {
     const res = await carUpdate({data,carId});
     console.log(res);
     if(res?.data?.status === 'success'){
-      navigate(-1)
+      navigate("/editimage", { state: { images: mult } });
     }
     // console.log(data);
     // addCar(data).then((responseData) => {
@@ -149,6 +147,23 @@ export default function EditDealerCar() {
 
   const [mult, setMult] = React.useState([]);
 
+   // Car Insurance ValidDate
+   const handleChange = (event) => {
+    const value = event.target.value === "true";
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      carInsurance: value,
+    }));
+    setShowCalendar(value);
+  };
+
+  const handleDateChange = (event) => {
+    const { value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      insurancedate: value,
+    }));
+  };
   const handleFileChange = (e) => {
     setMult(Array.from(e.target.files));
   };
@@ -261,27 +276,20 @@ export default function EditDealerCar() {
             </div>
 
             <div className="mt-5 ml-2 w-full">
-              <select
-                className="w-full border-2 border-gray-400 p-2 rounded-md"
-                name="bodyType"
-                required
-                value={formData.bodyType}
-                onChange={(event) => {
+            
+              <Inputs
+                label={"Area"}
+                type={"text"}
+                name={"area"}
+                value={formData.area}
+                onChange={(event) =>
                   setFormData({
                     ...formData,
-                    bodyType: event.target.value,
-                  });
-                }}
-              >
-                <option>Body Type</option>
-                <option>Sedan</option>
-                <option>Hatchback</option>
-                <option>SUV</option>
-                <option>MUV</option>
-                <option>Coupe</option>
-                <option>Convertibles</option>
-                <option>Pickup Trucks</option>
-              </select>
+                    area: event.target.value,
+                  })
+                }
+              />
+           
             </div>
           </div>
 
@@ -303,7 +311,8 @@ export default function EditDealerCar() {
             </div>
 
             <div className="mt-5 ml-2 w-full">
-              <Inputs
+            <select
+                className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label={"Owner Serial"}
                 type={"number"}
                 name={"ownerSerial"}
@@ -314,7 +323,14 @@ export default function EditDealerCar() {
                     ownerSerial: event.target.value,
                   })
                 }
-              />
+              >
+                <option>Owner Serial</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
             </div>
           </div>
 
@@ -335,23 +351,35 @@ export default function EditDealerCar() {
               />
             </div>
 
-            <div className="mt-5 ml-2 w-full">
+            <div className="mt-5 md:ml-2 w-full">
               <select
                 required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
-                name="msalary"
+                name="carInsurance"
                 value={formData.carInsurance}
-                onChange={(event) => {
-                  setFormData({
-                    ...formData,
-                    carInsurance: event.target.value,
-                  });
-                }}
+                onChange={handleChange}
               >
-                <option>Car Insurance</option>
-                <option value={true}>Yes</option>
-                <option value={false}>No</option>
+                <option value="">Car Insurance</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
               </select>
+              {showCalendar && (
+                <div className="mt-3">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                    htmlFor="date"
+                  >
+                    Select Date
+                  </label>
+                  <input
+                    type="date"
+                    id="date"
+                    value={formData.insurancedate}
+                    onChange={handleDateChange}
+                    className="w-full border-2 border-gray-400 p-2 rounded-md"
+                  />
+                </div>
+              )}
             </div>
           </div>
 
@@ -389,76 +417,16 @@ export default function EditDealerCar() {
                 <option>Petrol</option>
                 <option>Diesel</option>
                 <option>Electric</option>
-                <option>Bio-Fuel</option>
+                <option>CNG</option>
               </select>
             </div>
           </div>
 
-          {/* seventh part */}
-          <div className="flex">
-            <div className="mt-5 w-full">
-              <Inputs
-                label={"No Of Wheels"}
-                type={"number"}
-                name={"noOfWheels"}
-                value={formData.noOfWheels}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    noOfWheels: event.target.value,
-                  })
-                }
-              />
-            </div>
-
-            <div className="mt-5 ml-2 w-full">
-              <Inputs
-                label={"Tyre"}
-                type={"text"}
-                name={"tyre"}
-                value={formData.tyre}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    tyre: event.target.value,
-                  })
-                }
-              />
-            </div>
-          </div>
+        
 
           {/* eight part */}
 
-          <div className="flex">
-            <div className="mt-5 w-full">
-              <Inputs
-                label={"City"}
-                type={"text"}
-                name={"city"}
-                value={formData.city}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    city: event.target.value,
-                  })
-                }
-              />
-            </div>
-            <div className="mt-5 ml-2 w-full">
-              <Inputs
-                label={"Area"}
-                type={"text"}
-                name={"area"}
-                value={formData.area}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    area: event.target.value,
-                  })
-                }
-              />
-            </div>
-          </div>
+         
 
           {/* ninth part */}
           <div className="flex">
@@ -529,7 +497,7 @@ export default function EditDealerCar() {
 
           {/* tenth part */}
 
-          <div className="mt-5">
+          {/* <div className="mt-5">
             <input
               type="file"
               accept="image/*"
@@ -551,9 +519,27 @@ export default function EditDealerCar() {
                 />
               ))}
             </div>
-          </div>
+          </div> */}
 
           {/* eleventh part */}
+          <div className="mt-5">
+          <h4>Title</h4>
+            <div className="formrow">
+              <Input
+                required
+                className="form-control"
+                name="title"
+                placeholder="Title"
+                value={formData.title}
+                onChange={(event) => {
+                  setFormData({
+                    ...formData,
+                    title: event.target.value,
+                  });
+                }}
+              ></Input>
+            </div>
+          </div>
 
           <div className="mt-5">
             <h4>Vehicle Description</h4>
@@ -575,32 +561,13 @@ export default function EditDealerCar() {
           </div>
           {/* twelth part */}
 
-          <div className="mt-5">
-            <h4>Safety Description</h4>
-            <div className="formrow">
-              <Textarea
-                required
-                className="form-control"
-                name="safetyDescription"
-                placeholder="Safety Description"
-                value={formData.safetyDescription}
-                onChange={(event) => {
-                  setFormData({
-                    ...formData,
-                    safetyDescription: event.target.value,
-                  });
-                }}
-              ></Textarea>
-            </div>
-          </div>
-
           <button
             type="submit"
             className="p-3 bg-indigo-400 rounded-md w-28 text-white"
             value="Add  Car"
           >
             {" "}
-            Submit
+            Next
           </button>
         </form>
       </div>

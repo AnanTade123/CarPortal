@@ -26,7 +26,7 @@ const BuyCar = () => {
   return (
     <>
     <div className="container mx-auto mt-12">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-4 lg:gap-12">
         <div className="md:col-span-1 sticky top-0">
           <FilterCars setUrlState={setUrlState} />
         </div>

@@ -7,6 +7,7 @@ const UserCardPendingRequest = ({ item }) => {
   console.log(item);
   return (
     <div className="w-96px items-center flex justify-center mx-8">
+       <div className="shadow-xl rounded-lg">
       <CardUi>
         <div className="md:min-w-[30rem] min-w-[20rem]">
           <div className="flex justify-between mr-4">
@@ -55,6 +56,7 @@ const UserCardPendingRequest = ({ item }) => {
           </div>
         </div>
       </CardUi>
+      </div>
     </div>
   );
 };

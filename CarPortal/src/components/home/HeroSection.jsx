@@ -16,13 +16,13 @@ const HeroSection = () => {
   return (
     <div className="flex justify-between   ">
       <div className="md:p-12 p-4 h-auto bg-blue-100 w-full">
-        <p className="flex justify-center items-center md:justify-start font-latto text-xs md:mt-8 md:text-lg opacity-0 animate-slidein [--slidein-delay:300ms]">
+        <p className="flex justify-center items-center md:justify-start font-latto text-xs md:mt-8 md:text-base lg:text-lg opacity-0 animate-slidein [--slidein-delay:300ms]">
           Welcomes to CarTechIndia
         </p>
-        <p className="flex justify-center items-center md:justify-start text-md md:mb-3 md:text-4xl font-Merriweather animate-slidein [--slidein-delay:600ms] opacity-0 ">
+        <p className="flex justify-center items-center md:justify-start text-md md:mb-3 md:text-xl lg:text-4xl font-Merriweather animate-slidein [--slidein-delay:600ms] opacity-0 ">
           Your Journey to Exceptional
         </p>
-        <p className="flex justify-center items-center md:justify-start text-md md:text-4xl font-Merriweather animate-slidein [--slidein-delay:900ms] opacity-0 ">
+        <p className="flex justify-center items-center md:justify-start text-md md:text-xl lg:text-4xl font-Merriweather animate-slidein [--slidein-delay:900ms] opacity-0 ">
           Cars Begins Here!
         </p>
         <div className=" flex right-0 items-center justify-center">
@@ -32,8 +32,8 @@ const HeroSection = () => {
             className="w-[16rem] block md:w-[50rem] md:hidden"
           />
         </div>
-        <div className="w-[5rem] space-y-2 md:flex md:space-y-0 md:gap-2   mt-5 ">
-          {/* <Inputs
+        {/* <div className="w-[5rem] space-y-2 md:flex md:space-y-0 md:gap-2 mt-5 "> */}
+        {/* <Inputs
             label="Location"
             placeholder="Search by location"
             name="location"
@@ -49,7 +49,7 @@ const HeroSection = () => {
             value={carBrandState}
             type="text"
           /> */}
-        </div>
+        {/* </div> */}
         <div className="flex justify-center items-center md:justify-start">
           <Button
             onClick={submitHandler}
@@ -74,11 +74,11 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="absolute  right-0 ">
+      <div className="absolute right-0 ">
         <img
           alt="car"
           src={carGroup}
-          className="w-[16rem] hidden md:w-[50rem] md:block"
+          className="w-[16rem] hidden md:w-[30rem] lg:w-[50rem] md:block"
         />
       </div>
     </div>

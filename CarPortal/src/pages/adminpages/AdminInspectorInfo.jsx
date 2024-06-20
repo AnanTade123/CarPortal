@@ -1,9 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetDealerQuery } from "../../services/dealerAPI";
+import { useGetDealerQuery } from "../../services/inspectorapi";
 import { IoChevronBack } from "react-icons/io5";
 import { Button } from "@material-tailwind/react";
 
-const AdminDealerInfo = () => {
+const AdminInspectorInfo = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ const AdminDealerInfo = () => {
   console.log(data);
 
   const {
-    dealerDto: {
+    inspectorDto: {
       firstName,
       lastName,
       mobileNo,
@@ -110,4 +110,4 @@ const AdminDealerInfo = () => {
   );
 };
 
-export default AdminDealerInfo;
+export default AdminInspectorInfo;
