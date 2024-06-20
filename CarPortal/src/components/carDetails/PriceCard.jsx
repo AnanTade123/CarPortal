@@ -36,8 +36,8 @@ const PriceCard = ({
   console.log(userRole);
   return (
     <CardUi>
-      <div className="w-3/4 md:w-full ">
-        <p className="font-extrabold text-2xl text-black uppercase font-[latto] ml-2 md:ml-0">
+      <div className="w-full md:w-full">
+        <p className="font-extrabold text-2xl text-black uppercase font-[latto]">
           {year} {brand} {model}
         </p>
         <p className="uppercase font-[Merriweather] ml-2 md:ml-0">
@@ -73,19 +73,19 @@ const PriceCard = ({
         </div>
         <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
           <FaLocationDot />
-          <div className=" mt-4 text-base text-blue-900 font-[lotto]">
+          <div className=" mt-4 text-base text-gray-700 font-[lotto]">
             Parked at: {area},{city}
           </div>
         </div>
         <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
           <FaFileAlt />
-          <div className=" mt-4 text-base text-blue-900 font-[lotto]">
+          <div className=" mt-4 text-base text-gray-700 font-[lotto]">
             View Inspection Report
           </div>
         </div>
         <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
           <IoLogoWhatsapp />
-          <div className=" mt-4 mb-6 text-base text-blue-900 font-[lotto]">
+          <div className=" mt-4 mb-6 text-base text-gray-700 font-[lotto]">
             Get Service History Report
           </div>
         </div>
@@ -95,7 +95,7 @@ const PriceCard = ({
             <div className="text-xl font-bold text-black font-[latto]">
               ₹{price}
             </div>
-            <div className="uppercase text-blue-900 text-xs font-[lotto]">
+            <div className="uppercase text-gray-700 text-xs font-[lotto]">
               Understand Price
             </div>
           </div>

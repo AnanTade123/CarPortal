@@ -30,7 +30,7 @@ export default function DealerDashboard() {
   return (
     
     <Tabs value="dashboard">
-      <TabsHeader>
+      <TabsHeader className="sticky">
         {data.map(({ label, value }) => (
           <Tab key={value} value={value}>
           
