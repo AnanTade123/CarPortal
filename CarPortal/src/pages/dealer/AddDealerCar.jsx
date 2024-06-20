@@ -4,7 +4,6 @@ import { Textarea, Input } from "@material-tailwind/react";
 // import React from "react";
 import { useCarRegisterMutation } from "../../services/carAPI";
 import { useNavigate, useParams } from "react-router";
-import { toast, ToastContainer } from 'react-toastify';
 
 const carData = {
   Kia: ["Sonet", "Seltos", "Carnival"],
@@ -838,13 +837,8 @@ export default function AddDealerCar() {
     const res = await carRegister(data);
     console.log(res);
     if (res?.data?.status === "success") {
-
-      toast.success(" Car added");
-      setTimeout(() => {
-        navigate(`/dealer/${id}/uploadimage`);
-      }, 1000);
-      
-       // Corrected URL string with backticks (`) for interpolation
+      alert("Car added");
+      navigate(`/dealer/${id}/uploadimage`); // Corrected URL string with backticks (`) for interpolation
     }
   };
 
@@ -914,7 +908,6 @@ export default function AddDealerCar() {
   return (
     <div className="md:flex justify-center m-6 md:m-0">
       <div>
-      <ToastContainer />
         <form onSubmit={handleSubmit} className="w-full md:w-[50rem]">
           <div className="flex justify-center">
             <p className="text-3xl font-semibold m-4">Add Dealer Car</p>
@@ -989,6 +982,7 @@ export default function AddDealerCar() {
                   });
                 }}
               >
+              
                 <option>Transmission</option>
                 <option>Automatic</option>
                 <option>Manual</option>
@@ -1214,7 +1208,7 @@ export default function AddDealerCar() {
               </select>
             </div>
 
-            <div className="mt-5 md:ml-2 w-full">
+            <div className="mt-5 ml-2 w-full">
               <select
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label="Registration"
