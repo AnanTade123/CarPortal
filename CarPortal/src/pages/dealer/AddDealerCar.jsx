@@ -906,7 +906,7 @@ export default function AddDealerCar() {
   };
 
   return (
-    <div className="md:flex justify-center m-6 md:m-0">
+    <div className="md:flex justify-center m-6 md:m-0 md:sticky">
       <div>
         <form onSubmit={handleSubmit} className="w-full md:w-[50rem]">
           <div className="flex justify-center">
@@ -1184,6 +1184,8 @@ export default function AddDealerCar() {
                 <option>Diesel</option>
                 <option>Electric</option>
                 <option>CNG</option>
+                <option value="Petrol,CNG">Petrol+CNG</option>
+
               </select>
             </div>
           </div>
