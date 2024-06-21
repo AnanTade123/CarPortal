@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Inputs from "../../forms/Inputs";
 import { Textarea, Input } from "@material-tailwind/react";
-// import React from "react";
 import { useCarRegisterMutation } from "../../services/carAPI";
 import { useNavigate, useParams } from "react-router";
 
@@ -1343,7 +1342,7 @@ export default function AddDealerCar() {
             value="Add  Car"
           >
             {" "}
-            Submit
+            Next
           </button>
         </form>
       </div>
