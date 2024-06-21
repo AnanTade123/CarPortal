@@ -219,7 +219,13 @@ const FilterCars = ({ setUrlState }) => {
     setUrlState(data);
   };
 
-  const formattedAmount = new Intl.NumberFormat("en-IN").format(value);
+  let formattedAmount;
+
+  if (value == null || value === '' || isNaN(value)) {
+      formattedAmount = '---';
+  } else {
+      formattedAmount = new Intl.NumberFormat("en-IN").format(value);
+  }
 
   return (
     <Card className="p-4">

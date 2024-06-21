@@ -8,13 +8,14 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import Inputs from "../forms/Inputs";
-import { useBookingRequestMutation } from "../services/carAPI";
+// import { useBookingRequestMutation } from "../services/carAPI";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router";
-export default function DialogBox({ price, dealer_id, carId }) {
+// import { toast } from "react-toastify";
+export default function DialogBox({ price, dealer_id, carId ,handleBuyCar}) {
   console.log(carId);
   const navigate = useNavigate()
-  const [bookingRequest] = useBookingRequestMutation();
+  // const [bookingRequest] = useBookingRequestMutation();
   const [open, setOpen] = React.useState(false);
   console.log(dealer_id);
   const [inputForm, setInoutForm] = useState("");
@@ -42,6 +43,8 @@ navigate('/signin')
   const numUserId = Number(stringifyuserId?.userId);
   const numCarId =userId? Number(carId):null;
   console.log(numUserId);
+
+  
   const submitHandler = async (e) => {
     e.preventDefault();
     const formData = {
@@ -54,16 +57,39 @@ navigate('/signin')
       dealerId: dealer_id,
       userId: numUserId,
     };
-console.log(formData)
-    const res = await bookingRequest(formData);
-    console.log(res);
-    if (res?.data) {
-      alert("request send");
-      setInoutForm("");
-    }
-    if (res.error) {
-      alert(res.error.data.message);
-    }
+    console.log(formData)
+    handleBuyCar(formData)
+    // const res = await bookingRequest(formData);
+    // console.log(res);
+    // if (res?.data) {
+    //   toast('🦄 Wow so easy!', {
+    //     position: "top-right",
+    //     autoClose: 1000,
+    //     // hideProgressBar: false,
+    //     // closeOnClick: true,
+    //     // pauseOnHover: true,
+    //     // draggable: true,
+    //     // progress: undefined,
+    //     // theme: "light",
+    //     // transition: Bounce,
+    //     });
+    //   alert("request send");
+    //   setInoutForm("");
+    // }
+    // if (res.error) {
+    //   toast('🦄 Wow so easy!', {
+    //     position: "top-right",
+    //     autoClose: 1000,
+    //     // hideProgressBar: false,
+    //     // closeOnClick: true,
+    //     // pauseOnHover: true,
+    //     // draggable: true,
+    //     // progress: undefined,
+    //     // theme: "light",
+    //     // transition: Bounce,
+    //     });
+    //   alert(res.error.data.message);
+    // }
     setInoutForm("");
   };
   return (
