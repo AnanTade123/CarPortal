@@ -10,6 +10,8 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaFileAlt } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 
+
+
 const PriceCard = ({
   price,
   brand,
@@ -25,8 +27,10 @@ const PriceCard = ({
   bodyType,
   dealer_id,
   carId,
+  handleBuyCar
 }) => {
   const cookie = Cookies.get("token");
+
 
   console.log(cookie);
   const jwtDecodes = cookie ? jwtDecode(cookie) : null;
@@ -34,8 +38,12 @@ const PriceCard = ({
   const userRole = jwtDecodes?.authorities[0];
   console.log(userRole);
   console.log(userRole);
+
+
+
   return (
     <CardUi>
+
       <div className="w-3/4 md:w-full">
         <p className="font-extrabold text-2xl text-black uppercase font-[latto]">
           {year} {brand} {model}
@@ -106,6 +114,7 @@ const PriceCard = ({
               price={price}
               dealer_id={dealer_id}
               carId={carId}
+              handleBuyCar={handleBuyCar}
               className
             />
           )}
