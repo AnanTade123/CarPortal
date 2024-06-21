@@ -135,7 +135,7 @@ export default function EditDealerCar() {
     const res = await carUpdate({data,carId});
     console.log(res);
     if(res?.data?.status === 'success'){
-      alert("Car added");
+      alert("car added");
       navigate("/editimage", { state: { images: mult } });
     }
     // console.log(data);

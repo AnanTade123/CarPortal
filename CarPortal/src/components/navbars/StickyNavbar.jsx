@@ -21,9 +21,9 @@ export function StickyNavbar() {
   if(token){
      jwtDecodes = jwtDecode(token);
   }
-  if(token){
-    console.log(token)
- }
+//   if(token){
+//     console.log(token)
+//  }
   
   const userRole = token ? jwtDecodes?.authorities[0] :null;
   
