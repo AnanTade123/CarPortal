@@ -700,7 +700,20 @@ const carVariantData = {
     "320Ld M Sport",
     "330Li M Sport Pro Edition",
   ],
+  City:["SV MT","V MT","V CVT","VX MT","VX CVT","ZX MT","ZX CVT"],
+  Amaze:["E MT","S MT","V MT","S CVT","V CVT","VX MT","VX CVT"],
+  "WR-V":["SV MT","VX MT"],
+  Verna:["E MT","S MT","SX MT","SX iMT","SX IVT","SX (0) MT","SX (0) IVT","SX Turbo MT","SX Turbo DVT","SX (0) Turbo DVT","SX (0) Turbo DVT DT"],
+  i20:["Magna MT","Sportz MT","Sportz iVT","Asta MT","Asta iVT","Asta (O) iVT","Sportz Turbo iMT","Asta Turbo iMT","Asta (O) Turbo DCT","Asta (O) Turbo DCT DT"],
+  Venue:["E 1.2L MT","S 1.2L MT","S+ 1.2L MT","SX 1.2L MT","SX 1.0L Turbo iMT","SX (O) 1.0L Turbo iMT","SX+ 1.0L Turbo DCT","SX (O) 1.0L Turbo DCT","SX (O) 1.0L Turbo DCT DT","S+ 1.5L CRDi MT","SX 1.5L CRDi MT","SX (O) 1.5L CRDi MT"],
+  Creta:["E 1.5L MT","EX 1.5L MT","S 1.5L MT","SX 1.5L MT","SX 1.5L IVT","SX (O) 1.5L IVT","S 1.5L CRDi MT","SX 1.5L CRDi MT","SX (O) 1.5L CRDi MT","SX (O) 1.5L CRDi AT","SX 1.4L Turbo GDi DCT","SX (O) 1.4L Turbo GDi DCT"],
+  Santro:["Era Executive MT","Magna MT","Sportz MT","Sportz AMT","Magna CNG","Sportz CNG"],
+  "Grand i10 Nios":["Era MT","Magna MT","Magna AMT","Sportz MT","Sportz AMT","Asta MT","Asta AMT","Magna CNG"],
+  Aura:["E MT","S MT","S AMT","SX MT","SX AMT","S CNG","SX(0) MT","SX(0) AMT"],
+  Exter:["EX","S","SX","S AMT","SX AMT","SX (0)","SX (0) AMT","SX Turbo","S CNG"],
+  Alcazar:["Prestige 7-Seater","Prestige 6-Seater","Platinum 7-Seater","Platinum 6-Seater","Signature 7-Seater","Signature 6-Seater"],
 };
+
 
 const cityOptions = {
   Pune: ["MH-12"],
@@ -1183,6 +1196,7 @@ export default function AddDealerCar() {
                 <option>Diesel</option>
                 <option>Electric</option>
                 <option>CNG</option>
+                <option>Petrol+CNG</option>
               </select>
             </div>
           </div>
