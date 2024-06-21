@@ -1,12 +1,15 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { IoAddCircleOutline, IoCloseCircle } from "react-icons/io5";
 import { Tabs, TabsHeader, TabsBody, Tab, TabPanel } from "@material-tailwind/react";
+import { useGetCarImageByIdQuery } from "../../services/carAPI";
 
 const EditImage = () => {
   const navigate = useNavigate();
+  const { carId } = useParams();
+  const { data: imagess } = useGetCarImageByIdQuery({ carId });
 
-  const initialData = [
+  const [data, setData] = useState([
     {
       label: "Cover Image",
       value: "coverimage",
@@ -16,26 +19,32 @@ const EditImage = () => {
     {
       label: "Images",
       value: "images",
-      images: [
-        "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80",
-        "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-        "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80",
-      ],
+      images: [],
       showAddSection: true,
     }
-  ];
+  ]);
 
-  const [data, setData] = useState(initialData);
-  const [activeTab, setActiveTab] = useState(initialData[0].value);
+  useEffect(() => {
+    if (imagess) {
+      const coverImg = imagess.object.filter(img => img.documentType === 'coverImage').map(img => img.documentLink);
+      const imgs = imagess.object.filter(img => img.documentType === 'image').map(img => img.documentLink);
+
+      setData(prevData => prevData.map(category => {
+        if (category.value === 'coverimage') {
+          return { ...category, images: coverImg };
+        }
+        if (category.value === 'images') {
+          return { ...category, images: imgs };
+        }
+        return category;
+      }));
+    }
+  }, [imagess]);
+
+  const [activeTab, setActiveTab] = useState('coverimage');
 
   const handleBack = () => {
     navigate(-1); // Navigate back to the previous page
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Implement your submit logic here
-    navigate('/'); // For example, navigate to the homepage
   };
 
   const handleAddImage = (event, categoryValue) => {
@@ -82,7 +91,7 @@ const EditImage = () => {
     <div className="flex justify-center">
       <div className="w-full max-w-8xl p-4">
         <h2 className="text-3xl font-semibold mb-4">Edit Images</h2>
-        <form onSubmit={handleSubmit}>
+        <form>
           <Tabs value={activeTab} onChange={(value) => setActiveTab(value)}>
             <TabsHeader>
               {data.map(({ label, value }) => (
@@ -139,12 +148,6 @@ const EditImage = () => {
             >
               Back
             </button>
-            {/* <button
-              type="submit"
-              className="p-3 bg-green-400 rounded-md w-28 text-white"
-            >
-              Submit
-            </button> */}
           </div>
         </form>
       </div>

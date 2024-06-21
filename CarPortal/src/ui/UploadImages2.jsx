@@ -1,9 +1,86 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { IoAddCircleOutline, IoCloseCircle } from "react-icons/io5";
-import { Tabs, TabsHeader, TabsBody, Tab, TabPanel } from "@material-tailwind/react";
+import { useAddCarImagesMutation } from '../services/dealerAPI';
+import { Tabs, TabsHeader, TabsBody, TabPanel, Tab } from '@material-tailwind/react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDealerIdByCarQuery } from '../services/carAPI';
+import {jwtDecode} from 'jwt-decode';
+import Cookies from 'js-cookie';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { IoAddCircleOutline, IoCloseCircle, IoCheckmarkCircle } from 'react-icons/io5';
 
-const UploadImage = () => {
+function UploadImages2() {
+  const [openDialog, setOpenDialog] = useState(false);
+  const [images, setImages] = useState([]);
+  const [uploadStatus, setUploadStatus] = useState({}); // Track upload status for each image
+  const { id } = useParams();
+  const token = Cookies.get('token');
+  let jwtDecodes;
+
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
+
+  const UserID = jwtDecodes?.userId;
+  const { data } = useDealerIdByCarQuery({ id, pageNo: 0 });
+
+  const firstCarId = data?.list?.length > 0 ? data?.list[0].carId : null;
+  console.log(firstCarId);
+
+  const [addCarImages] = useAddCarImagesMutation();
+
+  const readImages = async (event, categoryValue) => {
+    const files = Array.from(event.target.files);
+    const documentType = categoryValue === 'coverimage' ? 'coverImage' : 'image';
+    setImages(files);
+
+    for (const file of files) {
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('document', documentType);
+
+      try {
+        const response = await addCarImages({
+          formData,
+          document: documentType,
+          firstCarId,
+          UserID,
+        }).unwrap();
+        console.log(response);
+        toast.success("Uploaded Successfully");
+        setUploadStatus((prevStatus) => ({
+          ...prevStatus,
+          [file.name]: 'success',
+        }));
+      } catch (error) {
+        console.error(error);
+        toast.error("Upload Failed");
+        setUploadStatus((prevStatus) => ({
+          ...prevStatus,
+          [file.name]: 'error',
+        }));
+      }
+    }
+
+    setData((prevData) =>
+      prevData.map((category) => {
+        if (category.value === categoryValue) {
+          const updatedImages =
+            categoryValue === "coverimage"
+              ? files
+              : [...category.images, ...files];
+          return {
+            ...category,
+            images: updatedImages,
+            showAddSection: categoryValue !== "coverimage",
+          };
+        }
+        return category;
+      })
+    );
+  };
+
   const navigate = useNavigate();
 
   const initialData = [
@@ -16,89 +93,39 @@ const UploadImage = () => {
     {
       label: "Images",
       value: "images",
-      images: [
-        "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80",
-        "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-        "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80",
-      ],
+      images: [],
       showAddSection: true,
     }
   ];
 
-  const [data, setData] = useState(initialData);
+  const [data1, setData] = useState(initialData);
   const [activeTab, setActiveTab] = useState(initialData[0].value);
 
   const handleBack = () => {
-    navigate(-1); // Navigate back to the previous page
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Implement your submit logic here
-    navigate('/'); // For example, navigate to the homepage
-  };
-
-  const handleAddImage = (event, categoryValue) => {
-    const newImages = Array.from(event.target.files).map((file) =>
-      URL.createObjectURL(file)
-    );
-
-    setData((prevData) =>
-      prevData.map((category) => {
-        if (category.value === categoryValue) {
-          const updatedImages =
-            categoryValue === "coverimage"
-              ? newImages
-              : [...category.images, ...newImages];
-          return {
-            ...category,
-            images: updatedImages,
-            showAddSection: categoryValue !== "coverimage",
-          };
-        }
-        return category;
-      })
-    );
-  };
-
-  const handleDeleteImage = (categoryValue, index) => {
-    setData((prevData) => {
-      const newData = prevData.map((category) => {
-        if (category.value === categoryValue) {
-          const updatedImages = category.images.filter((_, i) => i !== index);
-          return {
-            ...category,
-            images: updatedImages,
-            showAddSection: true
-          };
-        }
-        return category;
-      });
-      return newData;
-    });
+    navigate(-2); // Navigate back to the previous page
   };
 
   return (
     <div className="flex justify-center">
       <div className="w-full max-w-8xl p-4">
-        <h2 className="text-3xl font-medium mb-4">Upload Cover Image and All Images</h2>
-        <form onSubmit={handleSubmit}>
+        <h2 className="text-3xl font-semibold mb-4">Edit Images</h2>
+        <form>
           <Tabs value={activeTab} onChange={(value) => setActiveTab(value)}>
             <TabsHeader>
-              {data.map(({ label, value }) => (
+              {data1.map(({ label, value }) => (
                 <Tab key={value} value={value}>
                   {label}
                 </Tab>
               ))}
             </TabsHeader>
-            <TabsBody className="overflow-y-auto overflow-hidden" style={{ maxHeight: '80vh' }}>
-              {data.map(({ value, images, showAddSection }) => (
+            <TabsBody className="overflow-y-auto " style={{ maxHeight: '80vh' }}>
+              {data1.map(({ value, images, showAddSection }) => (
                 <TabPanel key={value} value={value} className="grid grid-cols-1 gap-4">
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                    {images.map((src, index) => (
+                    {images.map((file, index) => (
                       <div key={index} className="relative">
                         <img
-                          src={src}
+                          src={URL.createObjectURL(file)}
                           alt={`Image ${index + 1}`}
                           className="object-cover w-full h-auto"
                           style={{
@@ -106,10 +133,12 @@ const UploadImage = () => {
                             margin: '5px',
                           }}
                         />
-                        <IoCloseCircle
-                          className="absolute top-2 right-2 cursor-pointer text-red-500 md:mr-6 md:h-8 md:w-8"
-                          onClick={() => handleDeleteImage(value, index)}
-                        />
+                        {uploadStatus[file.name] === 'success' && (
+                          <IoCheckmarkCircle className="absolute top-2 right-2 text-green-500 md:mr-6 md:h-8 md:w-8" />
+                        )}
+                        {uploadStatus[file.name] === 'error' && (
+                          <IoCloseCircle className="absolute top-2 right-2 text-red-500 md:mr-6 md:h-8 md:w-8" />
+                        )}
                       </div>
                     ))}
                     {showAddSection && (
@@ -121,7 +150,7 @@ const UploadImage = () => {
                             accept="image/*"
                             multiple
                             className="hidden"
-                            onChange={(e) => handleAddImage(e, value)}
+                            onChange={(e) => readImages(e, value)}
                           />
                         </label>
                       </div>
@@ -139,17 +168,12 @@ const UploadImage = () => {
             >
               Back
             </button>
-            <button
-              type="submit"
-              className="p-3 bg-green-400 rounded-md w-28 text-white"
-            >
-              Submit
-            </button>
           </div>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
-};
+}
 
-export default UploadImage;
+export default UploadImages2;
