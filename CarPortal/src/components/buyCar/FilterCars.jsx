@@ -228,7 +228,7 @@ const FilterCars = ({ setUrlState }) => {
   }
 
   return (
-    <Card className="p-4">
+    <Card className="p-4 ">
       <div>
               <p className="font-semibold text-bold mb-4  text-indigo-400  ">Filters</p>
             </div>
