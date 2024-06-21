@@ -56,7 +56,6 @@ export default function App() {
           <Route path="signin" element={<LoginCard />} />
           <Route path="signup" element={<SimpleRegistrationForm />} />
           <Route path="/changePassword" element={<ChangePassword />} />
-
           <Route path="/carlist" element={<BuyCar />} />
           <Route
             path="/carlist/cardetails/:carId"
@@ -121,7 +120,7 @@ export default function App() {
               path="/dealer/:id/car/edit/:carId"
               element={<EditDealerCar />}
             />
-            <Route path="/editimage" element={<EditImage />} />
+            <Route path="/dealer/:carId/editimage" element={<EditImage />} />
             <Route
               path="/dealer/:id/booking/confirm"
               element={<OrderDealer />}

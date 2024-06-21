@@ -97,11 +97,10 @@ const SellForCar = () => {
       Header: "Status",
       accessor: "carStatus",
       Cell: (cell) => {
-        console.log(cell.row.values.carStatus);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
-              <StatusDialogeBox status={cell.row.values.carStatus} />
+              <StatusDialogeBox status={cell.row.values.carStatus} carId={cell.row.values.carId}  />
             </div>
           </div>
         );
@@ -112,7 +111,6 @@ const SellForCar = () => {
       Header: "Edit",
       accessor: "Edit",
       Cell: (cell) => {
-        console.log(cell.row.values.carId);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">

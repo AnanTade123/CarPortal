@@ -379,6 +379,7 @@ const FilterCars = ({ setUrlState }) => {
             </select>
           </div>
           <div className="flex gap-5 mt-5 md:flex-col lg:flex">
+
             <Button type="submit" className="bg-indigo-400">
               Search
             </Button>

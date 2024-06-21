@@ -25,15 +25,19 @@ const CarView1 = ({ carId }) => {
 
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div className="font-[Merriweather] md:text-center text-center">Image not available <img 
-  className="md:w-[12rem] w-[25rem] md:ml-80 md:px-0 px-20 opacity-50 " 
-  src="..\..\public\cars\no-image-available.png" alt="no image" /></div>;
+  if (error) return <div className="font-[Merriweather] md:text-center text-center">Image not available <div className="flex justify-center"><img 
+  className=" md:w-[12rem] w-[10rem] opacity-50 " 
+  src="..\..\cars\no-image-available.png" alt="no image" />
+  </div>
+  </div>;
 
   const ExteriorImages = data.object.filter(item => item.documentType === 'Exterior');
   const InteriorImages = data.object.filter(item => item.documentType === 'Interior');
   const TyreImages = data.object.filter(item => item.documentType === 'Tyre');
   const FeaturesImages = data.object.filter(item => item.documentType === 'Features');
   const EngineImages = data.object.filter(item => item.documentType === 'Engine');
+
+  const fallbackImage = "..\\..\\cars\\no-image-available.png";
 
   const ChooseCarColor = () => {
     return (
@@ -58,81 +62,123 @@ const CarView1 = ({ carId }) => {
           </div>
         )} */}
 
-        {interior && (
-          <Carousel className="bg-white rounded-lg shadow-md">
-          {InteriorImages.map((item) => (
-            <img
-              key={item.documentId}
-              src={item.documentLink}
-              alt={`Car Image ${item.documentId}`}
-              className="object-contain w-full h-full"
-            />
-          ))}
-        </Carousel>
+        
+
+       
+{interior && (
+      <Carousel className="bg-white rounded-lg shadow-md">
+        {InteriorImages.length > 0 ? InteriorImages.map((item) => (
+         
+          <img
+            key={item.documentId}
+            src={item.documentLink}
+            alt={`Car Image ${item.documentId}`}
+            onError={(e) => e.currentTarget.src = fallbackImage}
+            className="object-contain w-full h-full"
+          />
+          
+        )) : (
+          <div className="text-center mt-2"> Image not available
+          <img
+            src={fallbackImage}
+            alt="no image"
+            className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50 "
+          />
+          </div>
         )}
+      </Carousel>
+)}
+      
+    
 
         {exterior && (
           <Carousel className="bg-gray-900 rounded-lg shadow-md ">
-          {ExteriorImages.map((item) => (
+          {ExteriorImages.length > 0 ?ExteriorImages.map((item) => (
             <img
               key={item.documentId}
               src={item.documentLink}
               alt={`Car Image ${item.documentId}`}
               className="object-contain w-full h-full"
             />
-          ))}
+          )) : (<div className="text-center mt-2"> Image not available
+            <img
+              src={fallbackImage}
+              alt="no image"
+              className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50 "
+            />
+            </div>)}
         </Carousel>
         )}
 
         {features && (
           <Carousel className="bg-white rounded-lg shadow-md">
-          {FeaturesImages.map((item) => (
+          {FeaturesImages.length > 0 ?FeaturesImages.map((item) => (
+            
             <img
               key={item.documentId}
               src={item.documentLink}
               alt={`Car Image ${item.documentId}`}
               className="object-contain w-full h-full"
             />
-          ))}
+          )) : (<div className="text-center mt-2"> Image not available
+            <img
+              src={fallbackImage}
+              alt="no image"
+              className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50 "
+            />
+            </div>)}
         </Carousel>
         )}
 
         {tyres && (
            <Carousel className="bg-white rounded-lg shadow-md">
-           {TyreImages.map((item) => (
+           {TyreImages.length > 0 ? TyreImages.map((item) => (
              <img
                key={item.documentId}
                src={item.documentLink}
                alt={`Car Image ${item.documentId}`}
                className="object-contain w-full h-full"
              />
-           ))}
+           )):(<div className="text-center mt-2"> Image not available
+            <img
+              src={fallbackImage}
+              alt="no image"
+              className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50 "
+            />
+            </div>)}
          </Carousel>
         )}
 
         {engines && (
           <Carousel className="bg-white rounded-lg shadow-md ">
-          {EngineImages.map((item) => (
+          {EngineImages.length > 0 ? EngineImages.map((item) => (
             <img
               key={item.documentId}
               src={item.documentLink}
               alt={`Car Image ${item.documentId}`}
               className="object-contain w-full h-full"
             />
-          ))}
+          )):(<div className="text-center mt-2"> Image not available
+            <img
+              src={fallbackImage}
+              alt="no image"
+              className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 "
+            />
+            </div>)}
         </Carousel>
         )}
       </div>
     );
   };
-
+  
+  
   return (
-    <div className="w-full md:w-full container mt-5 md:mt-20 px-2 md:px-4 lg:px-8">
-      <div className="flex flex-col justify-center">
+    <div className="w-4/5 md:w-full container mt-5 md:mt-20 px-2 md:px-4 lg:px-8">
+      <div className="flex flex-col justify-between">
         <div className="max-w-lg mx-auto mb-5">
           <ChooseCarColor />
         </div>
-        <div className="w-full md:max-w-xl md:mx-auto md:m-5 mb-5 md:mb-10 overflow-x-auto">
+        <div className="w-11/12 max-w-xl mx-auto m-5 mb-10 overflow-x-auto scrollbar">
           <div className="flex space-x-4 justify-between">
             {/* <div
               className="mb-8 p-2 bg-cover bg-center text-white h-20 w-28 rounded-lg cursor-pointer"
@@ -142,7 +188,7 @@ const CarView1 = ({ carId }) => {
               <span className="flex items-center font-bold">IMAGE360</span>
             </div> */}
             <div
-              className="mb-8 p-2 bg-cover bg-center text-white h-12 md:h-20 w-15 md:w-28 rounded-lg cursor-pointer"
+              className="mb-8 p-2 bg-cover bg-center text-white h-12 md:h-20 w-20 md:w-28 rounded-lg cursor-pointer"
               style={{ backgroundImage: `url(${Exterior})` }}
               onClick={() => {
                 setInterior(false);
