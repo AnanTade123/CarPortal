@@ -9,7 +9,7 @@ export function CarouselCustomArrows({ carId }) {
   console.log("Data of image",data)
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div className="text-center mt-5">No Image Available <img className="w-[12rem] ml-12 opacity-50" src="..\public\cars\no-image-available.png" alt="no image" /></div>;
+  if (error) return <div className="text-center mt-5">No Image Available <img className="w-[12rem] ml-12 opacity-50" src="..\..\cars\no-image-available.png" alt="no image" /></div>;
  
   return (
     <Carousel
