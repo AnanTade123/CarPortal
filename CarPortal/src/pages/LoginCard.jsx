@@ -43,8 +43,8 @@ export function LoginCard() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await signIn(formStateData);
-      
+      const { data , error} = await signIn(formStateData);
+            
       if (data) {
          
         const jwtDecodes = jwtDecode(data);
@@ -57,7 +57,12 @@ export function LoginCard() {
         }, 1000); 
         dispatch(setToken(data));
       } else {
-        toast.error("email and password is not match");
+        if(error.status === 401){
+          toast.error(error.data.message);
+        }else{
+
+          toast.error("email and password is not match");
+        }
       }
 
       // Handle successful sign-in, such as redirecting to a different page
@@ -72,7 +77,7 @@ export function LoginCard() {
   return (
     <div className="flex justify-center items-center h-screen">
       <Card className="w-96">
-      <ToastContainer />
+      <ToastContainer autoClose={2000} />
         <CardHeader
           variant="gradient"
           color="gray"
