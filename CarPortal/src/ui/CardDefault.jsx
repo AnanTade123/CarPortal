@@ -9,11 +9,13 @@ const carid = data?.carId
 console.log(carid)
   return (
 
-    <Link to={`/carlist/cardetails/${data.carId}`}>
+    
     <Card className="mt-6 w-96 md:m-0 m-3 items-center border-2 hover:scale-105 border-gray-300 shadow-xl">
 
       <div className="w-[18rem] h-[16rem] ">
-        <CarouselCustomArrows  carId={carid} />
+        <Link to={`/carlist/cardetails/${carid}`}>
+          <CarouselCustomArrows  carId={carid} />
+        </Link>
       </div>
       <CardBody className="mb-5">
         <Typography>{data.year}</Typography>
@@ -24,7 +26,7 @@ console.log(carid)
             {data.title}
         </Typography>
         <p className="text-sm uppercase mb-3">
-          <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black">{data.kmDriven} KM</span>
+          <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black">{data.kmDriven}KM</span>
           <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black">{data.fuelType}</span>
           <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black">{data.transmission}</span>
           
@@ -36,6 +38,6 @@ console.log(carid)
         <p className="text-sm">Free Test Drive Today at {data.area}</p>
       </CardBody>
     </Card>
-    </Link>
+    
   );
 }
