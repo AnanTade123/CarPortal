@@ -8,12 +8,10 @@ export function CardDefault({ data }) {
 const carid = data?.carId
 console.log(carid)
   return (
-<<<<<<< HEAD
+
     <Link to={`/carlist/cardetails/${data.carId}`}>
-    <Card className="mt-6 w-96 md:m-0 m-3 items-center">
-=======
     <Card className="mt-6 w-96 md:m-0 m-3 items-center border-2 hover:scale-105 border-gray-300 shadow-xl">
->>>>>>> 1c2ca719396665119c5dc8546f52422b1347803d
+
       <div className="w-[18rem] h-[16rem] ">
         <CarouselCustomArrows  carId={carid} />
       </div>
