@@ -228,7 +228,10 @@ const FilterCars = ({ setUrlState }) => {
   }
 
   return (
-    <Card className="p-4">
+    <Card className="p-4 ">
+      <div>
+              <p className="font-semibold text-bold mb-4  text-indigo-400  ">Filters</p>
+            </div>
       <div className="space-y-4">
         <form onSubmit={submitHandle}>
           <div className="mb-1 flex flex-col gap-6">
@@ -250,9 +253,7 @@ const FilterCars = ({ setUrlState }) => {
                 onChange={(e) => setValue(e.target.value)}
               />
             </div>
-            <div>
-              <p className="font-semibold">Filters</p>
-            </div>
+            
             <select
               name="area"
               className="border border-gray-700 h-10 rounded-lg md:w-full lg:w-full"
@@ -363,10 +364,10 @@ const FilterCars = ({ setUrlState }) => {
             </select>
           </div>
           <div className="flex gap-5 mt-5 md:flex-col lg:flex">
-            <Button type="submit" className="bg-indigo-200">
+            <Button type="submit" className="bg-indigo-400">
               Search
             </Button>
-            <Button onClick={resetForm} className="bg-indigo-200">
+            <Button onClick={resetForm} className="bg-indigo-400">
               Reset
             </Button>
           </div>
