@@ -124,7 +124,7 @@ export function SimpleRegistrationForm() {
     try {
       const { data } = await SignUp(formStateData);
       console.log(data);
-      toast.success("Login Sucessfully");
+      toast.success("Register Sucessfully");
         setTimeout(() => {
           navigate("/signin");
         }, 1000);
