@@ -58,7 +58,7 @@ const PriceCard = ({
           />
           <Chip
             variant="outlined"
-            value={`${ownerSerial} Owner`}
+            value={`${ownerSerial == 1 ? "1ST" :ownerSerial == 2 ? "2ND" :ownerSerial == 3 ? "3RD" :ownerSerial == 4 ? "4TH" :ownerSerial == 5 ? "5TH" :""} Owner`}
             className="text-base text-black font-[latto] hover:bg-gray-900 hover:text-white"
           />
           <Chip
