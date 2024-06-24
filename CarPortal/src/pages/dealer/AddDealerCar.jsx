@@ -82,13 +82,20 @@ const carData = {
   ],
   Fiat: [],
   Nissan: [],
-  Volvo: ["S90","XC60","XC90","XC40","C40 Recharge"],
+  Volvo: ["S90", "XC60", "XC90", "XC40", "C40 Recharge"],
   AstonMartin: ["Aston Martin DB12", "DB11", "DBX", "Vantage"],
-  McLaren: ["720S","750S","GT"],
-  Ferrari: ["Purosangue SUV","296 GTB","Roma","F8 Tributo","Portofino M","296 GTS 3.0"],
-  Maserati: ["Ghibli","MC20","Quattroporte","Levante","GranTurismo"],
-  MINI: ["Cooper","Countryman","Cooper SE","Cooper 3 Door"],
-  Bugatti: ["Divo","Veyron"],
+  McLaren: ["720S", "750S", "GT"],
+  Ferrari: [
+    "Purosangue SUV",
+    "296 GTB",
+    "Roma",
+    "F8 Tributo",
+    "Portofino M",
+    "296 GTS 3.0",
+  ],
+  Maserati: ["Ghibli", "MC20", "Quattroporte", "Levante", "GranTurismo"],
+  MINI: ["Cooper", "Countryman", "Cooper SE", "Cooper 3 Door"],
+  Bugatti: ["Divo", "Veyron"],
   ForceMotors: ["Trax Cruiser"],
   Force: ["Gurkha"],
   Bentley: ["Bentayga", "Flying Spur", "Continental"],
@@ -382,223 +389,83 @@ const carVariantData = {
     "AMG S 63 Coupe",
     "AMG S 65 Coupe",
   ],
-  "AMG A-Class": [
-    "A 35",
-    "A 36",
-  ],
-  "AMG C-Class": [
-    "C 63",
-    "C 64",
-    "C 63 S",
-  ],
-  "AMG E-Class": [
-    "E 63",
-    "E 64",
-    "E 63 S",
-  ],
-  "AMG G-Class": [
-    "C 63",
-    "C 64",
-  ],
-  "AMG GT": [
-    "GT",
-    "GT S",
-    "GT C",
-    "GT R",
-    "GT R Pro",
-    "GT Balck Series",
-  ],
-  EQC:[
-    "EQC 400"
-  ],
-  "Range Rover Evoque":[
-    "SE R-Dynamic Petrol",
-    "SE R-Dynamic Deisel"
-  ],
-  "Range Rover Velar":[
-    "HSE Dynamic 2.0 Petrol",
-    "HSE Dynamic 2.0 Deisel"
-  ],
-  Defender:[
+  "AMG A-Class": ["A 35", "A 36"],
+  "AMG C-Class": ["C 63", "C 64", "C 63 S"],
+  "AMG E-Class": ["E 63", "E 64", "E 63 S"],
+  "AMG G-Class": ["C 63", "C 64"],
+  "AMG GT": ["GT", "GT S", "GT C", "GT R", "GT R Pro", "GT Balck Series"],
+  EQC: ["EQC 400"],
+  "Range Rover Evoque": ["SE R-Dynamic Petrol", "SE R-Dynamic Deisel"],
+  "Range Rover Velar": ["HSE Dynamic 2.0 Petrol", "HSE Dynamic 2.0 Deisel"],
+  Defender: [
     "110 SE 2.0 Petrol",
     "90 HSE 2.0 Petrol",
     "90 X-Dynamic HSE 2.0 Petrol",
-    "110 HSE 2.0 Petrol"
+    "110 HSE 2.0 Petrol",
   ],
-  "Range Rover":[
+  "Range Rover": [
     "SE 3.0 Petrol",
     "SE 4.4 Petrol",
     "SE 3.0 Deisel",
     "SE LWB 3.0 Petrol",
   ],
-  "Discovery Sport":[
-    "SE R-Dynamic Petrol",
-    "SE R-Dynamic Deisel",
-  ],
-  Discovery:[
+  "Discovery Sport": ["SE R-Dynamic Petrol", "SE R-Dynamic Deisel"],
+  Discovery: [
     "S 2.0 Petrol",
     "S 3.0 Petrol",
     "HSE R-Dynamic 2.0 Petrol",
-    "S 3.0 Diesel"
+    "S 3.0 Diesel",
   ],
-  911:[
-    "Carrera",
-    "Carrera T",
-    "Carrera Cabriolet",
-    "Carrera S"
-  ],
-  Taycan:[
-    "RWD",
-    "4S",
-    "GTS",
-    "Turbo"
-  ],
-  Macan:[
-    "S",
-    "GTS",
-  ],
-  Cayenne:[
-    "Base"
-  ],
-  Panamera:[
-    "G3"
-  ],
-  718:[
-    "Cayman",
-    "Boxster",
-    "Cayman Style Edition",
-    "Boxster Style Edition"
-  ],
-  A4:[
-    "Premium 40 TFSI",
-    "Premium Plus 40 TFSI",
-    "Technology 40 TFSI"
-  ],
-  Q3:[
+  911: ["Carrera", "Carrera T", "Carrera Cabriolet", "Carrera S"],
+  Taycan: ["RWD", "4S", "GTS", "Turbo"],
+  Macan: ["S", "GTS"],
+  Cayenne: ["Base"],
+  Panamera: ["G3"],
+  718: ["Cayman", "Boxster", "Cayman Style Edition", "Boxster Style Edition"],
+  A4: ["Premium 40 TFSI", "Premium Plus 40 TFSI", "Technology 40 TFSI"],
+  Q3: [
     "40 TFSI Premium",
     "40 TFSI Premium Plus",
     "40 TFSI Technology",
     "Bold Edition",
   ],
-  "Q3 Sportback":[
-    "Technology Plus S-line",
-    "Bold Edition",
-  ],
-  "e-tron GT":[
-    "S",
-    "RS"
-  ],
-  S5:[
-    "S5 Sportback 3.0 TFSI",
-  ],
-  Q7:[
+  "Q3 Sportback": ["Technology Plus S-line", "Bold Edition"],
+  "e-tron GT": ["S", "RS"],
+  S5: ["S5 Sportback 3.0 TFSI"],
+  Q7: [
     "Premium Plus 55 TFSI",
     "Technology 55 TFSI w/o Matrix",
     "Technology 55 TFSI",
     "Bold Edition",
   ],
-  A6:[
+  A6: [
     "Premium Plus 45 TFSI",
     "Technology 45 TFSI W/O Matrix",
-    "Technology 45 TFSI"
-  ],
-  Q5:[
-    "Premium Plus 45 TFSI",
     "Technology 45 TFSI",
   ],
-  Q8:[
-    "Celebration",
-    "55 TFSI quattro"
-  ],
-  RS5:[
-    "Sportback"
-  ],
-  "RS Q8":[
-    "4.0L TFSI"
-  ],
-  "A8 L":[
-    "Celebration Edition",
-    "Technology"
-  ],
-  Continental:[
-    "GT V8",
-    "GTC V8",
-    "GT S V8",
-    "GT Azure V8",
-    "GT Speed"
-  ],
-  "Flying Spur":[
-    "V6 Hybrid",
-    "V8",
-    "V8 Hybrid",
-    "S V8",
-    "S Hybrid"
-  ],
-  Bentayga:[
-    "V8",
-    "EWB",
-    "S",
-    "Azure",
-    "EWB Azure",
-  ],
-  Gurkha:[
-    "3 Door",
-    "5 Door"
-  ],
-  "Trax Cruiser":[
-    "9 STR",
-    "12 STR",
-    "9 STR AC",
-    "12 STR AC",
-  ],
-  Divo:[
-    "W16"
-  ],
-  Veyron:[
-    "Veyron 16.4 Grand Sport"
-  ],
-  Cooper:[
-    "Cooper S",
-    "Cooper S (Steptronic Sport)"
-  ],
-  Countryman:[
-    "Countryman Cooper S JCW Inspired"
-  ],
-  "Cooper SE":[
-    "Cooper SE 3-Door",
-    "Cooper SE Charged Edition"
-  ],
-  "Cooper 3 DOOR":[
-    "S"
-  ],
-  Ghibli:[
-    "GT Hybrid",
-    "Modena S",
-    "Trofeo"
-  ],
-  Quattroporte:[
-    "GT",
-    "Modena","Trofeo"
-  ],
-  MC20:[
-    "Coupe"
-  ],
-  Levante:[
-    "GT Hybrid",
-    "Modena",
-    "Modena S",
-    "Trofeo"
-  ],
-  GranTurismo:[
-    "4.7 V8",
-    "Sport Diesel",
-    "MC Diesel",
-    "4.7 MC"
-  ],
-  C3:[
-    "Shine"
-  ],
-  "C3 Aircross":[
+  Q5: ["Premium Plus 45 TFSI", "Technology 45 TFSI"],
+  Q8: ["Celebration", "55 TFSI quattro"],
+  RS5: ["Sportback"],
+  "RS Q8": ["4.0L TFSI"],
+  "A8 L": ["Celebration Edition", "Technology"],
+  Continental: ["GT V8", "GTC V8", "GT S V8", "GT Azure V8", "GT Speed"],
+  "Flying Spur": ["V6 Hybrid", "V8", "V8 Hybrid", "S V8", "S Hybrid"],
+  Bentayga: ["V8", "EWB", "S", "Azure", "EWB Azure"],
+  Gurkha: ["3 Door", "5 Door"],
+  "Trax Cruiser": ["9 STR", "12 STR", "9 STR AC", "12 STR AC"],
+  Divo: ["W16"],
+  Veyron: ["Veyron 16.4 Grand Sport"],
+  Cooper: ["Cooper S", "Cooper S (Steptronic Sport)"],
+  Countryman: ["Countryman Cooper S JCW Inspired"],
+  "Cooper SE": ["Cooper SE 3-Door", "Cooper SE Charged Edition"],
+  "Cooper 3 DOOR": ["S"],
+  Ghibli: ["GT Hybrid", "Modena S", "Trofeo"],
+  Quattroporte: ["GT", "Modena", "Trofeo"],
+  MC20: ["Coupe"],
+  Levante: ["GT Hybrid", "Modena", "Modena S", "Trofeo"],
+  GranTurismo: ["4.7 V8", "Sport Diesel", "MC Diesel", "4.7 MC"],
+  C3: ["Shine"],
+  "C3 Aircross": [
     "You 1.2 5 STR",
     "Plus 1.2 5 STR",
     "Plus 1.2 5 STR Dual Tone",
@@ -619,65 +486,45 @@ const carVariantData = {
     "Max 1.2 7 STR Vibe Pack Dual Tone",
     "Plus 1.2 5 STR AT Dual Tone",
     "Plus 1.2 5 STR AT Vibe Pack",
-    "Plus 1.2 5 STR AT Vibe Pack Dual Tone","Max 1.2 5 STR AT","Max 1.2 7 STR AT Vibe Pack Dual Tone","Max 1.2 7 STR AT Vibe Pack","Max 1.2 7 STR AT Dual Tone","Max 1.2 5 STR AT Vibe Pack Dual Tone"
+    "Plus 1.2 5 STR AT Vibe Pack Dual Tone",
+    "Max 1.2 5 STR AT",
+    "Max 1.2 7 STR AT Vibe Pack Dual Tone",
+    "Max 1.2 7 STR AT Vibe Pack",
+    "Max 1.2 7 STR AT Dual Tone",
+    "Max 1.2 5 STR AT Vibe Pack Dual Tone",
   ],
-  "C5 Aircross":[
-    "Shine Dual Tone"
+  "C5 Aircross": ["Shine Dual Tone"],
+  eC3: [
+    "Shine Vibe Pack Dual Tone",
+    "Live",
+    "Feel Blu Edition 1.2 Petrol",
+    "Feel",
+    "Feel Vibe Pack",
+    "Feel Dual Tone",
+    "Feel Vibe Pack Dual Tone",
+    "Shine Blu Edition 1.2 Petrol",
+    "Shine",
+    "Shine Vibe Pack",
+    "Shine Dual Tone",
+    "Shine Vibe Pack Dual Tone",
   ],
-  eC3:[
-    "Shine Vibe Pack Dual Tone","Live","Feel Blu Edition 1.2 Petrol","Feel","Feel Vibe Pack","Feel Dual Tone","Feel Vibe Pack Dual Tone","Shine Blu Edition 1.2 Petrol","Shine","Shine Vibe Pack","Shine Dual Tone","Shine Vibe Pack Dual Tone"
-  ],
-  "Purosangue SUV":[
-    "V12"
-  ],
-  "296 GTB":[
-    "3.0 Petrol"
-  ],
-  Roma:[
-    "Coupe"
-  ],
-  "F8 Tributo":[
-    "Berlinetta"
-  ],
-  "Portofino M":[
-    "M"
-  ],
-  "720S":[
-    "Spider"
-  ],
-  "McLaren 750S":[
-    "750S Coupe",
-    "750S Spider",
-    "McLaren GT Coupe",
-  ],
-  S90:[
-    "B5 Ultimate",""
-  ],
-  XC60:[
-    "B5 Ultimate",""
-  ],
-  XC90:[
-    "B6 Ultimate"
-  ],
-  XC40:[
-    "Recharge Single"
-  ],
-  "C40 Recharge":[
-    "E80"
-  ],
-  "Aston Martin DB12":[
-    "Aston Martin DB12 4.0-litre"
-  ],
-  DB11:[
-    "Evolution"
-  ],
-  DBX:[
-    "Twin Turbo","707"
-  ],
-  Vantage:[
-    "V8"
-  ],
-  
+  "Purosangue SUV": ["V12"],
+  "296 GTB": ["3.0 Petrol"],
+  Roma: ["Coupe"],
+  "F8 Tributo": ["Berlinetta"],
+  "Portofino M": ["M"],
+  "720S": ["Spider"],
+  "McLaren 750S": ["750S Coupe", "750S Spider", "McLaren GT Coupe"],
+  S90: ["B5 Ultimate", ""],
+  XC60: ["B5 Ultimate", ""],
+  XC90: ["B6 Ultimate"],
+  XC40: ["Recharge Single"],
+  "C40 Recharge": ["E80"],
+  "Aston Martin DB12": ["Aston Martin DB12 4.0-litre"],
+  DB11: ["Evolution"],
+  DBX: ["Twin Turbo", "707"],
+  Vantage: ["V8"],
+
   i5: ["M60 xDrive"],
   iX1: ["xDrive30 M Sport"],
   i7: ["M70 xDrive", "xDrive60 M Sport", "eDrive50 M Sport"],
@@ -982,7 +829,6 @@ export default function AddDealerCar() {
                   });
                 }}
               >
-              
                 <option>Transmission</option>
                 <option>Automatic</option>
                 <option>Manual</option>
@@ -1077,27 +923,27 @@ export default function AddDealerCar() {
             </div>
 
             <div className="mt-5 md:ml-2 w-full">
-              <select
-                className="w-full border-2 border-gray-400 p-2 rounded-md"
-                label={"Owner Serial"}
-                type={"number"}
-                name={"ownerSerial"}
-                value={formData.type}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    ownerSerial: event.target.value,
-                  })
-                }
-              >
-                <option>Owner Serial</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </div>
+      <select
+        className="w-full border-2 border-gray-400 p-2 rounded-md"
+        name="ownerSerial"
+        value={formData.ownerSerial}
+        onChange={(event) =>
+          setFormData({
+            ...formData,
+            ownerSerial: event.target.value,
+          })
+        }
+      >
+        <option value="" disabled>
+          Select Owner Serial
+        </option>
+        <option value="1">1st</option>
+        <option value="2">2nd</option>
+        <option value="3">3rd</option>
+        <option value="4">4th</option>
+        <option value="5">5th</option>
+      </select>
+    </div>
           </div>
 
           {/* fifth part */}
