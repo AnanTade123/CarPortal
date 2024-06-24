@@ -21,14 +21,14 @@ console.log(carid)
             {data.title}
         </Typography>
         <p className="text-sm uppercase mb-3">
-          <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black">{data.kmDriven}</span>
+          <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black">{data.kmDriven} KM</span>
           <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black">{data.fuelType}</span>
           <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black">{data.transmission}</span>
           
         </p>
         <Typography variant="h6" className="font-bold text-black text-xl">₹ {data.price}</Typography>
 
-     <Link to={`/carlist/cardetails/${data.carId}`}>   <button className="mt-2 mb-4 p-[7px] bg-black rounded-lg text-white">View Car</button></Link>
+     <Link to={`/carlist/cardetails/${data.carId}`}>   <button className="mt-2 mb-4 p-[7px] bg-indigo-500 rounded-lg text-white ">View Car</button></Link>
         <hr />
         <p className="text-sm">Free Test Drive Today at {data.area}</p>
       </CardBody>
