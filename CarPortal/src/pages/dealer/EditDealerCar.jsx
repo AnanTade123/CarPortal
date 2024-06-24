@@ -418,6 +418,8 @@ export default function EditDealerCar() {
                 <option>Diesel</option>
                 <option>Electric</option>
                 <option>CNG</option>
+                <option value="Petrol,CNG">Petrol+CNG</option>
+
               </select>
             </div>
           </div>
