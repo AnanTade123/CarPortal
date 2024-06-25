@@ -11,38 +11,52 @@ const CUSTOM_ANIMATION = {
 };
 
 export function AccordionCustom() {
-  const [open, setOpen] = React.useState(0);
+  const [open, setOpen] = React.useState(1); 
 
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
   return (
     <div className="container px-4 mt-[5rem]">
-      <div className="text-2xl md:text-4xl md:text-center ">
-        {" "}
-        Frequently Asked Question{" "}
+      <div className="text-2xl md:text-4xl md:text-center mb-6">
+        Frequently Asked Questions
       </div>
       <Accordion open={open === 1} animate={CUSTOM_ANIMATION}>
         <AccordionHeader
-          className="text-lg md:text-xl "
+          className="text-lg md:text-xl flex justify-between items-center cursor-pointer"
           onClick={() => handleOpen(1)}
         >
-          When and Where can I take a test drive?
+          <span>When and Where I can take test drive?</span>
+          <span className={`ml-auto transform transition-transform ${open === 1 ? 'rotate-180' : 'rotate-0'}`}>
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </span>
         </AccordionHeader>
         <AccordionBody className="text-sm md:text-xl">
-          You can schedule a home test drive for this Autocar assured car at any
-          date and time you find convenient using our test drive booking
-          form.Your assigned Autocar Relationship Manager will then reach out to
-          you and make sure all the details of your preferred car are made
-          available to you before arriving at your home on the selected date &
-          time for the test drive.
+        You can schedule a home test drive for this Autocar assured car at any date and 
+        time you find convenient using our test drive booking form.Your assigned Autocar
+         Relationship Manager will then reach out to you and make sure all the details of 
+         your preferred car are made available to you before arriving at your home on the
+          selected date & time for the test drive.
         </AccordionBody>
       </Accordion>
       <Accordion open={open === 2} animate={CUSTOM_ANIMATION}>
         <AccordionHeader
-          className="text-lg md:text-xl "
+          className="text-lg md:text-xl flex justify-between items-center cursor-pointer"
           onClick={() => handleOpen(2)}
         >
-          What benefits CarTechIndia give us?
+          <span>What benefits CarTechIndia give us?</span>
         </AccordionHeader>
         <AccordionBody className="text-sm md:text-xl">
           Accessing helpful tips and advice on maintaining a second hand car.
@@ -51,10 +65,10 @@ export function AccordionCustom() {
       </Accordion>
       <Accordion open={open === 3} animate={CUSTOM_ANIMATION}>
         <AccordionHeader
-          className="text-lg md:text-xl "
+          className="text-lg md:text-xl flex justify-between items-center cursor-pointer"
           onClick={() => handleOpen(3)}
         >
-          How do I book a car of my choice?
+          <span>How do I book a car of my choice?</span>
         </AccordionHeader>
         <AccordionBody className="text-sm md:text-xl">
           You can book a car. If you complete the purchase of the vehicle within
@@ -65,10 +79,10 @@ export function AccordionCustom() {
       </Accordion>
       <Accordion open={open === 4} animate={CUSTOM_ANIMATION}>
         <AccordionHeader
-          className="text-lg md:text-xl "
+          className="text-lg md:text-xl flex justify-between items-center cursor-pointer"
           onClick={() => handleOpen(4)}
         >
-          Is replacement option is available?
+          <span>Is replacement option available?</span>
         </AccordionHeader>
         <AccordionBody className="text-sm md:text-xl">
           Absolutely yes, replacement option is available and
@@ -77,22 +91,22 @@ export function AccordionCustom() {
       </Accordion>
       <Accordion open={open === 5} animate={CUSTOM_ANIMATION}>
         <AccordionHeader
-          className="text-lg md:text-xl "
+          className="text-lg md:text-xl flex justify-between items-center cursor-pointer"
           onClick={() => handleOpen(5)}
         >
-          Will CarTechIndia give us history of vehicle?
+          <span>Will CarTechIndia give us history of vehicle?</span>
         </AccordionHeader>
         <AccordionBody className="text-sm md:text-xl">
-          Yes, We Verify important details such as ownership history, accident
+          Yes, We verify important details such as ownership history, accident
           records, and maintenance records.
         </AccordionBody>
       </Accordion>
       <Accordion open={open === 6} animate={CUSTOM_ANIMATION}>
         <AccordionHeader
-          className="text-lg md:text-xl "
+          className="text-lg md:text-xl flex justify-between items-center cursor-pointer"
           onClick={() => handleOpen(6)}
         >
-          Will CarTechIndia help me with car finance?
+          <span>Will CarTechIndia help me with car finance?</span>
         </AccordionHeader>
         <AccordionBody className="text-sm md:text-xl">
           Absolutely, buyers can choose to avail financing through Autocar
@@ -100,15 +114,15 @@ export function AccordionCustom() {
           Our established partnerships help us process loans faster and get our
           customers better interest rates. Depending on your credit worthiness,
           you can avail used car loans through Autocar at interest rates as low
-          as 12.99% compared to the market rates of 14-16%.{" "}
+          as 12.99% compared to the market rates of 14-16%.
         </AccordionBody>
       </Accordion>
       <Accordion open={open === 7} animate={CUSTOM_ANIMATION}>
         <AccordionHeader
-          className="text-lg md:text-xl "
+          className="text-lg md:text-xl flex justify-between items-center cursor-pointer"
           onClick={() => handleOpen(7)}
         >
-          Will CarTechIndia Give us extended warranty?
+          <span>Will CarTechIndia give us extended warranty?</span>
         </AccordionHeader>
         <AccordionBody className="text-sm md:text-xl">
           Protect your investment with our extended warranty options. Get peace
