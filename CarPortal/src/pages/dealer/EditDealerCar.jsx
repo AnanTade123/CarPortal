@@ -8,6 +8,7 @@ import {
   useGetCarByIdQuery,
 } from "../../services/carAPI";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
 
 export default function EditDealerCar() {
   const { id, carId } = useParams();
@@ -135,7 +136,11 @@ export default function EditDealerCar() {
     const res = await carUpdate({data,carId});
     console.log(res);
     if(res?.data?.status === 'success'){
-      navigate(`/dealer/${carId}/editimage`);
+      toast.success('Car Edited');
+      setTimeout(() => {
+        navigate(`/dealer/${carId}/editimage`);
+      }, 2000)
+      
     }
     // console.log(data);
     // addCar(data).then((responseData) => {
@@ -168,8 +173,11 @@ export default function EditDealerCar() {
     setMult(Array.from(e.target.files));
   };
   return (
+    <>
+    <ToastContainer/>
     <div className="flex justify-center">
       <div>
+      
         <form onSubmit={handleSubmit} className="w-[50rem]">
           <div className="flex justify-center">
             <p className="text-3xl font-semibold m-4">Edit Dealer Car</p>
@@ -572,5 +580,6 @@ export default function EditDealerCar() {
         </form>
       </div>
     </div>
+    </>
   );
 }
