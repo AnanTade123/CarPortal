@@ -4,17 +4,17 @@ import {
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
-
+ 
 const CUSTOM_ANIMATION = {
   mount: { scale: 1 },
   unmount: { scale: 0.9 },
 };
-
+ 
 export function AccordionCustom() {
-  const [open, setOpen] = React.useState(1); 
-
+  const [open, setOpen] = React.useState(1);
+ 
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
-
+ 
   return (
     <div className="container px-4 mt-[5rem]">
       <div className="text-2xl md:text-4xl md:text-center mb-6">
@@ -44,9 +44,9 @@ export function AccordionCustom() {
           </span>
         </AccordionHeader>
         <AccordionBody className="text-sm md:text-xl">
-        You can schedule a home test drive for this Autocar assured car at any date and 
+        You can schedule a home test drive for this Autocar assured car at any date and
         time you find convenient using our test drive booking form.Your assigned Autocar
-         Relationship Manager will then reach out to you and make sure all the details of 
+         Relationship Manager will then reach out to you and make sure all the details of
          your preferred car are made available to you before arriving at your home on the
           selected date & time for the test drive.
         </AccordionBody>

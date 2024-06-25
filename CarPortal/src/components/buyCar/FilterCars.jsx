@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Card } from "@material-tailwind/react";
 import { Button, Slider, Typography } from "@material-tailwind/react";
+import { FaFilter } from "react-icons/fa";
 
 const carDataF = {
   Kia: ["Sonet", "Seltos", "Carnival"],
@@ -149,6 +150,7 @@ const FilterCars = ({ setUrlState }) => {
   const [selectedBrand, setSelectedBrand] = useState("");
   const [modelOptions, setModelOptions] = useState([]);
   const [value, setValue] = useState();
+  const [showFilters, setShowFilters] = useState(false);
 
   const handleBrandChange = (event) => {
     const brand = event.target.value;
@@ -228,14 +230,26 @@ const FilterCars = ({ setUrlState }) => {
   }
 
   return (
-    <Card className="p-4 ">
-      <div>
-              <p className="font-semibold text-bold mb-4  text-indigo-400  ">Filters</p>
-            </div>
+    <div className="border-2 shadow-lg rounded-lg">
+    <div className="flex justify-end mr-5 ">
+      <button
+        type="button"
+        className="md:hidden -mt-10 text-black font-bold flex hover:rounded-2xl hover:p-2 hover:shadow-2xl hover:border-2" 
+        onClick={() => setShowFilters(!showFilters)}
+      >
+       <span className="mt-1 mr-1 "> <FaFilter />
+        </span>Filter
+      </button>
+     </div>
+     
+<Card className={`p-4 ${showFilters ? 'block' : 'hidden'} md:block`}>
       <div className="space-y-4">
         <form onSubmit={submitHandle}>
+         <div>
+              <p className="font-bold mb-5 text-xl text-indigo-400">Filters</p>
+            </div>
           <div className="mb-1 flex flex-col gap-6">
-            <Typography variant="h6" color="blue-gray" className="-mb-8">
+            <Typography variant="h6" color="blue-gray" className="-mb-8 font-semibold">
               Price Range
             </Typography>
             <div className="flex justify-center items-center">
@@ -253,7 +267,7 @@ const FilterCars = ({ setUrlState }) => {
                 onChange={(e) => setValue(e.target.value)}
               />
             </div>
-            
+           
             <select
               name="area"
               className="border border-gray-700 h-10 rounded-lg md:w-full lg:w-full"
@@ -350,7 +364,8 @@ const FilterCars = ({ setUrlState }) => {
               <option>Petrol</option>
               <option>Diesel</option>
               <option>Electric</option>
-              <option>Hybrid</option>
+              <option>CNG</option>
+              <option value="Petrol,CNG">Petrol+CNG</option>
             </select>
             <select
               name="transmission"
@@ -364,6 +379,7 @@ const FilterCars = ({ setUrlState }) => {
             </select>
           </div>
           <div className="flex gap-5 mt-5 md:flex-col lg:flex">
+
             <Button type="submit" className="bg-indigo-400">
               Search
             </Button>
@@ -374,6 +390,7 @@ const FilterCars = ({ setUrlState }) => {
         </form>
       </div>
     </Card>
+    </div>
   );
 };
 
