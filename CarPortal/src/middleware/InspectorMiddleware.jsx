@@ -1,16 +1,19 @@
+/* eslint-disable no-unused-vars */
+
 /* eslint-disable react/prop-types */
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { Navigate, Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-const AdminMiddleware = ({ allowedRoles }) => {
+const InspectorMiddleware = ({ allowedRoles }) => {
   const location = useLocation();
   const token = Cookies.get("token");
 
   let jwtDecodes;
   if (token) {
     jwtDecodes = jwtDecode(token);
+    console.log(jwtDecodes)
   }
 
   const userRole = token ? jwtDecodes.authorities[0] : null;
@@ -29,4 +32,4 @@ const AdminMiddleware = ({ allowedRoles }) => {
   return <div>{content}</div>;
 };
 
-export default AdminMiddleware;
+export default InspectorMiddleware;
