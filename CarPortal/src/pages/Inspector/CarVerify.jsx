@@ -1,6 +1,4 @@
 /* eslint-disable no-unused-vars */
-
-
 import React from "react";
 import {
   Tabs,
@@ -9,6 +7,7 @@ import {
   Tab,
   TabPanel,
 } from "@material-tailwind/react";
+import InspectionReport from "./InspectionReport";
 
 export default function CarVerify() {
   const [activeTab, setActiveTab] = React.useState("html");
@@ -16,9 +15,7 @@ export default function CarVerify() {
     {
       label: "Inspection Report",
       value: "html",
-      desc: `It really matters and then like it really doesn't matter.
-      What matters is the people who are sparked by it. And the people 
-      who are like offended by it, it doesn't matter.`,
+      desc: <InspectionReport/>,
     },
     {
       label: "Exterior",
