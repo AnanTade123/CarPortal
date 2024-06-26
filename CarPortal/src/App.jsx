@@ -10,7 +10,7 @@ import CarDetailsById from "./pages/CarDetailsById";
 
 import Admin from "./pages/adminpages/Admin";
 import AdminMiddleware from "./middleware/AdminMiddleware";
-import { onlyAdmin, onlyDealer } from "./components/config/Roles";
+import { onlyAdmin, onlyDealer, onlyInspector } from "./components/config/Roles";
 import AdminDealerInfo from "./pages/adminpages/AdminDealerInfo";
 import AdminDealerEdit from "./pages/adminpages/AdminDealerEdit";
 import DealerDashboard from "./pages/dealer/DealerDashboard";
@@ -36,7 +36,7 @@ import BiddingDealerPendingReq from "./pages/bidding/BiddingDealerPendingReq";
 import Uploadimages2 from "./ui/UploadImages2";
 import InspectorList from "./pages/adminpages/InspectorList";
 import CarInspectionTable from "./pages/CarInspectionTable";
-import CarVerify from "./pages/CarVerify";
+import CarVerify from "./pages/Inspector/CarVerify";
 import AdminInspectorEdit from "./pages/adminpages/AdminInspectorEdit";
 import ChangePassword from "./pages/dealer/ChangePassword";
 import DealerEdit from "./pages/dealer/DealerEdit";
@@ -44,7 +44,9 @@ import TransactionByAccount from "./pages/transaction/TransactionByAccount";
 import Wallet from "./pages/transaction/Wallet";
 import TransactionController from "./pages/transaction/TransactionController";
 import EditImage from "./pages/dealer/EditImage";
-import CarListing from "./pages/sales/CarListing";
+import InspectorMiddleware from "./middleware/InspectorMiddleware";
+import { object } from "prop-types";
+import PendingRequest2 from "./pages/dealer/PendingRequest2";
 // import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
 
 
@@ -53,6 +55,7 @@ export default function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/pendingrequest2" element={<PendingRequest2 />}/>
         <Route element={<AppLayout />}>
           <Route path="signin" element={<LoginCard />} />
           <Route path="signup" element={<SimpleRegistrationForm />} />
@@ -74,7 +77,7 @@ export default function App() {
             }
           >
             <Route path="/admin" element={<Admin />} />
-            <Route path="/carverify" element={<CarVerify />} />
+            
             <Route path="/inspector" element={<InspectorList />} />
             <Route path="/CarInspection" element={<CarInspectionTable />} />
             {/* <Route path="/admin/inspector/info/:ProfileId" element={<AdminInspectorInfo />} /> */}
@@ -126,7 +129,7 @@ export default function App() {
               path="/dealer/:id/car/edit/:carId"
               element={<EditDealerCar />}
             />
-            <Route path="/dealer/:carId/editimage" element={<EditImage />} />
+            <Route path="/dealer/:carId/:id/editimage" element={<EditImage />} />
             <Route
               path="/dealer/:id/booking/confirm"
               element={<OrderDealer />}
@@ -141,6 +144,10 @@ export default function App() {
             />
           </Route>
 
+          <Route element={<InspectorMiddleware allowedRoles={[...Object.values(onlyInspector)]}/>} >
+            <Route path="/Inspector/carverify" element={<CarVerify />} />
+        </Route>
+
           <Route path="/bidding" element={<BiddingMainPage />} />
           <Route path="/bidding/:userid/addcar" element={<BiddingAddCar />} />
           <Route path="/bidding/:id/editcar" element={<BiddingEditCar />} />
@@ -150,6 +157,7 @@ export default function App() {
             element={<BiddingDealerPendingReq />}
           />
         </Route>
+        
            {/* <Route path="/trans" element={<CardDetailss/>}/> */}
         <Route element={<AppLayout2 />}>
           <Route path="/aboutus" element={<AboutUs />} />
