@@ -44,6 +44,7 @@ import TransactionByAccount from "./pages/transaction/TransactionByAccount";
 import Wallet from "./pages/transaction/Wallet";
 import TransactionController from "./pages/transaction/TransactionController";
 import EditImage from "./pages/dealer/EditImage";
+import CarListing from "./pages/sales/CarListing";
 // import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
 
 
@@ -101,6 +102,11 @@ export default function App() {
               path="/transactioncontroller"
               element={<TransactionController/>}
             />
+             <Route
+              path="/carlisting"
+              element={<CarListing/>}
+            />
+            
           </Route>
 
           <Route

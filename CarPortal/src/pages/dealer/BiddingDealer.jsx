@@ -8,7 +8,7 @@ import {
 } from "@material-tailwind/react";
 import { useBiddingCarByDealerIdQuery } from "../../services/biddingAPI";
 
-import TableComponent from "../../components/table/TableComponent";
+// import TableComponent from "../../components/table/TableComponent";
 import { Link,useParams } from "react-router-dom";
 import { MdPendingActions } from "react-icons/md";
 import StatusDialogeBox from "../../ui/StatusDialogeBox";
@@ -207,7 +207,7 @@ const BiddingDealer = () => {
       },
     },
   ];
-
+console.log(columns);
   let dealerApiData;
   if (isLoading) {
     return <p>isLoading</p>;
@@ -246,7 +246,7 @@ const BiddingDealer = () => {
           </div>
         </CardHeader>
        <CardBody className="overflow-scroll px-0">
-          <TableComponent columns={columns} data={dealerApiData} />
+          {/* <TableComponent columns={columns} data={dealerApiData} /> */}
         </CardBody>
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography
