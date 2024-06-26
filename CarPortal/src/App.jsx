@@ -46,6 +46,7 @@ import TransactionController from "./pages/transaction/TransactionController";
 import EditImage from "./pages/dealer/EditImage";
 import InspectorMiddleware from "./middleware/InspectorMiddleware";
 import { object } from "prop-types";
+import PendingRequest2 from "./pages/dealer/PendingRequest2";
 // import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
 
 
@@ -54,6 +55,7 @@ export default function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/pendingrequest2" element={<PendingRequest2 />}/>
         <Route element={<AppLayout />}>
           <Route path="signin" element={<LoginCard />} />
           <Route path="signup" element={<SimpleRegistrationForm />} />
