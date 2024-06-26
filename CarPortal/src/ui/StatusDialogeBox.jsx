@@ -7,24 +7,44 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
+import { useCarUpdateMutation } from "../services/carAPI";
  
-export default function StatusDialogeBox() {
+export default function StatusDialogeBox({status , carId}) {
+
   const [open, setOpen] = React.useState(false);
+  const [carUpdate] = useCarUpdateMutation(carId);
+  const [selectedOption, setSelectedOption] = React.useState(status); 
  
   const handleOpen = () => setOpen(!open);
+  const handleSubmit = async () => {
+    try{
+      const data = {
+        carStatus: selectedOption,
+      };
+      console.log(data);
+  
+      const res = await carUpdate({data,carId});
+      console.log(res);
+      // if(res?.data?.status === 'success'){
+      //   navigate("/editimage", { state: { images: mult } });
+      // }
+      setOpen(!open);
+    }catch(error){
+      console.log("Error :" ,error);
+    }
+  }
 
-  const [selectedOption, setSelectedOption] = React.useState("active"); 
-  const handleSelectChange = (event) => {
+  const handleSelectChange = async (event) => {
     setSelectedOption(event.target.value); 
   };
 
   const getButtonColor = () => {
     switch(selectedOption) {
-      case "active":
+      case "ACTIVE":
         return "green"; 
-      case "disable":
+      case "DEACTIVATE":
         return "red"; 
-      case "pending":
+      case "PENDING":
         return "amber"; 
       default:
         return "black"; 
@@ -45,9 +65,10 @@ export default function StatusDialogeBox() {
             onChange={handleSelectChange} 
           >
             <option value="">Select</option>
-            <option value="active">ACTIVE</option>
-            <option value="disable">DISABLE</option>
-            <option value="pending">PENDING</option>
+            <option value="ACTIVE">ACTIVE</option>
+            <option value="DEACTIVATE">DEACTIVATE</option>
+            <option value="PENDING">PENDING</option>
+            <option value="SOLD">SOLD</option>
           </select>
         </DialogBody>
         <DialogFooter>
@@ -59,7 +80,7 @@ export default function StatusDialogeBox() {
           >
             <span>Cancel</span>
           </Button>
-          <Button variant="gradient" color="green" onClick={handleOpen}>
+          <Button variant="gradient" color="green" onClick={handleSubmit}>
             <span>Confirm</span>
           </Button>
         </DialogFooter>

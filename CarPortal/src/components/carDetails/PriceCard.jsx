@@ -10,6 +10,8 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaFileAlt } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 
+
+
 const PriceCard = ({
   price,
   brand,
@@ -25,8 +27,10 @@ const PriceCard = ({
   bodyType,
   dealer_id,
   carId,
+  handleBuyCar
 }) => {
   const cookie = Cookies.get("token");
+
 
   console.log(cookie);
   const jwtDecodes = cookie ? jwtDecode(cookie) : null;
@@ -34,16 +38,19 @@ const PriceCard = ({
   const userRole = jwtDecodes?.authorities[0];
   console.log(userRole);
   console.log(userRole);
+
+
+
   return (
     <CardUi>
       <div className="w-full md:w-full">
-        <p className="font-extrabold text-2xl text-black uppercase font-[latto]">
+        <p className="font-extrabold text-2xl text-black uppercase font-[latto] ml-2">
           {year} {brand} {model}
         </p>
-        <p className="uppercase font-[Merriweather]">
+        <p className="uppercase font-[Merriweather] ml-2 md:ml-0">
           {color} {bodyType} &  MANUAL
         </p>
-        <div className="my-4 flex gap-2 overflow-x-auto scrollbar">
+        <div className="my-4 flex gap-2 overflow-x-auto scrollbar ml-2 md:ml-0">
           <Chip
             variant="outlined"
             value={`${kmDriven} KM`}
@@ -51,7 +58,7 @@ const PriceCard = ({
           />
           <Chip
             variant="outlined"
-            value={`${ownerSerial} Owner`}
+            value={`${ownerSerial == 1 ? "1ST" :ownerSerial == 2 ? "2ND" :ownerSerial == 3 ? "3RD" :ownerSerial == 4 ? "4TH" :ownerSerial == 5 ? "5TH" :""} Owner`}
             className="text-base text-black font-[latto] hover:bg-gray-900 hover:text-white"
           />
           <Chip
@@ -65,25 +72,25 @@ const PriceCard = ({
             className="text-base text-black font-[latto] hover:bg-gray-900 hover:text-white"
           />
         </div>
-        <div className="flex align-bottom items-baseline gap-3">
+        <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
           <IoHome />
           <div className=" mt-4 text-base font-[lotto]">
             Home Test Drive Available
           </div>
         </div>
-        <div className="flex align-bottom items-baseline gap-3">
+        <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
           <FaLocationDot />
           <div className=" mt-4 text-base text-gray-700 font-[lotto]">
             Parked at: {area},{city}
           </div>
         </div>
-        <div className="flex align-bottom items-baseline gap-3">
+        <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
           <FaFileAlt />
           <div className=" mt-4 text-base text-gray-700 font-[lotto]">
             View Inspection Report
           </div>
         </div>
-        <div className="flex align-bottom items-baseline gap-3">
+        <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
           <IoLogoWhatsapp />
           <div className=" mt-4 mb-6 text-base text-gray-700 font-[lotto]">
             Get Service History Report
@@ -106,6 +113,7 @@ const PriceCard = ({
               price={price}
               dealer_id={dealer_id}
               carId={carId}
+              handleBuyCar={handleBuyCar}
               className
             />
           )}
