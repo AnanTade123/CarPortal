@@ -6,10 +6,14 @@ import BrandList from "../components/home/BrandList"
 import ContactUs from "../components/home/ContactUs"
 import HeroSection from "../components/home/HeroSection"
 import { StickyNavbar } from "../components/navbars/StickyNavbar"
+import { useEffect } from "react"
 
 
 
 const Home = () => {
+  useEffect(()=>{
+    window.scrollTo(0,0);
+},[]);
   return (
     <div>
     <StickyNavbar/>

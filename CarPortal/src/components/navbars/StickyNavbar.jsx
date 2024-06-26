@@ -59,7 +59,7 @@ export function StickyNavbar() {
           Dealer List
         </Typography>
       </Link>
-      {/* <Link to={"/inspector"}>
+      <Link to={"/inspector"}>
         <Typography
           as="li"
           variant="small"
@@ -68,7 +68,7 @@ export function StickyNavbar() {
         >
           Inspector List
         </Typography>
-      </Link> */}
+      </Link>
 
       
     </>
@@ -159,6 +159,22 @@ export function StickyNavbar() {
     </>
    ) : null;
 
+   const InspectorDashboard = userRole?.includes("INSPECTOR") ? (
+    <>
+      
+      <Link to={`/Inspector/carverify`}>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className={`p-3 rounded-md font-normal ${window.location.pathname === `/user/booking/${jwtDecodes?.userId}` ? "bg-indigo-200 text-white" : ""}`}
+        >
+          Car Verify
+        </Typography>
+      </Link>
+    </>
+   ) : null;
+
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -194,7 +210,7 @@ export function StickyNavbar() {
       {adminDashboard}
       {dealerDashboard}
       {userDashboard}
-
+      {InspectorDashboard}
     </ul>
   );
 

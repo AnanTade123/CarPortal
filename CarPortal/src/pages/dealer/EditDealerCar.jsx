@@ -135,7 +135,7 @@ export default function EditDealerCar() {
     const res = await carUpdate({data,carId});
     console.log(res);
     if(res?.data?.status === 'success'){
-      navigate(`/dealer/${carId}/editimage`);
+      navigate(`/dealer/${carId}/${id}/editimage`);
     }
     // console.log(data);
     // addCar(data).then((responseData) => {
