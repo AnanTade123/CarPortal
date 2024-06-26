@@ -35,7 +35,7 @@ const BiddingDealer = () => {
 
   const { data, isLoading,error } = useBiddingCarByDealerIdQuery(UserID);
   
-  
+  console.log(data)
   if (isLoading) {
     return <p>Loading..</p>;
   }

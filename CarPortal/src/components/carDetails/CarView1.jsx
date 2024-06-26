@@ -67,7 +67,7 @@ const CarView1 = ({ carId }) => {
        
 {interior && (
       <Carousel className="bg-white rounded-lg shadow-md">
-        {InteriorImages.length > 0 ? InteriorImages.map((item) => (
+        {data.object.length > 0 ? data.object.map((item) => (
          
           <img
             key={item.documentId}
@@ -93,7 +93,7 @@ const CarView1 = ({ carId }) => {
 
         {exterior && (
           <Carousel className="bg-gray-900 rounded-lg shadow-md ">
-          {ExteriorImages.length > 0 ?ExteriorImages.map((item) => (
+          {data.object.length > 0 ?data.object.map((item) => (
             <img
               key={item.documentId}
               src={item.documentLink}
@@ -112,7 +112,7 @@ const CarView1 = ({ carId }) => {
 
         {features && (
           <Carousel className="bg-white rounded-lg shadow-md">
-          {FeaturesImages.length > 0 ?FeaturesImages.map((item) => (
+          {data.object.length > 0 ?data.object.map((item) => (
             
             <img
               key={item.documentId}
@@ -132,7 +132,7 @@ const CarView1 = ({ carId }) => {
 
         {tyres && (
            <Carousel className="bg-white rounded-lg shadow-md">
-           {TyreImages.length > 0 ? TyreImages.map((item) => (
+           {data.object.length > 0 ? data.object.map((item) => (
              <img
                key={item.documentId}
                src={item.documentLink}
@@ -151,7 +151,7 @@ const CarView1 = ({ carId }) => {
 
         {engines && (
           <Carousel className="bg-white rounded-lg shadow-md ">
-          {EngineImages.length > 0 ? EngineImages.map((item) => (
+          {data.object.length > 0 ? data.object.map((item) => (
             <img
               key={item.documentId}
               src={item.documentLink}
@@ -187,7 +187,7 @@ const CarView1 = ({ carId }) => {
             >
               <span className="flex items-center font-bold">IMAGE360</span>
             </div> */}
-            <div
+            {/* <div
               className="mb-8 p-2 bg-cover bg-center text-white h-12 md:h-20 w-20 md:w-28 rounded-lg cursor-pointer"
               style={{ backgroundImage: `url(${Exterior})` }}
               onClick={() => {
@@ -201,8 +201,8 @@ const CarView1 = ({ carId }) => {
               <span className="flex text-sm md:text-base items-center font-bold">
                 EXTERIOR
               </span>
-            </div>
-            <div
+            </div> */}
+            {/* <div
               className="mb-8 p-2 bg-cover bg-center text-white h-12 md:h-20 w-20 md:w-28 rounded-lg cursor-pointer"
               style={{ backgroundImage: `url(${Interior})` }}
               onClick={() => {
@@ -216,8 +216,8 @@ const CarView1 = ({ carId }) => {
               <span className="flex text-sm md:text-base items-center font-bold">
                 INTERIOR
               </span>
-            </div>
-            <div
+            </div> */}
+            {/* <div
               className="mb-8 p-2 bg-cover bg-center text-white h-12 md:h-20 w-20 md:w-28 rounded-lg cursor-pointer"
               style={{ backgroundImage: `url(${Features})` }}
               onClick={() => {
@@ -231,8 +231,8 @@ const CarView1 = ({ carId }) => {
               <span className="flex text-sm md:text-base items-center font-bold">
                 FEATURES
               </span>
-            </div>
-            <div
+            </div> */}
+            {/* <div
               className="mb-8 p-2 bg-cover bg-center text-white h-12 md:h-20 w-20 md:w-28 rounded-lg cursor-pointer"
               style={{ backgroundImage: `url(${Tyres})` }}
               onClick={() => {
@@ -246,8 +246,8 @@ const CarView1 = ({ carId }) => {
               <span className="flex text-sm md:text-base items-center font-bold">
                 TYRES
               </span>
-            </div>
-            <div
+            </div> */}
+            {/* <div
               className="mb-8 p-2 bg-cover bg-center text-white h-12 md:h-20 w-20 md:w-28 rounded-lg cursor-pointer"
               style={{ backgroundImage: `url(${Engine})` }}
               onClick={() => {
@@ -261,7 +261,7 @@ const CarView1 = ({ carId }) => {
               <span className="flex text-sm md:text-base items-center font-bold">
                 ENGINES
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

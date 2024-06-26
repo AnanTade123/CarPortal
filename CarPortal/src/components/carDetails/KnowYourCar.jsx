@@ -53,7 +53,7 @@ const KnowYourCar = ({
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-6 mr-6 mt-11">
+            <div className="flex items-center gap-6 mr-6 mt-11 md:mt-0">
               <div className="bg-blue-50 py-3 px-2 rounded-xl">
                 <GrServices className="w-12 h-8" />
               </div>

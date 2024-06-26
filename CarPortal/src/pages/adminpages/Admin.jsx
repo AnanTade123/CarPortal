@@ -154,7 +154,7 @@ console.log(data)
                   />
                 </svg>
               </Link>
-              <div
+              {/* <div
                 onClick={() => handleOpen(cell.row.values.dealer_id)}
               >
                 <Tooltip content="Delete" >
@@ -174,7 +174,7 @@ console.log(data)
                     />
                   </svg>
                 </Tooltip>
-              </div>
+              </div> */}
             </div>
           </div>
         );

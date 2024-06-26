@@ -1,10 +1,14 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unsafe-optional-chaining */
+import { useState } from "react";
+import { useFilterCarQuery } from "../../services/carAPI";
+import GridCarList from "../buyCar/GridCarList";
 import CarView1 from "./CarView1";
 import InspectionReport from "./InspectionReport";
 import KnowYourCar from "./KnowYourCar";
 import TopFeatures from "./TopFeatures";
+
 
 const CarView = ({
   fuelType,
@@ -25,6 +29,7 @@ const CarView = ({
     carInsurance,
     kmDriven
   );
+  
   return (
     <div>
       <CarView1 carId = {carId} />
@@ -38,6 +43,7 @@ const CarView = ({
         kmDriven={kmDriven}
       />
       <InspectionReport/>
+      
       {/* <TopFeatures/> */}
     </div>
   );

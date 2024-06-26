@@ -92,7 +92,7 @@ const ContactUs = () => {
           </form>
         </div> */}
 
-        <div >
+        <div className="mx-4 md:mx-0">
           {/* <h1 className="text-3xl font-bold mb-5">Contact Us</h1> */}
           <p className="text-lg mb-5">
             Have questions? We are here to help. Get in touch with us using the

@@ -51,7 +51,7 @@ const Profile = ({dealer_id,userrole}) => {
             </svg>
 
             <Typography variant="small" className="font-medium capitalize ">
-              {userLocal?.firstname}
+              {userLocal?.firstname ? userLocal?.firstname : "Admin"}
             </Typography>
           </MenuItem>
 
