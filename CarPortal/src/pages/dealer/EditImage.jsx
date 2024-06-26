@@ -5,7 +5,7 @@ import { IoAddCircleOutline, IoCloseCircle } from "react-icons/io5";
 import { Tabs, TabsHeader, TabsBody, Tab, TabPanel } from "@material-tailwind/react";
 import { useDealerIdByCarQuery, useGetCarImageByIdQuery, useDeleteCarImageByIdMutation } from "../../services/carAPI";
 import { useAddCarImagesMutation } from '../../services/dealerAPI';
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 import Cookies from 'js-cookie';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -33,8 +33,6 @@ const EditImage = () => {
 
   const UserID = jwtDecodes?.userId;
 
-  console.log("imagess", imagess)
-
   const [data, setData] = useState([
     {
       label: "Cover Image",
@@ -51,14 +49,13 @@ const EditImage = () => {
   ]);
 
   useEffect(() => {
-    console.log("chcekkkkkk-------------");
     if (imagess) {
       const coverImg = imagess.object.filter(img => img.documentType === 'coverImage').map(img => img.documentLink);
       const imgs = imagess.object.filter(img => img.documentType === 'image').map(img => img.documentLink);
 
       setData(prevData => prevData.map(category => {
         if (category.value === 'coverimage') {
-          return { ...category, images: coverImg };
+          return { ...category, images: coverImg, showAddSection: coverImg.length === 0 };
         }
         if (category.value === 'images') {
           return { ...category, images: imgs };
@@ -78,22 +75,13 @@ const EditImage = () => {
     const files = Array.from(event.target.files);
     const documentType = categoryValue === 'coverimage' ? 'coverImage' : 'image';
 
-    const previewImages = files.map(file => URL.createObjectURL(file));
-    console.log("previewImages", previewImages);
-    // setData((prevData) =>
-    //   prevData.map((category) => {
-    //     if (category.value === categoryValue) {
-    //       const updatedImages = categoryValue === "coverimage" ? previewImages : [...category.images, ...previewImages];
-    //       return {
-    //         ...category,
-    //         images: updatedImages,
-    //         showAddSection: categoryValue !== "coverimage",
-    //       };
-    //     }
-    //     return category;
-    //   })
-    // );
+    if (categoryValue === 'coverimage' && files.length > 1) {
+      toast.error("Only one cover image can be added");
+      return;
+    }
 
+    const previewImages = files.map(file => URL.createObjectURL(file));
+    
     for (const file of files) {
       const formData = new FormData();
       formData.append('image', file);
@@ -103,7 +91,7 @@ const EditImage = () => {
         const response = await addCarImages({
           formData,
           document: documentType,
-          firstCarId,
+          firstCarId : carId,
           UserID,
         }).unwrap();
         toast.success("Uploaded Successfully");
@@ -119,6 +107,7 @@ const EditImage = () => {
               return {
                 ...category,
                 images: updatedImages,
+                showAddSection: categoryValue === 'coverimage' ? updatedImages.length === 0 : category.showAddSection,
               };
             }
             return category;
@@ -153,7 +142,7 @@ const EditImage = () => {
             return {
               ...category,
               images: updatedImages,
-              showAddSection: true
+              showAddSection: categoryValue === 'coverimage' ? updatedImages.length === 0 : category.showAddSection,
             };
           }
           return category;
@@ -210,7 +199,7 @@ const EditImage = () => {
                           <input
                             type="file"
                             accept="image/*"
-                            multiple
+                            multiple={value !== 'coverimage'}
                             className="hidden"
                             onChange={(e) => handleAddImage(e, value)}
                           />
