@@ -139,7 +139,7 @@ export default function EditDealerCar() {
       toast.success('Car Edited');
       setTimeout(() => {
         navigate(`/dealer/${carId}/editimage`);
-      }, 2000)
+      }, 1000)
       
     }
     // console.log(data);
@@ -426,6 +426,8 @@ export default function EditDealerCar() {
                 <option>Diesel</option>
                 <option>Electric</option>
                 <option>CNG</option>
+                <option value="Petrol,CNG">Petrol+CNG</option>
+
               </select>
             </div>
           </div>

@@ -9,6 +9,7 @@ import { biddingAPI } from '../services/biddingAPI';
 import { StartbiddingAPI } from '../services/StartbiddingAPI';
 import { placebidAPI } from '../services/placingbidApi';
 import { inspectorAPI } from '../services/inspectorapi';
+import { brandAPI } from '../services/brandAPI';
 
 export const store = configureStore({
   reducer: {
@@ -20,7 +21,8 @@ export const store = configureStore({
     [biddingAPI.reducerPath]:biddingAPI.reducer,
     [StartbiddingAPI.reducerPath]:StartbiddingAPI.reducer,
     [placebidAPI.reducerPath]:placebidAPI.reducer,
-    [inspectorAPI.reducerPath]:inspectorAPI.reducer
+    [inspectorAPI.reducerPath]:inspectorAPI.reducer,
+    [brandAPI.reducerPath]:brandAPI.reducer
   },
   middleware:(getDefaultMiddleware)=>
   getDefaultMiddleware().concat(apiSlice.middleware),
