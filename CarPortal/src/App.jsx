@@ -105,6 +105,11 @@ export default function App() {
               path="/transactioncontroller"
               element={<TransactionController/>}
             />
+             <Route
+              path="/carlisting"
+              element={<CarListing/>}
+            />
+            
           </Route>
 
           <Route
