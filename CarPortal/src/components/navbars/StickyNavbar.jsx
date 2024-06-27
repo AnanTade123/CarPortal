@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import logo from '../../Images/carTechLogo.jpeg';
+import logo from "../../Images/carTechLogo.jpeg";
 import React, { useState } from "react";
 import {
   Navbar,
@@ -8,7 +8,7 @@ import {
   IconButton,
   Collapse,
 } from "@material-tailwind/react";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from "react-router-dom";
 
 import Cookies from "js-cookie";
 import Profile from "../Profile/Profile";
@@ -18,27 +18,26 @@ export function StickyNavbar() {
   const [openNav, setOpenNav] = useState(false);
 
   const token = Cookies.get("token");
-  let jwtDecodes
-  if(token){
-     jwtDecodes = jwtDecode(token);
+  let jwtDecodes;
+  if (token) {
+    jwtDecodes = jwtDecode(token);
   }
-//   if(token){
-//     console.log(token)
-//  }
-  
-  const userRole = token ? jwtDecodes?.authorities[0] :null;
-  
+  //   if(token){
+  //     console.log(token)
+  //  }
+
+  const userRole = token ? jwtDecodes?.authorities[0] : null;
+
   // eslint-disable-next-line no-unused-vars
-  const DealerId = token ? jwtDecodes?.dealerId :null;
-  const UserId = token ? jwtDecodes?.userId :null;
+  const DealerId = token ? jwtDecodes?.dealerId : null;
+  const UserId = token ? jwtDecodes?.userId : null;
 
   const location = useLocation();
   const active = location.pathname === `/dealer/${jwtDecodes?.dealerId}`;
- 
 
   const adminDashboard = userRole?.includes("ADMIN") ? (
     <>
-    {/* <Link to={"/bidding"}>
+      {/* <Link to={"/bidding"}>
         <Typography
           as="li"
           variant="small"
@@ -54,9 +53,27 @@ export function StickyNavbar() {
           as="li"
           variant="small"
           color="blue-gray"
-          className={`p-3 rounded-md font-normal ${window.location.pathname === "/admin" ? "bg-indigo-200 text-white" : ""}`}
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === "/admin"
+              ? "bg-indigo-200 text-white"
+              : ""
+          }`}
         >
           Dealer List
+        </Typography>
+      </Link>
+      <Link to={"/saleslist"}>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === "/saleslist"
+              ? "bg-indigo-200 text-white"
+              : ""
+          }`}
+        >
+          Sales List
         </Typography>
       </Link>
       {/* <Link to={"/inspector"}>
@@ -69,8 +86,6 @@ export function StickyNavbar() {
           Inspector List
         </Typography>
       </Link> */}
-
-      
     </>
   ) : null;
 
@@ -81,12 +96,16 @@ export function StickyNavbar() {
           as="li"
           variant="small"
           color="blue-gray"
-          className={`p-3 rounded-md font-normal ${window.location.pathname === "/carlist" ? "bg-indigo-200 text-white" : ""}`}
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === "/carlist"
+              ? "bg-indigo-200 text-white"
+              : ""
+          }`}
         >
           Car List
         </Typography>
       </Link>
-     
+
       {/* <Link to={"/bidding"}>
         <Typography
           as="li"
@@ -103,45 +122,59 @@ export function StickyNavbar() {
           as="li"
           variant="small"
           color="blue-gray"
-          className={`p-3 rounded-md font-normal ${active ? "bg-indigo-200 text-white" : ""}`}
+          className={`p-3 rounded-md font-normal ${
+            active ? "bg-indigo-200 text-white" : ""
+          }`}
         >
           Dashboard
         </Typography>
       </Link>
-      <Link to={`/dealer/${jwtDecodes?.dealerId}/allpending`} >
+      <Link to={`/dealer/${jwtDecodes?.dealerId}/allpending`}>
         <Typography
           as="li"
           variant="small"
           color="blue-gray"
-          className={`p-3 rounded-md font-normal ${window.location.pathname === `/dealer/${jwtDecodes?.dealerId}/allpending` ? "bg-indigo-200 text-white" : ""}`}
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname ===
+            `/dealer/${jwtDecodes?.dealerId}/allpending`
+              ? "bg-indigo-200 text-white"
+              : ""
+          }`}
         >
           Pendig Request
         </Typography>
       </Link>
-    
+
       <Link to={`/dealer/${jwtDecodes?.dealerId}/booking/confirm`}>
         <Typography
           as="li"
           variant="small"
           color="blue-gray"
-          className={`p-3 rounded-md font-normal ${window.location.pathname === `/dealer/${jwtDecodes?.dealerId}/booking/confirm` ? "bg-indigo-200 text-white" : ""}`}
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname ===
+            `/dealer/${jwtDecodes?.dealerId}/booking/confirm`
+              ? "bg-indigo-200 text-white"
+              : ""
+          }`}
         >
-        Confirm Booking  
+          Confirm Booking
         </Typography>
       </Link>
-
-      
     </>
   ) : null;
 
-   const userDashboard = userRole?.includes("USER") ? (
+  const userDashboard = userRole?.includes("USER") ? (
     <>
       <Link to={`/pendinrequest/${jwtDecodes?.userId}`}>
         <Typography
           as="li"
           variant="small"
           color="blue-gray"
-          className={`p-3 rounded-md font-normal ${window.location.pathname === `/pendinrequest/${jwtDecodes?.userId}` ? "bg-indigo-200 text-white" : ""}`}
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === `/pendinrequest/${jwtDecodes?.userId}`
+              ? "bg-indigo-200 text-white"
+              : ""
+          }`}
         >
           All Request
         </Typography>
@@ -157,7 +190,7 @@ export function StickyNavbar() {
         </Typography>
       </Link> */}
     </>
-   ) : null;
+  ) : null;
 
   React.useEffect(() => {
     window.addEventListener(
@@ -173,28 +206,33 @@ export function StickyNavbar() {
           as="li"
           variant="small"
           color="blue-gray"
-          className={`p-3 rounded-md font-normal ${window.location.pathname === "/" ? "bg-indigo-200 text-white" : ""}`}
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === "/" ? "bg-indigo-200 text-white" : ""
+          }`}
         >
           Home
         </Typography>
       </Link>
-      {
-        userRole == 'DEALER' ? null :<Link to={"/carlist"}>
-        <Typography
-          as="li"
-          variant="small"
-          color="blue-gray"
-          className={`p-3 rounded-md font-normal ${window.location.pathname === "/carlist" ? "bg-indigo-200 text-white" : ""}`}
-        >
-          Buy Car
-        </Typography>
-      </Link>
-      }
-      
+      {userRole == "DEALER" ? null : (
+        <Link to={"/carlist"}>
+          <Typography
+            as="li"
+            variant="small"
+            color="blue-gray"
+            className={`p-3 rounded-md font-normal ${
+              window.location.pathname === "/carlist"
+                ? "bg-indigo-200 text-white"
+                : ""
+            }`}
+          >
+            Buy Car
+          </Typography>
+        </Link>
+      )}
+
       {adminDashboard}
       {dealerDashboard}
       {userDashboard}
-
     </ul>
   );
 
@@ -202,16 +240,19 @@ export function StickyNavbar() {
     <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Link to={"/"}>
-        <div className="flex flex-col items-center justify-center">
-      <img src={logo} alt="CarTechIndia Logo" className="logo md:w-56 h-10" />
-    
-    </div>
+          <div className="flex flex-col items-center justify-center">
+            <img
+              src={logo}
+              alt="CarTechIndia Logo"
+              className="logo md:w-56 h-10"
+            />
+          </div>
         </Link>
         <div className="flex items-center gap-4">
           <div className="mr-4 hidden lg:block">{navList}</div>
           <div className="flex items-center gap-x-1">
             {token ? (
-              <Profile dealer_id = {DealerId} userrole={userRole} />
+              <Profile dealer_id={DealerId} userrole={userRole} />
             ) : (
               <>
                 <Link to="/signin">
@@ -275,31 +316,28 @@ export function StickyNavbar() {
         </div>
       </div>
       <>
+        <Collapse open={openNav}>
+          {token ? (
+            <div>{navList}</div>
+          ) : (
+            <div>
+              {navList}
+              <div className="flex items-center gap-x-1">
+                <Link to="/signin">
+                  <Button fullWidth variant="text" size="sm" className="">
+                    <span>Sign In</span>
+                  </Button>
+                </Link>
 
-      <Collapse open={openNav}>
-      {token ? (
-              <div>
-                {navList}
+                <Link to="/signup">
+                  <Button fullWidth variant="gradient" size="sm" className="">
+                    <span>Sign up</span>
+                  </Button>
+                </Link>
               </div>
-            ) : (
-             <div>
-        {navList}
-        <div className="flex items-center gap-x-1">
-          <Link to="/signin">
-          <Button fullWidth variant="text" size="sm" className="">
-            <span>Sign In</span>
-          </Button>
-          </Link>
-
-          <Link to="/signup">
-          <Button fullWidth variant="gradient" size="sm" className="">
-            <span>Sign up</span>
-          </Button>
-          </Link>
-        </div>
-        </div>
-            )}
-            </Collapse>
+            </div>
+          )}
+        </Collapse>
       </>
     </Navbar>
   );

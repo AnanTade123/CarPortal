@@ -44,6 +44,7 @@ import TransactionByAccount from "./pages/transaction/TransactionByAccount";
 import Wallet from "./pages/transaction/Wallet";
 import TransactionController from "./pages/transaction/TransactionController";
 import EditImage from "./pages/dealer/EditImage";
+import SalesList from "./pages/adminpages/SalesList";
 // import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
 
 
@@ -52,7 +53,7 @@ export default function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/pendingrequest2" element={<PendingRequest2/>}/>
+        {/* <Route path="/pendingrequest2" element={<PendingRequest2/>}/> */}
         <Route element={<AppLayout />}>
           <Route path="signin" element={<LoginCard />} />
           <Route path="signup" element={<SimpleRegistrationForm />} />
@@ -76,6 +77,7 @@ export default function App() {
             <Route path="/admin" element={<Admin />} />
             <Route path="/carverify" element={<CarVerify />} />
             <Route path="/inspector" element={<InspectorList />} />
+            <Route path="/saleslist" element={<SalesList/>} />
             <Route path="/CarInspection" element={<CarInspectionTable />} />
             {/* <Route path="/admin/inspector/info/:ProfileId" element={<AdminInspectorInfo />} /> */}
             <Route
