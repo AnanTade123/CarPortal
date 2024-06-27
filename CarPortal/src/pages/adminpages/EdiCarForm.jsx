@@ -1,12 +1,22 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
-import { Button, Dialog, DialogHeader, DialogBody, DialogFooter } from "@material-tailwind/react";
+import {
+  Button,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from "@material-tailwind/react";
 import Inputs from "../../forms/Inputs"; // Assuming this is a custom input component
+import { useEditBrandDataMutation } from "../../services/brandAPI";
 
-const EditCarForm = ({ initialData, onSave }) => {
+const EditCarForm = ({ initialData, brandDataId }) => {
   const [open, setOpen] = useState(false);
-  const [inputField, setInputField] = useState(initialData || { brand: "", model: "", variant: "" });
-
+  const [inputField, setInputField] = useState(
+    initialData || { brand: "", model: "", variant: "" }
+  );
+  const [editBrandData] = useEditBrandDataMutation();
+  console.log("brandDataId", brandDataId);
   useEffect(() => {
     if (initialData) {
       setInputField(initialData);
@@ -23,12 +33,19 @@ const EditCarForm = ({ initialData, onSave }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(inputField);
 
-    // Call onSave to update the car details
-    onSave(inputField);
+    try {
+      const res = await editBrandData({
+        id: brandDataId,
+        inputField: inputField,
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
     handleOpen();
   };
 
@@ -50,20 +67,25 @@ const EditCarForm = ({ initialData, onSave }) => {
           <Inputs
             label="Model"
             onChange={onChangeFormhandler}
-            value={inputField.model}
-            name="model"
+            value={inputField.variant}
+            name="variant"
             type="text"
           />
           <Inputs
             label="Variant"
             onChange={onChangeFormhandler}
-            value={inputField.variant}
-            name="variant"
+            value={inputField.subVariant}
+            name="subVariant"
             type="text"
           />
         </DialogBody>
         <DialogFooter>
-          <Button variant="text" color="red" onClick={handleOpen} className="mr-1">
+          <Button
+            variant="text"
+            color="red"
+            onClick={handleOpen}
+            className="mr-1"
+          >
             <span>Cancel</span>
           </Button>
           <Button variant="gradient" color="green" onClick={handleSubmit}>

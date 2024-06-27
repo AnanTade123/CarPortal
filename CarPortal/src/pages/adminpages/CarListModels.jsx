@@ -1,24 +1,23 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
 import TableComponent from "../../components/table/TableComponent";
 import { Card, CardHeader, CardBody, CardFooter, Typography, Button } from "@material-tailwind/react";
 import { CarModelsForm } from "./CarModelsForm";
-// import StatusDialogeBox3 from "../adminpages/StatusDialogeBox3";
-import EditCarForm from "../adminpages/EdiCarForm";
-import { useGetAllBrandsQuery } from "../../services/brandAPI";
+import EditCarForm from "../adminpages/EdiCarForm"
+import { useGetAllBrandsQuery, useDeleteCarBrandsMutation } from "../../services/brandAPI";
 
 const CarListModels = () => {
-  const { data } = useGetAllBrandsQuery();
+  const { data, refetch } = useGetAllBrandsQuery();
+  const [deleteCarBrands] = useDeleteCarBrandsMutation();
   const [carList, setCarList] = useState([]);
 
   useEffect(() => {
     if (data) {
-      setCarList(data?.list?.map((item, index) => ({
-        carId: index + 1,
+      setCarList(data?.list?.map((item) => ({
         brandDataId: item.brandDataId,
         brand: item.brand,
         variant: item.variant,
         subVariant: item.subVariant,
-        carStatus: item.status,
       })));
     }
   }, [data]);
@@ -36,10 +35,14 @@ const CarListModels = () => {
     );
   };
 
-  const deleteCar = (carId) => {
-    setCarList((prevList) => 
-      prevList.filter(car => car.carId !== carId)
-    );
+  const deleteCar = async (brandDataId) => {
+    try {
+      await deleteCarBrands(brandDataId).unwrap();
+      // Refetch the data after deletion
+      refetch();
+    } catch (error) {
+      console.error('Failed to delete the car brand:', error);
+    }
   };
 
   const columns = [
@@ -59,15 +62,6 @@ const CarListModels = () => {
       Header: "Variant",
       accessor: "subVariant",
     },
-    // {
-    //   Header: "Status",
-    //   accessor: "carStatus",
-    //   Cell: (cell) => (
-    //     <div className="flex gap-2 justify-center items-center">
-    //       {/* <StatusDialogeBox3 status={cell.row.values.carStatus}/> */}
-    //     </div>
-    //   ),
-    // },
     {
       Header: "Action",
       accessor: "action",
@@ -75,8 +69,8 @@ const CarListModels = () => {
         const car = cell.row.original;
         return (
           <div className="flex gap-2 justify-center items-center">
-            <EditCarForm initialData={car} onSave={updateCar} />
-            <Button color="red" onClick={() => deleteCar(car.carId)}>Delete</Button>
+            <EditCarForm initialData={car} brandDataId={cell.row.values.brandDataId} onSave={updateCar} />
+            <Button color="red" onClick={() => deleteCar(cell.row.values.brandDataId)}>Delete</Button>
           </div>
         );
       },
