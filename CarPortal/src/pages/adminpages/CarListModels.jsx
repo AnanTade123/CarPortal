@@ -35,6 +35,7 @@ const CarListModels = () => {
     setCarList((prevList) => 
       prevList.map(car => car.carId === updatedCar.carId ? updatedCar : car)
     );
+    refetch();
   };
 
   const handleOpen = (carId) => {

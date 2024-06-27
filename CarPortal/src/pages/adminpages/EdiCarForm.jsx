@@ -10,7 +10,7 @@ import {
 import Inputs from "../../forms/Inputs"; // Assuming this is a custom input component
 import { useEditBrandDataMutation } from "../../services/brandAPI";
 
-const EditCarForm = ({ initialData, brandDataId }) => {
+const EditCarForm = ({ initialData, brandDataId ,onSave}) => {
   const [open, setOpen] = useState(false);
   const [inputField, setInputField] = useState(
     initialData || { brand: "", model: "", variant: "" }
@@ -41,8 +41,8 @@ const EditCarForm = ({ initialData, brandDataId }) => {
       const res = await editBrandData({
         id: brandDataId,
         inputField: inputField,
-      });
-      console.log(res);
+      }).unwrap();
+      onSave(res)
     } catch (error) {
       console.log(error);
     }
