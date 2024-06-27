@@ -207,7 +207,7 @@ const BiddingDealer = () => {
       },
     },
   ];
-
+console.log(columns);
   let dealerApiData;
   if (isLoading) {
     return <p>isLoading</p>;
