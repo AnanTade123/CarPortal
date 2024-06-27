@@ -48,6 +48,7 @@ import InspectorMiddleware from "./middleware/InspectorMiddleware";
 import { object } from "prop-types";
 import PendingRequest2 from "./pages/dealer/PendingRequest2";
 // import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
+import SalesList from "./pages/adminpages/SalesList"
 
 
 export default function App() {
