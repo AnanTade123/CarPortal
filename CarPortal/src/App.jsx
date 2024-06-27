@@ -10,7 +10,11 @@ import CarDetailsById from "./pages/CarDetailsById";
 
 import Admin from "./pages/adminpages/Admin";
 import AdminMiddleware from "./middleware/AdminMiddleware";
-import { onlyAdmin, onlyDealer, onlyInspector } from "./components/config/Roles";
+import {
+  onlyAdmin,
+  onlyDealer,
+  onlyInspector,
+} from "./components/config/Roles";
 import AdminDealerInfo from "./pages/adminpages/AdminDealerInfo";
 import AdminDealerEdit from "./pages/adminpages/AdminDealerEdit";
 import DealerDashboard from "./pages/dealer/DealerDashboard";
@@ -48,15 +52,15 @@ import InspectorMiddleware from "./middleware/InspectorMiddleware";
 import { object } from "prop-types";
 import PendingRequest2 from "./pages/dealer/PendingRequest2";
 import CarListing from "./pages/sales/CarListing";
+import MyList from "./pages/sales/MyList";
 // import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
-
 
 export default function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/pendingrequest2" element={<PendingRequest2 />}/>
+        <Route path="/pendingrequest2" element={<PendingRequest2 />} />
         <Route element={<AppLayout />}>
           <Route path="signin" element={<LoginCard />} />
           <Route path="signup" element={<SimpleRegistrationForm />} />
@@ -78,7 +82,7 @@ export default function App() {
             }
           >
             <Route path="/admin" element={<Admin />} />
-            
+
             <Route path="/inspector" element={<InspectorList />} />
             <Route path="/CarInspection" element={<CarInspectionTable />} />
             {/* <Route path="/admin/inspector/info/:ProfileId" element={<AdminInspectorInfo />} /> */}
@@ -98,19 +102,14 @@ export default function App() {
               path="/transactionbyaccount"
               element={<TransactionByAccount />}
             />
-             <Route
-              path="/wallet"
-              element={<Wallet/>}
-            />
+            <Route path="/wallet" element={<Wallet />} />
             <Route
               path="/transactioncontroller"
-              element={<TransactionController/>}
+              element={<TransactionController />}
             />
-             <Route
-              path="/carlisting"
-              element={<CarListing/>}
-            />
-            
+            <Route path="/carlisting" element={<CarListing />} />
+            {/* myChange */}
+            <Route path="/mylist" element={<MyList />} />
           </Route>
 
           <Route
@@ -121,16 +120,16 @@ export default function App() {
             <Route path="/dealer/:id" element={<DealerDashboard />} />
             <Route path="/dealer/:id/addcar" element={<AddDealerCar />} />
             <Route path="/dealer/:id/uploadimage" element={<Uploadimages2 />} />
-            <Route
-              path="/dealer/:id/edit"
-              element={<DealerEdit />}
-            />
+            <Route path="/dealer/:id/edit" element={<DealerEdit />} />
 
             <Route
               path="/dealer/:id/car/edit/:carId"
               element={<EditDealerCar />}
             />
-            <Route path="/dealer/:carId/:id/editimage" element={<EditImage />} />
+            <Route
+              path="/dealer/:carId/:id/editimage"
+              element={<EditImage />}
+            />
             <Route
               path="/dealer/:id/booking/confirm"
               element={<OrderDealer />}
@@ -145,9 +144,15 @@ export default function App() {
             />
           </Route>
 
-          <Route element={<InspectorMiddleware allowedRoles={[...Object.values(onlyInspector)]}/>} >
+          <Route
+            element={
+              <InspectorMiddleware
+                allowedRoles={[...Object.values(onlyInspector)]}
+              />
+            }
+          >
             <Route path="/Inspector/carverify" element={<CarVerify />} />
-        </Route>
+          </Route>
 
           <Route path="/bidding" element={<BiddingMainPage />} />
           <Route path="/bidding/:userid/addcar" element={<BiddingAddCar />} />
@@ -158,15 +163,14 @@ export default function App() {
             element={<BiddingDealerPendingReq />}
           />
         </Route>
-        
-           {/* <Route path="/trans" element={<CardDetailss/>}/> */}
+
+        {/* <Route path="/trans" element={<CardDetailss/>}/> */}
         <Route element={<AppLayout2 />}>
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/cookiepolicy" element={<CookiePolicy />} />
         </Route>
-        
       </Routes>
     </>
   );
