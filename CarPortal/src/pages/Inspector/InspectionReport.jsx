@@ -7,7 +7,7 @@ const ImportantDocuments = () => {
     rcAvailability: '',
     mismatchInRC: '',
     rtoNocIssued: '',
-    insuranceType: '',
+    insuranceType:  [],
     noClaimBonus: '',
     underHypothecation: '',
     roadTaxPaid: '',
@@ -87,6 +87,7 @@ console.log(formData)
               name="insuranceType"
               value={formData.insuranceType}
               onChange={handleChange}
+              multiple
             >
               <MenuItem value="Zero Depreciation">Zero Depreciation</MenuItem>
               <MenuItem value="Comprehensive">Comprehensive</MenuItem>
@@ -251,6 +252,13 @@ console.log(formData)
           </FormControl>
         </Grid>
       </Grid>
+      <div className="flex justify-between mt-10 px-8">
+      
+      <button className="bg-blue-300 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-24 float-right "
+      >
+        Next
+      </button>
+    </div>
     </div>
   );
 };
