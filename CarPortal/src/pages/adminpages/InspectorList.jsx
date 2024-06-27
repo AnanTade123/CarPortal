@@ -142,12 +142,8 @@ export default function Admin() {
 
   return (
     <>
-<<<<<<< HEAD
 
     {error?.status===404 ? (
-=======
-      {dealerApiData?.length === 0 ? (
->>>>>>> ce5c80c0ce485937f0552d6d736cc44e877f263c
         <div>
           <p className="text-3xl font-semibold">No Data Available</p>
           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
