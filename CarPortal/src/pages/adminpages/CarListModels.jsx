@@ -9,16 +9,14 @@ import { useGetAllBrandsQuery } from "../../services/brandAPI";
 const CarListModels = () => {
   const { data } = useGetAllBrandsQuery();
   const [carList, setCarList] = useState([]);
-
+console.log(data)
   useEffect(() => {
     if (data) {
-      setCarList(data?.list?.map((item, index) => ({
-        carId: index + 1,
+      setCarList(data?.list?.map((item) => ({
         brandDataId: item.brandDataId,
         brand: item.brand,
         variant: item.variant,
         subVariant: item.subVariant,
-        carStatus: item.status,
       })));
     }
   }, [data]);
@@ -75,7 +73,7 @@ const CarListModels = () => {
         const car = cell.row.original;
         return (
           <div className="flex gap-2 justify-center items-center">
-            <EditCarForm initialData={car} onSave={updateCar} />
+            <EditCarForm initialData={car} brandDataId={cell.row.values.brandDataId} onSave={updateCar} />
             <Button color="red" onClick={() => deleteCar(car.carId)}>Delete</Button>
           </div>
         );
