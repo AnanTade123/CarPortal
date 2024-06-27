@@ -9,7 +9,7 @@ export const brandAPI = apiSlice.injectEndpoints({
         url: `/brands/getAll`,
         method: "GET",
       }),
-      providesTags: ["CAR"],
+      invalidatesTags: ["Admin"],
     }),
 
     //POST
@@ -32,11 +32,23 @@ export const brandAPI = apiSlice.injectEndpoints({
       }),
       providesTags: ["Admin"],
     }),
+
+    //DELETE
+  deleteCarBrands: builder.mutation({
+    query: (brandDataId) => ({
+      url: `/brands/delete?id=${brandDataId}`,
+      method: "DELETE",
+      transferResponse: console.log(brandDataId),
+    }),
+    invalidatesTags: ["Admin"],
   }),
+  }),
+
 });
 
 export const {
   useAddCarBrandsMutation,
   useGetAllBrandsQuery,
   useEditBrandDataMutation,
+  useDeleteCarBrandsMutation
 } = brandAPI;
