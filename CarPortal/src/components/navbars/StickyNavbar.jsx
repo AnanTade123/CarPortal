@@ -48,6 +48,12 @@ const navListMenuItems = [
     description: "Find the perfect solution for your needs.",
     icon: SquaresPlusIcon,
     link : "/"
+  },
+  {
+    title: "Car Models",
+    description: "Find the perfect solution for your needs.",
+    icon: SquaresPlusIcon,
+    link : "/carlistmodel"
   }
   
 
@@ -55,8 +61,8 @@ const navListMenuItems = [
 
 export function StickyNavbar() {
   const [openNav, setOpenNav] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  // const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
 
   function NavListMenu() {
@@ -140,14 +146,14 @@ export function StickyNavbar() {
   }
 
 
-  // const token = Cookies.get("token");
-  // let jwtDecodes
-  // if(token){
-  //    jwtDecodes = jwtDecode(token);
-  // }
-//   if(token){
-//     console.log(token)
-//  }
+  const token = Cookies.get("token");
+  let jwtDecodes
+  if(token){
+     jwtDecodes = jwtDecode(token);
+  }
+  if(token){
+    console.log(token)
+ }
   
   const userRole = token ? jwtDecodes?.authorities[0] :null;
   
@@ -185,6 +191,8 @@ export function StickyNavbar() {
           Dealer List
         </Typography>
       </Link>
+      <NavListMenu />
+
       <Link to={"/inspector"}>
         <Typography
           as="li"
