@@ -44,8 +44,9 @@ import TransactionByAccount from "./pages/transaction/TransactionByAccount";
 import Wallet from "./pages/transaction/Wallet";
 import TransactionController from "./pages/transaction/TransactionController";
 import EditImage from "./pages/dealer/EditImage";
+import CarListTable from "./pages/biddingDashboard/CarListTable";
+import DealerCarTable from "./pages/biddingDashboard/BiddingDealerCars";
 // import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
-
 
 export default function App() {
   return (
@@ -93,14 +94,13 @@ export default function App() {
               path="/transactionbyaccount"
               element={<TransactionByAccount />}
             />
-             <Route
-              path="/wallet"
-              element={<Wallet/>}
-            />
+            <Route path="/wallet" element={<Wallet />} />
             <Route
               path="/transactioncontroller"
-              element={<TransactionController/>}
+              element={<TransactionController />}
             />
+            <Route path="/carlisttablee" element={<CarListTable />} />
+            <Route path="/dealercartable/:id" element={<DealerCarTable />} />
           </Route>
 
           <Route
@@ -108,13 +108,12 @@ export default function App() {
               <DealerMiddleware allowedRoles={[...Object.values(onlyDealer)]} />
             }
           >
+            <Route path="/dealerbiddingcar/:id" element={<DealerCarTable/>} />
+
             <Route path="/dealer/:id" element={<DealerDashboard />} />
             <Route path="/dealer/:id/addcar" element={<AddDealerCar />} />
             <Route path="/dealer/:id/uploadimage" element={<Uploadimages2 />} />
-            <Route
-              path="/dealer/:id/edit"
-              element={<DealerEdit />}
-            />
+            <Route path="/dealer/:id/edit" element={<DealerEdit />} />
 
             <Route
               path="/dealer/:id/car/edit/:carId"
@@ -144,14 +143,13 @@ export default function App() {
             element={<BiddingDealerPendingReq />}
           />
         </Route>
-           {/* <Route path="/trans" element={<CardDetailss/>}/> */}
+        {/* <Route path="/trans" element={<CardDetailss/>}/> */}
         <Route element={<AppLayout2 />}>
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/cookiepolicy" element={<CookiePolicy />} />
         </Route>
-        
       </Routes>
     </>
   );
