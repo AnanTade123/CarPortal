@@ -2,25 +2,9 @@ import { useState, useEffect } from 'react';
 import TableComponent from "../../components/table/TableComponent";
 import { Card, CardHeader, CardBody, CardFooter, Typography, Button } from "@material-tailwind/react";
 import { CarModelsForm } from "./CarModelsForm";
-import StatusDialogeBox3 from "../adminpages/StatusDialogeBox3";
+// import StatusDialogeBox3 from "../adminpages/StatusDialogeBox3";
 import EditCarForm from "../adminpages/EdiCarForm";
 import { useGetAllBrandsQuery } from "../../services/brandAPI";
-
-// Define the Delete SVG icon
-const DeleteIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-5 w-5"
-    viewBox="0 0 20 20"
-    fill="currentColor"
-  >
-    <path
-      fillRule="evenodd"
-      d="M6 2a1 1 0 011-1h6a1 1 0 011 1h5a1 1 0 110 2h-1v11a3 3 0 01-3 3H5a3 3 0 01-3-3V4H1a1 1 0 010-2h5zm3 4a1 1 0 00-2 0v8a1 1 0 002 0V6zm4 0a1 1 0 10-2 0v8a1 1 0 002 0V6z"
-      clipRule="evenodd"
-    />
-  </svg>
-);
 
 const CarListModels = () => {
   const { data } = useGetAllBrandsQuery();
@@ -53,7 +37,9 @@ const CarListModels = () => {
   };
 
   const deleteCar = (carId) => {
-    setCarList((prevList) => prevList.filter(car => car.carId !== carId));
+    setCarList((prevList) => 
+      prevList.filter(car => car.carId !== carId)
+    );
   };
 
   const columns = [
@@ -73,15 +59,15 @@ const CarListModels = () => {
       Header: "Variant",
       accessor: "subVariant",
     },
-    {
-      Header: "Status",
-      accessor: "carStatus",
-      Cell: (cell) => (
-        <div className="flex gap-2 justify-center items-center">
-          <StatusDialogeBox3 status={cell.row.values.carStatus}/>
-        </div>
-      ),
-    },
+    // {
+    //   Header: "Status",
+    //   accessor: "carStatus",
+    //   Cell: (cell) => (
+    //     <div className="flex gap-2 justify-center items-center">
+    //       {/* <StatusDialogeBox3 status={cell.row.values.carStatus}/> */}
+    //     </div>
+    //   ),
+    // },
     {
       Header: "Action",
       accessor: "action",
@@ -90,9 +76,7 @@ const CarListModels = () => {
         return (
           <div className="flex gap-2 justify-center items-center">
             <EditCarForm initialData={car} onSave={updateCar} />
-            <Button variant="text" color="red" onClick={() => deleteCar(car.carId)}>
-              <DeleteIcon />
-            </Button>
+            <Button color="red" onClick={() => deleteCar(car.carId)}>Delete</Button>
           </div>
         );
       },

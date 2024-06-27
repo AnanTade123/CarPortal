@@ -11,7 +11,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { IoAddCircleOutline, IoCloseCircle, IoCheckmarkCircle } from 'react-icons/io5';
 
 function UploadImages2() {
-  const [openDialog, setOpenDialog] = useState(false);
   const [images, setImages] = useState([]);
   const [uploadStatus, setUploadStatus] = useState({}); // Track upload status for each image
   const { id } = useParams();

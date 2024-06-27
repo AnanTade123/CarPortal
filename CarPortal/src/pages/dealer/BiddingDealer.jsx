@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   Card,
   CardHeader,
@@ -34,7 +35,6 @@ const BiddingDealer = () => {
  
 
   const { data, isLoading,error } = useBiddingCarByDealerIdQuery(UserID);
-  
   console.log(data)
   if (isLoading) {
     return <p>Loading..</p>;
@@ -207,7 +207,7 @@ const BiddingDealer = () => {
       },
     },
   ];
-
+console.log(columns);
   let dealerApiData;
   if (isLoading) {
     return <p>isLoading</p>;
