@@ -127,8 +127,9 @@ export const carApi = apiSlice.injectEndpoints({
     }),
 
     deleteCarImageById : builder.mutation({
-      query :() => ({
-        url : `/uploadFile/delete?DocumentId=1`,
+      query :({id}) => ({
+        url : `uploadFile/deleteDocumentId?DocumentId=${id}`,
+        transferResponse: console.log(id),
         method : `DELETE`
       }),
       invalidatesTags: ["CAR"],
