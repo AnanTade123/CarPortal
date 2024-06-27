@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import Inputs from "../../forms/Inputs";
 import { Textarea, Input } from "@material-tailwind/react";
 // import React from "react";
 import { useCarRegisterMutation } from "../../services/carAPI";
 import { useNavigate, useParams } from "react-router";
+import { useBiddingCarRegisterMutation } from "../../services/biddingAPI";
 
 const carData = {
   Kia: ["Sonet", "Seltos", "Carnival"],
@@ -586,7 +588,7 @@ const cityOptions = {
 };
 
 export default function BiddingAddCar() {
-  const [carRegister] = useCarRegisterMutation();
+  const [biddingCarRegister] = useBiddingCarRegisterMutation();
   //  const [mult, setMult] = React.useState([]);
   const [formData, setFormData] = useState({
     //features
@@ -617,8 +619,8 @@ export default function BiddingAddCar() {
     cVariant: "",
     insurancedate: "",
   });
-  const { id } = useParams();
-  console.log(id);
+  const { userid } = useParams();
+  console.log(userid);
   const navigate = useNavigate();
   const date = new Date(); // Create a new Date object with the current date
   const year = date.getFullYear(); // Get the year (e.g., 2024)
@@ -676,16 +678,17 @@ export default function BiddingAddCar() {
 
       year: formData.year,
 
-      dealer_id: id,
+      userId: userid,
 
       date: formattedDate,
     };
     console.log(data);
-    const res = await carRegister(data);
+    const res = await biddingCarRegister(data);
     console.log(res);
+    alert("Car added");
     if (res?.data?.status === "success") {
-      alert("Car added");
-      navigate(`/dealer/${id}/uploadimage`); // Corrected URL string with backticks (`) for interpolation
+      
+      navigate(-1); // Corrected URL string with backticks (`) for interpolation
     }
   };
 
@@ -965,7 +968,6 @@ export default function BiddingAddCar() {
 
             <div className="mt-5 md:ml-2 w-full">
               <select
-                required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 name="carInsurance"
                 value={formData.carInsurance}
@@ -1149,7 +1151,7 @@ export default function BiddingAddCar() {
             <h4>Title</h4>
             <div className="formrow">
               <Input
-                required
+               
                 className="form-control"
                 name="title"
                 placeholder="Title"
@@ -1169,7 +1171,7 @@ export default function BiddingAddCar() {
             <h4>Vehicle Description</h4>
             <div className="formrow">
               <Textarea
-                required
+                
                 className="form-control"
                 name="description"
                 placeholder="Vehicle Description"
