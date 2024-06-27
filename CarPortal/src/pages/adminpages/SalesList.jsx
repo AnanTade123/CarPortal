@@ -1,3 +1,5 @@
+
+
 /* eslint-disable no-unused-vars */
 import { useNavigate } from "react-router-dom";
 import { DialogBody, Tooltip } from "@material-tailwind/react";
@@ -20,8 +22,9 @@ import TableComponent from "../../components/table/TableComponent";
 import { useState } from "react";
 import { AddDealerForm } from "../../components/admin/AddDealerForm";
 import { Link } from "react-router-dom";
+import { AddSalesForm } from "../../components/admin/AddSalesForm";
 
-export default function Admin() {
+export default function SalesList() {
   const [pageNo, setPageNo] = useState(0);
   console.log(pageNo);
   const { data, isLoading, error } = useGetAllDealerQuery(pageNo);
@@ -98,7 +101,7 @@ console.log(data)
       accessor: "status",
       Cell: (cell) => {
         const a = cell.row.values.status
-        
+        console.log(a)
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
@@ -113,7 +116,7 @@ console.log(data)
       Header: "Actions",
       accessor: "Actions",
       Cell: (cell) => {
-        
+        console.log(cell.row.values.dealer_id);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
@@ -188,7 +191,7 @@ console.log(data)
   } else {
     dealerApiData = data?.list;
   }
- 
+ console.log(dealerApiData)
   return (
     <>
 
@@ -196,7 +199,7 @@ console.log(data)
         <div>
            <p className="text-3xl font-semibold ">No Data Available</p>
            <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-           <AddDealerForm />
+           <AddSalesForm />
             </div>
             </div>
             ):
@@ -224,14 +227,14 @@ console.log(data)
           <div className=" flex items-center justify-between gap-8">
             <div>
               <Typography variant="h5" color="blue-gray">
-               Dealer List
+               Sales List
               </Typography>
               <Typography color="gray" className="mt-1 font-normal">
                 See information about all members
               </Typography>
             </div>
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-            <AddDealerForm />
+            <AddSalesForm />
             </div>
           </div>
         </CardHeader>

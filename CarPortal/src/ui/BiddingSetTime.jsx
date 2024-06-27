@@ -15,7 +15,7 @@ import {useStartBiddingSetTimeMutation} from "../services/biddingAPI"
 // eslint-disable-next-line react/prop-types
 export default function BiddingSetTime({userid, biddingcarid}) {
   const [open, setOpen] = React.useState(false);
- 
+ console.log(userid,biddingcarid)
   const handleOpen = () => setOpen(!open);
 
  const [settime, setSettime] = React.useState({
@@ -54,6 +54,7 @@ export default function BiddingSetTime({userid, biddingcarid}) {
 
     const res1 = await startBiddingSetTime(setTimeData);
     console.log(res1);
+    setOpen(!open)
   }
   return (
     <>
