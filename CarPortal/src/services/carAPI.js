@@ -22,7 +22,7 @@ export const carApi = apiSlice.injectEndpoints({
           method: "GET",
         };
       },
-      providesTags: ["CAR"],
+      providesTags: ["CAR","INSPECTOR"],
     }),
     getCarById: builder.query({
       query: (carId) => ({
@@ -45,7 +45,7 @@ export const carApi = apiSlice.injectEndpoints({
         url: `/cars/mainFilter/${0}`,
         method: "GET",
       }),
-      providesTags: ["CAR"],
+      providesTags: ["CAR","Inspector"],
     }),
     bookingRequest: builder.mutation({
       query: (formData) => ({
