@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import logo from '../../Images/carTechLogo.jpeg';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Navbar,
   Typography,
@@ -55,8 +55,8 @@ const navListMenuItems = [
 
 export function StickyNavbar() {
   const [openNav, setOpenNav] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  // const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
 
   function NavListMenu() {
@@ -140,14 +140,14 @@ export function StickyNavbar() {
   }
 
 
-  // const token = Cookies.get("token");
-  // let jwtDecodes
-  // if(token){
-  //    jwtDecodes = jwtDecode(token);
-  // }
-//   if(token){
-//     console.log(token)
-//  }
+  const token = Cookies.get("token");
+  let jwtDecodes
+  if(token){
+     jwtDecodes = jwtDecode(token);
+  }
+  if(token){
+    console.log(token)
+ }
   
   const userRole = token ? jwtDecodes?.authorities[0] :null;
   
@@ -182,6 +182,8 @@ export function StickyNavbar() {
           Dealer List
         </Typography>
       </Link>
+      <NavListMenu />
+
       <Link to={"/inspector"}>
         <Typography
           as="li"
