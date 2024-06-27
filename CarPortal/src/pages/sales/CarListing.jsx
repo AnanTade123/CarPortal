@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { DialogBody} from "@material-tailwind/react";
 // import StatusDialogeBox2 from "../../ui/StatusDialogeBox2";
-import  { useEffect } from "react";
+// import  { useEffect } from "react";
 import 'tailwindcss/tailwind.css';
 import {
   Card,
-  CardHeader,
+  // CardHeader,
   Typography,
   Button,
   CardBody,
@@ -15,44 +15,27 @@ import {
 } from "@material-tailwind/react";
 import {
   useDeleteDealerMutation,
-  useGetAllDealerQuery,
+  // useGetAllDealerQuery,
 } from "../../services/dealerAPI";
 import TableComponent from "../../components/table/TableComponent";
 import { useState } from "react";
+import { useFilterCarQuery } from "../../services/carAPI";
 
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function CarListing() {
-    const animateValue = (start, end, duration, setValue) => {
-        let range = end - start;
-        let current = start;
-        let increment = end > start ? 1 : -1;
-        let stepTime = Math.abs(Math.floor(duration / range));
-        let timer = setInterval(() => {
-          current += increment;
-          setValue(current);
-          if (current === end) {
-            clearInterval(timer);
-          }
-        }, stepTime);
-      };
-    
-      const [totalCars, setTotalCars] = useState(0);
-      const [activeCars, setActiveCars] = useState(0);
-      const [pendingCars, setPendingCars] = useState(0);
-      const [inspectionDone, setInspectionDone] = useState(0);
-      const [sellCars, setSellCars] = useState(0);
-    
-      useEffect(() => {
-        animateValue(0, 100, 1000, setTotalCars);
-        animateValue(0, 10, 1000, setActiveCars);
-        animateValue(0, 20, 1000, setPendingCars);
-        animateValue(0, 50, 1000, setInspectionDone);
-        animateValue(0, 70, 1000, setSellCars);
-      }, []);
-    const [pageNo, setPageNo] = useState(0);
+  // const { data, error, isLoading } = useGetAllCarQuery();
+  const { data, error } = useFilterCarQuery();
+
+      const [totalCars] = useState(0);
+      const [activeCars] = useState(0);
+      const [pendingCars] = useState(0);
+      const [inspectionDone] = useState(0);
+      const [sellCars] = useState(0);
+      const [pageNo, setPageNo] = useState(0);
   console.log(pageNo);
-  const { data, isLoading, error } = useGetAllDealerQuery(pageNo);
+  // const { data, isLoading, error } = useGetAllDealerQuery(pageNo);
+  const isLoading = ""
 console.log(data)
   const [deleteDealer] = useDeleteDealerMutation();
   const [open, setOpen] = useState(false);
@@ -96,11 +79,11 @@ console.log(data)
   const columns = [
     {
       Header: "ID",
-      accessor: "dealer_id",
+      accessor: "carId",
     },
     {
-      Header: "First Name",
-      accessor: "firstName",
+      Header: "Brand",
+      accessor: "brand",
     },
 
     {
@@ -130,22 +113,34 @@ console.log(data)
     //     return (
     //       <div>
     //         <div className="flex gap-2 justify-center items-center">
-    //           <StatusDialogeBox2 dealer_id={cell.row.values.dealer_id} status={cell.row.values.status} />
+    //           <StatusDialogeBox2 carId={cell.row.values.carId} status={cell.row.values.status} />
     //         </div>
     //       </div>
     //     );
     //   },
     // },
+  {
+    Header: "Verification",
+      accessor: "222",
+      Cell: (cell) => {
+        console.log(cell.row.values.carId);
+        return(
 
+          <Link to ={`/inspector/carverify/${cell.row.values.carId}`}>
+              Done
+          </Link>
+        )
+      }
+  },
     {
       Header: "Actions",
       accessor: "Actions",
       Cell: (cell) => {
-        console.log(cell.row.values.dealer_id);
+        console.log(cell.row.values.carId);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
-              {/* <Link to={`/admin/dealer/info/${cell.row.values.dealer_id}`}> */}
+              {/* <Link to={`/admin/dealer/info/${cell.row.values.carId}`}> */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -164,7 +159,7 @@ console.log(data)
               {/* </Link> */}
 
               {/* <Link
-                to={`/admin/dealer/edit/${cell.row.values.userId}/${cell.row.values.dealer_id}`}
+                to={`/admin/dealer/edit/${cell.row.values.userId}/${cell.row.values.carId}`}
               > */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -189,7 +184,7 @@ console.log(data)
       },
     },
   ];
-
+  console.log(columns)
   let dealerApiData;
   if (isLoading) {
     return <p>isLoading</p>;
@@ -227,7 +222,7 @@ console.log(data)
 
 
 <div className="mt-8"> 
-{dealerApiData.status===404 ? (
+{error?.status===404 ? (
         <div>
            <p className="text-3xl font-semibold ">No Data Available</p>
             </div>
@@ -252,11 +247,11 @@ console.log(data)
           </Button>
         </DialogFooter>
       </Dialog>
-        <CardHeader floated={false} shadow={false} className="rounded-none">
+        {/* <CardHeader floated={false} shadow={false} className="rounded-none">
           <div className=" flex items-center justify-between gap-8">
             <div>
               <Typography variant="h5" color="blue-gray">
-               Inspector List
+               Cars List
               </Typography>
               <Typography color="gray" className="mt-1 font-normal">
                 See information about all members
@@ -264,7 +259,7 @@ console.log(data)
             </div>
             
           </div>
-        </CardHeader>
+        </CardHeader> */}
         <CardBody className="overflow-scroll px-0">
           <TableComponent columns={columns} data={dealerApiData} />
         </CardBody>
