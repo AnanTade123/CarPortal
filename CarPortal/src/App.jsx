@@ -47,6 +47,7 @@ import EditImage from "./pages/dealer/EditImage";
 import InspectorMiddleware from "./middleware/InspectorMiddleware";
 import { object } from "prop-types";
 import PendingRequest2 from "./pages/dealer/PendingRequest2";
+import SalesList from "./pages/adminpages/SalesList";
 // import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
 
 
