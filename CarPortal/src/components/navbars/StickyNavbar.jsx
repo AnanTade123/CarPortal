@@ -7,27 +7,150 @@ import {
   Button,
   IconButton,
   Collapse,
+  MenuHandler,
+  ListItem,
+  MenuItem,
+  Menu,
+  MenuList
 } from "@material-tailwind/react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from 'react-router-dom';
+import {
+  Bars4Icon,
+  GlobeAmericasIcon,
+  NewspaperIcon,
+  PhoneIcon,
+  RectangleGroupIcon,
+  SquaresPlusIcon,
+  SunIcon,
+  TagIcon,
+  UserGroupIcon,
+} from "@heroicons/react/24/solid";
 
 import Cookies from "js-cookie";
 import Profile from "../Profile/Profile";
 import { jwtDecode } from "jwt-decode";
+import { ChevronDownIcon } from '@heroicons/react/24/solid';
+
+const token = Cookies.get("token");
+let jwtDecodes
+if(token){
+   jwtDecodes = jwtDecode(token);
+}
+const navListMenuItems = [
+  {
+    title: "Dashboard",
+    description: "Find the perfect solution for your needs.",
+    icon: SquaresPlusIcon,
+    link: `/dealer/${jwtDecodes?.dealerId}`,
+  },
+  {
+    title: "Bidding Car",
+    description: "Find the perfect solution for your needs.",
+    icon: SquaresPlusIcon,
+    link : "/"
+  }
+  
+
+];
 
 export function StickyNavbar() {
   const [openNav, setOpenNav] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
-  const token = Cookies.get("token");
-  let jwtDecodes;
-  if (token) {
-    jwtDecodes = jwtDecode(token);
+
+  function NavListMenu() {
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+    const renderItems = navListMenuItems.map(
+      ({ icon, title, description,link }, key) => (
+        <Link to={link} key={key}>
+          <MenuItem className="flex items-center gap-3 rounded-lg">
+            {/* <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
+              {" "}
+              {React.createElement(icon, {
+                strokeWidth: 2,
+                className: "h-5 text-gray-900 w-5",
+              })}
+            </div> */}
+            <div>
+              <Typography
+                variant="h6"
+                color="blue-gray"
+                className="flex items-center text-sm font-normal"
+              >
+                {title}
+              </Typography>
+              {/* <Typography
+                variant="paragraph"
+                className="text-xs !font-medium text-blue-gray-500"
+              >
+                {description}
+              </Typography> */}
+            </div>
+          </MenuItem>
+        </Link>
+      ),
+    );
+   
+    return (
+      <React.Fragment>
+        <Menu
+          open={isMenuOpen}
+          handler={setIsMenuOpen}
+          offset={{ mainAxis: 20 }}
+          placement="bottom"
+          allowHover={true}
+        >
+          <MenuHandler>
+            <Typography as="div" variant="small" className="font-medium">
+              <ListItem
+                className={`flex items-center gap-2 p-3 font-medium text-gray-900  ${active ? "bg-indigo-200 text-white" : ""}` }
+                // className={`p-3 rounded-md font-normal ${active ? "bg-indigo-200 text-white" : ""}`}
+                selected={isMenuOpen || isMobileMenuOpen}
+                onClick={() => setIsMobileMenuOpen((cur) => !cur)}
+              >
+                Dashboard
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={`hidden h-3 w-3 transition-transform lg:block ${
+                    isMenuOpen ? "rotate-180" : ""
+                  }`}
+                />
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={`block h-3 w-3 transition-transform lg:hidden ${
+                    isMobileMenuOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </ListItem>
+            </Typography>
+          </MenuHandler>
+          <MenuList className="hidden max-w-screen-xl rounded-xl lg:block">
+            <ul className="grid grid-cols-1 gap-y-2 outline-none outline-0">
+              {renderItems}
+            </ul>
+          </MenuList>
+        </Menu>
+        <div className="block lg:hidden">
+          <Collapse open={isMobileMenuOpen}>{renderItems}</Collapse>
+        </div>
+      </React.Fragment>
+    );
   }
-  //   if(token){
-  //     console.log(token)
-  //  }
 
-  const userRole = token ? jwtDecodes?.authorities[0] : null;
 
+  // const token = Cookies.get("token");
+  // let jwtDecodes
+  // if(token){
+  //    jwtDecodes = jwtDecode(token);
+  // }
+//   if(token){
+//     console.log(token)
+//  }
+  
+  const userRole = token ? jwtDecodes?.authorities[0] :null;
+  
   // eslint-disable-next-line no-unused-vars
   const DealerId = token ? jwtDecodes?.dealerId : null;
   const UserId = token ? jwtDecodes?.userId : null;
@@ -62,21 +185,7 @@ export function StickyNavbar() {
           Dealer List
         </Typography>
       </Link>
-      <Link to={"/saleslist"}>
-        <Typography
-          as="li"
-          variant="small"
-          color="blue-gray"
-          className={`p-3 rounded-md font-normal ${
-            window.location.pathname === "/saleslist"
-              ? "bg-indigo-200 text-white"
-              : ""
-          }`}
-        >
-          Sales List
-        </Typography>
-      </Link>
-      {/* <Link to={"/inspector"}>
+      <Link to={"/inspector"}>
         <Typography
           as="li"
           variant="small"
@@ -85,7 +194,9 @@ export function StickyNavbar() {
         >
           Inspector List
         </Typography>
-      </Link> */}
+      </Link>
+
+      
     </>
   ) : null;
 
@@ -117,7 +228,7 @@ export function StickyNavbar() {
         </Typography>
       </Link> */}
 
-      <Link to={`/dealer/${jwtDecodes?.dealerId}`}>
+      {/* <Link to={`/dealer/${jwtDecodes?.dealerId}`}>
         <Typography
           as="li"
           variant="small"
@@ -128,8 +239,9 @@ export function StickyNavbar() {
         >
           Dashboard
         </Typography>
-      </Link>
-      <Link to={`/dealer/${jwtDecodes?.dealerId}/allpending`}>
+      </Link> */}
+      <NavListMenu />
+      <Link to={`/dealer/${jwtDecodes?.dealerId}/allpending`} >
         <Typography
           as="li"
           variant="small"
@@ -190,7 +302,23 @@ export function StickyNavbar() {
         </Typography>
       </Link> */}
     </>
-  ) : null;
+   ) : null;
+
+   const InspectorDashboard = userRole?.includes("INSPECTOR") ? (
+    <>
+      
+      <Link to={`/Inspector/carverify`}>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className={`p-3 rounded-md font-normal ${window.location.pathname === `/user/booking/${jwtDecodes?.userId}` ? "bg-indigo-200 text-white" : ""}`}
+        >
+          Car Verify
+        </Typography>
+      </Link>
+    </>
+   ) : null;
 
   React.useEffect(() => {
     window.addEventListener(
@@ -233,6 +361,7 @@ export function StickyNavbar() {
       {adminDashboard}
       {dealerDashboard}
       {userDashboard}
+      {InspectorDashboard}
     </ul>
   );
 

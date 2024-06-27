@@ -17,7 +17,7 @@ const FeaturedCars = ({ data, error }) => {
     <div className="text-3xl font-bold p-10 font-[latto]">Featured Cars</div>
         <div className="overflow-auto mx-14">
           <div className="flex gap-4 justify-between w-screen">
-            {posts?.map((items, index) => {
+            {posts?.slice(0,4).map((items, index) => {
               return (
                 <div key={index}>
                   <div className="flex">

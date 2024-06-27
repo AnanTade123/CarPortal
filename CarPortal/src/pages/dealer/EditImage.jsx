@@ -1,13 +1,37 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IoAddCircleOutline, IoCloseCircle } from "react-icons/io5";
 import { Tabs, TabsHeader, TabsBody, Tab, TabPanel } from "@material-tailwind/react";
-import { useGetCarImageByIdQuery } from "../../services/carAPI";
+import { useDealerIdByCarQuery, useGetCarImageByIdQuery, useDeleteCarImageByIdMutation } from "../../services/carAPI";
+import { useAddCarImagesMutation } from '../../services/dealerAPI';
+import {jwtDecode} from 'jwt-decode';
+import Cookies from 'js-cookie';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditImage = () => {
   const navigate = useNavigate();
-  const { carId } = useParams();
-  const { data: imagess } = useGetCarImageByIdQuery({ carId });
+  const { carId, id } = useParams();
+
+  const [trigger, setTrigger] = useState(0); // State to trigger re-fetch
+  const { data: imagess } = useGetCarImageByIdQuery({ carId, trigger }); // Pass trigger to re-fetch data
+  const { data: data1 } = useDealerIdByCarQuery({ id, pageNo: 0 });
+  const [deleteCarImageById] = useDeleteCarImageByIdMutation();
+
+  console.log(imagess);
+  const [addCarImages] = useAddCarImagesMutation();
+  const [uploadStatus, setUploadStatus] = useState({}); 
+
+  const firstCarId = data1?.list?.length > 0 ? data1?.list[0].carId : null;
+  const token = Cookies.get('token');
+  let jwtDecodes;
+
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
+
+  const UserID = jwtDecodes?.userId;
 
   const [data, setData] = useState([
     {
@@ -31,7 +55,7 @@ const EditImage = () => {
 
       setData(prevData => prevData.map(category => {
         if (category.value === 'coverimage') {
-          return { ...category, images: coverImg };
+          return { ...category, images: coverImg, showAddSection: coverImg.length === 0 };
         }
         if (category.value === 'images') {
           return { ...category, images: imgs };
@@ -47,45 +71,92 @@ const EditImage = () => {
     navigate(-1); // Navigate back to the previous page
   };
 
-  const handleAddImage = (event, categoryValue) => {
-    const newImages = Array.from(event.target.files).map((file) =>
-      URL.createObjectURL(file)
-    );
+  const handleAddImage = async (event, categoryValue) => {
+    const files = Array.from(event.target.files);
+    const documentType = categoryValue === 'coverimage' ? 'coverImage' : 'image';
 
-    setData((prevData) =>
-      prevData.map((category) => {
-        if (category.value === categoryValue) {
-          const updatedImages =
-            categoryValue === "coverimage"
-              ? newImages
-              : [...category.images, ...newImages];
-          return {
-            ...category,
-            images: updatedImages,
-            showAddSection: categoryValue !== "coverimage",
-          };
-        }
-        return category;
-      })
-    );
+    if (categoryValue === 'coverimage' && files.length > 1) {
+      toast.error("Only one cover image can be added");
+      return;
+    }
+
+    const previewImages = files.map(file => URL.createObjectURL(file));
+    
+    for (const file of files) {
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('document', documentType);
+
+      try {
+        const response = await addCarImages({
+          formData,
+          document: documentType,
+          firstCarId : carId,
+          UserID,
+        }).unwrap();
+        toast.success("Uploaded Successfully");
+        setData((prevData) =>
+          prevData.map((category) => {
+            if (category.value === categoryValue) {
+              const updatedImages = category.images.map(img => {
+                if (previewImages.includes(img)) {
+                  return response.imageUrl; // Assuming response.imageUrl contains the URL of the uploaded image
+                }
+                return img;
+              });
+              return {
+                ...category,
+                images: updatedImages,
+                showAddSection: categoryValue === 'coverimage' ? updatedImages.length === 0 : category.showAddSection,
+              };
+            }
+            return category;
+          })
+        );
+
+        setUploadStatus((prevStatus) => ({
+          ...prevStatus,
+          [file.name]: 'success',
+        }));
+        setTrigger(prev => prev + 1); // Trigger re-fetch after successful upload
+      } catch (error) {
+        console.error(error);
+        toast.error("Upload Failed");
+        setUploadStatus((prevStatus) => ({
+          ...prevStatus,
+          [file.name]: 'error',
+        }));
+      }
+    }
   };
 
-  const handleDeleteImage = (categoryValue, index) => {
-    setData((prevData) => {
-      const newData = prevData.map((category) => {
-        if (category.value === categoryValue) {
-          const updatedImages = category.images.filter((_, i) => i !== index);
-          return {
-            ...category,
-            images: updatedImages,
-            showAddSection: true
-          };
-        }
-        return category;
+  const handleDeleteImage = async (categoryValue, index, imageId) => {
+    try {
+      await deleteCarImageById({ id: imageId }).unwrap();
+      toast.success("Image Deleted Successfully");
+
+      setData((prevData) => {
+        const newData = prevData.map((category) => {
+          if (category.value === categoryValue) {
+            const updatedImages = category.images.filter((_, i) => i !== index);
+            return {
+              ...category,
+              images: updatedImages,
+              showAddSection: categoryValue === 'coverimage' ? updatedImages.length === 0 : category.showAddSection,
+            };
+          }
+          return category;
+        });
+        return newData;
       });
-      return newData;
-    });
+      setTrigger(prev => prev + 1); // Trigger re-fetch after successful deletion
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to Delete Image");
+    }
   };
+
+  console.log("------------------", data)
 
   return (
     <div className="flex justify-center">
@@ -100,7 +171,7 @@ const EditImage = () => {
                 </Tab>
               ))}
             </TabsHeader>
-            <TabsBody className="overflow-y-auto overflow-hidden" style={{ maxHeight: '80vh' }}>
+            <TabsBody className="overflow-y-auto" style={{ maxHeight: '80vh' }}>
               {data.map(({ value, images, showAddSection }) => (
                 <TabPanel key={value} value={value} className="grid grid-cols-1 gap-4">
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -117,7 +188,7 @@ const EditImage = () => {
                         />
                         <IoCloseCircle
                           className="absolute top-2 right-2 cursor-pointer text-red-500 md:mr-6 md:h-8 md:w-8"
-                          onClick={() => handleDeleteImage(value, index)}
+                          onClick={() => handleDeleteImage(value, index, src)}
                         />
                       </div>
                     ))}
@@ -128,7 +199,7 @@ const EditImage = () => {
                           <input
                             type="file"
                             accept="image/*"
-                            multiple
+                            multiple={value !== 'coverimage'}
                             className="hidden"
                             onChange={(e) => handleAddImage(e, value)}
                           />
@@ -150,6 +221,7 @@ const EditImage = () => {
             </button>
           </div>
         </form>
+        <ToastContainer />
       </div>
     </div>
   );

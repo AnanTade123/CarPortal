@@ -124,6 +124,14 @@ export const carApi = apiSlice.injectEndpoints({
         method : 'GET'
       }),
       providesTags : ["CAR"],
+    }),
+
+    deleteCarImageById : builder.mutation({
+      query :() => ({
+        url : `/uploadFile/delete?DocumentId=1`,
+        method : `DELETE`
+      }),
+      invalidatesTags: ["CAR"],
     })
 
     // getCarImageById : builder.query({
@@ -159,5 +167,6 @@ export const {
   useGetAllUserConfirmQuery,
   useGetPendingrequestQuery,
   useGetCarImageByIdQuery,
-  useConfirmBookingMutation
+  useConfirmBookingMutation,
+  useDeleteCarImageByIdMutation
 } = carApi;
