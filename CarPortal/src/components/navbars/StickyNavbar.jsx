@@ -48,6 +48,12 @@ const navListMenuItems = [
     description: "Find the perfect solution for your needs.",
     icon: SquaresPlusIcon,
     link : "/"
+  },
+  {
+    title: "Car Models",
+    description: "Find the perfect solution for your needs.",
+    icon: SquaresPlusIcon,
+    link : "/carlistmodel"
   }
   
 
@@ -192,7 +198,11 @@ export function StickyNavbar() {
           as="li"
           variant="small"
           color="blue-gray"
-          className={`p-3 rounded-md font-normal ${window.location.pathname === "/inspector" ? "bg-indigo-200 text-white" : ""}`}
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === "/inspector"
+              ? "bg-indigo-200 text-white"
+              : ""
+          }`}
         >
           Inspector List
         </Typography>
@@ -304,7 +314,7 @@ export function StickyNavbar() {
         </Typography>
       </Link> */}
     </>
-   ) : null;
+  ) : null;
 
    const InspectorDashboard = userRole?.includes("INSPECTOR") ? (
     <>

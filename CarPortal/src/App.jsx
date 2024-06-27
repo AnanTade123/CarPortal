@@ -49,7 +49,7 @@ import { object } from "prop-types";
 import PendingRequest2 from "./pages/dealer/PendingRequest2";
 // import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
 import SalesList from "./pages/adminpages/SalesList"
-
+import CarListModels from "./pages/adminpages/CarListModels";
 
 export default function App() {
   return (
@@ -83,6 +83,7 @@ export default function App() {
             <Route path="/saleslist" element={<SalesList/>} />
             <Route path="/CarInspection" element={<CarInspectionTable />} />
             {/* <Route path="/admin/inspector/info/:ProfileId" element={<AdminInspectorInfo />} /> */}
+            <Route path="/carlistmodel" element={<CarListModels />} />
             <Route
               path="/admin/dealer/info/:id"
               element={<AdminDealerInfo />}
