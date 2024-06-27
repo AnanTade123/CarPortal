@@ -48,6 +48,12 @@ const navListMenuItems = [
     description: "Find the perfect solution for your needs.",
     icon: SquaresPlusIcon,
     link : "/"
+  },
+  {
+    title: "Car Models",
+    description: "Find the perfect solution for your needs.",
+    icon: SquaresPlusIcon,
+    link : "/carlistmodel"
   }
   
 
