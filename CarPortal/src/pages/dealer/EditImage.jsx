@@ -71,7 +71,7 @@ const EditImage = () => {
   const [activeTab, setActiveTab] = useState('coverimage');
 
   const handleBack = () => {
-    navigate(-1); // Navigate back to the previous page
+    navigate(-2); // Navigate back to the previous page
   };
 
   const handleAddImage = async (event, categoryValue) => {
@@ -220,7 +220,7 @@ const EditImage = () => {
               className="p-3 bg-indigo-400 rounded-md w-28 text-white"
               onClick={handleBack}
             >
-              Back
+              Submit
             </button>
           </div>
         </form>

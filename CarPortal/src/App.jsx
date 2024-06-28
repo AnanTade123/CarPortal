@@ -122,7 +122,6 @@ export default function App() {
               <DealerMiddleware allowedRoles={[...Object.values(onlyDealer)]} />
             }
           >
-            <Route path="/dealer/biddingcar" element={<DealerDashboard />} />
             <Route path="/dealer/:id" element={<DealerDashboard />} />
             <Route path="/dealer/:id/addcar" element={<AddDealerCar />} />
             <Route path="/dealer/:id/uploadimage" element={<Uploadimages2 />} />
@@ -144,6 +143,8 @@ export default function App() {
               path="/dealer/:id/allpending"
               element={<DealerAllPendingRequest />}
             />
+            <Route path="/dealer/biddingcar" element={<DealerDashboard />} />
+
             <Route
               path="/car/:CarId/pendinguser"
               element={<DealerPendingRequest />}
