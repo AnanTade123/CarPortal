@@ -85,7 +85,7 @@ export default function App() {
             <Route path="/admin" element={<Admin />} />
 
             <Route path="/inspector" element={<InspectorList />} />
-            <Route path="/saleslist" element={<SalesList />} />
+            <Route path="/admin/salesuser" element={<SalesList />} />
             <Route path="/CarInspection" element={<CarInspectionTable />} />
             {/* <Route path="/admin/inspector/info/:ProfileId" element={<AdminInspectorInfo />} /> */}
             <Route path="/carlistmodel" element={<CarListModels />} />

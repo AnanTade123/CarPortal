@@ -170,9 +170,24 @@ if (userRole === "DEALER") {
               : ""
           }`}
         >
-          Inspector List
+          Inspector
         </Typography>
       </Link>
+      <Link to={"/admin/salesuser"}>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === "/admin/salesuser"
+              ? "bg-indigo-200 text-white"
+              : ""
+          }`}
+        >
+          Sales
+        </Typography>
+      </Link>
+      
     </>
   ) : null;
 
