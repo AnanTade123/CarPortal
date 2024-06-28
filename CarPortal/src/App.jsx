@@ -52,8 +52,12 @@ import InspectorMiddleware from "./middleware/InspectorMiddleware";
 import { object } from "prop-types";
 import PendingRequest2 from "./pages/dealer/PendingRequest2";
 import CarListing from "./pages/sales/CarListing";
-import MyList from "./pages/sales/MyList";
+
 // import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
+import SalesList from "./pages/adminpages/SalesList"
+// import CarListing from "./pages/sales/CarListing";
+
+import CarListModels from "./pages/adminpages/CarListModels";
 
 export default function App() {
   return (
@@ -84,8 +88,10 @@ export default function App() {
             <Route path="/admin" element={<Admin />} />
 
             <Route path="/inspector" element={<InspectorList />} />
+            <Route path="/saleslist" element={<SalesList />} />
             <Route path="/CarInspection" element={<CarInspectionTable />} />
             {/* <Route path="/admin/inspector/info/:ProfileId" element={<AdminInspectorInfo />} /> */}
+            <Route path="/carlistmodel" element={<CarListModels />} />
             <Route
               path="/admin/dealer/info/:id"
               element={<AdminDealerInfo />}
@@ -102,14 +108,19 @@ export default function App() {
               path="/transactionbyaccount"
               element={<TransactionByAccount />}
             />
-            <Route path="/wallet" element={<Wallet />} />
+            <Route
+              path="/wallet"
+              element={<Wallet />}
+            />
             <Route
               path="/transactioncontroller"
               element={<TransactionController />}
             />
-            <Route path="/carlisting" element={<CarListing />} />
-            {/* myChange */}
-            <Route path="/mylist" element={<MyList />} />
+            <Route
+              path="/carlisting"
+              element={<CarListing />}
+            />
+
           </Route>
 
           <Route
@@ -117,6 +128,7 @@ export default function App() {
               <DealerMiddleware allowedRoles={[...Object.values(onlyDealer)]} />
             }
           >
+            <Route path="/dealer/biddingcar" element={<DealerDashboard />} />
             <Route path="/dealer/:id" element={<DealerDashboard />} />
             <Route path="/dealer/:id/addcar" element={<AddDealerCar />} />
             <Route path="/dealer/:id/uploadimage" element={<Uploadimages2 />} />
@@ -144,14 +156,12 @@ export default function App() {
             />
           </Route>
 
-          <Route
-            element={
-              <InspectorMiddleware
-                allowedRoles={[...Object.values(onlyInspector)]}
-              />
-            }
-          >
-            <Route path="/Inspector/carverify" element={<CarVerify />} />
+          <Route element={<InspectorMiddleware allowedRoles={[...Object.values(onlyInspector)]} />} >
+            <Route path="/inspector/carverify/:id" element={<CarVerify />} />
+            <Route
+              path="/carsdata"
+              element={<CarListing />}
+            />
           </Route>
 
           <Route path="/bidding" element={<BiddingMainPage />} />

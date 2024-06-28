@@ -10,7 +10,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { IoAddCircleOutline, IoCloseCircle, IoCheckmarkCircle } from 'react-icons/io5';
 
-export default function UploadImages2() {
+function UploadImages2() {
   const [images, setImages] = useState([]);
   const [uploadStatus, setUploadStatus] = useState({}); // Track upload status for each image
   const { id } = useParams();
@@ -174,3 +174,5 @@ export default function UploadImages2() {
     </div>
   );
 }
+
+export default UploadImages2;

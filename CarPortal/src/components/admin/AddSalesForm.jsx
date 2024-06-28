@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { UserPlusIcon } from "@heroicons/react/24/solid";
-import { Button, Dialog, CardBody, Typography } from "@material-tailwind/react";
-import Inputs from "../forms/Inputs";
-import CardUi from "../ui/CardUi";
-import { useSignUpMutation } from "../services/authAPI";
+import {
+  Button,
+  Dialog,
+  CardBody,
+  Typography,
+  Input,
+} from "@material-tailwind/react";
+import CardUi from "../../ui/CardUi";
+import { useSignUpMutation } from "../../services/authAPI";
 
-export function AddInspectorForm() {
+export function AddSalesForm() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
   const [SignUp] = useSignUpMutation();
@@ -19,12 +24,18 @@ export function AddInspectorForm() {
     lastName: "",
     address: "",
     city: "",
-    roles: "INSPECTOR",
+    roles: "DEALER",
     document: 0,
     shopName: "",
     area: "",
     status: false,
     userType: "",
+  });
+
+  // Validation state
+  const [errors, setErrors] = useState({
+    email: "",
+    mobileNo: "",
   });
 
   // Handle input change
@@ -36,19 +47,41 @@ export function AddInspectorForm() {
     }));
   };
 
+  // Validate email
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  // Validate mobile number
+  const validateMobileNo = (mobileNo) => {
+    const mobileNoRegex = /^\d{10}$/; // Adjust the pattern according to your requirements
+    return mobileNoRegex.test(mobileNo);
+  };
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate form data
+    const emailError = validateEmail(formData.email)
+      ? ""
+      : "Invalid email address";
+    const mobileNoError = validateMobileNo(formData.mobileNo)
+      ? ""
+      : "Invalid mobile number";
+    setErrors({ email: emailError, mobileNo: mobileNoError });
+
+    // If there are validation errors, do not proceed
+    if (emailError || mobileNoError) {
+      return;
+    }
+
     // Perform form submission logic here, e.g., send data to backend
     try {
       const { data } = await SignUp(formData);
-      console.log("inspector data",data);
-      if (data) {
-        alert("Register Sucessfully");
-      }else{
-        alert("Register Unsucessfull");
-      }
-      
+      console.log(data);
+      alert("Register Successfully");
     } catch (error) {
       console.log(error);
     }
@@ -63,6 +96,10 @@ export function AddInspectorForm() {
       city: "",
       address: "",
       shopName: "",
+      roles: "DEALER",
+      document: 0,
+      status: false,
+      userType: "",
     });
     // Close the dialog
     setOpen(false);
@@ -71,7 +108,7 @@ export function AddInspectorForm() {
   return (
     <>
       <Button onClick={handleOpen} className="flex gap-2">
-        <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add Inspector
+        <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add Seller
       </Button>
       <Dialog
         size="xs"
@@ -80,21 +117,23 @@ export function AddInspectorForm() {
         className="bg-transparent shadow-none"
       >
         <CardUi>
-        <div className="md:flex justify-center m-5 md:m-0">
-          <CardBody className="flex flex-col gap-4 ">
+          <CardBody className="flex flex-col gap-4">
             <Typography variant="h4" color="blue-gray">
-              Add Inspector
+              Add Seller
             </Typography>
-            <form onSubmit={handleSubmit} className="space-y-3  ">
-              <div className="flex md:flex-row flex-col  md:gap-2 gap-3">
-                <Inputs
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-3 md:w-full w-[220px]"
+            >
+              <div className="flex md:flex-row flex-col gap-2 ">
+                <Input
                   label="First Name"
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
                   required
                 />
-                <Inputs
+                <Input
                   label="Last Name"
                   name="lastName"
                   value={formData.lastName}
@@ -102,22 +141,31 @@ export function AddInspectorForm() {
                   required
                 />
               </div>
-              <Inputs
+              <Input
                 label="Email"
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
+                error={errors.email}
                 required
               />
-              <Inputs
+              {errors.email && (
+                <Typography color="red">{errors.email}</Typography>
+              )}
+              <Input
                 label="Mobile Number"
+                type="tel"
                 name="mobileNo"
                 value={formData.mobileNo}
                 onChange={handleChange}
+                error={errors.mobileNo}
                 required
               />
-              <Inputs
+              {errors.mobileNo && (
+                <Typography color="red">{errors.mobileNo}</Typography>
+              )}
+              <Input
                 label="Password"
                 type="password"
                 name="password"
@@ -125,25 +173,39 @@ export function AddInspectorForm() {
                 onChange={handleChange}
                 required
               />
-              <Inputs
-                label="City"
-                name="city"
-                value={formData.city}
-                onChange={handleChange}
-                required
-              />
-              <Inputs
+              <div className="flex gap-2 md:flex-row flex-col">
+                <Input
+                  label="Area"
+                  name="area"
+                  value={formData.area}
+                  onChange={handleChange}
+                  required
+                />
+                <Input
+                  label="City"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <Input
                 label="Address"
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
                 required
               />
-
+              <Input
+                label="Shop Name"
+                name="shopName"
+                value={formData.shopName}
+                onChange={handleChange}
+                required
+              />
               <Button type="submit">Add</Button>
             </form>
           </CardBody>
-          </div>
         </CardUi>
       </Dialog>
     </>
