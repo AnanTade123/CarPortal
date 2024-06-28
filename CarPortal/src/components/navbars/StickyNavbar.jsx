@@ -40,7 +40,7 @@ const navListMenuItems = [
   
   {
     title: "Bidding Car",
-    link: userRole === "DEALER"? "/dealer/biddingcar" : null,
+    link: userRole === "DEALER"? "/dealer/biddingcar" : userRole === "ADMIN" ? '/admin/biddingcar' :null ,
   },
 ];
 
@@ -184,7 +184,7 @@ if (userRole === "DEALER") {
               : ""
           }`}
         >
-          Sales
+          Seller
         </Typography>
       </Link>
       
