@@ -24,12 +24,17 @@ import Profile from "../Profile/Profile";
 import { jwtDecode } from "jwt-decode";
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
 
+
+export function StickyNavbar() {
+
 const token = Cookies.get("token");
 let jwtDecodes;
 if (token) {
   jwtDecodes = jwtDecode(token);
 }
 const userRole = token ? jwtDecodes?.authorities[0] : null;
+const DealerId = token ? jwtDecodes?.dealerId : null;
+const UserId = token ? jwtDecodes?.userId : null;
 
 const navListMenuItems = [
   
@@ -63,7 +68,6 @@ if (userRole === "DEALER") {
 }
 
 
-export function StickyNavbar() {
   const [openNav, setOpenNav] = useState(false);
   const location = useLocation();
 
@@ -133,14 +137,8 @@ export function StickyNavbar() {
     );
   }
   
-  const token = Cookies.get("token");
-  let jwtDecodes;
-  if (token) {
-    jwtDecodes = jwtDecode(token);
 
-  }
-  const DealerId = token ? jwtDecodes?.dealerId : null;
-  const UserId = token ? jwtDecodes?.userId : null;
+  
 
   const adminDashboard = userRole?.includes("ADMIN") ? (
     <>
