@@ -197,28 +197,29 @@ console.log(data)
     <>
     <h1 className="mt-2 text-xl ml-2 mb-5 font-bold">Car Listing</h1>
    
-    <div className="flex divide-x-4 mx-5">
-      <div className="flex-1 p-5 text-center mr-5 bg-green-500 rounded-2xl shadow-xl">
-        <div className="text-4xl font-bold text-white">{totalCars}</div>
-        <div className="mt-2 font-medium">Total Cars</div>
-      </div>
-      <div className="flex-1 p-5 text-center mr-5 bg-orange-500 rounded-2xl shadow-xl">
-        <div className="text-4xl font-bold text-white">{`${activeCars}/100`}</div>
-        <div className="mt-2 font-medium">Active Cars</div>
-      </div>
-      <div className="flex-1 p-5 text-center mr-5 bg-red-400 rounded-2xl shadow-xl">
-        <div className="text-4xl font-bold text-white">{`${pendingCars}/100`}</div>
-        <div className="mt-2 font-medium">Pending Cars</div>
-      </div>
-      <div className="flex-1 p-5 text-center mr-5 bg-blue-300 rounded-2xl shadow-xl">
-        <div className="text-4xl font-bold text-white">{`${inspectionDone}/100`}</div>
-        <div className="mt-2 font-medium">Inspection Done Cars</div>
-      </div>
-      <div className="flex-1 p-5 text-center mr-5 bg-green-500 rounded-2xl shadow-xl">
-        <div className="text-4xl font-bold text-white">{sellCars}</div>
-        <div className="mt-2 font-medium">Sell Cars</div>
-      </div>
-    </div>
+    <div className="flex justify-center flex-wrap divide-x-4 mx-8">
+  <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 md:mb-5 p-5 text-center bg-green-500 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
+    <div className="text-4xl font-bold text-white">{totalCars}</div>
+    <div className="mt-2 font-medium">Total Cars</div>
+  </div>
+  <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 md:mb-5 p-5 text-center bg-orange-500 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
+    <div className="text-4xl font-bold text-white">{`${activeCars}/100`}</div>
+    <div className="mt-2 font-medium">Active Cars</div>
+  </div>
+  <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 md:mb-5 p-5 text-center bg-red-400 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
+    <div className="text-4xl font-bold text-white">{`${pendingCars}/100`}</div>
+    <div className="mt-2 font-medium">Pending Cars</div>
+  </div>
+  <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 md:mb-5  p-5 text-center bg-blue-300 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
+    <div className="text-4xl font-bold text-white">{`${inspectionDone}/100`}</div>
+    <div className="mt-2 font-medium">Inspection Done Cars</div>
+  </div>
+  <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 md:mb-5 p-5 text-center bg-green-500 rounded-2xl shadow-xl sm:mb-0 sm:mr-5">
+    <div className="text-4xl font-bold text-white">{sellCars}</div>
+    <div className="mt-2 font-medium">Sell Cars</div>
+  </div>
+</div>
+
 
 
 <div className="mt-8"> 
