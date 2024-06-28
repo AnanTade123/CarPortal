@@ -1,24 +1,25 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
 import TableComponent from "../../components/table/TableComponent";
-import { Card, CardHeader, CardBody, CardFooter, Typography, Button } from "@material-tailwind/react";
+import { Card, CardHeader, CardBody, CardFooter, Typography, Button, Dialog, DialogBody, DialogFooter } from "@material-tailwind/react";
 import { CarModelsForm } from "./CarModelsForm";
-// import StatusDialogeBox3 from "../adminpages/StatusDialogeBox3";
 import EditCarForm from "../adminpages/EdiCarForm";
-import { useGetAllBrandsQuery } from "../../services/brandAPI";
+import { useGetAllBrandsQuery, useDeleteCarBrandsMutation } from "../../services/brandAPI";
 
 const CarListModels = () => {
-  const { data } = useGetAllBrandsQuery();
+  const { data, refetch } = useGetAllBrandsQuery();
+  const [deleteCarBrands] = useDeleteCarBrandsMutation();
   const [carList, setCarList] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [selectedCarId, setSelectedCarId] = useState(null);
 
   useEffect(() => {
     if (data) {
-      setCarList(data?.list?.map((item, index) => ({
-        carId: index + 1,
+      setCarList(data?.list?.map((item) => ({
         brandDataId: item.brandDataId,
         brand: item.brand,
         variant: item.variant,
         subVariant: item.subVariant,
-        carStatus: item.status,
       })));
     }
   }, [data]);
@@ -34,12 +35,23 @@ const CarListModels = () => {
     setCarList((prevList) => 
       prevList.map(car => car.carId === updatedCar.carId ? updatedCar : car)
     );
+    refetch();
   };
 
-  const deleteCar = (carId) => {
-    setCarList((prevList) => 
-      prevList.filter(car => car.carId !== carId)
-    );
+  const handleOpen = (carId) => {
+    setSelectedCarId(carId);
+    setOpen(!open);
+  };
+
+  const deleteCar = async () => {
+    try {
+      await deleteCarBrands(selectedCarId).unwrap();
+      // Refetch the data after deletion
+      refetch();
+      setOpen(false);
+    } catch (error) {
+      console.error('Failed to delete the car brand:', error);
+    }
   };
 
   const columns = [
@@ -59,15 +71,6 @@ const CarListModels = () => {
       Header: "Variant",
       accessor: "subVariant",
     },
-    // {
-    //   Header: "Status",
-    //   accessor: "carStatus",
-    //   Cell: (cell) => (
-    //     <div className="flex gap-2 justify-center items-center">
-    //       {/* <StatusDialogeBox3 status={cell.row.values.carStatus}/> */}
-    //     </div>
-    //   ),
-    // },
     {
       Header: "Action",
       accessor: "action",
@@ -75,8 +78,8 @@ const CarListModels = () => {
         const car = cell.row.original;
         return (
           <div className="flex gap-2 justify-center items-center">
-            <EditCarForm initialData={car} onSave={updateCar} />
-            <Button color="red" onClick={() => deleteCar(car.carId)}>Delete</Button>
+            <EditCarForm initialData={car} brandDataId={cell.row.values.brandDataId} onSave={updateCar} />
+            <Button color="red" onClick={() => handleOpen(cell.row.values.brandDataId)}>Delete</Button>
           </div>
         );
       },
@@ -118,6 +121,25 @@ const CarListModels = () => {
           </div>
         </CardFooter>
       </Card>
+
+      <Dialog open={open} handler={handleOpen}>
+        <DialogBody className="flex justify-center">
+          <p className="font-semibold text-xl">Are you sure you want to delete?</p> 
+        </DialogBody>
+        <DialogFooter className="flex justify-center">
+          <Button
+            variant="text"
+            color="red"
+            onClick={() => handleOpen(null)}
+            className="mr-1"
+          >
+            <span>Cancel</span>
+          </Button>
+          <Button variant="gradient" color="green" onClick={deleteCar}>
+            <span>Confirm</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
     </>
   );
 };
