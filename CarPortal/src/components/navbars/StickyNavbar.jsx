@@ -190,7 +190,7 @@ export function StickyNavbar() {
               : ""
           }`}
         >
-          Car List
+          Buy Car
         </Typography>
       </Link>
       <NavListMenu />

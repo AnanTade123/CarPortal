@@ -52,6 +52,7 @@ import SalesList from "./pages/adminpages/SalesList"
 import CarListing from "./pages/sales/CarListing";
 
 import CarListModels from "./pages/adminpages/CarListModels";
+import SellForCar from "./pages/dealer/SellForCar";
 
 export default function App() {
   return (
