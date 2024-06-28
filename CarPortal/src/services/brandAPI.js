@@ -12,6 +12,15 @@ export const brandAPI = apiSlice.injectEndpoints({
       invalidatesTags: ["Admin"],
     }),
 
+    //GET ONLY BRANDS
+    getOnlyBrands: builder.query({
+      query: () => ({
+        url: `/brands/only-brands`,
+        method: "GET",
+      }),
+      invalidatesTags: ["Admin"],
+    }),
+
     //POST
     addCarBrands: builder.mutation({
       query: (carBrand) => ({
@@ -50,5 +59,6 @@ export const {
   useAddCarBrandsMutation,
   useGetAllBrandsQuery,
   useEditBrandDataMutation,
-  useDeleteCarBrandsMutation
+  useDeleteCarBrandsMutation,
+  useGetOnlyBrandsQuery
 } = brandAPI;
