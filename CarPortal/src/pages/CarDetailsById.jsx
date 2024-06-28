@@ -109,9 +109,9 @@ const [bookingRequest] = useBookingRequestMutation();
       </div>
     </div>
 
-    {/* <div className="flex justify-center text-green-600">
-    <u><p className="text-4xl font-semibold">Similar Cars</p></u>
-    </div> */}
+    <div className="flex justify-center text-{A0937D} md:mt-24 md:mb-12 mt-10 mb-6">
+    <u><p className="text-4xl font-semibold ">Similar Cars</p></u>
+    </div>
     
     {/* <div className="flex justify-center">
     <GridCarList data={data1} error={error1} />

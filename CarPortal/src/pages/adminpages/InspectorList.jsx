@@ -18,44 +18,31 @@ import { AddInspectorForm } from "../AddInspectorForm";
 
 export default function Admin() {
   const [pageNo, setPageNo] = useState(0);
-  console.log(pageNo);
-  const { data, isLoading, error } = useGetallInspectorQuery(pageNo);
-console.log(data)
-  // const [deleteDealer] = useDeleteDealerMutation();
-
+  const [pageSize, setPageSize] = useState(7);
+  const { data, isLoading, error } = useGetallInspectorQuery({ pageNo, pageSize });
 
   const navigate = useNavigate();
   if (error?.status === 401) {
     return navigate("/signin");
   }
-  console.log(pageNo);
-  // const deleteDealerHandler = async (id) => {
-  //   const res = await deleteDealer(id);
-  //   console.log(res);
-  // };
+
   const nextHandler = () => {
-    setPageNo((prevPageNo) => {
-      // Check if the error status is 404
-      if (error?.status === 404) {
-        
-        console.log(prevPageNo);
-        // Display message or perform any action indicating that it's the last page
-        console.log("You are on the last page.");
-        return prevPageNo; // Keep pageNo unchanged
-      } else {
-        // Increment pageNo
-        return prevPageNo + 1;
-      }
-    });
+    if (!error) {
+      setPageNo((prevPageNo) => prevPageNo + 1);
+    }
+  };
+
+  const prevHandler = () => {
+    if (pageNo > 0) {
+      setPageNo((prevPageNo) => prevPageNo - 1);
+    }
   };
 
   const columns = [
-   
     {
       Header: "First Name",
       accessor: "firstName",
     },
-
     {
       Header: "Last Name ",
       accessor: "lastName",
@@ -68,27 +55,21 @@ console.log(data)
       Header: "Phone",
       accessor: "mobileNo",
     },
-
     {
       Header: "City",
       accessor: "city",
-      
     },
     {
       Header: "Email",
       accessor: "email",
-      
     },
-    
-
     {
       Header: "Actions",
       accessor: "Actions",
       Cell: (cell) => {
-        console.log(cell.row.values.dealer_id);
         return (
           <div>
-            <div className="flex gap-2 justify-center items-center  ">
+            <div className="flex gap-2 justify-center items-center">
               <Link to={`/admin/dealer/info/${cell.row.values.dealer_id}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -107,9 +88,7 @@ console.log(data)
                 </svg>
               </Link>
 
-              <Link
-                to={`/admin/dealer/edit/${cell.row.values.userId}/${cell.row.values.dealer_id}`}
-              >
+              <Link to={`/admin/dealer/edit/${cell.row.values.userId}/${cell.row.values.dealer_id}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -126,9 +105,8 @@ console.log(data)
                   />
                 </svg>
               </Link>
-              {/* <div
-                onClick={() => deleteDealerHandler(cell.row.values.dealer_id)}
-              >
+              {/* 
+              <div onClick={() => deleteDealerHandler(cell.row.values.dealer_id)}>
                 <Tooltip content="Delete">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -146,7 +124,8 @@ console.log(data)
                     />
                   </svg>
                 </Tooltip>
-              </div> */}
+              </div> 
+              */}
             </div>
           </div>
         );
@@ -160,68 +139,52 @@ console.log(data)
   } else {
     dealerApiData = data?.list;
   }
-  console.log(dealerApiData);
+
   return (
     <>
 
     {error?.status===404 ? (
         <div>
-           <p className="text-3xl font-semibold ">No Data Available</p>
-           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-           <AddInspectorForm />
-            </div>
-            </div>
-            ):
-            ( 
-            <Card className="h-full w-full">
-        <CardHeader floated={false} shadow={false} className="rounded-none">
-          <div className=" flex items-center justify-between gap-8">
-            <div>
-              <Typography variant="h5" color="blue-gray">
-               Dealer List
-              </Typography>
-              <Typography color="gray" className="mt-1 font-normal">
-                See information about all members
-              </Typography>
-            </div>
-            <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+          <p className="text-3xl font-semibold">No Data Available</p>
+          <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
             <AddInspectorForm />
+          </div>
+        </div>
+      ) : (
+        <Card className="h-full w-full">
+          <CardHeader floated={false} shadow={false} className="rounded-none">
+            <div className="flex items-center justify-between gap-8">
+              <div>
+                <Typography variant="h5" color="blue-gray">
+                  Inspectors List
+                </Typography>
+                <Typography color="gray" className="mt-1 font-normal">
+                  See information about all members
+                </Typography>
+              </div>
+              <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+                <AddInspectorForm />
+              </div>
             </div>
-          </div>
-        </CardHeader>
-        <CardBody className="overflow-scroll px-0">
-          <TableComponent columns={columns} data={dealerApiData} />
-        </CardBody>
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-          <Typography
-            variant="medium"
-            color="blue-gray"
-            className="font-normal"
-          >
-            Page {pageNo + 1}
-          </Typography>
-          <div className="flex gap-2">
-            <Button
-              variant="outlined"
-              size="sm"
-              disabled={pageNo <= 0}
-              onClick={() => setPageNo((a) => a - 1)}
-            >
-              Previous
-            </Button>
-            <Button
-              variant="outlined"
-              size="sm"
-              onClick={nextHandler}
-              disabled={data?.list?.length < 10}
-            >
-              Next
-            </Button>
-          </div>
-        </CardFooter>
-      </Card>)}
-     
+          </CardHeader>
+          <CardBody className="overflow-scroll px-0">
+            <TableComponent columns={columns} data={dealerApiData} />
+          </CardBody>
+          <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+            <Typography variant="medium" color="blue-gray" className="font-normal">
+              Page {pageNo + 1}
+            </Typography>
+            <div className="flex gap-2">
+              <Button variant="outlined" size="sm" disabled={pageNo <= 0} onClick={prevHandler}>
+                Previous
+              </Button>
+              <Button variant="outlined" size="sm" onClick={nextHandler} disabled={data?.list?.length < pageSize}>
+                Next
+              </Button>
+            </div>
+          </CardFooter>
+        </Card>
+      )}
     </>
   );
 }
-{/* <AddDealerForm /> */}

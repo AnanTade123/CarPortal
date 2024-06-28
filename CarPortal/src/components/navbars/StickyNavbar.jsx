@@ -41,6 +41,12 @@ const navListMenuItems = [
     title: "Dashboard",
     description: "Find the perfect solution for your needs.",
     icon: SquaresPlusIcon,
+    link: `/carlisting`,
+  },
+  {
+    title: "Cars",
+    description: "Find the perfect solution for your needs.",
+    icon: SquaresPlusIcon,
     link: `/dealer/${jwtDecodes?.dealerId}`,
   },
   {
@@ -198,7 +204,11 @@ export function StickyNavbar() {
           as="li"
           variant="small"
           color="blue-gray"
-          className={`p-3 rounded-md font-normal ${window.location.pathname === "/inspector" ? "bg-indigo-200 text-white" : ""}`}
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === "/inspector"
+              ? "bg-indigo-200 text-white"
+              : ""
+          }`}
         >
           Inspector List
         </Typography>
@@ -310,19 +320,19 @@ export function StickyNavbar() {
         </Typography>
       </Link> */}
     </>
-   ) : null;
+  ) : null;
 
    const InspectorDashboard = userRole?.includes("INSPECTOR") ? (
     <>
       
-      <Link to={`/Inspector/carverify`}>
+      <Link to={`/carsdata`}>
         <Typography
           as="li"
           variant="small"
           color="blue-gray"
-          className={`p-3 rounded-md font-normal ${window.location.pathname === `/user/booking/${jwtDecodes?.userId}` ? "bg-indigo-200 text-white" : ""}`}
+          className={`p-3 rounded-md font-normal ${window.location.pathname === `/carsdata` ? "bg-indigo-200 text-white" : ""}`}
         >
-          Car Verify
+          Cars
         </Typography>
       </Link>
     </>
@@ -349,7 +359,7 @@ export function StickyNavbar() {
           Home
         </Typography>
       </Link>
-      {userRole == "DEALER" ? null : (
+      {userRole == "DEALER" || userRole== "INSPECTOR" ? null : (
         <Link to={"/carlist"}>
           <Typography
             as="li"
