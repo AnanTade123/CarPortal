@@ -23,13 +23,13 @@ export function AddSalesForm() {
     firstName: "",
     lastName: "",
     address: "",
+    profilePhotoId: "",
+    joiningdate:"",
     city: "",
-    roles: "DEALER",
-    document: 0,
-    shopName: "",
+    roles: "SALESPERSON",
+    documentId: 0,
     area: "",
     status: false,
-    userType: "",
   });
 
   // Validation state
@@ -87,19 +87,19 @@ export function AddSalesForm() {
     }
     // Reset form after submission
     setFormData({
+      email: "",
+      password: "",
+      mobileNo: "",
       firstName: "",
       lastName: "",
-      email: "",
-      mobileNo: "",
-      password: "",
-      area: "",
-      city: "",
       address: "",
-      shopName: "",
-      roles: "DEALER",
-      document: 0,
+      profilePhotoId: "",
+      joiningdate: "",
+      city: "",
+      roles: "SALESPERSON",
+      documentId: 0,
+      area: "",
       status: false,
-      userType: "",
     });
     // Close the dialog
     setOpen(false);
@@ -196,13 +196,7 @@ export function AddSalesForm() {
                 onChange={handleChange}
                 required
               />
-              <Input
-                label="Shop Name"
-                name="shopName"
-                value={formData.shopName}
-                onChange={handleChange}
-                required
-              />
+              
               <Button type="submit">Add</Button>
             </form>
           </CardBody>
