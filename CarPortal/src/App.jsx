@@ -53,6 +53,8 @@ import CarListing from "./pages/sales/CarListing";
 
 import CarListModels from "./pages/adminpages/CarListModels";
 import SellForCar from "./pages/dealer/SellForCar";
+import BiddingDealerCars from "./pages/biddingDashboard/BiddingDealerCars";
+import CarListTable from "./pages/biddingDashboard/CarListTable";
 
 export default function App() {
   return (
@@ -115,7 +117,14 @@ export default function App() {
               path="/carlisting"
               element={<CarListing />}
             />
-
+             <Route
+              path="/biddingdealercars"
+              element={<BiddingDealerCars />}
+            />
+            <Route
+              path="/carlisttable"
+              element={<CarListTable/>}
+            />
           </Route>
 
           <Route
