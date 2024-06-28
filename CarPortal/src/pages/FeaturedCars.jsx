@@ -16,7 +16,7 @@ const FeaturedCars = ({ data, error }) => {
     <>
     <div className="text-3xl font-bold p-10 font-[latto]">Featured Cars</div>
         <div className="w-full ml-6 md:ml-0">
-          <div className="md:flex md:justify-around">
+          <div className="md:flex md:justify-evenly">
             {posts?.slice(0,4).map((items, index) => {
               return (
                 <div key={index}>

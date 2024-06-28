@@ -21,7 +21,7 @@ export const apiSlice = createApi({
     },
   }),
 
-  tagTypes: ["User", "Admin", "Dealer", "CAR", "DEALERBOOKING"],
+  tagTypes: ["User", "Admin", "Dealer", "CAR", "DEALERBOOKING","SALESPERSON"],
   endpoints: (builder) => ({}),
   // onError: async (error) => {
   //   if (error.status === 401) { // Unauthorized error
