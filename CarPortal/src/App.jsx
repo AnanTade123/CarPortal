@@ -50,7 +50,7 @@ import PendingRequest2 from "./pages/dealer/PendingRequest2";
 import CarListing from "./pages/sales/CarListing";
 // import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
 import SalesList from "./pages/adminpages/SalesList"
-import CarListing from "./pages/sales/CarListing";
+
 
 import CarListModels from "./pages/adminpages/CarListModels";
 import SellForCar from "./pages/dealer/SellForCar";
