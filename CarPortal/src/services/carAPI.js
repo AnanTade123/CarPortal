@@ -22,7 +22,7 @@ export const carApi = apiSlice.injectEndpoints({
           method: "GET",
         };
       },
-      providesTags: ["CAR"],
+      providesTags: ["CAR","INSPECTOR"],
     }),
     getCarById: builder.query({
       query: (carId) => ({
@@ -45,7 +45,7 @@ export const carApi = apiSlice.injectEndpoints({
         url: `/cars/mainFilter/${0}`,
         method: "GET",
       }),
-      providesTags: ["CAR"],
+      providesTags: ["CAR","Inspector"],
     }),
     bookingRequest: builder.mutation({
       query: (formData) => ({
@@ -127,8 +127,9 @@ export const carApi = apiSlice.injectEndpoints({
     }),
 
     deleteCarImageById : builder.mutation({
-      query :() => ({
-        url : `/uploadFile/delete?DocumentId=1`,
+      query :({id}) => ({
+        url : `uploadFile/deleteDocumentId?DocumentId=${id}`,
+        transferResponse: console.log(id),
         method : `DELETE`
       }),
       invalidatesTags: ["CAR"],

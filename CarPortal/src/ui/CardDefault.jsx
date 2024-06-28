@@ -11,6 +11,7 @@ console.log(carid)
 
     
     <Card className="mt-6 w-96 md:m-0 m-3 items-center border-2 hover:scale-105 border-gray-300 shadow-xl max-w-[24rem] overflow-hidden">
+      <Link to={`/carlist/cardetails/${data.carId}`}>
        <CardHeader
         floated={false}
         shadow={false}
@@ -51,6 +52,7 @@ console.log(carid)
         <hr />
         <p className="text-sm">Free Test Drive Today at {data.area}</p>
       </CardBody>
+      </Link>
     </Card>
     
   );

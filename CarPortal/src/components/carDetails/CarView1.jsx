@@ -77,130 +77,110 @@ const CarView1 = ({ carId }) => {
           </div>
         )} */}
 
-        {interior && (
-          <Carousel className="bg-white rounded-lg shadow-md">
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
-                <img
-                  key={item.documentId}
-                  src={item.documentLink}
-                  alt={`Car Image ${item.documentId}`}
-                  onError={(e) => (e.currentTarget.src = fallbackImage)}
-                  className="object-contain w-full h-full"
-                />
-              ))
-            ) : (
-              <div className="text-center mt-2">
-                {" "}
-                Image not available
-                <img
-                  src={fallbackImage}
-                  alt="no image"
-                  className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50 "
-                />
-              </div>
-            )}
-          </Carousel>
+        
+
+       
+{interior && (
+      <Carousel className="bg-white rounded-lg shadow-md w-[50rem] h-[37rem] ">
+        {data.object.length > 0 ? data.object.map((item) => (
+         
+          <img
+            key={item.documentId}
+            src={item.documentLink}
+            alt={`Car Image ${item.documentId}`}
+            onError={(e) => e.currentTarget.src = fallbackImage}
+            className="object-contain w-full h-full"
+          />
+          
+        )) : (
+          <div className="text-center mt-2"> Image not available
+          <img
+            src={fallbackImage}
+            alt="no image"
+            className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50 "
+          />
+          </div>
         )}
+      </Carousel>
+)}
+      
+    
 
         {exterior && (
-          <Carousel className="bg-gray-900 rounded-lg shadow-md ">
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
-                <img
-                  key={item.documentId}
-                  src={item.documentLink}
-                  alt={`Car Image ${item.documentId}`}
-                  className="object-contain w-full h-full"
-                />
-              ))
-            ) : (
-              <div className="text-center mt-2">
-                {" "}
-                Image not available
-                <img
-                  src={fallbackImage}
-                  alt="no image"
-                  className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50 "
-                />
-              </div>
-            )}
-          </Carousel>
+          <Carousel className="bg-white rounded-lg shadow-md w-[50rem] h-[37rem] ">
+          {data.object.length > 0 ?data.object.map((item) => (
+            <img
+              key={item.documentId}
+              src={item.documentLink}
+              alt={`Car Image ${item.documentId}`}
+              className="object-contain w-full h-full"
+            />
+          )) : (<div className="text-center mt-2"> Image not available
+            <img
+              src={fallbackImage}
+              alt="no image"
+              className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50 "
+            />
+            </div>)}
+        </Carousel>
         )}
 
         {features && (
-          <Carousel className="bg-white rounded-lg shadow-md">
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
-                <img
-                  key={item.documentId}
-                  src={item.documentLink}
-                  alt={`Car Image ${item.documentId}`}
-                  className="object-contain w-full h-full"
-                />
-              ))
-            ) : (
-              <div className="text-center mt-2">
-                {" "}
-                Image not available
-                <img
-                  src={fallbackImage}
-                  alt="no image"
-                  className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50 "
-                />
-              </div>
-            )}
-          </Carousel>
+          <Carousel className="bg-white rounded-lg shadow-md w-[50rem] h-[37rem]">
+          {data.object.length > 0 ?data.object.map((item) => (
+            
+            <img
+              key={item.documentId}
+              src={item.documentLink}
+              alt={`Car Image ${item.documentId}`}
+              className="object-contain w-full h-full"
+            />
+          )) : (<div className="text-center mt-2"> Image not available
+            <img
+              src={fallbackImage}
+              alt="no image"
+              className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50 "
+            />
+            </div>)}
+        </Carousel>
         )}
 
         {tyres && (
-          <Carousel className="bg-white rounded-lg shadow-md">
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
-                <img
-                  key={item.documentId}
-                  src={item.documentLink}
-                  alt={`Car Image ${item.documentId}`}
-                  className="object-contain w-full h-full"
-                />
-              ))
-            ) : (
-              <div className="text-center mt-2">
-                {" "}
-                Image not available
-                <img
-                  src={fallbackImage}
-                  alt="no image"
-                  className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50 "
-                />
-              </div>
-            )}
-          </Carousel>
+           <Carousel className="bg-white rounded-lg shadow-md w-[50rem] h-[37rem]">
+           {data.object.length > 0 ? data.object.map((item) => (
+             <img
+               key={item.documentId}
+               src={item.documentLink}
+               alt={`Car Image ${item.documentId}`}
+               className="object-contain w-full h-full"
+             />
+           )):(<div className="text-center mt-2"> Image not available
+            <img
+              src={fallbackImage}
+              alt="no image"
+              className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50 "
+            />
+            </div>)}
+         </Carousel>
         )}
 
         {engines && (
-          <Carousel className="bg-white rounded-lg shadow-md ">
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
-                <img
-                  key={item.documentId}
-                  src={item.documentLink}
-                  alt={`Car Image ${item.documentId}`}
-                  className="object-contain w-full h-full"
-                />
-              ))
-            ) : (
-              <div className="text-center mt-2">
-                {" "}
-                Image not available
-                <img
-                  src={fallbackImage}
-                  alt="no image"
-                  className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 "
-                />
-              </div>
-            )}
-          </Carousel>
+          <Carousel className="bg-white rounded-lg shadow-md w-[50rem] h-[37rem] ">
+          {data.object.length > 0 ? data.object.map((item) => (
+            <img
+              key={item.documentId}
+              src={item.documentLink}
+              alt={`Car Image ${item.documentId}`}
+              className="object-contain w-full h-full"
+            />
+          )):(<div className="text-center mt-2"> Image not available
+            <img
+              src={fallbackImage}
+              alt="no image"
+              className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 "
+            />
+            </div>)}
+        </Carousel>
         )}
       </div>
     );

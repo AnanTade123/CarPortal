@@ -8,6 +8,8 @@ export function CardDefault2({ data }) {
   const carid = data?.carId;
   console.log(carid);
   return (
+    <Card className="mt-6 w-80 md:m-0 items-center max-w-[20rem] overflow-hidden border-2 shadow-lg  ">
+       <Link to={`/carlist/cardetails/${carid}`}>
     <Card className="mt-6 w-96 md:m-0 items-center max-w-[20rem] overflow-hidden">
       <div className="w-[18rem] h-[16rem] ">
       <Link to={`/carlist/cardetails/${carid}`}>
@@ -19,18 +21,22 @@ export function CardDefault2({ data }) {
         <Typography variant="h5" color="blue-gray" className="mb-2">
           {data.brand} {data.model}
         </Typography>
-        <p className="text-sm uppercase">
-          {data.kmDriven} {data.fuelType} {data.transmission}
+        <p className="text-sm uppercase ">
+          <span className="bg-gray-200 p-[5px] mr-2 rounded-sm text-black">{data.kmDriven} KM</span>
+          <span className="bg-gray-200 p-[5px] mr-2 rounded-sm text-black">{data.fuelType}</span>
+          <span className="bg-gray-200 p-[5px] mr-2 rounded-sm text-black">{data.transmission}</span>
+            
         </p>
-        <Typography variant="h6">₹ {data.price}</Typography>
+        <Typography variant="h6" className="mt-2 font-bold text-xl text-black">₹ {data.price}</Typography>
 
         <Link to={`/carlist/cardetails/${data.carId}`}>
           {" "}
-          <Button className="mt-2 mb-4">View Car</Button>
+          <Button className="mt-2 mb-4 p-[8px] bg-indigo-500 rounded-lg text-white">View Car</Button>
         </Link>
         <hr />
         <p className="text-sm">Free Test Drive Today at {data.area}</p>
       </CardBody>
+      </Link>
     </Card>
   );
 }
