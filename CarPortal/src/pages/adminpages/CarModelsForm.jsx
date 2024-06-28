@@ -5,18 +5,18 @@ import { FaCarAlt } from "react-icons/fa";
 import { Button, Dialog, CardBody, Typography, Input } from "@material-tailwind/react";
 import CardUi from "../../ui/CardUi";
 import { useAddCarBrandsMutation } from "../../services/brandAPI"; 
-// import { useGetOnlyBrandsQuery } from "../../services/brandAPI"; 
+import { useGetOnlyBrandsQuery } from "../../services/brandAPI"; 
 
 export function CarModelsForm({ addCar }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
 
   const [addCarBrands] = useAddCarBrandsMutation();
-  // const {data} = useGetOnlyBrandsQuery();
-  // console.log(data);
+  const {data} = useGetOnlyBrandsQuery();
+  console.log(data);
   
-  // const brands = data?.list.map(car=>car.brand)
-  // console.log(brands)
+  const brands = data?.list.map(car=>car.brand)
+  console.log(brands)
   // Form state
   const [formData, setFormData] = useState({
     brand: "",
