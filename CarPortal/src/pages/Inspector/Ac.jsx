@@ -1,8 +1,31 @@
-import  { useState } from 'react';
-import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button } from '@material-ui/core';
+import { useState } from 'react';
+import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    outline: 'none',
+    maxWidth: '90%',
+    maxHeight: '90%',
+  },
+  image: {
+    maxWidth: '100%',
+    maxHeight: '100%',
+    objectFit: 'contain',
+  },
+}));
+
 const Ac = () => {
+  const classes = useStyles();
+
   const [formData, setFormData] = useState({
     ACCooling: [],
     Heater: [],
@@ -17,11 +40,13 @@ const Ac = () => {
     AcVent: null,
   });
 
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const handleFileChange = (event, fieldName) => {
     const file = event.target.files[0];
-    // Perform actions with the selected file, such as uploading
     console.log('Selected file:', file);
-    // Example: Update formData state with file details
+    // Update formData state with file details
     setFormData({ ...formData, [fieldName]: file });
 
     // Read the file and convert it to URL for preview
@@ -37,7 +62,15 @@ const Ac = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  console.log(formData);
+  const handleImageClick = (image) => {
+    setSelectedImage(image);
+    setOpenModal(true);
+  };
+
+  const closeModal = () => {
+    setOpenModal(false);
+    setSelectedImage(null);
+  };
 
   return (
     <div className='p-4'>
@@ -50,7 +83,6 @@ const Ac = () => {
             <InputLabel>AC Cooling</InputLabel>
             <Select
               name="ACCooling"
-              multiple
               value={formData.ACCooling}
               onChange={handleChange}
             >
@@ -60,8 +92,8 @@ const Ac = () => {
           </FormControl>
           <div className="flex items-center mt-2">
             <input
-              accept="image/*" // Accept only image files, you can modify this as needed
-              style={{ display: 'none' }} // Hide the input element visually
+              accept="image/*"
+              style={{ display: 'none' }}
               id="upload-ACCooling"
               type="file"
               onChange={(event) => handleFileChange(event, 'ACCooling')}
@@ -72,7 +104,12 @@ const Ac = () => {
             </label>
           </div>
           {uploadedImages.ACCooling && (
-            <img src={uploadedImages.ACCooling} alt="Uploaded" style={{ maxWidth: '100%', marginTop: '10px' }} />
+            <img
+              src={uploadedImages.ACCooling}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.ACCooling)}
+            />
           )}
         </Grid>
 
@@ -81,7 +118,6 @@ const Ac = () => {
             <InputLabel>Heater</InputLabel>
             <Select
               name="Heater"
-              multiple
               value={formData.Heater}
               onChange={handleChange}
             >
@@ -103,7 +139,12 @@ const Ac = () => {
             </label>
           </div>
           {uploadedImages.Heater && (
-            <img src={uploadedImages.Heater} alt="Uploaded" style={{ maxWidth: '100%', marginTop: '10px' }} />
+            <img
+              src={uploadedImages.Heater}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.Heater)}
+            />
           )}
         </Grid>
 
@@ -112,7 +153,6 @@ const Ac = () => {
             <InputLabel>Climate Control AC</InputLabel>
             <Select
               name="ClimateControlAC"
-              multiple
               value={formData.ClimateControlAC}
               onChange={handleChange}
             >
@@ -134,7 +174,12 @@ const Ac = () => {
             </label>
           </div>
           {uploadedImages.ClimateControlAC && (
-            <img src={uploadedImages.ClimateControlAC} alt="Uploaded" style={{ maxWidth: '100%', marginTop: '10px' }} />
+            <img
+              src={uploadedImages.ClimateControlAC}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.ClimateControlAC)}
+            />
           )}
         </Grid>
 
@@ -143,7 +188,6 @@ const Ac = () => {
             <InputLabel>Ac Vent</InputLabel>
             <Select
               name="AcVent"
-              multiple
               value={formData.AcVent}
               onChange={handleChange}
             >
@@ -165,11 +209,35 @@ const Ac = () => {
             </label>
           </div>
           {uploadedImages.AcVent && (
-            <img src={uploadedImages.AcVent} alt="Uploaded" style={{ maxWidth: '100%', marginTop: '10px' }} />
+            <img
+              src={uploadedImages.AcVent}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.AcVent)}
+            />
           )}
         </Grid>
 
       </Grid>
+
+      {/* Modal for displaying clicked image */}
+      <Modal
+        open={openModal}
+        onClose={closeModal}
+        className={classes.modal}
+      >
+        <div className={classes.paper}>
+          {selectedImage && (
+            <div>
+              <img src={selectedImage} alt="Selected" className={classes.image} />
+              <Button onClick={closeModal} variant="contained" color="secondary" style={{ marginTop: '10px' }}>
+                Close
+              </Button>
+            </div>
+          )}
+        </div>
+      </Modal>
+
       <div className="flex justify-between mt-10 px-8">
         <Button variant="contained" color="primary">
           Previous

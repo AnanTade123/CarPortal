@@ -1,25 +1,96 @@
-import React from 'react';
-import { MenuItem, FormControl, Select, InputLabel, Grid, Typography } from '@material-ui/core';
+import  { useState } from 'react';
+import {
+  MenuItem,
+  FormControl,
+  Select,
+  InputLabel,
+  Grid,
+  Typography,
+  Button,
+  Modal,
+  makeStyles,
+} from '@material-ui/core';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    outline: 'none',
+    maxWidth: '90%',
+    maxHeight: '90%',
+  },
+  image: {
+    maxWidth: '100%',
+    maxHeight: '100%',
+    objectFit: 'contain',
+  },
+}));
 
 const Engine = () => {
-  const [formData, setFormData] = React.useState({
-    Engine: [],
-    EnginMounting: [],
-    EngineSound: [],
-    Exhaustsmoke: [],
-    Gearbox: [],
-    Engineoil: [],
-    Battery: [],
-    Coolant: [],
-    Clutch: [],
+  const classes = useStyles();
+
+  const [formData, setFormData] = useState({
+    Engine: null,
+    EngineMounting: null,
+    EngineSound: null,
+    Exhaustsmoke: null,
+    Gearbox: null,
+    Engineoil: null,
+    Battery: null,
+    Coolant: null,
+    Clutch: null,
   });
+
+  const [uploadedImages, setUploadedImages] = useState({
+    Engine: null,
+    EngineMounting: null,
+    EngineSound: null,
+    Exhaustsmoke: null,
+    Gearbox: null,
+    Engineoil: null,
+    Battery: null,
+    Coolant: null,
+    Clutch: null,
+  });
+
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleFileChange = (event, fieldName) => {
+    const file = event.target.files[0];
+    console.log('Selected file:', file);
+    // Update formData state with file details
+    setFormData({ ...formData, [fieldName]: file });
+
+    // Read the file and convert it to URL for preview
+    const reader = new FileReader();
+    reader.onload = () => {
+      setUploadedImages({ ...uploadedImages, [fieldName]: reader.result });
+    };
+    reader.readAsDataURL(file);
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  console.log(formData);
+  const handleImageClick = (image) => {
+    setSelectedImage(image);
+    setOpenModal(true);
+  };
+
+  const closeModal = () => {
+    setOpenModal(false);
+    setSelectedImage(null);
+  };
 
   return (
     <div className='p-4'>
@@ -32,7 +103,6 @@ const Engine = () => {
             <InputLabel>Engine</InputLabel>
             <Select
               name="Engine"
-              multiple
               value={formData.Engine}
               onChange={handleChange}
             >
@@ -45,15 +115,35 @@ const Engine = () => {
               <MenuItem value="Over Heating">Over Heating</MenuItem>
             </Select>
           </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: 'none' }}
+              id="upload-Engine"
+              type="file"
+              onChange={(event) => handleFileChange(event, 'Engine')}
+            />
+            <label htmlFor="upload-Engine" className="cursor-pointer flex items-center">
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.Engine && (
+            <img
+              src={uploadedImages.Engine}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.Engine)}
+            />
+          )}
         </Grid>
 
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
-            <InputLabel>EnginMounting</InputLabel>
+            <InputLabel>Engine Mounting</InputLabel>
             <Select
-              name="EnginMounting"
-              multiple
-              value={formData.EnginMounting}
+              name="EngineMounting"
+              value={formData.EngineMounting}
               onChange={handleChange}
             >
               <MenuItem value="Loose">Loose</MenuItem>
@@ -61,46 +151,71 @@ const Engine = () => {
               <MenuItem value="Excess Vibration">Excess Vibration</MenuItem>
             </Select>
           </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: 'none' }}
+              id="upload-EngineMounting"
+              type="file"
+              onChange={(event) => handleFileChange(event, 'EngineMounting')}
+            />
+            <label htmlFor="upload-EngineMounting" className="cursor-pointer flex items-center">
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.EngineMounting && (
+            <img
+              src={uploadedImages.EngineMounting}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.EngineMounting)}
+            />
+          )}
         </Grid>
 
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
-            <InputLabel>EngineSound</InputLabel>
+            <InputLabel>Engine Sound</InputLabel>
             <Select
               name="EngineSound"
-              multiple
               value={formData.EngineSound}
               onChange={handleChange}
             >
-              <MenuItem value="minor sound">Minor sound</MenuItem>
+              <MenuItem value="Minor sound">Minor sound</MenuItem>
               <MenuItem value="No engine sound">No engine sound</MenuItem>
-              <MenuItem value="critical sound">Critical sound</MenuItem>
+              <MenuItem value="Critical sound">Critical sound</MenuItem>
               <MenuItem value="No Blow-by">No Blow-by</MenuItem>
             </Select>
           </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: 'none' }}
+              id="upload-EngineSound"
+              type="file"
+              onChange={(event) => handleFileChange(event, 'EngineSound')}
+            />
+            <label htmlFor="upload-EngineSound" className="cursor-pointer flex items-center">
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.EngineSound && (
+            <img
+              src={uploadedImages.EngineSound}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.EngineSound)}
+            />
+          )}
         </Grid>
 
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
-            <InputLabel>Gearbox</InputLabel>
-            <Select
-              name="Gearbox"
-              multiple
-              value={formData.Gearbox}
-              onChange={handleChange}
-            >
-              <MenuItem value="oil leakage">Oil leakage</MenuItem>
-              <MenuItem value="shifting-Hard">Shifting-Hard</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel>Exhaustsmoke</InputLabel>
+            <InputLabel>Exhaust Smoke</InputLabel>
             <Select
               name="Exhaustsmoke"
-              multiple
               value={formData.Exhaustsmoke}
               onChange={handleChange}
             >
@@ -109,22 +224,98 @@ const Engine = () => {
               <MenuItem value="Silencer assembly Damaged and Create Noise">Silencer assembly Damaged and Create Noise</MenuItem>
             </Select>
           </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: 'none' }}
+              id="upload-Exhaustsmoke"
+              type="file"
+              onChange={(event) => handleFileChange(event, 'Exhaustsmoke')}
+            />
+            <label htmlFor="upload-Exhaustsmoke" className="cursor-pointer flex items-center">
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.Exhaustsmoke && (
+            <img
+              src={uploadedImages.Exhaustsmoke}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.Exhaustsmoke)}
+            />
+          )}
         </Grid>
 
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
-            <InputLabel>Engine oil</InputLabel>
+            <InputLabel>Gearbox</InputLabel>
+            <Select
+              name="Gearbox"
+              value={formData.Gearbox}
+              onChange={handleChange}
+            >
+              <MenuItem value="Oil leakage">Oil leakage</MenuItem>
+              <MenuItem value="Shifting-Hard">Shifting-Hard</MenuItem>
+            </Select>
+          </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: 'none' }}
+              id="upload-Gearbox"
+              type="file"
+              onChange={(event) => handleFileChange(event, 'Gearbox')}
+            />
+            <label htmlFor="upload-Gearbox" className="cursor-pointer flex items-center">
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.Gearbox && (
+            <img
+              src={uploadedImages.Gearbox}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.Gearbox)}
+            />
+          )}
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth>
+            <InputLabel>Engine Oil</InputLabel>
             <Select
               name="Engineoil"
-              multiple
               value={formData.Engineoil}
               onChange={handleChange}
             >
-              <MenuItem value="Dirty">Dirty</MenuItem>
-              <MenuItem value="leakage from Tappet Cover and Side Cover">leakage from Tappet Cover and Side Cover</MenuItem>
-              <MenuItem value="oil level">Oil level</MenuItem>
+              <MenuItem value="Low Level">Low Level</MenuItem>
+              <MenuItem value="Leakage">Leakage</MenuItem>
+              <MenuItem value="Deteriorated">Deteriorated</MenuItem>
             </Select>
           </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: 'none' }}
+              id="upload-Engineoil"
+              type="file"
+              onChange={(event) => handleFileChange(event, 'Engineoil')}
+            />
+            <label htmlFor="upload-Engineoil" className="cursor-pointer flex items-center">
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.Engineoil && (
+            <img
+              src={uploadedImages.Engineoil}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.Engineoil)}
+            />
+          )}
         </Grid>
 
         <Grid item xs={12} sm={6}>
@@ -132,14 +323,34 @@ const Engine = () => {
             <InputLabel>Battery</InputLabel>
             <Select
               name="Battery"
-              multiple
               value={formData.Battery}
               onChange={handleChange}
             >
-              <MenuItem value="Weak">Weak</MenuItem>
-              <MenuItem value="jump start">Jump start</MenuItem>
+              <MenuItem value="Battery Voltage 2.5 Volt">Battery Voltage 2.5 Volt</MenuItem>
+              <MenuItem value="Electrical Fault - Start Motor">Electrical Fault - Start Motor</MenuItem>
             </Select>
           </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: 'none' }}
+              id="upload-Battery"
+              type="file"
+              onChange={(event) => handleFileChange(event, 'Battery')}
+            />
+            <label htmlFor="upload-Battery" className="cursor-pointer flex items-center">
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.Battery && (
+            <img
+              src={uploadedImages.Battery}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.Battery)}
+            />
+          )}
         </Grid>
 
         <Grid item xs={12} sm={6}>
@@ -147,13 +358,35 @@ const Engine = () => {
             <InputLabel>Coolant</InputLabel>
             <Select
               name="Coolant"
-              multiple
               value={formData.Coolant}
               onChange={handleChange}
             >
-              <MenuItem value="leaking">Leaking</MenuItem>
+              <MenuItem value="Low Level">Low Level</MenuItem>
+              <MenuItem value="Leakage">Leakage</MenuItem>
+              <MenuItem value="Deteriorated">Deteriorated</MenuItem>
             </Select>
           </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: 'none' }}
+              id="upload-Coolant"
+              type="file"
+              onChange={(event) => handleFileChange(event, 'Coolant')}
+            />
+            <label htmlFor="upload-Coolant" className="cursor-pointer flex items-center">
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.Coolant && (
+            <img
+              src={uploadedImages.Coolant}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.Coolant)}
+            />
+          )}
         </Grid>
 
         <Grid item xs={12} sm={6}>
@@ -161,27 +394,64 @@ const Engine = () => {
             <InputLabel>Clutch</InputLabel>
             <Select
               name="Clutch"
-              multiple
               value={formData.Clutch}
               onChange={handleChange}
             >
-              <MenuItem value="damaged">Damaged</MenuItem>
-              <MenuItem value="Spongy">Spongy</MenuItem>
+              <MenuItem value="Slipping">Slipping</MenuItem>
               <MenuItem value="Hard">Hard</MenuItem>
-              <MenuItem value="Slip/ Low pick up">Slip/ Low pick up</MenuItem>
             </Select>
           </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: 'none' }}
+              id="upload-Clutch"
+              type="file"
+              onChange={(event) => handleFileChange(event, 'Clutch')}
+            />
+            <label htmlFor="upload-Clutch" className="cursor-pointer flex items-center">
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.Clutch && (
+            <img
+              src={uploadedImages.Clutch}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.Clutch)}
+            />
+          )}
         </Grid>
+
       </Grid>
-      <div className="flex justify-between mt-10 px-8">
-      <button className="bg-blue-300 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-24">
-        Previous
-      </button>
-      <button className="bg-blue-300 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-24"
+
+      {/* Modal for displaying clicked image */}
+      <Modal
+        open={openModal}
+        onClose={closeModal}
+        className={classes.modal}
       >
-        Next
-      </button>
-    </div>
+        <div className={classes.paper}>
+          {selectedImage && (
+            <div>
+              <img src={selectedImage} alt="Selected" className={classes.image} />
+              <Button onClick={closeModal} variant="contained" color="secondary" style={{ marginTop: '10px' }}>
+                Close
+              </Button>
+            </div>
+          )}
+        </div>
+      </Modal>
+
+      <div className="flex justify-between mt-10 px-8">
+        <Button variant="contained" color="primary">
+          Previous
+        </Button>
+        <Button variant="contained" color="primary">
+          Next
+        </Button>
+      </div>
     </div>
   );
 };

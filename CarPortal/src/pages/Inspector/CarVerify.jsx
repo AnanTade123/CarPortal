@@ -18,11 +18,7 @@ import Electrical from "./Electrical";
 export default function CarVerify() {
   const [activeTab, setActiveTab] = React.useState("html");
   const data = [
-    {
-      label: "Inspection Report",
-      value: "html",
-      desc: <InspectionReport/>,
-    },
+    
     {
       label: "Exterior",
       value: "react",
@@ -53,6 +49,11 @@ export default function CarVerify() {
       value: "steering",
       desc:<Steering/>,
     },
+    {
+      label: "Inspection Report",
+      value: "html",
+      desc: <InspectionReport/>,
+    }
   ];
 
   return (
