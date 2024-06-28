@@ -49,14 +49,17 @@ import { object } from "prop-types";
 import PendingRequest2 from "./pages/dealer/PendingRequest2";
 // import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
 import SalesList from "./pages/adminpages/SalesList"
+import CarListing from "./pages/sales/CarListing";
+
 import CarListModels from "./pages/adminpages/CarListModels";
+import SellForCar from "./pages/dealer/SellForCar";
 
 export default function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/pendingrequest2" element={<PendingRequest2 />}/>
+        <Route path="/pendingrequest2" element={<PendingRequest2 />} />
         <Route element={<AppLayout />}>
           <Route path="signin" element={<LoginCard />} />
           <Route path="signup" element={<SimpleRegistrationForm />} />
@@ -78,9 +81,9 @@ export default function App() {
             }
           >
             <Route path="/admin" element={<Admin />} />
-            
+
             <Route path="/inspector" element={<InspectorList />} />
-            <Route path="/saleslist" element={<SalesList/>} />
+            <Route path="/saleslist" element={<SalesList />} />
             <Route path="/CarInspection" element={<CarInspectionTable />} />
             {/* <Route path="/admin/inspector/info/:ProfileId" element={<AdminInspectorInfo />} /> */}
             <Route path="/carlistmodel" element={<CarListModels />} />
@@ -100,19 +103,19 @@ export default function App() {
               path="/transactionbyaccount"
               element={<TransactionByAccount />}
             />
-             <Route
+            <Route
               path="/wallet"
-              element={<Wallet/>}
+              element={<Wallet />}
             />
             <Route
               path="/transactioncontroller"
-              element={<TransactionController/>}
+              element={<TransactionController />}
             />
-             {/* <Route
+            <Route
               path="/carlisting"
-              element={<CarListing/>}
-            /> */}
-            
+              element={<CarListing />}
+            />
+
           </Route>
 
           <Route
@@ -120,7 +123,9 @@ export default function App() {
               <DealerMiddleware allowedRoles={[...Object.values(onlyDealer)]} />
             }
           >
-            <Route path="/dealer/:id" element={<DealerDashboard />} />
+            <Route path="/dealer/biddingcar" element={<DealerDashboard />} />
+            {/* <Route path="/dealer/:id" element={<DealerDashboard />} /> */}
+            <Route path="/dealer/:id" element={<SellForCar />} />
             <Route path="/dealer/:id/addcar" element={<AddDealerCar />} />
             <Route path="/dealer/:id/uploadimage" element={<Uploadimages2 />} />
             <Route
@@ -147,9 +152,13 @@ export default function App() {
             />
           </Route>
 
-          <Route element={<InspectorMiddleware allowedRoles={[...Object.values(onlyInspector)]}/>} >
-            <Route path="/Inspector/carverify" element={<CarVerify />} />
-        </Route>
+          <Route element={<InspectorMiddleware allowedRoles={[...Object.values(onlyInspector)]} />} >
+            <Route path="/inspector/carverify/:id" element={<CarVerify />} />
+            <Route
+              path="/carsdata"
+              element={<CarListing />}
+            />
+          </Route>
 
           <Route path="/bidding" element={<BiddingMainPage />} />
           <Route path="/bidding/:userid/addcar" element={<BiddingAddCar />} />
@@ -160,15 +169,15 @@ export default function App() {
             element={<BiddingDealerPendingReq />}
           />
         </Route>
-        
-           {/* <Route path="/trans" element={<CardDetailss/>}/> */}
+
+        {/* <Route path="/trans" element={<CardDetailss/>}/> */}
         <Route element={<AppLayout2 />}>
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/cookiepolicy" element={<CookiePolicy />} />
         </Route>
-        
+
       </Routes>
     </>
   );
