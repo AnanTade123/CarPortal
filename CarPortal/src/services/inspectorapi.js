@@ -17,7 +17,26 @@ export const inspectorAPI = apiSlice.injectEndpoints({
       }),
        // Same here
     }),
+
+    inspectionReport : builder.mutation ({
+      query : (formdata) => ({
+        url : `/uploadFileBidCar/add?documentType=Interior&carId=10&doc=ABC&doctype=ABC&subtype=PQR&comment=Yes`,
+        method : "POST",
+        body :formdata
+      }),
+    }),
+
+    getInspectionReport : builder.query ({
+      query :({id ,docType}) => ({
+        url : `/uploadFile/getCarIdType?carId=${id}&docType=${docType}`,
+        transerResponse:console.log("APi response",id, docType),
+        method : "GET"
+      }),
+    }),
   }),
 });
 
-export const { useInspectorByIdQuery , useGetallInspectorQuery} = inspectorAPI;
+export const { useInspectorByIdQuery ,
+   useGetallInspectorQuery,
+   useGetInspectionReportQuery,
+   useInspectionReportMutation } = inspectorAPI;

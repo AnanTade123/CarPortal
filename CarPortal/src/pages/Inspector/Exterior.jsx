@@ -1,20 +1,64 @@
-import React from 'react';
-import { MenuItem, FormControl, Select, InputLabel,  Grid, Typography } from '@material-ui/core';
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import WindshieldAndLights from "./ExteriorsComponent/WindshieldAndLights";
+import Tyre from "./ExteriorsComponent/Tyre";
+import OtherComponent from "./ExteriorsComponent/OtherComponent";
+import React, { useState } from "react";
+import {
+  MenuItem,
+  FormControl,
+  Select,
+  InputLabel,
+  Grid,
+  Typography,
+  Button,
+  Modal,
+  makeStyles,
+} from "@material-ui/core";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import {useGetInspectionReportQuery} from "../../services/inspectorapi"
+import { useParams } from "react-router-dom";
+
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    outline: "none",
+    maxWidth: "90%",
+    maxHeight: "90%",
+  },
+  image: {
+    maxWidth: "100%",
+    maxHeight: "100%",
+    objectFit: "contain",
+  },
+}));
 
 const Exterior = () => {
-
-  const [formData, setFormData] = React.useState({
-    BonnetHood : [],
-    RightDoorFront : [],
-    LeftDoorFront : [],
+  const classes = useStyles();
+  const {id} = useParams()
+  console.log(id)
+const {data} = useGetInspectionReportQuery({id , docType : "Exterior"})
+console.log(data)
+  
+const [formData, setFormData] = useState({
+    BonnetHood: [],
+    RightDoorFront: [],
+    LeftDoorFront: [],
     RightFender: [],
     LeftQuarterPanel: [],
     RightQuarterPanel: [],
-    Roof : [],
-    DickyDoor : [],
-    LeftDoorRear : [],
-    RightDoorRear : [],
-    LHSFrontTyre : [],
+    Roof: [],
+    DickyDoor: [],
+    LeftDoorRear: [],
+    RightDoorRear: [],
+    LHSFrontTyre: [],
     RHSFrontTyre: [],
     LHSRearTyre: [],
     RHSRearTyre: [],
@@ -30,60 +74,132 @@ const Exterior = () => {
     HeadLightSupport: [],
     RadiatorSupport: [],
     AlloyWheel: [],
-
-
+  });
+console.log(formData)
+  const [uploadedImages, setUploadedImages] = useState({
+    BonnetHood: null,
+    RightDoorFront: null,
+    LeftDoorFront: null,
+    RightFender: null,
+    LeftQuarterPanel: null,
+    RightQuarterPanel: null,
+    Roof: null,
+    DickyDoor: null,
+    LeftDoorRear: null,
+    RightDoorRear: null,
+    LHSFrontTyre: null,
+    RHSFrontTyre: null,
+    LHSRearTyre: null,
+    RHSRearTyre: null,
+    SpareTyre: null,
+    Windshield: null,
+    Light: null,
+    FrontBumper: null,
+    RearBumper: null,
+    LHSHeadlight: null,
+    RHSHeadlight: null,
+    LHSTaillight: null,
+    RHSTaillight: null,
+    HeadLightSupport: null,
+    RadiatorSupport: null,
+    AlloyWheel: null,
   });
 
- 
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleFileChange = (event, fieldName) => {
+    const file = event.target.files[0];
+    // Update formData state with file details
+    setFormData({ ...formData, [fieldName]: file });
+
+    // Read the file and convert it to URL for preview
+    const reader = new FileReader();
+    reader.onload = () => {
+      setUploadedImages({ ...uploadedImages, [fieldName]: reader.result });
+    };
+    reader.readAsDataURL(file);
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
-console.log(formData)
-  return (
-    <div className='p-4'>
 
-{/* Exterior Panel */}
-      <Typography variant="h4" className='text-black font-bold pb-5'>
-      Exterior Panel
+  const handleImageClick = (image) => {
+    setSelectedImage(image);
+    setOpenModal(true);
+  };
+
+  const closeModal = () => {
+    setOpenModal(false);
+    setSelectedImage(null);
+  };
+
+  return (
+    <div className="p-4">
+      <Typography variant="h4" className="text-black font-bold pb-5">
+        Exterior Panel
       </Typography>
       <Grid container spacing={3}>
-       
-        <Grid item xs={12} sm={6} >
+        {/* Bonnet Hood */}
+        <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
             <InputLabel>Bonnet Hood</InputLabel>
             <Select
               name="BonnetHood"
               value={formData.BonnetHood}
               onChange={handleChange}
-              color="Green"
-              multiple
-              
             >
-              <MenuItem value="Yes"> Repainted </MenuItem>
+              <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
               <MenuItem value="Rusted">Rusted</MenuItem>
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
-
             </Select>
           </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="upload-BonnetHood"
+              type="file"
+              onChange={(event) => handleFileChange(event, "BonnetHood")}
+            />
+            <label
+              htmlFor="upload-BonnetHood"
+              className="cursor-pointer flex items-center"
+            >
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.BonnetHood && (
+            <img
+              src={uploadedImages.BonnetHood}
+              alt="Uploaded"
+              style={{
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => handleImageClick(uploadedImages.BonnetHood)}
+            />
+          )}
         </Grid>
 
-        {/* Mismatch in RC */}
+        {/* Right Door Front */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
-            <InputLabel>Right Door Front </InputLabel>
+            <InputLabel>Right Door Front</InputLabel>
             <Select
-              name="RightDoorFront "
-              value={formData.RightDoorFront }
+              name="RightDoorFront"
+              value={formData.RightDoorFront}
               onChange={handleChange}
-              multiple
             >
-              <MenuItem value="Yes"> Repainted </MenuItem>
+              <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
               <MenuItem value="Rusted">Rusted</MenuItem>
@@ -92,9 +208,37 @@ console.log(formData)
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="upload-RightDoorFront"
+              type="file"
+              onChange={(event) => handleFileChange(event, "RightDoorFront")}
+            />
+            <label
+              htmlFor="upload-RightDoorFront"
+              className="cursor-pointer flex items-center"
+            >
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.RightDoorFront && (
+            <img
+              src={uploadedImages.RightDoorFront}
+              alt="Uploaded"
+              style={{
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => handleImageClick(uploadedImages.RightDoorFront)}
+            />
+          )}
         </Grid>
 
-        {/* RTO NOC Issued */}
+        {/* Left Door Front */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
             <InputLabel>Left Door Front</InputLabel>
@@ -102,9 +246,8 @@ console.log(formData)
               name="LeftDoorFront"
               value={formData.LeftDoorFront}
               onChange={handleChange}
-              multiple
             >
-            <MenuItem value="Yes"> Repainted </MenuItem>
+              <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
               <MenuItem value="Rusted">Rusted</MenuItem>
@@ -113,9 +256,37 @@ console.log(formData)
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="upload-LeftDoorFront"
+              type="file"
+              onChange={(event) => handleFileChange(event, "LeftDoorFront")}
+            />
+            <label
+              htmlFor="upload-LeftDoorFront"
+              className="cursor-pointer flex items-center"
+            >
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.LeftDoorFront && (
+            <img
+              src={uploadedImages.LeftDoorFront}
+              alt="Uploaded"
+              style={{
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => handleImageClick(uploadedImages.LeftDoorFront)}
+            />
+          )}
         </Grid>
 
-        {/* Insurance Type */}
+        {/* Right Fender */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
             <InputLabel>Right Fender</InputLabel>
@@ -123,9 +294,8 @@ console.log(formData)
               name="RightFender"
               value={formData.RightFender}
               onChange={handleChange}
-              multiple
             >
-              <MenuItem value="Yes"> Repainted </MenuItem>
+              <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
               <MenuItem value="Rusted">Rusted</MenuItem>
@@ -134,20 +304,46 @@ console.log(formData)
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="upload-RightFender"
+              type="file"
+              onChange={(event) => handleFileChange(event, "RightFender")}
+            />
+            <label
+              htmlFor="upload-RightFender"
+              className="cursor-pointer flex items-center"
+            >
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.RightFender && (
+            <img
+              src={uploadedImages.RightFender}
+              alt="Uploaded"
+              style={{
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => handleImageClick(uploadedImages.RightFender)}
+            />
+          )}
         </Grid>
 
-        {/* No Claim Bonus */}
+        {/* Left Quarter Panel */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
-            <InputLabel> Left Quarter Panel</InputLabel>
+            <InputLabel>Left Quarter Panel</InputLabel>
             <Select
-              name=" LeftQuarterPanel"
-              value={formData. LeftQuarterPanel}
+              name="LeftQuarterPanel"
+              value={formData.LeftQuarterPanel}
               onChange={handleChange}
-              multiple
-              
             >
-             <MenuItem value="Yes"> Repainted </MenuItem>
+              <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
               <MenuItem value="Rusted">Rusted</MenuItem>
@@ -156,19 +352,46 @@ console.log(formData)
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="upload-LeftQuarterPanel"
+              type="file"
+              onChange={(event) => handleFileChange(event, "LeftQuarterPanel")}
+            />
+            <label
+              htmlFor="upload-LeftQuarterPanel"
+              className="cursor-pointer flex items-center"
+            >
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.LeftQuarterPanel && (
+            <img
+              src={uploadedImages.LeftQuarterPanel}
+              alt="Uploaded"
+              style={{
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => handleImageClick(uploadedImages.LeftQuarterPanel)}
+            />
+          )}
         </Grid>
 
-        {/* Under Hypothecation */}
+        {/* Right Quarter Panel */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
-            <InputLabel>RightQuarterPanel</InputLabel>
+            <InputLabel>Right Quarter Panel</InputLabel>
             <Select
               name="RightQuarterPanel"
               value={formData.RightQuarterPanel}
               onChange={handleChange}
-              multiple
             >
-            <MenuItem value="Yes"> Repainted </MenuItem>
+              <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
               <MenuItem value="Rusted">Rusted</MenuItem>
@@ -177,19 +400,42 @@ console.log(formData)
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="upload-RightQuarterPanel"
+              type="file"
+              onChange={(event) => handleFileChange(event, "RightQuarterPanel")}
+            />
+            <label
+              htmlFor="upload-RightQuarterPanel"
+              className="cursor-pointer flex items-center"
+            >
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.RightQuarterPanel && (
+            <img
+              src={uploadedImages.RightQuarterPanel}
+              alt="Uploaded"
+              style={{
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => handleImageClick(uploadedImages.RightQuarterPanel)}
+            />
+          )}
         </Grid>
 
-        {/* Road Tax Paid */}
+        {/* Roof */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
             <InputLabel>Roof</InputLabel>
-            <Select
-              name="Roof"
-              value={formData.Roof}
-              onChange={handleChange}
-              multiple
-            >
-              <MenuItem value="Yes"> Repainted </MenuItem>
+            <Select name="Roof" value={formData.Roof} onChange={handleChange}>
+              <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
               <MenuItem value="Rusted">Rusted</MenuItem>
@@ -198,9 +444,37 @@ console.log(formData)
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="upload-Roof"
+              type="file"
+              onChange={(event) => handleFileChange(event, "Roof")}
+            />
+            <label
+              htmlFor="upload-Roof"
+              className="cursor-pointer flex items-center"
+            >
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.Roof && (
+            <img
+              src={uploadedImages.Roof}
+              alt="Uploaded"
+              style={{
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => handleImageClick(uploadedImages.Roof)}
+            />
+          )}
         </Grid>
 
-        {/* Partipeshi Request */}
+        {/* Dicky Door */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
             <InputLabel>Dicky Door</InputLabel>
@@ -208,9 +482,8 @@ console.log(formData)
               name="DickyDoor"
               value={formData.DickyDoor}
               onChange={handleChange}
-              multiple
             >
-              <MenuItem value="Yes"> Repainted </MenuItem>
+              <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
               <MenuItem value="Rusted">Rusted</MenuItem>
@@ -219,19 +492,46 @@ console.log(formData)
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="upload-DickyDoor"
+              type="file"
+              onChange={(event) => handleFileChange(event, "DickyDoor")}
+            />
+            <label
+              htmlFor="upload-DickyDoor"
+              className="cursor-pointer flex items-center"
+            >
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.DickyDoor && (
+            <img
+              src={uploadedImages.DickyDoor}
+              alt="Uploaded"
+              style={{
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => handleImageClick(uploadedImages.DickyDoor)}
+            />
+          )}
         </Grid>
 
-        {/* Duplicate Key */}
+        {/* Left Door Rear */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
-            <InputLabel>LeftDoorRear</InputLabel>
+            <InputLabel>Left Door Rear</InputLabel>
             <Select
               name="LeftDoorRear"
               value={formData.LeftDoorRear}
               onChange={handleChange}
-              multiple
             >
-              <MenuItem value="Yes"> Repainted </MenuItem>
+              <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
               <MenuItem value="Rusted">Rusted</MenuItem>
@@ -240,19 +540,46 @@ console.log(formData)
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="upload-LeftDoorRear"
+              type="file"
+              onChange={(event) => handleFileChange(event, "LeftDoorRear")}
+            />
+            <label
+              htmlFor="upload-LeftDoorRear"
+              className="cursor-pointer flex items-center"
+            >
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.LeftDoorRear && (
+            <img
+              src={uploadedImages.LeftDoorRear}
+              alt="Uploaded"
+              style={{
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => handleImageClick(uploadedImages.LeftDoorRear)}
+            />
+          )}
         </Grid>
 
-        {/* Chassis Number Embossing */}
+        {/* Right Door Rear */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
-            <InputLabel>RightDoorRear</InputLabel>
+            <InputLabel>Right Door Rear</InputLabel>
             <Select
               name="RightDoorRear"
               value={formData.RightDoorRear}
               onChange={handleChange}
-              multiple
             >
-             <MenuItem value="Yes"> Repainted </MenuItem>
+              <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
               <MenuItem value="Rusted">Rusted</MenuItem>
@@ -261,424 +588,72 @@ console.log(formData)
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="upload-RightDoorRear"
+              type="file"
+              onChange={(event) => handleFileChange(event, "RightDoorRear")}
+            />
+            <label
+              htmlFor="upload-RightDoorRear"
+              className="cursor-pointer flex items-center"
+            >
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.RightDoorRear && (
+            <img
+              src={uploadedImages.RightDoorRear}
+              alt="Uploaded"
+              style={{
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => handleImageClick(uploadedImages.RightDoorRear)}
+            />
+          )}
         </Grid>
-
-        
-        
       </Grid>
 
+      {/* Modal for displaying clicked image */}
+      <Modal open={openModal} onClose={closeModal} className={classes.modal}>
+        <div className={classes.paper}>
+          {selectedImage && (
+            <div>
+              <img
+                src={selectedImage}
+                alt="Selected"
+                className={classes.image}
+              />
+              <Button
+                onClick={closeModal}
+                variant="contained"
+                color="secondary"
+                style={{ marginTop: "10px" }}
+              >
+                Close
+              </Button>
+            </div>
+          )}
+        </div>
+      </Modal>
 
-{/* TYRE 
-LHS Front Tyre : options - ok- 69-85% , not-ok- 22-38%, Damaged
-RHS Front Tyre : options - 69-85%, Damaged
-LHS Rear Tyre : options - 69-85%, Damaged
-RHS Rear Tyre : options - 69-85%, Damaged
-Spare Tyre : options - 69-85%, Damaged
-*/}
-      <Typography variant="h4" className='text-black font-bold pb-5 pt-16 '>
-        Tyres
-      </Typography>
-      <Grid container spacing={3}>
-       
-        <Grid item xs={12} sm={6} >
-          <FormControl fullWidth>
-            <InputLabel>LHS Front Tyre</InputLabel>
-            <Select
-              name="LHSFrontTyre"
-              value={formData.LHSFrontTyre}
-              onChange={handleChange}
-              color="Green"
-              multiple
-              
-            >
-              <MenuItem value="ok-69-85%"> Ok  69-85% </MenuItem>
-              <MenuItem value="not-ok-22-38%">Not Ok 22-38%</MenuItem>
-              <MenuItem value="Damaged">Damaged</MenuItem>
-              
-
-            </Select>
-          </FormControl>
-        </Grid>
-
-        <Grid item xs={12} sm={6} >
-          <FormControl fullWidth>
-            <InputLabel>RHS Front Tyre</InputLabel>
-            <Select
-              name="RHSFrontTyre"
-              value={formData.RHSFrontTyre}
-              onChange={handleChange}
-              color="Green"
-              multiple
-              
-            >
-              <MenuItem value="ok-69-85%"> Ok  69-85% </MenuItem>
-              <MenuItem value="not-ok-22-38%">Not Ok 22-38%</MenuItem>
-              <MenuItem value="Damaged">Damaged</MenuItem>
-              
-
-            </Select>
-          </FormControl>
-        </Grid>
-
-        
-
-    
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel>LHS Rear Tyre</InputLabel>
-            <Select
-              name="LHSRearTyre"
-              value={formData.LHSRearTyre}
-              onChange={handleChange}
-              multiple
-            >
-            <MenuItem value="ok-69-85%"> Ok  69-85% </MenuItem>
-              <MenuItem value="not-ok-22-38%">Not Ok 22-38%</MenuItem>
-              <MenuItem value="Damaged">Damaged</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-
-     
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel>RHS Rear Tyre</InputLabel>
-            <Select
-              name="RHSRearTyre"
-              value={formData.RHSRearTyre}
-              onChange={handleChange}
-              multiple
-            >
-              <MenuItem value="ok-69-85%"> Ok  69-85% </MenuItem>
-              <MenuItem value="not-ok-22-38%">Not Ok 22-38%</MenuItem>
-              <MenuItem value="Damaged">Damaged</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel>Spare Tyre</InputLabel>
-            <Select
-              name="SpareTyre"
-              value={formData.SpareTyre}
-              onChange={handleChange}
-              multiple
-            >
-              <MenuItem value="ok-69-85%"> Ok  69-85% </MenuItem>
-              <MenuItem value="not-ok-22-38%">Not Ok 22-38%</MenuItem>
-              <MenuItem value="Damaged">Damaged</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        
-
- 
-        
-
-        
-        
-      </Grid>
-
-
-     {/* Windshield and Lights
-Windshield :- status/options - Repainted, Dented, Scratched, Rusted, Repaired, Damaged,
-Not Working
-Light :- status/options - Repainted, Dented, Scratched, Rusted, Repaired, Damaged,
-Not Working
-Front Bumper :- status/options - Repainted, Dented, Scratched, Rusted, Repaired, Damaged,
-Not Working
-Rear Bumper :- status/options - Repainted, Dented, Scratched, Rusted, Repaired, Damaged
-Not Working
-LHS Headlight :- status/options - Repainted, Dented, Scratched, Rusted, Repaired, Damaged,
-Not Working
-RHS Headlight :- status/options - Repainted, Dented, Scratched, Rusted, Repaired, Damaged,
-Not Working, moisture
-LHS Taillight :- status/options - Repainted, Dented, Scratched, Rusted, Repaired, Damaged,
-Not Working
-RHS Taillight :- status/options - Repainted, Dented, Scratched, Rusted, Repaired, Damaged,
-Not Working */}
-
-
-      <Typography variant="h4" className='text-black font-bold pb-5 pt-16 '>
-      Windshield And Lights
-      </Typography>
-      <Grid container spacing={3}>
-       
-        <Grid item xs={12} sm={6} >
-          <FormControl fullWidth>
-            <InputLabel>Windshield</InputLabel>
-            <Select
-              name="Windshield"
-              value={formData.Windshield}
-              onChange={handleChange}
-              color="Green"
-              multiple
-
-              
-            >
-             
-             <MenuItem value="Repainted"> Repainted </MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
-              <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted"> Rusted </MenuItem>
-              <MenuItem value="Repaired">Repaired</MenuItem>
-              <MenuItem value="Damaged">Damaged</MenuItem>
-              <MenuItem value="NotWorking">Not Working</MenuItem>
-              
-
-            </Select>
-          </FormControl>
-        </Grid>
-
-        <Grid item xs={12} sm={6} >
-          <FormControl fullWidth>
-            <InputLabel>Light</InputLabel>
-            <Select
-              name="Light"
-              value={formData.Light}
-              onChange={handleChange}
-              color="Green"
-              multiple
-              
-            >
-              <MenuItem value="Repainted"> Repainted </MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
-              <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted"> Rusted </MenuItem>
-              <MenuItem value="Repaired">Repaired</MenuItem>
-              <MenuItem value="Damaged">Damaged</MenuItem>
-              <MenuItem value="NotWorking">Not Working</MenuItem>
-              
-
-            </Select>
-          </FormControl>
-        </Grid>
-
-        
-
-    
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel>Front Bumper</InputLabel>
-            <Select
-              name="FrontBumper"
-              value={formData.FrontBumper}
-              onChange={handleChange}
-              multiple
-            >
-            <MenuItem value="ok-69-85%"> Ok  69-85% </MenuItem>
-              <MenuItem value="not-ok-22-38%">Not Ok 22-38%</MenuItem>
-              <MenuItem value="Damaged">Damaged</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-
-     
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel>Rear Bumper</InputLabel>
-            <Select
-              name="RearBumper"
-              value={formData.RearBumper}
-              onChange={handleChange}
-              multiple
-            >
-           
-           <MenuItem value="Repainted"> Repainted </MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
-              <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted"> Rusted </MenuItem>
-              <MenuItem value="Repaired">Repaired</MenuItem>
-              <MenuItem value="Damaged">Damaged</MenuItem>
-              <MenuItem value="NotWorking">Not Working</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel>LHS Headlight</InputLabel>
-            <Select
-              name="LHSHeadlight"
-              value={formData.LHSHeadlight}
-              onChange={handleChange}
-              multiple
-            >
-        
-        <MenuItem value="Repainted"> Repainted </MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
-              <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted"> Rusted </MenuItem>
-              <MenuItem value="Repaired">Repaired</MenuItem>
-              <MenuItem value="Damaged">Damaged</MenuItem>
-              <MenuItem value="NotWorking">Not Working</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-      
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel>RHS Headlight</InputLabel>
-            <Select
-              name="RHSHeadlight"
-              value={formData.RHSHeadlight}
-              onChange={handleChange}
-              multiple
-            >
-              
-              <MenuItem value="Repainted"> Repainted </MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
-              <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted"> Rusted </MenuItem>
-              <MenuItem value="Repaired">Repaired</MenuItem>
-              <MenuItem value="Damaged">Damaged</MenuItem>
-              <MenuItem value="NotWorking">Not Working</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel>LHS Taillight</InputLabel>
-            <Select
-              name="LHSTaillight"
-              value={formData.LHSTaillight}
-              onChange={handleChange}
-              multiple
-            >
-           
-           <MenuItem value="Repainted"> Repainted </MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
-              <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted"> Rusted </MenuItem>
-              <MenuItem value="Repaired">Repaired</MenuItem>
-              <MenuItem value="Damaged">Damaged</MenuItem>
-              <MenuItem value="NotWorking">Not Working</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel>RHS Taillight</InputLabel>
-            <Select
-              name="RHSTaillight"
-              value={formData.RHSTaillight}
-              onChange={handleChange}
-              multiple
-            >
-             
-             <MenuItem value="Repainted"> Repainted </MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
-              <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted"> Rusted </MenuItem>
-              <MenuItem value="Repaired">Repaired</MenuItem>
-              <MenuItem value="Damaged">Damaged</MenuItem>
-              <MenuItem value="NotWorking">Not Working</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        
-      </Grid>
-
-
-     {/* Other components
-Head Light Support :- status/options - Repainted, Dented, Scratched, Rusted, Repaired, Damaged
-Radiator Support :- status/options - Repainted, Dented, Scratched, Rusted, Repaired, Damaged
-Alloy Wheel :- status/options - Repainted, Dented, Scratched, Rusted, Repaired, Damaged
-Car Pooling on One Sid */}
-
-      <Typography variant="h4" className='text-black font-bold pb-5 pt-16 '>
-      Other Components
-      </Typography>
-      <Grid container spacing={3}>
-       
-        <Grid item xs={12} sm={6} >
-          <FormControl fullWidth>
-            <InputLabel>Head Light Support</InputLabel>
-            <Select
-              name="HeadLightSupport"
-              value={formData.HeadLightSupport}
-              onChange={handleChange}
-              color="Green"
-              multiple
-              
-            >
-             
-             <MenuItem value="Repainted"> Repainted </MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
-              <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted"> Rusted </MenuItem>
-              <MenuItem value="Repaired">Repaired</MenuItem>
-              <MenuItem value="Damaged">Damaged</MenuItem>
-           
-              
-
-            </Select>
-          </FormControl>
-        </Grid>
-
-        <Grid item xs={12} sm={6} >
-          <FormControl fullWidth>
-            <InputLabel>Radiator Support</InputLabel>
-            <Select
-              name="RadiatorSupport"
-              value={formData.RadiatorSupport}
-              onChange={handleChange}
-              color="Green"
-              multiple
-              
-            >
-              <MenuItem value="Repainted"> Repainted </MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
-              <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted"> Rusted </MenuItem>
-              <MenuItem value="Repaired">Repaired</MenuItem>
-              <MenuItem value="Damaged">Damaged</MenuItem>
-              
-              
-
-            </Select>
-          </FormControl>
-        </Grid>
-
-        
-
-    
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel>Alloy Wheel</InputLabel>
-            <Select
-              name="AlloyWheel"
-              value={formData.AlloyWheel}
-              onChange={handleChange}
-              multiple
-            >
-            
-            <MenuItem value="Repainted"> Repainted </MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
-              <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted"> Rusted </MenuItem>
-              <MenuItem value="Repaired">Repaired</MenuItem>
-              <MenuItem value="Damaged">Damaged</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-
-     
-       
-        
-      </Grid>
+      <WindshieldAndLights formData={formData} setFormData={setFormData} />
+      <Tyre formData={formData} setFormData={setFormData} />
+      <OtherComponent formData={formData} setFormData={setFormData} />
 
       <div className="flex justify-between mt-10 px-8">
-      <button className="bg-blue-300 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-24">
-        Previous
-      </button>
-      <button className="bg-blue-300 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-24"
-      >
-        Next
-      </button>
-    </div>
+        {/* <Button variant="contained" color="primary">
+          Previous
+        </Button>
+        <Button variant="contained" color="primary">
+          Next
+        </Button> */}
+      </div>
     </div>
   );
 };
