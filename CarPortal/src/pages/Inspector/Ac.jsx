@@ -6,7 +6,7 @@ import { MenuItem, FormControl, Select, InputLabel, Grid, Typography } from '@ma
 // Climate Control AC
 // Ac Vent :- status/options- damaged
 
-const AC = () => {
+const Ac = () => {
   const [formData, setFormData] = React.useState({
     ACCooling: [],
     Heater: [],
@@ -109,4 +109,4 @@ const AC = () => {
   );
 };
 
-export default AC;
+export default Ac;
