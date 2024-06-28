@@ -136,10 +136,10 @@ export default function EditDealerCar() {
     const res = await carUpdate({data,carId});
     console.log(res);
     if(res?.data?.status === 'success'){
-      navigate(`/dealer/${carId}/${id}/editimage`);
+      
       toast.success('Car Edited');
       setTimeout(() => {
-        navigate(`/dealer/${carId}/editimage`);
+        navigate(`/dealer/${carId}/${id}/editimage`);
       }, 1000)
       
     }

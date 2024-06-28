@@ -9,21 +9,46 @@ export const brandAPI = apiSlice.injectEndpoints({
         url: `/brands/getAll`,
         method: "GET",
       }),
-      providesTags: ["CAR"],
+      invalidatesTags: ["Admin"],
     }),
 
-    //POST 
+    //POST
     addCarBrands: builder.mutation({
-    query: (carBrand) => ({
+      query: (carBrand) => ({
         url: `/brands/add`,
         method: "POST",
         transferResponse: console.log(carBrand),
-        body: carBrand
+        body: carBrand,
+      }),
     }),
-  })
 
+    //PATCH
+    editBrandData: builder.mutation({
+      query: ({ inputField, id }) => ({
+        url: `/brands/edit?id=${id}`,
+        method: "PATCH",
+        transferResponse: console.log(id, inputField),
+        body: inputField,
+      }),
+      providesTags: ["Admin"],
+    }),
 
+    //DELETE
+  deleteCarBrands: builder.mutation({
+    query: (brandDataId) => ({
+      url: `/brands/delete?id=${brandDataId}`,
+      method: "DELETE",
+      transferResponse: console.log(brandDataId),
+    }),
+    invalidatesTags: ["Admin"],
   }),
+  }),
+
 });
 
-export const {useAddCarBrandsMutation, useGetAllBrandsQuery} = brandAPI
+export const {
+  useAddCarBrandsMutation,
+  useGetAllBrandsQuery,
+  useEditBrandDataMutation,
+  useDeleteCarBrandsMutation
+} = brandAPI;

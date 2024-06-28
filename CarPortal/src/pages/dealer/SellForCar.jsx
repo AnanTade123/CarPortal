@@ -315,7 +315,7 @@ const SellForCar = () => {
         </div>
       ) : (
         <div>
-          <p>Sell for car</p>
+          {/* <p>Sell for car</p> */}
           <Card className="h-full w-full">
           <Dialog open={open} handler={handleOpen}>
       <DialogBody className="flex justify-center" >
@@ -338,12 +338,12 @@ const SellForCar = () => {
             <CardHeader floated={false} shadow={false} className="rounded-none">
               <div className=" flex items-center justify-between gap-8">
                 <div>
-                  <Typography variant="h5" color="blue-gray">
+                  <Typography variant="h3" className="p-2" color="blue-gray">
                     Cars list
                   </Typography>
-                  <Typography color="gray" className="mt-1 font-normal">
+                  {/* <Typography color="gray" className="mt-1 font-normal">
                     See information about all cars
-                  </Typography>
+                  </Typography> */}
                 </div>
                 <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
                   <Link to={`/dealer/${id}/addcar`}>

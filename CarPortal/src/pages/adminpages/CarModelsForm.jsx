@@ -10,7 +10,7 @@ export function CarModelsForm({ addCar }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
 
-const [addCarBrands] = useAddCarBrandsMutation()
+  const [addCarBrands] = useAddCarBrandsMutation();
 
   // Form state
   const [formData, setFormData] = useState({
@@ -31,25 +31,29 @@ const [addCarBrands] = useAddCarBrandsMutation()
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    addCar(formData);
+
+    const carBrand = {
+      brand: formData.brand,
+      variant: formData.model,
+      subVariant: formData.variant,
+    };
+
+    try {
+      const res = await addCarBrands(carBrand).unwrap();
+      console.log(res);
+      addCar({ 
+        brandDataId: res.id, // assuming the response contains the id of the new car brand
+        ...carBrand 
+      });
+    } catch (error) {
+      console.error('Failed to add the car brand:', error);
+    }
+
     setFormData({
       brand: "",
       model: "",
       variant: "",
     });
-    const carBrand = {
-      brand:formData.brand,
-      variant : formData.model,
-      subVariant : formData.variant
-    }
-    console.log(carBrand)
-    console.log(formData);
-    try{
-      const res = await addCarBrands(carBrand)
-      console.log(res);
-    }catch (error){
-      console.log(error);
-    }
     setOpen(false);
   };
 
@@ -108,3 +112,5 @@ const [addCarBrands] = useAddCarBrandsMutation()
     </>
   );
 }
+
+export default CarModelsForm;

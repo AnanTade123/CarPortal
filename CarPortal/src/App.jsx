@@ -58,6 +58,7 @@ import SalesList from "./pages/adminpages/SalesList"
 // import CarListing from "./pages/sales/CarListing";
 
 import CarListModels from "./pages/adminpages/CarListModels";
+import SellForCar from "./pages/dealer/SellForCar";
 
 export default function App() {
   return (
@@ -129,7 +130,8 @@ export default function App() {
             }
           >
             <Route path="/dealer/biddingcar" element={<DealerDashboard />} />
-            <Route path="/dealer/:id" element={<DealerDashboard />} />
+            {/* <Route path="/dealer/:id" element={<DealerDashboard />} /> */}
+            <Route path="/dealer/:id" element={<SellForCar />} />
             <Route path="/dealer/:id/addcar" element={<AddDealerCar />} />
             <Route path="/dealer/:id/uploadimage" element={<Uploadimages2 />} />
             <Route path="/dealer/:id/edit" element={<DealerEdit />} />
