@@ -8,8 +8,6 @@ export function CardDefault2({ data }) {
   const carid = data?.carId;
   console.log(carid);
   return (
-    <Card className="mt-6 w-80 md:m-0 items-center max-w-[20rem] overflow-hidden border-2 shadow-lg  ">
-       <Link to={`/carlist/cardetails/${carid}`}>
     <Card className="mt-6 w-96 md:m-0 items-center max-w-[20rem] overflow-hidden">
       <div className="w-[18rem] h-[16rem] ">
       <Link to={`/carlist/cardetails/${carid}`}>
@@ -36,7 +34,7 @@ export function CardDefault2({ data }) {
         <hr />
         <p className="text-sm">Free Test Drive Today at {data.area}</p>
       </CardBody>
-      </Link>
+    
     </Card>
   );
 }
