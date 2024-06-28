@@ -11,8 +11,8 @@ export const inspectorAPI = apiSlice.injectEndpoints({
     }),
 
     getallInspector: builder.query({
-      query: () => ({
-        url: `/ispProfile/GetAllInspProfiles?pageNo=0&pageSize=10`,
+      query: ({ pageNo, pageSize }) => ({
+        url: `/ispProfile/GetAllInspProfiles?pageNo=${pageNo}&pageSize=${pageSize}`,
         method: "GET",
       }),
        // Same here
