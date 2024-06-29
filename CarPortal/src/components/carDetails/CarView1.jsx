@@ -81,7 +81,7 @@ const CarView1 = ({ carId }) => {
 
        
 {interior && (
-      <Carousel className="bg-white rounded-lg shadow-md w-[50rem] h-[37rem] ">
+      <Carousel className="bg-white rounded-lg shadow-md  ">
         {data.object.length > 0 ? data.object.map((item) => (
          
           <img
@@ -107,7 +107,7 @@ const CarView1 = ({ carId }) => {
     
 
         {exterior && (
-          <Carousel className="bg-white rounded-lg shadow-md w-[50rem] h-[37rem] ">
+          <Carousel className="bg-white rounded-lg shadow-md ">
           {data.object.length > 0 ?data.object.map((item) => (
             <img
               key={item.documentId}
@@ -126,7 +126,7 @@ const CarView1 = ({ carId }) => {
         )}
 
         {features && (
-          <Carousel className="bg-white rounded-lg shadow-md w-[50rem] h-[37rem]">
+          <Carousel className="bg-white rounded-lg shadow-md ">
           {data.object.length > 0 ?data.object.map((item) => (
             
             <img
@@ -146,7 +146,7 @@ const CarView1 = ({ carId }) => {
         )}
 
         {tyres && (
-           <Carousel className="bg-white rounded-lg shadow-md w-[50rem] h-[37rem]">
+           <Carousel className="bg-white rounded-lg shadow-md">
            {data.object.length > 0 ? data.object.map((item) => (
              <img
                key={item.documentId}
@@ -165,7 +165,7 @@ const CarView1 = ({ carId }) => {
         )}
 
         {engines && (
-          <Carousel className="bg-white rounded-lg shadow-md w-[50rem] h-[37rem] ">
+          <Carousel className="bg-white rounded-lg shadow-md  ">
           {data.object.length > 0 ? data.object.map((item) => (
             <img
               key={item.documentId}

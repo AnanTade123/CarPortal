@@ -55,6 +55,13 @@ import CarListModels from "./pages/adminpages/CarListModels";
 import SellForCar from "./pages/dealer/SellForCar";
 import BiddingDealerCars from "./pages/biddingDashboard/BiddingDealerCars";
 import CarListTable from "./pages/biddingDashboard/CarListTable";
+import CarDocumentSection from "./pages/InspectionReportPage/CarDocumentSection";
+import ExteriorSection from "./pages/InspectionReportPage/ExteriorSection";
+import EngineSection from "./pages/InspectionReportPage/EngineSection";
+import AcSection from "./pages/InspectionReportPage/AcSection";
+import ElectricalSection from "./pages/InspectionReportPage/ElectricalSection";
+import SteeringSection from "./pages/InspectionReportPage/SteeringSection";
+import InteriorSection from "./pages/InspectionReportPage/InteriorSection";
 
 export default function App() {
   return (
@@ -124,6 +131,34 @@ export default function App() {
             <Route
               path="/carlisttable"
               element={<CarListTable/>}
+            />
+             <Route
+              path="/cardocumentsection"
+              element={<CarDocumentSection/>}
+            />
+            <Route
+              path="/exteriorsection"
+              element={<ExteriorSection/>}
+            />
+            <Route
+              path="/enginesection"
+              element={<EngineSection/>}
+            />
+            <Route
+              path="/acsection"
+              element={<AcSection/>}
+            />
+            <Route
+              path="/electricalsection"
+              element={<ElectricalSection/>}
+            />
+            <Route
+              path="/steeringsection"
+              element={<SteeringSection/>}
+            />
+            <Route
+              path="/interiorsection"
+              element={<InteriorSection/>}
             />
           </Route>
 
