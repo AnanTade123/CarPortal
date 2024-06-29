@@ -16,7 +16,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import {useGetInspectionReportQuery} from "../../services/inspectorapi"
+import {useGetInspectionReportQuery,useInspectionReportMutation} from "../../services/inspectorapi"
 import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -46,7 +46,7 @@ const Exterior = () => {
   console.log(id)
 const {data} = useGetInspectionReportQuery({id , docType : "Exterior"})
 console.log(data)
-  
+  const [inspectionReport] = useInspectionReportMutation();
 const [formData, setFormData] = useState({
     BonnetHood: [],
     RightDoorFront: [],
@@ -76,8 +76,23 @@ const [formData, setFormData] = useState({
     AlloyWheel: [],
   });
 console.log(formData)
+
+
+
+const handledata = async(e) => {
+const inspectionData = {
+  documentType : "Exterior",
+  doc : "",
+  doctype :"",
+  subtype : "",
+  comment :"",
+}
+const res = await inspectionReport({inspectionData})
+console.log(res)
+console.log("handlesubmit work")
+}
   const [uploadedImages, setUploadedImages] = useState({
-    BonnetHood: null,
+    BonnetHoods: null,
     RightDoorFront: null,
     LeftDoorFront: null,
     RightFender: null,
@@ -104,7 +119,7 @@ console.log(formData)
     RadiatorSupport: null,
     AlloyWheel: null,
   });
-
+console.log(uploadedImages)
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -129,6 +144,7 @@ console.log(formData)
   const handleImageClick = (image) => {
     setSelectedImage(image);
     setOpenModal(true);
+    handledata()
   };
 
   const closeModal = () => {
@@ -164,21 +180,21 @@ console.log(formData)
             <input
               accept="image/*"
               style={{ display: "none" }}
-              id="upload-BonnetHood"
+              id="upload-BonnetHoods"
               type="file"
-              onChange={(event) => handleFileChange(event, "BonnetHood")}
+              onChange={(event) => handleFileChange(event, "BonnetHoods")}
             />
             <label
-              htmlFor="upload-BonnetHood"
+              htmlFor="upload-BonnetHoods"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.BonnetHood && (
+          {uploadedImages.BonnetHoods && (
             <img
-              src={uploadedImages.BonnetHood}
+              src={uploadedImages.BonnetHoods}
               alt="Uploaded"
               style={{
                 maxWidth: "20%",

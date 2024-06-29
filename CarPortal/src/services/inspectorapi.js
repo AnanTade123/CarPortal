@@ -19,10 +19,11 @@ export const inspectorAPI = apiSlice.injectEndpoints({
     }),
 
     inspectionReport : builder.mutation ({
-      query : (formdata) => ({
-        url : `/uploadFileBidCar/add?documentType=Interior&carId=10&doc=ABC&doctype=ABC&subtype=PQR&comment=Yes`,
+      query : ({inspectionData}) => ({
+        url : `/uploadFileBidCar/add?documentType=${inspectionData.documentType}&carId=10&doc=ABC&doctype=ABC&subtype=PQR&comment=Yes`,
+        transerResponse:console.log(inspectionData),
         method : "POST",
-        body :formdata
+        body :inspectionData
       }),
     }),
 
