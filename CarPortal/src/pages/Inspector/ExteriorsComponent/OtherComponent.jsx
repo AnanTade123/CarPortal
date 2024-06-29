@@ -88,7 +88,7 @@ const OtherComponent = ({ formData, setFormData }) => {
               value={formData.HeadLightSupport}
               onChange={handleChange}
               color="Green"
-              multiple
+              
             >
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
@@ -130,7 +130,7 @@ const OtherComponent = ({ formData, setFormData }) => {
               value={formData.RadiatorSupport}
               onChange={handleChange}
               color="Green"
-              multiple
+              
             >
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
@@ -171,7 +171,7 @@ const OtherComponent = ({ formData, setFormData }) => {
               name="AlloyWheel"
               value={formData.AlloyWheel}
               onChange={handleChange}
-              multiple
+
             >
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>

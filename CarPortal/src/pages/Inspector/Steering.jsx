@@ -204,13 +204,12 @@ const Steering = () => {
         </div>
       </Modal>
 
-      <div className="flex justify-center items-center mt-12">
-        <Button
-          variant="contained"
-          color="primary"
-          className="rounded-lg bg-blue-500 text-white flex justify-center items-center"
-        >
-          Submit
+      <div className="flex justify-between mt-10 px-8">
+        <Button variant="contained" color="primary">
+          Previous
+        </Button>
+        <Button variant="contained" color="primary">
+          Next
         </Button>
       </div>
     </div>

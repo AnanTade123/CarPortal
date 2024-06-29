@@ -94,7 +94,7 @@ const WindshieldAndLights = ({ formData, setFormData }) => {
               value={formData.Windshield}
               onChange={handleChange}
               color="Green"
-              multiple
+            
             >
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
@@ -137,7 +137,7 @@ const WindshieldAndLights = ({ formData, setFormData }) => {
               value={formData.Light}
               onChange={handleChange}
               color="Green"
-              multiple
+              
             >
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
@@ -179,7 +179,7 @@ const WindshieldAndLights = ({ formData, setFormData }) => {
               name="FrontBumper"
               value={formData.FrontBumper}
               onChange={handleChange}
-              multiple
+              
             >
               <MenuItem value="ok-69-85%">Ok 69-85%</MenuItem>
               <MenuItem value="not-ok-22-38%">Not Ok 22-38%</MenuItem>
@@ -217,7 +217,7 @@ const WindshieldAndLights = ({ formData, setFormData }) => {
               name="RearBumper"
               value={formData.RearBumper}
               onChange={handleChange}
-              multiple
+            
             >
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
@@ -259,7 +259,7 @@ const WindshieldAndLights = ({ formData, setFormData }) => {
               name="LHSHeadlight"
               value={formData.LHSHeadlight}
               onChange={handleChange}
-              multiple
+              
             >
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
@@ -301,7 +301,7 @@ const WindshieldAndLights = ({ formData, setFormData }) => {
               name="RHSHeadlight"
               value={formData.RHSHeadlight}
               onChange={handleChange}
-              multiple
+             
             >
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
@@ -343,7 +343,7 @@ const WindshieldAndLights = ({ formData, setFormData }) => {
               name="LHSTaillight"
               value={formData.LHSTaillight}
               onChange={handleChange}
-              multiple
+          
             >
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
@@ -385,7 +385,7 @@ const WindshieldAndLights = ({ formData, setFormData }) => {
               name="RHSTaillight"
               value={formData.RHSTaillight}
               onChange={handleChange}
-              multiple
+              
             >
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
