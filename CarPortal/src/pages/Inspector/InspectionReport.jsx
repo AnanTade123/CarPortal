@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuItem, FormControl, Select, InputLabel, TextField, Grid, Typography } from '@material-ui/core';
+import { MenuItem, FormControl, Select, InputLabel, TextField, Grid, Typography,Button } from '@material-ui/core';
 
 const ImportantDocuments = () => {
 
@@ -253,12 +253,13 @@ console.log(formData)
         </Grid>
       </Grid>
       <div className="flex justify-between mt-10 px-8">
-      
-      <button className="bg-blue-300 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-24 float-right "
-      >
-        Next
-      </button>
-    </div>
+        <Button variant="contained" color="primary">
+          Previous
+        </Button>
+        <Button variant="contained" color="primary">
+          Next
+        </Button>
+      </div>
     </div>
   );
 };

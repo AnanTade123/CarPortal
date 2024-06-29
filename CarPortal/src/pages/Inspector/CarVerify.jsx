@@ -16,31 +16,27 @@ import AC from "./Ac";
 import Electrical from "./Electrical";
 
 export default function CarVerify() {
-  const [activeTab, setActiveTab] = React.useState("html");
+  const [activeTab, setActiveTab] = React.useState("exterior");
   const data = [
-    {
-      label: "Inspection Report",
-      value: "html",
-      desc: <InspectionReport/>,
-    },
+    
     {
       label: "Exterior",
-      value: "react",
+      value: "exterior",
       desc: <Exterior/>,
     },
     {
       label: "Interior",
-      value: "vue",
+      value: "interior",
       desc: <Interior/>,
     },
     {
       label: " Engine",
-      value: "angular",
+      value: "engine",
       desc: <Engine/>,
     },
     {
       label: "AC",
-      value: "svelte",
+      value: "ac",
       desc: <AC/>,
     },
     {
@@ -53,6 +49,11 @@ export default function CarVerify() {
       value: "steering",
       desc:<Steering/>,
     },
+    {
+      label: "Inspection Report",
+      value: "report",
+      desc: <InspectionReport/>,
+    }
   ];
 
   return (
