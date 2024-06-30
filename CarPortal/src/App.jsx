@@ -16,7 +16,7 @@ import AdminDealerEdit from "./pages/adminpages/AdminDealerEdit";
 import DealerDashboard from "./pages/dealer/DealerDashboard";
 import DealerMiddleware from "./middleware/DealerMiddleware";
 import BiddingMainPage from "./pages/bidding/BiddingMainPage";
-import AddDealerCar from "./pages/dealer/AddDealerCar";
+import AddDealerCar2 from "./pages/dealer/AddDealerCar2";
 import EditDealerCar from "./pages/dealer/EditDealerCar";
 import BiddingAddCar from "./pages/bidding/BiddingAddCar";
 import BiddingEditCar from "./pages/bidding/BiddingEditCar";
@@ -126,7 +126,7 @@ export default function App() {
             <Route path="/dealer/biddingcar" element={<DealerDashboard />} />
             {/* <Route path="/dealer/:id" element={<DealerDashboard />} /> */}
             <Route path="/dealer/:id" element={<SellForCar />} />
-            <Route path="/dealer/:id/addcar" element={<AddDealerCar />} />
+            <Route path="/dealer/:id/addcar" element={<AddDealerCar2 />} />
             <Route path="/dealer/:id/uploadimage" element={<Uploadimages2 />} />
             <Route
               path="/dealer/:id/edit"

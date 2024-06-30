@@ -42,7 +42,7 @@ const cityOptions = {
 };
 
 export default function AddDealerCar() {
-  const { data: brandData } = useGetOnlyBrandsQuery();
+    const { data: brandData } = useGetOnlyBrandsQuery();
   const brands = brandData?.list.map((item) => item.brand) || [];
 
   const [selectedBrand, setSelectedBrand] = useState('');
@@ -50,6 +50,7 @@ export default function AddDealerCar() {
   const [modelOptions, setModelOptions] = useState([]);
   const [variantOptions, setVariantOptions] = useState([]);
   const [showCalendar, setShowCalendar] = useState(false);
+
 
   const { data: variantData } = useGetVariantsQuery(selectedBrand, {
     skip: !selectedBrand,
@@ -62,7 +63,9 @@ export default function AddDealerCar() {
     }
   );
 
+
   const [carRegister] = useCarRegisterMutation();
+  //  const [mult, setMult] = React.useState([]);
   const [formData, setFormData] = useState({
     //features
     acFeature: false,
@@ -92,31 +95,78 @@ export default function AddDealerCar() {
     cVariant: "",
     insurancedate: "",
   });
-
   const { id } = useParams();
+  console.log(id);
   const navigate = useNavigate();
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
+  const date = new Date(); // Create a new Date object with the current date
+  const year = date.getFullYear(); // Get the year (e.g., 2024)
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Get the month (0-indexed, so add 1), pad with leading zero if needed
+  const day = String(date.getDate()).padStart(2, "0"); // Get the day of the month, pad with leading zero if needed
 
   const formattedDate = `${year}-${month}-${day}`;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(formData);
+    // Prepare the form data to send to the backend
     const data = {
-      ...formData,
+      acFeature: formData.acFeature,
+
+      musicFeature: formData.musicFeature,
+
+      area: formData.area,
+
+      brand: formData.brand,
+
+      carInsurance: formData.carInsurance,
+
       carStatus: "ACTIVE",
+
+      // city: formData.city,
+
+      color: formData.color,
+
+      description: formData.description,
+
+      fuelType: formData.fuelType,
+
+      kmDriven: formData.kmDriven,
+
+      model: formData.model,
+
+      ownerSerial: formData.ownerSerial,
+
+      powerWindowFeature: formData.powerWindowFeature,
+
+      price: formData.price,
+
+      rearParkingCameraFeature: formData.rearParkingCameraFeature,
+
+      registration: formData.registration,
+
+      transmission: formData.transmission,
+
+      title: formData.title,
+
+      variant: formData.cVariant,
+
+      carInsuranceDate: formData.insurancedate,
+
+      year: formData.year,
+
       dealer_id: id,
+
       date: formattedDate,
     };
-
+    console.log(data);
     const res = await carRegister(data);
+    console.log(res);
     if (res?.data?.status === "success") {
       toast.success("Car Added");
       setTimeout(() => {
-        navigate(`/dealer/${id}/uploadimage`);
+        navigate(`/dealer/${id}/uploadimage`); // Corrected URL string with backticks (`) for interpolation
       }, 2000);
+      
     }
   };
 
@@ -154,10 +204,11 @@ export default function AddDealerCar() {
     setFormData({
       ...formData,
       city: selectedCity,
-      registration: "",
+      registration: "", // Reset registration when city changes
     });
   };
 
+  // Car Insurance ValidDate
   const handleChange = (event) => {
     const value = event.target.value === "true";
     setFormData((prevFormData) => ({
@@ -177,29 +228,30 @@ export default function AddDealerCar() {
 
   useEffect(() => {
     if (variantData) {
-      const models = variantData.list.map((item) => item.variant) || [];
+      const models = [...new Set(variantData.list.map((item) => item.variant))];
       setModelOptions(models);
     }
   }, [variantData]);
 
   useEffect(() => {
     if (subVariantData) {
-      const variants = subVariantData.list.map((item) => item.subVariant) || [];
+      const variants = [...new Set (subVariantData.list.map((item) => item.subVariant))];
       setVariantOptions(variants);
     }
   }, [subVariantData]);
 
   return (
     <>
-      <ToastContainer />
-      <div className="md:flex justify-center m-6 md:m-0">
-        <div>
-          <form onSubmit={handleSubmit} className="w-full md:w-[50rem]">
-            <div className="flex justify-center">
-              <p className="text-3xl font-semibold m-4">Add Dealer Car</p>
-            </div>
-            <div className="md:flex gap-2">
-            <div className="mt-5 w-full">
+    <ToastContainer/>
+    <div className="md:flex justify-center m-6 md:m-0">
+      <div>
+        <form onSubmit={handleSubmit} className="w-full md:w-[50rem]">
+          <div className="flex justify-center">
+            <p className="text-3xl font-semibold m-4">Add Dealer Car</p>
+          </div>
+          {/* first part */}
+          <div className="md:flex gap-2">
+          <div className="mt-5 w-full">
                 <select
                   required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -231,9 +283,11 @@ export default function AddDealerCar() {
                   ))}
                 </select>
               </div>
-            </div>
-            <div className="md:flex">
-            <div className="mt-5 w-full">
+          </div>
+
+          {/* second part */}
+          <div className="md:flex">
+          <div className="mt-5 w-full">
                 <select
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   name="cVariant"
@@ -250,130 +304,138 @@ export default function AddDealerCar() {
                 </select>
               </div>
 
-              <div className="mt-5 md:ml-2 w-full">
-                <select
-                  required
-                  className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  name="transmission"
-                  value={formData.transmission}
-                  onChange={(event) => {
-                    setFormData({
-                      ...formData,
-                      transmission: event.target.value,
-                    });
-                  }}
-                >
-                  <option>Transmission</option>
-                  <option>Automatic</option>
-                  <option>Manual</option>
-                </select>
-              </div>
+            <div className="mt-5 md:ml-2 w-full">
+              <select
+                required
+                className="w-full border-2 border-gray-400 p-2 rounded-md"
+                name="transmission"
+                value={formData.transmission}
+                onChange={(event) => {
+                  setFormData({
+                    ...formData,
+                    transmission: event.target.value,
+                  });
+                }}
+              >
+                <option>Transmission</option>
+                <option>Automatic</option>
+                <option>Manual</option>
+              </select>
             </div>
-            <div className="md:flex">
-              <div className="mt-5 w-full">
-                <Input
-                  label="Price"
-                  type="number"
-                  name="price"
-                  value={formData.price}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      price: event.target.value,
-                    })
-                  }
-                />
-              </div>
-
-              <div className="mt-5 md:ml-2 w-full">
-                <select
-                  className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  label={"year"}
-                  type={"number"}
-                  name={"year"}
-                  value={formData.year}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      year: event.target.value,
-                    })
-                  }
-                >
-                  <option>Year</option>
-                  {[...Array(new Date().getFullYear() - 2004)].map((_, index) => {
-                    const year = 2005 + index;
-                    return (
-                      <option key={year} value={year}>
-                        {year}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
+          </div>
+          <div className="md:flex">
+            <div className="mt-5 w-full">
+              <Input
+                label="Price"
+                type="number"
+                name="price"
+                value={formData.price}
+                onChange={(event) =>
+                  setFormData({
+                    ...formData,
+                    price: event.target.value,
+                  })
+                }
+              />
             </div>
 
-            <div className="md:flex">
-              <div className="mt-5 w-full">
-                <select
-                  className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  label={"Color"}
-                  type={"text"}
-                  name={"color"}
-                  value={formData.color}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      color: event.target.value,
-                    })
-                  }
-                >
-                  <option>Color</option>
-                  {[
-                    "Red",
-                    "Blue",
-                    "Yellow",
-                    "Pink",
-                    "Purple",
-                    "White",
-                    "Black",
-                    "Orange",
-                    "Green",
-                    "Brown",
-                    "Gold",
-                    "Aqua",
-                  ].map((color) => (
-                    <option key={color} value={color}>
-                      {color}
-                    </option>
-                  ))}
-                </select>
-              </div>
+            <div className="mt-5 md:ml-2 w-full">
+              <select
+                className="w-full border-2 border-gray-400 p-2 rounded-md"
+                label={"year"}
+                type={"number"}
+                name={"year"}
+                value={formData.year}
+                onChange={(event) =>
+                  setFormData({
+                    ...formData,
+                    year: event.target.value,
+                  })
+                }
+              >
+                <option>Year</option>
+                <option>2005</option>
+                <option>2006</option>
+                <option>2007</option>
+                <option>2008</option>
+                <option>2009</option>
+                <option>2010</option>
+                <option>2011</option>
+                <option>2012</option>
+                <option>2013</option>
+                <option>2014</option>
+                <option>2015</option>
+                <option>2016</option>
+                <option>2017</option>
+                <option>2018</option>
+                <option>2019</option>
+                <option>2020</option>
+                <option>2021</option>
+                <option>2022</option>
+                <option>2023</option>
+                <option>2024</option>
+              </select>
+            </div>
+          </div>
 
-              <div className="mt-5 md:ml-2 w-full">
-                <select
-                  className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  name="ownerSerial"
-                  value={formData.ownerSerial}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      ownerSerial: event.target.value,
-                    })
-                  }
-                >
-                  <option value="" disabled>
-                    Select Owner Serial
-                  </option>
-                  {["1st", "2nd", "3rd", "4th", "5th"].map((serial) => (
-                    <option key={serial} value={serial}>
-                      {serial}
-                    </option>
-                  ))}
-                </select>
-              </div>
+          {/* fourth part */}
+          <div className="md:flex">
+            <div className="mt-5 w-full">
+              <select
+                className="w-full border-2 border-gray-400 p-2 rounded-md"
+                label={"Color"}
+                type={"text"}
+                name={"color"}
+                value={formData.color}
+                onChange={(event) =>
+                  setFormData({
+                    ...formData,
+                    color: event.target.value,
+                  })
+                }
+              >
+                <option>Color</option>
+                <option>Red</option>
+                <option>Blue</option>
+                <option>Yellow</option>
+                <option>Pink</option>
+                <option>Purple</option>
+                <option>White</option>
+                <option>Black</option>
+                <option>Orange</option>
+                <option>Green</option>
+                <option>Brown</option>
+                <option>Gold</option>
+                <option>Aqua</option>
+              </select>
             </div>
 
-            <div className="md:flex">
+            <div className="mt-5 md:ml-2 w-full">
+      <select
+        className="w-full border-2 border-gray-400 p-2 rounded-md"
+        name="ownerSerial"
+        value={formData.ownerSerial}
+        onChange={(event) =>
+          setFormData({
+            ...formData,
+            ownerSerial: event.target.value,
+          })
+        }
+      >
+        <option value="" disabled>
+          Select Owner Serial
+        </option>
+        <option value="1">1st</option>
+        <option value="2">2nd</option>
+        <option value="3">3rd</option>
+        <option value="4">4th</option>
+        <option value="5">5th</option>
+      </select>
+    </div>
+          </div>
+
+          {/* fifth part */}
+          <div className="md:flex">
             <div className="mt-5 w-full">
               <Inputs
                 label={"Area"}
@@ -388,6 +450,7 @@ export default function AddDealerCar() {
                 }
               />
             </div>
+
             <div className="mt-5 md:ml-2 w-full">
               <select
                 required
@@ -418,9 +481,10 @@ export default function AddDealerCar() {
                 </div>
               )}
             </div>
-            </div>
+          </div>
 
-            <div className="md:flex">
+          {/* sixth part */}
+          <div className="md:flex">
             <div className="mt-5 w-full">
               <Input
                 label="Km Driven"
@@ -457,9 +521,11 @@ export default function AddDealerCar() {
                 <option>Petrol+CNG</option>
               </select>
             </div>
-            </div>
+          </div>
 
-            <div className="md:flex">
+          {/* eight part */}
+
+          <div className="md:flex">
             <div className="mt-5 w-full">
               <select
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -497,9 +563,8 @@ export default function AddDealerCar() {
                   ))}
               </select>
             </div>
-            </div>
-
-            {/* ninth part */}
+          </div>
+          {/* ninth part */}
           <div className="md:flex">
             <div className="mt-5 ml-5">
               <input
@@ -565,7 +630,8 @@ export default function AddDealerCar() {
               Rear Parking Camera
             </div>
           </div>
-                {/* tenth part */}
+
+          {/* tenth part */}
           <div className="mt-5 mb-2">
             <h4>Title</h4>
             <div className="formrow">
@@ -614,9 +680,9 @@ export default function AddDealerCar() {
             {" "}
             Next
           </button>
-          </form>
-        </div>
+        </form>
       </div>
+    </div>
     </>
   );
 }
