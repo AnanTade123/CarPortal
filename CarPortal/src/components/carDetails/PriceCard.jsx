@@ -45,7 +45,7 @@ const PriceCard = ({
   console.log(data);
   return (
     <CardUi>
-      <div className="w-full md:w-full">
+      <div className="w-full md:w-full ">
         <p className="font-extrabold text-2xl text-black uppercase font-[latto] ml-2">
           {year} {brand} {model}
         </p>
