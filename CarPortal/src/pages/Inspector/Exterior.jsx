@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import WindshieldAndLights from './ExteriorsComponent/WindshieldAndLights';
-import Tyre from './ExteriorsComponent/Tyre';
-import OtherComponent from './ExteriorsComponent/OtherComponent';
-import React, { useState } from 'react';
+import WindshieldAndLights from "./ExteriorsComponent/WindshieldAndLights";
+import Tyre from "./ExteriorsComponent/Tyre";
+import OtherComponent from "./ExteriorsComponent/OtherComponent";
+import React, { useState } from "react";
 import {
   MenuItem,
   FormControl,
@@ -14,35 +14,40 @@ import {
   Button,
   Modal,
   makeStyles,
-} from '@material-ui/core';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import Structure from './ExteriorsComponent/Structure';
+} from "@material-ui/core";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import {useGetInspectionReportQuery,useInspectionReportMutation} from "../../services/inspectorapi"
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    outline: 'none',
-    maxWidth: '90%',
-    maxHeight: '90%',
+    outline: "none",
+    maxWidth: "90%",
+    maxHeight: "90%",
   },
   image: {
-    maxWidth: '100%',
-    maxHeight: '100%',
-    objectFit: 'contain',
+    maxWidth: "100%",
+    maxHeight: "100%",
+    objectFit: "contain",
   },
 }));
 
 const Exterior = () => {
   const classes = useStyles();
-
-  const [formData, setFormData] = useState({
+  const {id} = useParams()
+  console.log(id)
+const {data} = useGetInspectionReportQuery({id , docType : "Exterior"})
+console.log(data)
+  const [inspectionReport] = useInspectionReportMutation();
+const [formData, setFormData] = useState({
     BonnetHood: [],
     RightDoorFront: [],
     LeftDoorFront: [],
@@ -71,8 +76,23 @@ const Exterior = () => {
     AlloyWheel: [],
   });
 console.log(formData)
+
+
+
+const handledata = async(e) => {
+const inspectionData = {
+  documentType : "Exterior",
+  doc : "",
+  doctype :"",
+  subtype : "",
+  comment :"",
+}
+const res = await inspectionReport({inspectionData})
+console.log(res)
+console.log("handlesubmit work")
+}
   const [uploadedImages, setUploadedImages] = useState({
-    BonnetHood: null,
+    BonnetHoods: null,
     RightDoorFront: null,
     LeftDoorFront: null,
     RightFender: null,
@@ -107,8 +127,7 @@ console.log(formData)
     LeftPillar: null,
     RightPillar: null,
   });
-
-  console.log(uploadedImages)
+console.log(uploadedImages)
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -133,6 +152,7 @@ console.log(formData)
   const handleImageClick = (image) => {
     setSelectedImage(image);
     setOpenModal(true);
+    handledata()
   };
 
   const closeModal = () => {
@@ -141,8 +161,8 @@ console.log(formData)
   };
 
   return (
-    <div className='p-4'>
-      <Typography variant="h4" className='text-black font-bold pb-5'>
+    <div className="p-4">
+      <Typography variant="h4" className="text-black font-bold pb-5">
         Exterior Panel
       </Typography>
       <Grid container spacing={3}>
@@ -167,27 +187,27 @@ console.log(formData)
           <div className="flex items-center mt-2">
             <input
               accept="image/*"
-              style={{ display: 'none' }}
-              id="upload-BonnetHood"
+              style={{ display: "none" }}
+              id="upload-BonnetHoods"
               type="file"
-              onChange={(event) => handleFileChange(event, 'BonnetHood')}
+              onChange={(event) => handleFileChange(event, "BonnetHoods")}
             />
             <label
-              htmlFor="upload-BonnetHood"
+              htmlFor="upload-BonnetHoods"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.BonnetHood && (
+          {uploadedImages.BonnetHoods && (
             <img
-              src={uploadedImages.BonnetHood}
+              src={uploadedImages.BonnetHoods}
               alt="Uploaded"
               style={{
-                maxWidth: '20%',
-                marginTop: '10px',
-                cursor: 'pointer',
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
               }}
               onClick={() => handleImageClick(uploadedImages.BonnetHood)}
             />
@@ -215,10 +235,10 @@ console.log(formData)
           <div className="flex items-center mt-2">
             <input
               accept="image/*"
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
               id="upload-RightDoorFront"
               type="file"
-              onChange={(event) => handleFileChange(event, 'RightDoorFront')}
+              onChange={(event) => handleFileChange(event, "RightDoorFront")}
             />
             <label
               htmlFor="upload-RightDoorFront"
@@ -233,13 +253,11 @@ console.log(formData)
               src={uploadedImages.RightDoorFront}
               alt="Uploaded"
               style={{
-                maxWidth: '20%',
-                marginTop: '10px',
-                cursor: 'pointer',
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
               }}
-              onClick={() =>
-                handleImageClick(uploadedImages.RightDoorFront)
-              }
+              onClick={() => handleImageClick(uploadedImages.RightDoorFront)}
             />
           )}
         </Grid>
@@ -265,10 +283,10 @@ console.log(formData)
           <div className="flex items-center mt-2">
             <input
               accept="image/*"
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
               id="upload-LeftDoorFront"
               type="file"
-              onChange={(event) => handleFileChange(event, 'LeftDoorFront')}
+              onChange={(event) => handleFileChange(event, "LeftDoorFront")}
             />
             <label
               htmlFor="upload-LeftDoorFront"
@@ -283,13 +301,11 @@ console.log(formData)
               src={uploadedImages.LeftDoorFront}
               alt="Uploaded"
               style={{
-                maxWidth: '20%',
-                marginTop: '10px',
-                cursor: 'pointer',
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
               }}
-              onClick={() =>
-                handleImageClick(uploadedImages.LeftDoorFront)
-              }
+              onClick={() => handleImageClick(uploadedImages.LeftDoorFront)}
             />
           )}
         </Grid>
@@ -315,10 +331,10 @@ console.log(formData)
           <div className="flex items-center mt-2">
             <input
               accept="image/*"
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
               id="upload-RightFender"
               type="file"
-              onChange={(event) => handleFileChange(event, 'RightFender')}
+              onChange={(event) => handleFileChange(event, "RightFender")}
             />
             <label
               htmlFor="upload-RightFender"
@@ -333,13 +349,11 @@ console.log(formData)
               src={uploadedImages.RightFender}
               alt="Uploaded"
               style={{
-                maxWidth: '20%',
-                marginTop: '10px',
-                cursor: 'pointer',
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
               }}
-              onClick={() =>
-                handleImageClick(uploadedImages.RightFender)
-              }
+              onClick={() => handleImageClick(uploadedImages.RightFender)}
             />
           )}
         </Grid>
@@ -365,12 +379,10 @@ console.log(formData)
           <div className="flex items-center mt-2">
             <input
               accept="image/*"
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
               id="upload-LeftQuarterPanel"
               type="file"
-              onChange={(event) =>
-                handleFileChange(event, 'LeftQuarterPanel')
-              }
+              onChange={(event) => handleFileChange(event, "LeftQuarterPanel")}
             />
             <label
               htmlFor="upload-LeftQuarterPanel"
@@ -385,13 +397,11 @@ console.log(formData)
               src={uploadedImages.LeftQuarterPanel}
               alt="Uploaded"
               style={{
-                maxWidth: '20%',
-                marginTop: '10px',
-                cursor: 'pointer',
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
               }}
-              onClick={() =>
-                handleImageClick(uploadedImages.LeftQuarterPanel)
-              }
+              onClick={() => handleImageClick(uploadedImages.LeftQuarterPanel)}
             />
           )}
         </Grid>
@@ -417,12 +427,10 @@ console.log(formData)
           <div className="flex items-center mt-2">
             <input
               accept="image/*"
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
               id="upload-RightQuarterPanel"
               type="file"
-              onChange={(event) =>
-                handleFileChange(event, 'RightQuarterPanel')
-              }
+              onChange={(event) => handleFileChange(event, "RightQuarterPanel")}
             />
             <label
               htmlFor="upload-RightQuarterPanel"
@@ -437,13 +445,11 @@ console.log(formData)
               src={uploadedImages.RightQuarterPanel}
               alt="Uploaded"
               style={{
-                maxWidth: '20%',
-                marginTop: '10px',
-                cursor: 'pointer',
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
               }}
-              onClick={() =>
-                handleImageClick(uploadedImages.RightQuarterPanel)
-              }
+              onClick={() => handleImageClick(uploadedImages.RightQuarterPanel)}
             />
           )}
         </Grid>
@@ -452,11 +458,7 @@ console.log(formData)
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
             <InputLabel>Roof</InputLabel>
-            <Select
-              name="Roof"
-              value={formData.Roof}
-              onChange={handleChange}
-            >
+            <Select name="Roof" value={formData.Roof} onChange={handleChange}>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -469,10 +471,10 @@ console.log(formData)
           <div className="flex items-center mt-2">
             <input
               accept="image/*"
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
               id="upload-Roof"
               type="file"
-              onChange={(event) => handleFileChange(event, 'Roof')}
+              onChange={(event) => handleFileChange(event, "Roof")}
             />
             <label
               htmlFor="upload-Roof"
@@ -487,9 +489,9 @@ console.log(formData)
               src={uploadedImages.Roof}
               alt="Uploaded"
               style={{
-                maxWidth: '20%',
-                marginTop: '10px',
-                cursor: 'pointer',
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
               }}
               onClick={() => handleImageClick(uploadedImages.Roof)}
             />
@@ -517,10 +519,10 @@ console.log(formData)
           <div className="flex items-center mt-2">
             <input
               accept="image/*"
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
               id="upload-DickyDoor"
               type="file"
-              onChange={(event) => handleFileChange(event, 'DickyDoor')}
+              onChange={(event) => handleFileChange(event, "DickyDoor")}
             />
             <label
               htmlFor="upload-DickyDoor"
@@ -535,9 +537,9 @@ console.log(formData)
               src={uploadedImages.DickyDoor}
               alt="Uploaded"
               style={{
-                maxWidth: '20%',
-                marginTop: '10px',
-                cursor: 'pointer',
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
               }}
               onClick={() => handleImageClick(uploadedImages.DickyDoor)}
             />
@@ -565,10 +567,10 @@ console.log(formData)
           <div className="flex items-center mt-2">
             <input
               accept="image/*"
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
               id="upload-LeftDoorRear"
               type="file"
-              onChange={(event) => handleFileChange(event, 'LeftDoorRear')}
+              onChange={(event) => handleFileChange(event, "LeftDoorRear")}
             />
             <label
               htmlFor="upload-LeftDoorRear"
@@ -583,9 +585,9 @@ console.log(formData)
               src={uploadedImages.LeftDoorRear}
               alt="Uploaded"
               style={{
-                maxWidth: '20%',
-                marginTop: '10px',
-                cursor: 'pointer',
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
               }}
               onClick={() => handleImageClick(uploadedImages.LeftDoorRear)}
             />
@@ -613,12 +615,10 @@ console.log(formData)
           <div className="flex items-center mt-2">
             <input
               accept="image/*"
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
               id="upload-RightDoorRear"
               type="file"
-              onChange={(event) =>
-                handleFileChange(event, 'RightDoorRear')
-              }
+              onChange={(event) => handleFileChange(event, "RightDoorRear")}
             />
             <label
               htmlFor="upload-RightDoorRear"
@@ -633,26 +633,18 @@ console.log(formData)
               src={uploadedImages.RightDoorRear}
               alt="Uploaded"
               style={{
-                maxWidth: '20%',
-                marginTop: '10px',
-                cursor: 'pointer',
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
               }}
-              onClick={() =>
-                handleImageClick(uploadedImages.RightDoorRear)
-              }
+              onClick={() => handleImageClick(uploadedImages.RightDoorRear)}
             />
           )}
         </Grid>
-
-        
       </Grid>
 
       {/* Modal for displaying clicked image */}
-      <Modal
-        open={openModal}
-        onClose={closeModal}
-        className={classes.modal}
-      >
+      <Modal open={openModal} onClose={closeModal} className={classes.modal}>
         <div className={classes.paper}>
           {selectedImage && (
             <div>
@@ -665,7 +657,7 @@ console.log(formData)
                 onClick={closeModal}
                 variant="contained"
                 color="secondary"
-                style={{ marginTop: '10px' }}
+                style={{ marginTop: "10px" }}
               >
                 Close
               </Button>
@@ -674,36 +666,20 @@ console.log(formData)
         </div>
       </Modal>
 
-      
-      <WindshieldAndLights formData={formData} setFormData={setFormData}/>
-<Tyre formData={formData} setFormData={setFormData}/>
-<OtherComponent formData={formData} setFormData={setFormData} />
+      <WindshieldAndLights formData={formData} setFormData={setFormData} />
+      <Tyre formData={formData} setFormData={setFormData} />
+      <OtherComponent formData={formData} setFormData={setFormData} />
 
-<Structure formData={formData}  setFormData={setFormData}/>
-
-
-<div className="flex justify-end mt-10 px-8">
-        
+      <div className="flex justify-between mt-10 px-8">
+        {/* <Button variant="contained" color="primary">
+          Previous
+        </Button>
         <Button variant="contained" color="primary">
           Next
-        </Button>
+        </Button> */}
       </div>
     </div>
   );
 };
 
 export default Exterior;
-
-
-
-
-      
-
-
-
-   
-
-
-      
-  
- 
