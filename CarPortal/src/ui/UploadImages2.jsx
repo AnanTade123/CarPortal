@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useAddCarImagesMutation } from '../services/dealerAPI';
 import { Tabs, TabsHeader, TabsBody, TabPanel, Tab } from '@material-tailwind/react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { json, useNavigate, useParams } from 'react-router-dom';
 import { useDealerIdByCarQuery } from '../services/carAPI';
 import {jwtDecode} from 'jwt-decode';
 import Cookies from 'js-cookie';
@@ -11,9 +11,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import { IoAddCircleOutline, IoCloseCircle, IoCheckmarkCircle } from 'react-icons/io5';
 
 function UploadImages2() {
+  let { id } = useParams();
+  let { carId } = useParams();
+  const userData = localStorage.getItem("userInfo");
+  const uid = JSON.parse(userData);
+  if(id == null){
+    id= uid.userId;
+  }
+ 
   const [images, setImages] = useState([]);
   const [uploadStatus, setUploadStatus] = useState({}); // Track upload status for each image
-  const { id } = useParams();
   const token = Cookies.get('token');
   let jwtDecodes;
 
@@ -24,9 +31,10 @@ function UploadImages2() {
   const UserID = jwtDecodes?.userId;
   const { data } = useDealerIdByCarQuery({ id, pageNo: 0 });
 
-  const firstCarId = data?.list?.length > 0 ? data?.list[0].carId : null;
-  console.log(firstCarId);
-
+  let firstCarId = data?.list?.length > 0 ? data?.list[0].carId : null;
+  if(carId !==null){
+    firstCarId = carId
+  }
   const [addCarImages] = useAddCarImagesMutation();
 
   const readImages = async (event, categoryValue) => {

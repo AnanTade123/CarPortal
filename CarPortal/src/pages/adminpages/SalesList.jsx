@@ -12,13 +12,9 @@ import {
   Dialog,
   DialogFooter,
 } from "@material-tailwind/react";
-import {
-  useDeleteDealerMutation,
-  useGetAllDealerQuery,
-} from "../../services/dealerAPI";
+
 import TableComponent from "../../components/table/TableComponent";
 import { useState } from "react";
-import { AddDealerForm } from "../../components/admin/AddDealerForm";
 import { Link } from "react-router-dom";
 import { AddSalesForm } from "../../components/admin/AddSalesForm";
 import {
@@ -134,11 +130,11 @@ export default function SalesList() {
       Header: "Actions",
       accessor: "Actions",
       Cell: (cell) => {
-        console.log(cell.row.values.dealer_id);
+        console.log(cell.row.values.salesPersonId);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
-              <Link to={`/admin/dealer/info/${cell.row.values.dealer_id}`}>
+              <Link to={`/admin/sales/info/${cell.row.values.salesPersonId}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -157,7 +153,7 @@ export default function SalesList() {
               </Link>
 
               <Link
-                to={`/admin/dealer/edit/${cell.row.values.userId}/${cell.row.values.dealer_id}`}
+                to={`/admin/dealer/edit/${cell.row.values.userId}/${cell.row.values.salesPersonId}`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -212,7 +208,7 @@ export default function SalesList() {
   console.log(dealerApiData);
   return (
     <>
-      {dealerApiData.status === 404 ? (
+      {error?.status === 404 ? (
         <div>
           <p className="text-3xl font-semibold ">No Data Available</p>
           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
