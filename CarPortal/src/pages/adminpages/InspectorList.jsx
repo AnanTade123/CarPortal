@@ -73,7 +73,7 @@ export default function InspectorList() {
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
-              <Link to={`/admin/dealer/info/${cell.row.values.inspectorProfileId}`}>
+              <Link to={`/admin/inspector/info/${cell.row.values.inspectorProfileId}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

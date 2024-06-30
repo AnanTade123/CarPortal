@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuItem, FormControl, Select, InputLabel, TextField, Grid, Typography } from '@material-ui/core';
+import { MenuItem, FormControl, Select, InputLabel, TextField, Grid, Typography,Button } from '@material-ui/core';
 
 const ImportantDocuments = () => {
 
@@ -19,6 +19,7 @@ const ImportantDocuments = () => {
     rto: '',
     fitnessUpto: '',
     cngLpgFitmentInRC: '',
+    LoanStatus:''
   });
 
   const handleChange = (event) => {
@@ -114,6 +115,20 @@ console.log(formData)
         {/* Under Hypothecation */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
+            <InputLabel> Loan Status</InputLabel>
+            <Select
+              name="LoanStatus"
+              value={formData.LoanStatus}
+              onChange={handleChange}
+            >
+              <MenuItem value="Paid/Closed"> Paid/Closed</MenuItem>
+              <MenuItem value="unpaid/Pending">Unpaid/Pending</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth>
             <InputLabel>Under Hypothecation</InputLabel>
             <Select
               name="underHypothecation"
@@ -180,8 +195,12 @@ console.log(formData)
               value={formData.chassisNumberEmbossing}
               onChange={handleChange}
             >
-              <MenuItem value="Yes">Yes</MenuItem>
+              <MenuItem value="Yes">Yes 
+              </MenuItem>
               <MenuItem value="No">No</MenuItem>
+              <MenuItem value="Rusted">Rusted</MenuItem>
+              <MenuItem value="Repunched">Repunched</MenuItem>
+              <MenuItem value="Traceable">Not Traceable</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -253,12 +272,17 @@ console.log(formData)
         </Grid>
       </Grid>
       <div className="flex justify-between mt-10 px-8">
-      
-      <button className="bg-blue-300 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-24 float-right "
-      >
-        Next
-      </button>
-    </div>
+        <Button variant="contained" color="primary">
+          Previous
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          className="rounded-lg bg-blue-500 text-white flex justify-center items-center"
+        >
+          Submit
+        </Button>
+      </div>
     </div>
   );
 };

@@ -3,8 +3,9 @@ import { apiSlice } from "./apiSlice";
 export const inspectorAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     inspectorById: builder.query({
-      query: () => ({
-        url: `/ispProfile/inspector?inspectorProfileId=3`,
+      query: ({userId}) => ({
+        url: `ispProfile/getByUserId?userId=${userId}`,
+        transferResponse: console.log(userId),
         method: "GET",
       }),
        // You probably want providesTags here instead of invalidatesTags for queries
