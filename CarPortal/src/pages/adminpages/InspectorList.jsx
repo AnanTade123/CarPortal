@@ -16,11 +16,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AddInspectorForm } from "../AddInspectorForm";
 
-export default function Admin() {
+export default function InspectorList() {
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(7);
   const { data, isLoading, error } = useGetallInspectorQuery({ pageNo, pageSize });
-console.log(data)
   const navigate = useNavigate();
   if (error?.status === 401) {
     return navigate("/signin");
@@ -74,7 +73,7 @@ console.log(data)
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
-              <Link to={`/admin/dealer/info/${cell.row.values.inspectorProfileId}`}>
+              <Link to={`/admin/inspector/info/${cell.row.values.inspectorProfileId}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -92,7 +91,7 @@ console.log(data)
                 </svg>
               </Link>
 
-              <Link to={`/admin/dealer/edit/${cell.row.values.userId}/${cell.row.values.dealer_id}`}>
+              <Link to={`/admin/dealer/edit/${cell.row.values.inspectorProfileId}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

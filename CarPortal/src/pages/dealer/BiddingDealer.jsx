@@ -7,9 +7,9 @@ import {
   CardBody,
   CardFooter,
 } from "@material-tailwind/react";
-import { useBiddingCarByDealerIdQuery } from "../../services/biddingAPI";
+import { useBiddingCarByDealerIdQuery, useGetByDealerIdQuery } from "../../services/biddingAPI";
 
-// import TableComponent from "../../components/table/TableComponent";
+import TableComponent from "../../components/table/TableComponent";
 import { Link,useParams } from "react-router-dom";
 import { MdPendingActions } from "react-icons/md";
 import StatusDialogeBox from "../../ui/StatusDialogeBox";
@@ -29,12 +29,15 @@ const BiddingDealer = () => {
   if(token){
      jwtDecodes = jwtDecode(token);
   }
+
+  const userInfo = localStorage.getItem("userInfo");
+  const { dealerId } = JSON.parse(userInfo);
  
 
  const UserID = jwtDecodes?.userId;
  
-
-  const { data, isLoading,error } = useBiddingCarByDealerIdQuery(UserID);
+  // const { data, isLoading,error } = useBiddingCarByDealerIdQuery(UserID);
+  const {data,isLoading , error} = useGetByDealerIdQuery(dealerId);
   console.log(data)
   if (isLoading) {
     return <p>Loading..</p>;
@@ -234,19 +237,19 @@ console.log(columns);
               <Typography variant="h5" color="blue-gray">
                 Bidding Car list
               </Typography>
-              <Typography color="gray" className="mt-1 font-normal">
+              {/* <Typography color="gray" className="mt-1 font-normal">
                 See information about all cars
-              </Typography>
+              </Typography> */}
             </div>
-            <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+            {/* <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
               <Link to={`/bidding/${UserID}/addcar`}>
                 <Button>Add Car</Button>
               </Link>
-            </div>
+            </div> */}
           </div>
         </CardHeader>
        <CardBody className="overflow-scroll px-0">
-          {/* <TableComponent columns={columns} data={dealerApiData} /> */}
+          <TableComponent columns={columns} data={dealerApiData} />
         </CardBody>
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography
