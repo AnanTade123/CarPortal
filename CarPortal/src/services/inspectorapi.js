@@ -3,8 +3,9 @@ import { apiSlice } from "./apiSlice";
 export const inspectorAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     inspectorById: builder.query({
-      query: () => ({
-        url: `/ispProfile/inspector?inspectorProfileId=3`,
+      query: ({userId}) => ({
+        url: `ispProfile/getByUserId?userId=${userId}`,
+        transferResponse: console.log(userId),
         method: "GET",
       }),
        // You probably want providesTags here instead of invalidatesTags for queries
@@ -19,11 +20,11 @@ export const inspectorAPI = apiSlice.injectEndpoints({
     }),
 
     inspectionReport : builder.mutation ({
-      query : ({inspectionData}) => ({
-        url : `/uploadFileBidCar/add?documentType=${inspectionData.documentType}&carId=10&doc=ABC&doctype=ABC&subtype=PQR&comment=Yes`,
-        transerResponse:console.log(inspectionData),
+      query : ({inspectionData,formDataToSend}) => ({
+        url : `/uploadFileBidCar/add?documentType=${inspectionData.documentType}&carId=${inspectionData.bidCarId}&doc=${inspectionData.doc}&doctype=${inspectionData.doctype}&subtype=${inspectionData.subtype}&comment=${inspectionData.comment}`,
+        transerResponse:console.log(inspectionData,formDataToSend),
         method : "POST",
-        body :inspectionData
+        body :formDataToSend
       }),
     }),
 

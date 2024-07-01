@@ -55,6 +55,7 @@ import CarListModels from "./pages/adminpages/CarListModels";
 import SellForCar from "./pages/dealer/SellForCar";
 import BiddingDealerCars from "./pages/biddingDashboard/BiddingDealerCars";
 import CarListTable from "./pages/biddingDashboard/CarListTable";
+import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
 
 export default function App() {
   return (
@@ -87,18 +88,19 @@ export default function App() {
             <Route path="/inspector" element={<InspectorList />} />
             <Route path="/saleslist" element={<SalesList />} />
             <Route path="/CarInspection" element={<CarInspectionTable />} />
-            {/* <Route path="/admin/inspector/info/:ProfileId" element={<AdminInspectorInfo />} /> */}
+            <Route path="/admin/inspector/info/:userId" element={<AdminInspectorInfo />} />
             <Route path="/carlistmodel" element={<CarListModels />} />
             <Route
               path="/admin/dealer/info/:id"
               element={<AdminDealerInfo />}
             />
+            
             <Route
               path="/admin/dealer/edit/:userid/:id"
               element={<AdminDealerEdit />}
             />
             <Route
-              path="/admin/inspector/edit/:userid/:id"
+              path="/admin/inspector/edit/:userid"
               element={<AdminInspectorEdit />}
             />
             <Route

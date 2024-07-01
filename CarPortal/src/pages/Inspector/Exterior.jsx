@@ -3,7 +3,7 @@
 import WindshieldAndLights from "./ExteriorsComponent/WindshieldAndLights";
 import Tyre from "./ExteriorsComponent/Tyre";
 import OtherComponent from "./ExteriorsComponent/OtherComponent";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MenuItem,
   FormControl,
@@ -14,10 +14,12 @@ import {
   Button,
   Modal,
   makeStyles,
-} from "@material-ui/core";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import {useGetInspectionReportQuery,useInspectionReportMutation} from "../../services/inspectorapi"
+} from '@material-ui/core';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import Structure from './ExteriorsComponent/Structure';
 import { useParams } from "react-router-dom";
+import { useGetInspectionReportQuery, useInspectionReportMutation } from "../../services/inspectorapi";
+import { ToastContainer, toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -75,66 +77,107 @@ const [formData, setFormData] = useState({
     RadiatorSupport: [],
     AlloyWheel: [],
   });
-console.log(formData)
+
+  const [lables , setLables] = useState("");
+  const [selectfiled , setSelectfiled] = useState("")
+  
+  useEffect(() => {
+    Object.keys(formData).forEach(key => {
+      if (formData[key].length > 0) {
+        console.log(key);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setLables(key)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setSelectfiled(formData[key])
+        
+      }
+    });
+  }, [formData]);
+  console.log(selectfiled)
+  console.log(lables)
 
 
-
-const handledata = async(e) => {
-const inspectionData = {
-  documentType : "Exterior",
-  doc : "",
-  doctype :"",
-  subtype : "",
-  comment :"",
-}
-const res = await inspectionReport({inspectionData})
-console.log(res)
-console.log("handlesubmit work")
-}
   const [uploadedImages, setUploadedImages] = useState({
     BonnetHoods: null,
-    RightDoorFront: null,
-    LeftDoorFront: null,
-    RightFender: null,
-    LeftQuarterPanel: null,
-    RightQuarterPanel: null,
-    Roof: null,
-    DickyDoor: null,
-    LeftDoorRear: null,
-    RightDoorRear: null,
-    LHSFrontTyre: null,
-    RHSFrontTyre: null,
-    LHSRearTyre: null,
-    RHSRearTyre: null,
-    SpareTyre: null,
-    Windshield: null,
-    Light: null,
-    FrontBumper: null,
-    RearBumper: null,
-    LHSHeadlight: null,
-    RHSHeadlight: null,
-    LHSTaillight: null,
-    RHSTaillight: null,
-    HeadLightSupport: null,
-    RadiatorSupport: null,
-    AlloyWheel: null,
+    RightDoorFronts: null,
+    LeftDoorFronts: null,
+    RightFenders: null,
+    LeftQuarterPanels: null,
+    RightQuarterPanels: null,
+    Roofs: null,
+    DickyDoors: null,
+    LeftDoorRears: null,
+    RightDoorRears: null,
+    LHSFrontTyres: null,
+    RHSFrontTyres: null,
+    LHSRearTyres: null,
+    RHSRearTyres: null,
+    SpareTyres: null,
+    Windshields: null,
+    Lights: null,
+    FrontBumpers: null,
+    RearBumpers: null,
+    LHSHeadlights: null,
+    RHSHeadlights: null,
+    LHSTaillights: null,
+    RHSTaillights: null,
+    HeadLightSupports: null,
+    RadiatorSupports: null,
+    AlloyWheels: null,
+    CowlTops : null,
+    BootFloors: null,
+    RightApronLEGs: null,
+    LeftApronLEGs: null,
+    RightAprons: null,
+    LeftAprons: null,
+    LeftPillars: null,
+    RightPillars: null,
   });
-console.log(uploadedImages)
+    console.log(uploadedImages) 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleFileChange = (event, fieldName) => {
+  const handleFileChange = async (event, fieldName) => {
     const file = event.target.files[0];
+    if (!file) return;
+    const formDataToSend = new FormData();
+    formDataToSend.append('image', file);
+
+    console.log(formDataToSend)
     // Update formData state with file details
     setFormData({ ...formData, [fieldName]: file });
 
     // Read the file and convert it to URL for preview
     const reader = new FileReader();
-    reader.onload = () => {
-      setUploadedImages({ ...uploadedImages, [fieldName]: reader.result });
+    reader.onload = async () => {
+      const imageData = reader.result;
+      setUploadedImages({ ...uploadedImages, [fieldName]: imageData });
+
+      
+      // Prepare the data to be sent to the backend
+      const inspectionData = {
+        documentType: "Inspection Report",
+        bidCarId: id,
+        doc: "", 
+        doctype: "",
+        subtype: lables,
+        comment: selectfiled,
+      };
+      try {
+      
+        const res = await inspectionReport({inspectionData,formDataToSend});
+        console.log(res);
+
+       alert("Data Uploded")
+        
+      } catch (error) {
+        console.error('Error uploading the file:', error);
+        alert("Data not Uploded")
+      }
     };
     reader.readAsDataURL(file);
   };
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -144,7 +187,6 @@ console.log(uploadedImages)
   const handleImageClick = (image) => {
     setSelectedImage(image);
     setOpenModal(true);
-    handledata()
   };
 
   const closeModal = () => {
@@ -154,6 +196,7 @@ console.log(uploadedImages)
 
   return (
     <div className="p-4">
+      <ToastContainer/>
       <Typography variant="h4" className="text-black font-bold pb-5">
         Exterior Panel
       </Typography>
@@ -228,28 +271,28 @@ console.log(uploadedImages)
             <input
               accept="image/*"
               style={{ display: "none" }}
-              id="upload-RightDoorFront"
+              id="upload-RightDoorFronts"
               type="file"
-              onChange={(event) => handleFileChange(event, "RightDoorFront")}
+              onChange={(event) => handleFileChange(event, "RightDoorFronts")}
             />
             <label
-              htmlFor="upload-RightDoorFront"
+              htmlFor="upload-RightDoorFronts"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.RightDoorFront && (
+          {uploadedImages.RightDoorFronts && (
             <img
-              src={uploadedImages.RightDoorFront}
+              src={uploadedImages.RightDoorFronts}
               alt="Uploaded"
               style={{
                 maxWidth: "20%",
                 marginTop: "10px",
                 cursor: "pointer",
               }}
-              onClick={() => handleImageClick(uploadedImages.RightDoorFront)}
+              onClick={() => handleImageClick(uploadedImages.RightDoorFronts)}
             />
           )}
         </Grid>
@@ -276,28 +319,28 @@ console.log(uploadedImages)
             <input
               accept="image/*"
               style={{ display: "none" }}
-              id="upload-LeftDoorFront"
+              id="upload-LeftDoorFronts"
               type="file"
-              onChange={(event) => handleFileChange(event, "LeftDoorFront")}
+              onChange={(event) => handleFileChange(event, "LeftDoorFronts")}
             />
             <label
-              htmlFor="upload-LeftDoorFront"
+              htmlFor="upload-LeftDoorFronts"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.LeftDoorFront && (
+          {uploadedImages.LeftDoorFronts && (
             <img
-              src={uploadedImages.LeftDoorFront}
+              src={uploadedImages.LeftDoorFronts}
               alt="Uploaded"
               style={{
                 maxWidth: "20%",
                 marginTop: "10px",
                 cursor: "pointer",
               }}
-              onClick={() => handleImageClick(uploadedImages.LeftDoorFront)}
+              onClick={() => handleImageClick(uploadedImages.LeftDoorFronts)}
             />
           )}
         </Grid>
@@ -324,28 +367,28 @@ console.log(uploadedImages)
             <input
               accept="image/*"
               style={{ display: "none" }}
-              id="upload-RightFender"
+              id="upload-RightFenders"
               type="file"
-              onChange={(event) => handleFileChange(event, "RightFender")}
+              onChange={(event) => handleFileChange(event, "RightFenders")}
             />
             <label
-              htmlFor="upload-RightFender"
+              htmlFor="upload-RightFenders"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.RightFender && (
+          {uploadedImages.RightFenders && (
             <img
-              src={uploadedImages.RightFender}
+              src={uploadedImages.RightFenders}
               alt="Uploaded"
               style={{
                 maxWidth: "20%",
                 marginTop: "10px",
                 cursor: "pointer",
               }}
-              onClick={() => handleImageClick(uploadedImages.RightFender)}
+              onClick={() => handleImageClick(uploadedImages.RightFenders)}
             />
           )}
         </Grid>
@@ -372,28 +415,28 @@ console.log(uploadedImages)
             <input
               accept="image/*"
               style={{ display: "none" }}
-              id="upload-LeftQuarterPanel"
+              id="upload-LeftQuarterPanels"
               type="file"
-              onChange={(event) => handleFileChange(event, "LeftQuarterPanel")}
+              onChange={(event) => handleFileChange(event, "LeftQuarterPanels")}
             />
             <label
-              htmlFor="upload-LeftQuarterPanel"
+              htmlFor="upload-LeftQuarterPanels"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.LeftQuarterPanel && (
+          {uploadedImages.LeftQuarterPanels && (
             <img
-              src={uploadedImages.LeftQuarterPanel}
+              src={uploadedImages.LeftQuarterPanels}
               alt="Uploaded"
               style={{
                 maxWidth: "20%",
                 marginTop: "10px",
                 cursor: "pointer",
               }}
-              onClick={() => handleImageClick(uploadedImages.LeftQuarterPanel)}
+              onClick={() => handleImageClick(uploadedImages.LeftQuarterPanels)}
             />
           )}
         </Grid>
@@ -420,28 +463,28 @@ console.log(uploadedImages)
             <input
               accept="image/*"
               style={{ display: "none" }}
-              id="upload-RightQuarterPanel"
+              id="upload-RightQuarterPanels"
               type="file"
-              onChange={(event) => handleFileChange(event, "RightQuarterPanel")}
+              onChange={(event) => handleFileChange(event, "RightQuarterPanels")}
             />
             <label
-              htmlFor="upload-RightQuarterPanel"
+              htmlFor="upload-RightQuarterPanels"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.RightQuarterPanel && (
+          {uploadedImages.RightQuarterPanels && (
             <img
-              src={uploadedImages.RightQuarterPanel}
+              src={uploadedImages.RightQuarterPanels}
               alt="Uploaded"
               style={{
                 maxWidth: "20%",
                 marginTop: "10px",
                 cursor: "pointer",
               }}
-              onClick={() => handleImageClick(uploadedImages.RightQuarterPanel)}
+              onClick={() => handleImageClick(uploadedImages.RightQuarterPanels)}
             />
           )}
         </Grid>
@@ -464,28 +507,28 @@ console.log(uploadedImages)
             <input
               accept="image/*"
               style={{ display: "none" }}
-              id="upload-Roof"
+              id="upload-Roofs"
               type="file"
-              onChange={(event) => handleFileChange(event, "Roof")}
+              onChange={(event) => handleFileChange(event, "Roofs")}
             />
             <label
-              htmlFor="upload-Roof"
+              htmlFor="upload-Roofs"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.Roof && (
+          {uploadedImages.Roofs && (
             <img
-              src={uploadedImages.Roof}
+              src={uploadedImages.Roofs}
               alt="Uploaded"
               style={{
                 maxWidth: "20%",
                 marginTop: "10px",
                 cursor: "pointer",
               }}
-              onClick={() => handleImageClick(uploadedImages.Roof)}
+              onClick={() => handleImageClick(uploadedImages.Roofs)}
             />
           )}
         </Grid>
@@ -512,28 +555,28 @@ console.log(uploadedImages)
             <input
               accept="image/*"
               style={{ display: "none" }}
-              id="upload-DickyDoor"
+              id="upload-DickyDoors"
               type="file"
-              onChange={(event) => handleFileChange(event, "DickyDoor")}
+              onChange={(event) => handleFileChange(event, "DickyDoors")}
             />
             <label
-              htmlFor="upload-DickyDoor"
+              htmlFor="upload-DickyDoors"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.DickyDoor && (
+          {uploadedImages.DickyDoors && (
             <img
-              src={uploadedImages.DickyDoor}
+              src={uploadedImages.DickyDoors}
               alt="Uploaded"
               style={{
                 maxWidth: "20%",
                 marginTop: "10px",
                 cursor: "pointer",
               }}
-              onClick={() => handleImageClick(uploadedImages.DickyDoor)}
+              onClick={() => handleImageClick(uploadedImages.DickyDoors)}
             />
           )}
         </Grid>
@@ -560,28 +603,28 @@ console.log(uploadedImages)
             <input
               accept="image/*"
               style={{ display: "none" }}
-              id="upload-LeftDoorRear"
+              id="upload-LeftDoorRears"
               type="file"
-              onChange={(event) => handleFileChange(event, "LeftDoorRear")}
+              onChange={(event) => handleFileChange(event, "LeftDoorRears")}
             />
             <label
-              htmlFor="upload-LeftDoorRear"
+              htmlFor="upload-LeftDoorRears"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.LeftDoorRear && (
+          {uploadedImages.LeftDoorRears && (
             <img
-              src={uploadedImages.LeftDoorRear}
+              src={uploadedImages.LeftDoorRears}
               alt="Uploaded"
               style={{
                 maxWidth: "20%",
                 marginTop: "10px",
                 cursor: "pointer",
               }}
-              onClick={() => handleImageClick(uploadedImages.LeftDoorRear)}
+              onClick={() => handleImageClick(uploadedImages.LeftDoorRears)}
             />
           )}
         </Grid>
@@ -608,28 +651,28 @@ console.log(uploadedImages)
             <input
               accept="image/*"
               style={{ display: "none" }}
-              id="upload-RightDoorRear"
+              id="upload-RightDoorRears"
               type="file"
-              onChange={(event) => handleFileChange(event, "RightDoorRear")}
+              onChange={(event) => handleFileChange(event, "RightDoorRears")}
             />
             <label
-              htmlFor="upload-RightDoorRear"
+              htmlFor="upload-RightDoorRears"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.RightDoorRear && (
+          {uploadedImages.RightDoorRears && (
             <img
-              src={uploadedImages.RightDoorRear}
+              src={uploadedImages.RightDoorRears}
               alt="Uploaded"
               style={{
                 maxWidth: "20%",
                 marginTop: "10px",
                 cursor: "pointer",
               }}
-              onClick={() => handleImageClick(uploadedImages.RightDoorRear)}
+              onClick={() => handleImageClick(uploadedImages.RightDoorRears)}
             />
           )}
         </Grid>
@@ -658,18 +701,20 @@ console.log(uploadedImages)
         </div>
       </Modal>
 
-      <WindshieldAndLights formData={formData} setFormData={setFormData} />
-      <Tyre formData={formData} setFormData={setFormData} />
-      <OtherComponent formData={formData} setFormData={setFormData} />
+      
+      <WindshieldAndLights formData={formData} setFormData={setFormData} handleFileChange={handleFileChange} uploadedImages={uploadedImages} setUploadedImages={setUploadedImages}/>
+<Tyre formData={formData} setFormData={setFormData} handleFileChange={handleFileChange} uploadedImages={uploadedImages} setUploadedImages={setUploadedImages}/>
+<OtherComponent formData={formData} setFormData={setFormData} handleFileChange={handleFileChange} uploadedImages={uploadedImages} setUploadedImages={setUploadedImages}/>
 
-      <div className="flex justify-between mt-10 px-8">
-        {/* <Button variant="contained" color="primary">
-          Previous
-        </Button>
+<Structure formData={formData} setFormData={setFormData} handleFileChange={handleFileChange} uploadedImages={uploadedImages} setUploadedImages={setUploadedImages}/>
+
+
+{/* <div className="flex justify-end mt-10 px-8">
+        
         <Button variant="contained" color="primary">
           Next
-        </Button> */}
-      </div>
+        </Button> 
+      </div> */}
     </div>
   );
 };

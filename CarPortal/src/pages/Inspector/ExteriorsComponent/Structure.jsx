@@ -1,5 +1,19 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import  { useState } from 'react';
+// #Cowl Top :- status/options - Repainted, Dented, Scratched, Rusted, Repaired, Damaged,faded
+// # Boot Floor :- status/options - Repainted, Dented, Scratched, Rusted, Repaired, Damaged,faded
+// # Right Apron LEG :- status/options - Repainted, Dented, Scratched, Rusted, Repaired,
+// Damaged,faded
+// # Left Apron LEG :- status/options - Repainted, Dented, Scratched, Rusted, Repaired,
+// Damaged,faded
+// #Left Apron :- status/options - Repainted, Dented, Scratched, Rusted, Repaired, Damaged,faded
+// #Right Apron :- status/options - Repainted, Dented, Scratched, Rusted, Repaired, Damaged,faded
+// #Left Pillar :- status/options - Repainted, Dented, Scratched, Rusted, Repaired,
+// Damaged,faded
+// #Right Pillar :- status/options - Repainted, Dented, Scratched, Rusted, Repaired,
+// Damaged,faded
+
+import React, { useState } from 'react';
 import {
   MenuItem,
   FormControl,
@@ -34,14 +48,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const WindshieldAndLights = ({ formData, setFormData,handleFileChange,uploadedImages }) => {
+const Structure = ({formData, setFormData,handleFileChange,uploadedImages }) => {
   const classes = useStyles();
-
 
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-
 
 
   const handleChange = (event) => {
@@ -61,20 +73,17 @@ const WindshieldAndLights = ({ formData, setFormData,handleFileChange,uploadedIm
 
   return (
     <div className='p-4'>
-      <Typography variant="h4" className='text-black font-bold pb-5 pt-15 '>
-        Windshield And Lights
+      <Typography variant="h4" className='text-black font-bold pb-5 pt-16'>
+        Structure
       </Typography>
       <Grid container spacing={3}>
-        {/* Windshield */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
-            <InputLabel>Windshield</InputLabel>
+            <InputLabel>CowlTop</InputLabel>
             <Select
-              name="Windshield"
-              value={formData.Windshield}
+              name="CowlTop"
+              value={formData.CowlTop}
               onChange={handleChange}
-              color="Green"
-            
             >
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
@@ -82,42 +91,46 @@ const WindshieldAndLights = ({ formData, setFormData,handleFileChange,uploadedIm
               <MenuItem value="Rusted">Rusted</MenuItem>
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
-              <MenuItem value="NotWorking">Not Working</MenuItem>
+              <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
           <div className="flex items-center mt-2">
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-Windshield"
+              id="upload-CowlTop"
               type="file"
-              onChange={(event) => handleFileChange(event, 'Windshield')}
+              onChange={(event) => handleFileChange(event, 'CowlTop')}
             />
-            <label htmlFor="upload-Windshield" className="cursor-pointer flex items-center">
+            <label
+              htmlFor="upload-CowlTop"
+              className="cursor-pointer flex items-center"
+            >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.Windshield && (
+          {uploadedImages.CowlTop && (
             <img
-              src={uploadedImages.Windshield}
+              src={uploadedImages.CowlTop}
               alt="Uploaded"
-              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.Windshield)}
+              style={{
+                maxWidth: '20%',
+                marginTop: '10px',
+                cursor: 'pointer',
+              }}
+              onClick={() => handleImageClick(uploadedImages.CowlTop)}
             />
           )}
         </Grid>
 
-        {/* Light */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
-            <InputLabel>Light</InputLabel>
+            <InputLabel>Boot Floor</InputLabel>
             <Select
-              name="Light"
-              value={formData.Light}
+              name="BootFloor"
+              value={formData.BootFloor}
               onChange={handleChange}
-              color="Green"
-              
             >
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
@@ -125,79 +138,46 @@ const WindshieldAndLights = ({ formData, setFormData,handleFileChange,uploadedIm
               <MenuItem value="Rusted">Rusted</MenuItem>
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
-              <MenuItem value="NotWorking">Not Working</MenuItem>
+              <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
           <div className="flex items-center mt-2">
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-Light"
+              id="upload-BootFloor"
               type="file"
-              onChange={(event) => handleFileChange(event, 'Light')}
+              onChange={(event) => handleFileChange(event, 'BootFloor')}
             />
-            <label htmlFor="upload-Light" className="cursor-pointer flex items-center">
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
-          </div>
-          {uploadedImages.Light && (
-            <img
-              src={uploadedImages.Light}
-              alt="Uploaded"
-              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.Light)}
-            />
-          )}
-        </Grid>
-
-        {/* Front Bumper */}
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel>Front Bumper</InputLabel>
-            <Select
-              name="FrontBumper"
-              value={formData.FrontBumper}
-              onChange={handleChange}
-              
+            <label
+              htmlFor="upload-BootFloor"
+              className="cursor-pointer flex items-center"
             >
-              <MenuItem value="ok-69-85%">Ok 69-85%</MenuItem>
-              <MenuItem value="not-ok-22-38%">Not Ok 22-38%</MenuItem>
-              <MenuItem value="Damaged">Damaged</MenuItem>
-            </Select>
-          </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="upload-FrontBumper"
-              type="file"
-              onChange={(event) => handleFileChange(event, 'FrontBumper')}
-            />
-            <label htmlFor="upload-FrontBumper" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.FrontBumper && (
+          {uploadedImages.BootFloor && (
             <img
-              src={uploadedImages.FrontBumper}
+              src={uploadedImages.BootFloor}
               alt="Uploaded"
-              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.FrontBumper)}
+              style={{
+                maxWidth: '20%',
+                marginTop: '10px',
+                cursor: 'pointer',
+              }}
+              onClick={() => handleImageClick(uploadedImages.BootFloor)}
             />
           )}
         </Grid>
 
-        {/* Rear Bumper */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
-            <InputLabel>Rear Bumper</InputLabel>
+            <InputLabel>Right Apron LEG</InputLabel>
             <Select
-              name="RearBumper"
-              value={formData.RearBumper}
+              name="RightApronLEG"
+              value={formData.RightApronLEG}
               onChange={handleChange}
-            
             >
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
@@ -205,41 +185,46 @@ const WindshieldAndLights = ({ formData, setFormData,handleFileChange,uploadedIm
               <MenuItem value="Rusted">Rusted</MenuItem>
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
-              <MenuItem value="NotWorking">Not Working</MenuItem>
+              <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
           <div className="flex items-center mt-2">
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-RearBumper"
+              id="upload-RightApronLEG"
               type="file"
-              onChange={(event) => handleFileChange(event, 'RearBumper')}
+              onChange={(event) => handleFileChange(event, 'RightApronLEG')}
             />
-            <label htmlFor="upload-RearBumper" className="cursor-pointer flex items-center">
+            <label
+              htmlFor="upload-RightApronLEG"
+              className="cursor-pointer flex items-center"
+            >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.RearBumper && (
+          {uploadedImages.RightApronLEG && (
             <img
-              src={uploadedImages.RearBumper}
+              src={uploadedImages.RightApronLEG}
               alt="Uploaded"
-              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.RearBumper)}
+              style={{
+                maxWidth: '20%',
+                marginTop: '10px',
+                cursor: 'pointer',
+              }}
+              onClick={() => handleImageClick(uploadedImages.RightApronLEG)}
             />
           )}
         </Grid>
 
-        {/* LHS Headlight */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
-            <InputLabel>LHS Headlight</InputLabel>
+            <InputLabel>Left Apron LEG</InputLabel>
             <Select
-              name="LHSHeadlight"
-              value={formData.LHSHeadlight}
+              name="LeftApronLEG"
+              value={formData.LeftApronLEG}
               onChange={handleChange}
-              
             >
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
@@ -247,41 +232,46 @@ const WindshieldAndLights = ({ formData, setFormData,handleFileChange,uploadedIm
               <MenuItem value="Rusted">Rusted</MenuItem>
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
-              <MenuItem value="NotWorking">Not Working</MenuItem>
+              <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
           <div className="flex items-center mt-2">
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-LHSHeadlight"
+              id="upload-LeftApronLEG"
               type="file"
-              onChange={(event) => handleFileChange(event, 'LHSHeadlight')}
+              onChange={(event) => handleFileChange(event, 'LeftApronLEG')}
             />
-            <label htmlFor="upload-LHSHeadlight" className="cursor-pointer flex items-center">
+            <label
+              htmlFor="upload-LeftApronLEG"
+              className="cursor-pointer flex items-center"
+            >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.LHSHeadlight && (
+          {uploadedImages.LeftApronLEG && (
             <img
-              src={uploadedImages.LHSHeadlight}
+              src={uploadedImages.LeftApronLEG}
               alt="Uploaded"
-              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.LHSHeadlight)}
+              style={{
+                maxWidth: '20%',
+                marginTop: '10px',
+                cursor: 'pointer',
+              }}
+              onClick={() => handleImageClick(uploadedImages.LeftApronLEG)}
             />
           )}
         </Grid>
 
-        {/* RHS Headlight */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
-            <InputLabel>RHS Headlight</InputLabel>
+            <InputLabel>Right Apron</InputLabel>
             <Select
-              name="RHSHeadlight"
-              value={formData.RHSHeadlight}
+              name="RightApron"
+              value={formData.RightApron}
               onChange={handleChange}
-             
             >
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
@@ -289,41 +279,46 @@ const WindshieldAndLights = ({ formData, setFormData,handleFileChange,uploadedIm
               <MenuItem value="Rusted">Rusted</MenuItem>
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
-              <MenuItem value="NotWorking">Not Working</MenuItem>
+              <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
           <div className="flex items-center mt-2">
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-RHSHeadlight"
+              id="upload-RightApron"
               type="file"
-              onChange={(event) => handleFileChange(event, 'RHSHeadlight')}
+              onChange={(event) => handleFileChange(event, 'RightApron')}
             />
-            <label htmlFor="upload-RHSHeadlight" className="cursor-pointer flex items-center">
+            <label
+              htmlFor="upload-RightApron"
+              className="cursor-pointer flex items-center"
+            >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.RHSHeadlight && (
+          {uploadedImages.RightApron && (
             <img
-              src={uploadedImages.RHSHeadlight}
+              src={uploadedImages.RightApron}
               alt="Uploaded"
-              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.RHSHeadlight)}
+              style={{
+                maxWidth: '20%',
+                marginTop: '10px',
+                cursor: 'pointer',
+              }}
+              onClick={() => handleImageClick(uploadedImages.RightApron)}
             />
           )}
         </Grid>
 
-        {/* LHS Taillight */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
-            <InputLabel>LHS Taillight</InputLabel>
+            <InputLabel>Left Apron</InputLabel>
             <Select
-              name="LHSTaillight"
-              value={formData.LHSTaillight}
+              name="LeftApron"
+              value={formData.LeftApron}
               onChange={handleChange}
-          
             >
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
@@ -331,41 +326,46 @@ const WindshieldAndLights = ({ formData, setFormData,handleFileChange,uploadedIm
               <MenuItem value="Rusted">Rusted</MenuItem>
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
-              <MenuItem value="NotWorking">Not Working</MenuItem>
+              <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
           <div className="flex items-center mt-2">
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-LHSTaillight"
+              id="upload-LeftApron"
               type="file"
-              onChange={(event) => handleFileChange(event, 'LHSTaillight')}
+              onChange={(event) => handleFileChange(event, 'LeftApron')}
             />
-            <label htmlFor="upload-LHSTaillight" className="cursor-pointer flex items-center">
+            <label
+              htmlFor="upload-LeftApron"
+              className="cursor-pointer flex items-center"
+            >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.LHSTaillight && (
+          {uploadedImages.LeftApron && (
             <img
-              src={uploadedImages.LHSTaillight}
+              src={uploadedImages.LeftApron}
               alt="Uploaded"
-              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.LHSTaillight)}
+              style={{
+                maxWidth: '20%',
+                marginTop: '10px',
+                cursor: 'pointer',
+              }}
+              onClick={() => handleImageClick(uploadedImages.LeftApron)}
             />
           )}
         </Grid>
 
-        {/* RHS Taillight */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
-            <InputLabel>RHS Taillight</InputLabel>
+            <InputLabel>Left Pillar</InputLabel>
             <Select
-              name="RHSTaillight"
-              value={formData.RHSTaillight}
+              name="LeftPillar"
+              value={formData.LeftPillar}
               onChange={handleChange}
-              
             >
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
@@ -373,55 +373,100 @@ const WindshieldAndLights = ({ formData, setFormData,handleFileChange,uploadedIm
               <MenuItem value="Rusted">Rusted</MenuItem>
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
-              <MenuItem value="NotWorking">Not Working</MenuItem>
+              <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
           <div className="flex items-center mt-2">
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-RHSTaillight"
+              id="upload-LeftPillar"
               type="file"
-              onChange={(event) => handleFileChange(event, 'RHSTaillight')}
+              onChange={(event) => handleFileChange(event, 'LeftPillar')}
             />
-            <label htmlFor="upload-RHSTaillight" className="cursor-pointer flex items-center">
+            <label
+              htmlFor="upload-LeftPillar"
+              className="cursor-pointer flex items-center"
+            >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.RHSTaillight && (
+          {uploadedImages.LeftPillar && (
             <img
-              src={uploadedImages.RHSTaillight}
+              src={uploadedImages.LeftPillar}
               alt="Uploaded"
-              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.RHSTaillight)}
+              style={{
+                maxWidth: '20%',
+                marginTop: '10px',
+                cursor: 'pointer',
+              }}
+              onClick={() => handleImageClick(uploadedImages.LeftPillar)}
+            />
+          )}
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth>
+            <InputLabel>Right Pillar</InputLabel>
+            <Select
+              name="RightPillar"
+              value={formData.RightPillar}
+              onChange={handleChange}
+            >
+              <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem>
+              <MenuItem value="Scratched">Scratched</MenuItem>
+              <MenuItem value="Rusted">Rusted</MenuItem>
+              <MenuItem value="Repaired">Repaired</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
+              <MenuItem value="Faded">Faded</MenuItem>
+            </Select>
+          </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: 'none' }}
+              id="upload-RightPillar"
+              type="file"
+              onChange={(event) => handleFileChange(event, 'RightPillar')}
+            />
+            <label
+              htmlFor="upload-RightPillar"
+              className="cursor-pointer flex items-center"
+            >
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.RightPillar && (
+            <img
+              src={uploadedImages.RightPillar}
+              alt="Uploaded"
+              style={{
+                maxWidth: '20%',
+                marginTop: '10px',
+                cursor: 'pointer',
+              }}
+              onClick={() => handleImageClick(uploadedImages.RightPillar)}
             />
           )}
         </Grid>
       </Grid>
 
-      {/* Modal for displaying clicked image */}
-      <Modal open={openModal} onClose={closeModal} className={classes.modal}>
+      <Modal
+        open={openModal}
+        onClose={closeModal}
+        className={classes.modal}
+      >
         <div className={classes.paper}>
           {selectedImage && (
-            <div>
-              <img src={selectedImage} alt="Selected" className={classes.image} />
-              <Button
-                onClick={closeModal}
-                variant="contained"
-                color="secondary"
-                style={{ marginTop: '10px' }}
-              >
-                Close
-              </Button>
-            </div>
+            <img src={selectedImage} alt="Preview" className={classes.image} />
           )}
         </div>
       </Modal>
-
-     
     </div>
   );
 };
 
-export default WindshieldAndLights;
+export default Structure;

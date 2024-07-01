@@ -107,7 +107,7 @@ function UploadImages2() {
   return (
     <div className="flex justify-center">
       <div className="w-full max-w-8xl p-4">
-        <h2 className="text-3xl font-semibold mb-4">Edit Images</h2>
+        <h2 className="text-3xl font-semibold mb-4">Add Images</h2>
         <form>
           <Tabs value={activeTab} onChange={(value) => setActiveTab(value)}>
             <TabsHeader>
