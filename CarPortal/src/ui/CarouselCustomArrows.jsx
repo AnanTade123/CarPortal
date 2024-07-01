@@ -3,18 +3,27 @@ import { useGetCarImageByIdQuery } from "../services/carAPI";
 
 // eslint-disable-next-line react/prop-types
 export function CarouselCustomArrows({ carId }) {
-
-  console.log("Carid in customearrow",carId)
-  const { data, isLoading, error } = useGetCarImageByIdQuery({ carId })
-  console.log("Data of image",data)
+  console.log("Carid in customearrow", carId);
+  const { data, isLoading, error } = useGetCarImageByIdQuery({ carId });
+  console.log("Data of image", data);
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div className="text-center mt-5">No Image Available <img className="w-[12rem] ml-12 opacity-50" src="..\..\cars\no-image-available.png" alt="no image" /></div>;
- 
+  if (error)
+    return (
+      <div className="text-center mt-5">
+        No Image Available{" "}
+        <img
+          className="w-[12rem] ml-12 opacity-50"
+          src="..\..\cars\no-image-available.png"
+          alt="no image"
+        />
+      </div>
+    );
+
   return (
     <>
-    {/* // <Carousel */}
-    {/* //   className="rounded-xl md:w-56 lg:w-72"
+      {/* // <Carousel */}
+      {/* //   className="rounded-xl md:w-56 lg:w-72"
       // prevArrow={({ handlePrev }) => ( 
       //   <IconButton
       //     variant="text"
@@ -64,21 +73,20 @@ export function CarouselCustomArrows({ carId }) {
     //     </IconButton>
     //   )}
     // >*/}
-     
-  {data && data.object.map((item) => (
-    item.documentType ==="coverImage"?
-      <img
-      key={item.documentId}
-        src={item.documentLink}
-        alt={`Car Image ${item?.documentId}`}
-        className="rounded-lg"
-      />
-   : null
- 
-  ))}
 
+      {data &&
+        data.object.map((item) =>
+          item.documentType === "coverImage" ? (
+            <img
+              key={item.documentId}
+              src={item.documentLink}
+              alt={`Car Image ${item?.documentId}`}
+              className="rounded-lg w-[19rem] h-[13rem]"
+            />
+          ) : null
+        )}
 
-    {/* // </Carousel> */}
+      {/* // </Carousel> */}
     </>
   );
 }

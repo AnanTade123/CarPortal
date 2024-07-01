@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import {
   Card,
   CardHeader,
@@ -7,38 +6,32 @@ import {
   CardBody,
   CardFooter,
 } from "@material-tailwind/react";
-import { useBiddingCarByDealerIdQuery, useGetByDealerIdQuery } from "../../services/biddingAPI";
+import { useBiddingCarByDealerIdQuery } from "../../services/biddingAPI";
 
-import TableComponent from "../../components/table/TableComponent";
-import { Link,useParams } from "react-router-dom";
+// import TableComponent from "../../components/table/TableComponent";
+import { Link, useParams } from "react-router-dom";
 import { MdPendingActions } from "react-icons/md";
 import StatusDialogeBox from "../../ui/StatusDialogeBox";
 import BiddingDailogeBox from "../../ui/BiddingDialogeBox";
-import PlaceBid from "./PlaceBid";
+// import PlaceBid from "./PlaceBid";
+import PlaceBid from "../dealer/PlaceBid";
 import BiddingSetTime from "../../ui/BiddingSetTime";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 
+const BiddingDealerCars = () => {
+  const { id } = useParams();
 
-const BiddingDealer = () => {
-  const {id} = useParams()
-  
-  
   const token = Cookies.get("token");
-  let jwtDecodes
-  if(token){
-     jwtDecodes = jwtDecode(token);
+  let jwtDecodes;
+  if (token) {
+    jwtDecodes = jwtDecode(token);
   }
 
-  const userInfo = localStorage.getItem("userInfo");
-  const { dealerId } = JSON.parse(userInfo);
- 
+  const UserID = jwtDecodes?.userId;
 
- const UserID = jwtDecodes?.userId;
- 
-  // const { data, isLoading,error } = useBiddingCarByDealerIdQuery(UserID);
-  const {data,isLoading , error} = useGetByDealerIdQuery(dealerId);
-  console.log(data)
+  const { data, isLoading, error } = useBiddingCarByDealerIdQuery(UserID);
+
   if (isLoading) {
     return <p>Loading..</p>;
   }
@@ -81,8 +74,8 @@ const BiddingDealer = () => {
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
-             <StatusDialogeBox status={cell.row.values.carStatus}/>
-             </div>
+              <StatusDialogeBox status={cell.row.values.carStatus} />
+            </div>
           </div>
         );
       },
@@ -95,13 +88,16 @@ const BiddingDealer = () => {
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
-             <BiddingSetTime userid={UserID} biddingcarid={cell.row.values.beadingCarId}/>
-             </div>
+              <BiddingSetTime
+                userid={UserID}
+                biddingcarid={cell.row.values.beadingCarId}
+              />
+            </div>
           </div>
         );
       },
     },
-  
+
     {
       Header: "Start Bidiing",
       accessor: "",
@@ -110,8 +106,11 @@ const BiddingDealer = () => {
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
-             <BiddingDailogeBox userid={UserID} biddingcarid={cell.row.values.beadingCarId}/>
-             </div>
+              <BiddingDailogeBox
+                userid={UserID}
+                biddingcarid={cell.row.values.beadingCarId}
+              />
+            </div>
           </div>
         );
       },
@@ -125,8 +124,8 @@ const BiddingDealer = () => {
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
-             <PlaceBid userid={UserID} id={id}/>
-             </div>
+              <PlaceBid userid={UserID} id={id} />
+            </div>
           </div>
         );
       },
@@ -137,18 +136,19 @@ const BiddingDealer = () => {
       accessor: "Edit",
       // eslint-disable-next-line no-unused-vars
       Cell: (cell) => {
-         console.log(cell.row.values.beadingCarId);
+        console.log(cell.row.values.beadingCarId);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
-               <Link to={`/car/${cell.row.values.beadingCarId}/pendingreq`}>
-               <div className="w- h-">
+              <Link to={`/car/${cell.row.values.beadingCarId}/pendingreq`}>
+                <div className="w- h-">
                   <MdPendingActions color="#b09b12" className="h-6 w-6" />
-               </div>
-               
-               </Link>
+                </div>
+              </Link>
 
-              <Link to={`/biddinglist/cardetails/${cell.row.values.beadingCarId}`}>
+              <Link
+                to={`/biddinglist/cardetails/${cell.row.values.beadingCarId}`}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -166,9 +166,7 @@ const BiddingDealer = () => {
                 </svg>
               </Link>
 
-              <Link
-                to={`/bidding/${cell.row.values.dealer_id}/editcar`}
-              >
+              <Link to={`/bidding/${cell.row.values.dealer_id}/editcar`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -210,7 +208,7 @@ const BiddingDealer = () => {
       },
     },
   ];
-console.log(columns);
+  console.log(columns);
   let dealerApiData;
   if (isLoading) {
     return <p>isLoading</p>;
@@ -218,71 +216,71 @@ console.log(columns);
     dealerApiData = data;
   }
   console.log(dealerApiData);
-  
+
   return (
     <>
-     {error?.status===404 ? (
-      <div>
-           <p className="text-3xl font-semibold ">No Data Available</p>
-           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-              <Link to={`/bidding/${UserID}/addcar`}>
-                <Button>Add Car</Button>
-              </Link>
-            </div>
-            </div>
-        ):( <Card className="h-full w-full">
-        <CardHeader floated={false} shadow={false} className="rounded-none">
-          <div className=" flex items-center justify-between gap-8">
-            <div>
-              <Typography variant="h5" color="blue-gray">
-                Bidding Car list
-              </Typography>
-              {/* <Typography color="gray" className="mt-1 font-normal">
-                See information about all cars
-              </Typography> */}
-            </div>
-            {/* <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-              <Link to={`/bidding/${UserID}/addcar`}>
-                <Button>Add Car</Button>
-              </Link>
-            </div> */}
+      {error?.status === 404 ? (
+        <div>
+          <p className="text-3xl font-semibold ">No Data Available</p>
+          <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+            <Link to={`/bidding/${UserID}/addcar`}>
+              <Button>Add Car</Button>
+            </Link>
           </div>
-        </CardHeader>
-       <CardBody className="overflow-scroll px-0">
-          <TableComponent columns={columns} data={dealerApiData} />
-        </CardBody>
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-          <Typography
-            variant="medium"
-            color="blue-gray"
-            className="font-normal"
-          >
-            {/* Page {pageNo + 1} */}
-          </Typography>
-          <div className="flex gap-2">
-            <Button
-              variant="outlined"
-              size="sm"
-              // disabled={pageNo <= 0}
-              // onClick={() => setPageNo((a) => a - 1)}
+        </div>
+      ) : (
+        <Card className="h-full w-full">
+          <CardHeader floated={false} shadow={false} className="rounded-none">
+            <div className=" flex items-center justify-between gap-8">
+              <div>
+                <Typography variant="h5" color="blue-gray">
+                  Bidding Car list
+                </Typography>
+                <Typography color="gray" className="mt-1 font-normal">
+                  See information about all cars
+                </Typography>
+              </div>
+              <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+                <Link to={`/bidding/${UserID}/addcar`}>
+                  <Button>Add Car</Button>
+                </Link>
+              </div>
+            </div>
+          </CardHeader>
+          <CardBody className="overflow-scroll px-0">
+            {/* <TableComponent columns={columns} data={dealerApiData} /> */}
+          </CardBody>
+          <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+            <Typography
+              variant="medium"
+              color="blue-gray"
+              className="font-normal"
             >
-              Previous
-            </Button>
-            <Button
-              variant="outlined"
-              size="sm"
-              // onClick={nextHandler}
-              // disabled={data?.list?.length < 10}
-            >
-              Next
-            </Button>
-          </div>
-        </CardFooter>
-        
-      </Card>)}
-     
+              {/* Page {pageNo + 1} */}
+            </Typography>
+            <div className="flex gap-2">
+              <Button
+                variant="outlined"
+                size="sm"
+                // disabled={pageNo <= 0}
+                // onClick={() => setPageNo((a) => a - 1)}
+              >
+                Previous
+              </Button>
+              <Button
+                variant="outlined"
+                size="sm"
+                // onClick={nextHandler}
+                // disabled={data?.list?.length < 10}
+              >
+                Next
+              </Button>
+            </div>
+          </CardFooter>
+        </Card>
+      )}
     </>
   );
 };
 
-export default BiddingDealer;
+export default BiddingDealerCars;

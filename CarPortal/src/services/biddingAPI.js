@@ -84,6 +84,13 @@ export const biddingAPI = apiSlice.injectEndpoints({
       }),
       providesTags: ["BIDDING"],
     }),
+    getByDealerId : builder.query({
+      query : (dealerId)  => ({
+        url : `BeadingCarController/getByDealerID/${dealerId}`,
+        method : "GET"
+      }),
+      providesTags : ["BIDDING"],
+    }),
 
   }),
 });
@@ -96,4 +103,6 @@ export const {useBiddingAllCardQuery,
   useStartBiddingSetTimeMutation ,
   useCreateBiddingMutation, 
   useBidCarbyIdQuery, 
-  useBiddingCarByDealerIdQuery } = biddingAPI
+  useBiddingCarByDealerIdQuery,
+  useGetByDealerIdQuery
+ } = biddingAPI
