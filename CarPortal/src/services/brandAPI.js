@@ -12,6 +12,35 @@ export const brandAPI = apiSlice.injectEndpoints({
       invalidatesTags: ["Admin"],
     }),
 
+    //GET ONLY BRANDS
+    getOnlyBrands: builder.query({
+      query: () => ({
+        url: `/brands/only-brands`,
+        method: "GET",
+      }),
+      invalidatesTags: ["Admin"],
+    }),
+
+    //GET VARIANT means Model
+    getVariants: builder.query({
+      query: (brand) => ({
+        url: `/brands/variants`,
+        method: 'GET',
+        params: { brand },
+      }),
+      providesTags: ['Admin'],
+    }),
+
+    // GET SUB-VARIANT
+    getSubVariants: builder.query({
+      query: ({ brand, variant }) => ({
+        url: `/brands/sub-variants`,
+        method: 'GET',
+        params: { brand, variant },
+      }),
+      providesTags: ['Admin'],
+    }),
+
     //POST
     addCarBrands: builder.mutation({
       query: (carBrand) => ({
@@ -50,5 +79,8 @@ export const {
   useAddCarBrandsMutation,
   useGetAllBrandsQuery,
   useEditBrandDataMutation,
-  useDeleteCarBrandsMutation
+  useDeleteCarBrandsMutation,
+  useGetOnlyBrandsQuery,
+  useGetVariantsQuery,
+  useGetSubVariantsQuery
 } = brandAPI;

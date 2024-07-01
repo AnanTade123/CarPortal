@@ -47,10 +47,9 @@ import EditImage from "./pages/dealer/EditImage";
 import InspectorMiddleware from "./middleware/InspectorMiddleware";
 import { object } from "prop-types";
 import PendingRequest2 from "./pages/dealer/PendingRequest2";
-import CarListing from "./pages/sales/CarListing";
+import SalesList from "./pages/adminpages/SalesList";
 // import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
-import SalesList from "./pages/adminpages/SalesList"
-
+import CarListing from "./pages/sales/CarListing";
 
 import CarListModels from "./pages/adminpages/CarListModels";
 import SellForCar from "./pages/dealer/SellForCar";
@@ -86,7 +85,7 @@ export default function App() {
             <Route path="/admin" element={<Admin />} />
 
             <Route path="/inspector" element={<InspectorList />} />
-            <Route path="/saleslist" element={<SalesList />} />
+            <Route path="/admin/salesuser" element={<SalesList />} />
             <Route path="/CarInspection" element={<CarInspectionTable />} />
             {/* <Route path="/admin/inspector/info/:ProfileId" element={<AdminInspectorInfo />} /> */}
             <Route path="/carlistmodel" element={<CarListModels />} />
@@ -119,7 +118,7 @@ export default function App() {
               element={<CarListing />}
             />
              <Route
-              path="/biddingdealercars"
+              path="/admin/biddingcar"
               element={<BiddingDealerCars />}
             />
             <Route
@@ -133,7 +132,7 @@ export default function App() {
               <DealerMiddleware allowedRoles={[...Object.values(onlyDealer)]} />
             }
           >
-            <Route path="/dealer/:id" element={<DealerDashboard />} />
+            <Route path="/dealer/:id" element={<SellForCar />} />
             <Route path="/dealer/:id/addcar" element={<AddDealerCar />} />
             <Route path="/dealer/:id/uploadimage" element={<Uploadimages2 />} />
             <Route path="/dealer/:id/edit" element={<DealerEdit />} />
@@ -162,8 +161,12 @@ export default function App() {
           <Route element={<InspectorMiddleware allowedRoles={[...Object.values(onlyInspector)]} />} >
             <Route path="/inspector/carverify/:id" element={<CarVerify />} />
             <Route
-              path="/carsdata"
+              path="/inspector/car"
               element={<CarListing />}
+            />
+            <Route
+              path="/dealer/biddingcar"
+              element={<BiddingDealerCars />}
             />
           </Route>
 

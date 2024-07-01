@@ -40,7 +40,7 @@ const navListMenuItems = [
   
   {
     title: "Bidding Car",
-    link: "/",
+    link: userRole === "DEALER"? "/dealer/biddingcar" : userRole === "ADMIN" ? '/admin/biddingcar' :null ,
   },
 ];
 
@@ -49,7 +49,7 @@ if (userRole === "ADMIN") {
     {
       title: "Dashboard",
 
-      link: `/carlisting`,
+      link: `/`,
     },
     {
       title: "Car Models",
@@ -63,7 +63,8 @@ if (userRole === "DEALER") {
     {
       title: "Cars",
       link: `/dealer/${jwtDecodes?.dealerId}`,
-    }
+    },
+    
   );
 }
 
@@ -169,9 +170,24 @@ if (userRole === "DEALER") {
               : ""
           }`}
         >
-          Inspector List
+          Inspector
         </Typography>
       </Link>
+      <Link to={"/admin/salesuser"}>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === "/admin/salesuser"
+              ? "bg-indigo-200 text-white"
+              : ""
+          }`}
+        >
+          Seller
+        </Typography>
+      </Link>
+      
     </>
   ) : null;
 
@@ -246,13 +262,13 @@ if (userRole === "DEALER") {
 
   const inspectorDashboard = userRole?.includes("INSPECTOR") ? (
     <>
-      <Link to={`/carsdata`}>
+      <Link to={`/inspector/car`}>
         <Typography
           as="li"
           variant="small"
           color="blue-gray"
           className={`p-3 rounded-md font-normal ${
-            window.location.pathname === `/carsdata`
+            window.location.pathname === `/inspector/car`
               ? "bg-indigo-200 text-white"
               : ""
           }`}
