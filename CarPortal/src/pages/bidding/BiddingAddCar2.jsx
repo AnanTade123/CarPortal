@@ -165,8 +165,9 @@ export default function BiddingAddCar2() {
     console.log(data);
     const res = await biddingCarRegister(data);
 
-    const objectString = res?.data?.object;
-    const beadingCarId = objectString.split(':')[1].trim();
+    const beadingCarId = res?.data?.object;
+    // console.log(objectString)
+    // const beadingCarId = objectString.split(':')[1].trim();
 
     console.log(res);
     if (res?.data?.message === "success") {

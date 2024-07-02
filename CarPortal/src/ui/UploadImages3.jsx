@@ -13,7 +13,8 @@ import { IoAddCircleOutline, IoCloseCircle, IoCheckmarkCircle } from 'react-icon
 function UploadImages3() {
   const [images, setImages] = useState([]);
   const [uploadStatus, setUploadStatus] = useState({}); // Track upload status for each image
-  const { id } = useParams();
+  const { beadingCarId } = useParams();
+  console.log(beadingCarId)
   const token = Cookies.get('token');
   let jwtDecodes;
 
@@ -22,10 +23,10 @@ function UploadImages3() {
   }
 
   const UserID = jwtDecodes?.userId;
-  const { data } = useDealerIdByCarQuery({ id, pageNo: 0 });
+  // const { data } = useDealerIdByCarQuery({ id, pageNo: 0 });
 
-  const firstCarId = data?.list?.length > 0 ? data?.list[0].carId : null;
-  console.log(firstCarId);
+  // const firstCarId = data?.list?.length > 0 ? data?.list[0].carId : null;
+  // console.log(firstCarId);
 
   const [inspectionReport] = useInspectionReportMutation();
 
@@ -35,17 +36,20 @@ function UploadImages3() {
     setImages(files);
 
     for (const file of files) {
-      const formData = new FormData();
-      formData.append('image', file);
-      formData.append('document', documentType);
+      const formDataToSend = new FormData();
+      formDataToSend.append('image', images);
+
+      const inspectionData = {
+        documentType: "Inspection Report",
+        bidCarId: beadingCarId,
+        doc: "",
+        doctype: documentType,
+        subtype: categoryValue,
+        comment: "", // Add relevant comments if necessary
+      };
 
       try {
-        const response = await inspectionReport({
-          formData,
-          document: documentType,
-          firstCarId,
-          UserID,
-        }).unwrap();
+        const response = await inspectionReport({ inspectionData, formDataToSend });
         console.log(response);
         toast.success("Uploaded Successfully");
         setUploadStatus((prevStatus) => ({
@@ -53,7 +57,7 @@ function UploadImages3() {
           [file.name]: 'success',
         }));
       } catch (error) {
-        console.error(error);
+        console.log('Error uploading the file:', error);
         toast.error("Upload Failed");
         setUploadStatus((prevStatus) => ({
           ...prevStatus,
