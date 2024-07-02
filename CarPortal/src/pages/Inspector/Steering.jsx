@@ -66,17 +66,7 @@ const Steering = () => {
 
   const handleFileChange = async (event, fieldName) => {
     const file = event.target.files[0];
-<<<<<<< HEAD
-    if (!file) return;
-    const formDataToSend = new FormData();
-    formDataToSend.append('image', file);
-
-    console.log(formDataToSend)
-    // Update formData state with file details
-    setFormData({ ...formData, [fieldName]: file });
-=======
     console.log('Selected file:', file);
->>>>>>> 35864e4b914f6082f89bc4e35c9d9b528c1454cb
 
     // Read the file and convert it to URL for preview
     const reader = new FileReader();
