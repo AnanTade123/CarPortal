@@ -12,7 +12,6 @@ import {
   Dialog,
   DialogFooter,
 } from "@material-tailwind/react";
-
 import TableComponent from "../../components/table/TableComponent";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -27,7 +26,7 @@ export default function SalesList() {
   console.log(pageNo);
   const { data, isLoading, error } = useGetAllSellerQuery(pageNo);
   console.log(data);
-  const [deleteDealer] = useDeleteSellerMutation();
+  const [deleteSeller] = useDeleteSellerMutation();
   const [open, setOpen] = useState(false);
   const [deleteid, setDeleteid] = useState();
 
@@ -37,7 +36,7 @@ export default function SalesList() {
   };
 
   const handleOpen1 = (id) => {
-    deleteDealerHandler(deleteid);
+    deleteSellerHandler(deleteid);
     setOpen(!open);
   };
 
@@ -46,8 +45,8 @@ export default function SalesList() {
     return navigate("/signin");
   }
 
-  const deleteDealerHandler = async (id) => {
-    const res = await deleteDealer(id);
+  const deleteSellerHandler = async (id) => {
+    const res = await deleteSeller(id);
     console.log(res);
   };
   const nextHandler = () => {
@@ -67,10 +66,10 @@ export default function SalesList() {
   };
 
   const columns = [
-    // {
-    //   Header: "ID",
-    //   accessor: "dealer_id",
-    // },
+    {
+      Header: "ID",
+      accessor: "salesPersonId",
+    },
     {
       Header: "First Name",
       accessor: "firstName",
@@ -88,53 +87,34 @@ export default function SalesList() {
       Header: "Phone",
       accessor: "mobileNo",
     },
-    {
-      Header: "Address",
-      accessor: "address",
-    },
+    // {
+    //   Header: "Address",
+    //   accessor: "address",
+    // },
     {
       Header: "City",
       accessor: "city",
     },
 
-    // {
-    //   Header: "user id",
-    //   accessor: "userId",
-    //   disableSortBy: true,
-    // },
+    {
+      Header: "user id",
+      accessor: "userId",
+    
+    },
 
     {
       Header: "Email",
       accessor: "email",
     },
     {
-      Header: "Status",
-      accessor: "status",
-      Cell: (cell) => {
-        const a = cell.row.values.status;
-        console.log(a);
-        return (
-          <div>
-            <div className="flex gap-2 justify-center items-center">
-              <StatusDialogeBox2
-                dealer_id={cell.row.values.dealer_id}
-                status={cell.row.values.status}
-              />
-            </div>
-          </div>
-        );
-      },
-    },
-
-    {
       Header: "Actions",
       accessor: "Actions",
       Cell: (cell) => {
-        console.log(cell.row.values.salesPersonId);
+        console.log(cell.row.values.userId);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
-              <Link to={`/admin/sales/info/${cell.row.values.salesPersonId}`}>
+              <Link to={`/admin/seller/info/${cell.row.values.userId}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -153,7 +133,7 @@ export default function SalesList() {
               </Link>
 
               <Link
-                to={`/admin/dealer/edit/${cell.row.values.userId}/${cell.row.values.salesPersonId}`}
+                to={`/admin/seller/edit/${cell.row.values.userId}/${cell.row.values.salesPersonId}`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -199,13 +179,13 @@ export default function SalesList() {
     },
   ];
 
-  let dealerApiData;
+  let sellerApiData;
   if (isLoading) {
     return <p>isLoading</p>;
   } else {
-    dealerApiData = data?.list;
+    sellerApiData = data?.list;
   }
-  console.log(dealerApiData);
+  console.log(sellerApiData);
   return (
     <>
       {error?.status === 404 ? (
@@ -254,7 +234,7 @@ export default function SalesList() {
               </div>
             </CardHeader>
             <CardBody className="overflow-scroll px-0">
-              <TableComponent columns={columns} data={dealerApiData} />
+              <TableComponent columns={columns} data={sellerApiData} />
             </CardBody>
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
               <Typography
