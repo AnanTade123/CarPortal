@@ -55,6 +55,8 @@ import CarListModels from "./pages/adminpages/CarListModels";
 import SellForCar from "./pages/dealer/SellForCar";
 import BiddingDealerCars from "./pages/biddingDashboard/BiddingDealerCars";
 import CarListTable from "./pages/biddingDashboard/CarListTable";
+import AdminSalesInfo from "./pages/adminpages/AdminSalesInfo";
+import AdminSalesEdit from "./pages/adminpages/AdminSalesEdit";
 
 export default function App() {
   return (
@@ -98,6 +100,14 @@ export default function App() {
               element={<AdminDealerEdit />}
             />
             <Route
+              path="/admin/seller/info/:userId"
+              element={<AdminSalesInfo />}
+            />
+            <Route
+              path="/admin/seller/edit/:userid/:salesPersonId"
+              element={<AdminSalesEdit />}
+            />
+            <Route
               path="/admin/inspector/edit/:userid/:id"
               element={<AdminInspectorEdit />}
             />
@@ -105,26 +115,14 @@ export default function App() {
               path="/transactionbyaccount"
               element={<TransactionByAccount />}
             />
-            <Route
-              path="/wallet"
-              element={<Wallet />}
-            />
+            <Route path="/wallet" element={<Wallet />} />
             <Route
               path="/transactioncontroller"
               element={<TransactionController />}
             />
-            <Route
-              path="/carlisting"
-              element={<CarListing />}
-            />
-             <Route
-              path="/admin/biddingcar"
-              element={<BiddingDealerCars />}
-            />
-            <Route
-              path="/carlisttable"
-              element={<CarListTable/>}
-            />
+            <Route path="/carlisting" element={<CarListing />} />
+            <Route path="/admin/biddingcar" element={<BiddingDealerCars />} />
+            <Route path="/carlisttable" element={<CarListTable />} />
           </Route>
 
           <Route
@@ -141,7 +139,10 @@ export default function App() {
               path="/dealer/:id/car/edit/:carId"
               element={<EditDealerCar />}
             />
-            <Route path="/dealer/:carId/:id/editimage" element={<EditImage />} />
+            <Route
+              path="/dealer/:carId/:id/editimage"
+              element={<EditImage />}
+            />
             <Route
               path="/dealer/:id/booking/confirm"
               element={<OrderDealer />}
@@ -158,16 +159,16 @@ export default function App() {
             />
           </Route>
 
-          <Route element={<InspectorMiddleware allowedRoles={[...Object.values(onlyInspector)]} />} >
+          <Route
+            element={
+              <InspectorMiddleware
+                allowedRoles={[...Object.values(onlyInspector)]}
+              />
+            }
+          >
             <Route path="/inspector/carverify/:id" element={<CarVerify />} />
-            <Route
-              path="/inspector/car"
-              element={<CarListing />}
-            />
-            <Route
-              path="/dealer/biddingcar"
-              element={<BiddingDealerCars />}
-            />
+            <Route path="/inspector/car" element={<CarListing />} />
+            <Route path="/dealer/biddingcar" element={<BiddingDealerCars />} />
           </Route>
 
           <Route path="/bidding" element={<BiddingMainPage />} />
@@ -187,7 +188,6 @@ export default function App() {
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/cookiepolicy" element={<CookiePolicy />} />
         </Route>
-
       </Routes>
     </>
   );
