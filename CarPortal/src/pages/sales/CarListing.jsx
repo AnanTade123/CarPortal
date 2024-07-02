@@ -26,7 +26,7 @@ import { Link } from "react-router-dom";
 export default function CarListing() {
   // const { data, error, isLoading } = useGetAllCarQuery();
   const { data, error } = useFilterCarQuery();
-
+console.log(data)
       const [totalCars] = useState(0);
       const [activeCars] = useState(0);
       const [pendingCars] = useState(0);
