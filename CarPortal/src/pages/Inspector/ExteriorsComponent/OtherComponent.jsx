@@ -35,14 +35,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const OtherComponent = ({ formData, setFormData }) => {
+const OtherComponent = ({  formData, setFormData,handleFileChange,uploadedImages }) => {
   const classes = useStyles();
-
-  const [uploadedImages, setUploadedImages] = useState({
-    HeadLightSupport: null,
-    RadiatorSupport: null,
-    AlloyWheel: null,
-  });
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -52,16 +46,6 @@ const OtherComponent = ({ formData, setFormData }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleFileChange = (event, fieldName) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setUploadedImages({ ...uploadedImages, [fieldName]: reader.result });
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   const handleImageClick = (image) => {
     setSelectedImage(image);

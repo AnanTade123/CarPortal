@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Ac from './Ac';
 import Exterior from './Exterior';
+import { useInspectionReportMutation } from '../../services/inspectorapi';
+import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -39,15 +41,16 @@ const Electrical = () => {
   });
 
   const [images, setImages] = useState({
-    FourPowerWindows: null,
-    AirBagFeatures: null,
-    MusicSystem: null,
-    Sunroof: null,
-    ABS: null,
-    InteriorParkingSensor: null,
-    Electricalwiring: null,
+    FourPowerWindowssa: null,
+    AirBagFeaturessa: null,
+    MusicSystemsa: null,
+    Sunroofsa: null,
+    ABSsa: null,
+    InteriorParkingSensorsa: null,
+    Electricalwiringsa: null,
   });
 
+  // eslint-disable-next-line no-unused-vars
   const [currentStep, setCurrentStep] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -57,15 +60,67 @@ const Electrical = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleImageUpload = (event, fieldName) => {
+  const {id} = useParams()
+  console.log(id)
+
+ const [inspectionReport] = useInspectionReportMutation();
+  const [lables , setLables] = useState("");
+  const [selectfiled , setSelectfiled] = useState("")
+
+  useEffect(() => {
+    Object.keys(formData).forEach(key => {
+      if (formData[key].length > 0) {
+        console.log(key);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setLables(key)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setSelectfiled(formData[key])
+        
+      }
+    });
+  }, [formData]);
+  console.log(selectfiled)
+  console.log(lables)
+
+  const handleFileChange = async (event, fieldName) => {
     const file = event.target.files[0];
+    if (!file) return;
+    const formDataToSend = new FormData();
+    formDataToSend.append('image', file);
+
+    console.log(formDataToSend)
+    // Update formData state with file details
+    setFormData({ ...formData, [fieldName]: file });
+
+    // Read the file and convert it to URL for preview
     const reader = new FileReader();
-    reader.onloadend = () => {
-      setImages({ ...images, [fieldName]: reader.result });
+    reader.onload = async () => {
+      const imageData = reader.result;
+      setImages({ ...setImages, [fieldName]: imageData });
+
+      
+      // Prepare the data to be sent to the backend
+      const inspectionData = {
+        documentType: "Inspection Report",
+        bidCarId: id,
+        doc: "", 
+        doctype: "",
+        subtype: lables,
+        comment: selectfiled,
+      };
+      try {
+      
+        const res = await inspectionReport({inspectionData,formDataToSend});
+        console.log(res);
+
+       alert("Data Uploded")
+        
+      } catch (error) {
+        console.error('Error uploading the file:', error);
+        alert("Data not Uploded")
+      }
     };
-    if (file) {
-      reader.readAsDataURL(file);
-    }
+    reader.readAsDataURL(file);
   };
 
   const handleImageClick = (image) => {
@@ -107,7 +162,7 @@ const Electrical = () => {
                       style={{ display: 'none' }}
                       id={`upload-${key}`}
                       type="file"
-                      onChange={(event) => handleImageUpload(event, key)}
+                      onChange={(event) => handleFileChange(event, key)}
                     />
                     <label htmlFor={`upload-${key}`} className="cursor-pointer flex items-center">
                       <CloudUploadIcon />
@@ -125,7 +180,7 @@ const Electrical = () => {
                 </Grid>
               ))}
             </Grid>
-            <div className="flex justify-between mt-10 px-8">
+            {/* <div className="flex justify-between mt-10 px-8">
               <Button
                 variant="contained"
                 color="primary"
@@ -140,7 +195,7 @@ const Electrical = () => {
               >
                 Next
               </Button>
-            </div>
+            </div> */}
           </div>
         );
       case 1:
