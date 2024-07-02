@@ -84,6 +84,8 @@ const Steering = () => {
         subtype: lables,
         comment: selectfiled,
       };
+      const formDataToSend = "";
+      
       try {
       
         const res = await inspectionReport({inspectionData,formDataToSend});

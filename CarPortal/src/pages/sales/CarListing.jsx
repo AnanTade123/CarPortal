@@ -23,11 +23,11 @@ export default function CarListing() {
   const activeCarsData = data?.filter(car => car?.carStatus === "ACTIVE");
   const pendingCarsData = data?.filter(car => car?.carStatus === "pending");
   const sellCarsData = data?.filter(car => car?.carStatus === "sell");
-  const [totalCars, setTotalCars] = useState(data?.length);
-  const [activeCars, setActiveCars] = useState(activeCarsData?.length);
-  const [pendingCars, setPendingCars] = useState(pendingCarsData?.length);
-  const [inspectionDone, setInspectionDone] = useState(activeCarsData?.length);
-  const [sellCars, setSellCars] = useState(sellCarsData?.length);
+  const [totalCars, setTotalCars] = useState(data?.length || "-");
+  const [activeCars, setActiveCars] = useState(activeCarsData?.length || "-");
+  const [pendingCars, setPendingCars] = useState(pendingCarsData?.length || "-");
+  const [inspectionDone, setInspectionDone] = useState(activeCarsData?.length || "-");
+  const [sellCars, setSellCars] = useState(sellCarsData?.length || "-");
   const [pageNo, setPageNo] = useState(0);
   const [deleteDealer] = useDeleteDealerMutation();
   const [open, setOpen] = useState(false);
@@ -177,15 +177,15 @@ export default function CarListing() {
           <div className="mt-2 font-medium">Total Cars</div>
         </div>
         <div className="flex-1 p-5 text-center mr-5 bg-orange-500 rounded-2xl shadow-xl">
-          <div className="text-4xl font-bold text-white">{`${activeCars}/100`}</div>
+          <div className="text-4xl font-bold text-white">{`${activeCars}/${totalCars}`}</div>
           <div className="mt-2 font-medium">Active Cars</div>
         </div>
         <div className="flex-1 p-5 text-center mr-5 bg-red-400 rounded-2xl shadow-xl">
-          <div className="text-4xl font-bold text-white">{`${pendingCars}/100`}</div>
+          <div className="text-4xl font-bold text-white">{`${pendingCars}/${totalCars}`}</div>
           <div className="mt-2 font-medium">Pending Cars</div>
         </div>
         <div className="flex-1 p-5 text-center mr-5 bg-blue-300 rounded-2xl shadow-xl">
-          <div className="text-4xl font-bold text-white">{`${inspectionDone}/100`}</div>
+          <div className="text-4xl font-bold text-white">{`${inspectionDone}/${totalCars}`}</div>
           <div className="mt-2 font-medium">Inspection Done Cars</div>
         </div>
         <div className="flex-1 p-5 text-center mr-5 bg-green-500 rounded-2xl shadow-xl">
