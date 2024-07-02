@@ -65,6 +65,8 @@ import ElectricalSection from "./pages/InspectionReportPage/ElectricalSection";
 import SteeringSection from "./pages/InspectionReportPage/SteeringSection";
 import InteriorSection from "./pages/InspectionReportPage/InteriorSection";
 import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
+import UploadImages3 from "./ui/UploadImages3";
+import BiddingAddCar2 from "./pages/bidding/BiddingAddCar2";
 
 export default function App() {
   return (
@@ -193,7 +195,7 @@ export default function App() {
               path="/inspector/car"
               element={<CarListing />}
             />
-            <Route path="/inspector/car/add" element={<BiddingAddCar />} />
+            <Route path="/inspector/car/add" element={<BiddingAddCar2 />} />
             <Route
               path="/dealer/biddingcar"
               element={<BiddingDealerCars />}
@@ -208,7 +210,7 @@ export default function App() {
             path="/car/:CarId/pendingreq"
             element={<BiddingDealerPendingReq />}
           />
-          <Route path="/bidding/:carId/uploadimage" element={<Uploadimages2 />} />
+          <Route path="/bidding/:carId/uploadimage" element={<UploadImages3 />} />
           <Route path="/bidding/:carId/:id/editimage" element={<EditImage />} />
 
         </Route>
