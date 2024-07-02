@@ -35,10 +35,21 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         method : "GET"
       }),
     }),
+
+    inspectorupdate: builder.mutation({
+      query: ({id,inspectordata}) => ({
+        url: `/ispProfile/update?inspectorProfileId=${id}`,
+        transerResponse:console.log("APi response" , inspectordata,id),
+        method: 'PATCH',
+        body:inspectordata
+      }),
+      
+    }),
   }),
 });
 
 export const { useInspectorByIdQuery ,
    useGetallInspectorQuery,
    useGetInspectionReportQuery,
-   useInspectionReportMutation } = inspectorAPI;
+   useInspectionReportMutation,
+  useInspectorupdateMutation } = inspectorAPI;

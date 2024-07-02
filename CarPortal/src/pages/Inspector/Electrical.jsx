@@ -29,13 +29,13 @@ const Electrical = () => {
   const classes = useStyles();
 
   const [formData, setFormData] = useState({
-    FourPowerWindows: [],
-    AirBagFeatures: [],
-    MusicSystem: [],
-    Sunroof: [],
-    ABS: [],
-    InteriorParkingSensor: [],
-    Electricalwiring: [],
+    FourPowerWindows: " ",
+    AirBagFeatures: "",
+    MusicSystem: "",
+    Sunroof: "",
+    ABS: "",
+    InteriorParkingSensor: "",
+    Electricalwiring: "",
   });
 
   const [images, setImages] = useState({

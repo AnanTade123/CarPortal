@@ -7,19 +7,17 @@ const AdminInspectorInfo = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
 console.log(userId)
-  const { data, isLoading, isError, error } = useInspectorByIdQuery({userId});
-  console.log(isLoading);
-  console.log(isError);
-  console.log(error);
+  const { data } = useInspectorByIdQuery({userId});
+
   console.log(data);
 
   const {
-    inspectorDto: {
+    response: {
       firstName,
       lastName,
       mobileNo,
 
-      area,
+    
       email,
       city,
       address,
@@ -65,10 +63,7 @@ console.log(userId)
                   </td>
                 </tr>
                 
-                <tr>
-                  <th className="px-4 py-2 border border-gray-200">Area</th>
-                  <td className="px-4 py-2 border border-gray-200">{area}</td>
-                </tr>
+                
                 <tr>
                   <th className="px-4 py-2 border border-gray-200">Email</th>
                   <td className="px-4 py-2 border border-gray-200">{email}</td>

@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
@@ -27,9 +27,9 @@ const Steering = () => {
   const classes = useStyles();
 
   const [formData, setFormData] = useState({
-    Steering: [],
-    Brake: [],
-    Suspension: [],
+    Steering: '',
+    Brake: '',
+    Suspension: '',
   });
 
   const [uploadedImages, setUploadedImages] = useState({
@@ -44,8 +44,6 @@ const Steering = () => {
   const handleFileChange = (event, fieldName) => {
     const file = event.target.files[0];
     console.log('Selected file:', file);
-    // Update formData state with file details
-    setFormData({ ...formData, [fieldName]: file });
 
     // Read the file and convert it to URL for preview
     const reader = new FileReader();
@@ -121,8 +119,8 @@ const Steering = () => {
                 value={formData.Brake}
                 onChange={handleChange}
               >
-                <MenuItem value="Loose">Noisy</MenuItem>
-                <MenuItem value="Tight">Hard Noise</MenuItem>
+                <MenuItem value="Noisy">Noisy</MenuItem>
+                <MenuItem value="Hard Noise">Hard Noise</MenuItem>
               </Select>
             </FormControl>
             <div className="flex items-center mt-2">
@@ -156,8 +154,8 @@ const Steering = () => {
                 value={formData.Suspension}
                 onChange={handleChange}
               >
-                <MenuItem value="minor sound">Abnormal Noise</MenuItem>
-                <MenuItem value="No engine sound">Weak</MenuItem>
+                <MenuItem value="Abnormal Noise">Abnormal Noise</MenuItem>
+                <MenuItem value="Weak">Weak</MenuItem>
               </Select>
             </FormControl>
             <div className="flex items-center mt-2">
@@ -182,7 +180,6 @@ const Steering = () => {
               />
             )}
           </Grid>
-
         </Grid>
       </div>
 
