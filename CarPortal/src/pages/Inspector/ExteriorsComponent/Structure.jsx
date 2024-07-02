@@ -48,36 +48,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Structure = ({ formData, setFormData }) => {
+const Structure = ({formData, setFormData,handleFileChange,uploadedImages }) => {
   const classes = useStyles();
 
-  const [uploadedImages, setUploadedImages] = useState({
-    CowlTop: null,
-    BootFloor: null,
-    RightApronLEG: null,
-    LeftApronLEG: null,
-    RightApron: null,
-    LeftApron: null,
-    LeftPillar: null,
-    RightPillar: null,
-  });
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleFileChange = (event, fieldName) => {
-    const file = event.target.files[0];
-    console.log('Selected file:', file);
-    // Update formData state with file details
-    setFormData({ ...formData, [fieldName]: file });
-
-    // Read the file and convert it to URL for preview
-    const reader = new FileReader();
-    reader.onload = () => {
-      setUploadedImages({ ...uploadedImages, [fieldName]: reader.result });
-    };
-    reader.readAsDataURL(file);
-  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;

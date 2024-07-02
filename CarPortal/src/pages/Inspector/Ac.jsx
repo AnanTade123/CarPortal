@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { useInspectionReportMutation } from '../../services/inspectorapi';
+import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -34,25 +36,73 @@ const Ac = () => {
   });
 
   const [uploadedImages, setUploadedImages] = useState({
-    ACCooling: null,
-    Heater: null,
-    ClimateControlAC: null,
-    AcVent: null,
+    ACCoolings: null,
+    Heaters: null,
+    ClimateControlACs: null,
+    AcVents: null,
   });
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleFileChange = (event, fieldName) => {
+  const {id} = useParams()
+  console.log(id)
+
+ const [inspectionReport] = useInspectionReportMutation();
+  const [lables , setLables] = useState("");
+  const [selectfiled , setSelectfiled] = useState("")
+  useEffect(() => {
+    Object.keys(formData).forEach(key => {
+      if (formData[key].length > 0) {
+        console.log(key);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setLables(key)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setSelectfiled(formData[key])
+        
+      }
+    });
+  }, [formData]);
+  console.log(selectfiled)
+  console.log(lables)
+
+  const handleFileChange = async (event, fieldName) => {
     const file = event.target.files[0];
-    console.log('Selected file:', file);
+    if (!file) return;
+    const formDataToSend = new FormData();
+    formDataToSend.append('image', file);
+
+    console.log(formDataToSend)
     // Update formData state with file details
     setFormData({ ...formData, [fieldName]: file });
 
     // Read the file and convert it to URL for preview
     const reader = new FileReader();
-    reader.onload = () => {
-      setUploadedImages({ ...uploadedImages, [fieldName]: reader.result });
+    reader.onload = async () => {
+      const imageData = reader.result;
+      setUploadedImages({ ...uploadedImages, [fieldName]: imageData });
+
+      
+      // Prepare the data to be sent to the backend
+      const inspectionData = {
+        documentType: "Inspection Report",
+        bidCarId: id,
+        doc: "", 
+        doctype: "",
+        subtype: lables,
+        comment: selectfiled,
+      };
+      try {
+      
+        const res = await inspectionReport({inspectionData,formDataToSend});
+        console.log(res);
+
+       alert("Data Uploded")
+        
+      } catch (error) {
+        console.error('Error uploading the file:', error);
+        alert("Data not Uploded")
+      }
     };
     reader.readAsDataURL(file);
   };
@@ -94,21 +144,21 @@ const Ac = () => {
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-ACCooling"
+              id="upload-ACCoolings"
               type="file"
-              onChange={(event) => handleFileChange(event, 'ACCooling')}
+              onChange={(event) => handleFileChange(event, 'ACCoolings')}
             />
-            <label htmlFor="upload-ACCooling" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-ACCoolings" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.ACCooling && (
+          {uploadedImages.ACCoolings && (
             <img
-              src={uploadedImages.ACCooling}
+              src={uploadedImages.ACCoolings}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.ACCooling)}
+              onClick={() => handleImageClick(uploadedImages.ACCoolings)}
             />
           )}
         </Grid>
@@ -129,21 +179,21 @@ const Ac = () => {
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-Heater"
+              id="upload-Heaters"
               type="file"
-              onChange={(event) => handleFileChange(event, 'Heater')}
+              onChange={(event) => handleFileChange(event, 'Heaters')}
             />
-            <label htmlFor="upload-Heater" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-Heaters" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.Heater && (
+          {uploadedImages.Heaters && (
             <img
-              src={uploadedImages.Heater}
+              src={uploadedImages.Heaters}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.Heater)}
+              onClick={() => handleImageClick(uploadedImages.Heaters)}
             />
           )}
         </Grid>
@@ -164,21 +214,21 @@ const Ac = () => {
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-ClimateControlAC"
+              id="upload-ClimateControlACs"
               type="file"
-              onChange={(event) => handleFileChange(event, 'ClimateControlAC')}
+              onChange={(event) => handleFileChange(event, 'ClimateControlACs')}
             />
-            <label htmlFor="upload-ClimateControlAC" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-ClimateControlACs" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.ClimateControlAC && (
+          {uploadedImages.ClimateControlACs && (
             <img
-              src={uploadedImages.ClimateControlAC}
+              src={uploadedImages.ClimateControlACs}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.ClimateControlAC)}
+              onClick={() => handleImageClick(uploadedImages.ClimateControlACs)}
             />
           )}
         </Grid>
@@ -191,29 +241,29 @@ const Ac = () => {
               value={formData.AcVent}
               onChange={handleChange}
             >
-              <MenuItem value="minor sound">Abnormal Noise</MenuItem>
-              <MenuItem value="No engine sound">Weak</MenuItem>
+              <MenuItem value="Abnormal Noise">Abnormal Noise</MenuItem>
+              <MenuItem value="Weak">Weak</MenuItem>
             </Select>
           </FormControl>
           <div className="flex items-center mt-2">
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-AcVent"
+              id="upload-AcVents"
               type="file"
-              onChange={(event) => handleFileChange(event, 'AcVent')}
+              onChange={(event) => handleFileChange(event, 'AcVents')}
             />
-            <label htmlFor="upload-AcVent" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-AcVents" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.AcVent && (
+          {uploadedImages.AcVents && (
             <img
-              src={uploadedImages.AcVent}
+              src={uploadedImages.AcVents}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.AcVent)}
+              onClick={() => handleImageClick(uploadedImages.AcVents)}
             />
           )}
         </Grid>
@@ -238,14 +288,14 @@ const Ac = () => {
         </div>
       </Modal>
 
-      <div className="flex justify-between mt-10 px-8">
+      {/* <div className="flex justify-between mt-10 px-8">
         <Button variant="contained" color="primary">
           Previous
         </Button>
         <Button variant="contained" color="primary">
           Next
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };

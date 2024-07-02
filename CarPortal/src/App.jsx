@@ -55,6 +55,7 @@ import CarListModels from "./pages/adminpages/CarListModels";
 import SellForCar from "./pages/dealer/SellForCar";
 import BiddingDealerCars from "./pages/biddingDashboard/BiddingDealerCars";
 import CarListTable from "./pages/biddingDashboard/CarListTable";
+<<<<<<< HEAD
 import BiddingDealer from "./pages/dealer/BiddingDealer";
 import BiddingCars from "./pages/adminpages/BiddingCars";
 import CarDocumentSection from "./pages/InspectionReportPage/CarDocumentSection";
@@ -64,6 +65,8 @@ import AcSection from "./pages/InspectionReportPage/AcSection";
 import ElectricalSection from "./pages/InspectionReportPage/ElectricalSection";
 import SteeringSection from "./pages/InspectionReportPage/SteeringSection";
 import InteriorSection from "./pages/InspectionReportPage/InteriorSection";
+=======
+>>>>>>> 047d850a611b2ebffa8717ed1ec63039f9c17241
 import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
 
 export default function App() {
@@ -113,7 +116,7 @@ export default function App() {
               element={<AdminDealerEdit />}
             />
             <Route
-              path="/admin/inspector/edit/:userid/:id"
+              path="/admin/inspector/edit/:userid"
               element={<AdminInspectorEdit />}
             />
             <Route

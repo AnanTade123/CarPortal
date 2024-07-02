@@ -34,35 +34,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const WindshieldAndLights = ({ formData, setFormData }) => {
+const WindshieldAndLights = ({ formData, setFormData,handleFileChange,uploadedImages }) => {
   const classes = useStyles();
 
-  const [uploadedImages, setUploadedImages] = useState({
-    Windshield: null,
-    Light: null,
-    FrontBumper: null,
-    RearBumper: null,
-    LHSHeadlight: null,
-    RHSHeadlight: null,
-    LHSTaillight: null,
-    RHSTaillight: null,
-  });
+
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleFileChange = (event, fieldName) => {
-    const file = event.target.files[0];
-    // Update formData state with file details
-    setFormData({ ...formData, [fieldName]: file });
 
-    // Read the file and convert it to URL for preview
-    const reader = new FileReader();
-    reader.onload = () => {
-      setUploadedImages({ ...uploadedImages, [fieldName]: reader.result });
-    };
-    reader.readAsDataURL(file);
-  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
