@@ -193,8 +193,6 @@ export default function App() {
               path="/dealer/biddingcar"
               element={<BiddingDealerCars />}
             />
-            <Route path="/inspector/car" element={<CarListing />} />
-            <Route path="/dealer/biddingcar" element={<BiddingDealerCars />} />
           </Route>
 
           <Route path="/bidding" element={<BiddingMainPage />} />
