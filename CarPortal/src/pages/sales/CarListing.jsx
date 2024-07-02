@@ -19,16 +19,19 @@ import { Link } from "react-router-dom";
 import { useBiddingAllCardQuery } from "../../services/biddingAPI";
 
 export default function CarListing() {
-  const { data, error } = useBiddingAllCardQuery();
-  const activeCarsData = data?.filter(car => car?.carStatus === "ACTIVE");
-  const pendingCarsData = data?.filter(car => car?.carStatus === "pending");
-  const sellCarsData = data?.filter(car => car?.carStatus === "sell");
-  const [totalCars, setTotalCars] = useState(data?.length || "-");
-  const [activeCars, setActiveCars] = useState(activeCarsData?.length || "-");
-  const [pendingCars, setPendingCars] = useState(pendingCarsData?.length || "-");
-  const [inspectionDone, setInspectionDone] = useState(activeCarsData?.length || "-");
-  const [sellCars, setSellCars] = useState(sellCarsData?.length || "-");
-  const [pageNo, setPageNo] = useState(0);
+  // const { data, error, isLoading } = useGetAllCarQuery();
+  const { data, error } = useFilterCarQuery();
+console.log(data)
+      const [totalCars] = useState(0);
+      const [activeCars] = useState(0);
+      const [pendingCars] = useState(0);
+      const [inspectionDone] = useState(0);
+      const [sellCars] = useState(0);
+      const [pageNo, setPageNo] = useState(0);
+  console.log(pageNo);
+  // const { data, isLoading, error } = useGetAllDealerQuery(pageNo);
+  const isLoading = ""
+console.log(data)
   const [deleteDealer] = useDeleteDealerMutation();
   const [open, setOpen] = useState(false);
   const [deleteid, setDeleteid] = useState();

@@ -45,11 +45,20 @@ export const inspectorAPI = apiSlice.injectEndpoints({
       }),
       
     }),
+    finalInspectionReport : builder.mutation({
+      query : ({inspectionData}) => ({
+        url:`/inspectionReport/add`,
+        method : "POST",
+        transerResponse:console.log("APi response",inspectionData),
+       body : inspectionData 
+      })
+    })
   }),
 });
 
 export const { useInspectorByIdQuery ,
-   useGetallInspectorQuery,
-   useGetInspectionReportQuery,
-   useInspectionReportMutation,
-  useInspectorupdateMutation } = inspectorAPI;
+  useGetallInspectorQuery,
+  useGetInspectionReportQuery,
+  useInspectionReportMutation,
+  useInspectorupdateMutation ,
+  useFinalInspectionReportMutation } = inspectorAPI;
