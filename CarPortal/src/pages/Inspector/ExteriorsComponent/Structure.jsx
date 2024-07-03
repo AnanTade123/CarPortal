@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 // #Cowl Top :- status/options - Repainted, Dented, Scratched, Rusted, Repaired, Damaged,faded
@@ -13,7 +14,7 @@
 // #Right Pillar :- status/options - Repainted, Dented, Scratched, Rusted, Repaired,
 // Damaged,faded
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   MenuItem,
   FormControl,
@@ -48,14 +49,54 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Structure = ({formData, setFormData,handleFileChange,uploadedImages }) => {
+const Structure = ({formData, setFormData,handleFileChange,uploadedImages,data,setUploadedImages }) => {
   const classes = useStyles();
 
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-
+  useEffect(() => {
+    // Pre-fill form data and uploaded images based on API data
+    data?.object.map((item) => {
+      switch (item.subtype) {
+        case "CowlTop":
+          setFormData((prev) => ({ ...prev, CowlTop: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, CowlTops: item.documentLink }));
+          break;
+        case "BootFloor":
+          setFormData((prev) => ({ ...prev, BootFloor: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, BootFloors: item.documentLink }));
+          break;
+        case "RightApronLEG":
+          setFormData((prev) => ({ ...prev, RightApronLEG: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RightApronLEGs: item.documentLink }));
+          break;
+        case "LeftApronLEG":
+          setFormData((prev) => ({ ...prev, LeftApronLEG: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, LeftApronLEGs: item.documentLink }));
+          break;
+        case "RightApron":
+          setFormData((prev) => ({ ...prev, RightApron: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RightAprons: item.documentLink }));
+          break;
+        case "LeftApron":
+          setFormData((prev) => ({ ...prev, LeftApron: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, LeftAprons: item.documentLink }));
+          break;
+        case "LeftPillar":
+          setFormData((prev) => ({ ...prev, LeftPillar: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, LeftPillars: item.documentLink }));
+          break;
+        case "RightPillar":
+          setFormData((prev) => ({ ...prev, RightPillar: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RightPillars: item.documentLink }));
+          break;
+        default:
+          break;
+      }
+    });
+  }, [data]);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });

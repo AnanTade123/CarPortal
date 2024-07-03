@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   MenuItem,
   FormControl,
@@ -35,13 +36,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Tyre = ({  formData, setFormData,handleFileChange,uploadedImages}) => {
+const Tyre = ({  formData, setFormData,handleFileChange,uploadedImages ,data ,setUploadedImages}) => {
   const classes = useStyles();
-
+console.log(data)
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-
+  useEffect(() => {
+    // Pre-fill form data and uploaded images based on API data
+    data?.object.map((item) => {
+      switch (item.subtype) {   
+        case "LHSFrontTyre":
+          setFormData((prev) => ({ ...prev, LHSFrontTyre: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, LHSFrontTyres: item.documentLink }));
+          break;
+        case "RHSFrontTyre":
+          setFormData((prev) => ({ ...prev, RHSFrontTyre: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RHSFrontTyres: item.documentLink }));
+          break;
+        case "LHSRearTyre":
+          setFormData((prev) => ({ ...prev, LHSRearTyre: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, LHSRearTyres: item.documentLink }));
+          break;
+        case "RHSRearTyre":
+          setFormData((prev) => ({ ...prev, RHSRearTyre: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RHSRearTyres: item.documentLink }));
+          break;
+        case "SpareTyre":
+          setFormData((prev) => ({ ...prev, SpareTyre: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, SpareTyres: item.documentLink }));
+          break;
+        default:
+          break;
+      }
+    });
+  }, [data]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
