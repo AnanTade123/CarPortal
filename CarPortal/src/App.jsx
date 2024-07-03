@@ -62,6 +62,8 @@ import AcSection from "./pages/InspectionReportPage/AcSection";
 import ElectricalSection from "./pages/InspectionReportPage/ElectricalSection";
 import SteeringSection from "./pages/InspectionReportPage/SteeringSection";
 import InteriorSection from "./pages/InspectionReportPage/InteriorSection";
+import FinalReport from "./pages/InspectionReportPage/FinalReport";
+
 
 export default function App() {
   return (
@@ -133,33 +135,14 @@ export default function App() {
               element={<CarListTable/>}
             />
              <Route
-              path="/cardocumentsection"
-              element={<CarDocumentSection/>}
-            />
-            <Route
-              path="/exteriorsection"
-              element={<ExteriorSection/>}
-            />
-            <Route
-              path="/enginesection"
-              element={<EngineSection/>}
-            />
-            <Route
               path="/acsection"
               element={<AcSection/>}
             />
             <Route
-              path="/electricalsection"
-              element={<ElectricalSection/>}
+              path="/finalreport"
+              element={<FinalReport/>}
             />
-            <Route
-              path="/steeringsection"
-              element={<SteeringSection/>}
-            />
-            <Route
-              path="/interiorsection"
-              element={<InteriorSection/>}
-            />
+            
           </Route>
 
           <Route

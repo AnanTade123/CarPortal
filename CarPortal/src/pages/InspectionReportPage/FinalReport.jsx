@@ -1,0 +1,83 @@
+/* eslint-disable no-unused-vars */
+import React from "react";
+import { useEffect } from "react";
+import { Link, Element, animateScroll as scroll } from "react-scroll";
+import ExteriorSection from "./ExteriorSection";
+import InteriorSection from "./InteriorSection";
+import EngineSection from "./EngineSection";
+import AcSection from "./AcSection";
+import ElectricalSection from "./ElectricalSection";
+import SteeringSection from "./SteeringSection";
+import CarDocumentSection from "./CarDocumentSection";
+
+export default function FinalReport() {
+  const [activeTab, setActiveTab] = React.useState("exterior");
+  const data = [
+    {
+      label: " Document",
+      value: "important document",
+      component: <CarDocumentSection />,
+    },
+    {
+      label: "Exterior",
+      value: "exterior",
+      component: <ExteriorSection />,
+    },
+    {
+      label: "Interior",
+      value: "interior",
+      component: <InteriorSection />,
+    },
+    {
+      label: "Engine",
+      value: "engine",
+      component: <EngineSection />,
+    },
+    {
+      label: "AC",
+      value: "ac",
+      component: <AcSection />,
+    },
+    {
+      label: "Electricals",
+      value: "electricals",
+      component: <ElectricalSection />,
+    },
+    {
+      label: "Steering",
+      value: "steering",
+      component: <SteeringSection />,
+    },
+  ];
+ 
+  return (
+    <div className="md:mt-5">
+      
+      {/* Tabs at the top */}
+      <div className="sticky md:top-[94px] top-16 bg-gray-200 z-10 md:p-2.5 shadow-sm border-2 md:space-x-48 space-x-1  md:-mt-5 cursor-pointer pt-2 pb-2 " value={activeTab}>
+        {data.map(({ label, value }) => (
+          <Link
+          
+            key={value}
+            to={value}
+            smooth={true}
+            duration={500}
+            offset={-145}
+            onClick={() => setActiveTab(value)}
+            className={activeTab === value ? "md:px-3 md:py-2.5 text-black md:text-xl bg-transparent border-b-2 border-indigo-900 shadow-none rounded-none text-base py-2.5 " :''}
+          >
+            {label}
+          </Link>
+        ))}
+      </div>
+
+      {/* Sections */}
+      {data.map(({ value, component }, index) => (
+        <Element name={value} key={index} className="my-3">
+          {component}
+        </Element>
+      ))}
+    </div>
+    
+  );
+}
