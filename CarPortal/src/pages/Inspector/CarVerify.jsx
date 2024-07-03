@@ -58,6 +58,7 @@ export default function CarVerify() {
 
   return (
     <div className="mt-5">
+      <div className="sticky">
       <Tabs value={activeTab}>
       <TabsHeader
   className="rounded-none border-b border-blue-gray-50 overflow-x-auto md:overflow-x-visible p-2"
@@ -84,6 +85,7 @@ export default function CarVerify() {
         ))}
       </TabsBody>
     </Tabs>
+    </div>
     </div>
   )
 }
