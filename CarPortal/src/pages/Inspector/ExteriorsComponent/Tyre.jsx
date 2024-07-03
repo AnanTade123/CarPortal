@@ -81,28 +81,28 @@ const Tyre = ({  formData, setFormData,handleFileChange,uploadedImages}) => {
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-LHSFrontTyre"
+              id="upload-LHSFrontTyres"
               type="file"
-              onChange={(event) => handleFileChange(event, 'LHSFrontTyre')}
+              onChange={(event) => handleFileChange(event, 'LHSFrontTyres')}
             />
             <label
-              htmlFor="upload-LHSFrontTyre"
+              htmlFor="upload-LHSFrontTyres"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.LHSFrontTyre && (
+          {uploadedImages.LHSFrontTyres && (
             <img
-              src={uploadedImages.LHSFrontTyre}
+              src={uploadedImages.LHSFrontTyres}
               alt="Uploaded"
               style={{
                 maxWidth: '20%',
                 marginTop: '10px',
                 cursor: 'pointer',
               }}
-              onClick={() => handleImageClick(uploadedImages.LHSFrontTyre)}
+              onClick={() => handleImageClick(uploadedImages.LHSFrontTyres)}
             />
           )}
         </Grid>
@@ -124,21 +124,21 @@ const Tyre = ({  formData, setFormData,handleFileChange,uploadedImages}) => {
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-RHSFrontTyre"
+              id="upload-RHSFrontTyres"
               type="file"
-              onChange={(event) => handleFileChange(event, 'RHSFrontTyre')}
+              onChange={(event) => handleFileChange(event, 'RHSFrontTyres')}
             />
             <label
-              htmlFor="upload-RHSFrontTyre"
+              htmlFor="upload-RHSFrontTyres"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.RHSFrontTyre && (
+          {uploadedImages.RHSFrontTyres && (
             <img
-              src={uploadedImages.RHSFrontTyre}
+              src={uploadedImages.RHSFrontTyres}
               alt="Uploaded"
               style={{
                 maxWidth: '20%',
@@ -167,28 +167,28 @@ const Tyre = ({  formData, setFormData,handleFileChange,uploadedImages}) => {
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-LHSRearTyre"
+              id="upload-LHSRearTyres"
               type="file"
-              onChange={(event) => handleFileChange(event, 'LHSRearTyre')}
+              onChange={(event) => handleFileChange(event, 'LHSRearTyres')}
             />
             <label
-              htmlFor="upload-LHSRearTyre"
+              htmlFor="upload-LHSRearTyres"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.LHSRearTyre && (
+          {uploadedImages.LHSRearTyres && (
             <img
-              src={uploadedImages.LHSRearTyre}
+              src={uploadedImages.LHSRearTyres}
               alt="Uploaded"
               style={{
                 maxWidth: '20%',
                 marginTop: '10px',
                 cursor: 'pointer',
               }}
-              onClick={() => handleImageClick(uploadedImages.LHSRearTyre)}
+              onClick={() => handleImageClick(uploadedImages.LHSRearTyres)}
             />
           )}
         </Grid>
@@ -210,28 +210,28 @@ const Tyre = ({  formData, setFormData,handleFileChange,uploadedImages}) => {
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-RHSRearTyre"
+              id="upload-RHSRearTyres"
               type="file"
-              onChange={(event) => handleFileChange(event, 'RHSRearTyre')}
+              onChange={(event) => handleFileChange(event, 'RHSRearTyres')}
             />
             <label
-              htmlFor="upload-RHSRearTyre"
+              htmlFor="upload-RHSRearTyres"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.RHSRearTyre && (
+          {uploadedImages.RHSRearTyres && (
             <img
-              src={uploadedImages.RHSRearTyre}
+              src={uploadedImages.RHSRearTyres}
               alt="Uploaded"
               style={{
                 maxWidth: '20%',
                 marginTop: '10px',
                 cursor: 'pointer',
               }}
-              onClick={() => handleImageClick(uploadedImages.RHSRearTyre)}
+              onClick={() => handleImageClick(uploadedImages.RHSRearTyres)}
             />
           )}
         </Grid>
@@ -253,28 +253,28 @@ const Tyre = ({  formData, setFormData,handleFileChange,uploadedImages}) => {
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-SpareTyre"
+              id="upload-SpareTyres"
               type="file"
-              onChange={(event) => handleFileChange(event, 'SpareTyre')}
+              onChange={(event) => handleFileChange(event, 'SpareTyres')}
             />
             <label
-              htmlFor="upload-SpareTyre"
+              htmlFor="upload-SpareTyres"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.SpareTyre && (
+          {uploadedImages.SpareTyres && (
             <img
-              src={uploadedImages.SpareTyre}
+              src={uploadedImages.SpareTyres}
               alt="Uploaded"
               style={{
                 maxWidth: '20%',
                 marginTop: '10px',
                 cursor: 'pointer',
               }}
-              onClick={() => handleImageClick(uploadedImages.SpareTyre)}
+              onClick={() => handleImageClick(uploadedImages.SpareTyres)}
             />
           )}
         </Grid>

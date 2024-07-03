@@ -88,7 +88,7 @@ const Ac = () => {
         documentType: "Inspection Report",
         beadingCarId: id,
         doc: "", 
-        doctype: "",
+        doctype: "AC",
         subtype: lables,
         comment: selectfiled,
       };

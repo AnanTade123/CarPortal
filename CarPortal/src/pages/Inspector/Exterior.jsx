@@ -48,6 +48,9 @@ const Exterior = () => {
   console.log(id)
 const {data} = useGetInspectionReportQuery({id , docType : "Exterior"})
 console.log(data)
+
+const InspetData = data?.object
+console.log(InspetData)
   const [inspectionReport] = useInspectionReportMutation();
 const [formData, setFormData] = useState({
     BonnetHood: [],
@@ -93,8 +96,6 @@ const [formData, setFormData] = useState({
       }
     });
   }, [formData]);
-  console.log(selectfiled)
-  console.log(lables)
 
 
   const [uploadedImages, setUploadedImages] = useState({
@@ -133,7 +134,6 @@ const [formData, setFormData] = useState({
     LeftPillars: null,
     RightPillars: null,
   });
-    console.log(uploadedImages) 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -159,7 +159,7 @@ const [formData, setFormData] = useState({
         documentType: "Inspection Report",
         beadingCarId: id,
         doc: "", 
-        doctype: "",
+        doctype: "Exterior",
         subtype: lables,
         comment: selectfiled,
       };
