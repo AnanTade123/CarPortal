@@ -19,21 +19,21 @@ import { Link } from "react-router-dom";
 import { useBiddingAllCardQuery } from "../../services/biddingAPI";
 
 export default function CarListing() {
-  const { data, error } = useBiddingAllCardQuery();
+  const { data, error ,isLoading} = useBiddingAllCardQuery();
   const activeCarsData = data?.filter(car => car?.carStatus === "ACTIVE");
   const pendingCarsData = data?.filter(car => car?.carStatus === "pending");
   const sellCarsData = data?.filter(car => car?.carStatus === "sell");
-  const [totalCars, setTotalCars] = useState(data?.length);
-  const [activeCars, setActiveCars] = useState(activeCarsData?.length);
-  const [pendingCars, setPendingCars] = useState(pendingCarsData?.length);
-  const [inspectionDone, setInspectionDone] = useState(activeCarsData?.length);
-  const [sellCars, setSellCars] = useState(sellCarsData?.length);
+  const [totalCars] = useState(data?.length || "-");
+  const [activeCars] = useState(activeCarsData?.length || "-");
+  const [pendingCars] = useState(pendingCarsData?.length || "-");
+  const [inspectionDone] = useState(activeCarsData?.length || "-");
+  const [sellCars] = useState(sellCarsData?.length || "-");
   const [pageNo, setPageNo] = useState(0);
   const [deleteDealer] = useDeleteDealerMutation();
   const [open, setOpen] = useState(false);
   const [deleteid, setDeleteid] = useState();
-  const [bidCarList, setBidCarList] = useState([]);
-  const itemsPerPage = 10;
+  // const [bidCarList, setBidCarList] = useState([]);
+  // const itemsPerPage = 10;
 
   const handleOpen = (id) => {
     setOpen(!open);
@@ -63,7 +63,7 @@ export default function CarListing() {
       if (error?.status === 404) {
         return prevPageNo; // Keep pageNo unchanged
       } else {
-        setBidCarList(data.slice(pageNo * itemsPerPage, (pageNo + 1) * itemsPerPage));
+        // setBidCarList(data.slice(pageNo * itemsPerPage, (pageNo + 1) * itemsPerPage));
         return prevPageNo + 1;
       }
     });
@@ -92,20 +92,20 @@ export default function CarListing() {
     },
     {
       Header: "Status",
-      accessor: "Status",
+      accessor: "carStatus",
       Cell: (cell) => {
-        return cell.row.values.carStatus === "pending" ? (
-          <Button variant="gradient" color="blue">
+        return cell.row.values.carStatus == "pending" ? (
             <Link to={`/inspector/carverify/${cell.row.values.beadingCarId}`} className="button-link">
+          <Button variant="gradient" color="blue">
               Verify
-            </Link>
           </Button>
+            </Link>
         ) : (
-          <Button variant="gradient" color="green">
             <Link to={`/inspector/carverify/${cell.row.values.beadingCarId}`} className="button">
+          <Button variant="gradient" color="green">
               Done
-            </Link>
           </Button>
+            </Link>
         );
       },
     },
@@ -157,17 +157,23 @@ export default function CarListing() {
     },
   ];
 
-  useEffect(() => {
-    if (data) {
-      setBidCarList(data);
-      setTotalCars(data?.length);
-      setActiveCars(activeCarsData?.length);
-      setPendingCars(pendingCarsData?.length);
-      setInspectionDone(activeCarsData?.length);
-      setSellCars(sellCarsData?.length);
-    }
-  }, [data, activeCarsData, pendingCarsData, sellCarsData]);
+  // useEffect(() => {
+  //   if (data) {
+  //     setBidCarList(data ? data.slice(Math.max(data.length - 10, 0)) : []);
+  //     setTotalCars(data?.length);
+  //     setActiveCars(activeCarsData?.length);
+  //     setPendingCars(pendingCarsData?.length);
+  //     setInspectionDone(activeCarsData?.length);
+  //     setSellCars(sellCarsData?.length);
+  //   }
+  // }, [data, activeCarsData, pendingCarsData, sellCarsData]);
 
+  let biddingCarData;
+  if (isLoading) {
+    return <p>isLoading</p>;
+  } else {
+    biddingCarData = data ? data.slice(Math.max(data.length - 10, 0)) : [];
+  }
   return (
     <>
       <h1 className="mt-2 text-xl ml-2 mb-5 font-bold">Car Listing</h1>
@@ -177,15 +183,15 @@ export default function CarListing() {
           <div className="mt-2 font-medium">Total Cars</div>
         </div>
         <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-orange-500 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
-          <div className="text-4xl font-bold text-white">{`${activeCars}/100`}</div>
+          <div className="text-4xl font-bold text-white">{`${activeCars}/${totalCars}`}</div>
           <div className="mt-2 font-medium">Active Cars</div>
         </div>
         <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-red-400 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
-          <div className="text-4xl font-bold text-white">{`${pendingCars}/100`}</div>
+          <div className="text-4xl font-bold text-white">{`${pendingCars}/${totalCars}`}</div>
           <div className="mt-2 font-medium">Pending Cars</div>
         </div>
         <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-300 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
-          <div className="text-4xl font-bold text-white">{`${inspectionDone}/100`}</div>
+          <div className="text-4xl font-bold text-white">{`${inspectionDone}/${totalCars}`}</div>
           <div className="mt-2 font-medium">Inspection Done Cars</div>
         </div>
         <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-green-500 rounded-2xl shadow-xl sm:mb-2 sm:mr-5">
@@ -219,13 +225,13 @@ export default function CarListing() {
                   </Button>
                 </DialogFooter>
               </Dialog>
-              <div className="flex ml-auto shrink-0 flex-col gap-2 sm:flex-row">
+              <div className="flex ml-auto mr-5 shrink-0 flex-col gap-2 sm:flex-row">
                 <Link to={`/inspector/car/add`}>
                   <Button>Add Car</Button>
                 </Link>
               </div>
               <CardBody className="overflow-scroll px-0">
-                <TableComponent columns={columns} data={bidCarList} />
+                <TableComponent columns={columns} data={biddingCarData} />
               </CardBody>
               <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
                 <Button

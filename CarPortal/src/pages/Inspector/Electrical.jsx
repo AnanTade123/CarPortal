@@ -31,13 +31,13 @@ const Electrical = () => {
   const classes = useStyles();
 
   const [formData, setFormData] = useState({
-    FourPowerWindows: [],
-    AirBagFeatures: [],
-    MusicSystem: [],
-    Sunroof: [],
-    ABS: [],
-    InteriorParkingSensor: [],
-    Electricalwiring: [],
+    FourPowerWindows: " ",
+    AirBagFeatures: "",
+    MusicSystem: "",
+    Sunroof: "",
+    ABS: "",
+    InteriorParkingSensor: "",
+    Electricalwiring: "",
   });
 
   const [images, setImages] = useState({
@@ -102,7 +102,7 @@ const Electrical = () => {
       // Prepare the data to be sent to the backend
       const inspectionData = {
         documentType: "Inspection Report",
-        bidCarId: id,
+        beadingCarId: id,
         doc: "", 
         doctype: "",
         subtype: lables,

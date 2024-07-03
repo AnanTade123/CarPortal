@@ -20,6 +20,7 @@ export default function InspectorList() {
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(7);
   const { data, isLoading, error } = useGetallInspectorQuery({ pageNo, pageSize });
+  console.log(data)
   const navigate = useNavigate();
   if (error?.status === 401) {
     return navigate("/signin");
@@ -39,8 +40,12 @@ export default function InspectorList() {
 
   const columns = [
     {
-      Header: "ID",
+      Header: "Serial No",
       accessor: "inspectorProfileId",
+    },
+    {
+      Header: "UserID",
+      accessor: "userId",
     },
     {
       Header: "First Name",
@@ -70,10 +75,11 @@ export default function InspectorList() {
       Header: "Actions",
       accessor: "Actions",
       Cell: (cell) => {
+        console.log(cell.row.values.userId)
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
-              <Link to={`/admin/inspector/info/${cell.row.values.inspectorProfileId}`}>
+              <Link to={`/admin/inspector/info/${cell.row.values.userId}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -91,7 +97,9 @@ export default function InspectorList() {
                 </svg>
               </Link>
 
-              <Link to={`/admin/dealer/edit/${cell.row.values.inspectorProfileId}`}>
+
+              <Link to={`/admin/inspector/edit/${cell.row.values.userId}/${cell.row.values.inspectorProfileId}`}>
+              
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

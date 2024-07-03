@@ -12,25 +12,26 @@ export const salesAPI = apiSlice.injectEndpoints({
         result ? [{ type: "SALESPERSON", pageNo: result.pageNo }] : [],
     }),
     deleteSeller: builder.mutation({
-      query: (salePersonId) => ({
-        url: `/salesPerson/deletById/${salePersonId}`,
+      query: (id) => ({
+        url: `/salesPerson/deletById/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["SALESPERSON"],
     }),
-    getSeller: builder.query({
-      query: (userId) => ({
-        url: `/salesPerson/getByUserId/${userId}`,
+    sellerById: builder.query({
+      query: ({userId}) => ({
+        url: `/salesPerson/getByUserId?userId=${userId}`,
         transerResponse: console.log(userId),
+        method:"GET"
       }),
       providesTags: ["SALESPERSON"],
     }),
-    getEditSeller: builder.mutation({
-      query: (salesPersonId) => ({
-        url: `/salesPerson/getByUserId/${salesPersonId}`,
+    sellerupdate: builder.mutation({
+      query: ({id, salesdata}) => ({
+        url: `/salesPerson/updateSPersonDetails?salesPersonId=${id}`,
         method: "PATCH",
-        transerResponse: console.log(salesPersonId),
-        body: salesPersonId.inputField,
+        transerResponse: console.log("API response",salesdata,id),
+        body: salesdata,
       }),
       invalidatesTags: ["SALESPERSON"],
     }),
@@ -40,6 +41,6 @@ export const salesAPI = apiSlice.injectEndpoints({
 export const {
   useGetAllSellerQuery,
   useDeleteSellerMutation,
-  useGetSellerQuery,
-  useGetEditSellerMutation,
+  useSellerByIdQuery,
+  useSellerupdateMutation
 } = salesAPI;

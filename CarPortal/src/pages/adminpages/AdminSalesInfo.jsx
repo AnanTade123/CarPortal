@@ -1,23 +1,24 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useInspectorByIdQuery } from "../../services/inspectorapi";
 import { IoChevronBack } from "react-icons/io5";
 import { Button } from "@material-tailwind/react";
+import { useSellerByIdQuery } from "../../services/salesAPI";
 
-const AdminInspectorInfo = () => {
+const AdminSalesInfo = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
-console.log(userId)
-  const { data } = useInspectorByIdQuery({userId});
 
-  console.log(data);
+  const { data, isLoading, isError, error } = useSellerByIdQuery({userId});
+  console.log(isLoading);
+  console.log(isError);
+  console.log(error);
+  console.log("data",data?.response.adddress);
 
   const {
     response: {
       firstName,
       lastName,
       mobileNo,
-
-    
+      area,
       email,
       city,
       address,
@@ -62,8 +63,11 @@ console.log(userId)
                     {mobileNo}
                   </td>
                 </tr>
-                
-                
+                <tr></tr>
+                <tr>
+                  <th className="px-4 py-2 border border-gray-200">Area</th>
+                  <td className="px-4 py-2 border border-gray-200">{area}</td>
+                </tr>
                 <tr>
                   <th className="px-4 py-2 border border-gray-200">Email</th>
                   <td className="px-4 py-2 border border-gray-200">{email}</td>
@@ -98,4 +102,4 @@ console.log(userId)
   );
 };
 
-export default AdminInspectorInfo;
+export default AdminSalesInfo;

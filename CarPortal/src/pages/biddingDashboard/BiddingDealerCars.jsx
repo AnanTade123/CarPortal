@@ -8,7 +8,7 @@ import {
 } from "@material-tailwind/react";
 import { useBiddingCarByDealerIdQuery } from "../../services/biddingAPI";
 
-// import TableComponent from "../../components/table/TableComponent";
+import TableComponent from "../../components/table/TableComponent";
 import { Link, useParams } from "react-router-dom";
 import { MdPendingActions } from "react-icons/md";
 import StatusDialogeBox from "../../ui/StatusDialogeBox";
@@ -29,7 +29,7 @@ const BiddingDealerCars = () => {
   }
 
   const UserID = jwtDecodes?.userId;
-
+  console.log("UserId------",UserID);
   const { data, isLoading, error } = useBiddingCarByDealerIdQuery(UserID);
 
   if (isLoading) {
@@ -213,12 +213,37 @@ const BiddingDealerCars = () => {
   if (isLoading) {
     return <p>isLoading</p>;
   } else {
-    dealerApiData = data;
+    dealerApiData = data ? data.slice(Math.max(data.length - 10, 0)) : [];
   }
-  console.log(dealerApiData);
+  console.log("dealerApiData------",dealerApiData);
 
   return (
     <>
+     <h1 className="mt-2 text-xl ml-2 mb-5 font-bold">Car Listing</h1>
+     <div className="flex flex-wrap justify-center divide-x-4 mx-5 mb-8">
+        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-green-500 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
+          <div className="text-4xl font-bold text-white">100</div>
+          <div className="mt-2 font-medium">Total Cars</div>
+        </div>
+        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-orange-500 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
+          <div className="text-4xl font-bold text-white">20/100</div>
+          <div className="mt-2 font-medium">Active Cars</div>
+        </div>
+        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-red-400 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
+          <div className="text-4xl font-bold text-white">30/100</div>
+          <div className="mt-2 font-medium">Pending Cars</div>
+        </div>
+        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-300 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
+          <div className="text-4xl font-bold text-white">25/100</div>
+          <div className="mt-2 font-medium">Inspection Done Cars</div>
+        </div>
+        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-green-500 rounded-2xl shadow-xl sm:mb-2 sm:mr-5">
+          <div className="text-4xl font-bold text-white">41</div>
+          <div className="mt-2 font-medium">Sell Cars</div>
+        </div>
+      </div>
+
+      <div>
       {error?.status === 404 ? (
         <div>
           <p className="text-3xl font-semibold ">No Data Available</p>
@@ -248,7 +273,7 @@ const BiddingDealerCars = () => {
             </div>
           </CardHeader>
           <CardBody className="overflow-scroll px-0">
-            {/* <TableComponent columns={columns} data={dealerApiData} /> */}
+            <TableComponent columns={columns} data={dealerApiData} />
           </CardBody>
           <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
             <Typography
@@ -279,6 +304,7 @@ const BiddingDealerCars = () => {
           </CardFooter>
         </Card>
       )}
+      </div>
     </>
   );
 };
