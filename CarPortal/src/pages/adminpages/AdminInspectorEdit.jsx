@@ -8,14 +8,14 @@ import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 
 const AdminInspectorEdit = () => {
-  const { userid,inspectorProfileId } = useParams();
+  const { userid, inspectorProfileId } = useParams();
   const userId = userid;
   const navigate = useNavigate();
-  
+
   const { data, isLoading, isError, error } = useInspectorByIdQuery({ userId });
   console.log(data)
   const [inspectorupdate] = useInspectorupdateMutation();
-  
+
   const [inputField, setInputField] = React.useState({
     address: "",
     city: "",
@@ -66,7 +66,7 @@ const AdminInspectorEdit = () => {
       console.log(res)
       if (res.data.status === 'success') {
         alert("Changes successful");
-        navigate('/admin');
+        navigate('/inspector');  // Ensure that the component that shows the table is at this route
       }
     } catch (error) {
       console.log(error);

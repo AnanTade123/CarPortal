@@ -8,6 +8,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         transferResponse: console.log(userId),
         method: "GET",
       }),
+      providesTags:["Inspector"]
        // You probably want providesTags here instead of invalidatesTags for queries
     }),
 
@@ -26,6 +27,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         method : "POST",
         body :inspectionData
       }),
+      invalidatesTags: ["Inspector", "InspectorList"],
     }),
 
     getInspectionReport : builder.query ({
