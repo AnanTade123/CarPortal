@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 import { useParams } from "react-router-dom";
 import { useInspectorupdateMutation, useInspectorByIdQuery } from "../../services/inspectorapi";
 import Inputs from "../../forms/Inputs";

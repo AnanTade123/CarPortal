@@ -1,5 +1,5 @@
 import { apiSlice } from "./apiSlice";
-
+ 
 export const inspectorAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     inspectorById: builder.query({
@@ -8,10 +8,9 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         transferResponse: console.log(userId),
         method: "GET",
       }),
-      providesTags:["Inspector"]
        // You probably want providesTags here instead of invalidatesTags for queries
     }),
-
+ 
     getallInspector: builder.query({
       query: ({ pageNo, pageSize }) => ({
         url: `/ispProfile/GetAllInspProfiles?pageNo=${pageNo}&pageSize=${pageSize}`,
@@ -19,7 +18,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
       }),
        // Same here
     }),
-
+ 
     inspectionReport : builder.mutation ({
       query : ({inspectionData,formDataToSend}) => ({
         url : `/uploadFileBidCar/add?documentType=${inspectionData.documentType}&beadingCarId=${inspectionData.beadingCarId}&doc=${inspectionData.doc}&doctype=${inspectionData.doctype}&subtype=${inspectionData.subtype}&comment=${inspectionData.comment}`,
@@ -27,17 +26,16 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         method : "POST",
         body :formDataToSend
       }),
-      invalidatesTags: ["Inspector", "InspectorList"],
     }),
-
+ 
     getInspectionReport : builder.query ({
       query :({id ,docType}) => ({
-        url : `/uploadFile/getCarIdType?beadingCarId=${id}&docType=${docType}`,
+        url : `/uploadFile/getCarIdType?beadingCarId=${id}&documentType=${docType}`,
         transerResponse:console.log("APi response",id, docType),
         method : "GET"
       }),
     }),
-
+ 
     inspectorupdate: builder.mutation({
       query: ({id,inspectordata}) => ({
         url: `/ispProfile/update?inspectorProfileId=${id}`,
@@ -45,19 +43,19 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         method: 'PATCH',
         body:inspectordata
       }),
-      
+     
     }),
     finalInspectionReport : builder.mutation({
       query : ({inspectionData}) => ({
         url:`/inspectionReport/add`,
         method : "POST",
         transerResponse:console.log("APi response",inspectionData),
-       body : inspectionData 
+       body : inspectionData
       })
     })
   }),
 });
-
+ 
 export const { useInspectorByIdQuery ,
   useGetallInspectorQuery,
   useGetInspectionReportQuery,
