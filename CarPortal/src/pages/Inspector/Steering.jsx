@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { useInspectionReportMutation } from '../../services/inspectorapi';
+import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -33,25 +35,72 @@ const Steering = () => {
   });
 
   const [uploadedImages, setUploadedImages] = useState({
-    Steering: null,
-    Brake: null,
-    Suspension: null,
+    Steerings: null,
+    Brakes: null,
+    Suspensions: null,
   });
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleFileChange = (event, fieldName) => {
+  const {id} = useParams()
+  console.log(id)
+
+ const [inspectionReport] = useInspectionReportMutation();
+  const [lables , setLables] = useState("");
+  const [selectfiled , setSelectfiled] = useState("")
+  useEffect(() => {
+    Object.keys(formData).forEach(key => {
+      if (formData[key].length > 0) {
+        console.log(key);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setLables(key)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setSelectfiled(formData[key])
+        
+      }
+    });
+  }, [formData]);
+  console.log(selectfiled)
+  console.log(lables)
+
+  const handleFileChange = async (event, fieldName) => {
     const file = event.target.files[0];
     console.log('Selected file:', file);
 
     // Read the file and convert it to URL for preview
     const reader = new FileReader();
-    reader.onload = () => {
-      setUploadedImages({ ...uploadedImages, [fieldName]: reader.result });
+    reader.onload = async () => {
+      const imageData = reader.result;
+      setUploadedImages({ ...uploadedImages, [fieldName]: imageData });
+
+      
+      // Prepare the data to be sent to the backend
+      const inspectionData = {
+        documentType: "Inspection Report",
+        beadingCarId: id,
+        doc: "", 
+        doctype: "",
+        subtype: lables,
+        comment: selectfiled,
+      };
+      const formDataToSend = "";
+      
+      try {
+      
+        const res = await inspectionReport({inspectionData,formDataToSend});
+        console.log(res);
+
+       alert("Data Uploded")
+        
+      } catch (error) {
+        console.error('Error uploading the file:', error);
+        alert("Data not Uploded")
+      }
     };
     reader.readAsDataURL(file);
   };
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -92,21 +141,21 @@ const Steering = () => {
               <input
                 accept="image/*"
                 style={{ display: 'none' }}
-                id="upload-Steering"
+                id="upload-Steerings"
                 type="file"
-                onChange={(event) => handleFileChange(event, 'Steering')}
+                onChange={(event) => handleFileChange(event, 'Steerings')}
               />
-              <label htmlFor="upload-Steering" className="cursor-pointer flex items-center">
+              <label htmlFor="upload-Steerings" className="cursor-pointer flex items-center">
                 <CloudUploadIcon />
                 <span className="ml-2">Upload Image</span>
               </label>
             </div>
-            {uploadedImages.Steering && (
+            {uploadedImages.Steerings && (
               <img
-                src={uploadedImages.Steering}
+                src={uploadedImages.Steerings}
                 alt="Uploaded"
                 style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-                onClick={() => handleImageClick(uploadedImages.Steering)}
+                onClick={() => handleImageClick(uploadedImages.Steerings)}
               />
             )}
           </Grid>
@@ -127,21 +176,21 @@ const Steering = () => {
               <input
                 accept="image/*"
                 style={{ display: 'none' }}
-                id="upload-Brake"
+                id="upload-Brakes"
                 type="file"
-                onChange={(event) => handleFileChange(event, 'Brake')}
+                onChange={(event) => handleFileChange(event, 'Brakes')}
               />
-              <label htmlFor="upload-Brake" className="cursor-pointer flex items-center">
+              <label htmlFor="upload-Brakes" className="cursor-pointer flex items-center">
                 <CloudUploadIcon />
                 <span className="ml-2">Upload Image</span>
               </label>
             </div>
-            {uploadedImages.Brake && (
+            {uploadedImages.Brakes && (
               <img
-                src={uploadedImages.Brake}
+                src={uploadedImages.Brakes}
                 alt="Uploaded"
                 style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-                onClick={() => handleImageClick(uploadedImages.Brake)}
+                onClick={() => handleImageClick(uploadedImages.Brakes)}
               />
             )}
           </Grid>
@@ -162,21 +211,21 @@ const Steering = () => {
               <input
                 accept="image/*"
                 style={{ display: 'none' }}
-                id="upload-Suspension"
+                id="upload-Suspensions"
                 type="file"
-                onChange={(event) => handleFileChange(event, 'Suspension')}
+                onChange={(event) => handleFileChange(event, 'Suspensions')}
               />
-              <label htmlFor="upload-Suspension" className="cursor-pointer flex items-center">
+              <label htmlFor="upload-Suspensions" className="cursor-pointer flex items-center">
                 <CloudUploadIcon />
                 <span className="ml-2">Upload Image</span>
               </label>
             </div>
-            {uploadedImages.Suspension && (
+            {uploadedImages.Suspensions && (
               <img
-                src={uploadedImages.Suspension}
+                src={uploadedImages.Suspensions}
                 alt="Uploaded"
                 style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-                onClick={() => handleImageClick(uploadedImages.Suspension)}
+                onClick={() => handleImageClick(uploadedImages.Suspensions)}
               />
             )}
           </Grid>
@@ -201,14 +250,14 @@ const Steering = () => {
         </div>
       </Modal>
 
-      <div className="flex justify-between mt-10 px-8">
+      {/* <div className="flex justify-between mt-10 px-8">
         <Button variant="contained" color="primary">
           Previous
         </Button>
         <Button variant="contained" color="primary">
           Next
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };

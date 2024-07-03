@@ -9,6 +9,7 @@ import {
 } from "@material-tailwind/react";
 import CardUi from "../../ui/CardUi";
 import { useSignUpMutation } from "../../services/authAPI";
+import { ToastContainer, toast } from "react-toastify";
 
 export function AddSalesForm() {
   const [open, setOpen] = useState(false);
@@ -27,7 +28,7 @@ export function AddSalesForm() {
     joiningdate:"",
     city: "",
     roles: "SALESPERSON",
-    documentId: 0,
+    documentId: "",
     area: "",
     status: false,
   });
@@ -81,7 +82,7 @@ export function AddSalesForm() {
     try {
       const { data } = await SignUp(formData);
       console.log(data);
-      alert("Register Successfully");
+      toast.success("Register Successfully");
     } catch (error) {
       console.log(error);
     }
@@ -93,11 +94,9 @@ export function AddSalesForm() {
       firstName: "",
       lastName: "",
       address: "",
-      profilePhotoId: "",
       joiningdate: "",
       city: "",
-      roles: "SALESPERSON",
-      documentId: 0,
+      documentId: "",
       area: "",
       status: false,
     });
@@ -107,6 +106,7 @@ export function AddSalesForm() {
 
   return (
     <>
+      <ToastContainer />
       <Button onClick={handleOpen} className="flex gap-2">
         <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add Seller
       </Button>
@@ -196,7 +196,14 @@ export function AddSalesForm() {
                 onChange={handleChange}
                 required
               />
-              
+              <Input
+                label="Document Id"
+                name="documentId"
+                value={formData.documentId}
+                onChange={handleChange}
+                required
+              />
+
               <Button type="submit">Add</Button>
             </form>
           </CardBody>

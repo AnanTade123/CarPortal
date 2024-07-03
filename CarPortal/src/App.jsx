@@ -16,7 +16,7 @@ import AdminDealerEdit from "./pages/adminpages/AdminDealerEdit";
 import DealerDashboard from "./pages/dealer/DealerDashboard";
 import DealerMiddleware from "./middleware/DealerMiddleware";
 import BiddingMainPage from "./pages/bidding/BiddingMainPage";
-import AddDealerCar from "./pages/dealer/AddDealerCar";
+import AddDealerCar2 from "./pages/dealer/AddDealerCar2";
 import EditDealerCar from "./pages/dealer/EditDealerCar";
 import BiddingAddCar from "./pages/bidding/BiddingAddCar";
 import BiddingEditCar from "./pages/bidding/BiddingEditCar";
@@ -65,6 +65,10 @@ import ElectricalSection from "./pages/InspectionReportPage/ElectricalSection";
 import SteeringSection from "./pages/InspectionReportPage/SteeringSection";
 import InteriorSection from "./pages/InspectionReportPage/InteriorSection";
 import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
+import UploadImages3 from "./ui/UploadImages3";
+import BiddingAddCar2 from "./pages/bidding/BiddingAddCar2";
+import AdminSalesInfo from "./pages/adminpages/AdminSalesInfo";
+import AdminSalesEdit from "./pages/adminpages/AdminSalesEdit";
 
 export default function App() {
   return (
@@ -113,61 +117,29 @@ export default function App() {
               element={<AdminDealerEdit />}
             />
             <Route
-              path="/admin/inspector/edit/:userid/:inspectorProfileId"
+              path="/admin/seller/info/:userId"
+              element={<AdminSalesInfo />}
+            />
+            <Route
+              path="/admin/seller/edit/:userid/:salesPersonId"
+              element={<AdminSalesEdit />}
+            />
+            <Route
+              path="/admin/inspector/edit/:userid/:id"
               element={<AdminInspectorEdit />}
             />
             <Route
               path="/transactionbyaccount"
               element={<TransactionByAccount />}
             />
-            <Route
-              path="/wallet"
-              element={<Wallet />}
-            />
+            <Route path="/wallet" element={<Wallet />} />
             <Route
               path="/transactioncontroller"
               element={<TransactionController />}
             />
-            <Route
-              path="/carlisting"
-              element={<CarListing />}
-            />
-            <Route
-              path="/admin/biddingcar"
-              element={<BiddingCars />}
-            />
-            <Route
-              path="/carlisttable"
-              element={<CarListTable />}
-            />
-             <Route
-              path="/cardocumentsection"
-              element={<CarDocumentSection/>}
-            />
-            <Route
-              path="/exteriorsection"
-              element={<ExteriorSection/>}
-            />
-            <Route
-              path="/enginesection"
-              element={<EngineSection/>}
-            />
-            <Route
-              path="/acsection"
-              element={<AcSection/>}
-            />
-            <Route
-              path="/electricalsection"
-              element={<ElectricalSection/>}
-            />
-            <Route
-              path="/steeringsection"
-              element={<SteeringSection/>}
-            />
-            <Route
-              path="/interiorsection"
-              element={<InteriorSection/>}
-            />
+            <Route path="/carlisting" element={<CarListing />} />
+            <Route path="/admin/biddingcar" element={<BiddingDealerCars />} />
+            <Route path="/carlisttable" element={<CarListTable />} />
           </Route>
 
           <Route
@@ -176,28 +148,50 @@ export default function App() {
             }
           >
             <Route path="/dealer/:id" element={<SellForCar />} />
-            <Route path="/dealer/:id/addcar" element={<AddDealerCar />} />
+            <Route path="/dealer/:id/addcar" element={<AddDealerCar2 />} />
             <Route path="/dealer/:id/uploadimage" element={<Uploadimages2 />} />
             <Route path="/dealer/:id/edit" element={<DealerEdit />} />
-            <Route  path="/dealer/:id/car/edit/:carId" element={<EditDealerCar />} />
-            <Route path="/dealer/:carId/:id/editimage" element={<EditImage />} />
-            <Route  path="/dealer/:id/booking/confirm" element={<OrderDealer />}  />
-            <Route path="/dealer/:id/allpending" element={<DealerAllPendingRequest />} />
-            <Route path="/dealer/biddingcar" element={<BiddingDealer />} />
-            <Route  path="/car/:CarId/pendinguser" element={<DealerPendingRequest />} />
+
+            <Route
+              path="/dealer/:id/car/edit/:carId"
+              element={<EditDealerCar />}
+            />
+            <Route
+              path="/dealer/:carId/:id/editimage"
+              element={<EditImage />}
+            />
+            <Route
+              path="/dealer/:id/booking/confirm"
+              element={<OrderDealer />}
+            />
+            <Route
+              path="/dealer/:id/allpending"
+              element={<DealerAllPendingRequest />}
+            />
+            <Route
+              path="/dealer/biddingcar"
+              element={<BiddingDealerCars />}
+            />
+            <Route
+              path="/car/:CarId/pendinguser"
+              element={<DealerPendingRequest />}
+            />
           </Route>
 
-          <Route element={<InspectorMiddleware allowedRoles={[...Object.values(onlyInspector)]} />} >
+          <Route
+            element={
+              <InspectorMiddleware
+                allowedRoles={[...Object.values(onlyInspector)]}
+              />
+            }
+          >
             <Route path="/inspector/carverify/:id" element={<CarVerify />} />
             <Route
               path="/inspector/car"
               element={<CarListing />}
             />
-            <Route path="/inspector/car/add" element={<BiddingAddCar />} />
-            <Route
-              path="/dealer/biddingcar"
-              element={<BiddingDealerCars />}
-            />
+            <Route path="/inspector/car/add" element={<BiddingAddCar2 />} />
+           
           </Route>
 
           <Route path="/bidding" element={<BiddingMainPage />} />
@@ -208,7 +202,7 @@ export default function App() {
             path="/car/:CarId/pendingreq"
             element={<BiddingDealerPendingReq />}
           />
-          <Route path="/bidding/:carId/uploadimage" element={<Uploadimages2 />} />
+          <Route path="/bidding/:carId/uploadimage" element={<UploadImages3 />} />
           <Route path="/bidding/:carId/:id/editimage" element={<EditImage />} />
 
         </Route>
@@ -220,7 +214,6 @@ export default function App() {
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/cookiepolicy" element={<CookiePolicy />} />
         </Route>
-
       </Routes>
     </>
   );
