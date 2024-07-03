@@ -8,7 +8,7 @@ import {
 } from "@material-tailwind/react";
 import { useBiddingCarByDealerIdQuery } from "../../services/biddingAPI";
 
-// import TableComponent from "../../components/table/TableComponent";
+import TableComponent from "../../components/table/TableComponent";
 import { Link, useParams } from "react-router-dom";
 import { MdPendingActions } from "react-icons/md";
 import StatusDialogeBox from "../../ui/StatusDialogeBox";
@@ -29,7 +29,7 @@ const BiddingDealerCars = () => {
   }
 
   const UserID = jwtDecodes?.userId;
-
+  console.log("UserId------",UserID);
   const { data, isLoading, error } = useBiddingCarByDealerIdQuery(UserID);
 
   if (isLoading) {
@@ -213,9 +213,9 @@ const BiddingDealerCars = () => {
   if (isLoading) {
     return <p>isLoading</p>;
   } else {
-    dealerApiData = data;
+    dealerApiData = data ? data.slice(Math.max(data.length - 10, 0)) : [];
   }
-  console.log(dealerApiData);
+  console.log("dealerApiData------",dealerApiData);
 
   return (
     <>
@@ -248,7 +248,7 @@ const BiddingDealerCars = () => {
             </div>
           </CardHeader>
           <CardBody className="overflow-scroll px-0">
-            {/* <TableComponent columns={columns} data={dealerApiData} /> */}
+            <TableComponent columns={columns} data={dealerApiData} />
           </CardBody>
           <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
             <Typography

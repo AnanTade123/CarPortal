@@ -21,7 +21,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
 
     inspectionReport : builder.mutation ({
       query : ({inspectionData,formDataToSend}) => ({
-        url : `/uploadFileBidCar/add?documentType=${inspectionData.documentType}&carId=${inspectionData.bidCarId}&doc=${inspectionData.doc}&doctype=${inspectionData.doctype}&subtype=${inspectionData.subtype}&comment=${inspectionData.comment}`,
+        url : `/uploadFileBidCar/add?documentType=${inspectionData.documentType}&beadingCarId=${inspectionData.beadingCarId}&doc=${inspectionData.doc}&doctype=${inspectionData.doctype}&subtype=${inspectionData.subtype}&comment=${inspectionData.comment}`,
         transerResponse:console.log(inspectionData,formDataToSend),
         method : "POST",
         body :formDataToSend
@@ -30,7 +30,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
 
     getInspectionReport : builder.query ({
       query :({id ,docType}) => ({
-        url : `/uploadFile/getCarIdType?carId=${id}&docType=${docType}`,
+        url : `/uploadFile/getCarIdType?beadingCarId=${id}&docType=${docType}`,
         transerResponse:console.log("APi response",id, docType),
         method : "GET"
       }),

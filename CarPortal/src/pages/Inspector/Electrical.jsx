@@ -102,7 +102,7 @@ const Electrical = () => {
       // Prepare the data to be sent to the backend
       const inspectionData = {
         documentType: "Inspection Report",
-        bidCarId: id,
+        beadingCarId: id,
         doc: "", 
         doctype: "",
         subtype: lables,

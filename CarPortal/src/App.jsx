@@ -168,8 +168,10 @@ export default function App() {
               path="/dealer/:id/allpending"
               element={<DealerAllPendingRequest />}
             />
-            <Route path="/dealer/biddingcar" element={<DealerDashboard />} />
-
+            <Route
+              path="/dealer/biddingcar"
+              element={<BiddingDealerCars />}
+            />
             <Route
               path="/car/:CarId/pendinguser"
               element={<DealerPendingRequest />}
@@ -189,10 +191,7 @@ export default function App() {
               element={<CarListing />}
             />
             <Route path="/inspector/car/add" element={<BiddingAddCar2 />} />
-            <Route
-              path="/dealer/biddingcar"
-              element={<BiddingDealerCars />}
-            />
+           
           </Route>
 
           <Route path="/bidding" element={<BiddingMainPage />} />

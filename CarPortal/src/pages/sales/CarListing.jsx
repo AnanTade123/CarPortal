@@ -19,21 +19,21 @@ import { Link } from "react-router-dom";
 import { useBiddingAllCardQuery } from "../../services/biddingAPI";
 
 export default function CarListing() {
-  const { data, error } = useBiddingAllCardQuery();
+  const { data, error ,isLoading} = useBiddingAllCardQuery();
   const activeCarsData = data?.filter(car => car?.carStatus === "ACTIVE");
   const pendingCarsData = data?.filter(car => car?.carStatus === "pending");
   const sellCarsData = data?.filter(car => car?.carStatus === "sell");
-  const [totalCars, setTotalCars] = useState(data?.length || "-");
-  const [activeCars, setActiveCars] = useState(activeCarsData?.length || "-");
-  const [pendingCars, setPendingCars] = useState(pendingCarsData?.length || "-");
-  const [inspectionDone, setInspectionDone] = useState(activeCarsData?.length || "-");
-  const [sellCars, setSellCars] = useState(sellCarsData?.length || "-");
+  const [totalCars] = useState(data?.length || "-");
+  const [activeCars] = useState(activeCarsData?.length || "-");
+  const [pendingCars] = useState(pendingCarsData?.length || "-");
+  const [inspectionDone] = useState(activeCarsData?.length || "-");
+  const [sellCars] = useState(sellCarsData?.length || "-");
   const [pageNo, setPageNo] = useState(0);
   const [deleteDealer] = useDeleteDealerMutation();
   const [open, setOpen] = useState(false);
   const [deleteid, setDeleteid] = useState();
-  const [bidCarList, setBidCarList] = useState([]);
-  const itemsPerPage = 10;
+  // const [bidCarList, setBidCarList] = useState([]);
+  // const itemsPerPage = 10;
 
   const handleOpen = (id) => {
     setOpen(!open);
@@ -63,7 +63,7 @@ export default function CarListing() {
       if (error?.status === 404) {
         return prevPageNo; // Keep pageNo unchanged
       } else {
-        setBidCarList(data.slice(pageNo * itemsPerPage, (pageNo + 1) * itemsPerPage));
+        // setBidCarList(data.slice(pageNo * itemsPerPage, (pageNo + 1) * itemsPerPage));
         return prevPageNo + 1;
       }
     });
@@ -92,20 +92,20 @@ export default function CarListing() {
     },
     {
       Header: "Status",
-      accessor: "Status",
+      accessor: "carStatus",
       Cell: (cell) => {
-        return cell.row.values.carStatus === "pending" ? (
-          <Button variant="gradient" color="blue">
+        return cell.row.values.carStatus == "pending" ? (
             <Link to={`/inspector/carverify/${cell.row.values.beadingCarId}`} className="button-link">
+          <Button variant="gradient" color="blue">
               Verify
-            </Link>
           </Button>
+            </Link>
         ) : (
-          <Button variant="gradient" color="green">
             <Link to={`/inspector/carverify/${cell.row.values.beadingCarId}`} className="button">
+          <Button variant="gradient" color="green">
               Done
-            </Link>
           </Button>
+            </Link>
         );
       },
     },
@@ -157,17 +157,23 @@ export default function CarListing() {
     },
   ];
 
-  useEffect(() => {
-    if (data) {
-      setBidCarList(data);
-      setTotalCars(data?.length);
-      setActiveCars(activeCarsData?.length);
-      setPendingCars(pendingCarsData?.length);
-      setInspectionDone(activeCarsData?.length);
-      setSellCars(sellCarsData?.length);
-    }
-  }, [data, activeCarsData, pendingCarsData, sellCarsData]);
+  // useEffect(() => {
+  //   if (data) {
+  //     setBidCarList(data ? data.slice(Math.max(data.length - 10, 0)) : []);
+  //     setTotalCars(data?.length);
+  //     setActiveCars(activeCarsData?.length);
+  //     setPendingCars(pendingCarsData?.length);
+  //     setInspectionDone(activeCarsData?.length);
+  //     setSellCars(sellCarsData?.length);
+  //   }
+  // }, [data, activeCarsData, pendingCarsData, sellCarsData]);
 
+  let biddingCarData;
+  if (isLoading) {
+    return <p>isLoading</p>;
+  } else {
+    biddingCarData = data ? data.slice(Math.max(data.length - 10, 0)) : [];
+  }
   return (
     <>
       <h1 className="mt-2 text-xl ml-2 mb-5 font-bold">Car Listing</h1>
@@ -225,7 +231,7 @@ export default function CarListing() {
                 </Link>
               </div>
               <CardBody className="overflow-scroll px-0">
-                <TableComponent columns={columns} data={bidCarList} />
+                <TableComponent columns={columns} data={biddingCarData} />
               </CardBody>
               <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
                 <Button
