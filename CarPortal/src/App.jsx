@@ -58,13 +58,7 @@ import BiddingDealerCars from "./pages/biddingDashboard/BiddingDealerCars";
 import CarListTable from "./pages/biddingDashboard/CarListTable";
 import BiddingDealer from "./pages/dealer/BiddingDealer";
 import BiddingCars from "./pages/adminpages/BiddingCars";
-import CarDocumentSection from "./pages/InspectionReportPage/CarDocumentSection";
-import ExteriorSection from "./pages/InspectionReportPage/ExteriorSection";
-import EngineSection from "./pages/InspectionReportPage/EngineSection";
-import AcSection from "./pages/InspectionReportPage/AcSection";
-import ElectricalSection from "./pages/InspectionReportPage/ElectricalSection";
-import SteeringSection from "./pages/InspectionReportPage/SteeringSection";
-import InteriorSection from "./pages/InspectionReportPage/InteriorSection";
+
 import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
 import UploadImages3 from "./ui/UploadImages3";
 import BiddingAddCar2 from "./pages/bidding/BiddingAddCar2";
@@ -75,6 +69,7 @@ import ImageUploader from "./components/demo/uploadimage";
 import ListTable from "./pages/sales/ListTable";
 
 
+import FinalReport from "./pages/InspectionReportPage/FinalReport";
 
 export default function App() {
   return (
@@ -181,6 +176,10 @@ export default function App() {
             <Route
               path="/car/:CarId/pendinguser"
               element={<DealerPendingRequest />}
+            />
+            <Route
+              path="/finalreport"
+              element={<FinalReport/>}
             />
           </Route>
           <Route path="/biddingCar" element={<BiddingCar/>} />

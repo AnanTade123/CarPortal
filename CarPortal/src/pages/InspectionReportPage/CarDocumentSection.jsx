@@ -9,6 +9,9 @@ const CarDocumentSection = () => {
     insuranceType: 'Zero Depreciation, Comprehensive',
     noClaimBonus: 'Yes',
     underHypothecation: 'No',
+    LoanStatus: 'paid/closed',
+    
+
     roadTaxPaid: 'LTT',
     partipeshiRequest: 'No',
     duplicateKey: 'Yes',
@@ -30,66 +33,78 @@ const CarDocumentSection = () => {
   return (
 
     
-    <div className='p-4 flex-col ' >
+    <div className=' bg-white border-2 rounded-md shadow-md md:p-7 md:m-3 p-5 md:mt-10 mt-6' >
+     <div className=' -mb-6 '>
       <Typography variant="h4" className='text-black font-bold pb-10'>
-      <span >Important Document</span>
+      <span >Inspection Report</span>
       </Typography>
-      <div className=' bg-white border-2 rounded-md shadow-md p-7 -mt-2'>
-       <Grid container spacing={3}>
+      </div>
+      <div className=''>
+      <div className=' mb-2 '>
+      <Typography variant="h5" className='text-black font-bold pb-10'>
+      <span ><u>Car Document</u></span>
+      </Typography>
+      </div>
+       <Grid container spacing={4}>
         {/* RC Availability */}
         <Grid item xs={12} sm={6}>
-          <Typography variant="body1">RC Availability: {formData.rcAvailability}</Typography>
+          <Typography variant="body1" onChange={handleChange}>RC Availability: {formData.rcAvailability}</Typography>
         </Grid>
 
         {/* Mismatch in RC */}
         <Grid item xs={12} sm={6}>
-          <Typography variant="body1">Mismatch in RC: {formData.mismatchInRC}</Typography>
+          <Typography variant="body1" onChange={handleChange}>Mismatch in RC: {formData.mismatchInRC}</Typography>
         </Grid>
 
         {/* RTO NOC Issued */}
         <Grid item xs={12} sm={6}>
-          <Typography variant="body1">RTO NOC Issued: {formData.rtoNocIssued}</Typography>
+          <Typography variant="body1" onChange={handleChange}>RTO NOC Issued: {formData.rtoNocIssued}</Typography>
         </Grid>
 
         {/* Insurance Type */}
         <Grid item xs={12} sm={6}>
-          <Typography variant="body1">Insurance Type: {formData.insuranceType}</Typography>
+          <Typography variant="body1" onChange={handleChange}>Insurance Type: {formData.insuranceType}</Typography>
         </Grid>
 
         {/* No Claim Bonus */}
         <Grid item xs={12} sm={6}>
-          <Typography variant="body1">No Claim Bonus: {formData.noClaimBonus}</Typography>
+          <Typography variant="body1" onChange={handleChange}>No Claim Bonus: {formData.noClaimBonus}</Typography>
         </Grid>
 
         {/* Under Hypothecation */}
         <Grid item xs={12} sm={6}>
-          <Typography variant="body1">Under Hypothecation: {formData.underHypothecation}</Typography>
+          <Typography variant="body1" onChange={handleChange}>Under Hypothecation: {formData.underHypothecation}</Typography>
+        </Grid>
+
+        {/* Under Hypothecation */}
+        <Grid item xs={12} sm={6}>
+          <Typography variant="body1" onChange={handleChange}>Loan Status: {formData.LoanStatus}</Typography>
         </Grid>
 
         {/* Road Tax Paid */}
         <Grid item xs={12} sm={6}>
-          <Typography variant="body1">Road Tax Paid: {formData.roadTaxPaid}</Typography>
+          <Typography variant="body1" onChange={handleChange}>Road Tax Paid: {formData.roadTaxPaid}</Typography>
         </Grid>
 
         {/* Partipeshi Request */}
         <Grid item xs={12} sm={6}>
-          <Typography variant="body1">Partipeshi Request: {formData.partipeshiRequest}</Typography>
+          <Typography variant="body1" onChange={handleChange}>Partipeshi Request: {formData.partipeshiRequest}</Typography>
         </Grid>
 
         {/* Duplicate Key */}
         <Grid item xs={12} sm={6}>
-          <Typography variant="body1">Duplicate Key: {formData.duplicateKey}</Typography>
+          <Typography variant="body1" onChange={handleChange}>Duplicate Key: {formData.duplicateKey}</Typography>
         </Grid>
 
         {/* Chassis Number Embossing */}
         <Grid item xs={12} sm={6}>
-          <Typography variant="body1">Chassis Number Embossing: {formData.chassisNumberEmbossing}</Typography>
+          <Typography variant="body1" onChange={handleChange}>Chassis Number Embossing: {formData.chassisNumberEmbossing}</Typography>
         </Grid>
 
         {/* Manufacturing Date */}
         <Grid item xs={12} sm={6}>
           
-          <Typography variant="body1">Manufacturing Date: {formData.manufacturingDate}</Typography>
+          <Typography variant="body1" onChange={handleChange}>Manufacturing Date: {formData.manufacturingDate}</Typography>
         </Grid>
 
         {/* Registration Date */}
@@ -101,18 +116,18 @@ const CarDocumentSection = () => {
         {/* RTO */}
         <Grid item xs={12} sm={6}>
           
-          <Typography variant="body1"><label htmlFor="">RTO:</label> {formData.rto}</Typography>
+          <Typography variant="body1" onChange={handleChange}><label htmlFor="">RTO:</label> {formData.rto}</Typography>
         </Grid>
 
         {/* Fitness Upto */}
         <Grid item xs={12} sm={6}>
           
-          <Typography variant="body1"><label htmlFor="">Fitness Upto:</label> {formData.fitnessUpto}</Typography>
+          <Typography variant="body1" onChange={handleChange}><label htmlFor="">Fitness Upto:</label> {formData.fitnessUpto}</Typography>
         </Grid>
 
         {/* CNG/LPG Fitment in RC */}
         <Grid item xs={12} sm={6}>
-          <Typography variant="body1">CNG/LPG Fitment in RC: {formData.cngLpgFitmentInRC}</Typography>
+          <Typography variant="body1" onChange={handleChange}>CNG/LPG Fitment in RC: {formData.cngLpgFitmentInRC}</Typography>
         </Grid>
       </Grid>
       </div>
