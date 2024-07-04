@@ -17,7 +17,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         url: `/ispProfile/GetAllInspProfiles?pageNo=${pageNo}&pageSize=${pageSize}`,
         method: "GET",
       }),
-       // Same here
+      providesTags: ["Inspector"],
     }),
  
     inspectionReport : builder.mutation ({

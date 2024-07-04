@@ -69,6 +69,7 @@ import UploadImages3 from "./ui/UploadImages3";
 import BiddingAddCar2 from "./pages/bidding/BiddingAddCar2";
 import AdminSalesInfo from "./pages/adminpages/AdminSalesInfo";
 import AdminSalesEdit from "./pages/adminpages/AdminSalesEdit";
+import ImageUploader from "./components/demo/uploadimage";
 
 export default function App() {
   return (
@@ -214,6 +215,8 @@ export default function App() {
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/cookiepolicy" element={<CookiePolicy />} />
         </Route>
+
+        <Route path="/demo" element={<ImageUploader/>} />
       </Routes>
     </>
   );

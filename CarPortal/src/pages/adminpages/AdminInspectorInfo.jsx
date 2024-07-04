@@ -6,22 +6,12 @@ import { Button } from "@material-tailwind/react";
 const AdminInspectorInfo = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
-console.log(userId)
-  const { data } = useInspectorByIdQuery({userId});
 
-  console.log(data);
+  const { data,  } = useInspectorByIdQuery({ userId });
 
+ 
   const {
-    response: {
-      firstName,
-      lastName,
-      mobileNo,
-
-    
-      email,
-      city,
-      address,
-    } = {},
+    response: { firstName, lastName, mobileNo, email, city, address } = {},
   } = data || {};
 
   return (
@@ -62,8 +52,6 @@ console.log(userId)
                     {mobileNo}
                   </td>
                 </tr>
-                
-                
                 <tr>
                   <th className="px-4 py-2 border border-gray-200">Email</th>
                   <td className="px-4 py-2 border border-gray-200">{email}</td>
