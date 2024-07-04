@@ -64,8 +64,7 @@ const AdminSalesEdit = () => {
       console.log(res);
       if (res.data.status === "success") {
         alert(" Sucessfully Edit");
-
-        navigate("/admin");
+        navigate("/admin/salesuser");
       }
     } catch (error) {
       console.log(error);

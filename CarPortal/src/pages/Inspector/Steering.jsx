@@ -85,7 +85,7 @@ const Steering = () => {
         documentType: "Inspection Report",
         beadingCarId: id,
         doc: "", 
-        doctype: "",
+        doctype: "Steering",
         subtype: lables,
         comment: selectfiled,
       };

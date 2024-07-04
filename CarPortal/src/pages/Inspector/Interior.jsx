@@ -96,7 +96,7 @@ const Interior = () => {
         documentType: "Inspection Report",
         beadingCarId: id,
         doc: "", 
-        doctype: "",
+        doctype: "Interior",
         subtype: lables,
         comment: selectfiled,
       };

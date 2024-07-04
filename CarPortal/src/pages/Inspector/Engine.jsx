@@ -112,7 +112,7 @@ const Engine = () => {
         documentType: "Inspection Report",
         beadingCarId: id,
         doc: "", 
-        doctype: "",
+        doctype: "Engine",
         subtype: lables,
         comment: selectfiled,
       };

@@ -110,7 +110,7 @@ const Electrical = () => {
         documentType: "Inspection Report",
         beadingCarId: id,
         doc: "", 
-        doctype: "",
+        doctype: "Eletrical",
         subtype: lables,
         comment: selectfiled,
       };

@@ -36,7 +36,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const OtherComponent = ({  formData, setFormData,handleFileChange,uploadedImages }) => {
+const 
+OtherComponent = ({  formData, setFormData,handleFileChange,uploadedImages }) => {
   const classes = useStyles();
 
   const [openModal, setOpenModal] = useState(false);
@@ -87,21 +88,21 @@ const OtherComponent = ({  formData, setFormData,handleFileChange,uploadedImages
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-HeadLightSupport"
+              id="upload-HeadLightSupports"
               type="file"
-              onChange={(event) => handleFileChange(event, 'HeadLightSupport')}
+              onChange={(event) => handleFileChange(event, 'HeadLightSupports')}
             />
-            <label htmlFor="upload-HeadLightSupport" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-HeadLightSupports" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.HeadLightSupport && (
+          {uploadedImages.HeadLightSupports && (
             <img
-              src={uploadedImages.HeadLightSupport}
+              src={uploadedImages.HeadLightSupports}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.HeadLightSupport)}
+              onClick={() => handleImageClick(uploadedImages.HeadLightSupports)}
             />
           )}
         </Grid>
@@ -129,21 +130,21 @@ const OtherComponent = ({  formData, setFormData,handleFileChange,uploadedImages
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-RadiatorSupport"
+              id="upload-RadiatorSupports"
               type="file"
-              onChange={(event) => handleFileChange(event, 'RadiatorSupport')}
+              onChange={(event) => handleFileChange(event, 'RadiatorSupports')}
             />
-            <label htmlFor="upload-RadiatorSupport" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-RadiatorSupports" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.RadiatorSupport && (
+          {uploadedImages.RadiatorSupports && (
             <img
-              src={uploadedImages.RadiatorSupport}
+              src={uploadedImages.RadiatorSupports}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.RadiatorSupport)}
+              onClick={() => handleImageClick(uploadedImages.RadiatorSupports)}
             />
           )}
         </Grid>
@@ -170,21 +171,21 @@ const OtherComponent = ({  formData, setFormData,handleFileChange,uploadedImages
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-AlloyWheel"
+              id="upload-AlloyWheels"
               type="file"
-              onChange={(event) => handleFileChange(event, 'AlloyWheel')}
+              onChange={(event) => handleFileChange(event, 'AlloyWheels')}
             />
-            <label htmlFor="upload-AlloyWheel" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-AlloyWheels" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.AlloyWheel && (
+          {uploadedImages.AlloyWheels && (
             <img
-              src={uploadedImages.AlloyWheel}
+              src={uploadedImages.AlloyWheels}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.AlloyWheel)}
+              onClick={() => handleImageClick(uploadedImages.AlloyWheels)}
             />
           )}
         </Grid>
