@@ -14,6 +14,7 @@ const AdminMiddleware = ({ allowedRoles }) => {
   }
 
   const userRole = token ? jwtDecodes.authorities[0] : null;
+  console.log(userRole)
   useEffect(() => {
     if (!allowedRoles.includes(userRole)) {
       return alert("You must be an admin to access this page.");

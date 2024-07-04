@@ -3,21 +3,62 @@ import { apiSlice } from "./apiSlice";
 export const inspectorAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     inspectorById: builder.query({
-      query: () => ({
-        url: `/ispProfile/inspector?inspectorProfileId=3`,
+      query: ({userId}) => ({
+        url: `ispProfile/getByUserId?userId=${userId}`,
+        transferResponse: console.log(userId),
         method: "GET",
       }),
        // You probably want providesTags here instead of invalidatesTags for queries
     }),
 
     getallInspector: builder.query({
-      query: () => ({
-        url: `/ispProfile/GetAllInspProfiles?pageNo=0&pageSize=10`,
+      query: ({ pageNo, pageSize }) => ({
+        url: `/ispProfile/GetAllInspProfiles?pageNo=${pageNo}&pageSize=${pageSize}`,
         method: "GET",
       }),
        // Same here
     }),
+
+    inspectionReport : builder.mutation ({
+      query : ({inspectionData,formDataToSend}) => ({
+        url : `/uploadFileBidCar/add?documentType=${inspectionData.documentType}&beadingCarId=${inspectionData.beadingCarId}&doc=${inspectionData.doc}&doctype=${inspectionData.doctype}&subtype=${inspectionData.subtype}&comment=${inspectionData.comment}`,
+        transerResponse:console.log(inspectionData,formDataToSend),
+        method : "POST",
+        body :formDataToSend
+      }),
+    }),
+
+    getInspectionReport : builder.query ({
+      query :({id ,docType}) => ({
+        url : `/uploadFileBidCar/getBeadingCarIdType?beadingCarId=${id}&doctype=${docType}`,
+        transerResponse:console.log("APi response",id, docType),
+        method : "GET"
+      }),
+    }),
+
+    inspectorupdate: builder.mutation({
+      query: ({id,inspectordata}) => ({
+        url: `/ispProfile/update?inspectorProfileId=${id}`,
+        transerResponse:console.log("APi response" , inspectordata,id),
+        method: 'PATCH',
+        body:inspectordata
+      }),
+      
+    }),
+    finalInspectionReport : builder.mutation({
+      query : ({inspectionData}) => ({
+        url:`/inspectionReport/add`,
+        method : "POST",
+        transerResponse:console.log("APi response",inspectionData),
+       body : inspectionData 
+      })
+    })
   }),
 });
 
-export const { useInspectorByIdQuery , useGetallInspectorQuery} = inspectorAPI;
+export const { useInspectorByIdQuery ,
+  useGetallInspectorQuery,
+  useGetInspectionReportQuery,
+  useInspectionReportMutation,
+  useInspectorupdateMutation ,
+  useFinalInspectionReportMutation } = inspectorAPI;

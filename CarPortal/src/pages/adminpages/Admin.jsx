@@ -98,7 +98,7 @@ console.log(data)
       accessor: "status",
       Cell: (cell) => {
         const a = cell.row.values.status
-        console.log(a)
+        
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
@@ -113,7 +113,7 @@ console.log(data)
       Header: "Actions",
       accessor: "Actions",
       Cell: (cell) => {
-        console.log(cell.row.values.dealer_id);
+        
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
@@ -188,7 +188,7 @@ console.log(data)
   } else {
     dealerApiData = data?.list;
   }
- console.log(dealerApiData)
+ 
   return (
     <>
 
@@ -196,6 +196,7 @@ console.log(data)
         <div>
            <p className="text-3xl font-semibold ">No Data Available</p>
            <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+           <></>
            <AddDealerForm />
             </div>
             </div>

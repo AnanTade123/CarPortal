@@ -67,6 +67,13 @@ export const dealerAPI = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Dealer'],
     }),
+    getAllDealerList: builder.query({
+      query: () => ({
+        url: `dealer/allDealer`,
+        method: "GET",
+      }),
+      providesTags: ['Inspector']
+    }),
     
   }),
 });
@@ -79,6 +86,7 @@ export const {
   useGetAllDealerCompleteBookingQuery,
   useGetAllDealerPendingBookingQuery,
   useAddCarImagesMutation,
-  useDealerStatusMutation
+  useDealerStatusMutation,
+  useGetAllDealerListQuery,
   
 } = dealerAPI;

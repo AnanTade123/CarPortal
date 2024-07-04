@@ -10,8 +10,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { IoAddCircleOutline, IoCloseCircle, IoCheckmarkCircle } from 'react-icons/io5';
 
-export default function UploadImages2() {
-  const [openDialog, setOpenDialog] = useState(false);
+function UploadImages2() {
   const [images, setImages] = useState([]);
   const [uploadStatus, setUploadStatus] = useState({}); // Track upload status for each image
   const { id } = useParams();
@@ -108,7 +107,7 @@ export default function UploadImages2() {
   return (
     <div className="flex justify-center">
       <div className="w-full max-w-8xl p-4">
-        <h2 className="text-3xl font-semibold mb-4">Edit Images</h2>
+        <h2 className="text-3xl font-semibold mb-4">Upload Car Images</h2>
         <form>
           <Tabs value={activeTab} onChange={(value) => setActiveTab(value)}>
             <TabsHeader>
@@ -175,3 +174,5 @@ export default function UploadImages2() {
     </div>
   );
 }
+
+export default UploadImages2;

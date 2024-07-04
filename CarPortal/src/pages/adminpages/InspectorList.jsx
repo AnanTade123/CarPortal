@@ -16,46 +16,41 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AddInspectorForm } from "../AddInspectorForm";
 
-export default function Admin() {
+export default function InspectorList() {
   const [pageNo, setPageNo] = useState(0);
-  console.log(pageNo);
-  const { data, isLoading, error } = useGetallInspectorQuery(pageNo);
-console.log(data)
-  // const [deleteDealer] = useDeleteDealerMutation();
-
-
+  const [pageSize, setPageSize] = useState(7);
+  const { data, isLoading, error } = useGetallInspectorQuery({ pageNo, pageSize });
+  console.log(data)
   const navigate = useNavigate();
   if (error?.status === 401) {
     return navigate("/signin");
   }
-  console.log(pageNo);
-  // const deleteDealerHandler = async (id) => {
-  //   const res = await deleteDealer(id);
-  //   console.log(res);
-  // };
+
   const nextHandler = () => {
-    setPageNo((prevPageNo) => {
-      // Check if the error status is 404
-      if (error?.status === 404) {
-        
-        console.log(prevPageNo);
-        // Display message or perform any action indicating that it's the last page
-        console.log("You are on the last page.");
-        return prevPageNo; // Keep pageNo unchanged
-      } else {
-        // Increment pageNo
-        return prevPageNo + 1;
-      }
-    });
+    if (!error) {
+      setPageNo((prevPageNo) => prevPageNo + 1);
+    }
+  };
+
+  const prevHandler = () => {
+    if (pageNo > 0) {
+      setPageNo((prevPageNo) => prevPageNo - 1);
+    }
   };
 
   const columns = [
-   
+    {
+      Header: "Serial No",
+      accessor: "inspectorProfileId",
+    },
+    {
+      Header: "UserID",
+      accessor: "userId",
+    },
     {
       Header: "First Name",
       accessor: "firstName",
     },
-
     {
       Header: "Last Name ",
       accessor: "lastName",
@@ -68,28 +63,23 @@ console.log(data)
       Header: "Phone",
       accessor: "mobileNo",
     },
-
     {
       Header: "City",
       accessor: "city",
-      
     },
     {
       Header: "Email",
       accessor: "email",
-      
     },
-    
-
     {
       Header: "Actions",
       accessor: "Actions",
       Cell: (cell) => {
-        console.log(cell.row.values.dealer_id);
+        console.log(cell.row.values.userId)
         return (
           <div>
-            <div className="flex gap-2 justify-center items-center  ">
-              <Link to={`/admin/dealer/info/${cell.row.values.dealer_id}`}>
+            <div className="flex gap-2 justify-center items-center">
+              <Link to={`/admin/inspector/info/${cell.row.values.userId}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -107,9 +97,9 @@ console.log(data)
                 </svg>
               </Link>
 
-              <Link
-                to={`/admin/dealer/edit/${cell.row.values.userId}/${cell.row.values.dealer_id}`}
-              >
+
+              <Link to={`/admin/inspector/edit/${cell.row.values.userId}/${cell.row.values.inspectorProfileId}`}>
+              
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -126,27 +116,6 @@ console.log(data)
                   />
                 </svg>
               </Link>
-              {/* <div
-                onClick={() => deleteDealerHandler(cell.row.values.dealer_id)}
-              >
-                <Tooltip content="Delete">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                    color="red"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-                    />
-                  </svg>
-                </Tooltip>
-              </div> */}
             </div>
           </div>
         );
@@ -160,68 +129,52 @@ console.log(data)
   } else {
     dealerApiData = data?.list;
   }
-  console.log(dealerApiData);
+
   return (
     <>
 
-    {dealerApiData.status===404 ? (
+    {error?.status===404 ? (
         <div>
-           <p className="text-3xl font-semibold ">No Data Available</p>
-           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-           <AddInspectorForm />
-            </div>
-            </div>
-            ):
-            ( 
-            <Card className="h-full w-full">
-        <CardHeader floated={false} shadow={false} className="rounded-none">
-          <div className=" flex items-center justify-between gap-8">
-            <div>
-              <Typography variant="h5" color="blue-gray">
-               Dealer List
-              </Typography>
-              <Typography color="gray" className="mt-1 font-normal">
-                See information about all members
-              </Typography>
-            </div>
-            <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+          <p className="text-3xl font-semibold">No Data Available</p>
+          <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
             <AddInspectorForm />
+          </div>
+        </div>
+      ) : (
+        <Card className="h-full w-full">
+          <CardHeader floated={false} shadow={false} className="rounded-none">
+            <div className="flex items-center justify-between gap-8">
+              <div>
+                <Typography variant="h5" color="blue-gray">
+                  Inspectors List
+                </Typography>
+                <Typography color="gray" className="mt-1 font-normal">
+                  See information about all members
+                </Typography>
+              </div>
+              <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+                <AddInspectorForm />
+              </div>
             </div>
-          </div>
-        </CardHeader>
-        <CardBody className="overflow-scroll px-0">
-          <TableComponent columns={columns} data={dealerApiData} />
-        </CardBody>
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-          <Typography
-            variant="medium"
-            color="blue-gray"
-            className="font-normal"
-          >
-            Page {pageNo + 1}
-          </Typography>
-          <div className="flex gap-2">
-            <Button
-              variant="outlined"
-              size="sm"
-              disabled={pageNo <= 0}
-              onClick={() => setPageNo((a) => a - 1)}
-            >
-              Previous
-            </Button>
-            <Button
-              variant="outlined"
-              size="sm"
-              onClick={nextHandler}
-              disabled={data?.list?.length < 10}
-            >
-              Next
-            </Button>
-          </div>
-        </CardFooter>
-      </Card>)}
-     
+          </CardHeader>
+          <CardBody className="overflow-scroll px-0">
+            <TableComponent columns={columns} data={dealerApiData} />
+          </CardBody>
+          <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+            <Typography variant="medium" color="blue-gray" className="font-normal">
+              Page {pageNo + 1}
+            </Typography>
+            <div className="flex gap-2">
+              <Button variant="outlined" size="sm" disabled={pageNo <= 0} onClick={prevHandler}>
+                Previous
+              </Button>
+              <Button variant="outlined" size="sm" onClick={nextHandler} disabled={data?.list?.length < pageSize}>
+                Next
+              </Button>
+            </div>
+          </CardFooter>
+        </Card>
+      )}
     </>
   );
 }
-{/* <AddDealerForm /> */}

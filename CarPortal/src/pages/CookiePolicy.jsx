@@ -6,13 +6,14 @@ function CookiePolicy() {
         window.scrollTo(0,0);
     },[])
     return (
-      <div className="max-w-screen-3xl mx-auto bg-light-blue-50">
+      <div className="max-w-screen-3xl bg-light-blue-50">
+      <div className="w-full">
               <div className="flex justify-center items-center bg-light-blue-200 h-auto">
                   <div>
                       <p className="text-4xl md:text-6xl lg:text-6xl m-6 lg:m-32 text-[#1E2761]">Cookie Policy</p>
                   </div>
               </div>
-              <div className="mx-4 my-6 md:ml-20 md:mr-12 lg:ml-36 lg:mr-24">
+              <div className="max-w-screen-3xl mx-4 my-6 md:ml-20 md:mr-12 lg:ml-36 lg:mr-24">
                   <p className="text-3xl font-bold">Introduction</p>
                   <p className="mt-8 text-lg">CarTechIndia is committed to protecting your privacy. We aim to provide trustworthy, industry-leading products and services so that you can focus on building meaningful connections. Our approach to privacy is to provide you with clear information about our data practices. That’s why we have tried to keep legal and technical jargon to a minimum.</p>
                   <p className="mt-4 text-lg">This Cookie Policy explains what cookies are, what types of cookies are placed on your device when you visit our website and how we use them.</p>
@@ -78,6 +79,7 @@ function CookiePolicy() {
                   <p className="mt-6 text-lg">By phone: 7755994123</p>
                   {/* <p className="mt-6 text-lg">By post: CarTechIndia Pvt. Ltd. 1128, 3rd floor, Rd Number 36, Jubilee Square, Jubilee Hills, Pune, Maharashtra 500033</p> */}
               </div>
+      </div>
       </div>
     )
   }

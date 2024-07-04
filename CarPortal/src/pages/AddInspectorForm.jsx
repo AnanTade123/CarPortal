@@ -92,12 +92,14 @@ export function AddInspectorForm() {
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
+                  required
                 />
                 <Inputs
                   label="Last Name"
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
+                  required
                 />
               </div>
               <Inputs
@@ -106,12 +108,14 @@ export function AddInspectorForm() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
+                required
               />
               <Inputs
                 label="Mobile Number"
                 name="mobileNo"
                 value={formData.mobileNo}
                 onChange={handleChange}
+                required
               />
               <Inputs
                 label="Password"
@@ -119,18 +123,21 @@ export function AddInspectorForm() {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
+                required
               />
               <Inputs
                 label="City"
                 name="city"
                 value={formData.city}
                 onChange={handleChange}
+                required
               />
               <Inputs
                 label="Address"
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
+                required
               />
 
               <Button type="submit">Add</Button>
