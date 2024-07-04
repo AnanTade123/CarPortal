@@ -71,6 +71,10 @@ import BiddingAddCar2 from "./pages/bidding/BiddingAddCar2";
 import AdminSalesInfo from "./pages/adminpages/AdminSalesInfo";
 import AdminSalesEdit from "./pages/adminpages/AdminSalesEdit";
 import SalePersonMiddleware from "./middleware/SalePersonMiddleware";
+import ImageUploader from "./components/demo/uploadimage";
+import ListTable from "./pages/sales/ListTable";
+
+
 
 export default function App() {
   return (
@@ -127,7 +131,7 @@ export default function App() {
               element={<AdminSalesEdit />}
             />
             <Route
-              path="/admin/inspector/edit/:userid/:id"
+              path="/admin/inspector/edit/:userid/:inspectorprofileid"
               element={<AdminInspectorEdit />}
             />
             <Route
@@ -191,7 +195,7 @@ export default function App() {
             <Route path="/inspector/carverify/:id" element={<CarVerify />} />
             <Route
               path="/inspector/car"
-              element={<CarListing />}
+              element={<ListTable/>}
             />
             <Route path="/inspector/car/add" element={<BiddingAddCar2 />} />
            
@@ -220,7 +224,8 @@ export default function App() {
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/cookiepolicy" element={<CookiePolicy />} />
         </Route>
-        
+
+        <Route path="/demo" element={<ImageUploader/>} />
       </Routes>
     </>
   );

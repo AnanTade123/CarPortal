@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import  { useState } from 'react';
+import  { useEffect, useState } from 'react';
 import {
   MenuItem,
   FormControl,
@@ -28,19 +29,43 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '90%',
     maxHeight: '90%',
   },
-  image: {
-    maxWidth: '100%',
-    maxHeight: '100%',
+ 
+  fixedImage: {
+    width: '500px',
+    height: '500px',
     objectFit: 'contain',
-  },
+  }
 }));
 
 const 
-OtherComponent = ({  formData, setFormData,handleFileChange,uploadedImages }) => {
+OtherComponent = ({  formData, setFormData,handleFileChange,uploadedImages,setUploadedImages,data }) => {
   const classes = useStyles();
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+
+  useEffect(() => {
+    // Pre-fill form data and uploaded images based on API data
+    data?.object.map((item) => {
+      switch (item.subtype) {
+       
+        case "HeadLightSupport":
+          setFormData((prev) => ({ ...prev, HeadLightSupport: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, HeadLightSupports: item.documentLink }));
+          break;
+        case "RadiatorSupport":
+          setFormData((prev) => ({ ...prev, RadiatorSupport: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RadiatorSupports: item.documentLink }));
+          break;
+        case "AlloyWheel":
+          setFormData((prev) => ({ ...prev, AlloyWheel: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, AlloyWheels: item.documentLink }));
+          break;
+        default:
+          break;
+      }
+    });
+  }, [data]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -199,7 +224,7 @@ OtherComponent = ({  formData, setFormData,handleFileChange,uploadedImages }) =>
         <div className={classes.paper}>
           {selectedImage && (
             <div>
-              <img src={selectedImage} alt="Selected" className={classes.image} />
+              <img src={selectedImage} alt="Selected" className={classes.fixedImage} />
               <Button onClick={closeModal} variant="contained" color="secondary" style={{ marginTop: '10px' }}>
                 Close
               </Button>

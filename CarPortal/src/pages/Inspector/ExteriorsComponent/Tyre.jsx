@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   MenuItem,
   FormControl,
@@ -13,6 +14,8 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { useParams } from 'react-router-dom';
+import { useGetInspectionReportQuery, useInspectionReportMutation } from '../../../services/inspectorapi';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -29,23 +32,126 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '90%',
   },
   image: {
-    maxWidth: '100%',
-    maxHeight: '100%',
+    maxWidth: '500px',
+    maxHeight: '500px',
     objectFit: 'contain',
   },
 }));
 
-const Tyre = ({  formData, setFormData,handleFileChange,uploadedImages}) => {
+const Tyre = () => {
   const classes = useStyles();
+  const {id} = useParams()
+  console.log(id)
+const {data} = useGetInspectionReportQuery({id , docType : "Exterior"})
+console.log(data)
 
+const InspetData = data?.object
+console.log(InspetData)
+  const [inspectionReport] = useInspectionReportMutation();
+  const [formData, setFormData] = useState({
+    LHSFrontTyre: [],
+    RHSFrontTyre: [],
+    LHSRearTyre: [],
+    RHSRearTyre: [],
+    SpareTyre: []
+  });
+
+  const [lables , setLables] = useState("");
+  const [selectfiled , setSelectfiled] = useState("")
+  
+  console.log(lables)
+  console.log(selectfiled)
+  const [uploadedImages, setUploadedImages] = useState({
+    LHSFrontTyres: null,
+    RHSFrontTyres: null,
+    LHSRearTyres: null,
+    RHSRearTyres: null,
+    SpareTyres: null
+  });
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  useEffect(() => {
+    // Pre-fill form data and uploaded images based on API data
+    data?.object.map((item) => {
+      switch (item.subtype) {
+   
+        case "LHSFrontTyre":
+          setFormData((prev) => ({ ...prev, LHSFrontTyre: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, LHSFrontTyres: item.documentLink }));
+          break;
+        case "RHSFrontTyre":
+          setFormData((prev) => ({ ...prev, RHSFrontTyre: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RHSFrontTyres: item.documentLink }));
+          break;
+        case "LHSRearTyre":
+          setFormData((prev) => ({ ...prev, LHSRearTyre: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, LHSRearTyres: item.documentLink }));
+          break;
+        case "RHSRearTyre":
+          setFormData((prev) => ({ ...prev, RHSRearTyre: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RHSRearTyres: item.documentLink }));
+          break;
+        case "SpareTyre":
+          setFormData((prev) => ({ ...prev, SpareTyre: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, SpareTyres: item.documentLink }));
+          break;
+        default:
+          break;
+      }
+    });
+  }, [data]);
 
+  const handleFileChange = async (event, fieldName) => {
+    console.log("fromdata",formData)
+    const file = event.target.files[0];
+    if (!file) return;
+    const formDataToSend = new FormData();
+    formDataToSend.append('image', file);
 
-  const handleChange = (event) => {
+    console.log(formDataToSend)
+    // Update formData state with file details
+    setFormData({ ...formData, [fieldName]: file });
+
+    // Read the file and convert it to URL for preview
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const imageData = reader.result;
+      setUploadedImages({ ...uploadedImages, [fieldName]: imageData });
+
+      
+      // Prepare the data to be sent to the backend
+      const inspectionData = {
+        documentType: "Inspection Report",
+        beadingCarId: id,
+        doc: "", 
+        doctype: "Exterior",
+        subtype: lables,
+        comment: selectfiled,
+      };
+      try {
+      
+        const res = await inspectionReport({inspectionData,formDataToSend});
+        console.log(res);
+
+       alert("Data Uploded")
+        
+      } catch (error) {
+        console.error('Error uploading the file:', error);
+        alert("Data not Uploded")
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleChange= (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
+
+    if (value.length > 0) {
+      setLables(name);
+      setSelectfiled(value);
+    }
   };
 
   const handleImageClick = (image) => {
