@@ -44,6 +44,7 @@ import TransactionByAccount from "./pages/transaction/TransactionByAccount";
 import Wallet from "./pages/transaction/Wallet";
 import TransactionController from "./pages/transaction/TransactionController";
 import EditImage from "./pages/dealer/EditImage";
+import BiddingCar from "./pages/bidding/BiddingCar";
 // import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
 
 
@@ -134,6 +135,7 @@ export default function App() {
               element={<DealerPendingRequest />}
             />
           </Route>
+          <Route path="/biddingCar" element={<BiddingCar/>} />
 
           <Route path="/bidding" element={<BiddingMainPage />} />
           <Route path="/bidding/:userid/addcar" element={<BiddingAddCar />} />
