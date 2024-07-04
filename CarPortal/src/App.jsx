@@ -10,7 +10,7 @@ import CarDetailsById from "./pages/CarDetailsById";
 
 import Admin from "./pages/adminpages/Admin";
 import AdminMiddleware from "./middleware/AdminMiddleware";
-import { onlyAdmin, onlyDealer, onlyInspector } from "./components/config/Roles";
+import { onlyAdmin, onlyDealer, onlyInspector, onlySeller } from "./components/config/Roles";
 import AdminDealerInfo from "./pages/adminpages/AdminDealerInfo";
 import AdminDealerEdit from "./pages/adminpages/AdminDealerEdit";
 import DealerDashboard from "./pages/dealer/DealerDashboard";
@@ -70,6 +70,7 @@ import UploadImages3 from "./ui/UploadImages3";
 import BiddingAddCar2 from "./pages/bidding/BiddingAddCar2";
 import AdminSalesInfo from "./pages/adminpages/AdminSalesInfo";
 import AdminSalesEdit from "./pages/adminpages/AdminSalesEdit";
+import SalePersonMiddleware from "./middleware/SalePersonMiddleware";
 
 export default function App() {
   return (
@@ -206,7 +207,10 @@ export default function App() {
           />
           <Route path="/bidding/:carId/uploadimage" element={<UploadImages3 />} />
           <Route path="/bidding/:carId/:id/editimage" element={<EditImage />} />
+          <Route element={<SalePersonMiddleware allowedRoles={[...Object.values(onlySeller)]} /> }>
+        <Route path="/sales/biddingcar" element={<BiddingDealerCars />} />
 
+        </Route>
         </Route>
 
         {/* <Route path="/trans" element={<CardDetailss/>}/> */}
@@ -216,6 +220,7 @@ export default function App() {
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/cookiepolicy" element={<CookiePolicy />} />
         </Route>
+        
       </Routes>
     </>
   );
