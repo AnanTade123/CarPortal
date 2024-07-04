@@ -1,5 +1,5 @@
 import { apiSlice } from "./apiSlice";
-
+ 
 export const inspectorAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     inspectorById: builder.query({
@@ -9,16 +9,17 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         method: "GET",
       }),
        // You probably want providesTags here instead of invalidatesTags for queries
+       providesTags: ["Inspector"],
     }),
-
+ 
     getallInspector: builder.query({
       query: ({ pageNo, pageSize }) => ({
         url: `/ispProfile/GetAllInspProfiles?pageNo=${pageNo}&pageSize=${pageSize}`,
         method: "GET",
       }),
-       // Same here
+      providesTags: ["Inspector"],
     }),
-
+ 
     inspectionReport : builder.mutation ({
       query : ({inspectionData,formDataToSend}) => ({
         url : `/uploadFileBidCar/add?documentType=${inspectionData.documentType}&beadingCarId=${inspectionData.beadingCarId}&doc=${inspectionData.doc}&doctype=${inspectionData.doctype}&subtype=${inspectionData.subtype}&comment=${inspectionData.comment}`,
@@ -27,7 +28,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         body :formDataToSend
       }),
     }),
-
+ 
     getInspectionReport : builder.query ({
       query :({id ,docType}) => ({
         url : `/uploadFileBidCar/getBeadingCarIdType?beadingCarId=${id}&doctype=${docType}`,
@@ -35,27 +36,29 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         method : "GET"
       }),
     }),
-
+ 
     inspectorupdate: builder.mutation({
       query: ({id,inspectordata}) => ({
         url: `/ispProfile/update?inspectorProfileId=${id}`,
-        transerResponse:console.log("APi response" , inspectordata,id),
+         transerResponse:console.log("APi response" , inspectordata,id),
         method: 'PATCH',
         body:inspectordata
       }),
-      
+      invalidatesTags: ["Inspector"],
     }),
+
+
     finalInspectionReport : builder.mutation({
       query : ({inspectionData}) => ({
         url:`/inspectionReport/add`,
         method : "POST",
         transerResponse:console.log("APi response",inspectionData),
-       body : inspectionData 
+       body : inspectionData
       })
     })
   }),
 });
-
+ 
 export const { useInspectorByIdQuery ,
   useGetallInspectorQuery,
   useGetInspectionReportQuery,

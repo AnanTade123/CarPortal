@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import  { useState } from 'react';
+import  { useEffect, useState } from 'react';
 import {
   MenuItem,
   FormControl,
@@ -28,21 +29,61 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '90%',
   },
   image: {
-    maxWidth: '100%',
-    maxHeight: '100%',
+    maxWidth: '500px',
+    maxHeight: '500px',
     objectFit: 'contain',
   },
 }));
 
-const WindshieldAndLights = ({ formData, setFormData,handleFileChange,uploadedImages }) => {
+const WindshieldAndLights = ({ formData, setFormData, handleFileChange,uploadedImages,data ,setUploadedImages}) => {
   const classes = useStyles();
 
-
+console.log(data)
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-
+  useEffect(() => {
+    // Pre-fill form data and uploaded images based on API data
+    data?.object.map((item) => {
+      switch (item.subtype) {
+        case "Windshield":
+          setFormData((prev) => ({ ...prev, Windshield: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, Windshields: item.documentLink }));
+          break;
+        case "Light":
+          setFormData((prev) => ({ ...prev, Light: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, Lights: item.documentLink }));
+          break;
+        case "FrontBumper":
+          setFormData((prev) => ({ ...prev, FrontBumper: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, FrontBumpers: item.documentLink }));
+          break;
+        case "RearBumper":
+          setFormData((prev) => ({ ...prev, RearBumper: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RearBumpers: item.documentLink }));
+          break;
+        case "LHSHeadlight":
+          setFormData((prev) => ({ ...prev, LHSHeadlight: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, LHSHeadlights: item.documentLink }));
+          break;
+        case "RHSHeadlight":
+          setFormData((prev) => ({ ...prev, RHSHeadlight: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RHSHeadlights: item.documentLink }));
+          break;
+        case "LHSTaillight":
+          setFormData((prev) => ({ ...prev, LHSTaillight: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, LHSTaillights: item.documentLink }));
+          break;
+        case "RHSTaillight":
+          setFormData((prev) => ({ ...prev, RHSTaillight: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RHSTaillights: item.documentLink }));
+          break;
+        default:
+          break;
+      }
+    });
+  }, [data]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -119,10 +160,9 @@ const WindshieldAndLights = ({ formData, setFormData,handleFileChange,uploadedIm
               color="Green"
               
             >
-              <MenuItem value="Repainted">Repainted</MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
+              
               <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted">Rusted</MenuItem>
+            
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="NotWorking">Not Working</MenuItem>
