@@ -33,13 +33,13 @@ const CarDocumentSection = () => {
   return (
 
     
-    <div className='p-4 flex-col ' >
+    <div className=' bg-white border-2 rounded-md shadow-md md:p-7 md:m-3 p-5 md:mt-10 mt-6' >
      <div className=' -mb-6 '>
       <Typography variant="h4" className='text-black font-bold pb-10'>
       <span >Inspection Report</span>
       </Typography>
       </div>
-      <div className=' bg-white border-2 rounded-md shadow-md p-7 -mt-2'>
+      <div className=''>
       <div className=' mb-2 '>
       <Typography variant="h5" className='text-black font-bold pb-10'>
       <span ><u>Car Document</u></span>

@@ -35,33 +35,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Tyre = ({ formData, setFormData }) => {
+const Tyre = ({  formData, setFormData,handleFileChange,uploadedImages}) => {
   const classes = useStyles();
 
-  const [uploadedImages, setUploadedImages] = useState({
-    LHSFrontTyre: null,
-    RHSFrontTyre: null,
-    LHSRearTyre: null,
-    RHSRearTyre: null,
-    SpareTyre: null,
-  });
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleFileChange = (event, fieldName) => {
-    const file = event.target.files[0];
-    console.log('Selected file:', file);
-    // Update formData state with file details
-    setFormData({ ...formData, [fieldName]: file });
-
-    // Read the file and convert it to URL for preview
-    const reader = new FileReader();
-    reader.onload = () => {
-      setUploadedImages({ ...uploadedImages, [fieldName]: reader.result });
-    };
-    reader.readAsDataURL(file);
-  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;

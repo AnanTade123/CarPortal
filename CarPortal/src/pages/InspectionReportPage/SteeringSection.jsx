@@ -1,6 +1,5 @@
 import React from 'react';
 import { Grid, Typography,Button } from '@material-ui/core';
-import { Rating,  } from "@material-tailwind/react";
 
 // Steering
 // Steering :- status/options - Abnormal Noise, Hard
@@ -22,20 +21,14 @@ const SteeringSection = () => {
   console.log(handleChange);
 
   console.log(formData);
-  const [rated, setRated] = React.useState(4);
+  
   return (
     <div>
-    <div className='p-4'>
+    <div className=' bg-white border-2 rounded-md shadow-md md:p-7 md:m-3 p-5 md:mt-10'>
      
-      <div className=' bg-white border-2 rounded-md shadow-md p-7 -mt-2'>
+      <div className=''>
 
-      <div className="flex   items-center gap-2 font-bold text-white md:ml-[90rem] ml-[10rem]">
-      <span className='bg-green-600 px-3 rounded-sm'>{rated}</span>
-      <Rating value={4} onChange={(value) => setRated(value)} />
-      <Typography color="blue-gray" className="font-medium text-blue-gray-500">
-        
-      </Typography>
-        </div>
+     
 
 
 

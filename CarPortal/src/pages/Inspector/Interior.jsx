@@ -1,6 +1,8 @@
-import  { useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { useParams } from 'react-router-dom';
+import { useInspectionReportMutation } from '../../services/inspectorapi';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -34,30 +36,76 @@ const Interior = () => {
   });
 
   const [uploadedImages, setUploadedImages] = useState({
-    LeatherSeat: null,
-    Odometer: null,
-    Dashboard: null,
-    CabinFloor: null,
+    LeatherSeats: null,
+    Odometers: null,
+    Dashboards: null,
+    CabinFloors: null,
   });
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-
+  const [inspectionReport] = useInspectionReportMutation();
+  const {id} = useParams()
+  console.log(id)
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleFileChange = (event, fieldName) => {
+  const [lables , setLables] = useState("");
+  const [selectfiled , setSelectfiled] = useState("")
+  useEffect(() => {
+    Object.keys(formData).forEach(key => {
+      if (formData[key].length > 0) {
+        console.log(key);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setLables(key)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setSelectfiled(formData[key])
+        
+      }
+    });
+  }, [formData]);
+  console.log(selectfiled)
+  console.log(lables)
+
+  const handleFileChange = async (event, fieldName) => {
     const file = event.target.files[0];
-    console.log('Selected file:', file);
+    if (!file) return;
+    const formDataToSend = new FormData();
+    formDataToSend.append('image', file);
+
+    console.log(formDataToSend)
     // Update formData state with file details
     setFormData({ ...formData, [fieldName]: file });
 
     // Read the file and convert it to URL for preview
     const reader = new FileReader();
-    reader.onload = () => {
-      setUploadedImages({ ...uploadedImages, [fieldName]: reader.result });
+    reader.onload = async () => {
+      const imageData = reader.result;
+      setUploadedImages({ ...uploadedImages, [fieldName]: imageData });
+
+      
+      // Prepare the data to be sent to the backend
+      const inspectionData = {
+        documentType: "Inspection Report",
+        beadingCarId: id,
+        doc: "", 
+        doctype: "",
+        subtype: lables,
+        comment: selectfiled,
+      };
+      try {
+      
+        const res = await inspectionReport({inspectionData,formDataToSend});
+        console.log(res);
+
+       alert("Data Uploded")
+        
+      } catch (error) {
+        console.error('Error uploading the file:', error);
+        alert("Data not Uploded")
+      }
     };
     reader.readAsDataURL(file);
   };
@@ -95,21 +143,21 @@ const Interior = () => {
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-LeatherSeat"
+              id="upload-LeatherSeats"
               type="file"
-              onChange={(event) => handleFileChange(event, 'LeatherSeat')}
+              onChange={(event) => handleFileChange(event, 'LeatherSeats')}
             />
-            <label htmlFor="upload-LeatherSeat" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-LeatherSeats" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.LeatherSeat && (
+          {uploadedImages.LeatherSeats && (
             <img
-              src={uploadedImages.LeatherSeat}
+              src={uploadedImages.LeatherSeats}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.LeatherSeat)}
+              onClick={() => handleImageClick(uploadedImages.LeatherSeats)}
             />
           )}
         </Grid>
@@ -131,21 +179,21 @@ const Interior = () => {
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-Odometer"
+              id="upload-Odometers"
               type="file"
-              onChange={(event) => handleFileChange(event, 'Odometer')}
+              onChange={(event) => handleFileChange(event, 'Odometers')}
             />
-            <label htmlFor="upload-Odometer" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-Odometers" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.Odometer && (
+          {uploadedImages.Odometers && (
             <img
-              src={uploadedImages.Odometer}
+              src={uploadedImages.Odometers}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.Odometer)}
+              onClick={() => handleImageClick(uploadedImages.Odometers)}
             />
           )}
         </Grid>
@@ -171,21 +219,21 @@ const Interior = () => {
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-CabinFloor"
+              id="upload-CabinFloors"
               type="file"
-              onChange={(event) => handleFileChange(event, 'CabinFloor')}
+              onChange={(event) => handleFileChange(event, 'CabinFloors')}
             />
-            <label htmlFor="upload-CabinFloor" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-CabinFloors" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.CabinFloor && (
+          {uploadedImages.CabinFloors && (
             <img
-              src={uploadedImages.CabinFloor}
+              src={uploadedImages.CabinFloors}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.CabinFloor)}
+              onClick={() => handleImageClick(uploadedImages.CabinFloors)}
             />
           )}
         </Grid>
@@ -211,21 +259,21 @@ const Interior = () => {
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-Dashboard"
+              id="upload-Dashboards"
               type="file"
-              onChange={(event) => handleFileChange(event, 'Dashboard')}
+              onChange={(event) => handleFileChange(event, 'Dashboards')}
             />
-            <label htmlFor="upload-Dashboard" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-Dashboards" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.Dashboard && (
+          {uploadedImages.Dashboards && (
             <img
-              src={uploadedImages.Dashboard}
+              src={uploadedImages.Dashboards}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.Dashboard)}
+              onClick={() => handleImageClick(uploadedImages.Dashboards)}
             />
           )}
         </Grid>
@@ -250,14 +298,14 @@ const Interior = () => {
         </div>
       </Modal>
 
-      <div className="flex justify-between mt-10 px-8">
+      {/* <div className="flex justify-between mt-10 px-8">
         <Button variant="contained" color="primary">
           Previous
         </Button>
         <Button variant="contained" color="primary">
           Next
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };

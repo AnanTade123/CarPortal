@@ -1,6 +1,6 @@
 import React from 'react';
 import {   Grid, Typography } from '@material-ui/core';
-import { Rating,  } from "@material-tailwind/react";
+
 import styled from 'styled-components';
 
 //preview
@@ -73,7 +73,7 @@ const ExteriorSection = () => {
     RHSHeadlight: "Not Working",
     LHSTaillight: "Scratched",
     RHSTaillight: "Repaired",
-    LHSORVM: "Mirror Broken/Cracked",
+    LHSORVM: "Mirror Broken",
     RHSORVM: " Not Working",
 
 
@@ -98,7 +98,6 @@ const ExteriorSection = () => {
   console.log(handleChange);
 console.log(formData)
 
-const [rated, setRated] = React.useState(4);
 
 //preview
 const [isOpen, setIsOpen] = React.useState(false);
@@ -159,15 +158,9 @@ const closeLightbox = () => {
 
 
   return (
-    <div className='   bg-white border-2 rounded-md shadow-md p-7 m-3 '>
+    <div className='   bg-white border-2 rounded-md shadow-md md:p-7 md:m-3 p-5  '>
 
-<div className="flex   items-center gap-2 font-bold text-white md:ml-[90rem] ml-[10rem]">
-      <span className='bg-green-600 px-3 rounded-sm'>{rated}</span>
-      <Rating value={4} onChange={(value) => setRated(value)} />
-      <Typography color="blue-gray" className="font-medium text-blue-gray-500">
-        
-      </Typography>
-        </div>
+
 
 
 {/* Exterior Panel */}
@@ -187,7 +180,7 @@ const closeLightbox = () => {
       <span className='bg-indigo-200 rounded-md p-1 m-1 px-3 '>Structure</span>
       </Typography>
       </div>
-      <Grid container spacing={5}>
+      <Grid container spacing={5}   >
        
       <Grid item xs={12} sm={6}>
           <Typography variant="body1" onChange={handleChange}>Cowl Top : {formData.CowlTop}</Typography>
@@ -197,8 +190,9 @@ const closeLightbox = () => {
 
 
         {/* Mismatch in RC */}
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} >
         <Typography variant="body1" onChange={handleChange}>Boot Floor  : {formData.BootFloor}</Typography>
+        
         <img className="w-24 h-14 ml-auto -mt-8"
         src={images[1]} alt="No Image" onClick={() => openLightbox(images[1])}/>
         </Grid>
@@ -557,7 +551,7 @@ Car Pooling on One Sid */}
 
         {/* RTO NOC Issued */}
         <Grid item xs={12} sm={6}>
-        <Typography variant="body1" onChange={handleChange}>Upper Cross Member(Bonnet Patti) : {formData.UpperCrossMember}</Typography>
+        <Typography variant="body1" onChange={handleChange}>Upper Cross Member : {formData.UpperCrossMember}</Typography>
         <img className="w-24 h-14 ml-auto -mt-8"
         src={images[40]} alt="No Image" onClick={() => openLightbox(images[40])}/>
         </Grid>

@@ -1,8 +1,11 @@
 import React from 'react';
 import { MenuItem, FormControl, Select, InputLabel, TextField, Grid, Typography,Button } from '@material-ui/core';
+import {useFinalInspectionReportMutation} from "../../services/inspectorapi"
+import { useNavigate } from 'react-router-dom';
+useNavigate
 
 const ImportantDocuments = () => {
-
+const navigate = useNavigate()
   const [formData, setFormData] = React.useState({
     rcAvailability: '',
     mismatchInRC: '',
@@ -19,18 +22,52 @@ const ImportantDocuments = () => {
     rto: '',
     fitnessUpto: '',
     cngLpgFitmentInRC: '',
+    LoanStatus:''
   });
 
+  const [finalInspectionReport] = useFinalInspectionReportMutation()
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
-console.log(formData)
+
+  function handleSubmit (e) {
+  e.preventDefault()
+     const inspectionData = {
+      rcavailability:formData.rcAvailability ,
+      mismatchInRC: formData.mismatchInRC,
+      rtonocissued: formData.rtoNocIssued,
+      insuranceType: formData.insuranceType,
+      noClaimBonus: formData.noClaimBonus,
+      underHypothecation:formData.underHypothecation ,
+      loanStatus: formData.loanStatus,
+      roadTaxPaid: formData.roadTaxPaid,
+      partipeshiRequest:formData.partipeshiRequest,
+      duplicateKey: formData.duplicateKey,
+      chassisNumberEmbossing: formData.chassisNumberEmbossing,
+      manufacturingDate:formData.manufacturingDate,
+      registrationDate: formData.registrationDate,
+      rto: formData.rto,
+      fitnessUpto:formData.fitnessUpto,
+      cnglpgfitmentInRC:formData.cngLpgFitmentInRC 
+     }
+  try {
+    const res = finalInspectionReport({inspectionData})
+    console.log(res)
+    alert("Data Added")
+    navigate("/carsdata")
+
+  } catch (error) {
+    console.log(error)
+  }
+  }
+
   return (
     <div className='p-4'>
       <Typography variant="h4" className='text-black font-bold pb-5'>
         Important Documents
       </Typography>
+      <form onSubmit={handleSubmit}>
       <Grid container spacing={3}>
         {/* RC Availability */}
         <Grid item xs={12} sm={6} >
@@ -114,6 +151,20 @@ console.log(formData)
         {/* Under Hypothecation */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
+            <InputLabel> Loan Status</InputLabel>
+            <Select
+              name="LoanStatus"
+              value={formData.LoanStatus}
+              onChange={handleChange}
+            >
+              <MenuItem value="Paid/Closed"> Paid/Closed</MenuItem>
+              <MenuItem value="unpaid/Pending">Unpaid/Pending</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth>
             <InputLabel>Under Hypothecation</InputLabel>
             <Select
               name="underHypothecation"
@@ -180,8 +231,12 @@ console.log(formData)
               value={formData.chassisNumberEmbossing}
               onChange={handleChange}
             >
-              <MenuItem value="Yes">Yes</MenuItem>
+              <MenuItem value="Yes">Yes 
+              </MenuItem>
               <MenuItem value="No">No</MenuItem>
+              <MenuItem value="Rusted">Rusted</MenuItem>
+              <MenuItem value="Repunched">Repunched</MenuItem>
+              <MenuItem value="Traceable">Not Traceable</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -256,10 +311,16 @@ console.log(formData)
         <Button variant="contained" color="primary">
           Previous
         </Button>
-        <Button variant="contained" color="primary">
-          Next
+        <Button
+        type='submit'
+          variant="contained"
+          color="primary"
+          className="rounded-lg bg-blue-500 text-white flex justify-center items-center"
+        >
+          Submit
         </Button>
       </div>
+      </form>
     </div>
   );
 };

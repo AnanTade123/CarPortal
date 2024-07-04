@@ -6,35 +6,56 @@ import { CarModelsForm } from "./CarModelsForm";
 import EditCarForm from "../adminpages/EdiCarForm";
 import { useGetAllBrandsQuery, useDeleteCarBrandsMutation } from "../../services/brandAPI";
 
+const getInitialCarList = () => {
+  const data = JSON.parse(localStorage.getItem('carList')) || [];
+  return data;
+};
+
+const saveCarListToStorage = (carList) => {
+  localStorage.setItem('carList', JSON.stringify(carList));
+};
+
+const getNextBrandDataId = () => {
+  const carList = getInitialCarList();
+  const ids = carList.map(car => car.brandDataId);
+  const maxId = Math.max(0, ...ids);
+  return maxId + 1;
+};
+
 const CarListModels = () => {
   const { data, refetch } = useGetAllBrandsQuery();
   const [deleteCarBrands] = useDeleteCarBrandsMutation();
-  const [carList, setCarList] = useState([]);
+  const [carList, setCarList] = useState(getInitialCarList());
   const [open, setOpen] = useState(false);
   const [selectedCarId, setSelectedCarId] = useState(null);
 
   useEffect(() => {
     if (data) {
-      setCarList(data?.list?.map((item) => ({
+      const updatedCarList = data?.list?.map((item) => ({
         brandDataId: item.brandDataId,
         brand: item.brand,
         variant: item.variant,
         subVariant: item.subVariant,
-      })));
+      }));
+      setCarList(updatedCarList);
+      saveCarListToStorage(updatedCarList);
     }
   }, [data]);
 
   const addCar = (newCar) => {
-    setCarList((prevList) => [
-      ...prevList,
-      { carId: prevList.length + 1, ...newCar },
-    ]);
+    const newCarWithId = {
+      ...newCar,
+      brandDataId: getNextBrandDataId()
+    };
+    const updatedCarList = [...carList, newCarWithId];
+    setCarList(updatedCarList);
+    saveCarListToStorage(updatedCarList);
   };
 
   const updateCar = (updatedCar) => {
-    setCarList((prevList) => 
-      prevList.map(car => car.carId === updatedCar.carId ? updatedCar : car)
-    );
+    const updatedCarList = carList.map(car => car.brandDataId === updatedCar.brandDataId ? updatedCar : car);
+    setCarList(updatedCarList);
+    saveCarListToStorage(updatedCarList);
     refetch();
   };
 
@@ -46,7 +67,9 @@ const CarListModels = () => {
   const deleteCar = async () => {
     try {
       await deleteCarBrands(selectedCarId).unwrap();
-      // Refetch the data after deletion
+      const updatedCarList = carList.filter(car => car.brandDataId !== selectedCarId);
+      setCarList(updatedCarList);
+      saveCarListToStorage(updatedCarList);
       refetch();
       setOpen(false);
     } catch (error) {
@@ -105,7 +128,7 @@ const CarListModels = () => {
           </div>
         </CardHeader>
         <CardBody className="overflow-scroll px-0">
-          <TableComponent columns={columns} data={carList} />
+          <TableComponent columns={columns} data={carList} className=""/>
         </CardBody>
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography variant="medium" color="blue-gray" className="font-normal">

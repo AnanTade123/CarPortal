@@ -1,78 +1,76 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 import { useParams } from "react-router-dom";
-import { useInspectorupdateMutation, useInspectorByIdQuery } from "../../services/inspectorapi";
 import Inputs from "../../forms/Inputs";
-import React, { useEffect } from "react";
+import React from "react";
+import { useEffect } from "react";
 import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
-
-const AdminInspectorEdit = () => {
-  const { userid,inspectorProfileId } = useParams();
+import {
+  useSellerByIdQuery,
+  useSellerupdateMutation,
+} from "../../services/salesAPI";
+const AdminSalesEdit = () => {
+  const { userid, salesPersonId } = useParams();
   const userId = userid;
-  const navigate = useNavigate();
-  
-  const { data, isLoading, isError, error } = useInspectorByIdQuery({ userId });
-  console.log(data)
-  const [inspectorupdate] = useInspectorupdateMutation();
-  
+  const { data, isLoading, isError, error } = useSellerByIdQuery({ userId });
+  console.log(data);
+  const [salesupdate] = useSellerupdateMutation();
   const [inputField, setInputField] = React.useState({
-    address: "",
-    city: "",
     firstName: "",
     lastName: "",
     email: "",
-    mobileNo: ""
+    mobileNo: "",
+    address: "",
+    city: "",
+    area: "",
   });
 
   useEffect(() => {
     if (data && data.response) {
       const { response } = data;
       setInputField({
-        inspectorProfileId: response.inspectorProfileId || 0,
-        address: response.address || "",
-        city: response.city || "",
+        salesPersonId: response.salesPersonId || 0,
         firstName: response.firstName || "",
         lastName: response.lastName || "",
         email: response.email || "",
-        mobileNo: response.mobileNo || ""
+        mobileNo: response.mobileNo || "",
+        address: response.address || "",
+        city: response.city || "",
+        area: response.area || "",
       });
     }
   }, [data]);
 
+  const navigate = useNavigate();
   const onChangeFormhandler = (e) => {
     const { name, value } = e.target;
-    setInputField((prevVal) => {
-      return {
-        ...prevVal,
-        [name]: value,
-      };
+    setInputField((preVal) => {
+      return { ...preVal, [name]: value };
     });
   };
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    const inspectordata = {
-      inspectorProfileId: 0,
+    const salesdata = {
+      salesPersonId: 0,
       address: inputField.address,
       city: inputField.city,
       firstName: inputField.firstName,
       lastName: inputField.lastName,
       email: inputField.email,
-      mobileNo: inputField.mobileNo
-    }
+      mobileNo: inputField.mobileNo,
+    };
     try {
-      const res = await inspectorupdate({ id: inspectorProfileId, inspectordata });
-      console.log(res)
-      if (res.data.status === 'success') {
-        alert("Changes successful");
-        navigate('/admin');
+      const res = await salesupdate({ id: salesPersonId, salesdata });
+      console.log(res);
+      if (res.data.status === "success") {
+        alert(" Sucessfully Edit");
+
+        navigate("/admin");
       }
     } catch (error) {
       console.log(error);
     }
   };
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -83,9 +81,9 @@ const AdminInspectorEdit = () => {
 
   return (
     <div className="mx-auto container flex justify-center w-[50%]">
-      <form className="w-full border border-gray-500 px-2 py-2 rounded-md mt-2 mb-2">
+      <forms className="w-full border border-gray-500 px-2 py-2 rounded-md mt-2 mb-2">
         <div className="mt-5">
-          <p className="text-3xl font-semibold">Edit Inspector Details</p>
+          <p className="text-3xl font-semibold">Edit Sales Details </p>
         </div>
         <div className="mt-5">
           <Inputs
@@ -141,7 +139,16 @@ const AdminInspectorEdit = () => {
             name={"city"}
           />
         </div>
-        <div className="mt-5 ml-2">
+        <div className="mt-5">
+          <Inputs
+            label={"Area"}
+            onChange={onChangeFormhandler}
+            value={inputField.area}
+            type={"text"}
+            name={"area"}
+          />
+        </div>
+        <div className="mt-5 ml-2 space-x-4">
           <Button
             onClick={onSubmitHandler}
             type="submit"
@@ -150,9 +157,9 @@ const AdminInspectorEdit = () => {
             Submit
           </Button>
         </div>
-      </form>
+      </forms>
     </div>
   );
 };
 
-export default AdminInspectorEdit;
+export default AdminSalesEdit;

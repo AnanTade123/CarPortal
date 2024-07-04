@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import { Rating,  } from "@material-tailwind/react";
+
 
 // AC Cooling :- status/options- Ineffective, Not Working
 // Heater :- status/options- Ineffective, Not Working
@@ -24,22 +24,16 @@ const AcSection = () => {
 
   console.log(formData);
 
-  const [rated, setRated] = React.useState(4);
+  
  
   return (
     
-    <div className='p-4'>
+    <div className=' bg-white border-2 rounded-md shadow-md md:p-7 md:m-3 p-5 '>
     
      
-      <div className=' bg-white border-2 rounded-md shadow-md p-7 -mt-2 '>
+      <div className=''>
 
-      <div className="flex   items-center gap-2 font-bold text-white md:ml-[90rem] ml-[10rem]">
-      <span className='bg-green-600 px-3 rounded-sm'>{rated}</span>
-      <Rating value={4} onChange={(value) => setRated(value)} />
-      <Typography color="blue-gray" className="font-medium text-blue-gray-500">
-        
-      </Typography>
-        </div>
+      
 
       <div className='-mt-5 mb-2 '>
       <Typography variant="h5" className='text-black font-bold pb-10'>

@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import  { useEffect, useState } from 'react';
 import {
   MenuItem,
   FormControl,
@@ -11,6 +11,8 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { useInspectionReportMutation } from '../../services/inspectorapi';
+import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -37,46 +39,92 @@ const Engine = () => {
   const classes = useStyles();
 
   const [formData, setFormData] = useState({
-    Engine: null,
-    EngineMounting: null,
-    EngineSound: null,
-    Exhaustsmoke: null,
-    Gearbox: null,
-    Engineoil: null,
-    Battery: null,
-    Coolant: null,
-    Clutch: null,
+    Engine: [],
+    EngineMounting: [],
+    EngineSound: [],
+    Exhaustsmoke: [],
+    Gearbox: [],
+    Engineoil: [],
+    Battery: [],
+    Coolant: [],
+    Clutch: [],
   });
 
   const [uploadedImages, setUploadedImages] = useState({
-    Engine: null,
-    EngineMounting: null,
-    EngineSound: null,
-    Exhaustsmoke: null,
-    Gearbox: null,
-    Engineoil: null,
-    Battery: null,
-    Coolant: null,
-    Clutch: null,
+    Engines: null,
+    EngineMountings: null,
+    EngineSounds: null,
+    Exhaustsmokes: null,
+    Gearboxs: null,
+    Engineoils: null,
+    Batterys: null,
+    Coolants: null,
+    Clutchs: null,
   });
+
+  const {id} = useParams()
+  console.log(id)
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [inspectionReport] = useInspectionReportMutation();
+  const [lables , setLables] = useState("");
+  const [selectfiled , setSelectfiled] = useState("")
+  useEffect(() => {
+    Object.keys(formData).forEach(key => {
+      if (formData[key].length > 0) {
+        console.log(key);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setLables(key)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setSelectfiled(formData[key])
+        
+      }
+    });
+  }, [formData]);
+  console.log(selectfiled)
+  console.log(lables)
 
-  const handleFileChange = (event, fieldName) => {
+  const handleFileChange = async (event, fieldName) => {
     const file = event.target.files[0];
-    console.log('Selected file:', file);
+    if (!file) return;
+    const formDataToSend = new FormData();
+    formDataToSend.append('image', file);
+
+    console.log(formDataToSend)
     // Update formData state with file details
     setFormData({ ...formData, [fieldName]: file });
 
     // Read the file and convert it to URL for preview
     const reader = new FileReader();
-    reader.onload = () => {
-      setUploadedImages({ ...uploadedImages, [fieldName]: reader.result });
+    reader.onload = async () => {
+      const imageData = reader.result;
+      setUploadedImages({ ...uploadedImages, [fieldName]: imageData });
+
+      
+      // Prepare the data to be sent to the backend
+      const inspectionData = {
+        documentType: "Inspection Report",
+        beadingCarId: id,
+        doc: "", 
+        doctype: "",
+        subtype: lables,
+        comment: selectfiled,
+      };
+      try {
+      
+        const res = await inspectionReport({inspectionData,formDataToSend});
+        console.log(res);
+
+       alert("Data Uploded")
+        
+      } catch (error) {
+        console.error('Error uploading the file:', error);
+        alert("Data not Uploded")
+      }
     };
     reader.readAsDataURL(file);
   };
-
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
@@ -119,21 +167,21 @@ const Engine = () => {
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-Engine"
+              id="upload-Engines"
               type="file"
-              onChange={(event) => handleFileChange(event, 'Engine')}
+              onChange={(event) => handleFileChange(event, 'Engines')}
             />
-            <label htmlFor="upload-Engine" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-Engines" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.Engine && (
+          {uploadedImages.Engines && (
             <img
-              src={uploadedImages.Engine}
+              src={uploadedImages.Engines}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.Engine)}
+              onClick={() => handleImageClick(uploadedImages.Engines)}
             />
           )}
         </Grid>
@@ -155,21 +203,21 @@ const Engine = () => {
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-EngineMounting"
+              id="upload-EngineMountings"
               type="file"
-              onChange={(event) => handleFileChange(event, 'EngineMounting')}
+              onChange={(event) => handleFileChange(event, 'EngineMountings')}
             />
-            <label htmlFor="upload-EngineMounting" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-EngineMountings" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.EngineMounting && (
+          {uploadedImages.EngineMountings && (
             <img
-              src={uploadedImages.EngineMounting}
+              src={uploadedImages.EngineMountings}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.EngineMounting)}
+              onClick={() => handleImageClick(uploadedImages.EngineMountings)}
             />
           )}
         </Grid>
@@ -192,21 +240,21 @@ const Engine = () => {
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-EngineSound"
+              id="upload-EngineSounds"
               type="file"
-              onChange={(event) => handleFileChange(event, 'EngineSound')}
+              onChange={(event) => handleFileChange(event, 'EngineSounds')}
             />
-            <label htmlFor="upload-EngineSound" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-EngineSounds" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.EngineSound && (
+          {uploadedImages.EngineSounds && (
             <img
-              src={uploadedImages.EngineSound}
+              src={uploadedImages.EngineSounds}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.EngineSound)}
+              onClick={() => handleImageClick(uploadedImages.EngineSounds)}
             />
           )}
         </Grid>
@@ -228,21 +276,21 @@ const Engine = () => {
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-Exhaustsmoke"
+              id="upload-Exhaustsmokes"
               type="file"
-              onChange={(event) => handleFileChange(event, 'Exhaustsmoke')}
+              onChange={(event) => handleFileChange(event, 'Exhaustsmokes')}
             />
-            <label htmlFor="upload-Exhaustsmoke" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-Exhaustsmokes" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.Exhaustsmoke && (
+          {uploadedImages.Exhaustsmokes && (
             <img
-              src={uploadedImages.Exhaustsmoke}
+              src={uploadedImages.Exhaustsmokes}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.Exhaustsmoke)}
+              onClick={() => handleImageClick(uploadedImages.Exhaustsmokes)}
             />
           )}
         </Grid>
@@ -263,21 +311,21 @@ const Engine = () => {
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-Gearbox"
+              id="upload-Gearboxs"
               type="file"
-              onChange={(event) => handleFileChange(event, 'Gearbox')}
+              onChange={(event) => handleFileChange(event, 'Gearboxs')}
             />
-            <label htmlFor="upload-Gearbox" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-Gearboxs" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.Gearbox && (
+          {uploadedImages.Gearboxs && (
             <img
-              src={uploadedImages.Gearbox}
+              src={uploadedImages.Gearboxs}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.Gearbox)}
+              onClick={() => handleImageClick(uploadedImages.Gearboxs)}
             />
           )}
         </Grid>
@@ -299,21 +347,21 @@ const Engine = () => {
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-Engineoil"
+              id="upload-Engineoils"
               type="file"
-              onChange={(event) => handleFileChange(event, 'Engineoil')}
+              onChange={(event) => handleFileChange(event, 'Engineoils')}
             />
-            <label htmlFor="upload-Engineoil" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-Engineoils" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.Engineoil && (
+          {uploadedImages.Engineoils && (
             <img
-              src={uploadedImages.Engineoil}
+              src={uploadedImages.Engineoils}
               alt="Uploaded"
-              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.Engineoil)}
+              style={{ maxWidth: '20%', marginsTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.Engineoils)}
             />
           )}
         </Grid>
@@ -334,21 +382,21 @@ const Engine = () => {
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-Battery"
+              id="upload-Batterys"
               type="file"
-              onChange={(event) => handleFileChange(event, 'Battery')}
+              onChange={(event) => handleFileChange(event, 'Batterys')}
             />
-            <label htmlFor="upload-Battery" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-Batterys" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.Battery && (
+          {uploadedImages.Batterys && (
             <img
-              src={uploadedImages.Battery}
+              src={uploadedImages.Batterys}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.Battery)}
+              onClick={() => handleImageClick(uploadedImages.Batterys)}
             />
           )}
         </Grid>
@@ -370,21 +418,21 @@ const Engine = () => {
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-Coolant"
+              id="upload-Coolants"
               type="file"
-              onChange={(event) => handleFileChange(event, 'Coolant')}
+              onChange={(event) => handleFileChange(event, 'Coolants')}
             />
-            <label htmlFor="upload-Coolant" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-Coolants" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.Coolant && (
+          {uploadedImages.Coolants && (
             <img
-              src={uploadedImages.Coolant}
+              src={uploadedImages.Coolants}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.Coolant)}
+              onClick={() => handleImageClick(uploadedImages.Coolants)}
             />
           )}
         </Grid>
@@ -405,21 +453,21 @@ const Engine = () => {
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-Clutch"
+              id="upload-Clutchs"
               type="file"
-              onChange={(event) => handleFileChange(event, 'Clutch')}
+              onChange={(event) => handleFileChange(event, 'Clutchs')}
             />
-            <label htmlFor="upload-Clutch" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-Clutchs" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.Clutch && (
+          {uploadedImages.Clutchs && (
             <img
-              src={uploadedImages.Clutch}
+              src={uploadedImages.Clutchs}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.Clutch)}
+              onClick={() => handleImageClick(uploadedImages.Clutchs)}
             />
           )}
         </Grid>
@@ -444,14 +492,14 @@ const Engine = () => {
         </div>
       </Modal>
 
-      <div className="flex justify-between mt-10 px-8">
+      {/* <div className="flex justify-between mt-10 px-8">
         <Button variant="contained" color="primary">
           Previous
         </Button>
         <Button variant="contained" color="primary">
           Next
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };
