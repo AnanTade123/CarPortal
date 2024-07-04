@@ -69,6 +69,9 @@ import UploadImages3 from "./ui/UploadImages3";
 import BiddingAddCar2 from "./pages/bidding/BiddingAddCar2";
 import AdminSalesInfo from "./pages/adminpages/AdminSalesInfo";
 import AdminSalesEdit from "./pages/adminpages/AdminSalesEdit";
+import ListTable from "./pages/sales/ListTable";
+
+
 
 export default function App() {
   return (
@@ -188,7 +191,7 @@ export default function App() {
             <Route path="/inspector/carverify/:id" element={<CarVerify />} />
             <Route
               path="/inspector/car"
-              element={<CarListing />}
+              element={<ListTable/>}
             />
             <Route path="/inspector/car/add" element={<BiddingAddCar2 />} />
            
