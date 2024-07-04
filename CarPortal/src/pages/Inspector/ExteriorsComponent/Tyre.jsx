@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '90%',
   },
   image: {
-    maxWidth: '100%',
-    maxHeight: '100%',
+    maxWidth: '500px',
+    maxHeight: '500px',
     objectFit: 'contain',
   },
 }));

@@ -9,6 +9,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         method: "GET",
       }),
        // You probably want providesTags here instead of invalidatesTags for queries
+       providesTags: ["Inspector"],
     }),
  
     getallInspector: builder.query({
@@ -39,12 +40,14 @@ export const inspectorAPI = apiSlice.injectEndpoints({
     inspectorupdate: builder.mutation({
       query: ({id,inspectordata}) => ({
         url: `/ispProfile/update?inspectorProfileId=${id}`,
-        transerResponse:console.log("APi response" , inspectordata,id),
+         transerResponse:console.log("APi response" , inspectordata,id),
         method: 'PATCH',
         body:inspectordata
       }),
-     
+      invalidatesTags: ["Inspector"],
     }),
+
+
     finalInspectionReport : builder.mutation({
       query : ({inspectionData}) => ({
         url:`/inspectionReport/add`,

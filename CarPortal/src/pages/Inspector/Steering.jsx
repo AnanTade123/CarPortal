@@ -23,6 +23,11 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '100%',
     objectFit: 'contain',
   },
+  fixedImage: {
+    width: '500px',
+    height: '500px',
+    objectFit: 'contain',
+  }
 }));
 
 const Steering = () => {
@@ -241,7 +246,7 @@ const Steering = () => {
         <div className={classes.paper}>
           {selectedImage && (
             <div>
-              <img src={selectedImage} alt="Selected" className={classes.image} />
+              <img src={selectedImage} alt="Selected" className={classes.fixedImage} />
               <Button onClick={closeModal} variant="contained" color="secondary" style={{ marginTop: '10px' }}>
                 Close
               </Button>

@@ -125,7 +125,7 @@ export default function App() {
               element={<AdminSalesEdit />}
             />
             <Route
-              path="/admin/inspector/edit/:userid/:id"
+              path="/admin/inspector/edit/:userid/:inspectorprofileid"
               element={<AdminInspectorEdit />}
             />
             <Route
