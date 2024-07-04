@@ -1,7 +1,7 @@
 import  { useEffect, useState } from 'react';
 import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import { useInspectionReportMutation } from '../../services/inspectorapi';
+import { useGetInspectionReportQuery, useInspectionReportMutation } from '../../services/inspectorapi';
 import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +32,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Steering = () => {
   const classes = useStyles();
-
+  const { id } = useParams();
+  console.log(id);
+  const { data } = useGetInspectionReportQuery({ id, docType: "Steering" });
+  console.log(data);
   const [formData, setFormData] = useState({
     Steering: '',
     Brake: '',
@@ -48,30 +51,29 @@ const Steering = () => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const {id} = useParams()
-  console.log(id)
-
  const [inspectionReport] = useInspectionReportMutation();
   const [lables , setLables] = useState("");
   const [selectfiled , setSelectfiled] = useState("")
-  useEffect(() => {
-    Object.keys(formData).forEach(key => {
-      if (formData[key].length > 0) {
-        console.log(key);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        setLables(key)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        setSelectfiled(formData[key])
-        
-      }
-    });
-  }, [formData]);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+
+    
+    if (value.length > 0) {
+      setLables(name);
+      setSelectfiled(value);
+    }
+  };
+ 
   console.log(selectfiled)
   console.log(lables)
 
   const handleFileChange = async (event, fieldName) => {
     const file = event.target.files[0];
-    console.log('Selected file:', file);
+    if (!file) return;
+    const formDataToSend = new FormData();
+    formDataToSend.append('image', file);
 
     // Read the file and convert it to URL for preview
     const reader = new FileReader();
@@ -89,7 +91,6 @@ const Steering = () => {
         subtype: lables,
         comment: selectfiled,
       };
-      const formDataToSend = "";
       
       try {
       
@@ -106,11 +107,29 @@ const Steering = () => {
     reader.readAsDataURL(file);
   };
 
+  useEffect(() => {
+    // Pre-fill form data and uploaded images based on API data
+    data?.object.map((item) => {
+      switch (item.subtype) {
+        case "Steering":
+          setFormData((prev) => ({ ...prev, Steering: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, Steerings: item.documentLink }));
+          break;
+        case "Brake":
+          setFormData((prev) => ({ ...prev, Brake: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, Brakes: item.documentLink }));
+          break;
+        case "Suspension":
+          setFormData((prev) => ({ ...prev, Suspension: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, Suspensions: item.documentLink }));
+          break;
+        default:
+          break;
+      }
+    });
+  }, [data]);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
+ 
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
