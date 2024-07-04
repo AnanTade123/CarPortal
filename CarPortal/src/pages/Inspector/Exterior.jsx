@@ -80,24 +80,19 @@ const [formData, setFormData] = useState({
     HeadLightSupport: [],
     RadiatorSupport: [],
     AlloyWheel: [],
+    CowlTop:[],
+    BootFloor:[],
+    RightApronLEG:[],
+    LeftApronLEG : [],
+    RightApron : [],
+    LeftApron : [],
+    LeftPillar : [],
+    RightPillar : []
   });
-
+console.log(formData.RHSFrontTyre)
   const [lables , setLables] = useState("");
   const [selectfiled , setSelectfiled] = useState("")
   
-  useEffect(() => {
-    Object.keys(formData).forEach(key => {
-      if (formData[key].length > 0) {
-        console.log(key);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        setLables(key)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        setSelectfiled(formData[key])
-        
-      }
-    });
-  }, [formData]);
-
 console.log(lables)
 console.log(selectfiled)
 
@@ -191,6 +186,7 @@ console.log(selectfiled)
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleFileChange = async (event, fieldName) => {
+    console.log("fromdata",formData)
     const file = event.target.files[0];
     if (!file) return;
     const formDataToSend = new FormData();
@@ -235,6 +231,11 @@ console.log(selectfiled)
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
+
+    if (value.length > 0) {
+      setLables(name);
+      setSelectfiled(value);
+    }
   };
 
   const handleImageClick = (image) => {
@@ -755,9 +756,8 @@ console.log(selectfiled)
         </div>
       </Modal>
 
-      
       <WindshieldAndLights data={data} formData={formData} setFormData={setFormData} handleFileChange={handleFileChange} uploadedImages={uploadedImages} setUploadedImages={setUploadedImages}/>
-<Tyre data={data} formData={formData} setFormData={setFormData} handleFileChange={handleFileChange} uploadedImages={uploadedImages} setUploadedImages={setUploadedImages}/>
+<Tyre/>
 <OtherComponent data={data} formData={formData} setFormData={setFormData} handleFileChange={handleFileChange} uploadedImages={uploadedImages} setUploadedImages={setUploadedImages}/>
 
 <Structure data={data} formData={formData} setFormData={setFormData} handleFileChange={handleFileChange} uploadedImages={uploadedImages} setUploadedImages={setUploadedImages}/>
