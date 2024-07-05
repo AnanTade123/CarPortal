@@ -66,7 +66,7 @@ import AdminSalesInfo from "./pages/adminpages/AdminSalesInfo";
 import AdminSalesEdit from "./pages/adminpages/AdminSalesEdit";
 import SalePersonMiddleware from "./middleware/SalePersonMiddleware";
 import ImageUploader from "./components/demo/uploadimage";
-import ListTable from "./pages/sales/ListTable";
+
 
 
 import FinalReport from "./pages/InspectionReportPage/FinalReport";
@@ -194,7 +194,7 @@ export default function App() {
             <Route path="/inspector/carverify/:id" element={<CarVerify />} />
             <Route
               path="/inspector/car"
-              element={<ListTable/>}
+              element={<CarListing/>}
             />
             <Route path="/inspector/car/add" element={<BiddingAddCar2 />} />
            
