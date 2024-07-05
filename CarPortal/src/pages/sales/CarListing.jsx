@@ -116,7 +116,7 @@ export default function CarListing() {
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
-              <Link to={`/biddinglist/cardetails/${cell.row.values.beadingCarId}`}>
+              <Link to={`/biddinglist/bidCardetails/${cell.row.values.beadingCarId}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
