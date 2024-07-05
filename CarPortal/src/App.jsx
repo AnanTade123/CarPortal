@@ -70,6 +70,8 @@ import ImageUploader from "./components/demo/uploadimage";
 
 
 import FinalReport from "./pages/InspectionReportPage/FinalReport";
+import LiveBid from "./pages/LiveBidding/LiveBid";
+import BiddingCarDetail from "./pages/LiveBidding/BiddingCarDetail";
 
 export default function App() {
   return (
@@ -180,6 +182,14 @@ export default function App() {
             <Route
               path="/finalreport"
               element={<FinalReport/>}
+            />
+            <Route
+              path="/livebid"
+              element={<LiveBid/>}
+            />
+            <Route
+              path="/biddingcardetail"
+              element={<BiddingCarDetail/>}
             />
           </Route>
           <Route path="/biddingCar" element={<BiddingCar/>} />
