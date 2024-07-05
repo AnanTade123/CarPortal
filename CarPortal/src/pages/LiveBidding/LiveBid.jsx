@@ -41,17 +41,17 @@ const LiveBid = () => {
                   </p>
                   <div className="text-center ">
                     <p className="text-primary inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
-                      <span className="text-[16px] md:ml-24 ml-9  text-red-600">Last Call</span>
+                      <span className="text-[16px] md:ml-8 ml-20  text-red-600">Last Call</span>
                     </p>
-                    <p className="text-slate-700 inline-block whitespace-nowrap rounded-xl font-medium leading-tight md:ml-20 ml-3">00h 03m 43s</p>
+                    <p className="text-slate-700 inline-block whitespace-nowrap rounded-xl font-medium leading-tight md:ml-10 ml-14">00h 03m 43s</p>
                   </div>
                 </div>
 
-                <div className="mt-4 md:ml-0 -ml-3">
+                <div className="mt-4 md:-ml-2 -ml-3">
                   <p className="flex text-[16px] line-clamp-1 text-black">
                     <span className="mr-1 md:-ml-1 mt-1 "><BsLightningFill /></span>
                     Fair market value: ₹ 2,79,241
-                    <span className="md:ml-24 ml-8 mt-1"><RiInformationFill size={20} /></span>
+                    <span className="md:ml-16 ml-20 mt-1"><RiInformationFill size={20} /></span>
                   </p>
                 </div>
 
@@ -98,19 +98,19 @@ const LiveBid = () => {
                   <p className="text-primary mt-2 inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
                     <span className="text-[16px] bg-indigo-300 p-3 text-white">Highest Bid ₹ 6,64,000</span>
                   </p>
-                  <div className="text-center">
+                  <div className="text-center ">
                     <p className="text-primary inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
-                      <span className="text-[16px] md:ml-24 ml-9 text-red-600">Last Call</span>
+                      <span className="text-[16px] md:ml-8 ml-20  text-red-600">Last Call</span>
                     </p>
-                    <p className="text-slate-700 inline-block whitespace-nowrap rounded-xl font-medium leading-tight md:ml-20 ml-3">00h 03m 43s</p>
+                    <p className="text-slate-700 inline-block whitespace-nowrap rounded-xl font-medium leading-tight md:ml-10 ml-14">00h 03m 43s</p>
                   </div>
                 </div>
 
-                <div className="mt-4 md:ml-0 -ml-3">
+                <div className="mt-4 md:-ml-2 -ml-3">
                   <p className="flex text-[16px] line-clamp-1 text-black">
                     <span className="mr-1 md:-ml-1 mt-1 "><BsLightningFill /></span>
                     Fair market value: ₹ 2,79,241
-                    <span className="md:ml-24 ml-8 mt-1"><RiInformationFill size={20} /></span>
+                    <span className="md:ml-16 ml-20 mt-1"><RiInformationFill size={20} /></span>
                   </p>
                 </div>
 
@@ -157,19 +157,19 @@ const LiveBid = () => {
                   <p className="text-primary mt-2 inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
                     <span className="text-[16px] bg-indigo-300 p-3 text-white">Highest Bid ₹ 6,64,000</span>
                   </p>
-                  <div className="text-center">
+                  <div className="text-center ">
                     <p className="text-primary inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
-                      <span className="text-[16px] md:ml-24 ml-9 text-red-600">Last Call</span>
+                      <span className="text-[16px] md:ml-8 ml-20  text-red-600">Last Call</span>
                     </p>
-                    <p className="text-slate-700 inline-block whitespace-nowrap rounded-xl font-medium leading-tight md:ml-20 ml-3">00h 03m 43s</p>
+                    <p className="text-slate-700 inline-block whitespace-nowrap rounded-xl font-medium leading-tight md:ml-10 ml-14">00h 03m 43s</p>
                   </div>
                 </div>
 
-                <div className="mt-4 md:ml-0 -ml-3">
+                <div className="mt-4 md:-ml-2 -ml-3">
                   <p className="flex text-[16px] line-clamp-1 text-black">
                     <span className="mr-1 md:-ml-1 mt-1 "><BsLightningFill /></span>
                     Fair market value: ₹ 2,79,241
-                    <span className="md:ml-24 ml-8 mt-1"><RiInformationFill size={20} /></span>
+                    <span className="md:ml-16 ml-20 mt-1"><RiInformationFill size={20} /></span>
                   </p>
                 </div>
 
@@ -217,19 +217,19 @@ const LiveBid = () => {
                   <p className="text-primary mt-2 inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
                     <span className="text-[16px] bg-indigo-300 p-3 text-white">Highest Bid ₹ 6,64,000</span>
                   </p>
-                  <div className="text-center">
+                  <div className="text-center ">
                     <p className="text-primary inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
-                      <span className="text-[16px] md:ml-24 ml-9 text-red-600">Last Call</span>
+                      <span className="text-[16px] md:ml-8 ml-20  text-red-600">Last Call</span>
                     </p>
-                    <p className="text-slate-700 inline-block whitespace-nowrap rounded-xl font-medium leading-tight md:ml-20 ml-3">00h 03m 43s</p>
+                    <p className="text-slate-700 inline-block whitespace-nowrap rounded-xl font-medium leading-tight md:ml-10 ml-14">00h 03m 43s</p>
                   </div>
                 </div>
 
-                <div className="mt-4 md:ml-0 -ml-3">
+                <div className="mt-4 md:-ml-2 -ml-3">
                   <p className="flex text-[16px] line-clamp-1 text-black">
                     <span className="mr-1 md:-ml-1 mt-1 "><BsLightningFill /></span>
                     Fair market value: ₹ 2,79,241
-                    <span className="md:ml-24 ml-8 mt-1"><RiInformationFill size={20} /></span>
+                    <span className="md:ml-16 ml-20 mt-1"><RiInformationFill size={20} /></span>
                   </p>
                 </div>
 
@@ -276,19 +276,19 @@ const LiveBid = () => {
                   <p className="text-primary mt-2 inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
                     <span className="text-[16px] bg-indigo-300 p-3 text-white">Highest Bid ₹ 6,64,000</span>
                   </p>
-                  <div className="text-center">
+                  <div className="text-center ">
                     <p className="text-primary inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
-                      <span className="text-[16px] md:ml-24 ml-9 text-red-600">Last Call</span>
+                      <span className="text-[16px] md:ml-8 ml-20  text-red-600">Last Call</span>
                     </p>
-                    <p className="text-slate-700 inline-block whitespace-nowrap rounded-xl font-medium leading-tight md:ml-20 ml-3">00h 03m 43s</p>
+                    <p className="text-slate-700 inline-block whitespace-nowrap rounded-xl font-medium leading-tight md:ml-10 ml-14">00h 03m 43s</p>
                   </div>
                 </div>
 
-                <div className="mt-4 md:ml-0 -ml-3">
+                <div className="mt-4 md:-ml-2 -ml-3">
                   <p className="flex text-[16px] line-clamp-1 text-black">
                     <span className="mr-1 md:-ml-1 mt-1 "><BsLightningFill /></span>
                     Fair market value: ₹ 2,79,241
-                    <span className="md:ml-24 ml-8 mt-1"><RiInformationFill size={20} /></span>
+                    <span className="md:ml-16 ml-20 mt-1"><RiInformationFill size={20} /></span>
                   </p>
                 </div>
 
@@ -335,22 +335,21 @@ const LiveBid = () => {
                   <p className="text-primary mt-2 inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
                     <span className="text-[16px] bg-indigo-300 p-3 text-white">Highest Bid ₹ 6,64,000</span>
                   </p>
-                  <div className="text-center">
+                  <div className="text-center ">
                     <p className="text-primary inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
-                      <span className="text-[16px] md:ml-24 ml-9 text-red-600">Last Call</span>
+                      <span className="text-[16px] md:ml-8 ml-20  text-red-600">Last Call</span>
                     </p>
-                    <p className="text-slate-700 inline-block whitespace-nowrap rounded-xl font-medium leading-tight md:ml-20 ml-3">00h 03m 43s</p>
+                    <p className="text-slate-700 inline-block whitespace-nowrap rounded-xl font-medium leading-tight md:ml-10 ml-14">00h 03m 43s</p>
                   </div>
                 </div>
 
-                <div className="mt-4 md:ml-0 -ml-3">
+                <div className="mt-4 md:-ml-2 -ml-3">
                   <p className="flex text-[16px] line-clamp-1 text-black">
                     <span className="mr-1 md:-ml-1 mt-1 "><BsLightningFill /></span>
                     Fair market value: ₹ 2,79,241
-                    <span className="md:ml-24 ml-8 mt-1"><RiInformationFill size={20} /></span>
+                    <span className="md:ml-16 ml-20 mt-1"><RiInformationFill size={20} /></span>
                   </p>
                 </div>
-
                 <div className="mt-4">
                   <p className="flex line-clamp-1 text-[12px] text-gray-800">
                     <span className="mr-1 mt-1"><FaLocationDot /></span>
@@ -394,19 +393,19 @@ const LiveBid = () => {
                   <p className="text-primary mt-2 inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
                     <span className="text-[16px] bg-indigo-300 p-3 text-white">Highest Bid ₹ 6,64,000</span>
                   </p>
-                  <div className="text-center">
+                  <div className="text-center ">
                     <p className="text-primary inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
-                      <span className="text-[16px] md:ml-24 ml-9 text-red-600">Last Call</span>
+                      <span className="text-[16px] md:ml-8 ml-20  text-red-600">Last Call</span>
                     </p>
-                    <p className="text-slate-700 inline-block whitespace-nowrap rounded-xl font-medium leading-tight md:ml-20 ml-3">00h 03m 43s</p>
+                    <p className="text-slate-700 inline-block whitespace-nowrap rounded-xl font-medium leading-tight md:ml-10 ml-14">00h 03m 43s</p>
                   </div>
                 </div>
 
-                <div className="mt-4 md:ml-0 -ml-3">
+                <div className="mt-4 md:-ml-2 -ml-3">
                   <p className="flex text-[16px] line-clamp-1 text-black">
                     <span className="mr-1 md:-ml-1 mt-1 "><BsLightningFill /></span>
                     Fair market value: ₹ 2,79,241
-                    <span className="md:ml-24 ml-8 mt-1"><RiInformationFill size={20} /></span>
+                    <span className="md:ml-16 ml-20 mt-1"><RiInformationFill size={20} /></span>
                   </p>
                 </div>
                 <div className="mt-4">
@@ -452,19 +451,19 @@ const LiveBid = () => {
                   <p className="text-primary mt-2 inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
                     <span className="text-[16px] bg-indigo-300 p-3 text-white">Highest Bid ₹ 6,64,000</span>
                   </p>
-                  <div className="text-center">
+                  <div className="text-center ">
                     <p className="text-primary inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
-                      <span className="text-[16px] md:ml-24 ml-9 text-red-600">Last Call</span>
+                      <span className="text-[16px] md:ml-8 ml-20  text-red-600">Last Call</span>
                     </p>
-                    <p className="text-slate-700 inline-block whitespace-nowrap rounded-xl font-medium leading-tight md:ml-20 ml-3">00h 03m 43s</p>
+                    <p className="text-slate-700 inline-block whitespace-nowrap rounded-xl font-medium leading-tight md:ml-10 ml-14">00h 03m 43s</p>
                   </div>
                 </div>
 
-                <div className="mt-4 md:ml-0 -ml-3">
+                <div className="mt-4 md:-ml-2 -ml-3">
                   <p className="flex text-[16px] line-clamp-1 text-black">
                     <span className="mr-1 md:-ml-1 mt-1 "><BsLightningFill /></span>
                     Fair market value: ₹ 2,79,241
-                    <span className="md:ml-24 ml-8 mt-1"><RiInformationFill size={20} /></span>
+                    <span className="md:ml-16 ml-20 mt-1"><RiInformationFill size={20} /></span>
                   </p>
                 </div>
 
