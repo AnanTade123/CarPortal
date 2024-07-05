@@ -10,11 +10,7 @@ import CarDetailsById from "./pages/CarDetailsById";
 
 import Admin from "./pages/adminpages/Admin";
 import AdminMiddleware from "./middleware/AdminMiddleware";
-import {
-  onlyAdmin,
-  onlyDealer,
-  onlyInspector,
-} from "./components/config/Roles";
+import { onlyAdmin, onlyDealer, onlyInspector, onlySeller } from "./components/config/Roles";
 import AdminDealerInfo from "./pages/adminpages/AdminDealerInfo";
 import AdminDealerEdit from "./pages/adminpages/AdminDealerEdit";
 import DealerDashboard from "./pages/dealer/DealerDashboard";
@@ -48,6 +44,7 @@ import TransactionByAccount from "./pages/transaction/TransactionByAccount";
 import Wallet from "./pages/transaction/Wallet";
 import TransactionController from "./pages/transaction/TransactionController";
 import EditImage from "./pages/dealer/EditImage";
+import BiddingCar from "./pages/bidding/BiddingCar";
 import InspectorMiddleware from "./middleware/InspectorMiddleware";
 import { object } from "prop-types";
 import PendingRequest2 from "./pages/dealer/PendingRequest2";
@@ -61,18 +58,18 @@ import BiddingDealerCars from "./pages/biddingDashboard/BiddingDealerCars";
 import CarListTable from "./pages/biddingDashboard/CarListTable";
 import BiddingDealer from "./pages/dealer/BiddingDealer";
 import BiddingCars from "./pages/adminpages/BiddingCars";
-import CarDocumentSection from "./pages/InspectionReportPage/CarDocumentSection";
-import ExteriorSection from "./pages/InspectionReportPage/ExteriorSection";
-import EngineSection from "./pages/InspectionReportPage/EngineSection";
-import AcSection from "./pages/InspectionReportPage/AcSection";
-import ElectricalSection from "./pages/InspectionReportPage/ElectricalSection";
-import SteeringSection from "./pages/InspectionReportPage/SteeringSection";
-import InteriorSection from "./pages/InspectionReportPage/InteriorSection";
+
 import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
 import UploadImages3 from "./ui/UploadImages3";
 import BiddingAddCar2 from "./pages/bidding/BiddingAddCar2";
 import AdminSalesInfo from "./pages/adminpages/AdminSalesInfo";
 import AdminSalesEdit from "./pages/adminpages/AdminSalesEdit";
+import SalePersonMiddleware from "./middleware/SalePersonMiddleware";
+import ImageUploader from "./components/demo/uploadimage";
+import ListTable from "./pages/sales/ListTable";
+
+
+import FinalReport from "./pages/InspectionReportPage/FinalReport";
 import BiddingCarDetailsById1 from "./pages/bidding/BiddingCarDetailsById1";
 
 export default function App() {
@@ -130,7 +127,7 @@ export default function App() {
               element={<AdminSalesEdit />}
             />
             <Route
-              path="/admin/inspector/edit/:userid/:id"
+              path="/admin/inspector/edit/:userid/:inspectorprofileid"
               element={<AdminInspectorEdit />}
             />
             <Route
@@ -178,7 +175,12 @@ export default function App() {
               path="/car/:CarId/pendinguser"
               element={<DealerPendingRequest />}
             />
+            <Route
+              path="/finalreport"
+              element={<FinalReport/>}
+            />
           </Route>
+          <Route path="/biddingCar" element={<BiddingCar/>} />
 
           <Route
             element={
@@ -188,7 +190,10 @@ export default function App() {
             }
           >
             <Route path="/inspector/carverify/:id" element={<CarVerify />} />
-            <Route path="/inspector/car" element={<CarListing />} />
+            <Route
+              path="/inspector/car"
+              element={<ListTable/>}
+            />
             <Route path="/inspector/car/add" element={<BiddingAddCar2 />} />
             <Route
             path="/biddinglist/bidCardetails/:beadingCarId"
@@ -209,6 +214,10 @@ export default function App() {
             element={<UploadImages3 />}
           />
           <Route path="/bidding/:carId/:id/editimage" element={<EditImage />} />
+          <Route element={<SalePersonMiddleware allowedRoles={[...Object.values(onlySeller)]} /> }>
+        <Route path="/sales/biddingcar" element={<BiddingDealerCars />} />
+
+        </Route>
         </Route>
 
         {/* <Route path="/trans" element={<CardDetailss/>}/> */}
@@ -218,6 +227,8 @@ export default function App() {
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/cookiepolicy" element={<CookiePolicy />} />
         </Route>
+
+        <Route path="/demo" element={<ImageUploader/>} />
       </Routes>
     </>
   );

@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react';
+import  {  useEffect, useState } from 'react';
 import {
   MenuItem,
   FormControl,
@@ -11,7 +11,7 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import { useInspectionReportMutation } from '../../services/inspectorapi';
+import { useGetInspectionReportQuery, useInspectionReportMutation } from '../../services/inspectorapi';
 import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -33,10 +33,19 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '100%',
     objectFit: 'contain',
   },
+  fixedImage: {
+    width: '500px',
+    height: '500px',
+    objectFit: 'contain',
+  }
 }));
 
 const Engine = () => {
   const classes = useStyles();
+  const { id } = useParams();
+  console.log(id);
+  const { data } = useGetInspectionReportQuery({ id, docType: "Engine" });
+  console.log(data);
 
   const [formData, setFormData] = useState({
     Engine: [],
@@ -62,28 +71,57 @@ const Engine = () => {
     Clutchs: null,
   });
 
-  const {id} = useParams()
-  console.log(id)
-
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [inspectionReport] = useInspectionReportMutation();
   const [lables , setLables] = useState("");
   const [selectfiled , setSelectfiled] = useState("")
+ 
   useEffect(() => {
-    Object.keys(formData).forEach(key => {
-      if (formData[key].length > 0) {
-        console.log(key);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        setLables(key)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        setSelectfiled(formData[key])
-        
+    // Pre-fill form data and uploaded images based on API data
+    data?.object.map((item) => {
+      switch (item.subtype) {
+        case "Engine":
+          setFormData((prev) => ({ ...prev, Engine: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, Engines: item.documentLink }));
+          break;
+        case "EngineMounting":
+          setFormData((prev) => ({ ...prev, EngineMounting: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, EngineMountings: item.documentLink }));
+          break;
+        case "EngineSound":
+          setFormData((prev) => ({ ...prev, EngineSound: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, EngineSounds: item.documentLink }));
+          break;
+        case "Exhaustsmoke":
+          setFormData((prev) => ({ ...prev, Exhaustsmoke: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, Exhaustsmokes: item.documentLink }));
+          break;
+        case "Gearbox":
+          setFormData((prev) => ({ ...prev, Gearbox: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, Gearboxs: item.documentLink }));
+          break;
+        case "Engineoil":
+          setFormData((prev) => ({ ...prev, Engineoil: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, Engineoils: item.documentLink }));
+          break;
+        case "Battery":
+          setFormData((prev) => ({ ...prev, Battery: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, Batterys: item.documentLink }));
+          break;
+        case "Coolant":
+          setFormData((prev) => ({ ...prev, Coolant: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, Coolants: item.documentLink }));
+          break;
+        case "Clutch":
+          setFormData((prev) => ({ ...prev, Clutch: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, Clutchs: item.documentLink }));
+          break;
+        default:
+          break;
       }
     });
-  }, [formData]);
-  console.log(selectfiled)
-  console.log(lables)
+  }, [data]);
 
   const handleFileChange = async (event, fieldName) => {
     const file = event.target.files[0];
@@ -107,7 +145,7 @@ const Engine = () => {
         documentType: "Inspection Report",
         beadingCarId: id,
         doc: "", 
-        doctype: "",
+        doctype: "Engine",
         subtype: lables,
         comment: selectfiled,
       };
@@ -128,7 +166,14 @@ const Engine = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
+
+    if (value.length > 0) {
+      setLables(name);
+      setSelectfiled(value);
+    }
   };
+  console.log(selectfiled)
+  console.log(lables)
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
@@ -483,7 +528,7 @@ const Engine = () => {
         <div className={classes.paper}>
           {selectedImage && (
             <div>
-              <img src={selectedImage} alt="Selected" className={classes.image} />
+              <img src={selectedImage} alt="Selected" className={classes.fixedImage} />
               <Button onClick={closeModal} variant="contained" color="secondary" style={{ marginTop: '10px' }}>
                 Close
               </Button>
