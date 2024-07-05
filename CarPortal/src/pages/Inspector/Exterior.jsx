@@ -41,6 +41,11 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: "100%",
     objectFit: "contain",
   },
+  fixedImage: {
+    width: '500px',
+    height: '500px',
+    objectFit: 'contain',
+  }
 }));
 
 const Exterior = () => {
@@ -368,6 +373,8 @@ console.log(selectfiled)
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Faded">Replaced</MenuItem>
+
             </Select>
           </FormControl>
           <div className="flex items-center mt-2">
@@ -416,6 +423,7 @@ console.log(selectfiled)
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
+              
             </Select>
           </FormControl>
           <div className="flex items-center mt-2">
@@ -604,6 +612,8 @@ console.log(selectfiled)
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Faded">Replaced</MenuItem>
+
             </Select>
           </FormControl>
           <div className="flex items-center mt-2">
@@ -652,6 +662,8 @@ console.log(selectfiled)
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Faded">Replaced</MenuItem>
+
             </Select>
           </FormControl>
           <div className="flex items-center mt-2">
@@ -700,6 +712,8 @@ console.log(selectfiled)
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Faded">Replaced</MenuItem>
+
             </Select>
           </FormControl>
           <div className="flex items-center mt-2">
@@ -741,7 +755,7 @@ console.log(selectfiled)
               <img
                 src={selectedImage}
                 alt="Selected"
-                className={classes.image}
+                className={classes.fixedImage}
               />
               <Button
                 onClick={closeModal}

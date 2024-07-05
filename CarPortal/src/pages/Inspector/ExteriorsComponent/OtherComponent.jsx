@@ -29,11 +29,12 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '90%',
     maxHeight: '90%',
   },
-  image: {
-    maxWidth: '100%',
-    maxHeight: '100%',
+ 
+  fixedImage: {
+    width: '500px',
+    height: '500px',
     objectFit: 'contain',
-  },
+  }
 }));
 
 const 
@@ -223,7 +224,7 @@ OtherComponent = ({  formData, setFormData,handleFileChange,uploadedImages,setUp
         <div className={classes.paper}>
           {selectedImage && (
             <div>
-              <img src={selectedImage} alt="Selected" className={classes.image} />
+              <img src={selectedImage} alt="Selected" className={classes.fixedImage} />
               <Button onClick={closeModal} variant="contained" color="secondary" style={{ marginTop: '10px' }}>
                 Close
               </Button>

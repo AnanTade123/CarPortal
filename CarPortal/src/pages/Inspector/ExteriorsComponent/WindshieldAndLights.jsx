@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '90%',
   },
   image: {
-    maxWidth: '100%',
-    maxHeight: '100%',
+    maxWidth: '500px',
+    maxHeight: '500px',
     objectFit: 'contain',
   },
 }));
@@ -160,10 +160,9 @@ console.log(data)
               color="Green"
               
             >
-              <MenuItem value="Repainted">Repainted</MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
+              
               <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted">Rusted</MenuItem>
+            
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="NotWorking">Not Working</MenuItem>

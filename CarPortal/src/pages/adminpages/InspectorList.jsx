@@ -99,7 +99,7 @@ export default function InspectorList() {
 
 
               <Link to={`/admin/inspector/edit/${cell.row.values.userId}/${cell.row.values.inspectorProfileId}`}>
-              
+             
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
