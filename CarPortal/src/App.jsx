@@ -185,7 +185,7 @@ export default function App() {
               />
             }
           >
-            <Route path="/inspector/carverify/:id" element={<CarVerify />} />
+            <Route path="/inspector/carverify/:beadingCarId" element={<CarVerify />} />
             <Route
               path="/inspector/car"
               element={<CarListing />}

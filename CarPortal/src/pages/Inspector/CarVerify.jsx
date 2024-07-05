@@ -14,8 +14,22 @@ import Engine from "./Engine";
 import Steering from "./Steering";
 import AC from "./Ac";
 import Electrical from "./Electrical";
+import { useParams } from "react-router-dom";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 export default function CarVerify() {
+  const  {beadingCarId} = useParams()
+  console.log(beadingCarId)
+
+  const token = Cookies.get("token");
+let jwtDecodes;
+if (token) {
+  jwtDecodes = jwtDecode(token);
+}
+console.log(jwtDecodes)
+const UserId = token ? jwtDecodes?.userId : null;
+console.log(UserId)
   const [activeTab, setActiveTab] = React.useState("Exterior");
   const data = [
     
@@ -52,7 +66,7 @@ export default function CarVerify() {
     {
       label: "Inspection Report",
       value: "report",
-      desc: <InspectionReport/>,
+      desc: <InspectionReport beadingCarId={beadingCarId} UserId={UserId}/>,
     }
   ];
 
