@@ -54,7 +54,7 @@ export default function FinalReport() {
     <div className="">
       
       {/* Tabs at the top */}
-      <div className="sticky lg:top-[94px]  md:top-16 top-16 bg-gray-200 z-10 md:p-2.5 shadow-sm border-2 xl:space-x-48 lg:space-x-28 md:space-x-14 space-x-8 -m-3 md:-mt-5   cursor-pointer pt-2 pb-2  overflow-x-auto md:overflow-x-visible  lg:overflow-x-visible  " value={activeTab}>
+      <div className="sticky lg:top-[94px]  md:top-16 top-16 bg-gray-200 z-10 md:p-2.5 shadow-sm border-2 xl:space-x-40 lg:space-x-28 md:space-x-14 space-x-8 -m-3 md:-mt-5   cursor-pointer pt-2 pb-2  overflow-x-auto md:overflow-x-visible  lg:overflow-x-visible  " value={activeTab}>
         {data.map(({ label, value }) => (
           <Link
           
@@ -64,7 +64,7 @@ export default function FinalReport() {
             duration={500}
             offset={-145}
             onClick={() => setActiveTab(value)}
-            className={activeTab === value ? "md:px-2 lg:px-3 xl:px-14 md:py-2.5 text-black md:text-xl bg-transparent border-b-2 border-indigo-900 shadow-none rounded-none text-base py-2.5 " :''}
+            className={activeTab === value ? "md:px-2 lg:px-3 xl:px-16 md:py-2.5 text-black md:text-xl bg-transparent border-b-2 border-indigo-900 shadow-none rounded-none text-base py-2.5  " :''}
           >
             {label}
           </Link>
