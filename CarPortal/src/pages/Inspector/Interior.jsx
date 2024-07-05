@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { useParams } from 'react-router-dom';
-import { useGetInspectionReportQuery, useInspectionReportMutation } from '../../services/inspectorapi';
+import { useInspectionReportMutation } from '../../services/inspectorapi';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -23,55 +23,51 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '100%',
     objectFit: 'contain',
   },
-  fixedImage: {
-    width: '500px',
-    height: '500px',
-    objectFit: 'contain',
-  }
 }));
 
 const Interior = () => {
   const classes = useStyles();
-  const { id } = useParams();
-  console.log(id);
-  const { data } = useGetInspectionReportQuery({ id, docType: "Interior" });
-  console.log(data);
 
-  const InspetData = data?.object;
-  console.log(InspetData);
   const [formData, setFormData] = useState({
-    LeatherSeat: "",
-    Odometer: "",
-    CabinFloor: "",
-    Dashboard: "",
+    LeatherSeat: [],
+    Odometer: [],
+    Dashboard: [],
+    CabinFloor: [],
   });
 
   const [uploadedImages, setUploadedImages] = useState({
     LeatherSeats: null,
     Odometers: null,
-    CabinFloors: null,
     Dashboards: null,
+    CabinFloors: null,
   });
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [inspectionReport] = useInspectionReportMutation();
-
-  const [lables, setLables] = useState("");
-  const [selectfiled, setSelectfiled] = useState("");
-
+  const {id} = useParams()
+  console.log(id)
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
-
-    if (value.length > 0) {
-      setLables(name);
-      setSelectfiled(value);
-    }
   };
 
-  console.log(selectfiled);
-  console.log(lables);
+  const [lables , setLables] = useState("");
+  const [selectfiled , setSelectfiled] = useState("")
+  useEffect(() => {
+    Object.keys(formData).forEach(key => {
+      if (formData[key].length > 0) {
+        console.log(key);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setLables(key)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setSelectfiled(formData[key])
+        
+      }
+    });
+  }, [formData]);
+  console.log(selectfiled)
+  console.log(lables)
 
   const handleFileChange = async (event, fieldName) => {
     const file = event.target.files[0];
@@ -79,7 +75,7 @@ const Interior = () => {
     const formDataToSend = new FormData();
     formDataToSend.append('image', file);
 
-    console.log(formDataToSend);
+    console.log(formDataToSend)
     // Update formData state with file details
     setFormData({ ...formData, [fieldName]: file });
 
@@ -89,55 +85,30 @@ const Interior = () => {
       const imageData = reader.result;
       setUploadedImages({ ...uploadedImages, [fieldName]: imageData });
 
+      
       // Prepare the data to be sent to the backend
       const inspectionData = {
         documentType: "Inspection Report",
         beadingCarId: id,
         doc: "", 
-        doctype: "Interior",
+        doctype: "",
         subtype: lables,
         comment: selectfiled,
       };
       try {
-        const res = await inspectionReport({ inspectionData, formDataToSend });
+      
+        const res = await inspectionReport({inspectionData,formDataToSend});
         console.log(res);
 
-        alert("Data Uploaded");
-        setLables("");
-        setSelectfiled("");
+       alert("Data Uploded")
+        
       } catch (error) {
         console.error('Error uploading the file:', error);
-        alert("Data not Uploaded");
+        alert("Data not Uploded")
       }
     };
     reader.readAsDataURL(file);
   };
-
-  useEffect(() => {
-    // Pre-fill form data and uploaded images based on API data
-    data?.object.map((item) => {
-      switch (item.subtype) {
-        case "LeatherSeat":
-          setFormData((prev) => ({ ...prev, LeatherSeat: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, LeatherSeats: item.documentLink }));
-          break;
-        case "Odometer":
-          setFormData((prev) => ({ ...prev, Odometer: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, Odometers: item.documentLink }));
-          break;
-        case "CabinFloor":
-          setFormData((prev) => ({ ...prev, CabinFloor: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, CabinFloors: item.documentLink }));
-          break;
-        case "Dashboard":
-          setFormData((prev) => ({ ...prev, Dashboard: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, Dashboards: item.documentLink }));
-          break;
-        default:
-          break;
-      }
-    });
-  }, [data]);
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
@@ -160,6 +131,7 @@ const Interior = () => {
             <InputLabel>Leather Seat</InputLabel>
             <Select
               name="LeatherSeat"
+             
               value={formData.LeatherSeat}
               onChange={handleChange}
             >
@@ -195,6 +167,7 @@ const Interior = () => {
             <InputLabel>Odometer</InputLabel>
             <Select
               name="Odometer"
+           
               value={formData.Odometer}
               onChange={handleChange}
             >
@@ -230,6 +203,7 @@ const Interior = () => {
             <InputLabel>Cabin Floor</InputLabel>
             <Select
               name="CabinFloor"
+       
               value={formData.CabinFloor}
               onChange={handleChange}
             >
@@ -269,6 +243,7 @@ const Interior = () => {
             <InputLabel>Dashboard</InputLabel>
             <Select
               name="Dashboard"
+              
               value={formData.Dashboard}
               onChange={handleChange}
             >
@@ -302,6 +277,7 @@ const Interior = () => {
             />
           )}
         </Grid>
+
       </Grid>
 
       {/* Modal for displaying clicked image */}
@@ -313,7 +289,7 @@ const Interior = () => {
         <div className={classes.paper}>
           {selectedImage && (
             <div>
-              <img src={selectedImage} alt="Selected" className={classes.imfixedImageage} />
+              <img src={selectedImage} alt="Selected" className={classes.image} />
               <Button onClick={closeModal} variant="contained" color="secondary" style={{ marginTop: '10px' }}>
                 Close
               </Button>
@@ -321,6 +297,15 @@ const Interior = () => {
           )}
         </div>
       </Modal>
+
+      {/* <div className="flex justify-between mt-10 px-8">
+        <Button variant="contained" color="primary">
+          Previous
+        </Button>
+        <Button variant="contained" color="primary">
+          Next
+        </Button>
+      </div> */}
     </div>
   );
 };

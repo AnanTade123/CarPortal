@@ -94,8 +94,7 @@ navigate('/signin')
   };
   return (
     <>
-      <Button className="w-48" color="indigo" 
-      onClick={handleOpen} variant="gradient">
+      <Button onClick={handleOpen} variant="gradient">
         Buy Car
       </Button>
       <Dialog open={open} handler={handleOpen} size="xs">
