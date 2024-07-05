@@ -1,6 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import  { useEffect, useState } from 'react';
+import  { useState } from 'react';
 import {
   MenuItem,
   FormControl,
@@ -29,61 +28,21 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '90%',
   },
   image: {
-    maxWidth: '500px',
-    maxHeight: '500px',
+    maxWidth: '100%',
+    maxHeight: '100%',
     objectFit: 'contain',
   },
 }));
 
-const WindshieldAndLights = ({ formData, setFormData, handleFileChange,uploadedImages,data ,setUploadedImages}) => {
+const WindshieldAndLights = ({ formData, setFormData,handleFileChange,uploadedImages }) => {
   const classes = useStyles();
 
-console.log(data)
+
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  useEffect(() => {
-    // Pre-fill form data and uploaded images based on API data
-    data?.object.map((item) => {
-      switch (item.subtype) {
-        case "Windshield":
-          setFormData((prev) => ({ ...prev, Windshield: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, Windshields: item.documentLink }));
-          break;
-        case "Light":
-          setFormData((prev) => ({ ...prev, Light: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, Lights: item.documentLink }));
-          break;
-        case "FrontBumper":
-          setFormData((prev) => ({ ...prev, FrontBumper: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, FrontBumpers: item.documentLink }));
-          break;
-        case "RearBumper":
-          setFormData((prev) => ({ ...prev, RearBumper: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, RearBumpers: item.documentLink }));
-          break;
-        case "LHSHeadlight":
-          setFormData((prev) => ({ ...prev, LHSHeadlight: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, LHSHeadlights: item.documentLink }));
-          break;
-        case "RHSHeadlight":
-          setFormData((prev) => ({ ...prev, RHSHeadlight: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, RHSHeadlights: item.documentLink }));
-          break;
-        case "LHSTaillight":
-          setFormData((prev) => ({ ...prev, LHSTaillight: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, LHSTaillights: item.documentLink }));
-          break;
-        case "RHSTaillight":
-          setFormData((prev) => ({ ...prev, RHSTaillight: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, RHSTaillights: item.documentLink }));
-          break;
-        default:
-          break;
-      }
-    });
-  }, [data]);
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -130,21 +89,21 @@ console.log(data)
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-Windshields"
+              id="upload-Windshield"
               type="file"
-              onChange={(event) => handleFileChange(event, 'Windshields')}
+              onChange={(event) => handleFileChange(event, 'Windshield')}
             />
-            <label htmlFor="upload-Windshields" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-Windshield" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.Windshields && (
+          {uploadedImages.Windshield && (
             <img
-              src={uploadedImages.Windshields}
+              src={uploadedImages.Windshield}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.Windshields)}
+              onClick={() => handleImageClick(uploadedImages.Windshield)}
             />
           )}
         </Grid>
@@ -160,9 +119,10 @@ console.log(data)
               color="Green"
               
             >
-              
+              <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
-            
+              <MenuItem value="Rusted">Rusted</MenuItem>
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="NotWorking">Not Working</MenuItem>
@@ -172,21 +132,21 @@ console.log(data)
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-Lights"
+              id="upload-Light"
               type="file"
-              onChange={(event) => handleFileChange(event, 'Lights')}
+              onChange={(event) => handleFileChange(event, 'Light')}
             />
-            <label htmlFor="upload-Lights" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-Light" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.Lights && (
+          {uploadedImages.Light && (
             <img
-              src={uploadedImages.Lights}
+              src={uploadedImages.Light}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.Lights)}
+              onClick={() => handleImageClick(uploadedImages.Light)}
             />
           )}
         </Grid>
@@ -210,21 +170,21 @@ console.log(data)
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-FrontBumpers"
+              id="upload-FrontBumper"
               type="file"
-              onChange={(event) => handleFileChange(event, 'FrontBumpers')}
+              onChange={(event) => handleFileChange(event, 'FrontBumper')}
             />
-            <label htmlFor="upload-FrontBumpers" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-FrontBumper" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.FrontBumpers && (
+          {uploadedImages.FrontBumper && (
             <img
-              src={uploadedImages.FrontBumpers}
+              src={uploadedImages.FrontBumper}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.FrontBumpers)}
+              onClick={() => handleImageClick(uploadedImages.FrontBumper)}
             />
           )}
         </Grid>
@@ -252,21 +212,21 @@ console.log(data)
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-RearBumpers"
+              id="upload-RearBumper"
               type="file"
-              onChange={(event) => handleFileChange(event, 'RearBumpers')}
+              onChange={(event) => handleFileChange(event, 'RearBumper')}
             />
-            <label htmlFor="upload-RearBumpers" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-RearBumper" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.RearBumpers && (
+          {uploadedImages.RearBumper && (
             <img
-              src={uploadedImages.RearBumpers}
+              src={uploadedImages.RearBumper}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.RearBumpers)}
+              onClick={() => handleImageClick(uploadedImages.RearBumper)}
             />
           )}
         </Grid>
@@ -294,21 +254,21 @@ console.log(data)
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-LHSHeadlights"
+              id="upload-LHSHeadlight"
               type="file"
-              onChange={(event) => handleFileChange(event, 'LHSHeadlights')}
+              onChange={(event) => handleFileChange(event, 'LHSHeadlight')}
             />
-            <label htmlFor="upload-LHSHeadlights" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-LHSHeadlight" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.LHSHeadlights && (
+          {uploadedImages.LHSHeadlight && (
             <img
-              src={uploadedImages.LHSHeadlights}
+              src={uploadedImages.LHSHeadlight}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.LHSHeadlights)}
+              onClick={() => handleImageClick(uploadedImages.LHSHeadlight)}
             />
           )}
         </Grid>
@@ -336,21 +296,21 @@ console.log(data)
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-RHSHeadlights"
+              id="upload-RHSHeadlight"
               type="file"
-              onChange={(event) => handleFileChange(event, 'RHSHeadlights')}
+              onChange={(event) => handleFileChange(event, 'RHSHeadlight')}
             />
-            <label htmlFor="upload-RHSHeadlights" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-RHSHeadlight" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.RHSHeadlights && (
+          {uploadedImages.RHSHeadlight && (
             <img
-              src={uploadedImages.RHSHeadlights}
+              src={uploadedImages.RHSHeadlight}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.RHSHeadlights)}
+              onClick={() => handleImageClick(uploadedImages.RHSHeadlight)}
             />
           )}
         </Grid>
@@ -378,21 +338,21 @@ console.log(data)
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-LHSTaillights"
+              id="upload-LHSTaillight"
               type="file"
-              onChange={(event) => handleFileChange(event, 'LHSTaillights')}
+              onChange={(event) => handleFileChange(event, 'LHSTaillight')}
             />
-            <label htmlFor="upload-LHSTaillights" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-LHSTaillight" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.LHSTaillights && (
+          {uploadedImages.LHSTaillight && (
             <img
-              src={uploadedImages.LHSTaillights}
+              src={uploadedImages.LHSTaillight}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.LHSTaillights)}
+              onClick={() => handleImageClick(uploadedImages.LHSTaillight)}
             />
           )}
         </Grid>
@@ -420,21 +380,21 @@ console.log(data)
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-RHSTaillights"
+              id="upload-RHSTaillight"
               type="file"
-              onChange={(event) => handleFileChange(event, 'RHSTaillights')}
+              onChange={(event) => handleFileChange(event, 'RHSTaillight')}
             />
-            <label htmlFor="upload-RHSTaillights" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-RHSTaillight" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.RHSTaillights && (
+          {uploadedImages.RHSTaillight && (
             <img
-              src={uploadedImages.RHSTaillights}
+              src={uploadedImages.RHSTaillight}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.RHSTaillights)}
+              onClick={() => handleImageClick(uploadedImages.RHSTaillight)}
             />
           )}
         </Grid>

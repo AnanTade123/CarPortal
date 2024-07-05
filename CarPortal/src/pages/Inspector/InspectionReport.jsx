@@ -55,7 +55,7 @@ const navigate = useNavigate()
     const res = finalInspectionReport({inspectionData})
     console.log(res)
     alert("Data Added")
-    navigate("/inspector/car")
+    navigate("/carsdata")
 
   } catch (error) {
     console.log(error)
@@ -126,7 +126,6 @@ const navigate = useNavigate()
               onChange={handleChange}
               multiple
             >
-                            <MenuItem value="Zero Depreciation">No</MenuItem>
               <MenuItem value="Zero Depreciation">Zero Depreciation</MenuItem>
               <MenuItem value="Comprehensive">Comprehensive</MenuItem>
               <MenuItem value="3rd Party">3rd Party</MenuItem>
@@ -308,8 +307,10 @@ const navigate = useNavigate()
           </FormControl>
         </Grid>
       </Grid>
-      <div className="flex justify-center mt-10 px-8">
-       
+      <div className="flex justify-between mt-10 px-8">
+        <Button variant="contained" color="primary">
+          Previous
+        </Button>
         <Button
         type='submit'
           variant="contained"

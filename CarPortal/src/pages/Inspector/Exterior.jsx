@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import WindshieldAndLights from "./ExteriorsComponent/WindshieldAndLights";
@@ -41,11 +40,6 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: "100%",
     objectFit: "contain",
   },
-  fixedImage: {
-    width: '500px',
-    height: '500px',
-    objectFit: 'contain',
-  }
 }));
 
 const Exterior = () => {
@@ -54,9 +48,6 @@ const Exterior = () => {
   console.log(id)
 const {data} = useGetInspectionReportQuery({id , docType : "Exterior"})
 console.log(data)
-
-const InspetData = data?.object
-console.log(InspetData)
   const [inspectionReport] = useInspectionReportMutation();
 const [formData, setFormData] = useState({
     BonnetHood: [],
@@ -85,71 +76,27 @@ const [formData, setFormData] = useState({
     HeadLightSupport: [],
     RadiatorSupport: [],
     AlloyWheel: [],
-    CowlTop:[],
-    BootFloor:[],
-    RightApronLEG:[],
-    LeftApronLEG : [],
-    RightApron : [],
-    LeftApron : [],
-    LeftPillar : [],
-    RightPillar : []
   });
-console.log(formData.RHSFrontTyre)
+
   const [lables , setLables] = useState("");
   const [selectfiled , setSelectfiled] = useState("")
   
-console.log(lables)
-console.log(selectfiled)
-
   useEffect(() => {
-    // Pre-fill form data and uploaded images based on API data
-    data?.object.map((item) => {
-      switch (item.subtype) {
-        case "BonnetHood":
-          setFormData((prev) => ({ ...prev, BonnetHood: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, BonnetHoods: item.documentLink }));
-          break;
-        case "RightDoorFront":
-          setFormData((prev) => ({ ...prev, RightDoorFront: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, RightDoorFronts: item.documentLink }));
-          break;
-        case "LeftDoorFront":
-          setFormData((prev) => ({ ...prev, LeftDoorFront: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, LeftDoorFronts: item.documentLink }));
-          break;
-        case "RightFender":
-          setFormData((prev) => ({ ...prev, RightFender: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, RightFenders: item.documentLink }));
-          break;
-        case "LeftQuarterPanel":
-          setFormData((prev) => ({ ...prev, LeftQuarterPanel: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, LeftQuarterPanels: item.documentLink }));
-          break;
-        case "RightQuarterPanel":
-          setFormData((prev) => ({ ...prev, RightQuarterPanel: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, RightQuarterPanels: item.documentLink }));
-          break;
-        case "Roof":
-          setFormData((prev) => ({ ...prev, Roof: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, Roofs: item.documentLink }));
-          break;
-        case "DickyDoor":
-          setFormData((prev) => ({ ...prev, DickyDoor: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, DickyDoors: item.documentLink }));
-          break;
-        case "LeftDoorRear":
-          setFormData((prev) => ({ ...prev, LeftDoorRear: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, LeftDoorRears: item.documentLink }));
-          break;
-        case "RightDoorRear":
-          setFormData((prev) => ({ ...prev, RightDoorRear: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, RightDoorRears: item.documentLink }));
-          break;
-        default:
-          break;
+    Object.keys(formData).forEach(key => {
+      if (formData[key].length > 0) {
+        console.log(key);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setLables(key)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setSelectfiled(formData[key])
+        
       }
     });
-  }, [data]);
+  }, [formData]);
+  console.log(selectfiled)
+  console.log(lables)
+
+
   const [uploadedImages, setUploadedImages] = useState({
     BonnetHoods: null,
     RightDoorFronts: null,
@@ -186,12 +133,11 @@ console.log(selectfiled)
     LeftPillars: null,
     RightPillars: null,
   });
-
+    console.log(uploadedImages) 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleFileChange = async (event, fieldName) => {
-    console.log("fromdata",formData)
     const file = event.target.files[0];
     if (!file) return;
     const formDataToSend = new FormData();
@@ -213,7 +159,7 @@ console.log(selectfiled)
         documentType: "Inspection Report",
         beadingCarId: id,
         doc: "", 
-        doctype: "Exterior",
+        doctype: "",
         subtype: lables,
         comment: selectfiled,
       };
@@ -236,11 +182,6 @@ console.log(selectfiled)
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
-
-    if (value.length > 0) {
-      setLables(name);
-      setSelectfiled(value);
-    }
   };
 
   const handleImageClick = (image) => {
@@ -262,100 +203,99 @@ console.log(selectfiled)
       <Grid container spacing={3}>
         {/* Bonnet Hood */}
         <Grid item xs={12} sm={6}>
-        <FormControl fullWidth>
-          <InputLabel>Bonnet Hood</InputLabel>
-          <Select
-            required
-            name="BonnetHood"
-            value={formData.BonnetHood}
-            onChange={handleChange}
-          >
-            <MenuItem value="Repainted">Repainted</MenuItem>
-            <MenuItem value="Dented">Dented</MenuItem>
-            <MenuItem value="Scratched">Scratched</MenuItem>
-            <MenuItem value="Rusted">Rusted</MenuItem>
-            <MenuItem value="Repaired">Repaired</MenuItem>
-            <MenuItem value="Damaged">Damaged</MenuItem>
-            <MenuItem value="Faded">Faded</MenuItem>
-          </Select>
-        </FormControl>
-        <div className="flex items-center mt-2">
-          <input
-            accept="image/*"
-            style={{ display: "none" }}
-            id="upload-BonnetHoods"
-            type="file"
-            onChange={(event) => handleFileChange(event, "BonnetHoods")}
-          />
-          <label
-            htmlFor="upload-BonnetHoods"
-            className="cursor-pointer flex items-center"
-          >
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-        </div>
-        {uploadedImages.BonnetHoods && (
-          <img
-            src={uploadedImages.BonnetHoods}
-            alt="Uploaded"
-            style={{
-              maxWidth: "20%",
-              marginTop: "10px",
-              cursor: "pointer",
-            }}
-            onClick={() => handleImageClick(uploadedImages.BonnetHoods)}
-          />
-        )}
-      </Grid>
+          <FormControl fullWidth>
+            <InputLabel>Bonnet Hood</InputLabel>
+            <Select
+              name="BonnetHood"
+              value={formData.BonnetHood}
+              onChange={handleChange}
+            >
+              <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem>
+              <MenuItem value="Scratched">Scratched</MenuItem>
+              <MenuItem value="Rusted">Rusted</MenuItem>
+              <MenuItem value="Repaired">Repaired</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
+              <MenuItem value="Faded">Faded</MenuItem>
+            </Select>
+          </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="upload-BonnetHoods"
+              type="file"
+              onChange={(event) => handleFileChange(event, "BonnetHoods")}
+            />
+            <label
+              htmlFor="upload-BonnetHoods"
+              className="cursor-pointer flex items-center"
+            >
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.BonnetHoods && (
+            <img
+              src={uploadedImages.BonnetHoods}
+              alt="Uploaded"
+              style={{
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => handleImageClick(uploadedImages.BonnetHood)}
+            />
+          )}
+        </Grid>
 
-      {/* Right Door Front */}
-      <Grid item xs={12} sm={6}>
-        <FormControl fullWidth>
-          <InputLabel>Right Door Front</InputLabel>
-          <Select
-            name="RightDoorFront"
-            value={formData.RightDoorFront}
-            onChange={handleChange}
-          >
-            <MenuItem value="Repainted">Repainted</MenuItem>
-            <MenuItem value="Dented">Dented</MenuItem>
-            <MenuItem value="Scratched">Scratched</MenuItem>
-            <MenuItem value="Rusted">Rusted</MenuItem>
-            <MenuItem value="Repaired">Repaired</MenuItem>
-            <MenuItem value="Damaged">Damaged</MenuItem>
-            <MenuItem value="Faded">Faded</MenuItem>
-          </Select>
-        </FormControl>
-        <div className="flex items-center mt-2">
-          <input
-            accept="image/*"
-            style={{ display: "none" }}
-            id="upload-RightDoorFronts"
-            type="file"
-            onChange={(event) => handleFileChange(event, "RightDoorFronts")}
-          />
-          <label
-            htmlFor="upload-RightDoorFronts"
-            className="cursor-pointer flex items-center"
-          >
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-        </div>
-        {uploadedImages.RightDoorFronts && (
-          <img
-            src={uploadedImages.RightDoorFronts}
-            alt="Uploaded"
-            style={{
-              maxWidth: "20%",
-              marginTop: "10px",
-              cursor: "pointer",
-            }}
-            onClick={() => handleImageClick(uploadedImages.RightDoorFronts)}
-          />
-        )}
-      </Grid>
+        {/* Right Door Front */}
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth>
+            <InputLabel>Right Door Front</InputLabel>
+            <Select
+              name="RightDoorFront"
+              value={formData.RightDoorFront}
+              onChange={handleChange}
+            >
+              <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem>
+              <MenuItem value="Scratched">Scratched</MenuItem>
+              <MenuItem value="Rusted">Rusted</MenuItem>
+              <MenuItem value="Repaired">Repaired</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
+              <MenuItem value="Faded">Faded</MenuItem>
+            </Select>
+          </FormControl>
+          <div className="flex items-center mt-2">
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="upload-RightDoorFronts"
+              type="file"
+              onChange={(event) => handleFileChange(event, "RightDoorFronts")}
+            />
+            <label
+              htmlFor="upload-RightDoorFronts"
+              className="cursor-pointer flex items-center"
+            >
+              <CloudUploadIcon />
+              <span className="ml-2">Upload Image</span>
+            </label>
+          </div>
+          {uploadedImages.RightDoorFronts && (
+            <img
+              src={uploadedImages.RightDoorFronts}
+              alt="Uploaded"
+              style={{
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => handleImageClick(uploadedImages.RightDoorFronts)}
+            />
+          )}
+        </Grid>
 
         {/* Left Door Front */}
         <Grid item xs={12} sm={6}>
@@ -373,8 +313,6 @@ console.log(selectfiled)
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
-              <MenuItem value="Faded">Replaced</MenuItem>
-
             </Select>
           </FormControl>
           <div className="flex items-center mt-2">
@@ -423,7 +361,6 @@ console.log(selectfiled)
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
-              
             </Select>
           </FormControl>
           <div className="flex items-center mt-2">
@@ -612,8 +549,6 @@ console.log(selectfiled)
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
-              <MenuItem value="Faded">Replaced</MenuItem>
-
             </Select>
           </FormControl>
           <div className="flex items-center mt-2">
@@ -662,8 +597,6 @@ console.log(selectfiled)
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
-              <MenuItem value="Faded">Replaced</MenuItem>
-
             </Select>
           </FormControl>
           <div className="flex items-center mt-2">
@@ -712,8 +645,6 @@ console.log(selectfiled)
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
-              <MenuItem value="Faded">Replaced</MenuItem>
-
             </Select>
           </FormControl>
           <div className="flex items-center mt-2">
@@ -755,7 +686,7 @@ console.log(selectfiled)
               <img
                 src={selectedImage}
                 alt="Selected"
-                className={classes.fixedImage}
+                className={classes.image}
               />
               <Button
                 onClick={closeModal}
@@ -770,11 +701,12 @@ console.log(selectfiled)
         </div>
       </Modal>
 
-      <WindshieldAndLights data={data} formData={formData} setFormData={setFormData} handleFileChange={handleFileChange} uploadedImages={uploadedImages} setUploadedImages={setUploadedImages}/>
-<Tyre/>
-<OtherComponent data={data} formData={formData} setFormData={setFormData} handleFileChange={handleFileChange} uploadedImages={uploadedImages} setUploadedImages={setUploadedImages}/>
+      
+      <WindshieldAndLights formData={formData} setFormData={setFormData} handleFileChange={handleFileChange} uploadedImages={uploadedImages} setUploadedImages={setUploadedImages}/>
+<Tyre formData={formData} setFormData={setFormData} handleFileChange={handleFileChange} uploadedImages={uploadedImages} setUploadedImages={setUploadedImages}/>
+<OtherComponent formData={formData} setFormData={setFormData} handleFileChange={handleFileChange} uploadedImages={uploadedImages} setUploadedImages={setUploadedImages}/>
 
-<Structure data={data} formData={formData} setFormData={setFormData} handleFileChange={handleFileChange} uploadedImages={uploadedImages} setUploadedImages={setUploadedImages}/>
+<Structure formData={formData} setFormData={setFormData} handleFileChange={handleFileChange} uploadedImages={uploadedImages} setUploadedImages={setUploadedImages}/>
 
 
 {/* <div className="flex justify-end mt-10 px-8">

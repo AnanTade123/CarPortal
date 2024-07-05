@@ -1,6 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import  { useEffect, useState } from 'react';
+import  { useState } from 'react';
 import {
   MenuItem,
   FormControl,
@@ -29,43 +28,18 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '90%',
     maxHeight: '90%',
   },
- 
-  fixedImage: {
-    width: '500px',
-    height: '500px',
+  image: {
+    maxWidth: '100%',
+    maxHeight: '100%',
     objectFit: 'contain',
-  }
+  },
 }));
 
-const 
-OtherComponent = ({  formData, setFormData,handleFileChange,uploadedImages,setUploadedImages,data }) => {
+const OtherComponent = ({  formData, setFormData,handleFileChange,uploadedImages }) => {
   const classes = useStyles();
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-
-  useEffect(() => {
-    // Pre-fill form data and uploaded images based on API data
-    data?.object.map((item) => {
-      switch (item.subtype) {
-       
-        case "HeadLightSupport":
-          setFormData((prev) => ({ ...prev, HeadLightSupport: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, HeadLightSupports: item.documentLink }));
-          break;
-        case "RadiatorSupport":
-          setFormData((prev) => ({ ...prev, RadiatorSupport: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, RadiatorSupports: item.documentLink }));
-          break;
-        case "AlloyWheel":
-          setFormData((prev) => ({ ...prev, AlloyWheel: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, AlloyWheels: item.documentLink }));
-          break;
-        default:
-          break;
-      }
-    });
-  }, [data]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -112,21 +86,21 @@ OtherComponent = ({  formData, setFormData,handleFileChange,uploadedImages,setUp
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-HeadLightSupports"
+              id="upload-HeadLightSupport"
               type="file"
-              onChange={(event) => handleFileChange(event, 'HeadLightSupports')}
+              onChange={(event) => handleFileChange(event, 'HeadLightSupport')}
             />
-            <label htmlFor="upload-HeadLightSupports" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-HeadLightSupport" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.HeadLightSupports && (
+          {uploadedImages.HeadLightSupport && (
             <img
-              src={uploadedImages.HeadLightSupports}
+              src={uploadedImages.HeadLightSupport}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.HeadLightSupports)}
+              onClick={() => handleImageClick(uploadedImages.HeadLightSupport)}
             />
           )}
         </Grid>
@@ -154,21 +128,21 @@ OtherComponent = ({  formData, setFormData,handleFileChange,uploadedImages,setUp
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-RadiatorSupports"
+              id="upload-RadiatorSupport"
               type="file"
-              onChange={(event) => handleFileChange(event, 'RadiatorSupports')}
+              onChange={(event) => handleFileChange(event, 'RadiatorSupport')}
             />
-            <label htmlFor="upload-RadiatorSupports" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-RadiatorSupport" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.RadiatorSupports && (
+          {uploadedImages.RadiatorSupport && (
             <img
-              src={uploadedImages.RadiatorSupports}
+              src={uploadedImages.RadiatorSupport}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.RadiatorSupports)}
+              onClick={() => handleImageClick(uploadedImages.RadiatorSupport)}
             />
           )}
         </Grid>
@@ -195,21 +169,21 @@ OtherComponent = ({  formData, setFormData,handleFileChange,uploadedImages,setUp
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-AlloyWheels"
+              id="upload-AlloyWheel"
               type="file"
-              onChange={(event) => handleFileChange(event, 'AlloyWheels')}
+              onChange={(event) => handleFileChange(event, 'AlloyWheel')}
             />
-            <label htmlFor="upload-AlloyWheels" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-AlloyWheel" className="cursor-pointer flex items-center">
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.AlloyWheels && (
+          {uploadedImages.AlloyWheel && (
             <img
-              src={uploadedImages.AlloyWheels}
+              src={uploadedImages.AlloyWheel}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.AlloyWheels)}
+              onClick={() => handleImageClick(uploadedImages.AlloyWheel)}
             />
           )}
         </Grid>
@@ -224,7 +198,7 @@ OtherComponent = ({  formData, setFormData,handleFileChange,uploadedImages,setUp
         <div className={classes.paper}>
           {selectedImage && (
             <div>
-              <img src={selectedImage} alt="Selected" className={classes.fixedImage} />
+              <img src={selectedImage} alt="Selected" className={classes.image} />
               <Button onClick={closeModal} variant="contained" color="secondary" style={{ marginTop: '10px' }}>
                 Close
               </Button>

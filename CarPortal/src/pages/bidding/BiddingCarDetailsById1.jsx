@@ -54,6 +54,7 @@ export default function BiddingCarDetailsById1() {
     </div>
     <div className="p-4 sticky top-0">
       <BiddingPriceCard
+      beadingCarId={beadingCarId}
         // price={price}
         // brand={brand}
         // fuelType={fuelType}
