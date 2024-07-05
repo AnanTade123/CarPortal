@@ -64,6 +64,8 @@ import BiddingAddCar2 from "./pages/bidding/BiddingAddCar2";
 import AdminSalesInfo from "./pages/adminpages/AdminSalesInfo";
 import AdminSalesEdit from "./pages/adminpages/AdminSalesEdit";
 import FinalReport from "./pages/InspectionReportPage/FinalReport";
+import LiveBid from "./pages/LiveBidding/LiveBid";
+import BiddingCarDetail from "./pages/LiveBidding/BiddingCarDetail";
 
 export default function App() {
   return (
@@ -174,6 +176,14 @@ export default function App() {
             <Route
               path="/finalreport"
               element={<FinalReport/>}
+            />
+            <Route
+              path="/livebid"
+              element={<LiveBid/>}
+            />
+            <Route
+              path="/biddingcardetail"
+              element={<BiddingCarDetail/>}
             />
           </Route>
 
