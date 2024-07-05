@@ -79,8 +79,8 @@ export function CarModelsForm({ addCar }) {
               Add Car
             </Typography>
             <form onSubmit={handleSubmit} className="space-y-3 md:w-[30rem] w-[220px]">
-              <div className="flex">
-                <Typography className="w-32 text-black font-medium">Brand Name : </Typography>
+              <div className="md:flex">
+                <Typography className="w-32 text-black font-medium mb-2 md:mt-2 ">Brand Name : </Typography>
                 <Input
                   label="Brand Name"
                   name="brand"
@@ -89,8 +89,8 @@ export function CarModelsForm({ addCar }) {
                   required
                 />
               </div>
-              <div className="flex">
-                <Typography className="w-32 text-black font-medium">Model Name :</Typography>
+              <div className="md:flex">
+                <Typography className="w-32 text-black font-medium mb-2 md:mt-2">Model Name :</Typography>
                 <Input
                   label="Model Name"
                   name="model"
@@ -99,8 +99,8 @@ export function CarModelsForm({ addCar }) {
                   required
                 />
               </div>
-              <div className="flex">
-                <Typography className="w-32 text-black font-medium">Variant :</Typography>
+              <div className="md:flex">
+                <Typography className="w-32 text-black font-medium mb-2 md:mt-2">Variant :</Typography>
                 <Input
                   label="Variant"
                   name="variant"

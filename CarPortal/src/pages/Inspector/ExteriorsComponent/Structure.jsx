@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 // #Cowl Top :- status/options - Repainted, Dented, Scratched, Rusted, Repaired, Damaged,faded
@@ -13,7 +14,7 @@
 // #Right Pillar :- status/options - Repainted, Dented, Scratched, Rusted, Repaired,
 // Damaged,faded
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   MenuItem,
   FormControl,
@@ -42,20 +43,60 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '90%',
   },
   image: {
-    maxWidth: '100%',
-    maxHeight: '100%',
+    maxWidth: '500px',
+    maxHeight: '500px',
     objectFit: 'contain',
   },
 }));
 
-const Structure = ({formData, setFormData,handleFileChange,uploadedImages }) => {
+const Structure = ({formData, setFormData,handleFileChange,uploadedImages,data,setUploadedImages }) => {
   const classes = useStyles();
 
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-
+  useEffect(() => {
+    // Pre-fill form data and uploaded images based on API data
+    data?.object.map((item) => {
+      switch (item.subtype) {
+        case "CowlTop":
+          setFormData((prev) => ({ ...prev, CowlTop: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, CowlTops: item.documentLink }));
+          break;
+        case "BootFloor":
+          setFormData((prev) => ({ ...prev, BootFloor: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, BootFloors: item.documentLink }));
+          break;
+        case "RightApronLEG":
+          setFormData((prev) => ({ ...prev, RightApronLEG: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RightApronLEGs: item.documentLink }));
+          break;
+        case "LeftApronLEG":
+          setFormData((prev) => ({ ...prev, LeftApronLEG: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, LeftApronLEGs: item.documentLink }));
+          break;
+        case "RightApron":
+          setFormData((prev) => ({ ...prev, RightApron: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RightAprons: item.documentLink }));
+          break;
+        case "LeftApron":
+          setFormData((prev) => ({ ...prev, LeftApron: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, LeftAprons: item.documentLink }));
+          break;
+        case "LeftPillar":
+          setFormData((prev) => ({ ...prev, LeftPillar: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, LeftPillars: item.documentLink }));
+          break;
+        case "RightPillar":
+          setFormData((prev) => ({ ...prev, RightPillar: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RightPillars: item.documentLink }));
+          break;
+        default:
+          break;
+      }
+    });
+  }, [data]);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
@@ -98,28 +139,28 @@ const Structure = ({formData, setFormData,handleFileChange,uploadedImages }) => 
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-CowlTop"
+              id="upload-CowlTops"
               type="file"
-              onChange={(event) => handleFileChange(event, 'CowlTop')}
+              onChange={(event) => handleFileChange(event, 'CowlTops')}
             />
             <label
-              htmlFor="upload-CowlTop"
+              htmlFor="upload-CowlTops"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.CowlTop && (
+          {uploadedImages.CowlTops && (
             <img
-              src={uploadedImages.CowlTop}
+              src={uploadedImages.CowlTops}
               alt="Uploaded"
               style={{
                 maxWidth: '20%',
                 marginTop: '10px',
                 cursor: 'pointer',
               }}
-              onClick={() => handleImageClick(uploadedImages.CowlTop)}
+              onClick={() => handleImageClick(uploadedImages.CowlTops)}
             />
           )}
         </Grid>
@@ -145,28 +186,28 @@ const Structure = ({formData, setFormData,handleFileChange,uploadedImages }) => 
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-BootFloor"
+              id="upload-BootFloors"
               type="file"
-              onChange={(event) => handleFileChange(event, 'BootFloor')}
+              onChange={(event) => handleFileChange(event, 'BootFloors')}
             />
             <label
-              htmlFor="upload-BootFloor"
+              htmlFor="upload-BootFloors"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.BootFloor && (
+          {uploadedImages.BootFloors && (
             <img
-              src={uploadedImages.BootFloor}
+              src={uploadedImages.BootFloors}
               alt="Uploaded"
               style={{
                 maxWidth: '20%',
                 marginTop: '10px',
                 cursor: 'pointer',
               }}
-              onClick={() => handleImageClick(uploadedImages.BootFloor)}
+              onClick={() => handleImageClick(uploadedImages.BootFloors)}
             />
           )}
         </Grid>
@@ -192,28 +233,28 @@ const Structure = ({formData, setFormData,handleFileChange,uploadedImages }) => 
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-RightApronLEG"
+              id="upload-RightApronLEGs"
               type="file"
-              onChange={(event) => handleFileChange(event, 'RightApronLEG')}
+              onChange={(event) => handleFileChange(event, 'RightApronLEGs')}
             />
             <label
-              htmlFor="upload-RightApronLEG"
+              htmlFor="upload-RightApronLEGs"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.RightApronLEG && (
+          {uploadedImages.RightApronLEGs && (
             <img
-              src={uploadedImages.RightApronLEG}
+              src={uploadedImages.RightApronLEGs}
               alt="Uploaded"
               style={{
                 maxWidth: '20%',
                 marginTop: '10px',
                 cursor: 'pointer',
               }}
-              onClick={() => handleImageClick(uploadedImages.RightApronLEG)}
+              onClick={() => handleImageClick(uploadedImages.RightApronLEGs)}
             />
           )}
         </Grid>
@@ -239,28 +280,28 @@ const Structure = ({formData, setFormData,handleFileChange,uploadedImages }) => 
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-LeftApronLEG"
+              id="upload-LeftApronLEGs"
               type="file"
-              onChange={(event) => handleFileChange(event, 'LeftApronLEG')}
+              onChange={(event) => handleFileChange(event, 'LeftApronLEGs')}
             />
             <label
-              htmlFor="upload-LeftApronLEG"
+              htmlFor="upload-LeftApronLEGs"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.LeftApronLEG && (
+          {uploadedImages.LeftApronLEGs && (
             <img
-              src={uploadedImages.LeftApronLEG}
+              src={uploadedImages.LeftApronLEGs}
               alt="Uploaded"
               style={{
                 maxWidth: '20%',
                 marginTop: '10px',
                 cursor: 'pointer',
               }}
-              onClick={() => handleImageClick(uploadedImages.LeftApronLEG)}
+              onClick={() => handleImageClick(uploadedImages.LeftApronLEGs)}
             />
           )}
         </Grid>
@@ -286,28 +327,28 @@ const Structure = ({formData, setFormData,handleFileChange,uploadedImages }) => 
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-RightApron"
+              id="upload-RightAprons"
               type="file"
-              onChange={(event) => handleFileChange(event, 'RightApron')}
+              onChange={(event) => handleFileChange(event, 'RightAprons')}
             />
             <label
-              htmlFor="upload-RightApron"
+              htmlFor="upload-RightAprons"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.RightApron && (
+          {uploadedImages.RightAprons && (
             <img
-              src={uploadedImages.RightApron}
+              src={uploadedImages.RightAprons}
               alt="Uploaded"
               style={{
                 maxWidth: '20%',
                 marginTop: '10px',
                 cursor: 'pointer',
               }}
-              onClick={() => handleImageClick(uploadedImages.RightApron)}
+              onClick={() => handleImageClick(uploadedImages.RightAprons)}
             />
           )}
         </Grid>
@@ -333,28 +374,28 @@ const Structure = ({formData, setFormData,handleFileChange,uploadedImages }) => 
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-LeftApron"
+              id="upload-LeftAprons"
               type="file"
-              onChange={(event) => handleFileChange(event, 'LeftApron')}
+              onChange={(event) => handleFileChange(event, 'LeftAprons')}
             />
             <label
-              htmlFor="upload-LeftApron"
+              htmlFor="upload-LeftAprons"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.LeftApron && (
+          {uploadedImages.LeftAprons && (
             <img
-              src={uploadedImages.LeftApron}
+              src={uploadedImages.LeftAprons}
               alt="Uploaded"
               style={{
                 maxWidth: '20%',
                 marginTop: '10px',
                 cursor: 'pointer',
               }}
-              onClick={() => handleImageClick(uploadedImages.LeftApron)}
+              onClick={() => handleImageClick(uploadedImages.LeftAprons)}
             />
           )}
         </Grid>
@@ -380,28 +421,28 @@ const Structure = ({formData, setFormData,handleFileChange,uploadedImages }) => 
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-LeftPillar"
+              id="upload-LeftPillars"
               type="file"
-              onChange={(event) => handleFileChange(event, 'LeftPillar')}
+              onChange={(event) => handleFileChange(event, 'LeftPillars')}
             />
             <label
-              htmlFor="upload-LeftPillar"
+              htmlFor="upload-LeftPillars"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.LeftPillar && (
+          {uploadedImages.LeftPillars && (
             <img
-              src={uploadedImages.LeftPillar}
+              src={uploadedImages.LeftPillars}
               alt="Uploaded"
               style={{
                 maxWidth: '20%',
                 marginTop: '10px',
                 cursor: 'pointer',
               }}
-              onClick={() => handleImageClick(uploadedImages.LeftPillar)}
+              onClick={() => handleImageClick(uploadedImages.LeftPillars)}
             />
           )}
         </Grid>
@@ -427,28 +468,28 @@ const Structure = ({formData, setFormData,handleFileChange,uploadedImages }) => 
             <input
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-RightPillar"
+              id="upload-RightPillars"
               type="file"
-              onChange={(event) => handleFileChange(event, 'RightPillar')}
+              onChange={(event) => handleFileChange(event, 'RightPillars')}
             />
             <label
-              htmlFor="upload-RightPillar"
+              htmlFor="upload-RightPillars"
               className="cursor-pointer flex items-center"
             >
               <CloudUploadIcon />
               <span className="ml-2">Upload Image</span>
             </label>
           </div>
-          {uploadedImages.RightPillar && (
+          {uploadedImages.RightPillars && (
             <img
-              src={uploadedImages.RightPillar}
+              src={uploadedImages.RightPillars}
               alt="Uploaded"
               style={{
                 maxWidth: '20%',
                 marginTop: '10px',
                 cursor: 'pointer',
               }}
-              onClick={() => handleImageClick(uploadedImages.RightPillar)}
+              onClick={() => handleImageClick(uploadedImages.RightPillars)}
             />
           )}
         </Grid>
