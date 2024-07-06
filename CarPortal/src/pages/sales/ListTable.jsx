@@ -8,12 +8,11 @@ import {
   CardFooter,
   IconButton,
   Tooltip,
+ 
 } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import {
   ChevronUpDownIcon,
-  ChevronUpIcon,
-  ChevronDownIcon,
 } from "@heroicons/react/24/outline";
 
 import { useBiddingAllCardQuery } from "../../services/biddingAPI";
@@ -33,8 +32,6 @@ export default function ListTable() {
   const [sellCars, setSellCars] = useState(sellCarsData?.length || "-");
   const [pageNo, setPageNo] = useState(0);
   const [filteredData, setFilteredData] = useState([]);
-  const [sortColumn, setSortColumn] = useState('beadingCarId');
-  const [sortDirection, setSortDirection] = useState('asc');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,9 +41,9 @@ export default function ListTable() {
       setPendingCars(pendingCarsData?.length);
       setInspectionDone(activeCarsData?.length);
       setSellCars(sellCarsData?.length);
-      setFilteredData(sortData(data, sortColumn, sortDirection));
+      setFilteredData(data);
     }
-  }, [data, activeCarsData, pendingCarsData, sellCarsData, sortColumn, sortDirection]);
+  }, [data, activeCarsData, pendingCarsData, sellCarsData]);
 
   useEffect(() => {
     if (error?.status === 401) {
@@ -54,19 +51,7 @@ export default function ListTable() {
     }
   }, [error, navigate]);
 
-  const sortData = (data, column, direction) => {
-    return [...data].sort((a, b) => {
-      if (a[column] < b[column]) return direction === 'asc' ? -1 : 1;
-      if (a[column] > b[column]) return direction === 'asc' ? 1 : -1;
-      return 0;
-    });
-  };
 
-  const handleSort = (column) => {
-    const isAsc = sortColumn === column && sortDirection === 'asc';
-    setSortColumn(column);
-    setSortDirection(isAsc ? 'desc' : 'asc');
-  };
 
   const rowsPerPage = 10;
   const paginatedData = filteredData.slice(pageNo * rowsPerPage, (pageNo + 1) * rowsPerPage);
@@ -113,6 +98,7 @@ export default function ListTable() {
         </div>
       </div>
       <Card className="h-full w-full">
+      
         <CardBody className="overflow-scroll px-0">
           <table className="mt-4 w-full min-w-max table-auto text-center">
             <thead>
@@ -126,20 +112,11 @@ export default function ListTable() {
                       variant="small"
                       color="blue-gray"
                       className="flex justify-center gap-2 font-normal leading-none opacity-70"
-                      onClick={() => index !== TABLE_HEAD.length - 1 && handleSort(Object.keys(data[0])[index])}
                     >
                       {head}
-                      {index !== TABLE_HEAD.length - 1 && (
-                        sortColumn === Object.keys(data[0])[index] ? (
-                          sortDirection === 'asc' ? (
-                            <ChevronUpIcon strokeWidth={2} className="h-4 w-4" />
-                          ) : (
-                            <ChevronDownIcon strokeWidth={2} className="h-4 w-4" />
-                          )
-                        ) : (
-                          <ChevronUpDownIcon strokeWidth={2} className="h-4 w-4" />
-                        )
-                      )}
+                    {index !== TABLE_HEAD.length - 1 && (
+                      <ChevronUpDownIcon strokeWidth={2} className="h-4 w-4" />
+                    )}
                     </Typography>
                   </th>
                 ))}
@@ -158,59 +135,65 @@ export default function ListTable() {
                     <td className={classes}>{car.area}</td>
                     <td className={classes}>{car.price}</td>
                     <td className={classes}>
-                      {car.carStatus == "pending" ? (
-                        <Link to={`/inspector/carverify/${car.beadingCarId}`} className="button-link">
-                          <Button variant="gradient" color="blue">
-                            Verify
-                          </Button>
-                        </Link>
-                      ) : (
-                        <Link to={`/inspector/carverify/${car.beadingCarId}`} className="button">
-                          <Button variant="gradient" color="green">
-                            Done
-                          </Button>
-                        </Link>
-                      )}
+                    {
+        car.carStatus == "pending" ? (
+            <Link to={`/inspector/carverify/${car.beadingCarId}`} className="button-link">
+          <Button variant="gradient" color="blue">
+              Verify
+          </Button>
+            </Link>
+        ) : (
+            <Link to={`/inspector/carverify/${car.beadingCarId}`} className="button">
+          <Button variant="gradient" color="green">
+              Done
+          </Button>
+            </Link>
+        )
+      },
                     </td>
                     <td className={classes}>
                       <Tooltip content="Actions">
+                        
                         <div className="flex gap-2  justify-center items-center">
-                          <Link to={`/biddinglist/cardetails/${car.beadingCarId}`}>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={1.5}
-                              stroke="currentColor"
-                              className="w-6 h-6"
-                              color="blue"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
-                              />
-                            </svg>
-                          </Link>
-                          <Link to={`/bidding/${car.beadingCarId}/editcar`}>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={1.5}
-                              stroke="currentColor"
-                              className="w-6 h-6"
-                              color="green"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-                              />
-                            </svg>
-                          </Link>
-                        </div>
+
+                        <Link to={`/biddinglist/cardetails/${car.beadingCarId}`}>
+                        <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                  color="blue"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
+                  />
+                </svg>
+                </Link>
+                <Link to={`/bidding/${car.beadingCarId}/editcar`}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                  color="green"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                  />
+                </svg>
+                </Link>
+                </div>
+                        
                       </Tooltip>
+                    
                     </td>
                   </tr>
                 );
@@ -252,6 +235,7 @@ export default function ListTable() {
           </Button>
         </CardFooter>
       </Card>
+      
     </>
   );
 }
