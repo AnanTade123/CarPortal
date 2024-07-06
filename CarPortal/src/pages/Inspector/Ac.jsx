@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import { useGetInspectionReportQuery, useInspectionReportMutation } from '../../services/inspectorapi';
+import { useInspectionReportMutation } from '../../services/inspectorapi';
 import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,19 +23,10 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '100%',
     objectFit: 'contain',
   },
-  fixedImage: {
-    width: '500px',
-    height: '500px',
-    objectFit: 'contain',
-  }
 }));
 
 const Ac = () => {
   const classes = useStyles();
-  const { id } = useParams();
-  console.log(id);
-  const { data } = useGetInspectionReportQuery({ id, docType: "AC" });
-  console.log(data);
 
   const [formData, setFormData] = useState({
     ACCooling: [],
@@ -54,11 +45,24 @@ const Ac = () => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
+  const {id} = useParams()
+  console.log(id)
 
  const [inspectionReport] = useInspectionReportMutation();
   const [lables , setLables] = useState("");
   const [selectfiled , setSelectfiled] = useState("")
- 
+  useEffect(() => {
+    Object.keys(formData).forEach(key => {
+      if (formData[key].length > 0) {
+        console.log(key);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setLables(key)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setSelectfiled(formData[key])
+        
+      }
+    });
+  }, [formData]);
   console.log(selectfiled)
   console.log(lables)
 
@@ -84,7 +88,7 @@ const Ac = () => {
         documentType: "Inspection Report",
         beadingCarId: id,
         doc: "", 
-        doctype: "AC",
+        doctype: "",
         subtype: lables,
         comment: selectfiled,
       };
@@ -103,39 +107,9 @@ const Ac = () => {
     reader.readAsDataURL(file);
   };
 
-  useEffect(() => {
-    // Pre-fill form data and uploaded images based on API data
-    data?.object.map((item) => {
-      switch (item.subtype) {
-        case "ACCooling":
-          setFormData((prev) => ({ ...prev, ACCooling: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, ACCoolings: item.documentLink }));
-          break;
-        case "Heater":
-          setFormData((prev) => ({ ...prev, Heater: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, Heaters: item.documentLink }));
-          break;
-        case "ClimateControlAC":
-          setFormData((prev) => ({ ...prev, ClimateControlAC: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, ClimateControlACs: item.documentLink }));
-          break;
-        case "AcVent":
-          setFormData((prev) => ({ ...prev, AcVent: item.comment }));
-          setUploadedImages((prev) => ({ ...prev, AcVents: item.documentLink }));
-          break;
-        default:
-          break;
-      }
-    });
-  }, [data]);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
-
-    if (value.length > 0) {
-      setLables(name);
-      setSelectfiled(value);
-    }
   };
 
   const handleImageClick = (image) => {
@@ -305,7 +279,7 @@ const Ac = () => {
         <div className={classes.paper}>
           {selectedImage && (
             <div>
-              <img src={selectedImage} alt="Selected" className={classes.fixedImage} />
+              <img src={selectedImage} alt="Selected" className={classes.image} />
               <Button onClick={closeModal} variant="contained" color="secondary" style={{ marginTop: '10px' }}>
                 Close
               </Button>

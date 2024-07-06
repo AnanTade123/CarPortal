@@ -21,36 +21,28 @@ const SteeringSection = () => {
   console.log(handleChange);
 
   console.log(formData);
-  
+
   return (
     <div>
-    <div className=' bg-white border-2 rounded-md shadow-md md:p-7 md:m-3 p-5 md:mt-10'>
-     
-      <div className=''>
-
-     
-
-
-
-        <div className='-mt-5 mb-2 '>
-      <Typography variant="h5" className='text-black font-bold pb-10 mt-5'>
-     <u>Steering</u> 
+    <div className='p-4'>
+      <Typography variant="h4" className='text-black font-bold pb-5'>
+      Steering 
       </Typography>
-      </div>
+      <div className=' bg-white border-2 rounded-md shadow-md p-7 -mt-2'>
       <Grid container spacing={5} >
       <Grid item xs={12} sm={6}>
-          <Typography variant="body1" onChange={handleChange}>Steering : {formData.Steering}</Typography>
+          <Typography variant="body1">Steering : {formData.Steering}</Typography>
         </Grid>
 
 
         {/* Mismatch in RC */}
         <Grid item xs={12} sm={6}>
-        <Typography variant="body1" onChange={handleChange}>Brake : {formData.Brake}</Typography>
+        <Typography variant="body1">Brake : {formData.Brake}</Typography>
         </Grid>
 
         {/* RTO NOC Issued */}
         <Grid item xs={12} sm={6}>
-        <Typography variant="body1" onChange={handleChange}>Suspension : {formData.Suspension}</Typography>
+        <Typography variant="body1">Suspension : {formData.Suspension}</Typography>
         </Grid>
 
         
@@ -65,7 +57,7 @@ const SteeringSection = () => {
     color="primary"
     className="  rounded-lg bg-blue-500 text-white flex justify-centre items-center"
   >
-   Download
+   Submit
   </Button>
   </div>
     </div>
