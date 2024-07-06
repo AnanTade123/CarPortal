@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 
 // import CarView from "../../components/carDetails/CarView";
 // import PriceCard from "../../components/carDetails/PriceCard";
@@ -14,8 +15,8 @@ export default function BiddingCarDetailsById1() {
     const { beadingCarId } = useParams();
     console.log(beadingCarId)
   
-    const { data,error } = useGetbeadingCarImageQuery(beadingCarId);
-    console.log(data)
+    // const { data,error } = useGetbeadingCarImageQuery(beadingCarId);
+    // console.log(data)
 
     const {data:data1} = useGetbeadingCarByIdQuery(beadingCarId);
     console.log(data1);
@@ -26,12 +27,12 @@ export default function BiddingCarDetailsById1() {
     
   //  console.log(carId);
     
-    if (error?.status === 401) {
-      console.log("navigate");
+    // if (error?.status === 401) {
+    //   console.log("navigate");
   
-      navigate("/signin");
-      return null
-    }
+    //   navigate("/signin");
+    //   return null
+    // }
   
     
       
@@ -41,7 +42,6 @@ export default function BiddingCarDetailsById1() {
     <div className="grid grid-flow-row-dense md:grid-cols-3 gap-4 container mx-auto ">
     <div className="p-4 md:col-span-2 max-h-screen overflow-scroll no-scrollbar ">
       <BiddingCarView
-      data={data}
       beadingCarId={beadingCarId}
         // fuelType={fuelType}
         // registration={registration}
