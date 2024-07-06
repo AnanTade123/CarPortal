@@ -73,6 +73,7 @@ import FinalReport from "./pages/InspectionReportPage/FinalReport";
 import LiveBid from "./pages/LiveBidding/LiveBid";
 import BiddingCarDetail from "./pages/LiveBidding/BiddingCarDetail";
 
+
 export default function App() {
   return (
     <>

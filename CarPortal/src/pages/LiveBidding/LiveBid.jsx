@@ -8,7 +8,7 @@ const LiveBid = () => {
       <div className="mx-4 mb-10 sm:mx-12">
         <h1 className="text-2xl font-bold text-center mb-8 sm:text-3xl">Bidding Car Live</h1>
         
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
           
           {/* Car 1 */}
           <div className="relative mx-auto w-full max-w-sm">
@@ -35,13 +35,13 @@ const LiveBid = () => {
                   <div className="p-2 text-[11px] bg-gray-100 rounded-md">Engine 4.5 ✰</div>
                 </div>
                 
-                <div className="mt-4 -ml-4   flex justify-between items-center">
+                <div className="mt-4 -ml-4  w-full flex justify-between items-center">
                   <p className="text-primary mt-2 inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
                     <span className="text-[16px] bg-indigo-300 p-3 text-white">Highest Bid ₹ 6,64,000</span>
                   </p>
                   <div className="text-center ">
                     <p className="text-primary inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
-                      <span className="text-[16px] md:ml-8 ml-20  text-red-600">Last Call</span>
+                      <span className="text-[16px] md:-ml-4 ml-20 flex justify-end  text-red-600">Last Call</span>
                     </p>
                     <p className="text-slate-700 inline-block whitespace-nowrap rounded-xl font-medium leading-tight md:ml-10 ml-14">00h 03m 43s</p>
                   </div>
