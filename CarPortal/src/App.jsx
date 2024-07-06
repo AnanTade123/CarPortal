@@ -14,6 +14,7 @@ import {
   onlyAdmin,
   onlyDealer,
   onlyInspector,
+  onlySeller
 } from "./components/config/Roles";
 import AdminDealerInfo from "./pages/adminpages/AdminDealerInfo";
 import AdminDealerEdit from "./pages/adminpages/AdminDealerEdit";
@@ -139,7 +140,7 @@ export default function App() {
               element={<AdminSalesEdit />}
             />
             <Route
-              path="/admin/inspector/edit/:userid/:id"
+              path="/admin/inspector/edit/:userid/:inspectorprofileid"
               element={<AdminInspectorEdit />}
             />
             <Route
@@ -235,6 +236,9 @@ export default function App() {
             element={<UploadImages3 />}
           />
           <Route path="/bidding/:carId/:id/editimage" element={<EditImage />} />
+          <Route element={<SalePersonMiddleware allowedRoles={[...Object.values(onlySeller)]} /> }>
+              <Route path="/sales/biddingcar" element={<BiddingDealerCars />} />
+          </Route>
         </Route>
 
         {/* <Route path="/trans" element={<CardDetailss/>}/> */}
