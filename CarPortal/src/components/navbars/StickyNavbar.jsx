@@ -40,7 +40,7 @@ const navListMenuItems = [
   
   {
     title: "Bidding Car",
-    link: userRole === "DEALER"? "/dealer/biddingcar" : userRole === "ADMIN" ? '/admin/biddingcar' : userRole ==="SALESPERSON" ? "/sales/biddingcar" :null ,
+    link: userRole === "DEALER"? "/dealer/biddingcar" : userRole === "ADMIN" ? '/admin/biddingcar' :null ,
   },
 ];
 
@@ -279,13 +279,6 @@ if (userRole === "DEALER") {
     </>
   ) : null;
 
-
-  const salePersonDashboard = userRole?.includes("SALESPERSON") ? (
-    <>
-      <NavListMenu />
-    </>
-  ) : null;
-
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -327,7 +320,6 @@ if (userRole === "DEALER") {
       {dealerDashboard}
       {userDashboard}
       {inspectorDashboard}
-      {salePersonDashboard}
     </ul>
   );
 

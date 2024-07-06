@@ -1,20 +1,18 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { Carousel } from "@material-tailwind/react";
-import { useGetCarImageByIdQuery } from "../../services/carAPI";
+import { useGetbeadingCarImageQuery } from "../../services/biddingAPI";
 
 // eslint-disable-next-line react/prop-types
-const CarView1 = ({ carId }) => {
+const BiddingCarView1 = ({ beadingCarId }) => {
   // const [img360, setImg360] = useState(true);
   const [interior, setInterior] = useState(false);
   const [exterior, setExterior] = useState(true);
   const [features, setFeatures] = useState(false);
   const [tyres, setTyres] = useState(false);
   const [engines, setEngines] = useState(false);
-  console.log(exterior);
 
-  const { data, isLoading, error } = useGetCarImageByIdQuery({ carId });
-  console.log(data);
+  const { data, isLoading, error } = useGetbeadingCarImageQuery(beadingCarId);
 
   if (isLoading) return <div>Loading...</div>;
   if (error)
@@ -61,7 +59,6 @@ const CarView1 = ({ carId }) => {
             )}
           </Carousel>
         )}
-
         {exterior && (
           <Carousel className="bg-white rounded-lg shadow-md ">
             {data.object.length > 0 ? (
@@ -177,4 +174,4 @@ const CarView1 = ({ carId }) => {
   );
 };
 
-export default CarView1;
+export default BiddingCarView1;
