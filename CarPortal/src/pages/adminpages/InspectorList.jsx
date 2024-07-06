@@ -15,7 +15,7 @@ import TableComponent from "../../components/table/TableComponent";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AddInspectorForm } from "../AddInspectorForm";
-
+ 
 export default function InspectorList() {
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(7);
@@ -25,19 +25,19 @@ export default function InspectorList() {
   if (error?.status === 401) {
     return navigate("/signin");
   }
-
+ 
   const nextHandler = () => {
     if (!error) {
       setPageNo((prevPageNo) => prevPageNo + 1);
     }
   };
-
+ 
   const prevHandler = () => {
     if (pageNo > 0) {
       setPageNo((prevPageNo) => prevPageNo - 1);
     }
   };
-
+ 
   const columns = [
     {
       Header: "Serial No",
@@ -96,10 +96,10 @@ export default function InspectorList() {
                   />
                 </svg>
               </Link>
-
-
+ 
+ 
               <Link to={`/admin/inspector/edit/${cell.row.values.userId}/${cell.row.values.inspectorProfileId}`}>
-              
+             
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -122,17 +122,17 @@ export default function InspectorList() {
       },
     },
   ];
-
+ 
   let dealerApiData;
   if (isLoading) {
     return <p>isLoading</p>;
   } else {
     dealerApiData = data?.list;
   }
-
+ 
   return (
     <>
-
+ 
     {error?.status===404 ? (
         <div>
           <p className="text-3xl font-semibold">No Data Available</p>
@@ -178,3 +178,5 @@ export default function InspectorList() {
     </>
   );
 }
+ 
+ 

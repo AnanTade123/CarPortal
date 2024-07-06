@@ -1,21 +1,20 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
+
 import { useParams } from "react-router-dom";
 import { useInspectorupdateMutation, useInspectorByIdQuery } from "../../services/inspectorapi";
 import Inputs from "../../forms/Inputs";
 import React, { useEffect } from "react";
 import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+ 
 const AdminInspectorEdit = () => {
-  const { userid,inspectorProfileId } = useParams();
+  const { userid, inspectorprofileid } = useParams();
   const userId = userid;
   const navigate = useNavigate();
-  
   const { data, isLoading, isError, error } = useInspectorByIdQuery({ userId });
-  console.log(data)
   const [inspectorupdate] = useInspectorupdateMutation();
-  
+ 
   const [inputField, setInputField] = React.useState({
     address: "",
     city: "",
@@ -24,7 +23,7 @@ const AdminInspectorEdit = () => {
     email: "",
     mobileNo: ""
   });
-
+ 
   useEffect(() => {
     if (data && data.response) {
       const { response } = data;
@@ -39,51 +38,61 @@ const AdminInspectorEdit = () => {
       });
     }
   }, [data]);
-
+ 
   const onChangeFormhandler = (e) => {
     const { name, value } = e.target;
-    setInputField((prevVal) => {
-      return {
-        ...prevVal,
-        [name]: value,
-      };
-    });
+    setInputField((prevVal) => ({
+      ...prevVal,
+      [name]: value,
+    }));
   };
-
+ 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     const inspectordata = {
-      inspectorProfileId: 0,
+      inspectorProfileId: inputField.inspectorProfileId,
       address: inputField.address,
       city: inputField.city,
       firstName: inputField.firstName,
       lastName: inputField.lastName,
       email: inputField.email,
       mobileNo: inputField.mobileNo
-    }
+    };
     try {
-      const res = await inspectorupdate({ id: inspectorProfileId, inspectordata });
-      console.log(res)
-      if (res.data.status === 'success') {
-        alert("Changes successful");
-        navigate('/admin');
+      const res = await inspectorupdate({ id: inspectorprofileid, inspectordata }).unwrap();
+     
+      console.log("Update Response:", res);
+      if (res.status === 'success') {
+        toast.success("Changes successful", {
+         // autoClose: 2000,
+        });
+        setTimeout(() => {
+          navigate('/inspector');
+        }, 1000);
+      } else {
+        toast.error("Failed to update inspector", {
+          autoClose: 2000, // 2 seconds
+        });
       }
     } catch (error) {
-      console.log(error);
+      toast.error("Error updating inspector", {
+        autoClose: 2000, // 2 seconds
+      });
+      console.log("Error:", error);
     }
   };
-
+ 
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
+ 
   if (isError) {
     return <div>Error: {error.message}</div>;
   }
-
+ 
   return (
     <div className="mx-auto container flex justify-center w-[50%]">
-      <form className="w-full border border-gray-500 px-2 py-2 rounded-md mt-2 mb-2">
+      <form className="w-full border border-gray-500 px-2 py-2 rounded-md mt-2 mb-2" onSubmit={onSubmitHandler}>
         <div className="mt-5">
           <p className="text-3xl font-semibold">Edit Inspector Details</p>
         </div>
@@ -143,7 +152,6 @@ const AdminInspectorEdit = () => {
         </div>
         <div className="mt-5 ml-2">
           <Button
-            onClick={onSubmitHandler}
             type="submit"
             className="py-2 px-2 bg-indigo-600 text-white"
           >
@@ -151,8 +159,11 @@ const AdminInspectorEdit = () => {
           </Button>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };
-
+ 
 export default AdminInspectorEdit;
+ 
+ 
