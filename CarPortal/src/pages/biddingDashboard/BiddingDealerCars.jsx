@@ -24,7 +24,7 @@ const BiddingDealerCars = () => {
   const { id } = useParams();
  
   const [pageNo, setPageNo] = useState(0);
-  const itemsPerPage = 7;
+  const itemsPerPage = 10;
 
   const token = Cookies.get("token");
   let jwtDecodes;
