@@ -101,8 +101,8 @@ export default function App() {
             element={<CarDetailsById />}
           />
           <Route
-            path="/biddinglist/cardetails/:carId"
-            element={<BiddingCarDetailsById />}
+            path="/biddinglist/cardetails/:beadingCarId"
+            element={<BiddingCarDetailsById1 />}
           />
           <Route path="/pendinrequest/:userid" element={<PendingRequest />} />
           <Route path="/user/booking/:id" element={<UserConfirmBooking />} />
@@ -238,6 +238,7 @@ export default function App() {
           <Route path="/bidding/:carId/:id/editimage" element={<EditImage />} />
           <Route element={<SalePersonMiddleware allowedRoles={[...Object.values(onlySeller)]} /> }>
               <Route path="/sales/biddingcar" element={<BiddingDealerCars />} />
+              <Route path="/sale/carverify/:beadingCarId" element={<CarVerify/>} />
           </Route>
         </Route>
 
