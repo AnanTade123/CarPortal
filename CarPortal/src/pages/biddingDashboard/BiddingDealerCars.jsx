@@ -11,7 +11,7 @@ import {  useBiddingAllCardQuery } from "../../services/biddingAPI";
 import TableComponent from "../../components/table/TableComponent";
 import { Link, useParams } from "react-router-dom";
 // import { MdPendingActions } from "react-icons/md";
-import StatusDialogeBox from "../../ui/StatusDialogeBox";
+// import StatusDialogeBox from "../../ui/StatusDialogeBox";
 // import BiddingDailogeBox from "../../ui/BiddingDialogeBox";
 // import PlaceBid from "./PlaceBid";
 // import PlaceBid from "../dealer/PlaceBid";
@@ -74,13 +74,19 @@ const BiddingDealerCars = () => {
       accessor: "carStatus",
       Cell: (cell) => {
         console.log(cell.row.values.carStatus);
-        return (
-          <div>
-            <div className="flex gap-2 justify-center items-center  ">
-              <StatusDialogeBox status={cell.row.values.carStatus} />
-            </div>
-          </div>
-        );
+        return cell.row.values.carStatus == "pending" ? (
+          <Link to={`/sale/carverify/${cell.row.values.beadingCarId}`} className="button-link">
+        <Button variant="gradient" color="blue">
+            Verify
+        </Button>
+          </Link>
+      ) : (
+          <Link to={`/sale/carverify/${cell.row.values.beadingCarId}`} className="button">
+        <Button variant="gradient" color="green">
+            Done
+        </Button>
+          </Link>
+      );
       },
     },
     // {
