@@ -9,14 +9,20 @@ import AcSection from "./AcSection";
 import ElectricalSection from "./ElectricalSection";
 import SteeringSection from "./SteeringSection";
 import CarDocumentSection from "./CarDocumentSection";
+import {useFinalInspectionQuery} from "../../services/inspectorapi"
+import { useParams } from "react-router-dom";
 
 export default function FinalReport() {
+const {beadingCarId} = useParams()
+console.log(beadingCarId)
+  const {data : inspData} = useFinalInspectionQuery();
+console.log(inspData)
   const [activeTab, setActiveTab] = React.useState("important documen");
   const data = [
     {
       label: " Document",
       value: "important document",
-      component: <CarDocumentSection />,
+      component: <CarDocumentSection inspData={inspData} />,
     },
     {
       label: "Exterior",

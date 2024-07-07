@@ -1,25 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import WindshieldAndLights from "./ExteriorsComponent/WindshieldAndLights";
 import Tyre from "./ExteriorsComponent/Tyre";
-import OtherComponent from "./ExteriorsComponent/OtherComponent";
-import React, { useEffect, useState } from "react";
-import {
-  MenuItem,
-  FormControl,
-  Select,
-  InputLabel,
-  Grid,
-  Typography,
-  Button,
-  Modal,
-  makeStyles,
-} from '@material-ui/core';
+import { useEffect, useState } from 'react';
+import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import Structure from './ExteriorsComponent/Structure';
-import { useParams } from "react-router-dom";
-import { useGetInspectionReportQuery, useInspectionReportMutation } from "../../services/inspectorapi";
-import { ToastContainer, toast } from "react-toastify";
+import { useGetInspectionReportQuery, useInspectionReportMutation } from '../../services/inspectorapi';
+import { useParams } from 'react-router-dom';
+import Cookies from "js-cookie";
+import { jwtDecode } from 'jwt-decode';
+import UploadImage4 from '../../ui/UploadImageComponents/UploadImage4';
+import { useAddBiddingCarWithoutImageMutation } from "../../services/inspectorapi"
+import OtherComponent from "./ExteriorsComponent/OtherComponent"
+import Structure from "./ExteriorsComponent/Structure"
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -44,11 +38,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Exterior = () => {
   const classes = useStyles();
-  const {id} = useParams()
-  console.log(id)
-const {data} = useGetInspectionReportQuery({id , docType : "Exterior"})
-console.log(data)
-  const [inspectionReport] = useInspectionReportMutation();
+  const { beadingCarId } = useParams();
+  console.log(beadingCarId);
+  const { data } = useGetInspectionReportQuery({ id:beadingCarId, docType: "Exterior" });
+  console.log(data);
+  
 const [formData, setFormData] = useState({
     BonnetHood: [],
     RightDoorFront: [],
@@ -76,27 +70,68 @@ const [formData, setFormData] = useState({
     HeadLightSupport: [],
     RadiatorSupport: [],
     AlloyWheel: [],
+    CowlTop:[],
+    BootFloor:[],
+    RightApronLEG:[],
+    LeftApronLEG : [],
+    RightApron : [],
+    LeftApron : [],
+    LeftPillar : [],
+    RightPillar : []
   });
 
-  const [lables , setLables] = useState("");
-  const [selectfiled , setSelectfiled] = useState("")
   
+
+
   useEffect(() => {
-    Object.keys(formData).forEach(key => {
-      if (formData[key].length > 0) {
-        console.log(key);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        setLables(key)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        setSelectfiled(formData[key])
-        
+    // Pre-fill form data and uploaded images based on API data
+    data?.object.map((item) => {
+      switch (item.subtype) {
+        case "BonnetHood":
+          setFormData((prev) => ({ ...prev, BonnetHood: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, BonnetHoods: item.documentLink }));
+          break;
+        case "RightDoorFront":
+          setFormData((prev) => ({ ...prev, RightDoorFront: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RightDoorFronts: item.documentLink }));
+          break;
+        case "LeftDoorFront":
+          setFormData((prev) => ({ ...prev, LeftDoorFront: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, LeftDoorFronts: item.documentLink }));
+          break;
+        case "RightFender":
+          setFormData((prev) => ({ ...prev, RightFender: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RightFenders: item.documentLink }));
+          break;
+        case "LeftQuarterPanel":
+          setFormData((prev) => ({ ...prev, LeftQuarterPanel: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, LeftQuarterPanels: item.documentLink }));
+          break;
+        case "RightQuarterPanel":
+          setFormData((prev) => ({ ...prev, RightQuarterPanel: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RightQuarterPanels: item.documentLink }));
+          break;
+        case "Roof":
+          setFormData((prev) => ({ ...prev, Roof: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, Roofs: item.documentLink }));
+          break;
+        case "DickyDoor":
+          setFormData((prev) => ({ ...prev, DickyDoor: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, DickyDoors: item.documentLink }));
+          break;
+        case "LeftDoorRear":
+          setFormData((prev) => ({ ...prev, LeftDoorRear: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, LeftDoorRears: item.documentLink }));
+          break;
+        case "RightDoorRear":
+          setFormData((prev) => ({ ...prev, RightDoorRear: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RightDoorRears: item.documentLink }));
+          break;
+        default:
+          break;
       }
     });
-  }, [formData]);
-  console.log(selectfiled)
-  console.log(lables)
-
-
+  }, [data]);
   const [uploadedImages, setUploadedImages] = useState({
     BonnetHoods: null,
     RightDoorFronts: null,
@@ -133,55 +168,107 @@ const [formData, setFormData] = useState({
     LeftPillars: null,
     RightPillars: null,
   });
-    console.log(uploadedImages) 
+
+  const [inspectionReport] = useInspectionReportMutation();
+  const [addBiddingCarWithoutImage] = useAddBiddingCarWithoutImageMutation()
+  const [captureModalOpen, setCaptureModalOpen] = useState(false);
+  const [selectedLable ,setSelectedLable] = useState("");
+  const [lables, setLables] = useState("");
+  const [selectfiled, setSelectfiled] = useState("")
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleFileChange = async (event, fieldName) => {
-    const file = event.target.files[0];
+  console.log(selectfiled)
+  console.log(lables)
+
+  const token = Cookies.get("token");
+  let jwtDecodes;
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
+
+  const userRole = token ? jwtDecodes?.authorities[0] : null;
+console.log(userRole)
+
+const handleFileChange = async (event, fieldName, imgPreview = "") => {
+    console.log(imgPreview);
+    let file;
+    let imageData;
+  if (!event?.target) {
+      console.log("name");
+      file = event;
+      imageData = file;
+    } else {
+      file = event.target.files[0];
+    }
+  
     if (!file) return;
+  
     const formDataToSend = new FormData();
     formDataToSend.append('image', file);
-
-    console.log(formDataToSend)
-    // Update formData state with file details
-    setFormData({ ...formData, [fieldName]: file });
-
-    // Read the file and convert it to URL for preview
+  
     const reader = new FileReader();
     reader.onload = async () => {
-      const imageData = reader.result;
-      setUploadedImages({ ...uploadedImages, [fieldName]: imageData });
-
-      
-      // Prepare the data to be sent to the backend
+      imageData = reader.result;
+      console.log(imageData)
+          setFormData({ ...formData, ["FourPowerWindowss"]: imageData });
+  
       const inspectionData = {
         documentType: "Inspection Report",
-        beadingCarId: id,
-        doc: "", 
-        doctype: "",
+        beadingCarId: beadingCarId,
+        doc: "",
+        doctype: "Electrical",
         subtype: lables,
         comment: selectfiled,
       };
+  
       try {
-      
-        const res = await inspectionReport({inspectionData,formDataToSend});
+        const res = await inspectionReport({ inspectionData, formDataToSend });
         console.log(res);
-
-       alert("Data Uploded")
-        
+        alert("Data Uploaded");
       } catch (error) {
         console.error('Error uploading the file:', error);
-        alert("Data not Uploded")
+        alert("Data not Uploaded");
       }
     };
     reader.readAsDataURL(file);
   };
+  
+  const handleSubmitWithoutImage = async () => {
+  
+    const formDataToSend1 = new FormData();
+    formDataToSend1.append('beadingCarId', beadingCarId);
+    formDataToSend1.append('doctype', "Steering");
+    formDataToSend1.append('subtype', lables);
+    formDataToSend1.append('comment', selectfiled);
+    try {
+      const res = await addBiddingCarWithoutImage({formDataToSend1});
+      console.log(res);
+      alert("Data Uploaded")
+    } catch (error) {
+      console.error('Error uploading the data:', error);
+      alert("Data not Uploaded")
+    }
+  };
 
+  const handleCaptureImage = (imageUrl) => {
+    setSelectedImage(imageUrl);
+    setCaptureModalOpen(false); // Close the camera modal after capturing the image
+  };
+
+  const handleCameraModal = (key) => {
+    setCaptureModalOpen(true);
+    setSelectedLable(key)
+  }
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
+
+    if (value.length > 0) {
+      setLables(name);
+      setSelectfiled(value);
+    }
   };
 
   const handleImageClick = (image) => {
@@ -196,106 +283,109 @@ const [formData, setFormData] = useState({
 
   return (
     <div className="p-4">
-      <ToastContainer/>
+      
       <Typography variant="h4" className="text-black font-bold pb-5">
         Exterior Panel
       </Typography>
       <Grid container spacing={3}>
         {/* Bonnet Hood */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel>Bonnet Hood</InputLabel>
-            <Select
-              name="BonnetHood"
-              value={formData.BonnetHood}
-              onChange={handleChange}
-            >
-              <MenuItem value="Repainted">Repainted</MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
-              <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted">Rusted</MenuItem>
-              <MenuItem value="Repaired">Repaired</MenuItem>
-              <MenuItem value="Damaged">Damaged</MenuItem>
-              <MenuItem value="Faded">Faded</MenuItem>
-            </Select>
-          </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: "none" }}
-              id="upload-BonnetHoods"
-              type="file"
-              onChange={(event) => handleFileChange(event, "BonnetHoods")}
-            />
-            <label
-              htmlFor="upload-BonnetHoods"
-              className="cursor-pointer flex items-center"
-            >
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+        <FormControl fullWidth>
+          <InputLabel>Bonnet Hood</InputLabel>
+          <Select
+            required
+            name="BonnetHood"
+            value={formData.BonnetHood}
+            onChange={handleChange}
+          >
+            <MenuItem value="Repainted">Repainted</MenuItem>
+            <MenuItem value="Dented">Dented</MenuItem>
+            <MenuItem value="Scratched">Scratched</MenuItem>
+            <MenuItem value="Rusted">Rusted</MenuItem>
+            <MenuItem value="Repaired">Repaired</MenuItem>
+            <MenuItem value="Damaged">Damaged</MenuItem>
+            <MenuItem value="Faded">Faded</MenuItem>
+          </Select>
+        </FormControl>
+        <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
           </div>
-          {uploadedImages.BonnetHoods && (
-            <img
-              src={uploadedImages.BonnetHoods}
-              alt="Uploaded"
-              style={{
-                maxWidth: "20%",
-                marginTop: "10px",
-                cursor: "pointer",
-              }}
-              onClick={() => handleImageClick(uploadedImages.BonnetHood)}
-            />
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
           )}
-        </Grid>
+          </div>
+        {uploadedImages.BonnetHoods && (
+          <img
+            src={uploadedImages.BonnetHoods}
+            alt="Uploaded"
+            style={{
+              maxWidth: "20%",
+              marginTop: "10px",
+              cursor: "pointer",
+            }}
+            onClick={() => handleImageClick(uploadedImages.BonnetHoods)}
+          />
+        )}
+      </Grid>
 
-        {/* Right Door Front */}
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel>Right Door Front</InputLabel>
-            <Select
-              name="RightDoorFront"
-              value={formData.RightDoorFront}
-              onChange={handleChange}
-            >
-              <MenuItem value="Repainted">Repainted</MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
-              <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted">Rusted</MenuItem>
-              <MenuItem value="Repaired">Repaired</MenuItem>
-              <MenuItem value="Damaged">Damaged</MenuItem>
-              <MenuItem value="Faded">Faded</MenuItem>
-            </Select>
-          </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: "none" }}
-              id="upload-RightDoorFronts"
-              type="file"
-              onChange={(event) => handleFileChange(event, "RightDoorFronts")}
-            />
-            <label
-              htmlFor="upload-RightDoorFronts"
-              className="cursor-pointer flex items-center"
-            >
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+      {/* Right Door Front */}
+      <Grid item xs={12} sm={6}>
+        <FormControl fullWidth>
+          <InputLabel>Right Door Front</InputLabel>
+          <Select
+            name="RightDoorFront"
+            value={formData.RightDoorFront}
+            onChange={handleChange}
+          >
+            <MenuItem value="Repainted">Repainted</MenuItem>
+            <MenuItem value="Dented">Dented</MenuItem>
+            <MenuItem value="Scratched">Scratched</MenuItem>
+            <MenuItem value="Rusted">Rusted</MenuItem>
+            <MenuItem value="Repaired">Repaired</MenuItem>
+            <MenuItem value="Damaged">Damaged</MenuItem>
+            <MenuItem value="Faded">Faded</MenuItem>
+          </Select>
+        </FormControl>
+        <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
           </div>
-          {uploadedImages.RightDoorFronts && (
-            <img
-              src={uploadedImages.RightDoorFronts}
-              alt="Uploaded"
-              style={{
-                maxWidth: "20%",
-                marginTop: "10px",
-                cursor: "pointer",
-              }}
-              onClick={() => handleImageClick(uploadedImages.RightDoorFronts)}
-            />
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
           )}
-        </Grid>
+          </div>
+        {uploadedImages.RightDoorFronts && (
+          <img
+            src={uploadedImages.RightDoorFronts}
+            alt="Uploaded"
+            style={{
+              maxWidth: "20%",
+              marginTop: "10px",
+              cursor: "pointer",
+            }}
+            onClick={() => handleImageClick(uploadedImages.RightDoorFronts)}
+          />
+        )}
+      </Grid>
 
         {/* Left Door Front */}
         <Grid item xs={12} sm={6}>
@@ -315,21 +405,22 @@ const [formData, setFormData] = useState({
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: "none" }}
-              id="upload-LeftDoorFronts"
-              type="file"
-              onChange={(event) => handleFileChange(event, "LeftDoorFronts")}
-            />
-            <label
-              htmlFor="upload-LeftDoorFronts"
-              className="cursor-pointer flex items-center"
-            >
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
           </div>
           {uploadedImages.LeftDoorFronts && (
             <img
@@ -363,21 +454,22 @@ const [formData, setFormData] = useState({
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: "none" }}
-              id="upload-RightFenders"
-              type="file"
-              onChange={(event) => handleFileChange(event, "RightFenders")}
-            />
-            <label
-              htmlFor="upload-RightFenders"
-              className="cursor-pointer flex items-center"
-            >
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
           </div>
           {uploadedImages.RightFenders && (
             <img
@@ -411,21 +503,22 @@ const [formData, setFormData] = useState({
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: "none" }}
-              id="upload-LeftQuarterPanels"
-              type="file"
-              onChange={(event) => handleFileChange(event, "LeftQuarterPanels")}
-            />
-            <label
-              htmlFor="upload-LeftQuarterPanels"
-              className="cursor-pointer flex items-center"
-            >
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
           </div>
           {uploadedImages.LeftQuarterPanels && (
             <img
@@ -459,21 +552,22 @@ const [formData, setFormData] = useState({
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: "none" }}
-              id="upload-RightQuarterPanels"
-              type="file"
-              onChange={(event) => handleFileChange(event, "RightQuarterPanels")}
-            />
-            <label
-              htmlFor="upload-RightQuarterPanels"
-              className="cursor-pointer flex items-center"
-            >
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
           </div>
           {uploadedImages.RightQuarterPanels && (
             <img
@@ -503,21 +597,22 @@ const [formData, setFormData] = useState({
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: "none" }}
-              id="upload-Roofs"
-              type="file"
-              onChange={(event) => handleFileChange(event, "Roofs")}
-            />
-            <label
-              htmlFor="upload-Roofs"
-              className="cursor-pointer flex items-center"
-            >
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
           </div>
           {uploadedImages.Roofs && (
             <img
@@ -551,21 +646,22 @@ const [formData, setFormData] = useState({
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: "none" }}
-              id="upload-DickyDoors"
-              type="file"
-              onChange={(event) => handleFileChange(event, "DickyDoors")}
-            />
-            <label
-              htmlFor="upload-DickyDoors"
-              className="cursor-pointer flex items-center"
-            >
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
           </div>
           {uploadedImages.DickyDoors && (
             <img
@@ -599,21 +695,22 @@ const [formData, setFormData] = useState({
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: "none" }}
-              id="upload-LeftDoorRears"
-              type="file"
-              onChange={(event) => handleFileChange(event, "LeftDoorRears")}
-            />
-            <label
-              htmlFor="upload-LeftDoorRears"
-              className="cursor-pointer flex items-center"
-            >
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
           </div>
           {uploadedImages.LeftDoorRears && (
             <img
@@ -647,21 +744,22 @@ const [formData, setFormData] = useState({
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: "none" }}
-              id="upload-RightDoorRears"
-              type="file"
-              onChange={(event) => handleFileChange(event, "RightDoorRears")}
-            />
-            <label
-              htmlFor="upload-RightDoorRears"
-              className="cursor-pointer flex items-center"
-            >
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
           </div>
           {uploadedImages.RightDoorRears && (
             <img
@@ -679,34 +777,70 @@ const [formData, setFormData] = useState({
       </Grid>
 
       {/* Modal for displaying clicked image */}
-      <Modal open={openModal} onClose={closeModal} className={classes.modal}>
+      <Modal
+        open={captureModalOpen}
+        onClose={() => setCaptureModalOpen(false)}
+        // className={classes.modal}
+      >
         <div className={classes.paper}>
-          {selectedImage && (
-            <div>
-              <img
-                src={selectedImage}
-                alt="Selected"
-                className={classes.image}
-              />
-              <Button
-                onClick={closeModal}
-                variant="contained"
-                color="secondary"
-                style={{ marginTop: "10px" }}
-              >
-                Close
-              </Button>
-            </div>
-          )}
+          <UploadImage4
+            isOpen={captureModalOpen}
+            onClose={() => setCaptureModalOpen(false)}
+            onCapture={handleCaptureImage}
+            handleCaptureImage = {handleFileChange}
+            selectfiled = {selectedLable}
+          />
         </div>
+ 
+       
       </Modal>
 
-      
-      <WindshieldAndLights formData={formData} setFormData={setFormData} handleFileChange={handleFileChange} uploadedImages={uploadedImages} setUploadedImages={setUploadedImages}/>
-<Tyre formData={formData} setFormData={setFormData} handleFileChange={handleFileChange} uploadedImages={uploadedImages} setUploadedImages={setUploadedImages}/>
-<OtherComponent formData={formData} setFormData={setFormData} handleFileChange={handleFileChange} uploadedImages={uploadedImages} setUploadedImages={setUploadedImages}/>
+      <WindshieldAndLights 
+      handleCameraModal={handleCameraModal} 
+      userRole={userRole} 
+      handleCaptureImage={handleCaptureImage} 
+      handleSubmitWithoutImage={handleSubmitWithoutImage} 
+      data={data} 
+      formData={formData} 
+      setFormData={setFormData} 
+      handleFileChange={handleFileChange} 
+      uploadedImages={uploadedImages} 
+      setUploadedImages={setUploadedImages}
+      captureModalOpen={captureModalOpen}
+      setCaptureModalOpen={setCaptureModalOpen}
+      selectedLable={selectedLable}
+      setSelectfiled={setSelectfiled}
+    />
+<Tyre/>
+<OtherComponent  handleCameraModal={handleCameraModal} 
+      userRole={userRole} 
+      handleCaptureImage={handleCaptureImage} 
+      handleSubmitWithoutImage={handleSubmitWithoutImage} 
+      data={data} 
+      formData={formData} 
+      setFormData={setFormData} 
+      handleFileChange={handleFileChange} 
+      uploadedImages={uploadedImages} 
+      setUploadedImages={setUploadedImages}
+      captureModalOpen={captureModalOpen}
+      setCaptureModalOpen={setCaptureModalOpen}
+      selectedLable={selectedLable}
+      setSelectfiled={setSelectfiled}/>
 
-<Structure formData={formData} setFormData={setFormData} handleFileChange={handleFileChange} uploadedImages={uploadedImages} setUploadedImages={setUploadedImages}/>
+<Structure  handleCameraModal={handleCameraModal} 
+      userRole={userRole} 
+      handleCaptureImage={handleCaptureImage} 
+      handleSubmitWithoutImage={handleSubmitWithoutImage} 
+      data={data} 
+      formData={formData} 
+      setFormData={setFormData} 
+      handleFileChange={handleFileChange} 
+      uploadedImages={uploadedImages} 
+      setUploadedImages={setUploadedImages}
+      captureModalOpen={captureModalOpen}
+      setCaptureModalOpen={setCaptureModalOpen}
+      selectedLable={selectedLable}
+      setSelectfiled={setSelectfiled}/>
 
 
 {/* <div className="flex justify-end mt-10 px-8">

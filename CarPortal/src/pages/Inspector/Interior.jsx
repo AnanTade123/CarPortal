@@ -1,8 +1,13 @@
-import  { useEffect, useState } from 'react';
+/* eslint-disable no-unused-vars */
+import { useEffect, useState } from 'react';
 import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { useGetInspectionReportQuery, useInspectionReportMutation } from '../../services/inspectorapi';
 import { useParams } from 'react-router-dom';
-import { useInspectionReportMutation } from '../../services/inspectorapi';
+import Cookies from "js-cookie";
+import { jwtDecode } from 'jwt-decode';
+import UploadImage4 from '../../ui/UploadImageComponents/UploadImage4';
+import { useAddBiddingCarWithoutImageMutation } from "../../services/inspectorapi"
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -27,88 +32,156 @@ const useStyles = makeStyles((theme) => ({
 
 const Interior = () => {
   const classes = useStyles();
+  const { beadingCarId } = useParams();
+  console.log(beadingCarId);
+  const { data } = useGetInspectionReportQuery({ beadingCarId, docType: "Interior" });
+  console.log(data);
+  console.log(data);
 
   const [formData, setFormData] = useState({
-    LeatherSeat: [],
-    Odometer: [],
-    Dashboard: [],
-    CabinFloor: [],
+    LeatherSeat: "",
+    Odometer: "",
+    CabinFloor: "",
+    Dashboard: "",
   });
 
   const [uploadedImages, setUploadedImages] = useState({
     LeatherSeats: null,
     Odometers: null,
-    Dashboards: null,
     CabinFloors: null,
+    Dashboards: null,
   });
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [inspectionReport] = useInspectionReportMutation();
-  const {id} = useParams()
-  console.log(id)
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
-  const [lables , setLables] = useState("");
-  const [selectfiled , setSelectfiled] = useState("")
-  useEffect(() => {
-    Object.keys(formData).forEach(key => {
-      if (formData[key].length > 0) {
-        console.log(key);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        setLables(key)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        setSelectfiled(formData[key])
-        
-      }
-    });
-  }, [formData]);
+  const [inspectionReport] = useInspectionReportMutation();
+  const [addBiddingCarWithoutImage] = useAddBiddingCarWithoutImageMutation()
+  const [captureModalOpen, setCaptureModalOpen] = useState(false);
+  const [selectedLable ,setSelectedLable] = useState("");
+  const [lables, setLables] = useState("");
+  const [selectfiled, setSelectfiled] = useState("")
   console.log(selectfiled)
   console.log(lables)
 
-  const handleFileChange = async (event, fieldName) => {
-    const file = event.target.files[0];
+  const token = Cookies.get("token");
+  let jwtDecodes;
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
+
+  const userRole = token ? jwtDecodes?.authorities[0] : null;
+console.log(userRole)
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+
+    if (value.length > 0) {
+      setLables(name);
+      setSelectfiled(value);
+    }
+  };
+
+  console.log(selectfiled);
+  console.log(lables);
+
+  const handleFileChange = async (event, fieldName, imgPreview = "") => {
+    console.log(imgPreview);
+    let file;
+    let imageData;
+  if (!event?.target) {
+      console.log("name");
+      file = event;
+      imageData = file;
+    } else {
+      file = event.target.files[0];
+    }
+  
     if (!file) return;
+  
     const formDataToSend = new FormData();
     formDataToSend.append('image', file);
-
-    console.log(formDataToSend)
-    // Update formData state with file details
-    setFormData({ ...formData, [fieldName]: file });
-
-    // Read the file and convert it to URL for preview
+  
     const reader = new FileReader();
     reader.onload = async () => {
-      const imageData = reader.result;
-      setUploadedImages({ ...uploadedImages, [fieldName]: imageData });
-
-      
-      // Prepare the data to be sent to the backend
+      imageData = reader.result;
+      console.log(imageData)
+          setFormData({ ...formData, ["FourPowerWindowss"]: imageData });
+  
       const inspectionData = {
         documentType: "Inspection Report",
-        beadingCarId: id,
-        doc: "", 
-        doctype: "",
+        beadingCarId: beadingCarId,
+        doc: "",
+        doctype: "Electrical",
         subtype: lables,
         comment: selectfiled,
       };
+  
       try {
-      
-        const res = await inspectionReport({inspectionData,formDataToSend});
+        const res = await inspectionReport({ inspectionData, formDataToSend });
         console.log(res);
-
-       alert("Data Uploded")
-        
+        alert("Data Uploaded");
       } catch (error) {
         console.error('Error uploading the file:', error);
-        alert("Data not Uploded")
+        alert("Data not Uploaded");
       }
     };
     reader.readAsDataURL(file);
   };
+  
+  const handleSubmitWithoutImage = async () => {
+  
+    const formDataToSend1 = new FormData();
+    formDataToSend1.append('beadingCarId', beadingCarId);
+    formDataToSend1.append('doctype', "Steering");
+    formDataToSend1.append('subtype', lables);
+    formDataToSend1.append('comment', selectfiled);
+    try {
+      const res = await addBiddingCarWithoutImage({formDataToSend1});
+      console.log(res);
+      alert("Data Uploaded")
+    } catch (error) {
+      console.error('Error uploading the data:', error);
+      alert("Data not Uploaded")
+    }
+  };
+
+  const handleCaptureImage = (imageUrl) => {
+    setSelectedImage(imageUrl);
+    setCaptureModalOpen(false); // Close the camera modal after capturing the image
+  };
+
+  const handleCameraModal = (key) => {
+    setCaptureModalOpen(true);
+    setSelectedLable(key)
+  }
+
+  useEffect(() => {
+    // Pre-fill form data and uploaded images based on API data
+    data?.object.map((item) => {
+      switch (item.subtype) {
+        case "LeatherSeat":
+          setFormData((prev) => ({ ...prev, LeatherSeat: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, LeatherSeats: item.documentLink }));
+          break;
+        case "Odometer":
+          setFormData((prev) => ({ ...prev, Odometer: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, Odometers: item.documentLink }));
+          break;
+        case "CabinFloor":
+          setFormData((prev) => ({ ...prev, CabinFloor: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, CabinFloors: item.documentLink }));
+          break;
+        case "Dashboard":
+          setFormData((prev) => ({ ...prev, Dashboard: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, Dashboards: item.documentLink }));
+          break;
+        default:
+          break;
+      }
+    });
+  }, [data]);
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
@@ -131,7 +204,6 @@ const Interior = () => {
             <InputLabel>Leather Seat</InputLabel>
             <Select
               name="LeatherSeat"
-             
               value={formData.LeatherSeat}
               onChange={handleChange}
             >
@@ -139,18 +211,22 @@ const Interior = () => {
               <MenuItem value="Worn Out">Worn Out</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="upload-LeatherSeats"
-              type="file"
-              onChange={(event) => handleFileChange(event, 'LeatherSeats')}
-            />
-            <label htmlFor="upload-LeatherSeats" className="cursor-pointer flex items-center">
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
           </div>
           {uploadedImages.LeatherSeats && (
             <img
@@ -167,7 +243,6 @@ const Interior = () => {
             <InputLabel>Odometer</InputLabel>
             <Select
               name="Odometer"
-           
               value={formData.Odometer}
               onChange={handleChange}
             >
@@ -175,18 +250,22 @@ const Interior = () => {
               <MenuItem value="Not Tempered">Not Tempered</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="upload-Odometers"
-              type="file"
-              onChange={(event) => handleFileChange(event, 'Odometers')}
-            />
-            <label htmlFor="upload-Odometers" className="cursor-pointer flex items-center">
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
           </div>
           {uploadedImages.Odometers && (
             <img
@@ -203,7 +282,6 @@ const Interior = () => {
             <InputLabel>Cabin Floor</InputLabel>
             <Select
               name="CabinFloor"
-       
               value={formData.CabinFloor}
               onChange={handleChange}
             >
@@ -215,18 +293,22 @@ const Interior = () => {
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="upload-CabinFloors"
-              type="file"
-              onChange={(event) => handleFileChange(event, 'CabinFloors')}
-            />
-            <label htmlFor="upload-CabinFloors" className="cursor-pointer flex items-center">
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
           </div>
           {uploadedImages.CabinFloors && (
             <img
@@ -243,7 +325,6 @@ const Interior = () => {
             <InputLabel>Dashboard</InputLabel>
             <Select
               name="Dashboard"
-              
               value={formData.Dashboard}
               onChange={handleChange}
             >
@@ -255,18 +336,22 @@ const Interior = () => {
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="upload-Dashboards"
-              type="file"
-              onChange={(event) => handleFileChange(event, 'Dashboards')}
-            />
-            <label htmlFor="upload-Dashboards" className="cursor-pointer flex items-center">
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
           </div>
           {uploadedImages.Dashboards && (
             <img
@@ -277,35 +362,26 @@ const Interior = () => {
             />
           )}
         </Grid>
-
       </Grid>
 
       {/* Modal for displaying clicked image */}
       <Modal
-        open={openModal}
-        onClose={closeModal}
-        className={classes.modal}
+        open={captureModalOpen}
+        onClose={() => setCaptureModalOpen(false)}
+        // className={classes.modal}
       >
         <div className={classes.paper}>
-          {selectedImage && (
-            <div>
-              <img src={selectedImage} alt="Selected" className={classes.image} />
-              <Button onClick={closeModal} variant="contained" color="secondary" style={{ marginTop: '10px' }}>
-                Close
-              </Button>
-            </div>
-          )}
+          <UploadImage4
+            isOpen={captureModalOpen}
+            onClose={() => setCaptureModalOpen(false)}
+            onCapture={handleCaptureImage}
+            handleCaptureImage = {handleFileChange}
+            selectfiled = {selectedLable}
+          />
         </div>
+ 
+       
       </Modal>
-
-      {/* <div className="flex justify-between mt-10 px-8">
-        <Button variant="contained" color="primary">
-          Previous
-        </Button>
-        <Button variant="contained" color="primary">
-          Next
-        </Button>
-      </div> */}
     </div>
   );
 };

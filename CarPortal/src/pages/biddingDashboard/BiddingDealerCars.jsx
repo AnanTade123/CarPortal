@@ -6,7 +6,7 @@ import {
   CardBody,
   CardFooter,
 } from "@material-tailwind/react";
-import { useBiddingCarByDealerIdQuery } from "../../services/biddingAPI";
+import {  useGetByDealerIdQuery } from "../../services/biddingAPI";
 
 import TableComponent from "../../components/table/TableComponent";
 import { Link, useParams } from "react-router-dom";
@@ -29,8 +29,10 @@ const BiddingDealerCars = () => {
   }
 
   const UserID = jwtDecodes?.userId;
+  const dealerId = jwtDecodes?.dealerId;
   console.log("UserId------",UserID);
-  const { data, isLoading, error } = useBiddingCarByDealerIdQuery(UserID);
+  // const { data, isLoading, error } = useBiddingCarByDealerIdQuery(UserID);
+  const { data, isLoading, error } = useGetByDealerIdQuery(dealerId);
 
   if (isLoading) {
     return <p>Loading..</p>;
@@ -223,9 +225,9 @@ const BiddingDealerCars = () => {
         <div>
           <p className="text-3xl font-semibold ">No Data Available</p>
           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-            <Link to={`/bidding/${UserID}/addcar`}>
+            {/* <Link to={`/bidding/${UserID}/addcar`}>
               <Button>Add Car</Button>
-            </Link>
+            </Link> */}
           </div>
         </div>
       ) : (
@@ -240,11 +242,11 @@ const BiddingDealerCars = () => {
                   See information about all cars
                 </Typography>
               </div>
-              <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+              {/* <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
                 <Link to={`/bidding/${UserID}/addcar`}>
                   <Button>Add Car</Button>
                 </Link>
-              </div>
+              </div> */}
             </div>
           </CardHeader>
           <CardBody className="overflow-scroll px-0">

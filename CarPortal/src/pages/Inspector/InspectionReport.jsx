@@ -60,7 +60,7 @@ const navigate = useNavigate()
     const res = await finalInspectionReport({inspectionData})
     console.log(res)
     alert("Data Added")
-    navigate("/carsdata")
+    navigate("/inspector/car")
 
   } catch (error) {
     console.log(error)
