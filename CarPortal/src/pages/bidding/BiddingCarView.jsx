@@ -19,9 +19,7 @@ const BiddingCarView = ({
   beadingCarId,
   data,
 }) => {
-  console.log(
-    beadingCarId
-  );
+  
 
   return (
     <div>

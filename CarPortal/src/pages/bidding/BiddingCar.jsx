@@ -1,17 +1,17 @@
-import  { useEffect, useState } from 'react';
+/* eslint-disable no-unused-vars */
+import { useEffect, useState } from 'react';
 import { Client } from '@stomp/stompjs';
-import SockJS from "sockjs-client/dist/sockjs"
+import SockJS from "sockjs-client/dist/sockjs";
 import { Button, Input } from '@material-tailwind/react';
- 
-window.global = window;
- 
-const App = () => {
+
+const BiddingCar = () => {
   const [bids, setBids] = useState([]);
   const [topThreeBids, setTopThreeBids] = useState([]);
   const [bidAmount, setBidAmount] = useState(200000);
   const [bidCarId, setBidCarId] = useState(1);
   const [client, setClient] = useState(null);
- 
+  const [isConnected, setIsConnected] = useState(false); // New state variable
+
   useEffect(() => {
     const socket = new SockJS('https://cffffftasting-production.up.railway.app/Aucbidding');
     const stompClient = new Client({
@@ -21,30 +21,31 @@ const App = () => {
       },
       onConnect: () => {
         console.log('Connected');
+        setIsConnected(true); // Update connection status
         stompClient.subscribe('/topic/bids', (message) => {
           const bid = JSON.parse(message.body);
           setBids((prevBids) => [...prevBids, bid]);
         });
         stompClient.subscribe('/topic/topThreeBids', (message) => {
           const topBids = JSON.parse(message.body);
-          console.log("message---",topBids)
           setTopThreeBids(topBids);
         });
+        getTopThreeBids(stompClient); // Fetch top three bids when connected
       },
       onStompError: (frame) => {
         console.error('Broker reported error: ' + frame.headers['message']);
         console.error('Additional details: ' + frame.body);
       },
     });
- 
+
     stompClient.activate();
     setClient(stompClient);
- 
+
     return () => {
       stompClient.deactivate();
     };
   }, []);
- 
+
   const placeBid = () => {
     const bid = {
       placedBidId: null,
@@ -53,30 +54,40 @@ const App = () => {
       dateTime: new Date().toISOString(),
       amount: bidAmount,
     };
- 
-    client.publish({
-      destination: '/app/placeBid',
-      body: JSON.stringify(bid),
-    }, (error, response) => {
-      if (error) {
-        console.error('Error placing bid:', error);
-      } else {
-        console.log('Bid placed successfully:', response);
-      }
-    });
+
+    if (client) {
+      client.publish({
+        destination: '/app/placeBid',
+        body: JSON.stringify(bid),
+      }, (error, response) => {
+        if (error) {
+          console.error('Error placing bid:', error);
+        } else {
+          console.log('Bid placed successfully:', response);
+          getTopThreeBids(client);
+        }
+      });
+    } else {
+      console.error('Stomp client is not initialized.');
+    }
   };
- 
-  const getTopThreeBids = () => {
+
+  const getTopThreeBids = (stompClient) => {
     const bidRequest = {
-      bidCarId: bidCarId,
+      bidCarId: 13,
     };
- 
-     client.publish({
-      destination: '/app/topThreeBids',
-      body: JSON.stringify(bidRequest),
-    });
+    if (stompClient) {
+      stompClient.publish({
+        destination: '/app/topThreeBids',
+        body: JSON.stringify(bidRequest),
+      });
+    } else {
+      console.error('Stomp client is not initialized.');
+    }
   };
- 
+
+  console.log("topThreeBids", topThreeBids);
+
   return (
     <div className='p-5'>
       <h1>Auction Bidding System</h1>
@@ -94,7 +105,7 @@ const App = () => {
           onChange={(e) => setBidCarId(Number(e.target.value))}
         />
         <Button onClick={placeBid}>Place Bid</Button>
-        <Button onClick={getTopThreeBids}>Get Top Three Bids</Button>
+        <Button onClick={() => getTopThreeBids(client)}>Get Top Three Bids</Button>
       </div>
       <h2>All Bids</h2>
       <ul>
@@ -111,7 +122,5 @@ const App = () => {
     </div>
   );
 };
- 
-export default App;
- 
- 
+
+export default BiddingCar;
