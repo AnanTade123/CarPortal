@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+
 import logo from "../../Images/carTechLogo.jpeg";
 import React, { useState } from "react";
 import {
@@ -13,42 +13,45 @@ import {
   Menu,
   MenuList,
 } from "@material-tailwind/react";
-import { Link, useLocation } from 'react-router-dom';
-import {
-  SquaresPlusIcon,
+import { Link } from 'react-router-dom';
+// import {
+//   SquaresPlusIcon,
  
-} from "@heroicons/react/24/solid";
-
+// } from "@heroicons/react/24/solid";
+ 
 import Cookies from "js-cookie";
 import Profile from "../Profile/Profile";
 import { jwtDecode } from "jwt-decode";
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
-
-
+ 
+ 
 export function StickyNavbar() {
-
+ 
 const token = Cookies.get("token");
 let jwtDecodes;
 if (token) {
   jwtDecodes = jwtDecode(token);
 }
+ 
+ 
+console.log("jwtDecodes",jwtDecodes?.authorities[0])
 const userRole = token ? jwtDecodes?.authorities[0] : null;
 const DealerId = token ? jwtDecodes?.dealerId : null;
 const UserId = token ? jwtDecodes?.userId : null;
-
+console.log(UserId)
 const navListMenuItems = [
-  
+ 
   {
     title: "Bidding Car",
-    link: userRole === "DEALER"? "/dealer/biddingcar" : userRole === "ADMIN" ? '/admin/biddingcar' :null ,
+    link: userRole === "DEALER"? "/dealer/biddingcar" : userRole === "ADMIN" ? '/admin/biddingcar' : userRole ==="SALESPERSON" ? "/sales/biddingcar" :null ,
   },
 ];
-
+ 
 if (userRole === "ADMIN") {
   navListMenuItems.unshift(
     {
       title: "Dashboard",
-
+ 
       link: `/`,
     },
     {
@@ -57,21 +60,21 @@ if (userRole === "ADMIN") {
     }
   );
 }
-
+ 
 if (userRole === "DEALER") {
   navListMenuItems.unshift(
     {
       title: "Cars",
       link: `/dealer/${jwtDecodes?.dealerId}`,
     },
-    
+   
   );
 }
-
-
+ 
+ 
   const [openNav, setOpenNav] = useState(false);
-  const location = useLocation();
-
+  // const location = useLocation();
+ 
   function NavListMenu() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -92,7 +95,7 @@ if (userRole === "DEALER") {
         </Link>
       )
     );
-
+ 
     return (
       <React.Fragment>
         <Menu
@@ -137,10 +140,10 @@ if (userRole === "DEALER") {
       </React.Fragment>
     );
   }
-  
-
-  
-
+ 
+ 
+ 
+ 
   const adminDashboard = userRole?.includes("ADMIN") ? (
     <>
       <Link to={"/admin"}>
@@ -158,7 +161,7 @@ if (userRole === "DEALER") {
         </Typography>
       </Link>
       <NavListMenu />
-
+ 
       <Link to={"/inspector"}>
         <Typography
           as="li"
@@ -187,10 +190,10 @@ if (userRole === "DEALER") {
           Seller
         </Typography>
       </Link>
-      
+     
     </>
   ) : null;
-
+ 
   const dealerDashboard = userRole?.includes("DEALER") ? (
     <>
       <Link to={"/carlist"}>
@@ -205,6 +208,19 @@ if (userRole === "DEALER") {
           }`}
         >
           Buy Car
+        </Typography>
+      </Link><Link to={"/dealer/live/cars"}>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === "/dealer/live/cars"
+              ? "bg-indigo-200 text-white"
+              : ""
+          }`}
+        >
+          Live Cars
         </Typography>
       </Link>
       <NavListMenu />
@@ -240,7 +256,7 @@ if (userRole === "DEALER") {
       </Link>
     </>
   ) : null;
-
+ 
   const userDashboard = userRole?.includes("USER") ? (
     <>
       <Link to={`/pendinrequest/${jwtDecodes?.userId}`}>
@@ -259,7 +275,7 @@ if (userRole === "DEALER") {
       </Link>
     </>
   ) : null;
-
+ 
   const inspectorDashboard = userRole?.includes("INSPECTOR") ? (
     <>
       <Link to={`/inspector/car`}>
@@ -278,14 +294,21 @@ if (userRole === "DEALER") {
       </Link>
     </>
   ) : null;
-
+ 
+ 
+  const salePersonDashboard = userRole?.includes("SALESPERSON") ? (
+    <>
+      <NavListMenu />
+    </>
+  ) : null;
+ 
   React.useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
-
+ 
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 p-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Link to={"/"}>
@@ -320,9 +343,10 @@ if (userRole === "DEALER") {
       {dealerDashboard}
       {userDashboard}
       {inspectorDashboard}
+      {salePersonDashboard}
     </ul>
   );
-
+ 
   return (
     <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
       <div className="flex items-center justify-between text-blue-gray-900">
@@ -415,7 +439,7 @@ if (userRole === "DEALER") {
                     <span>Sign In</span>
                   </Button>
                 </Link>
-
+ 
                 <Link to="/signup">
                   <Button fullWidth variant="gradient" size="sm" className="">
                     <span>Sign up</span>
@@ -429,3 +453,5 @@ if (userRole === "DEALER") {
     </Navbar>
   );
 }
+ 
+ 

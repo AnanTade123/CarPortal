@@ -92,6 +92,56 @@ export const biddingAPI = apiSlice.injectEndpoints({
       }),
       providesTags : ["BIDDING"],
     }),
+    getbeadingCarImage: builder.query({
+      query: (beadingCarId) => ({
+        url: `/uploadFileBidCar/getByBidCarID?beadingCarId=${beadingCarId}`,
+        method: "GET",
+        transferResponse: console.log("Data to backend :- ", beadingCarId),
+      }),
+      providesTags: ["BIDDING","SALESPERSON"],
+    }),
+
+    getbeadingCarById: builder.query({
+      query: (id) => ({
+        url: `/BeadingCarController/getbyId/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["BIDDING"],
+    }),
+
+    getbeadingGetById: builder.query({
+      query:(beadingCarId) => ({
+        url: `/BeadingCarController/getbyId/${beadingCarId}`,
+        transferResponse: console.log(beadingCarId),
+        method: "GET",
+      }),
+      providesTags: ["BIDDING"],
+    }),
+    getAllLiveBiddingCars: builder.query({
+      query:(beadingCarId) => ({
+        url: `BeadingCarController/getAllLiveBiddingCars`,
+        transferResponse: console.log(beadingCarId),
+        method: "GET",
+      }),
+      providesTags: ["BIDDING"],
+    }),
+    getCarIdType: builder.query({
+      query:(beadingCarId) => ({
+        url: `uploadFileBidCar/getDocuments?beadingCarId=${beadingCarId}&DocumentType=coverImage`,
+        transferResponse: console.log(beadingCarId),
+        method: "GET",
+      }),
+      providesTags: ["BIDDING"],
+    }),
+
+    getbeadingImgGetById: builder.query({
+      query:(beadingCarId) => ({
+        url: `/uploadFileBidCar/getByBidCarID?beadingCarId/${beadingCarId}`,
+        transferResponse: console.log(beadingCarId),
+        method: "GET",
+      }),
+      providesTags: ["BIDDING"],
+    }),
 
   }),
 });
@@ -105,5 +155,11 @@ export const {useBiddingAllCardQuery,
   useCreateBiddingMutation, 
   useBidCarbyIdQuery, 
   useBiddingCarByDealerIdQuery,
-  useGetByDealerIdQuery
- } = biddingAPI
+  useGetByDealerIdQuery,
+  useGetbeadingCarImageQuery,
+  useGetbeadingCarByIdQuery,
+  useGetbeadingGetByIdQuery,
+  useGetbeadingImgGetByIdQuery,
+  useGetAllLiveBiddingCarsQuery,
+  useGetCarIdTypeQuery
+} = biddingAPI;
