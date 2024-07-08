@@ -214,7 +214,7 @@ const handleFileChange = async (event, fieldName, imgPreview = "") => {
           setFormData({ ...formData, ["FourPowerWindowss"]: imageData });
   
       const inspectionData = {
-        documentType: "Inspection Report",
+        documentType: "InspectionReport",
         beadingCarId: beadingCarId,
         doc: "",
         doctype: "Exterior",

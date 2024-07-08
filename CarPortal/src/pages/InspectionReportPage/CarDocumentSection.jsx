@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
@@ -23,17 +24,9 @@ const CarDocumentSection = ({inspData}) => {
     cngLpgFitmentInRC: inspData?.object.cnglpgfitmentInRC,
   });
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
   
-
   return (
-
-    
-    <div className='p-4 flex-col ' >
+   <div className='p-4 flex-col ' >
       <Typography variant="h4" className='text-black font-bold pb-10'>
       <span >Important Document</span>
       </Typography>
@@ -98,7 +91,7 @@ const CarDocumentSection = ({inspData}) => {
         {/* Registration Date */}
         <Grid item xs={12} sm={6}>
           
-          <Typography variant="body1" onChange={handleChange}>Registration Date: {formData.registrationDate}</Typography>
+          <Typography variant="body1" >Registration Date: {formData.registrationDate}</Typography>
         </Grid>
 
         {/* RTO */}
