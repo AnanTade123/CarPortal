@@ -200,7 +200,7 @@ export default function App() {
               element={<DealerPendingRequest />}
             />
             <Route
-              path="/finalreport"
+              path="dealer/finalreport/:beadingCarId"
               element={<FinalReport/>}
             />
             <Route
