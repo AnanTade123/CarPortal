@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 // #Cowl Top :- status/options - Repainted, Dented, Scratched, Rusted, Repaired, Damaged,faded
@@ -13,7 +14,7 @@
 // #Right Pillar :- status/options - Repainted, Dented, Scratched, Rusted, Repaired,
 // Damaged,faded
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   MenuItem,
   FormControl,
@@ -26,6 +27,7 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import UploadImage4 from '../../../ui/UploadImageComponents/UploadImage4';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -48,14 +50,66 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Structure = ({formData, setFormData,handleFileChange,uploadedImages }) => {
+const Structure = ({handleCameraModal, 
+  userRole, 
+  handleCaptureImage, 
+  handleSubmitWithoutImage, 
+  data, 
+  formData, 
+  setFormData, 
+  handleFileChange, 
+  uploadedImages, 
+  setUploadedImages,
+  captureModalOpen,
+  setCaptureModalOpen,
+  selectedLable, }) => {
   const classes = useStyles();
 
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-
+  useEffect(() => {
+    // Pre-fill form data and uploaded images based on API data
+    data?.object.map((item) => {
+      switch (item.subtype) {
+        case "CowlTop":
+          setFormData((prev) => ({ ...prev, CowlTop: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, CowlTops: item.documentLink }));
+          break;
+        case "BootFloor":
+          setFormData((prev) => ({ ...prev, BootFloor: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, BootFloors: item.documentLink }));
+          break;
+        case "RightApronLEG":
+          setFormData((prev) => ({ ...prev, RightApronLEG: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RightApronLEGs: item.documentLink }));
+          break;
+        case "LeftApronLEG":
+          setFormData((prev) => ({ ...prev, LeftApronLEG: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, LeftApronLEGs: item.documentLink }));
+          break;
+        case "RightApron":
+          setFormData((prev) => ({ ...prev, RightApron: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RightAprons: item.documentLink }));
+          break;
+        case "LeftApron":
+          setFormData((prev) => ({ ...prev, LeftApron: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, LeftAprons: item.documentLink }));
+          break;
+        case "LeftPillar":
+          setFormData((prev) => ({ ...prev, LeftPillar: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, LeftPillars: item.documentLink }));
+          break;
+        case "RightPillar":
+          setFormData((prev) => ({ ...prev, RightPillar: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RightPillars: item.documentLink }));
+          break;
+        default:
+          break;
+      }
+    });
+  }, [data]);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
@@ -94,32 +148,33 @@ const Structure = ({formData, setFormData,handleFileChange,uploadedImages }) => 
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="upload-CowlTop"
-              type="file"
-              onChange={(event) => handleFileChange(event, 'CowlTop')}
-            />
-            <label
-              htmlFor="upload-CowlTop"
-              className="cursor-pointer flex items-center"
-            >
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
           </div>
-          {uploadedImages.CowlTop && (
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.CowlTops && (
             <img
-              src={uploadedImages.CowlTop}
+              src={uploadedImages.CowlTops}
               alt="Uploaded"
               style={{
                 maxWidth: '20%',
                 marginTop: '10px',
                 cursor: 'pointer',
               }}
-              onClick={() => handleImageClick(uploadedImages.CowlTop)}
+              onClick={() => handleImageClick(uploadedImages.CowlTops)}
             />
           )}
         </Grid>
@@ -141,32 +196,33 @@ const Structure = ({formData, setFormData,handleFileChange,uploadedImages }) => 
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="upload-BootFloor"
-              type="file"
-              onChange={(event) => handleFileChange(event, 'BootFloor')}
-            />
-            <label
-              htmlFor="upload-BootFloor"
-              className="cursor-pointer flex items-center"
-            >
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
           </div>
-          {uploadedImages.BootFloor && (
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.BootFloors && (
             <img
-              src={uploadedImages.BootFloor}
+              src={uploadedImages.BootFloors}
               alt="Uploaded"
               style={{
                 maxWidth: '20%',
                 marginTop: '10px',
                 cursor: 'pointer',
               }}
-              onClick={() => handleImageClick(uploadedImages.BootFloor)}
+              onClick={() => handleImageClick(uploadedImages.BootFloors)}
             />
           )}
         </Grid>
@@ -188,32 +244,33 @@ const Structure = ({formData, setFormData,handleFileChange,uploadedImages }) => 
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="upload-RightApronLEG"
-              type="file"
-              onChange={(event) => handleFileChange(event, 'RightApronLEG')}
-            />
-            <label
-              htmlFor="upload-RightApronLEG"
-              className="cursor-pointer flex items-center"
-            >
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
           </div>
-          {uploadedImages.RightApronLEG && (
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.RightApronLEGs && (
             <img
-              src={uploadedImages.RightApronLEG}
+              src={uploadedImages.RightApronLEGs}
               alt="Uploaded"
               style={{
                 maxWidth: '20%',
                 marginTop: '10px',
                 cursor: 'pointer',
               }}
-              onClick={() => handleImageClick(uploadedImages.RightApronLEG)}
+              onClick={() => handleImageClick(uploadedImages.RightApronLEGs)}
             />
           )}
         </Grid>
@@ -235,32 +292,33 @@ const Structure = ({formData, setFormData,handleFileChange,uploadedImages }) => 
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="upload-LeftApronLEG"
-              type="file"
-              onChange={(event) => handleFileChange(event, 'LeftApronLEG')}
-            />
-            <label
-              htmlFor="upload-LeftApronLEG"
-              className="cursor-pointer flex items-center"
-            >
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
           </div>
-          {uploadedImages.LeftApronLEG && (
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.LeftApronLEGs && (
             <img
-              src={uploadedImages.LeftApronLEG}
+              src={uploadedImages.LeftApronLEGs}
               alt="Uploaded"
               style={{
                 maxWidth: '20%',
                 marginTop: '10px',
                 cursor: 'pointer',
               }}
-              onClick={() => handleImageClick(uploadedImages.LeftApronLEG)}
+              onClick={() => handleImageClick(uploadedImages.LeftApronLEGs)}
             />
           )}
         </Grid>
@@ -282,32 +340,33 @@ const Structure = ({formData, setFormData,handleFileChange,uploadedImages }) => 
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="upload-RightApron"
-              type="file"
-              onChange={(event) => handleFileChange(event, 'RightApron')}
-            />
-            <label
-              htmlFor="upload-RightApron"
-              className="cursor-pointer flex items-center"
-            >
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
           </div>
-          {uploadedImages.RightApron && (
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.RightAprons && (
             <img
-              src={uploadedImages.RightApron}
+              src={uploadedImages.RightAprons}
               alt="Uploaded"
               style={{
                 maxWidth: '20%',
                 marginTop: '10px',
                 cursor: 'pointer',
               }}
-              onClick={() => handleImageClick(uploadedImages.RightApron)}
+              onClick={() => handleImageClick(uploadedImages.RightAprons)}
             />
           )}
         </Grid>
@@ -329,32 +388,33 @@ const Structure = ({formData, setFormData,handleFileChange,uploadedImages }) => 
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="upload-LeftApron"
-              type="file"
-              onChange={(event) => handleFileChange(event, 'LeftApron')}
-            />
-            <label
-              htmlFor="upload-LeftApron"
-              className="cursor-pointer flex items-center"
-            >
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
           </div>
-          {uploadedImages.LeftApron && (
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.LeftAprons && (
             <img
-              src={uploadedImages.LeftApron}
+              src={uploadedImages.LeftAprons}
               alt="Uploaded"
               style={{
                 maxWidth: '20%',
                 marginTop: '10px',
                 cursor: 'pointer',
               }}
-              onClick={() => handleImageClick(uploadedImages.LeftApron)}
+              onClick={() => handleImageClick(uploadedImages.LeftAprons)}
             />
           )}
         </Grid>
@@ -376,32 +436,33 @@ const Structure = ({formData, setFormData,handleFileChange,uploadedImages }) => 
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="upload-LeftPillar"
-              type="file"
-              onChange={(event) => handleFileChange(event, 'LeftPillar')}
-            />
-            <label
-              htmlFor="upload-LeftPillar"
-              className="cursor-pointer flex items-center"
-            >
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
           </div>
-          {uploadedImages.LeftPillar && (
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.LeftPillars && (
             <img
-              src={uploadedImages.LeftPillar}
+              src={uploadedImages.LeftPillars}
               alt="Uploaded"
               style={{
                 maxWidth: '20%',
                 marginTop: '10px',
                 cursor: 'pointer',
               }}
-              onClick={() => handleImageClick(uploadedImages.LeftPillar)}
+              onClick={() => handleImageClick(uploadedImages.LeftPillars)}
             />
           )}
         </Grid>
@@ -423,47 +484,54 @@ const Structure = ({formData, setFormData,handleFileChange,uploadedImages }) => 
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="upload-RightPillar"
-              type="file"
-              onChange={(event) => handleFileChange(event, 'RightPillar')}
-            />
-            <label
-              htmlFor="upload-RightPillar"
-              className="cursor-pointer flex items-center"
-            >
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
           </div>
-          {uploadedImages.RightPillar && (
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.RightPillars && (
             <img
-              src={uploadedImages.RightPillar}
+              src={uploadedImages.RightPillars}
               alt="Uploaded"
               style={{
                 maxWidth: '20%',
                 marginTop: '10px',
                 cursor: 'pointer',
               }}
-              onClick={() => handleImageClick(uploadedImages.RightPillar)}
+              onClick={() => handleImageClick(uploadedImages.RightPillars)}
             />
           )}
         </Grid>
       </Grid>
 
       <Modal
-        open={openModal}
-        onClose={closeModal}
-        className={classes.modal}
+        open={captureModalOpen}
+        onClose={() => setCaptureModalOpen(false)}
+        // className={classes.modal}
       >
         <div className={classes.paper}>
-          {selectedImage && (
-            <img src={selectedImage} alt="Preview" className={classes.image} />
-          )}
+          <UploadImage4
+            isOpen={captureModalOpen}
+            onClose={() => setCaptureModalOpen(false)}
+            onCapture={handleCaptureImage}
+            handleCaptureImage = {handleFileChange}
+            selectfiled = {selectedLable}
+          />
         </div>
+ 
+       
       </Modal>
     </div>
   );

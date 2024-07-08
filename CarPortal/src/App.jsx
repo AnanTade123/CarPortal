@@ -119,17 +119,17 @@ export default function App() {
             <Route path="/inspector" element={<InspectorList />} />
             <Route path="/admin/salesuser" element={<SalesList />} />
             <Route path="/CarInspection" element={<CarInspectionTable />} />
-            <Route
-              path="/admin/inspector/info/:userId"
-              element={<AdminInspectorInfo />}
-            />
+            <Route path="/admin/inspector/info/:userId" element={<AdminInspectorInfo />} />
             <Route path="/carlistmodel" element={<CarListModels />} />
             <Route
               path="/admin/dealer/info/:id"
               element={<AdminDealerInfo />}
             />
-
-            <Route path="/admin/sales/info/:id" element={<AdminDealerInfo />} />
+            
+            <Route
+              path="/admin/sales/info/:id"
+              element={<AdminDealerInfo />}
+            />
             <Route
               path="/admin/dealer/edit/:userid/:id"
               element={<AdminDealerEdit />}
@@ -169,6 +169,8 @@ export default function App() {
             <Route path="/dealer/:id/addcar" element={<AddDealerCar2 />} />
             <Route path="/dealer/:id/uploadimage" element={<Uploadimages2 />} />
             <Route path="/dealer/:id/edit" element={<DealerEdit />} />
+            <Route path="/dealer/finalreport/:beadingCarId" element={<FinalReport />} />
+
             <Route
             path="/dealer/live/carDetails/:bidCarId/:beadingCarId"
             element={<BiddingCarDetailsById1 />}
@@ -189,13 +191,16 @@ export default function App() {
               path="/dealer/:id/allpending"
               element={<DealerAllPendingRequest />}
             />
-            <Route path="/dealer/biddingcar" element={<BiddingDealerCars />} />
+            <Route
+              path="/dealer/biddingcar"
+              element={<BiddingDealerCars />}
+            />
             <Route
               path="/car/:CarId/pendinguser"
               element={<DealerPendingRequest />}
             />
             <Route
-              path="/finalreport"
+              path="dealer/finalreport/:beadingCarId"
               element={<FinalReport/>}
             />
             <Route
@@ -215,13 +220,15 @@ export default function App() {
               />
             }
           >
+            <Route path="/inspector/carverify/:beadingCarId" element={<CarVerify />} />
+            <Route
+              path="/inspector/car"
+              element={<CarListing />}
+            />
             <Route path="/inspector/carverify/:id" element={<CarVerify />} />
             <Route path="/inspector/car" element={<CarListing />} />
             <Route path="/inspector/car/add" element={<BiddingAddCar2 />} />
-            <Route
-            path="/biddinglist/bidCardetails/:beadingCarId"
-            element={<BiddingCarDetailsById1 />}
-          />
+           
           </Route>
 
           <Route path="/bidding" element={<BiddingMainPage />} />
@@ -232,10 +239,7 @@ export default function App() {
             path="/car/:CarId/pendingreq"
             element={<BiddingDealerPendingReq />}
           />
-          <Route
-            path="/bidding/:beadingCarId/uploadimage"
-            element={<UploadImages3 />}
-          />
+          <Route path="/bidding/:carId/uploadimage" element={<UploadImages3 />} />
           <Route path="/bidding/:carId/:id/editimage" element={<EditImage />} />
           <Route element={<SalePersonMiddleware allowedRoles={[...Object.values(onlySeller)]} /> }>
               <Route path="/sales/biddingcar" element={<BiddingDealerCars />} />

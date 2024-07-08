@@ -31,9 +31,9 @@ export const inspectorAPI = apiSlice.injectEndpoints({
     }),
 
     getInspectionReport : builder.query ({
-      query :({id ,docType}) => ({
-        url : `/uploadFile/getCarIdType?beadingCarId=${id}&docType=${docType}`,
-        transerResponse:console.log("APi response",id, docType),
+      query :({beadingCarId ,docType}) => ({
+        url : `/uploadFileBidCar/getBidCarIdType?beadingCarId=${beadingCarId}&docType=${docType}`,
+        transerResponse:console.log("APi response",beadingCarId, docType),
         method : "GET"
       }),
     }),
@@ -54,8 +54,26 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         method : "POST",
         transerResponse:console.log("APi response",inspectionData),
        body : inspectionData 
+      }),
+    }),
+
+    addBiddingCarWithoutImage : builder.mutation ({
+      query : ({formDataToSend1}) => ({
+        url : `/uploadFileBidCar/addWithoutPhoto?doc=&doctype=&subtype=&comment=`,
+        method : "POST",
+        transerResponse:console.log(formDataToSend1),
+        body : formDataToSend1
       })
-    })
+    }),
+
+    finalInspection : builder.query ({
+      query : (beadingCarId) => ({
+        url : `/inspectionReport/getByBeadingCar?beadingCarId=74`,
+        method : "GET",
+        transerResponse:console.log(beadingCarId),
+      })
+    }),
+
   }),
 });
 
@@ -64,4 +82,6 @@ export const { useInspectorByIdQuery ,
   useGetInspectionReportQuery,
   useInspectionReportMutation,
   useInspectorupdateMutation ,
-  useFinalInspectionReportMutation } = inspectorAPI;
+  useFinalInspectionReportMutation,
+useAddBiddingCarWithoutImageMutation,
+useFinalInspectionQuery } = inspectorAPI;

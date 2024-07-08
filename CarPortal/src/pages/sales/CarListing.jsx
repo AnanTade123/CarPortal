@@ -23,12 +23,12 @@ export default function CarListing() {
   const activeCarsData = data?.filter(car => car?.carStatus === "ACTIVE");
   const pendingCarsData = data?.filter(car => car?.carStatus === "pending");
   const sellCarsData = data?.filter(car => car?.carStatus === "sell");
-  const [totalCars] = useState(data?.length || "-");
-  const [activeCars] = useState(activeCarsData?.length || "-");
-  const [pendingCars] = useState(pendingCarsData?.length || "-");
-  const [inspectionDone] = useState(activeCarsData?.length || "-");
-  const [sellCars] = useState(sellCarsData?.length || "-");
-  // const [pageNo, setPageNo] = useState(0);
+  const [totalCars ,setTotalCars] = useState(data?.length || "-");
+  const [activeCars ,setActiveCars] = useState(activeCarsData?.length || "-");
+  const [pendingCars ,setPendingCars] = useState(pendingCarsData?.length || "-");
+  const [inspectionDone ,setInspectionDone] = useState(activeCarsData?.length || "-");
+  const [sellCars ,setSellCars] = useState(sellCarsData?.length || "-");
+
   const [deleteDealer] = useDeleteDealerMutation();
   const [open, setOpen] = useState(false);
   const [deleteid, setDeleteid] = useState();
@@ -118,7 +118,7 @@ export default function CarListing() {
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
-              <Link to={`/biddinglist/bidCardetails/${cell.row.values.beadingCarId}`}>
+              <Link to={`/biddinglist/cardetails/${cell.row.values.beadingCarId}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -159,16 +159,15 @@ export default function CarListing() {
     },
   ];
 
-  // useEffect(() => {
-  //   if (data) {
-  //     setBidCarList(data ? data.slice(Math.max(data.length - 10, 0)) : []);
-  //     setTotalCars(data?.length);
-  //     setActiveCars(activeCarsData?.length);
-  //     setPendingCars(pendingCarsData?.length);
-  //     setInspectionDone(activeCarsData?.length);
-  //     setSellCars(sellCarsData?.length);
-  //   }
-  // }, [data, activeCarsData, pendingCarsData, sellCarsData]);
+  useEffect(() => {
+    if (data) {
+      setTotalCars(data?.length);
+      setActiveCars(activeCarsData?.length);
+      setPendingCars(pendingCarsData?.length);
+      setInspectionDone(activeCarsData?.length);
+      setSellCars(sellCarsData?.length);
+    }
+  }, [activeCarsData, pendingCarsData, sellCarsData]);
 
   // let biddingCarData;
   if (isLoading) {
