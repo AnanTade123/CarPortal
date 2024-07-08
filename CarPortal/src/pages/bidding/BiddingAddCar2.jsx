@@ -562,7 +562,7 @@ export default function BiddingAddCar2() {
                 </select>
               </div>
 
-              <div className="mt-5 ml-2 w-full">
+              <div className="mt-5 md:ml-2 w-full">
                 <select
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label="Registration"
