@@ -180,7 +180,7 @@ export default function BiddingAddCar2() {
     if (res?.data?.message === "success") {
       toast.success("Car Added Successfully");
       setTimeout(() => {
-        navigate(`/bidding/${beadingCarId}/uploadimage`);
+        navigate(`/bidding/${beadingCarId}/update/image`);
       }, 2000);
     } else {
       toast.error("Somthing is wrong");

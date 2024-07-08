@@ -53,6 +53,9 @@ export default function BiddingEditCar() {
   const { data: brandData } = useGetOnlyBrandsQuery();
   const { data: dealarList } = useGetAllDealerListQuery();
   const brands = brandData?.list.map((item) => item.brand) || [];
+
+  
+
   const [selectedModel, setSelectedModel] = useState('');
   const [selectedBrand, setSelectedBrand] = useState(''); //Two field Brands and Model
   const [modelOptions, setModelOptions] = useState([]);
@@ -179,7 +182,7 @@ export default function BiddingEditCar() {
       if(res?.data?.status === "success"){
         toast.success("Car edit successfully")
         setTimeout(() => {
-          navigate(`/bidding/${beadingCarId}/bideditimage`)
+          navigate(`/bidding/${beadingCarId}/uploadimage`)
         }, 1000)
       }
       console.log(res);

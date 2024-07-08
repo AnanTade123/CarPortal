@@ -192,14 +192,17 @@ export default function App() {
             <Route path="/inspector/car" element={<CarListing />} />
             <Route path="/inspector/car/add" element={<BiddingAddCar2 />} />
             <Route
-            path="/biddinglist/bidCardetails/:beadingCarId"
-            element={<BiddingCarDetailsById1 />}
-          />
+              path="/biddinglist/bidCardetails/:beadingCarId"
+              element={<BiddingCarDetailsById1 />}
+            />
           </Route>
 
           <Route path="/bidding" element={<BiddingMainPage />} />
           <Route path="/bidding/:userid/addcar" element={<BiddingAddCar />} />
-          <Route path="/bidding/:beadingCarId/bideditcar" element={<BiddingEditCar />} />
+          <Route
+            path="/bidding/:beadingCarId/bideditcar"
+            element={<BiddingEditCar />}
+          />
           <Route path="/bidding/:id/:carid/settimer" element={<SetTimer />} />
           <Route
             path="/car/:CarId/pendingreq"
@@ -207,9 +210,14 @@ export default function App() {
           />
           <Route
             path="/bidding/:beadingCarId/uploadimage"
+            element={<BiddingEditImage />}
+          />
+          {/* <Route path="/bidding/:beadingCarId/:id/bideditimage" element={<BiddingEditImage />} /> */}
+
+          <Route
+            path="/bidding/:beadingCarId/update/image"
             element={<UploadImages3 />}
           />
-          <Route path="/bidding/:beadingCarId/:id/bideditimage" element={<BiddingEditImage />} />
         </Route>
 
         {/* <Route path="/trans" element={<CardDetailss/>}/> */}

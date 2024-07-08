@@ -10,6 +10,7 @@ import {
 } from "@material-tailwind/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDealerIdByCarQuery } from "../services/carAPI";
+import { useGetbeadingImgGetByIdQuery, useGetBidCarIdQuery } from "../services/biddingAPI";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import { toast, ToastContainer } from "react-toastify";
@@ -25,6 +26,13 @@ function UploadImages3() {
   const [uploadStatus, setUploadStatus] = useState({}); // Track upload status for each image
   const { beadingCarId } = useParams();
   console.log(beadingCarId);
+
+//   const {data: imagess} = useGetbeadingImgGetByIdQuery({beadingCarId,trigger});
+// console.log(imagess)
+
+const {data:data2} = useGetBidCarIdQuery(beadingCarId);
+  console.log(data2)
+
   const token = Cookies.get("token");
   let jwtDecodes;
 
