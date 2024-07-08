@@ -83,6 +83,7 @@ import ImageUploader from "./components/demo/uploadimage";
 import FinalReport from "./pages/InspectionReportPage/FinalReport";
 import LiveBid from "./pages/LiveBidding/LiveBid";
 import BiddingCarDetail from "./pages/LiveBidding/BiddingCarDetail";
+import BiddingCar from "./pages/bidding/BiddingCar";
 
 
 export default function App() {
@@ -96,6 +97,7 @@ export default function App() {
           <Route path="signup" element={<SimpleRegistrationForm />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/carlist" element={<BuyCar />} />
+          <Route path="/wsConnction" element={<BiddingCar />} />
           <Route
             path="/carlist/cardetails/:carId"
             element={<CarDetailsById />}
@@ -166,7 +168,10 @@ export default function App() {
             <Route path="/dealer/:id/addcar" element={<AddDealerCar2 />} />
             <Route path="/dealer/:id/uploadimage" element={<Uploadimages2 />} />
             <Route path="/dealer/:id/edit" element={<DealerEdit />} />
-
+            <Route
+            path="/dealer/live/carDetails/:bidCarId/:beadingCarId"
+            element={<BiddingCarDetailsById1 />}
+          />
             <Route
               path="/dealer/:id/car/edit/:carId"
               element={<EditDealerCar />}
@@ -193,7 +198,7 @@ export default function App() {
               element={<FinalReport/>}
             />
             <Route
-              path="/livebid"
+              path="/dealer/live/cars"
               element={<LiveBid/>}
             />
             <Route

@@ -209,6 +209,19 @@ if (userRole === "DEALER") {
         >
           Buy Car
         </Typography>
+      </Link><Link to={"/dealer/live/cars"}>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === "/dealer/live/cars"
+              ? "bg-indigo-200 text-white"
+              : ""
+          }`}
+        >
+          Live Cars
+        </Typography>
       </Link>
       <NavListMenu />
       <Link to={`/dealer/${jwtDecodes?.dealerId}/allpending`}>

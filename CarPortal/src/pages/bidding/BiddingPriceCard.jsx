@@ -10,11 +10,14 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaFileAlt } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 import BiddingSetTime from "../../ui/BiddingSetTime";
-import BiddingDailogeBox from "../../ui/BiddingDialogeBox"
+// import BiddingDailogeBox from "../../ui/BiddingDialogeBox"
 import PlaceBid from "../../pages/dealer/PlaceBid";
 import {useGetbeadingGetByIdQuery} from "../../services/biddingAPI"
 const BiddingPriceCard = ({
   beadingCarId,
+  getTopThreeBids,
+  topThreeBids,
+  placeBid
   // price,
   // brand,
   // fuelType,
@@ -29,18 +32,17 @@ const BiddingPriceCard = ({
   // bodyType,
   // transmission,
 }) => {
-
-  const cookie = Cookies.get("token");
-  console.log(cookie);
-
-  const jwtDecodes = cookie ? jwtDecode(cookie) : null;
+  const token = Cookies.get("token");
+  let jwtDecodes;
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
   const userRole = jwtDecodes?.authorities[0];
-  console.log(userRole);
-  console.log(userRole);
-  const UserID = jwtDecodes?.beadingCarId;
+  const UserId = token ? jwtDecodes?.userId : null;
+
 
   const {data} = useGetbeadingGetByIdQuery(beadingCarId);
-  console.log(data)
+  console.log("topThreeBids",topThreeBids[0]?.amount)
   return (
     <CardUi>
       <div className="w-full md:w-full">
@@ -112,7 +114,7 @@ const BiddingPriceCard = ({
         <div className="flex justify-center align-middle items-center my-3">
           <div className="text-center">
             <div className="text-xl font-bold text-black font-[latto]">
-              ₹{data?.price}
+            Top Bidding Amount:  ₹{topThreeBids[0]?.amount}
             </div>
             <div className="uppercase text-gray-700 text-xs font-[latto]">
               Understand Price
@@ -126,22 +128,44 @@ const BiddingPriceCard = ({
               <div className="flex mt-5">
                 <div>
                   <BiddingSetTime
-                    userid={UserID}
+                    userid={UserId}
                     biddingcarid={data?.beadingCarId}
                   />
                 </div>
-                <div className="ml-5">
+                {/* <div className="ml-5">
                   <BiddingDailogeBox
                     userid={UserID}
                     biddingcarid={data?.beadingCarId}
                   />
-                </div>
+                </div> */}
                 <div className="ml-5">
-                  <PlaceBid />
+                  {/* <PlaceBid /> */}
                 </div>
               </div>
             </div>
-          ) : null}
+          ) :
+          userRole === "DEALER" ?
+          
+          (<div>
+          <p className="text-2xl font-semibold text-black">Start Bidding</p>
+          <div className="flex mt-5">
+            {/* <div>
+              <BiddingSetTime
+                userid={UserID}
+                biddingcarid={data?.beadingCarId}
+              />
+            </div> */}
+            {/* <div className="ml-5">
+              <BiddingDailogeBox
+                userid={UserID}
+                biddingcarid={data?.beadingCarId}
+              />
+            </div> */}
+            <div className="ml-5">
+              <PlaceBid beadingCarId={beadingCarId} UserID={UserId} getTopThreeBids={getTopThreeBids} topThreeBids={topThreeBids} placeBid={placeBid} />
+            </div>
+          </div>
+        </div>) : null}
         </div>
       </div>
     </CardUi>
