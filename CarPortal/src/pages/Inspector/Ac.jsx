@@ -99,7 +99,7 @@ if (!event?.target) {
       documentType: "Inspection Report",
       beadingCarId: beadingCarId,
       doc: "",
-      doctype: "Electrical",
+      doctype: "AC",
       subtype: lables,
       comment: selectfiled,
     };

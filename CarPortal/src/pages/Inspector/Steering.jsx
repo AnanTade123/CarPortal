@@ -104,7 +104,7 @@ console.log(userRole)
         documentType: "Inspection Report",
         beadingCarId: beadingCarId,
         doc: "",
-        doctype: "Electrical",
+        doctype: "Steering",
         subtype: lables,
         comment: selectfiled,
       };

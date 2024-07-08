@@ -112,7 +112,7 @@ console.log(lables)
         documentType: "Inspection Report",
         beadingCarId: beadingCarId,
         doc: "",
-        doctype: "Electrical",
+        doctype: "Eletrical",
         subtype: lables,
         comment: selectfiled,
       };

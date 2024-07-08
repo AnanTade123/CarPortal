@@ -29,9 +29,9 @@ export const inspectorAPI = apiSlice.injectEndpoints({
     }),
 
     getInspectionReport : builder.query ({
-      query :({id ,docType}) => ({
-        url : `/uploadFileBidCar/getBidCarIdType?beadingCarId=${id}&docType=${docType}`,
-        transerResponse:console.log("APi response",id, docType),
+      query :({beadingCarId ,docType}) => ({
+        url : `/uploadFileBidCar/getBidCarIdType?beadingCarId=${beadingCarId}&docType=${docType}`,
+        transerResponse:console.log("APi response",beadingCarId, docType),
         method : "GET"
       }),
     }),

@@ -40,7 +40,7 @@ const Exterior = () => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
   console.log(beadingCarId);
-  const { data } = useGetInspectionReportQuery({ id:beadingCarId, docType: "Exterior" });
+  const { data } = useGetInspectionReportQuery({ beadingCarId, docType: "Exterior" });
   console.log(data);
   
 const [formData, setFormData] = useState({
@@ -217,7 +217,7 @@ const handleFileChange = async (event, fieldName, imgPreview = "") => {
         documentType: "Inspection Report",
         beadingCarId: beadingCarId,
         doc: "",
-        doctype: "Electrical",
+        doctype: "Exterior",
         subtype: lables,
         comment: selectfiled,
       };

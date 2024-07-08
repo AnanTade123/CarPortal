@@ -155,7 +155,7 @@ console.log(userRole)
         documentType: "Inspection Report",
         beadingCarId: beadingCarId,
         doc: "",
-        doctype: "Electrical",
+        doctype: "Engine",
         subtype: lables,
         comment: selectfiled,
       };
@@ -244,7 +244,7 @@ console.log(userRole)
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary"  style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
