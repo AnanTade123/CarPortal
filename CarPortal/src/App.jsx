@@ -75,6 +75,7 @@ import BiddingAddCar2 from "./pages/bidding/BiddingAddCar2";
 import AdminSalesInfo from "./pages/adminpages/AdminSalesInfo";
 import AdminSalesEdit from "./pages/adminpages/AdminSalesEdit";
 import BiddingCarDetailsById1 from "./pages/bidding/BiddingCarDetailsById1";
+import BiddingEditImage from "./pages/bidding/BiddingEditImage";
 import SalePersonMiddleware from "./middleware/SalePersonMiddleware";
 import ImageUploader from "./components/demo/uploadimage";
 
@@ -83,6 +84,7 @@ import ImageUploader from "./components/demo/uploadimage";
 import FinalReport from "./pages/InspectionReportPage/FinalReport";
 import LiveBid from "./pages/LiveBidding/LiveBid";
 import BiddingCarDetail from "./pages/LiveBidding/BiddingCarDetail";
+import BiddingCar from "./pages/bidding/BiddingCar";
 
 
 export default function App() {
@@ -96,6 +98,7 @@ export default function App() {
           <Route path="signup" element={<SimpleRegistrationForm />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/carlist" element={<BuyCar />} />
+          <Route path="/wsConnction" element={<BiddingCar />} />
           <Route
             path="/carlist/cardetails/:carId"
             element={<CarDetailsById />}
@@ -166,7 +169,10 @@ export default function App() {
             <Route path="/dealer/:id/addcar" element={<AddDealerCar2 />} />
             <Route path="/dealer/:id/uploadimage" element={<Uploadimages2 />} />
             <Route path="/dealer/:id/edit" element={<DealerEdit />} />
-
+            <Route
+            path="/dealer/live/carDetails/:bidCarId/:beadingCarId"
+            element={<BiddingCarDetailsById1 />}
+          />
             <Route
               path="/dealer/:id/car/edit/:carId"
               element={<EditDealerCar />}
@@ -193,7 +199,7 @@ export default function App() {
               element={<FinalReport/>}
             />
             <Route
-              path="/livebid"
+              path="/dealer/live/cars"
               element={<LiveBid/>}
             />
             <Route
@@ -211,11 +217,6 @@ export default function App() {
           >
             <Route path="/inspector/carverify/:id" element={<CarVerify />} />
             <Route path="/inspector/car" element={<CarListing />} />
-            <Route path="/inspector/carverify/:beadingCarId" element={<CarVerify />} />
-            <Route
-              path="/inspector/car"
-              element={<CarListing/>}
-            />
             <Route path="/inspector/car/add" element={<BiddingAddCar2 />} />
             <Route
             path="/biddinglist/bidCardetails/:beadingCarId"
@@ -225,7 +226,7 @@ export default function App() {
 
           <Route path="/bidding" element={<BiddingMainPage />} />
           <Route path="/bidding/:userid/addcar" element={<BiddingAddCar />} />
-          <Route path="/bidding/:carId/editcar" element={<BiddingEditCar />} />
+          <Route path="/bidding/:beadingCarId/bideditcar" element={<BiddingEditCar />} />
           <Route path="/bidding/:id/:carid/settimer" element={<SetTimer />} />
           <Route
             path="/car/:CarId/pendingreq"

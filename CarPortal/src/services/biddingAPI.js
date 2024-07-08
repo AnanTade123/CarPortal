@@ -92,11 +92,11 @@ export const biddingAPI = apiSlice.injectEndpoints({
 
     getbeadingCarImage: builder.query({
       query: (beadingCarId) => ({
-        url: `/uploadFileBidCar/getByBeadingCarId?beadingCarId=${beadingCarId}`,
+        url: `/uploadFileBidCar/getByBidCarID?beadingCarId=${beadingCarId}`,
         method: "GET",
         transferResponse: console.log("Data to backend :- ", beadingCarId),
       }),
-      providesTags: ["BIDDING"],
+      providesTags: ["BIDDING","SALESPERSON"],
     }),
 
     getbeadingCarById: builder.query({
@@ -110,6 +110,31 @@ export const biddingAPI = apiSlice.injectEndpoints({
     getbeadingGetById: builder.query({
       query:(beadingCarId) => ({
         url: `/BeadingCarController/getbyId/${beadingCarId}`,
+        transferResponse: console.log(beadingCarId),
+        method: "GET",
+      }),
+      providesTags: ["BIDDING"],
+    }),
+    getAllLiveBiddingCars: builder.query({
+      query:(beadingCarId) => ({
+        url: `BeadingCarController/getAllLiveBiddingCars`,
+        transferResponse: console.log(beadingCarId),
+        method: "GET",
+      }),
+      providesTags: ["BIDDING"],
+    }),
+    getCarIdType: builder.query({
+      query:(beadingCarId) => ({
+        url: `uploadFileBidCar/getDocuments?beadingCarId=${beadingCarId}&DocumentType=coverImage`,
+        transferResponse: console.log(beadingCarId),
+        method: "GET",
+      }),
+      providesTags: ["BIDDING"],
+    }),
+
+    getbeadingImgGetById: builder.query({
+      query:(beadingCarId) => ({
+        url: `/uploadFileBidCar/getByBidCarID?beadingCarId/${beadingCarId}`,
         transferResponse: console.log(beadingCarId),
         method: "GET",
       }),
@@ -132,5 +157,8 @@ export const {
   useGetByDealerIdQuery,
   useGetbeadingCarImageQuery,
   useGetbeadingCarByIdQuery,
-  useGetbeadingGetByIdQuery
+  useGetbeadingGetByIdQuery,
+  useGetbeadingImgGetByIdQuery,
+  useGetAllLiveBiddingCarsQuery,
+  useGetCarIdTypeQuery
 } = biddingAPI;
