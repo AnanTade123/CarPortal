@@ -14,6 +14,7 @@ import {
   onlyAdmin,
   onlyDealer,
   onlyInspector,
+  onlySeller
 } from "./components/config/Roles";
 import AdminDealerInfo from "./pages/adminpages/AdminDealerInfo";
 import AdminDealerEdit from "./pages/adminpages/AdminDealerEdit";
@@ -75,6 +76,16 @@ import AdminSalesInfo from "./pages/adminpages/AdminSalesInfo";
 import AdminSalesEdit from "./pages/adminpages/AdminSalesEdit";
 import BiddingCarDetailsById1 from "./pages/bidding/BiddingCarDetailsById1";
 import BiddingEditImage from "./pages/bidding/BiddingEditImage";
+import SalePersonMiddleware from "./middleware/SalePersonMiddleware";
+import ImageUploader from "./components/demo/uploadimage";
+
+
+
+import FinalReport from "./pages/InspectionReportPage/FinalReport";
+import LiveBid from "./pages/LiveBidding/LiveBid";
+import BiddingCarDetail from "./pages/LiveBidding/BiddingCarDetail";
+import BiddingCar from "./pages/bidding/BiddingCar";
+
 
 export default function App() {
   return (
@@ -87,13 +98,14 @@ export default function App() {
           <Route path="signup" element={<SimpleRegistrationForm />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/carlist" element={<BuyCar />} />
+          <Route path="/wsConnction" element={<BiddingCar />} />
           <Route
             path="/carlist/cardetails/:carId"
             element={<CarDetailsById />}
           />
           <Route
-            path="/biddinglist/cardetails/:carId"
-            element={<BiddingCarDetailsById />}
+            path="/biddinglist/cardetails/:beadingCarId"
+            element={<BiddingCarDetailsById1 />}
           />
           <Route path="/pendinrequest/:userid" element={<PendingRequest />} />
           <Route path="/user/booking/:id" element={<UserConfirmBooking />} />
@@ -107,17 +119,17 @@ export default function App() {
             <Route path="/inspector" element={<InspectorList />} />
             <Route path="/admin/salesuser" element={<SalesList />} />
             <Route path="/CarInspection" element={<CarInspectionTable />} />
-            <Route
-              path="/admin/inspector/info/:userId"
-              element={<AdminInspectorInfo />}
-            />
+            <Route path="/admin/inspector/info/:userId" element={<AdminInspectorInfo />} />
             <Route path="/carlistmodel" element={<CarListModels />} />
             <Route
               path="/admin/dealer/info/:id"
               element={<AdminDealerInfo />}
             />
-
-            <Route path="/admin/sales/info/:id" element={<AdminDealerInfo />} />
+            
+            <Route
+              path="/admin/sales/info/:id"
+              element={<AdminDealerInfo />}
+            />
             <Route
               path="/admin/dealer/edit/:userid/:id"
               element={<AdminDealerEdit />}
@@ -131,7 +143,7 @@ export default function App() {
               element={<AdminSalesEdit />}
             />
             <Route
-              path="/admin/inspector/edit/:userid/:id"
+              path="/admin/inspector/edit/:userid/:inspectorprofileid"
               element={<AdminInspectorEdit />}
             />
             <Route
@@ -157,7 +169,12 @@ export default function App() {
             <Route path="/dealer/:id/addcar" element={<AddDealerCar2 />} />
             <Route path="/dealer/:id/uploadimage" element={<Uploadimages2 />} />
             <Route path="/dealer/:id/edit" element={<DealerEdit />} />
+            <Route path="/dealer/finalreport/:beadingCarId" element={<FinalReport />} />
 
+            <Route
+            path="/dealer/live/carDetails/:bidCarId/:beadingCarId"
+            element={<BiddingCarDetailsById1 />}
+          />
             <Route
               path="/dealer/:id/car/edit/:carId"
               element={<EditDealerCar />}
@@ -174,10 +191,25 @@ export default function App() {
               path="/dealer/:id/allpending"
               element={<DealerAllPendingRequest />}
             />
-            <Route path="/dealer/biddingcar" element={<BiddingDealerCars />} />
+            <Route
+              path="/dealer/biddingcar"
+              element={<BiddingDealerCars />}
+            />
             <Route
               path="/car/:CarId/pendinguser"
               element={<DealerPendingRequest />}
+            />
+            <Route
+              path="dealer/finalreport/:beadingCarId"
+              element={<FinalReport/>}
+            />
+            <Route
+              path="/dealer/live/cars"
+              element={<LiveBid/>}
+            />
+            <Route
+              path="/biddingcardetail"
+              element={<BiddingCarDetail/>}
             />
           </Route>
 
@@ -188,36 +220,31 @@ export default function App() {
               />
             }
           >
+            <Route path="/inspector/carverify/:beadingCarId" element={<CarVerify />} />
+            <Route
+              path="/inspector/car"
+              element={<CarListing />}
+            />
             <Route path="/inspector/carverify/:id" element={<CarVerify />} />
             <Route path="/inspector/car" element={<CarListing />} />
             <Route path="/inspector/car/add" element={<BiddingAddCar2 />} />
-            <Route
-              path="/biddinglist/bidCardetails/:beadingCarId"
-              element={<BiddingCarDetailsById1 />}
-            />
+           
           </Route>
 
           <Route path="/bidding" element={<BiddingMainPage />} />
           <Route path="/bidding/:userid/addcar" element={<BiddingAddCar />} />
-          <Route
-            path="/bidding/:beadingCarId/bideditcar"
-            element={<BiddingEditCar />}
-          />
+          <Route path="/bidding/:beadingCarId/bideditcar" element={<BiddingEditCar />} />
           <Route path="/bidding/:id/:carid/settimer" element={<SetTimer />} />
           <Route
             path="/car/:CarId/pendingreq"
             element={<BiddingDealerPendingReq />}
           />
-          <Route
-            path="/bidding/:beadingCarId/uploadimage"
-            element={<BiddingEditImage />}
-          />
-          {/* <Route path="/bidding/:beadingCarId/:id/bideditimage" element={<BiddingEditImage />} /> */}
-
-          <Route
-            path="/bidding/:beadingCarId/update/image"
-            element={<UploadImages3 />}
-          />
+          <Route path="/bidding/:carId/uploadimage" element={<UploadImages3 />} />
+          <Route path="/bidding/:carId/:id/editimage" element={<EditImage />} />
+          <Route element={<SalePersonMiddleware allowedRoles={[...Object.values(onlySeller)]} /> }>
+              <Route path="/sales/biddingcar" element={<BiddingDealerCars />} />
+              <Route path="/sale/carverify/:beadingCarId" element={<CarVerify/>} />
+          </Route>
         </Route>
 
         {/* <Route path="/trans" element={<CardDetailss/>}/> */}

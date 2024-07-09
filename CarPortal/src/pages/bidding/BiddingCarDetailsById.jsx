@@ -9,9 +9,9 @@ import { useNavigate } from "react-router-dom";
 export default function BiddingCarDetailsById() {
 
     const navigate = useNavigate();
-    const { carId } = useParams();
-  
-    const { data, isLoading, isError, error } = useBiddingCarByIdQuery(carId);
+    const { beadingCarId } = useParams();
+  console.log(beadingCarId)
+    const { data, isLoading, isError, error } = useBiddingCarByIdQuery(beadingCarId);
     console.log(data)
   
     if (isLoading) {
@@ -63,6 +63,7 @@ export default function BiddingCarDetailsById() {
         year={year}
         carInsurance={carInsurance}
         kmDriven={kmDriven}
+        beadingCarId={beadingCarId}
       />
     </div>
     <div className="p-4 sticky top-0">

@@ -7,6 +7,10 @@ import { useFilterCarQuery } from "../../services/carAPI";
 import BiddingCarView1 from "./BiddingCarView1";
 import BiddingKnowYourCar from "./BiddingKnowYourCar";
 import BiddingInspectionReport from "./BiddingInspectionReport";
+import { Button } from "@material-tailwind/react";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
 
 const BiddingCarView = ({
   fuelType,
@@ -19,10 +23,15 @@ const BiddingCarView = ({
   beadingCarId,
   data,
 }) => {
-  console.log(
-    beadingCarId
-  );
+  
+  const token = Cookies.get("token");
+  let jwtDecodes;
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
 
+  const userRole = token ? jwtDecodes?.authorities[0] : null;
+  console.log(userRole)
   return (
     <div>
       <BiddingCarView1 beadingCarId={beadingCarId} data={data} />
@@ -37,6 +46,15 @@ const BiddingCarView = ({
       />
       <BiddingInspectionReport />
 
+      {userRole === "DEALER" ? (<div className="mt-5">
+        <Link to={`/dealer/finalreport/${beadingCarId}`}>
+        
+            <Button>
+              Verification Report
+            </Button>
+            </Link>
+          </div>):null}
+          
       {/* <TopFeatures/> */}
     </div>
   );
