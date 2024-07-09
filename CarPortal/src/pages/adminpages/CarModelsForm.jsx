@@ -74,12 +74,12 @@ export function CarModelsForm({ addCar }) {
         className="bg-transparent shadow-none"
       >
         <CardUi>
-          <CardBody className="flex flex-col gap-4 ">
+          <CardBody className="flex flex-col gap-4">
             <Typography variant="h4" color="blue-gray">
               Add Car
             </Typography>
             <form onSubmit={handleSubmit} className="space-y-3 md:w-[30rem] w-[220px]">
-              <div className="flex flex-col">
+              <div className="flex">
                 <Typography className="w-32 text-black font-medium">Brand Name : </Typography>
                 <Input
                   label="Brand Name"
@@ -89,7 +89,7 @@ export function CarModelsForm({ addCar }) {
                   required
                 />
               </div>
-              <div className="flex flex-col">
+              <div className="flex">
                 <Typography className="w-32 text-black font-medium">Model Name :</Typography>
                 <Input
                   label="Model Name"
@@ -99,7 +99,7 @@ export function CarModelsForm({ addCar }) {
                   required
                 />
               </div>
-              <div className="flex flex-col">
+              <div className="flex">
                 <Typography className="w-32 text-black font-medium">Variant :</Typography>
                 <Input
                   label="Variant"

@@ -1,36 +1,32 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 
-const CarDocumentSection = () => {
+const CarDocumentSection = ({inspData}) => {
+
+  console.log(inspData)
   const [formData, setFormData] = React.useState({
-    rcAvailability: 'Yes',
-    mismatchInRC: 'No mismatch',
-    rtoNocIssued: 'Yes',
-    insuranceType: 'Zero Depreciation, Comprehensive',
-    noClaimBonus: 'Yes',
-    underHypothecation: 'No',
-    roadTaxPaid: 'LTT',
-    partipeshiRequest: 'No',
-    duplicateKey: 'Yes',
-    chassisNumberEmbossing: 'Yes',
-    manufacturingDate: '20/06/2024',
-    registrationDate: '20/06/2024',
-    rto: 'MH21-Jalna',
-    fitnessUpto: '20/06/2024',
-    cngLpgFitmentInRC: 'No mismatch',
+    rcAvailability: inspData?.object.rcavailability,
+    mismatchInRC: inspData?.object.mismatchInRC,
+    rtoNocIssued: inspData?.object.rtonocissued,
+    insuranceType: inspData?.object.insuranceType,
+    noClaimBonus: inspData?.object.noClaimBonus,
+    underHypothecation: inspData?.object.underHypothecation,
+    roadTaxPaid: inspData?.object.roadTaxPaid,
+    partipeshiRequest: inspData?.object.partipeshiRequest,
+    duplicateKey: inspData?.object.duplicateKey,
+    chassisNumberEmbossing: inspData?.object.chassisNumberEmbossing,
+    manufacturingDate: inspData?.object.manufacturingDate,
+    registrationDate: inspData?.object.registrationDate,
+    rto: inspData?.object.rto,
+    fitnessUpto: inspData?.object.fitnessUpto,
+    cngLpgFitmentInRC: inspData?.object.cnglpgfitmentInRC,
   });
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  console.log(formData);
-
+  
   return (
-
-    
-    <div className='p-4 flex-col ' >
+   <div className='p-4 flex-col ' >
       <Typography variant="h4" className='text-black font-bold pb-10'>
       <span >Important Document</span>
       </Typography>
@@ -95,7 +91,7 @@ const CarDocumentSection = () => {
         {/* Registration Date */}
         <Grid item xs={12} sm={6}>
           
-          <Typography variant="body1" onChange={handleChange}>Registration Date: {formData.registrationDate}</Typography>
+          <Typography variant="body1" >Registration Date: {formData.registrationDate}</Typography>
         </Grid>
 
         {/* RTO */}

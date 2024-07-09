@@ -1,6 +1,4 @@
-
-
-import React from "react";
+import { useState } from "react";
 import {
   Button,
   Dialog,
@@ -9,57 +7,113 @@ import {
   DialogFooter,
   Input,
 } from "@material-tailwind/react";
+import Cookies from "js-cookie";
+import {jwtDecode} from "jwt-decode"; // Corrected the import
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 
-import {useStartBiddingSetTimeMutation} from "../services/biddingAPI"
- 
-// eslint-disable-next-line react/prop-types
-export default function BiddingSetTime({userid, biddingcarid}) {
-  const [open, setOpen] = React.useState(false);
- console.log(userid,biddingcarid)
-  const handleOpen = () => setOpen(!open);
 
- const [settime, setSettime] = React.useState({
-    beadingCarId: 0,
+import { useCreateBiddingMutation, useStartBiddingSetTimeMutation } from "../services/biddingAPI";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+const TIME_ZONE = 'Asia/Kolkata';
+
+// eslint-disable-next-line react/prop-types, no-unused-vars
+export default function BiddingSetTime({ userid, biddingcarid }) {
+  const token = Cookies.get("token");
+  let jwtDecodes;
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
+  const UserId = token ? jwtDecodes?.userId : null;
+
+  const [open, setOpen] = useState(false);
+  const [basePriceError, setBasePriceError] = useState("");
+  const [durationMinutesError, setDurationMinutesError] = useState("");
+  const [settime, setSettime] = useState({
+    beadingCarId: "",
     userId: 0,
-    basePrice: 0,
-    durationMinutes: "", // Corrected property name
+    basePrice: "",
+    durationMinutes: "",
   });
   const [startBiddingSetTime] = useStartBiddingSetTimeMutation();
+  const [createBidding] = useCreateBiddingMutation();
 
- const handleDurationMinutesChange = (e) => {
-    setSettime({
-      ...settime,
-      durationMinutes: Number(e.target.value), // Ensure it's a number
-    });
+  const handleOpen = () => setOpen(!open);
+
+  const handleDurationMinutesChange = (e) => {
+    const re = /^[0-9\b]+$/;
+    if (e.target.value === '' || re.test(e.target.value)) {
+      setSettime({
+        ...settime,
+        durationMinutes: e.target.value,
+      });
+    }
   };
 
-  const handlebasePriceChange = (e) => {
-    setSettime({
-      ...settime,
-      basePrice: Number(e.target.value),
-    });
+  const handleBasePriceChange = (e) => {
+    const re = /^[0-9\b]+$/;
+    if (e.target.value === '' || re.test(e.target.value)) {
+      setSettime({
+        ...settime,
+        basePrice: e.target.value,
+      });
+    }
   };
-  console.log(settime)
 
-  async  function formsubmit  ()  {
-    
-    const setTimeData = {
-      beadingCarId: biddingcarid,
-      userId: userid,
-      basePrice: Number(settime.basePrice),
-      durationMinutes: settime.durationMinutes,
-    };
+  const formSubmit = async () => {
+    try {
+      let flag = 0;
+      if (settime.basePrice === "") {
+        flag = 1;
+        setBasePriceError("Please enter base price");
+      } else {
+        setBasePriceError("");
+      }
+      if (settime.durationMinutes === "") {
+        flag = 1;
+        setDurationMinutesError("Please enter minutes");
+      } else {
+        setDurationMinutesError("");
+      }
+      if (flag === 0) {
+        const setTimeData = {
+          beadingCarId: biddingcarid,
+          userId: UserId,
+          basePrice: Number(settime.basePrice),
+          durationMinutes: Number(settime.durationMinutes),
+        };
+        const res1 = await startBiddingSetTime(setTimeData);
+       console.log(res1);
+        const now = dayjs().tz(TIME_ZONE);
+        const newTime = now.add(Number(settime.durationMinutes), 'minutes');
+        const formattedTime = newTime.format('YYYY-MM-DDTHH:mm:ss');
+        console.log("formattedTime", formattedTime);
 
-    console.log(setTimeData);
+        const createdAt = {
+          bidCarId: 0,
+          beadingCarId: biddingcarid,
+          createdAt: formattedTime,
+          basePrice: Number(settime.basePrice),
+          userId: UserId,
+        };
 
-    const res1 = await startBiddingSetTime(setTimeData);
-    console.log(res1);
-    setOpen(!open)
-  }
+        const resCreatedAt = await createBidding(createdAt);
+
+        console.log(resCreatedAt);
+        setOpen(!open);
+      }
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
+
   return (
     <>
       <Button onClick={handleOpen} variant="gradient" color="indigo">
-      Set Time
+        Set Time
       </Button>
       <Dialog
         open={open}
@@ -71,22 +125,25 @@ export default function BiddingSetTime({userid, biddingcarid}) {
       >
         <DialogHeader>Set Bidding Time</DialogHeader>
         <DialogBody>
-        <div className="mt-5">
+          <div className="mt-5">
             <Input
               label="Base Price"
               value={settime.basePrice}
-              onChange={handlebasePriceChange}
-              type="number"
+              onChange={handleBasePriceChange}
+              type="text"
             />
           </div>
-        <div className="mt-5">
+          <span className="text-red-500">{basePriceError}</span>
+          <div className="mt-5">
             <Input
               label="Set time (minutes)"
               value={settime.durationMinutes}
               onChange={handleDurationMinutesChange}
-              type="number"
+              type="text"
+              required
             />
           </div>
+          <span className="text-red-500">{durationMinutesError}</span>
         </DialogBody>
         <DialogFooter>
           <Button
@@ -97,7 +154,7 @@ export default function BiddingSetTime({userid, biddingcarid}) {
           >
             <span>Cancel</span>
           </Button>
-          <Button variant="gradient" color="green" onClick={formsubmit}>
+          <Button variant="gradient" color="green" onClick={formSubmit}>
             <span>Confirm</span>
           </Button>
         </DialogFooter>

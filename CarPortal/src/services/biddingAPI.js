@@ -1,4 +1,6 @@
+
 import { apiSlice } from "./apiSlice";
+
 
 export const biddingAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -28,9 +30,9 @@ export const biddingAPI = apiSlice.injectEndpoints({
       providesTags: ["BIDDING"],
     }),
     biddingcarUpdate: builder.mutation({
-      query: ({ data, beadingCarId }) => ({
-        url: `/BeadingCarController/edit/${beadingCarId}`,
-        transferResponse: console.log(data, beadingCarId),
+      query: ({ data, carId }) => ({
+        url: `/BeadingCarController/edit/${carId}`,
+        transferResponse: console.log(data, carId),
         method: "PUT",
         body: data,
       }),
@@ -50,7 +52,7 @@ export const biddingAPI = apiSlice.injectEndpoints({
         url: `/BeadingCarController/carregister`,
         transferResponse: console.log(formdata),
         method: "POST",
-        body: formdata,
+        body : formdata
       }),
       invalidatesTags: ["BIDDING"],
     }),
@@ -58,9 +60,9 @@ export const biddingAPI = apiSlice.injectEndpoints({
     startBiddingSetTime: builder.mutation({
       query: (settime) => ({
         url: `/Bidding/v1/SetTime`,
-        transferResponse: console.log("Data to backend :- ", settime),
+        transferResponse: console.log("Data to backend :- ",settime),
         method: "POST",
-        body: settime,
+        body : settime
       }),
       invalidatesTags: ["BIDDING"],
     }),
@@ -68,35 +70,35 @@ export const biddingAPI = apiSlice.injectEndpoints({
     createBidding: builder.mutation({
       query: (bidding) => ({
         url: `/Bidding/v1/CreateBidding`,
-        transferResponse: console.log("Data to backend :- ", bidding),
+        transferResponse: console.log("Data to backend :- ",bidding),
         method: "POST",
-        body: bidding,
+       body : bidding
       }),
       invalidatesTags: ["BIDDING"],
     }),
 
-    bidCarbyId: builder.query({
-      query: () => ({
-        url: `/Bidding/v1/getById?bidCarId=3&beadingCarId=22`,
-        method: "GET",
-      }),
-      providesTags: ["BIDDING"],
-    }),
-    getByDealerId: builder.query({
-      query: (dealerId) => ({
-        url: `BeadingCarController/getByDealerID/${dealerId}`,
-        method: "GET",
+    bidCarbyId : builder.query({
+      query : () => ({
+        url : `/Bidding/v1/getById?bidCarId=3&beadingCarId=22`,
+        method : "GET"
       }),
       providesTags: ["BIDDING"],
     }),
 
+    getByDealerId : builder.query({
+      query : (dealerId)  => ({
+        url : `BeadingCarController/getByDealerID/${dealerId}`,
+        method : "GET"
+      }),
+      providesTags : ["BIDDING"],
+    }),
     getbeadingCarImage: builder.query({
       query: (beadingCarId) => ({
-        url: `/uploadFileBidCar/getByBeadingCarId?beadingCarId=${beadingCarId}`,
+        url: `/uploadFileBidCar/getByBidCarID?beadingCarId=${beadingCarId}`,
         method: "GET",
         transferResponse: console.log("Data to backend :- ", beadingCarId),
       }),
-      providesTags: ["BIDDING"],
+      providesTags: ["BIDDING","SALESPERSON"],
     }),
 
     getbeadingCarById: builder.query({
@@ -115,63 +117,49 @@ export const biddingAPI = apiSlice.injectEndpoints({
       }),
       providesTags: ["BIDDING"],
     }),
+    getAllLiveBiddingCars: builder.query({
+      query:(beadingCarId) => ({
+        url: `BeadingCarController/getAllLiveBiddingCars`,
+        transferResponse: console.log(beadingCarId),
+        method: "GET",
+      }),
+      providesTags: ["BIDDING"],
+    }),
+    getCarIdType: builder.query({
+      query:(beadingCarId) => ({
+        url: `uploadFileBidCar/getDocuments?beadingCarId=${beadingCarId}&DocumentType=coverImage`,
+        transferResponse: console.log(beadingCarId),
+        method: "GET",
+      }),
+      providesTags: ["BIDDING"],
+    }),
 
     getbeadingImgGetById: builder.query({
-      query:({beadingCarId}) => ({
-        url: `/uploadFileBidCar/getByBidCarID?beadingCarId=${beadingCarId}`,
-        transferResponse: console.log(beadingCarId),
-        method: "GET",
-      }),
-      providesTags: ["BIDDING"],
-    }),
-
-    getBidCarId: builder.query({
       query:(beadingCarId) => ({
-        url: `/uploadFileBidCar/getByBidCarID?beadingCarId=${beadingCarId}`,
+        url: `/uploadFileBidCar/getByBidCarID?beadingCarId/${beadingCarId}`,
         transferResponse: console.log(beadingCarId),
         method: "GET",
       }),
       providesTags: ["BIDDING"],
-    }),
-
-    updateBidCar : builder.mutation({
-      query: ({ beadingCarId, formDataTosend }) => ({
-        url: `/uploadFileBidCar/update?doc=abcd&doctype=cover&subtype=images&comment=xyz&bidDocumentId=${beadingCarId}`,
-        transerResponse:console.log("APi response",beadingCarId,formDataTosend),
-        method: 'PATCH',
-        body: formDataTosend,
-      }),
-      invalidatesTags: ['BIDDING'],
-    }),
-
-    biddingCarImageRemove: builder.mutation({
-      query: ({beadingCarId}) => ({
-        url: `/uploadFileBidCar/delete?DocumentId=${beadingCarId}`,
-        transferResponse: console.log(beadingCarId),
-        method: "DELETE",
-      }),
-      invalidatesTags: ["BIDDING"],
     }),
 
   }),
 });
 
-export const {
-  useBiddingAllCardQuery,
-  useBiddingCarByIdQuery,
-  useBiddingcarUpdateMutation,
-  useBiddingRemoveMutation,
-  useBiddingCarRegisterMutation,
-  useStartBiddingSetTimeMutation,
-  useCreateBiddingMutation,
-  useBidCarbyIdQuery,
+export const {useBiddingAllCardQuery,
+  useBiddingCarByIdQuery, 
+  useBiddingcarUpdateMutation, 
+  useBiddingRemoveMutation ,
+  useBiddingCarRegisterMutation , 
+  useStartBiddingSetTimeMutation ,
+  useCreateBiddingMutation, 
+  useBidCarbyIdQuery, 
   useBiddingCarByDealerIdQuery,
   useGetByDealerIdQuery,
   useGetbeadingCarImageQuery,
   useGetbeadingCarByIdQuery,
   useGetbeadingGetByIdQuery,
   useGetbeadingImgGetByIdQuery,
-  useUpdateBidCarMutation,
-  useGetBidCarIdQuery,
-  useBiddingCarImageRemoveMutation
+  useGetAllLiveBiddingCarsQuery,
+  useGetCarIdTypeQuery
 } = biddingAPI;
