@@ -21,6 +21,9 @@ import Cookies from "js-cookie";
 
 const BiddingDealerCars = () => {
   const { id } = useParams();
+ 
+  const [pageNo, setPageNo] = useState(0);
+  const itemsPerPage = 10;
 
   const token = Cookies.get("token");
   let jwtDecodes;
@@ -209,13 +212,18 @@ const BiddingDealerCars = () => {
     },
   ];
   console.log(columns);
-  let dealerApiData;
+  // let dealerApiData;
   if (isLoading) {
     return <p>isLoading</p>;
-  } else {
-    dealerApiData = data ? data.slice(Math.max(data.length - 10, 0)) : [];
   }
-  console.log("dealerApiData------",dealerApiData);
+  //  else {
+  //   dealerApiData = data ? data.slice(Math.max(data.length - 10, 0)) : [];
+  // }
+  // console.log("dealerApiData------",dealerApiData);
+ 
+  const startIndex = pageNo * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedData = data ? data.slice(startIndex, endIndex) : [];
 
   return (
     <>
@@ -248,7 +256,7 @@ const BiddingDealerCars = () => {
             </div>
           </CardHeader>
           <CardBody className="overflow-scroll px-0">
-            <TableComponent columns={columns} data={dealerApiData} />
+            <TableComponent columns={columns} data={paginatedData} />
           </CardBody>
           <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
             <Typography
@@ -257,6 +265,7 @@ const BiddingDealerCars = () => {
               className="font-normal"
             >
               {/* Page {pageNo + 1} */}
+              Page {pageNo + 1}
             </Typography>
             <div className="flex gap-2">
               <Button
@@ -264,6 +273,8 @@ const BiddingDealerCars = () => {
                 size="sm"
                 // disabled={pageNo <= 0}
                 // onClick={() => setPageNo((a) => a - 1)}
+                disabled={pageNo <= 0}
+                  onClick={() => setPageNo((prev) => Math.max(prev - 1, 0))}
               >
                 Previous
               </Button>
@@ -272,6 +283,8 @@ const BiddingDealerCars = () => {
                 size="sm"
                 // onClick={nextHandler}
                 // disabled={data?.list?.length < 10}
+                onClick={() => setPageNo((prev) => (data.length > endIndex ? prev + 1 : prev))}
+                disabled={data.length <= endIndex}
               >
                 Next
               </Button>
