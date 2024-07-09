@@ -13,6 +13,7 @@ import BiddingSetTime from "../../ui/BiddingSetTime";
 // import BiddingDailogeBox from "../../ui/BiddingDialogeBox"
 import PlaceBid from "../../pages/dealer/PlaceBid";
 import {useGetbeadingGetByIdQuery} from "../../services/biddingAPI"
+import { Link } from "react-router-dom";
 const BiddingPriceCard = ({
   beadingCarId,
   getTopThreeBids,
@@ -42,7 +43,7 @@ const BiddingPriceCard = ({
 
 
   const {data} = useGetbeadingGetByIdQuery(beadingCarId);
-  console.log("topThreeBids",topThreeBids[0]?.amount)
+  // console.log("topThreeBids",topThreeBids[0]?.amount)
   return (
     <CardUi>
       <div className="w-full md:w-full">
@@ -98,12 +99,14 @@ const BiddingPriceCard = ({
             Parked at: {data?.area}, {data?.city}
           </div>
         </div>
-        <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
-          <FaFileAlt />
-          <div className="mt-4 text-base text-gray-700 font-[latto]">
-            View Inspection Report
-          </div>
-        </div>
+        <Link to={userRole === "SALESPERSON" ? `/sale/inspection/report/${data?.beadingCarId}` : `/dealer/finalreport/${data?.beadingCarId}`}>
+            <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
+              <FaFileAlt />
+              <div className="mt-4 text-base text-gray-700 font-[latto]">
+                View Inspection Report
+              </div>
+            </div>
+        </Link>
         <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
           <IoLogoWhatsapp />
           <div className="mt-4 mb-6 text-base text-gray-700 font-[latto]">

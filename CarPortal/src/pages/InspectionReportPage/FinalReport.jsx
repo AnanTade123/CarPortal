@@ -57,7 +57,7 @@ console.log(inspData)
   ];
  
   return (
-    <div className="">
+    <div className="p-5 my-5">
       
       {/* Tabs at the top */}
       <div className="sticky lg:top-[94px]  md:top-16 top-16 bg-gray-200 z-10 md:p-2.5 shadow-sm border-2 xl:space-x-48 lg:space-x-28 md:space-x-14 space-x-8 -m-3 md:-mt-5   cursor-pointer pt-2 pb-2  overflow-x-auto md:overflow-x-visible  lg:overflow-x-visible  " value={activeTab}>

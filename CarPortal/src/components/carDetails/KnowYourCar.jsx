@@ -34,55 +34,14 @@ const KnowYourCar = ({
   );
   return (
     <>
-      <p className="text-2xl text-black font-bold my-6 md:ml-12 font-[Merriweather]">
+      <p className="text-2xl text-black font-bold my-3 md:ml-12 font-[Merriweather]">
         Know your Car
       </p>
       <CardUi>
         <div className="w-3/4 h-max md:w-full">
-          <div className="md:flex md:justify-between pl-4 align-middle items-center">
-            <div className="flex items-center gap-6 md:mr-6">
-              <div className="bg-blue-50 py-3 md:px-2 rounded-xl">
-                <IoLogoModelS className="w-12 h-8" />
-              </div>
-              <div className="flex flex-col">
-                <div className="font-bold text-black font-[latto] text-xl">
-                  Top Model
-                </div>
-                <div className="font-[latto] text-lg">
-                  Top varient that is equipped with all features of the model
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center gap-6 mr-6 mt-11 md:mt-0">
-              <div className="bg-blue-50 py-3 px-2 rounded-xl">
-                <GrServices className="w-12 h-8" />
-              </div>
-              <div className="flex flex-col">
-                <div className="font-bold text-black font-[latto] text-xl">
-                  Regularly Serviced
-                </div>
-                <div className="font-[latto] text-lg">
-                  Top varient that is equipped with all features of the model
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center gap-6 mt-11 pl-4">
-            <div className="bg-blue-50 py-3 px-2 rounded-xl">
-              <MdOutlineAirlineSeatReclineExtra className="w-12 h-8" />
-            </div>
-            <div className="flex flex-col">
-              <div className="font-bold text-black font-[latto] text-xl">
-                Standard Safty Features
-              </div>
-              <div className="font-[latto] text-lg">
-                Top varient that is equipped with all <br />
-                features of the model
-              </div>
-            </div>
-          </div>
+          
 
-          <div className="max-w-full flex justify-start gap-10 px-4 md:justify-between mt-10 flex-wrap">
+          <div className="max-w-full flex justify-start gap-10 px-4 md:justify-between mt-3 flex-wrap">
             <div className="flex flex-col">
               <div className="flex items-center gap-5">
                 <div>
@@ -197,6 +156,49 @@ const KnowYourCar = ({
                     {ownerSerial}
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+          <br/>
+           <div className="md:flex md:justify-between pl-4 align-middle items-center">
+            <div className="flex items-center gap-6 md:mr-6">
+              <div className="bg-blue-50 py-3 md:px-2 rounded-xl">
+                <IoLogoModelS className="w-12 h-8" />
+              </div>
+              <div className="flex flex-col">
+                <div className="font-bold text-black font-[latto] text-xl">
+                  Top Model
+                </div>
+                <div className="font-[latto] text-lg">
+                  Top varient that is equipped with all features of the model
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-6 mr-6 mt-11 md:mt-0">
+              <div className="bg-blue-50 py-3 px-2 rounded-xl">
+                <GrServices className="w-12 h-8" />
+              </div>
+              <div className="flex flex-col">
+                <div className="font-bold text-black font-[latto] text-xl">
+                  Regularly Serviced
+                </div>
+                <div className="font-[latto] text-lg">
+                  Top varient that is equipped with all features of the model
+                </div>
+              </div>
+            </div>
+          </div> 
+          <div className="flex items-center gap-6 mt-11 pl-4">
+            <div className="bg-blue-50 py-3 px-2 rounded-xl">
+              <MdOutlineAirlineSeatReclineExtra className="w-12 h-8" />
+            </div>
+            <div className="flex flex-col">
+              <div className="font-bold text-black font-[latto] text-xl">
+                Standard Safty Features
+              </div>
+              <div className="font-[latto] text-lg">
+                Top varient that is equipped with all <br />
+                features of the model
               </div>
             </div>
           </div>
