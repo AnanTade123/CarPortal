@@ -10,7 +10,7 @@ const navigate = useNavigate()
     rcAvailability: '',
     mismatchInRC: '',
     rtoNocIssued: '',
-    insuranceType:  [],
+    insuranceType:  '',
     noClaimBonus: '',
     underHypothecation: '',
     roadTaxPaid: '',
@@ -124,7 +124,7 @@ const navigate = useNavigate()
               name="insuranceType"
               value={formData.insuranceType}
               onChange={handleChange}
-              multiple
+             
             >
               <MenuItem value="Zero Depreciation">Zero Depreciation</MenuItem>
               <MenuItem value="Comprehensive">Comprehensive</MenuItem>
