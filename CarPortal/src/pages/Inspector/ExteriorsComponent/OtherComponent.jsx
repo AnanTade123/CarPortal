@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import  { useState } from 'react';
+import  { useEffect, useState } from 'react';
 import {
   MenuItem,
   FormControl,
@@ -13,6 +15,7 @@ import {
   
 } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import UploadImage4 from '../../../ui/UploadImageComponents/UploadImage4';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -35,11 +38,47 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const OtherComponent = ({  formData, setFormData,handleFileChange,uploadedImages }) => {
+const 
+OtherComponent = ({  handleCameraModal, 
+  userRole, 
+  handleCaptureImage, 
+  handleSubmitWithoutImage, 
+  data, 
+  formData, 
+  setFormData, 
+  handleFileChange, 
+  uploadedImages, 
+  setUploadedImages,
+  captureModalOpen,
+  setCaptureModalOpen,
+  selectedLable, }) => {
   const classes = useStyles();
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+
+  useEffect(() => {
+    // Pre-fill form data and uploaded images based on API data
+    data?.object.map((item) => {
+      switch (item.subtype) {
+       
+        case "HeadLightSupport":
+          setFormData((prev) => ({ ...prev, HeadLightSupport: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, HeadLightSupports: item.documentLink }));
+          break;
+        case "RadiatorSupport":
+          setFormData((prev) => ({ ...prev, RadiatorSupport: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RadiatorSupports: item.documentLink }));
+          break;
+        case "AlloyWheel":
+          setFormData((prev) => ({ ...prev, AlloyWheel: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, AlloyWheels: item.documentLink }));
+          break;
+        default:
+          break;
+      }
+    });
+  }, [data]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -82,25 +121,29 @@ const OtherComponent = ({  formData, setFormData,handleFileChange,uploadedImages
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="upload-HeadLightSupport"
-              type="file"
-              onChange={(event) => handleFileChange(event, 'HeadLightSupport')}
-            />
-            <label htmlFor="upload-HeadLightSupport" className="cursor-pointer flex items-center">
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
           </div>
-          {uploadedImages.HeadLightSupport && (
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.HeadLightSupports && (
             <img
-              src={uploadedImages.HeadLightSupport}
+              src={uploadedImages.HeadLightSupports}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.HeadLightSupport)}
+              onClick={() => handleImageClick(uploadedImages.HeadLightSupports)}
             />
           )}
         </Grid>
@@ -124,25 +167,29 @@ const OtherComponent = ({  formData, setFormData,handleFileChange,uploadedImages
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="upload-RadiatorSupport"
-              type="file"
-              onChange={(event) => handleFileChange(event, 'RadiatorSupport')}
-            />
-            <label htmlFor="upload-RadiatorSupport" className="cursor-pointer flex items-center">
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
           </div>
-          {uploadedImages.RadiatorSupport && (
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.RadiatorSupports && (
             <img
-              src={uploadedImages.RadiatorSupport}
+              src={uploadedImages.RadiatorSupports}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.RadiatorSupport)}
+              onClick={() => handleImageClick(uploadedImages.RadiatorSupports)}
             />
           )}
         </Grid>
@@ -165,25 +212,29 @@ const OtherComponent = ({  formData, setFormData,handleFileChange,uploadedImages
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className="flex items-center mt-2">
-            <input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="upload-AlloyWheel"
-              type="file"
-              onChange={(event) => handleFileChange(event, 'AlloyWheel')}
-            />
-            <label htmlFor="upload-AlloyWheel" className="cursor-pointer flex items-center">
-              <CloudUploadIcon />
-              <span className="ml-2">Upload Image</span>
-            </label>
+          <div className='flex'>  
+            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+            Open Camera
+            </Button>
           </div>
-          {uploadedImages.AlloyWheel && (
+          ): (
+            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.AlloyWheels && (
             <img
-              src={uploadedImages.AlloyWheel}
+              src={uploadedImages.AlloyWheels}
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
-              onClick={() => handleImageClick(uploadedImages.AlloyWheel)}
+              onClick={() => handleImageClick(uploadedImages.AlloyWheels)}
             />
           )}
         </Grid>
@@ -191,20 +242,21 @@ const OtherComponent = ({  formData, setFormData,handleFileChange,uploadedImages
 
       {/* Modal for displaying clicked image */}
       <Modal
-        open={openModal}
-        onClose={closeModal}
-        className={classes.modal}
+        open={captureModalOpen}
+        onClose={() => setCaptureModalOpen(false)}
+        // className={classes.modal}
       >
         <div className={classes.paper}>
-          {selectedImage && (
-            <div>
-              <img src={selectedImage} alt="Selected" className={classes.image} />
-              <Button onClick={closeModal} variant="contained" color="secondary" style={{ marginTop: '10px' }}>
-                Close
-              </Button>
-            </div>
-          )}
+          <UploadImage4
+            isOpen={captureModalOpen}
+            onClose={() => setCaptureModalOpen(false)}
+            onCapture={handleCaptureImage}
+            handleCaptureImage = {handleFileChange}
+            selectfiled = {selectedLable}
+          />
         </div>
+ 
+       
       </Modal>
 
       

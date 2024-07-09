@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useNavigate } from "react-router-dom";
 import { DialogBody } from "@material-tailwind/react";
 import 'tailwindcss/tailwind.css';
@@ -28,14 +29,12 @@ export default function CarListing() {
   const [pendingCars ,setPendingCars] = useState(pendingCarsData?.length || "-");
   const [inspectionDone ,setInspectionDone] = useState(activeCarsData?.length || "-");
   const [sellCars ,setSellCars] = useState(sellCarsData?.length || "-");
-
+  const [pageNo, setPageNo] = useState(0);
   const [deleteDealer] = useDeleteDealerMutation();
   const [open, setOpen] = useState(false);
   const [deleteid, setDeleteid] = useState();
   // const [bidCarList, setBidCarList] = useState([]);
   // const itemsPerPage = 10;
-  const [pageNo, setPageNo] = useState(0);
-  const itemsPerPage = 10;
 
   const handleOpen = (id) => {
     setOpen(!open);
@@ -60,16 +59,16 @@ export default function CarListing() {
     console.log(res);
   };
 
-  // const nextHandler = () => {
-  //   setPageNo((prevPageNo) => {
-  //     if (error?.status === 404) {
-  //       return prevPageNo; // Keep pageNo unchanged
-  //     } else {
-  //       // setBidCarList(data.slice(pageNo * itemsPerPage, (pageNo + 1) * itemsPerPage));
-  //       return prevPageNo + 1;
-  //     }
-  //   });
-  // };
+  const nextHandler = () => {
+    setPageNo((prevPageNo) => {
+      if (error?.status === 404) {
+        return prevPageNo; // Keep pageNo unchanged
+      } else {
+        // setBidCarList(data.slice(pageNo * itemsPerPage, (pageNo + 1) * itemsPerPage));
+        return prevPageNo + 1;
+      }
+    });
+  };
 
   const columns = [
     {
@@ -118,7 +117,7 @@ export default function CarListing() {
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
-              <Link to={`/biddinglist/bidCardetails/${cell.row.values.beadingCarId}`}>
+              <Link to={`/biddinglist/cardetails/${cell.row.values.beadingCarId}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -159,50 +158,43 @@ export default function CarListing() {
     },
   ];
 
-  // useEffect(() => {
-  //   if (data) {
-  //     setBidCarList(data ? data.slice(Math.max(data.length - 10, 0)) : []);
-  //     setTotalCars(data?.length);
-  //     setActiveCars(activeCarsData?.length);
-  //     setPendingCars(pendingCarsData?.length);
-  //     setInspectionDone(activeCarsData?.length);
-  //     setSellCars(sellCarsData?.length);
-  //   }
-  // }, [data, activeCarsData, pendingCarsData, sellCarsData]);
+  useEffect(() => {
+    if (data) {
+      setTotalCars(data?.length);
+      setActiveCars(activeCarsData?.length);
+      setPendingCars(pendingCarsData?.length);
+      setInspectionDone(activeCarsData?.length);
+      setSellCars(sellCarsData?.length);
+    }
+  }, [activeCarsData, pendingCarsData, sellCarsData]);
 
-  // let biddingCarData;
+  let biddingCarData;
   if (isLoading) {
     return <p>isLoading</p>;
-  } 
-  // else {
-  //   biddingCarData = data ? data.slice(Math.max(data.length - 10, 0)) : [];
-  // }
-
-  const startIndex = pageNo * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const paginatedData = data ? data.slice(startIndex, endIndex) : [];
-
+  } else {
+    biddingCarData = data ? data.slice(Math.max(data.length - 10, 0)) : [];
+  }
   return (
     <>
       <h1 className="mt-2 text-xl ml-2 mb-5 font-bold">Car Listing</h1>
-      <div className="flex flex-wrap justify-center divide-x-4 mx-5 mb-8">
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-green-500 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
+      <div className="flex divide-x-4 mx-5">
+        <div className="flex-1 p-5 text-center mr-5 bg-green-500 rounded-2xl shadow-xl">
           <div className="text-4xl font-bold text-white">{totalCars}</div>
           <div className="mt-2 font-medium">Total Cars</div>
         </div>
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-orange-500 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
+        <div className="flex-1 p-5 text-center mr-5 bg-orange-500 rounded-2xl shadow-xl">
           <div className="text-4xl font-bold text-white">{`${activeCars}/${totalCars}`}</div>
           <div className="mt-2 font-medium">Active Cars</div>
         </div>
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-red-400 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
+        <div className="flex-1 p-5 text-center mr-5 bg-red-400 rounded-2xl shadow-xl">
           <div className="text-4xl font-bold text-white">{`${pendingCars}/${totalCars}`}</div>
           <div className="mt-2 font-medium">Pending Cars</div>
         </div>
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-300 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
+        <div className="flex-1 p-5 text-center mr-5 bg-blue-300 rounded-2xl shadow-xl">
           <div className="text-4xl font-bold text-white">{`${inspectionDone}/${totalCars}`}</div>
           <div className="mt-2 font-medium">Inspection Done Cars</div>
         </div>
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-green-500 rounded-2xl shadow-xl sm:mb-2 sm:mr-5">
+        <div className="flex-1 p-5 text-center mr-5 bg-green-500 rounded-2xl shadow-xl">
           <div className="text-4xl font-bold text-white">{sellCars}</div>
           <div className="mt-2 font-medium">Sell Cars</div>
         </div>
@@ -239,16 +231,14 @@ export default function CarListing() {
                 </Link>
               </div>
               <CardBody className="overflow-scroll px-0">
-                <TableComponent columns={columns} data={paginatedData} />
+                <TableComponent columns={columns} data={biddingCarData} />
               </CardBody>
               <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
                 <Button
                   variant="outlined"
                   size="sm"
-                  // disabled={pageNo <= 0}
-                  // onClick={() => setPageNo((a) => a - 1)}
                   disabled={pageNo <= 0}
-                  onClick={() => setPageNo((prev) => Math.max(prev - 1, 0))}
+                  onClick={() => setPageNo((a) => a - 1)}
                 >
                   Previous
                 </Button>
@@ -262,10 +252,8 @@ export default function CarListing() {
                 <Button
                   variant="outlined"
                   size="sm"
-                  // onClick={nextHandler}
-                  // disabled={data?.list?.length < 10}
-                  onClick={() => setPageNo((prev) => (data.length > endIndex ? prev + 1 : prev))}
-                  disabled={data.length <= endIndex}
+                  onClick={nextHandler}
+                  disabled={data?.list?.length < 10}
                 >
                   Next
                 </Button>
