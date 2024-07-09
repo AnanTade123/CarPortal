@@ -83,7 +83,7 @@ console.log(item)
 
 <div className="shadow-xl rounded-lg">
         <CardUi>
-          <div className="md:min-w-[30rem] w-[20rem] m-4">
+          <div className="md:min-w-[25rem] w-[20rem] m-2">
             <div className="flex justify-between">
               <Chip
                 variant="outlined"
