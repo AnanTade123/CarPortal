@@ -18,6 +18,7 @@ import PlaceBid from "../dealer/PlaceBid";
 import BiddingSetTime from "../../ui/BiddingSetTime";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
+import { useState } from "react";
 
 const BiddingDealerCars = () => {
   const { id } = useParams();
