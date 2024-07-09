@@ -1,31 +1,28 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { MenuItem, FormControl, Select, InputLabel, TextField, Grid, Typography,Button } from '@material-ui/core';
 import {useFinalInspectionReportMutation} from "../../services/inspectorapi"
 import { useNavigate } from 'react-router-dom';
 useNavigate
 
-const ImportantDocuments = ({beadingCarId,UserId}) => {
-  console.log(beadingCarId)
-  console.log(UserId)
+const ImportantDocuments = () => {
 const navigate = useNavigate()
   const [formData, setFormData] = React.useState({
-    rcAvailability: "",
-    mismatchInRC: "",
-    rtoNocIssued: "",
-    insuranceType:  "",
-    noClaimBonus: "",
-    underHypothecation: "",
-    roadTaxPaid: "",
-    partipeshiRequest: "",
-    duplicateKey: "",
-    chassisNumberEmbossing: "",
-    manufacturingDate: "",
-    registrationDate: "",
-    rto: "",
-    fitnessUpto: "",
-    cngLpgFitmentInRC: "",
-    LoanStatus:""
+    rcAvailability: '',
+    mismatchInRC: '',
+    rtoNocIssued: '',
+    insuranceType:  '',
+    noClaimBonus: '',
+    underHypothecation: '',
+    roadTaxPaid: '',
+    partipeshiRequest: '',
+    duplicateKey: '',
+    chassisNumberEmbossing: '',
+    manufacturingDate: '',
+    registrationDate: '',
+    rto: '',
+    fitnessUpto: '',
+    cngLpgFitmentInRC: '',
+    LoanStatus:''
   });
 
   const [finalInspectionReport] = useFinalInspectionReportMutation()
@@ -34,18 +31,16 @@ const navigate = useNavigate()
     setFormData({ ...formData, [name]: value });
   };
 
- async function handleSubmit (e) {
+  function handleSubmit (e) {
   e.preventDefault()
      const inspectionData = {
-      userId: UserId,
-      beadingCarId: beadingCarId,
       rcavailability:formData.rcAvailability ,
       mismatchInRC: formData.mismatchInRC,
       rtonocissued: formData.rtoNocIssued,
       insuranceType: formData.insuranceType,
       noClaimBonus: formData.noClaimBonus,
       underHypothecation:formData.underHypothecation ,
-      loanStatus: formData.LoanStatus,
+      loanStatus: formData.loanStatus,
       roadTaxPaid: formData.roadTaxPaid,
       partipeshiRequest:formData.partipeshiRequest,
       duplicateKey: formData.duplicateKey,
@@ -57,7 +52,7 @@ const navigate = useNavigate()
       cnglpgfitmentInRC:formData.cngLpgFitmentInRC 
      }
   try {
-    const res = await finalInspectionReport({inspectionData})
+    const res = finalInspectionReport({inspectionData})
     console.log(res)
     alert("Data Added")
     navigate("/carsdata")
@@ -129,7 +124,7 @@ const navigate = useNavigate()
               name="insuranceType"
               value={formData.insuranceType}
               onChange={handleChange}
-              
+             
             >
               <MenuItem value="Zero Depreciation">Zero Depreciation</MenuItem>
               <MenuItem value="Comprehensive">Comprehensive</MenuItem>

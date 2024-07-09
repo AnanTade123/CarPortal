@@ -28,9 +28,9 @@ export const biddingAPI = apiSlice.injectEndpoints({
       providesTags: ["BIDDING"],
     }),
     biddingcarUpdate: builder.mutation({
-      query: ({ data, carId }) => ({
-        url: `/BeadingCarController/edit/${carId}`,
-        transferResponse: console.log(data, carId),
+      query: ({ data, beadingCarId }) => ({
+        url: `/BeadingCarController/edit/${beadingCarId}`,
+        transferResponse: console.log(data, beadingCarId),
         method: "PUT",
         body: data,
       }),
@@ -116,6 +116,43 @@ export const biddingAPI = apiSlice.injectEndpoints({
       providesTags: ["BIDDING"],
     }),
 
+    getbeadingImgGetById: builder.query({
+      query:({beadingCarId}) => ({
+        url: `/uploadFileBidCar/getByBidCarID?beadingCarId=${beadingCarId}`,
+        transferResponse: console.log(beadingCarId),
+        method: "GET",
+      }),
+      providesTags: ["BIDDING"],
+    }),
+
+    getBidCarId: builder.query({
+      query:(beadingCarId) => ({
+        url: `/uploadFileBidCar/getByBidCarID?beadingCarId=${beadingCarId}`,
+        transferResponse: console.log(beadingCarId),
+        method: "GET",
+      }),
+      providesTags: ["BIDDING"],
+    }),
+
+    updateBidCar : builder.mutation({
+      query: ({ beadingCarId, formDataTosend }) => ({
+        url: `/uploadFileBidCar/update?doc=abcd&doctype=cover&subtype=images&comment=xyz&bidDocumentId=${beadingCarId}`,
+        transerResponse:console.log("APi response",beadingCarId,formDataTosend),
+        method: 'PATCH',
+        body: formDataTosend,
+      }),
+      invalidatesTags: ['BIDDING'],
+    }),
+
+    biddingCarImageRemove: builder.mutation({
+      query: ({beadingCarId}) => ({
+        url: `/uploadFileBidCar/delete?DocumentId=${beadingCarId}`,
+        transferResponse: console.log(beadingCarId),
+        method: "DELETE",
+      }),
+      invalidatesTags: ["BIDDING"],
+    }),
+
   }),
 });
 
@@ -132,5 +169,9 @@ export const {
   useGetByDealerIdQuery,
   useGetbeadingCarImageQuery,
   useGetbeadingCarByIdQuery,
-  useGetbeadingGetByIdQuery
+  useGetbeadingGetByIdQuery,
+  useGetbeadingImgGetByIdQuery,
+  useUpdateBidCarMutation,
+  useGetBidCarIdQuery,
+  useBiddingCarImageRemoveMutation
 } = biddingAPI;

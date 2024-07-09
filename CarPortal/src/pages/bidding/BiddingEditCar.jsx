@@ -47,11 +47,15 @@ import { ToastContainer, toast } from "react-toastify";
 
 export default function BiddingEditCar() {
 
-  const { carId } = useParams();
-  const { data: Carid } = useBiddingCarByIdQuery(carId);
+  const { beadingCarId } = useParams();
+  console.log(beadingCarId)
+  const { data: Carid } = useBiddingCarByIdQuery(beadingCarId);
   const { data: brandData } = useGetOnlyBrandsQuery();
   const { data: dealarList } = useGetAllDealerListQuery();
   const brands = brandData?.list.map((item) => item.brand) || [];
+
+  
+
   const [selectedModel, setSelectedModel] = useState('');
   const [selectedBrand, setSelectedBrand] = useState(''); //Two field Brands and Model
   const [modelOptions, setModelOptions] = useState([]);
@@ -170,15 +174,15 @@ export default function BiddingEditCar() {
       year: formData.year,
       dealerId: formData.dealerId,
       date: "2023-07-19",
-      beadingCarId : carId
+      beadingCarId : beadingCarId
     };
 
     try {
-      const res = await biddingcarUpdate({ data, carId });
+      const res = await biddingcarUpdate({ data, beadingCarId });
       if(res?.data?.status === "success"){
-        toast.success("Car added successfully")
+        toast.success("Car edit successfully")
         setTimeout(() => {
-          navigate(`/bidding/${carId}/${userid}/editimage`)
+          navigate(`/bidding/${beadingCarId}/uploadimage`)
         }, 1000)
       }
       console.log(res);
