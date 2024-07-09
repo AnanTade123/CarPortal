@@ -9,8 +9,6 @@ export function AddDealerForm() {
   const handleOpen = () => setOpen(!open);
   const [SignUp] = useSignUpMutation();
 
-  
-
   // Form state
   const [formData, setFormData] = useState({
     email: "",
