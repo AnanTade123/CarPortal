@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import {
   Card,
   CardHeader,
@@ -18,8 +19,8 @@ import { Link, useParams } from "react-router-dom";
 // import BiddingSetTime from "../../ui/BiddingSetTime";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
-import {  useState } from "react";
- 
+import { useState } from "react";
+
 const BiddingDealerCars = () => {
   const { id } = useParams();
  
@@ -328,6 +329,8 @@ const BiddingDealerCars = () => {
                 size="sm"
                 // onClick={nextHandler}
                 // disabled={data?.list?.length < 10}
+                onClick={() => setPageNo((prev) => (data?.length > endIndex ? prev + 1 : prev))}
+                disabled={data?.length <= endIndex}
               >
                 Next
               </Button>

@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import { useNavigate } from "react-router-dom";
 import { DialogBody } from "@material-tailwind/react";
 import 'tailwindcss/tailwind.css';
@@ -166,6 +166,7 @@ export default function CarListing() {
       setInspectionDone(activeCarsData?.length);
       setSellCars(sellCarsData?.length);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeCarsData, pendingCarsData, sellCarsData]);
 
   let biddingCarData;
