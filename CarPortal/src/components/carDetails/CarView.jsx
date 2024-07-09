@@ -8,6 +8,8 @@ import CarView1 from "./CarView1";
 import InspectionReport from "./InspectionReport";
 import KnowYourCar from "./KnowYourCar";
 import TopFeatures from "./TopFeatures";
+import { Button } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 
 const CarView = ({
@@ -18,7 +20,8 @@ const CarView = ({
   year,
   carInsurance,
   kmDriven,
-  carId
+  carId,
+  beadingCarId
 }) => {
   console.log(
     fuelType,
@@ -42,7 +45,15 @@ const CarView = ({
         carInsurance={carInsurance}
         kmDriven={kmDriven}
       />
-      <InspectionReport/>
+
+      <div className="mt-5">
+        <Link to={`/dealer/finalreport/${beadingCarId}`}>
+        <Button>
+          View Inspection Report
+        </Button>
+        </Link>
+      </div>
+      {/* <InspectionReport/> */}
       
       {/* <TopFeatures/> */}
     </div>

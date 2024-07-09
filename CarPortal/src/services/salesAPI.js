@@ -3,8 +3,8 @@ import { apiSlice } from "./apiSlice";
 export const salesAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllSeller: builder.query({
-      query: (pageNo) => ({
-        url: `/salesPerson/GetAllInspProfiles?pageNo=0&pageSize=10`,
+      query: ({pageNo,pageSize}) => ({
+        url: `/salesPerson/GetAllInspProfiles?pageNo=${pageNo}&pageSize=${pageSize}`,
         transferResponce: console.log(pageNo),
         method: "GET",
       }),

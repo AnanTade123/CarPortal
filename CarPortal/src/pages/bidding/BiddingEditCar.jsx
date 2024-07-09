@@ -10,40 +10,6 @@ import { useGetAllDealerListQuery } from "../../services/dealerAPI";
 import { ToastContainer, toast } from "react-toastify";
 // import {  Input } from "@material-tailwind/react";
 
-// const cityOptions = {
-//   Pune: ["MH-12"],
-//   PimpriChichwad: ["MH-14"],
-//   Mumbai: ["MH-01", "MH-02", "MH-03", "MH-47"],
-//   Amravati: ["MH-27"],
-//   Yavatmal: ["MH-29"],
-//   Chandrapur: ["MH-34"],
-//   Kolhapur: ["MH-09"],
-//   Solapur: ["MH-13", "MH-45"],
-//   Nanded: ["MH-26"],
-//   Latur: ["MH-24"],
-//   Satara: ["MH-11"],
-//   Sangli: ["MH-10"],
-//   Nashik: ["MH-15", "MH-51"],
-//   Beed: ["MH-32"],
-//   Jalna: ["MH-21"],
-//   Nagpur: ["MH-31", "MH-49  "],
-//   Gondia: ["MH-35"],
-//   Gadchiroli: ["MH-33"],
-//   Bhandara: ["MH-36"],
-//   Washim: ["MH-37"],
-//   Jalgaon: ["MH-19"],
-//   Akola: ["MH-30"],
-//   Buldhana: ["MH-28"],
-//   Dhule: ["MH-18"],
-//   Nandurbar: ["MH-39"],
-//   Thane: ["MH-04", "MH-05", "MH-48"],
-//   Raigad: ["MH-06"],
-//   Ratnagiri: ["MH-08"],
-//   Sindhudurg: ["MH-07"],
-//   Ahmednagar: ["MH-16"],
-//   Dharashiv: ["MH-25"],
-//   SambhajiNagar: ["MH-20"],
-// };
 
 export default function BiddingEditCar() {
 
@@ -53,9 +19,6 @@ export default function BiddingEditCar() {
   const { data: brandData } = useGetOnlyBrandsQuery();
   const { data: dealarList } = useGetAllDealerListQuery();
   const brands = brandData?.list.map((item) => item.brand) || [];
-
-  
-
   const [selectedModel, setSelectedModel] = useState('');
   const [selectedBrand, setSelectedBrand] = useState(''); //Two field Brands and Model
   const [modelOptions, setModelOptions] = useState([]);
@@ -79,7 +42,6 @@ export default function BiddingEditCar() {
     bodyType: Carid?.model,
     price: Carid?.price,
     model: Carid?.model,
-    cVariant: Carid?.variant,
     year: Carid?.year,
     transmission: Carid?.transmission,
     color: Carid?.color,
@@ -92,7 +54,7 @@ export default function BiddingEditCar() {
     // safetyDescription: Carid?.safetyDescription,
     area: Carid?.area,
     carStatus: "Active",
-    // noOfWheels: "",
+    noOfWheels: "",
     ownerSerial: Carid?.ownerSerial,
     tyre: "",
     userId:userid,
@@ -101,6 +63,8 @@ export default function BiddingEditCar() {
   const { data: variantData } = useGetVariantsQuery(selectedBrand, {
     skip: !selectedBrand,
   });
+
+
 
   const { data: subVariantData } = useGetSubVariantsQuery(
     { brand: selectedBrand, variant: selectedModel },
@@ -118,7 +82,6 @@ export default function BiddingEditCar() {
         brand: Carid?.brand || "",
         model: Carid?.model || "",
         price: Carid?.price || "",
-        cVariant: Carid?.variant || "",
         year: Carid?.year || "",
         bodyType: Carid?.bodyType || "",
         transmission: Carid?.transmission || "",
@@ -132,7 +95,7 @@ export default function BiddingEditCar() {
         area: Carid?.area || "",
         ownerSerial: Carid?.ownerSerial || "",
         tyre: Carid?.tyre || "",
-        dealerId: Carid?.dealerId || "",
+        dealeId: Carid?.dealerId || "",
         title: Carid?.title || "",
       });
       setSelectedModel(Carid?.model);
@@ -153,7 +116,6 @@ export default function BiddingEditCar() {
       area: formData.area,
       bodyType: formData.bodyType,
       brand: formData.brand,
-      cVariant: formData.cVariant,
       carInsurance: formData.carInsurance,
       carStatus: "ACTIVE",
       city: formData.city,
@@ -182,7 +144,7 @@ export default function BiddingEditCar() {
       if(res?.data?.status === "success"){
         toast.success("Car edit successfully")
         setTimeout(() => {
-          navigate(`/bidding/${beadingCarId}/uploadimage`)
+          navigate(`/bidding/${beadingCarId}/bideditimage`)
         }, 1000)
       }
       console.log(res);
@@ -193,14 +155,14 @@ export default function BiddingEditCar() {
 
   };
 
-  // const handleCityChange = (event) => {
-  //   const selectedCity = event.target.value;
-  //   setFormData({
-  //     ...formData,
-  //     city: selectedCity,
-  //     registration: "", // Reset registration when city changes
-  //   });
-  // };
+  const handleCityChange = (event) => {
+    const selectedCity = event.target.value;
+    setFormData({
+      ...formData,
+      city: selectedCity,
+      registration: "", // Reset registration when city changes
+    });
+  };
 
   const handleChange = (event) => {
     const value = event.target.value === "true";
@@ -227,7 +189,8 @@ export default function BiddingEditCar() {
       cVariant: '',
     });
   };
-
+  //End Brands and Model
+  // Model Change
   const handleModelChange = (event) => {
     const model = event.target.value;
     setSelectedModel(model);
@@ -248,14 +211,14 @@ export default function BiddingEditCar() {
 
   useEffect(() => {
     if (variantData) {
-      const models = [...new Set(variantData.list.map((item) => item.variant))];
+      const models = variantData.list.map((item) => item.variant) || [];
       setModelOptions(models);
     }
   }, [variantData]);
 
   useEffect(() => {
     if (subVariantData) {
-      const variants = [...new Set (subVariantData.list.map((item) => item.subVariant))];
+      const variants = subVariantData.list.map((item) => item.subVariant) || [];
       setVariantOptions(variants);
     }
   }, [subVariantData]);
@@ -443,54 +406,24 @@ export default function BiddingEditCar() {
               </select>
             </div>
           </div>
-          <div className="md:flex gap-2">
+
+          <div className="md:flex">
             <div className="mt-5 w-full">
               <Inputs
-                label={"Area"}
+                label={"Body Type"}
                 type={"text"}
-                name={"area"}
-                value={formData.area}
+                name={"bodyType"}
+                value={formData.bodyType}
                 onChange={(event) =>
                   setFormData({
                     ...formData,
-                    area: event.target.value,
+                    bodyType: event.target.value,
                   })
                 }
               />
             </div>
-            <div className="mt-5 w-full">
-              <select
-                required
-                className="w-full border-2 border-gray-400 p-2 rounded-md"
-                name="carInsurance"
-                value={formData.carInsurance}
-                onChange={handleChange}
-              >
-                <option value="">Car Insurance</option>
-                <option value="true">Yes</option>
-                <option value="false">No</option>
-              </select>
-              {showCalendar && (
-                <div className="mt-3">
-                  <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="date"
-                  >
-                    Select Date
-                  </label>
-                  <input
-                    type="date"
-                    id="date"
-                    value={formData.insurancedate}
-                    onChange={handleDateChange}
-                    className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="md:flex gap-2">
-            <div className="mt-5 w-full">
+
+            <div className="mt-5 md:ml-2 w-full">
               <Inputs
                 label={"Km Driven"}
                 type={"number"}
@@ -504,6 +437,41 @@ export default function BiddingEditCar() {
                 }
               />
             </div>
+          </div>
+
+          <div className="md:flex">
+            <div className="mt-5 w-full">
+              <Inputs
+                label={"Title"}
+                type={"text"}
+                name={"title"}
+                value={formData.title}
+                onChange={(event) =>
+                  setFormData({
+                    ...formData,
+                    title: event.target.value,
+                  })
+                }
+              />
+            </div>
+
+            <div className="mt-5 md:ml-2 w-full">
+              <Inputs
+                label={"Area"}
+                type={"text"}
+                name={"area"}
+                value={formData.area}
+                onChange={(event) =>
+                  setFormData({
+                    ...formData,
+                    area: event.target.value,
+                  })
+                }
+              />
+            </div>
+          </div>
+
+          <div className="md:flex">
             <div className="mt-5 w-full">
               <select
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -528,112 +496,37 @@ export default function BiddingEditCar() {
                 )}
               </select>
             </div>
-          </div>
-          {/* <div className="md:flex">
-            <div className="mt-5 w-full">
+
+            <div className="mt-5 md:ml-2 w-full">
               <select
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
-                label="City"
                 name="city"
                 value={formData.city}
                 onChange={handleCityChange}
               >
-                <option value="">Select City</option>
-                {Object.keys(cityOptions).map((city) => (
+                <option>Select City</option>
+                {[
+                  "Karachi",
+                  "Lahore",
+                  "Faisalabad",
+                  "Rawalpindi",
+                  "Hyderabad",
+                  "Multan",
+                  "Gujranwala",
+                  "Peshawar",
+                  "Quetta",
+                  "Sialkot",
+                  "Islamabad",
+                  "Bahawalpur",
+                ].map((city) => (
                   <option key={city} value={city}>
                     {city}
                   </option>
                 ))}
               </select>
             </div>
-
-            <div className="mt-5 ml-2 w-full">
-              <select
-                className="w-full border-2 border-gray-400 p-2 rounded-md"
-                label="Registration"
-                name="registration"
-                value={formData.registration}
-                onChange={(event) =>
-                  setFormData({ ...formData, registration: event.target.value })
-                }
-                disabled={!formData.city}
-              >
-                <option value="">Select Registration</option>
-                {formData.city &&
-                  cityOptions[formData.city]?.map((reg) => (
-                    <option key={reg} value={reg}>
-                      {reg}
-                    </option>
-                  ))}
-              </select>
-            </div>
-          </div> */}
-          <div className="flex">
-            <div className="mt-5 ml-5">
-              <input
-                label={"Music Feature"}
-                type={"checkbox"}
-                name={"musicFeature"}
-                value={formData.musicFeature}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    musicFeature: event.target.value,
-                  })
-                }
-              />{" "}
-              Music
-            </div>
-
-            <div className="mt-5 ml-5">
-              <input
-                label={"Power Window Feature"}
-                type={"checkbox"}
-                name={"powerWindowFeature"}
-                value={formData.powerWindowFeature}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    powerWindowFeature: event.target.value,
-                  })
-                }
-              />{" "}
-              Power Windows
-            </div>
-
-            <div className="mt-5 ml-5">
-              <input
-                label={"Ac Feature"}
-                type={"checkbox"}
-                name={"acFeature"}
-                value={formData.acFeature}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    acFeature: event.target.value,
-                  })
-                }
-              />{" "}
-              Air Conditioning
-            </div>
-
-            <div className="mt-5 ml-5">
-              <input
-                label={"Rear Parking Camera Feature"}
-                type={"checkbox"}
-                name={"rearParkingCameraFeature"}
-                value={formData.rearParkingCameraFeature}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    rearParkingCameraFeature: event.target.value,
-                  })
-                }
-              />{" "}
-              Rear Parking Camera
-            </div>
           </div>
-          <div className="mt-5 w-50">
+          <div className="mt-5 md:ml-2 w-50">
             <select
               className="w-full border-2 border-gray-400 p-2 rounded-md"
               label={"Select Dealer"}
@@ -652,21 +545,7 @@ export default function BiddingEditCar() {
               ))}
             </select>
           </div>
-          
-          <div className="mt-5 w-full">
-              <Inputs
-                label={"Title"}
-                type={"text"}
-                name={"title"}
-                value={formData.title}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    title: event.target.value,
-                  })
-                }
-              />
-            </div>
+
           <div className="mt-5">
             <Textarea
               label="Description"
@@ -681,7 +560,44 @@ export default function BiddingEditCar() {
             />
           </div>
 
-          
+          <div className="mt-5">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Car Insurance
+            </label>
+            <div className="flex items-center">
+              <label className="mr-4">
+                <input
+                  type="radio"
+                  name="carInsurance"
+                  value="true"
+                  checked={formData.carInsurance === true}
+                  onChange={handleChange}
+                />
+                Yes
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="carInsurance"
+                  value="false"
+                  checked={formData.carInsurance === false}
+                  onChange={handleChange}
+                />
+                No
+              </label>
+            </div>
+            {showCalendar && (
+              <div className="mt-5">
+                <Inputs
+                  type="date"
+                  name="insurancedate"
+                  value={formData.insurancedate}
+                  onChange={handleDateChange}
+                  label="Insurance Date"
+                />
+              </div>
+            )}
+          </div>
 
           <div className="mt-5 flex justify-center">
             <button
