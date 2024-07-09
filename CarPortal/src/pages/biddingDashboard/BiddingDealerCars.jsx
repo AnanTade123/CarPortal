@@ -231,11 +231,11 @@ const BiddingDealerCars = () => {
       {error?.status === 404 ? (
         <div>
           <p className="text-3xl font-semibold ">No Data Available</p>
-          <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+          {/* <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
             <Link to={`/bidding/${UserID}/addcar`}>
               <Button>Add Car</Button>
             </Link>
-          </div>
+          </div> */}
         </div>
       ) : (
         <Card className="h-full w-full">
@@ -249,11 +249,11 @@ const BiddingDealerCars = () => {
                   See information about all cars
                 </Typography>
               </div>
-              <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+              {/* <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
                 <Link to={`/bidding/${UserID}/addcar`}>
                   <Button>Add Car</Button>
                 </Link>
-              </div>
+              </div> */}
             </div>
           </CardHeader>
           <CardBody className="overflow-scroll px-0">
