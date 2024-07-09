@@ -23,8 +23,9 @@ import {
 
 export default function SalesList() {
   const [pageNo, setPageNo] = useState(0);
+  const [pageSize, setPageSize] = useState(7);
   console.log(pageNo);
-  const { data, isLoading, error } = useGetAllSellerQuery(pageNo);
+  const { data, isLoading, error } = useGetAllSellerQuery({pageNo, pageSize});
   console.log(data);
   const [deleteSeller] = useDeleteSellerMutation();
   const [open, setOpen] = useState(false);
@@ -50,19 +51,15 @@ export default function SalesList() {
     console.log(res);
   };
   const nextHandler = () => {
-    setPageNo((prevPageNo) => {
-      // Check if the error status is 404
-      if (error?.status === 404) {
-        console.log("click");
-        console.log(prevPageNo);
-        // Display message or perform any action indicating that it's the last page
-        console.log("You are on the last page.");
-        return prevPageNo; // Keep pageNo unchanged
-      } else {
-        // Increment pageNo
-        return prevPageNo + 1;
-      }
-    });
+    if (!error) {
+      setPageNo((prevPageNo) => prevPageNo + 1);
+    }
+  };
+
+  const prevHandler = () => {
+    if (pageNo > 0) {
+      setPageNo((prevPageNo) => prevPageNo - 1);
+    }
   };
 
   const columns = [
@@ -249,7 +246,7 @@ export default function SalesList() {
                   variant="outlined"
                   size="sm"
                   disabled={pageNo <= 0}
-                  onClick={() => setPageNo((a) => a - 1)}
+                  onClick={prevHandler}
                 >
                   Previous
                 </Button>
@@ -257,7 +254,7 @@ export default function SalesList() {
                   variant="outlined"
                   size="sm"
                   onClick={nextHandler}
-                  disabled={data?.list?.length < 10}
+                  disabled={data?.list?.length < pageSize}
                 >
                   Next
                 </Button>

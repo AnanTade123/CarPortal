@@ -1,10 +1,10 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from 'react';
 import { Grid, Typography } from '@material-ui/core';
+import { useParams } from 'react-router-dom';
+import { useGetInspectionReportQuery } from '../../services/inspectorapi';
 
-// AC Cooling :- status/options- Ineffective, Not Working
-// Heater :- status/options- Ineffective, Not Working
-// Climate Control AC
-// Ac Vent :- status/options- damaged
+
 
 const AcSection = () => {
   const [formData, setFormData] = React.useState({
@@ -14,14 +14,42 @@ const AcSection = () => {
     AcVent: [],
     
   });
+  const [uploadedImages, setUploadedImages] = useState({
+    ACCoolings: null,
+    Heaters: null,
+    ClimateControlACs: null,
+    AcVents: null,
+  });
+  const { beadingCarId } = useParams();
+  console.log(beadingCarId);
+  const { data } = useGetInspectionReportQuery({ id:beadingCarId, docType: "AC" });
+  console.log(data)
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
-  console.log(handleChange);
-
-  console.log(formData);
+  useEffect(() => {
+    // Pre-fill form data and uploaded images based on API data
+    data?.object.map((item) => {
+      switch (item.subtype) {
+        case "ACCooling":
+          setFormData((prev) => ({ ...prev, ACCooling: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, ACCoolings: item.documentLink }));
+          break;
+        case "Heater":
+          setFormData((prev) => ({ ...prev, Heater: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, Heaters: item.documentLink }));
+          break;
+        case "ClimateControlAC":
+          setFormData((prev) => ({ ...prev, ClimateControlAC: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, ClimateControlACs: item.documentLink }));
+          break;
+        case "AcVent":
+          setFormData((prev) => ({ ...prev, AcVent: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, AcVents: item.documentLink }));
+          break;
+        default:
+          break;
+      }
+    });
+  }, [data]);
 
   return (
     <div className='p-4'>
@@ -32,22 +60,57 @@ const AcSection = () => {
       <Grid container spacing={5} >
       <Grid item xs={12} sm={6}>
           <Typography variant="body1">AC Cooling : {formData.ACCooling}</Typography>
+
+          {uploadedImages.ACCoolings && (
+            <img
+              src={uploadedImages.ACCoolings}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              
+            />
+          )}
         </Grid>
 
 
         {/* Mismatch in RC */}
         <Grid item xs={12} sm={6}>
         <Typography variant="body1">Heater : {formData.Heater}</Typography>
+
+        {uploadedImages.Heaters && (
+            <img
+              src={uploadedImages.Heaters}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              
+            />
+          )}
         </Grid>
 
         {/* RTO NOC Issued */}
         <Grid item xs={12} sm={6}>
         <Typography variant="body1">Climate Control AC : {formData.ClimateControlAC}</Typography>
+        {uploadedImages.ClimateControlACs && (
+            <img
+              src={uploadedImages.ClimateControlACs}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+            
+            />
+          )}
         </Grid>
 
         {/* Insurance Type */}
         <Grid item xs={12} sm={6}>
         <Typography variant="body1">Ac Vent : {formData.AcVent}</Typography>
+
+        {uploadedImages.AcVents && (
+            <img
+              src={uploadedImages.AcVents}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              
+            />
+          )}
         </Grid>
 
         
