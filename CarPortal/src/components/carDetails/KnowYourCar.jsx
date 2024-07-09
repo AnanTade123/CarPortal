@@ -65,6 +65,7 @@ const KnowYourCar = ({
                   Top varient that is equipped with all features of the model
                 </div>
               </div>
+              
             </div>
           </div>
           <div className="flex items-center gap-6 mt-11 pl-4">
@@ -80,6 +81,8 @@ const KnowYourCar = ({
                 features of the model
               </div>
             </div>
+            
+            
           </div>
 
           <div className="max-w-full flex justify-start gap-10 px-4 md:justify-between mt-10 flex-wrap">

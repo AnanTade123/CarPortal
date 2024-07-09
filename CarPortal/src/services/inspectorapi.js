@@ -9,7 +9,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         method: "GET",
       }),
       providesTags:["Inspector"],
-       // You probably want providesTags here instead of invalidatesTags for queries
+  
     }),
 
     getallInspector: builder.query({
@@ -17,7 +17,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         url: `/ispProfile/GetAllInspProfiles?pageNo=${pageNo}&pageSize=${pageSize}`,
         method: "GET",
       }),
-       // Same here
+
        providesTags:["Inspector"],
     }),
 
@@ -36,6 +36,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         transerResponse:console.log("APi response",id, docType),
         method : "GET"
       }),
+      invalidatesTags:["Inspector"],
     }),
 
     inspectorupdate: builder.mutation({
@@ -55,7 +56,8 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         transerResponse:console.log("APi response",inspectionData),
        body : inspectionData 
       })
-    })
+    }),
+    invalidatesTags:["Inspector"],
   }),
 });
 
