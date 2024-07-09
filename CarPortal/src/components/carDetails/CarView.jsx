@@ -10,7 +10,8 @@ import KnowYourCar from "./KnowYourCar";
 import TopFeatures from "./TopFeatures";
 import { Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 const CarView = ({
   fuelType,
@@ -32,7 +33,13 @@ const CarView = ({
     carInsurance,
     kmDriven
   );
-  
+  const token = Cookies.get("token");
+let jwtDecodes;
+if (token) {
+  jwtDecodes = jwtDecode(token);
+}
+
+const userRole = token ? jwtDecodes?.authorities[0] : null;
   return (
     <div>
       <CarView1 carId = {carId} />
@@ -47,11 +54,12 @@ const CarView = ({
       />
 
       <div className="mt-5">
-        <Link to={`/dealer/finalreport/${beadingCarId}`}>
+        {userRole==="DEALER" ? (<Link to={`/dealer/finalreport/${beadingCarId}`}>
         <Button>
           View Inspection Report
         </Button>
-        </Link>
+        </Link>): null}
+        
       </div>
       {/* <InspectionReport/> */}
       

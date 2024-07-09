@@ -62,7 +62,7 @@ const Structure = ({handleCameraModal,
   setUploadedImages,
   captureModalOpen,
   setCaptureModalOpen,
-  selectedLable, }) => {
+  selectedLable,handleChange }) => {
   const classes = useStyles();
 
 
@@ -110,10 +110,7 @@ const Structure = ({handleCameraModal,
       }
     });
   }, [data]);
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
+ 
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
