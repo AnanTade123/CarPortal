@@ -44,16 +44,9 @@ const BiddingCarView = ({
         carInsurance={carInsurance}
         kmDriven={kmDriven}
       />
-      <BiddingInspectionReport />
+      {/* <BiddingInspectionReport /> */}
 
-      {userRole === "DEALER" ? (<div className="mt-5">
-        <Link to={`/dealer/finalreport/${beadingCarId}`}>
-        
-            <Button>
-              Verification Report
-            </Button>
-            </Link>
-          </div>):null}
+      
           
       {/* <TopFeatures/> */}
     </div>

@@ -53,14 +53,6 @@ const userRole = token ? jwtDecodes?.authorities[0] : null;
         kmDriven={kmDriven}
       />
 
-      <div className="mt-5">
-        {userRole==="DEALER" ? (<Link to={`/dealer/finalreport/${beadingCarId}`}>
-        <Button>
-          View Inspection Report
-        </Button>
-        </Link>): null}
-        
-      </div>
       {/* <InspectionReport/> */}
       
       {/* <TopFeatures/> */}

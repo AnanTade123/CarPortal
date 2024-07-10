@@ -91,18 +91,15 @@ export default function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/pendingrequest2" element={<PendingRequest2 />} />
+        <Route path="/" element={<Home />} />
         <Route element={<AppLayout />}>
           <Route path="signin" element={<LoginCard />} />
           <Route path="signup" element={<SimpleRegistrationForm />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/carlist" element={<BuyCar />} />
           <Route path="/wsConnction" element={<BiddingCar />} />
-          <Route
-            path="/carlist/cardetails/:carId"
-            element={<CarDetailsById />}
-          />
+          <Route path="/carlist/cardetails/:carId"  element={<CarDetailsById />} />
           <Route
             path="/biddinglist/cardetails/:beadingCarId"
             element={<BiddingCarDetailsById1 />}
@@ -244,6 +241,8 @@ export default function App() {
           <Route element={<SalePersonMiddleware allowedRoles={[...Object.values(onlySeller)]} /> }>
               <Route path="/sales/biddingcar" element={<BiddingDealerCars />} />
               <Route path="/sale/carverify/:beadingCarId" element={<CarVerify/>} />
+              <Route path="/sale/inspection/report/:beadingCarId" element={<FinalReport/>} />
+
           </Route>
         </Route>
 

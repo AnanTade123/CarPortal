@@ -27,7 +27,7 @@ const CarDocumentSection = ({inspData}) => {
   
   return (
    <div className='p-4 flex-col ' >
-      <Typography variant="h4" className='text-black font-bold pb-10'>
+      <Typography variant="h5" className='text-black font-bold pb-10'>
       <span >Important Document</span>
       </Typography>
       <div className=' bg-white border-2 rounded-md shadow-md p-7 -mt-2'>
