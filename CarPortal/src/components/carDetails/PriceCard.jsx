@@ -44,8 +44,9 @@ const PriceCard = ({
 
   console.log(data);
   return (
+    <div className="w-full">
     <CardUi>
-      <div className="w-full md:w-full ">
+      <div className="w-[320px] md:w-full ">
         <p className="font-extrabold text-2xl text-black uppercase font-[latto] ml-2">
           {year} {brand} {model}
         </p>
@@ -158,6 +159,7 @@ const PriceCard = ({
         </div>
       </div>
     </CardUi>
+    </div>
   );
 };
 

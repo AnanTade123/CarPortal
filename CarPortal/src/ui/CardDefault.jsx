@@ -9,8 +9,8 @@ const carid = data?.carId
 console.log(carid)
   return (
 
-    
-    <Card className="mt-6 w-96 md:m-0 m-3 items-center border-2 hover:scale-105 border-gray-300 shadow-xl max-w-[24rem] overflow-hidden">
+    <div className="flex justify-center mx-auto">
+    <Card className="w-full flex justify-center sm:w-80 md:w-[260px] lg:w-full items-center border-2 hover:scale-105 border-gray-300 shadow-xl overflow-hidden mx-5 md:mx-0">
       <Link to={`/carlist/cardetails/${data.carId}`}>
        <CardHeader
         floated={false}
@@ -40,7 +40,7 @@ console.log(carid)
         <Typography variant="h7" color="blue-gray" className="mb-2">
             {data.title}
         </Typography>
-        <p className="text-sm uppercase mb-3">
+        <p className="text-sm uppercase mb-3 flex flex-wrap gap-2">
           <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black">{data.kmDriven}KM</span>
           <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black">{data.fuelType}</span>
           <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black">{data.transmission}</span>
@@ -54,6 +54,7 @@ console.log(carid)
       </CardBody>
       </Link>
     </Card>
+    </div>
     
   );
 }
