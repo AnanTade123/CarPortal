@@ -99,12 +99,16 @@ const PriceCard = ({
             Parked at: {area},{city}
           </div>
         </div>
-        <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
-          <FaFileAlt />
-          <div className=" mt-4 text-base text-gray-700 font-[lotto]">
-            View Inspection Report
+        {
+          userRole === 'DEALEAR' ? (
+            <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
+            <FaFileAlt />
+            <div className=" mt-4 text-base text-gray-700 font-[lotto]">
+              View Inspection Report
+            </div>
           </div>
-        </div>
+          ) : null
+        }
         <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
           <IoLogoWhatsapp />
           <div className=" mt-4 mb-6 text-base text-gray-700 font-[lotto]">

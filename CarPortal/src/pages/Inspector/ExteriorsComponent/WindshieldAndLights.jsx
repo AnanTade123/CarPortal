@@ -50,11 +50,12 @@ const WindshieldAndLights = ({ handleCameraModal,
   captureModalOpen,
   setCaptureModalOpen,
   selectedLable,
+  handleChange
 }) => {
   const classes = useStyles();
 
 console.log(userRole)
-
+console.log(data)
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -100,11 +101,7 @@ console.log(userRole)
     });
   }, [data]);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
+ 
   const handleImageClick = (image) => {
     setSelectedImage(image);
     setOpenModal(true);

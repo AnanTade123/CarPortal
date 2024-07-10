@@ -134,7 +134,7 @@ export function AddDealerForm() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                error={errors.email}
+                // error={errors?.email}
                 required
               />
               {errors.email && (
@@ -146,7 +146,7 @@ export function AddDealerForm() {
                 name="mobileNo"
                 value={formData.mobileNo}
                 onChange={handleChange}
-                error={errors.mobileNo}
+                // error={errors?.mobileNo}
                 required
               />
               {errors.mobileNo && (

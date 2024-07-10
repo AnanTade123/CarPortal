@@ -47,7 +47,7 @@ const Tyre = () => {
   console.log(beadingCarId);
   const { data } = useGetInspectionReportQuery({ beadingCarId, docType: "Exterior" });
   console.log(data);
-  console.log(data)
+
 
   const [formData, setFormData] = useState({
     LHSFrontTyre: [],
@@ -115,6 +115,7 @@ console.log(userRole)
     });
   }, [data]);
 
+  
   const handleFileChange = async (event, fieldName, imgPreview = "") => {
     console.log(imgPreview);
     let file;
@@ -139,10 +140,10 @@ console.log(userRole)
           setFormData({ ...formData, ["FourPowerWindowss"]: imageData });
   
       const inspectionData = {
-        documentType: "Inspection Report",
+        documentType: "InspectionReport",
         beadingCarId: beadingCarId,
         doc: "",
-        doctype: "Electrical",
+        doctype: "Exterior",
         subtype: lables,
         comment: selectfiled,
       };

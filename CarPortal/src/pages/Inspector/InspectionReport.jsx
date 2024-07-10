@@ -1,30 +1,41 @@
 import React from 'react';
 import { MenuItem, FormControl, Select, InputLabel, TextField, Grid, Typography,Button } from '@material-ui/core';
 import {useFinalInspectionReportMutation} from "../../services/inspectorapi"
-import { useNavigate } from 'react-router-dom';
-useNavigate
+import { useNavigate, useParams } from 'react-router-dom';
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 const ImportantDocuments = () => {
 const navigate = useNavigate()
-  const [formData, setFormData] = React.useState({
-    rcAvailability: '',
-    mismatchInRC: '',
-    rtoNocIssued: '',
-    insuranceType:  '',
-    noClaimBonus: '',
-    underHypothecation: '',
-    roadTaxPaid: '',
-    partipeshiRequest: '',
-    duplicateKey: '',
-    chassisNumberEmbossing: '',
-    manufacturingDate: '',
-    registrationDate: '',
-    rto: '',
-    fitnessUpto: '',
-    cngLpgFitmentInRC: '',
-    LoanStatus:''
-  });
 
+const token = Cookies.get("token");
+let jwtDecodes;
+if (token) {
+  jwtDecodes = jwtDecode(token);
+}
+const {beadingCarId} = useParams()
+console.log(beadingCarId)
+const UserId = token ? jwtDecodes?.userId : null;
+console.log(UserId)
+  const [formData, setFormData] = React.useState({
+    rcAvailability: "",
+    mismatchInRC: "",
+    rtoNocIssued: "",
+    insuranceType:  "",
+    noClaimBonus: "",
+    underHypothecation: "",
+    roadTaxPaid: "",
+    partipeshiRequest: "",
+    duplicateKey: "",
+    chassisNumberEmbossing: "",
+    manufacturingDate: "",
+    registrationDate: "",
+    rto: "",
+    fitnessUpto: "",
+    cngLpgFitmentInRC: "",
+    LoanStatus:""
+  });
+console.log(formData)
   const [finalInspectionReport] = useFinalInspectionReportMutation()
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -34,6 +45,8 @@ const navigate = useNavigate()
   function handleSubmit (e) {
   e.preventDefault()
      const inspectionData = {
+       userId: UserId,
+       beadingCarId: beadingCarId,
       rcavailability:formData.rcAvailability ,
       mismatchInRC: formData.mismatchInRC,
       rtonocissued: formData.rtoNocIssued,

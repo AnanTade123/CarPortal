@@ -51,7 +51,7 @@ OtherComponent = ({  handleCameraModal,
   setUploadedImages,
   captureModalOpen,
   setCaptureModalOpen,
-  selectedLable, }) => {
+  selectedLable,handleChange }) => {
   const classes = useStyles();
 
   const [openModal, setOpenModal] = useState(false);
@@ -80,10 +80,6 @@ OtherComponent = ({  handleCameraModal,
     });
   }, [data]);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
 
   const handleImageClick = (image) => {

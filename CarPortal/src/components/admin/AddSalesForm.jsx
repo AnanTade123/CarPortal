@@ -30,7 +30,7 @@ export function AddSalesForm() {
     roles: "SALESPERSON",
     documentId: "",
     area: "",
-    status: false,
+    status: true,
   });
 
   // Validation state
