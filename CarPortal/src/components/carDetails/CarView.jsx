@@ -46,13 +46,6 @@ const CarView = ({
         kmDriven={kmDriven}
       />
 
-      <div className="mt-5">
-        <Link to={`/dealer/finalreport/${beadingCarId}`}>
-        <Button>
-          View Inspection Report
-        </Button>
-        </Link>
-      </div>
       {/* <InspectionReport/> */}
       
       {/* <TopFeatures/> */}

@@ -32,13 +32,15 @@ const BiddingDealerCars = () => {
  
   const UserID = jwtDecodes?.userId;
   const dealerId = jwtDecodes?.dealerId;
+  const userRole =  token ?  jwtDecodes?.authorities[0] :null;
+  const [pageNo, setPageNo] = useState(0);
   console.log("UserId------",UserID,dealerId,id);
   // const { data, isLoading, error } = useBiddingCarByDealerIdQuery(UserID);
   // const { data, isLoading, error } = useGetByDealerIdQuery(dealerId);
   const {data , isLoading, error } = useBiddingAllCardQuery();
   const [totalCars] = useState(data?.length || "-");
 
- 
+  const itemsPerPage = 7;
   if (isLoading) {
     return <p>Loading..</p>;
   }
@@ -78,7 +80,16 @@ const BiddingDealerCars = () => {
       accessor: "carStatus",
       Cell: (cell) => {
         console.log(cell.row.values.carStatus);
-        return cell.row.values.carStatus == "pending" ? (
+
+
+        return userRole === "DEALER" ? (
+          <Link to={`/dealer/finalreport/${cell.row.values.beadingCarId}`} className="button-link">
+        <Button variant="gradient" color="blue">
+            View Report
+        </Button>
+          </Link>
+        ) :(
+        cell.row.values.carStatus == "pending" ? (
           <Link to={`/sale/carverify/${cell.row.values.beadingCarId}`} className="button-link">
         <Button variant="gradient" color="blue">
             Verify
@@ -90,7 +101,7 @@ const BiddingDealerCars = () => {
             Done
         </Button>
           </Link>
-      );
+      ))
       },
     },
     // {
@@ -147,12 +158,11 @@ const BiddingDealerCars = () => {
       Header: "Action",
       accessor: "",
       Cell: (cell) => {
-        console.log(cell.row.values.carStatus);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
               <Link to={`/biddinglist/cardetails/${cell.row.values.beadingCarId}`}>
-                    <Button  className="bg-[#045e4f]">Set Bidding</Button>
+                    <Button  className="bg-[#045e4f]">{userRole === 'DEALER' ? 'Place Bidding' : 'Set Bidding'} </Button>
               </Link>
               {/* <PlaceBid userid={UserID} id={id} /> */}
             </div>
@@ -247,7 +257,10 @@ const BiddingDealerCars = () => {
     // dealerApiData = data;
   }
   console.log("dealerApiData------",dealerApiData);
-  
+  const startIndex = pageNo * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  // eslint-disable-next-line no-unused-vars
+  const paginatedData = data ? data.slice(startIndex, endIndex) : [];
  
   return (
     <>
