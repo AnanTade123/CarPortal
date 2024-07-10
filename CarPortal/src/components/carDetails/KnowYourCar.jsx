@@ -202,6 +202,9 @@ const KnowYourCar = ({
               </div>
             </div>
           </div>
+          <div  className="font-[latto] text-lg">
+
+          </div>
         </div>
       </CardUi>
     </>

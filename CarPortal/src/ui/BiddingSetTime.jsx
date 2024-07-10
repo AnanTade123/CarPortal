@@ -86,7 +86,7 @@ export default function BiddingSetTime({ userid, biddingcarid }) {
           durationMinutes: Number(settime.durationMinutes),
         };
         const res1 = await startBiddingSetTime(setTimeData);
-       console.log(res1);
+        console.log(res1);
         const now = dayjs().tz(TIME_ZONE);
         const newTime = now.add(Number(settime.durationMinutes), 'minutes');
         const formattedTime = newTime.format('YYYY-MM-DDTHH:mm:ss');
