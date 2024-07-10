@@ -117,6 +117,8 @@ export default function App() {
             <Route path="/admin/salesuser" element={<SalesList />} />
             <Route path="/CarInspection" element={<CarInspectionTable />} />
             <Route path="/admin/inspector/info/:userId" element={<AdminInspectorInfo />} />
+            <Route path="/admin/inspection/report/:beadingCarId" element={<FinalReport/>} />
+
             <Route path="/carlistmodel" element={<CarListModels />} />
             <Route
               path="/admin/dealer/info/:id"

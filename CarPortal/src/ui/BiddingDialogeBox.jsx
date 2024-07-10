@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Dialog,
@@ -9,10 +9,22 @@ import {
 } from "@material-tailwind/react";
 
 import { useCreateBiddingMutation } from "../services/biddingAPI";
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+import {  useStartBiddingSetTimeMutation } from "../services/biddingAPI";
+
+
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+// const TIME_ZONE = 'Asia/Kolkata';
 
 // eslint-disable-next-line react/prop-types
-export default function BiddingDialogBox({ userid, biddingcarid }) {
-  const [open, setOpen] = React.useState(false);
+export default function BiddingDialogBox({ userid, biddingcarid,handleMessage }) {
+  const [open, setOpen] = useState(false);
+  const [basePriceError, setBasePriceError] = useState("");
+  const [durationMinutesError, setDurationMinutesError] = useState("");
   const [bidding, setBidding] = React.useState({
     beadingCarId: 0,
     createdAt: "",
@@ -28,16 +40,18 @@ export default function BiddingDialogBox({ userid, biddingcarid }) {
   // });
 
   const [createBidding] = useCreateBiddingMutation();
+  const [startBiddingSetTime] = useStartBiddingSetTimeMutation();
+
   // const [startBiddingSetTime] = useStartBiddingSetTimeMutation();
 
   const handleOpen = () => setOpen(!open);
 
-  const handleClosingTimeChange = (e) => {
-    setBidding({
-      ...bidding,
-      closingTime: e.target.value,
-    });
-  };
+  // const handleClosingTimeChange = (e) => {
+  //   setBidding({
+  //     ...bidding,
+  //     closingTime: e.target.value,
+  //   });
+  // };
 
   const handleCreatedAtChange = (e) => {
     setBidding({
@@ -47,10 +61,14 @@ export default function BiddingDialogBox({ userid, biddingcarid }) {
   };
 
   const handlebasePriceChange = (e) => {
+    const re = /^[0-9\b]+$/;
+    if (e.target.value === '' || re.test(e.target.value)) {
+     
     setBidding({
       ...bidding,
-      basePrice: Number(e.target.value),
+      basePrice: e.target.value,
     });
+  }
   };
 
   // const handleDurationMinutesChange = (e) => {
@@ -62,39 +80,68 @@ export default function BiddingDialogBox({ userid, biddingcarid }) {
 
   const formsubmit = async (e) => {
     e.preventDefault();
-
-    const biddingData = {
-      beadingCarId: biddingcarid,
-      closingTime: bidding.closingTime,
-      createdAt: bidding.createdAt,
-      basePrice: Number(bidding.basePrice),
-      userId: userid,
-    };
-
-    console.log(biddingData);
-
-    const res = await createBidding(biddingData);
-    console.log(res);
-
-    // const setTimeData = {
-    //   beadingCarId: biddingcarid,
-    //   userId: userid,
-    //   basePrice: Number(bidding.basePrice),
-    //   durationMinutes: settime.durationMinutes,
-    // };
-
-    // console.log(setTimeData);
-
-    // const res1 = await startBiddingSetTime(setTimeData);
-    // console.log(res1);
-
-    handleOpen();
+    try{
+      let flag = 0;
+      if (bidding.basePrice === "") {
+        flag = 1;
+        setBasePriceError("Please enter base price");
+      } else {
+        setBasePriceError("");
+      }
+      if ( bidding.createdAt === "") {
+        flag = 1;
+        setDurationMinutesError("Please select date time");
+      } else {
+        setDurationMinutesError("");
+      }
+      const specificTime = dayjs(bidding.createdAt);
+        const currentTime = dayjs();
+        const diffInMinutes = specificTime.diff(currentTime, 'minute');
+        if(0 > diffInMinutes){
+          flag = 1;
+          setDurationMinutesError("Please select correct date/time");
+        }
+      if (flag === 0) {
+        const setTimeData = {
+          beadingCarId: biddingcarid,
+          userId: userid,
+          basePrice: bidding.basePrice,
+          durationMinutes: diffInMinutes,
+        };
+        const {  error : bidError  } = await startBiddingSetTime(setTimeData);
+        if(bidError){
+        handleMessage(bidError?.data,"error");
+        handleOpen();
+        }else{
+          const createdAt = {
+            bidCarId: 0,
+            beadingCarId: biddingcarid,
+            createdAt: bidding.createdAt,
+            basePrice: bidding.basePrice,
+            userId: userid,
+        };
+        // eslint-disable-next-line no-unused-vars
+        const {data , error} = await createBidding(createdAt);
+        console.log("checkkkkMAsg",data)
+        if(error){
+          handleMessage(error?.message,"error")
+        }else{
+          handleMessage("Bid placed successfully","success")
+        }
+        handleOpen();
+      }
+        
+      }
+       }
+       catch (error) {
+        console.log("Error", error);
+      }
   };
 
   return (
     <>
       <Button onClick={handleOpen} variant="gradient" color="blue">
-        Start Bidding
+        Set Bidding
       </Button>
       <Dialog
         open={open}
@@ -106,27 +153,32 @@ export default function BiddingDialogBox({ userid, biddingcarid }) {
       >
         <DialogHeader>Start Bidding.</DialogHeader>
         <DialogBody>
-          <Input
-            label="Created at"
-            value={bidding.createdAt}
-            onChange={handleCreatedAtChange}
-            type="datetime-local"
-          />
-          <div className="mt-5">
+          
+          {/* <div className="mt-5">
             <Input
               label="Closing time"
               value={bidding.closingTime}
               onChange={handleClosingTimeChange}
               type="datetime-local"
             />
-          </div>
-          <div className="mt-5">
+          </div> */}
+          <div className="">
             <Input
               label="Base Price"
               value={bidding.basePrice}
               onChange={handlebasePriceChange}
-              type="number"
+              type="text"
             />
+          </div>
+          <span className="text-red-500">{basePriceError}</span>
+          <div className="mt-5">
+          <Input
+            label="Start Time"
+            value={bidding.createdAt}
+            onChange={handleCreatedAtChange}
+            type="datetime-local"
+          />
+          <span className="text-red-500">{durationMinutesError}</span>
           </div>
           <div className="mt-5">
             {/* <Input
