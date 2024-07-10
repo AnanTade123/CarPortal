@@ -87,6 +87,7 @@ import BiddingCarDetail from "./pages/LiveBidding/BiddingCarDetail";
 import BiddingCar from "./pages/bidding/BiddingCar";
 
 
+
 export default function App() {
   return (
     <>
@@ -208,6 +209,7 @@ export default function App() {
               path="/biddingcardetail"
               element={<BiddingCarDetail/>}
             />
+           
           </Route>
 
           <Route
