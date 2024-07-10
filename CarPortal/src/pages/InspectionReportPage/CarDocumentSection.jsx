@@ -1,116 +1,185 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import React from "react";
+import { Grid, Typography } from "@material-ui/core";
 
-const CarDocumentSection = ({inspData}) => {
+const CarDocumentSection = ({ inspData }) => {
+  console.log(inspData);
+  // const [formData, setFormData] = React.useState({
+  //   rcAvailability: "",
+  //   mismatchInRC: "",
+  //   rtoNocIssued: "",
+  //   insuranceType: "",
+  //   noClaimBonus: "",
+  //   underHypothecation: "",
+  //   roadTaxPaid: "",
+  //   partipeshiRequest: "",
+  //   duplicateKey: "",
+  //   chassisNumberEmbossing: "",
+  //   manufacturingDate: "",
+  //   registrationDate: "",
+  //   rto: "",
+  //   fitnessUpto: "",
+  //   cngLpgFitmentInRC: "",
+  // });
 
-  console.log(inspData)
-  const [formData, setFormData] = React.useState({
-    rcAvailability: inspData?.object.rcavailability,
-    mismatchInRC: inspData?.object.mismatchInRC,
-    rtoNocIssued: inspData?.object.rtonocissued,
-    insuranceType: inspData?.object.insuranceType,
-    noClaimBonus: inspData?.object.noClaimBonus,
-    underHypothecation: inspData?.object.underHypothecation,
-    roadTaxPaid: inspData?.object.roadTaxPaid,
-    partipeshiRequest: inspData?.object.partipeshiRequest,
-    duplicateKey: inspData?.object.duplicateKey,
-    chassisNumberEmbossing: inspData?.object.chassisNumberEmbossing,
-    manufacturingDate: inspData?.object.manufacturingDate,
-    registrationDate: inspData?.object.registrationDate,
-    rto: inspData?.object.rto,
-    fitnessUpto: inspData?.object.fitnessUpto,
-    cngLpgFitmentInRC: inspData?.object.cnglpgfitmentInRC,
-  });
-
-  
   return (
-   <div className='p-4 flex-col ' >
-      <Typography variant="h5" className='text-black font-bold pb-10'>
-      <span >Important Document</span>
+    <div className="p-4 flex-col ">
+      <Typography variant="h4" className="text-black font-bold pb-10">
+        <span>Important Document</span>
       </Typography>
-      <div className=' bg-white border-2 rounded-md shadow-md p-7 -mt-2'>
-       <Grid container spacing={3}>
-        {/* RC Availability */}
-        <Grid item xs={12} sm={6}>
-          <Typography variant="body1">RC Availability: {formData.rcAvailability}</Typography>
-        </Grid>
+      <div className=" bg-white border-2 rounded-md shadow-md p-7 -mt-2">
+        <Grid container spacing={3}>
+          {/* RC Availability */}
+          <Grid item xs={12} sm={6}>
+            <Typography variant="body1">
+              RC Availability:{" "}
+              <span className="font-semibold">
+                {inspData?.object.rcavailability}
+              </span>
+            </Typography>
+          </Grid>
 
-        {/* Mismatch in RC */}
-        <Grid item xs={12} sm={6}>
-          <Typography variant="body1">Mismatch in RC: {formData.mismatchInRC}</Typography>
-        </Grid>
+          {/* Mismatch in RC */}
+          <Grid item xs={12} sm={6}>
+            <Typography variant="body1">
+              Mismatch in RC:{" "}
+              <span className="font-semibold">
+                {inspData?.object.mismatchInRC}
+              </span>
+            </Typography>
+          </Grid>
 
-        {/* RTO NOC Issued */}
-        <Grid item xs={12} sm={6}>
-          <Typography variant="body1">RTO NOC Issued: {formData.rtoNocIssued}</Typography>
-        </Grid>
+          {/* RTO NOC Issued */}
+          <Grid item xs={12} sm={6}>
+            <Typography variant="body1">
+              RTO NOC Issued:{" "}
+              <span className="font-semibold">
+                {inspData?.object.rtonocissued}
+              </span>
+            </Typography>
+          </Grid>
 
-        {/* Insurance Type */}
-        <Grid item xs={12} sm={6}>
-          <Typography variant="body1">Insurance Type: {formData.insuranceType}</Typography>
-        </Grid>
+          {/* Insurance Type */}
+          <Grid item xs={12} sm={6}>
+            <Typography variant="body1">
+              Insurance Type:{" "}
+              <span className="font-semibold">
+                {inspData?.object.insuranceType}
+              </span>
+            </Typography>
+          </Grid>
 
-        {/* No Claim Bonus */}
-        <Grid item xs={12} sm={6}>
-          <Typography variant="body1">No Claim Bonus: {formData.noClaimBonus}</Typography>
-        </Grid>
+          {/* No Claim Bonus */}
+          <Grid item xs={12} sm={6}>
+            <Typography variant="body1">
+              No Claim Bonus:{" "}
+              <span className="font-semibold">
+                {inspData?.object.noClaimBonus}
+              </span>
+            </Typography>
+          </Grid>
 
-        {/* Under Hypothecation */}
-        <Grid item xs={12} sm={6}>
-          <Typography variant="body1">Under Hypothecation: {formData.underHypothecation}</Typography>
-        </Grid>
+          {/* Under Hypothecation */}
+          <Grid item xs={12} sm={6}>
+            <Typography variant="body1">
+              Under Hypothecation:{" "}
+              <span className="font-semibold">
+                {inspData?.object.underHypothecation}
+              </span>
+            </Typography>
+          </Grid>
 
-        {/* Road Tax Paid */}
-        <Grid item xs={12} sm={6}>
-          <Typography variant="body1">Road Tax Paid: {formData.roadTaxPaid}</Typography>
-        </Grid>
+          {/* Road Tax Paid */}
+          <Grid item xs={12} sm={6}>
+            <Typography variant="body1">
+              Road Tax Paid:{" "}
+              <span className="font-semibold">
+                {inspData?.object.roadTaxPaid}
+              </span>
+            </Typography>
+          </Grid>
 
-        {/* Partipeshi Request */}
-        <Grid item xs={12} sm={6}>
-          <Typography variant="body1">Partipeshi Request: {formData.partipeshiRequest}</Typography>
-        </Grid>
+          {/* Partipeshi Request */}
+          <Grid item xs={12} sm={6}>
+            <Typography variant="body1">
+              Partipeshi Request:{" "}
+              <span className="font-semibold">
+                {inspData?.object.partipeshiRequest}
+              </span>
+            </Typography>
+          </Grid>
 
-        {/* Duplicate Key */}
-        <Grid item xs={12} sm={6}>
-          <Typography variant="body1">Duplicate Key: {formData.duplicateKey}</Typography>
-        </Grid>
+          {/* Duplicate Key */}
+          <Grid item xs={12} sm={6}>
+            <Typography variant="body1">
+              Duplicate Key:{" "}
+              <span className="font-semibold">
+                {inspData?.object.duplicateKey}
+              </span>
+            </Typography>
+          </Grid>
 
-        {/* Chassis Number Embossing */}
-        <Grid item xs={12} sm={6}>
-          <Typography variant="body1">Chassis Number Embossing: {formData.chassisNumberEmbossing}</Typography>
-        </Grid>
+          {/* Chassis Number Embossing */}
+          <Grid item xs={12} sm={6}>
+            <Typography variant="body1">
+              Chassis Number Embossing:{" "}
+              <span className="font-semibold">
+                {inspData?.object.chassisNumberEmbossing}
+              </span>
+            </Typography>
+          </Grid>
 
-        {/* Manufacturing Date */}
-        <Grid item xs={12} sm={6}>
-          
-          <Typography variant="body1">Manufacturing Date: {formData.manufacturingDate}</Typography>
-        </Grid>
+          {/* Manufacturing Date */}
+          <Grid item xs={12} sm={6}>
+            <Typography variant="body1">
+              Manufacturing Date:{" "}
+              <span className="font-semibold">
+                {inspData?.object.manufacturingDate}
+              </span>
+            </Typography>
+          </Grid>
 
-        {/* Registration Date */}
-        <Grid item xs={12} sm={6}>
-          
-          <Typography variant="body1" >Registration Date: {formData.registrationDate}</Typography>
-        </Grid>
+          {/* Registration Date */}
+          <Grid item xs={12} sm={6}>
+            <Typography variant="body1">
+              Registration Date:{" "}
+              <span className="font-semibold">
+                {inspData?.object.registrationDate}
+              </span>
+            </Typography>
+          </Grid>
 
-        {/* RTO */}
-        <Grid item xs={12} sm={6}>
-          
-          <Typography variant="body1"><label htmlFor="">RTO:</label> {formData.rto}</Typography>
-        </Grid>
+          {/* RTO */}
+          <Grid item xs={12} sm={6}>
+            <Typography variant="body1">
+              <label htmlFor="">RTO:</label>{" "}
+              <span className="font-semibold">
+                {inspData?.object.rto}
+              </span>
+            </Typography>
+          </Grid>
 
-        {/* Fitness Upto */}
-        <Grid item xs={12} sm={6}>
-          
-          <Typography variant="body1"><label htmlFor="">Fitness Upto:</label> {formData.fitnessUpto}</Typography>
-        </Grid>
+          {/* Fitness Upto */}
+          <Grid item xs={12} sm={6}>
+            <Typography variant="body1">
+              <label htmlFor="">Fitness Upto:</label>{" "}
+              <span className="font-semibold">
+                {inspData?.object.fitnessUpto}
+              </span>
+            </Typography>
+          </Grid>
 
-        {/* CNG/LPG Fitment in RC */}
-        <Grid item xs={12} sm={6}>
-          <Typography variant="body1">CNG/LPG Fitment in RC: {formData.cngLpgFitmentInRC}</Typography>
+          {/* CNG/LPG Fitment in RC */}
+          <Grid item xs={12} sm={6}>
+            <Typography variant="body1">
+              CNG/LPG Fitment in RC:{" "}
+              <span className="font-semibold">
+                {inspData?.object.cnglpgfitmentInRC}
+              </span>
+            </Typography>
+          </Grid>
         </Grid>
-      </Grid>
       </div>
       {/* <div className="flex justify-between mt-10 px-8">
         <button

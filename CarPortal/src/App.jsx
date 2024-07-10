@@ -78,9 +78,6 @@ import BiddingCarDetailsById1 from "./pages/bidding/BiddingCarDetailsById1";
 import BiddingEditImage from "./pages/bidding/BiddingEditImage";
 import SalePersonMiddleware from "./middleware/SalePersonMiddleware";
 import ImageUploader from "./components/demo/uploadimage";
-
-
-
 import FinalReport from "./pages/InspectionReportPage/FinalReport";
 import LiveBid from "./pages/LiveBidding/LiveBid";
 import BiddingCarDetail from "./pages/LiveBidding/BiddingCarDetail";

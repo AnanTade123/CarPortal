@@ -23,7 +23,7 @@ export function AddInspectorForm() {
     document: 0,
     shopName: "",
     area: "",
-    status: false,
+    status: true,
     userType: "",
   });
 

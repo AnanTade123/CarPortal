@@ -70,7 +70,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
 
     finalInspection : builder.query ({
       query : (beadingCarId) => ({
-        url : `/inspectionReport/getByBeadingCar?beadingCarId=74`,
+        url : `/inspectionReport/getByBeadingCar?beadingCarId=${beadingCarId}`,
         method : "GET",
         transerResponse:console.log(beadingCarId),
       })

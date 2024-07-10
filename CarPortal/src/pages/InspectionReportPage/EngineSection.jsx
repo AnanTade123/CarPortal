@@ -30,7 +30,7 @@ const EngineSection = () => {
   });
   const { beadingCarId } = useParams();
   console.log(beadingCarId);
-  const { data } = useGetInspectionReportQuery({ id:beadingCarId, docType: "Engine" });
+  const { data } = useGetInspectionReportQuery({ beadingCarId, docType: "Engine" });
   console.log(data)
 
   useEffect(() => {

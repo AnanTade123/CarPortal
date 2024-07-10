@@ -259,9 +259,9 @@ const ExteriorSection = () => {
         {/* Insurance Type */}
         <Grid item xs={12} sm={6}>
         <Typography variant="body1">Left Fender : {formData.LeftFender}</Typography>
-        {uploadedImages.RightFenders && (
+        {uploadedImages.LeftFenders && (
             <img
-              src={uploadedImages.RightFenders}
+              src={uploadedImages.LeftFenders}
               alt="Uploaded"
               style={{
                 maxWidth: "20%",
@@ -275,9 +275,9 @@ const ExteriorSection = () => {
         {/* No Claim Bonus */}
         <Grid item xs={12} sm={6}>
         <Typography variant="body1">Right Fender : {formData.RightFender}</Typography>
-        {uploadedImages.LeftQuarterPanels && (
+        {uploadedImages.RightFenders && (
             <img
-              src={uploadedImages.LeftQuarterPanels}
+              src={uploadedImages.RightFenders}
               alt="Uploaded"
               style={{
                 maxWidth: "20%",
@@ -291,9 +291,9 @@ const ExteriorSection = () => {
         {/* Under Hypothecation */}
         <Grid item xs={12} sm={6}>
         <Typography variant="body1">Left Quarter Panel : {formData.LeftQuarterPanel}</Typography>
-        {uploadedImages.RightQuarterPanels && (
+        {uploadedImages.LeftQuarterPanels && (
             <img
-              src={uploadedImages.RightQuarterPanels}
+              src={uploadedImages.LeftQuarterPanels}
               alt="Uploaded"
               style={{
                 maxWidth: "20%",
@@ -307,6 +307,22 @@ const ExteriorSection = () => {
         {/* Road Tax Paid */}
         <Grid item xs={12} sm={6}>
         <Typography variant="body1">Right Quarter Panel : {formData.RightQuarterPanel}</Typography>
+        {uploadedImages.RightQuarterPanels && (
+            <img
+              src={uploadedImages.RightQuarterPanels}
+              alt="Uploaded"
+              style={{
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
+              }}
+              
+            />
+          )}</Grid>
+
+        {/* Partipeshi Request */}
+        <Grid item xs={12} sm={6}>
+        <Typography variant="body1">Roof : {formData.Roof}</Typography>
         {uploadedImages.Roofs && (
             <img
               src={uploadedImages.Roofs}
@@ -322,26 +338,10 @@ const ExteriorSection = () => {
 
         {/* Partipeshi Request */}
         <Grid item xs={12} sm={6}>
-        <Typography variant="body1">Roof : {formData.Roof}</Typography>
+        <Typography variant="body1">Dicky Door : {formData.DickyDoor}</Typography>
         {uploadedImages.DickyDoors && (
             <img
               src={uploadedImages.DickyDoors}
-              alt="Uploaded"
-              style={{
-                maxWidth: "20%",
-                marginTop: "10px",
-                cursor: "pointer",
-              }}
-              
-            />
-          )}</Grid>
-
-        {/* Partipeshi Request */}
-        <Grid item xs={12} sm={6}>
-        <Typography variant="body1">Dicky Door : {formData.DickyDoor}</Typography>
-        {uploadedImages.LeftDoorRears && (
-            <img
-              src={uploadedImages.LeftDoorRears}
               alt="Uploaded"
               style={{
                 maxWidth: "20%",
@@ -355,9 +355,9 @@ const ExteriorSection = () => {
         {/* Duplicate Key */}
         <Grid item xs={12} sm={6}>
         <Typography variant="body1">Left Door Rear : {formData.LeftDoorRear}</Typography>
-        {uploadedImages.RightDoorRears && (
+        {uploadedImages.LeftDoorRears && (
             <img
-              src={uploadedImages.RightDoorRears}
+              src={uploadedImages.LeftDoorRears}
               alt="Uploaded"
               style={{
                 maxWidth: "20%",
@@ -371,9 +371,18 @@ const ExteriorSection = () => {
         {/* Chassis Number Embossing */}
         <Grid item xs={12} sm={6}>
         <Typography variant="body1">Right Door Rear : {formData.RightDoorRear}</Typography>
-        <img className="w-25 h-14 ml-auto -mt-8"
-        src="https://fastly-production.24c.in/hello-ar/dev/uploads/6673c20a0f8714bf5665db0e/85aa96fc-db73-40b9-9cc1-67e701871b5b/slot/Exterior-3.jpg?w=750&auto=format" alt="No Image" />
-        </Grid>
+        {uploadedImages.RightDoorRears && (
+            <img
+              src={uploadedImages.RightDoorRears}
+              alt="Uploaded"
+              style={{
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
+              }}
+              
+            />
+          )}</Grid>
 
         </Grid>
         </div>

@@ -90,17 +90,17 @@ const BiddingDealerCars = () => {
           </Link>
         ) :(
         cell.row.values.carStatus == "pending" ? (
-          <Link to={`/sale/carverify/${cell.row.values.beadingCarId}`} className="button-link">
-        <Button variant="gradient" color="blue">
-            Verify
+          
+        <Button variant="gradient" color="yellow">
+            Pending
         </Button>
-          </Link>
+          
       ) : (
-          <Link to={`/sale/carverify/${cell.row.values.beadingCarId}`} className="button">
+          
         <Button variant="gradient" color="green">
             Done
         </Button>
-          </Link>
+         
       ))
       },
     },
