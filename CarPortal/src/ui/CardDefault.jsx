@@ -3,6 +3,11 @@ import { Card, CardBody, CardHeader, Typography } from "@material-tailwind/react
 import { CarouselCustomArrows } from "./CarouselCustomArrows";
 import { Link } from "react-router-dom";
 
+import HeartToggle from "./HeartToggle";
+
+
+
+
 export function CardDefault({ data }) {
   console.log(data);
 const carid = data?.carId
@@ -11,13 +16,14 @@ console.log(carid)
 
     <div className="flex justify-center mx-auto">
     <Card className="w-full flex justify-center sm:w-80 md:w-[260px] lg:w-full items-center border-2 hover:scale-105 border-gray-300 shadow-xl overflow-hidden mx-5 md:mx-0">
-      <Link to={`/carlist/cardetails/${data.carId}`}>
+      {/* <Link to={`/carlist/cardetails/${data.carId}`}> */}
        <CardHeader
         floated={false}
         shadow={false}
         color="transparent"
         className="m-0 rounded-none"
       >
+        
          <Link to={`/carlist/cardetails/${carid}`}>
         {/* <img
           src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80"
@@ -33,6 +39,9 @@ console.log(carid)
         </Link>
       </div> */}
       <CardBody className="mb-5">
+        <div className="flex justify-end">
+      <HeartToggle />
+      </div>
         <Typography>{data.year}</Typography>
         <Typography variant="h5" color="blue-gray" className="mb-2">
            {data.brand} {data.model} 
@@ -52,7 +61,7 @@ console.log(carid)
         <hr />
         <p className="text-sm">Free Test Drive Today at {data.area}</p>
       </CardBody>
-      </Link>
+      {/* </Link> */}
     </Card>
     </div>
     
