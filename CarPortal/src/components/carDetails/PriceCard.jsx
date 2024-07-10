@@ -9,10 +9,12 @@ import { IoHome } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaFileAlt } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
-import BiddingSetTime from "../../ui/BiddingSetTime";
-import BiddingDailogeBox from "../../ui/BiddingDialogeBox"
+// import BiddingSetTime from "../../ui/BiddingSetTime";
+// import BiddingDailogeBox from "../../ui/BiddingDialogeBox"
 import { useBiddingCarByDealerIdQuery } from "../../services/biddingAPI";
-import PlaceBid from "../../pages/dealer/PlaceBid";
+// import PlaceBid from "../../pages/dealer/PlaceBid";
+import DealerContact from "./DealerContact";
+// import DealerContact from "./DealerContact";
 
 const PriceCard = ({
   price,
@@ -44,9 +46,10 @@ const PriceCard = ({
 
   console.log(data);
   return (
+    <div>
     <CardUi>
       <div className="w-full md:w-full ">
-        <p className="font-extrabold text-2xl text-black uppercase font-[latto] ml-2">
+        <p className="font-extrabold text-2xl text-black uppercase font-[latto] ml-2 ">
           {year} {brand} {model}
         </p>
         <p className="uppercase font-[Merriweather] ml-2 md:ml-0">
@@ -56,7 +59,7 @@ const PriceCard = ({
           <Chip
             variant="outlined"
             value={`${kmDriven} KM`}
-            className="text-sm text-black font-[latto] hover:bg-gray-900 hover:text-white"
+            className="text-sm text-black font-[latto] hover:bg-gray-900 hover:text-white "
           />
           <Chip
             variant="outlined"
@@ -137,7 +140,7 @@ const PriceCard = ({
 )}
 
 
-          {userRole == "DEALER" ? (
+          {/* {userRole == "DEALER" ? (
             <div>
               <p className="text-2xl font-semibold text-black">Start Bidding</p>
               <div className="flex mt-5">
@@ -158,10 +161,20 @@ const PriceCard = ({
 
               </div>
             </div>
-          ) : null}
+          ) : null} */}
+        </div>
+        <div>
+         
         </div>
       </div>
+      
     </CardUi>
+    <div>
+  <DealerContact dealer_id={dealer_id}/>
+</div>
+
+    </div>
+    
   );
 };
 
