@@ -11,6 +11,7 @@ export const dealerAPI = apiSlice.injectEndpoints({
       providesTags: (result) =>
         result ? [{ type: "Dealer", pageNo: result.pageNo }] : [],
     }),
+
     deleteDealer: builder.mutation({
       query: (id) => ({
         url: `/dealer/delete/${id}`,
@@ -18,13 +19,17 @@ export const dealerAPI = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Dealer"],
     }),
+
+
     getDealer: builder.query({
-      query: (id) => ({
+      query: ({id}) => ({
         url: `/dealer/${id}`,
         transerResponse:console.log(id),
       }),
       providesTags: ["Dealer"],
     }),
+
+
     getEditDealer: builder.mutation({
       query: (userid) => ({
         url: `/dealer/updateDealer/${userid.id}`,
@@ -34,6 +39,8 @@ export const dealerAPI = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Dealer"],
     }),
+
+
     getAllDealerCompleteBooking: builder.query({
       query: ({pageNo,id}) => ({
         url: `/confirmBooking/getAllBookingsByDealerId?pageNo=${pageNo}&dealerId=${id}`,
@@ -41,6 +48,8 @@ export const dealerAPI = apiSlice.injectEndpoints({
       }),
       providesTags: ["DEALERBOOKING"],
     }),
+
+
     getAllDealerPendingBooking: builder.query({
       query: ({id,pageNo}) => ({
         url: `/booking/getPendingBookingDetailsByDealerID?pageNo=${pageNo}&dealerId=${id}`,
@@ -67,12 +76,14 @@ export const dealerAPI = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Dealer'],
     }),
+
+
     getAllDealerList: builder.query({
       query: () => ({
         url: `dealer/allDealer`,
         method: "GET",
       }),
-      providesTags: ['Inspector']
+      providesTags: ['Dealer']
     }),
     
   }),
