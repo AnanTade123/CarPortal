@@ -80,9 +80,42 @@ const [formData, setFormData] = useState({
     RightPillar : []
   });
 
-  
-
-
+ const [uploadedImages, setUploadedImages] = useState({
+    BonnetHoods: null,
+    RightDoorFronts: null,
+    LeftDoorFronts: null,
+    RightFenders: null,
+    LeftQuarterPanels: null,
+    RightQuarterPanels: null,
+    Roofs: null,
+    DickyDoors: null,
+    LeftDoorRears: null,
+    RightDoorRears: null,
+    LHSFrontTyres: null,
+    RHSFrontTyres: null,
+    LHSRearTyres: null,
+    RHSRearTyres: null,
+    SpareTyres: null,
+    Windshields: null,
+    Lights: null,
+    FrontBumpers: null,
+    RearBumpers: null,
+    LHSHeadlights: null,
+    RHSHeadlights: null,
+    LHSTaillights: null,
+    RHSTaillights: null,
+    HeadLightSupports: null,
+    RadiatorSupports: null,
+    AlloyWheels: null,
+    CowlTops : null,
+    BootFloors: null,
+    RightApronLEGs: null,
+    LeftApronLEGs: null,
+    RightAprons: null,
+    LeftAprons: null,
+    LeftPillars: null,
+    RightPillars: null,
+  });
   useEffect(() => {
     // Pre-fill form data and uploaded images based on API data
     data?.object.map((item) => {
@@ -132,43 +165,6 @@ const [formData, setFormData] = useState({
       }
     });
   }, [data]);
-  const [uploadedImages, setUploadedImages] = useState({
-    BonnetHoods: null,
-    RightDoorFronts: null,
-    LeftDoorFronts: null,
-    RightFenders: null,
-    LeftQuarterPanels: null,
-    RightQuarterPanels: null,
-    Roofs: null,
-    DickyDoors: null,
-    LeftDoorRears: null,
-    RightDoorRears: null,
-    LHSFrontTyres: null,
-    RHSFrontTyres: null,
-    LHSRearTyres: null,
-    RHSRearTyres: null,
-    SpareTyres: null,
-    Windshields: null,
-    Lights: null,
-    FrontBumpers: null,
-    RearBumpers: null,
-    LHSHeadlights: null,
-    RHSHeadlights: null,
-    LHSTaillights: null,
-    RHSTaillights: null,
-    HeadLightSupports: null,
-    RadiatorSupports: null,
-    AlloyWheels: null,
-    CowlTops : null,
-    BootFloors: null,
-    RightApronLEGs: null,
-    LeftApronLEGs: null,
-    RightAprons: null,
-    LeftAprons: null,
-    LeftPillars: null,
-    RightPillars: null,
-  });
-
   const [inspectionReport] = useInspectionReportMutation();
   const [addBiddingCarWithoutImage] = useAddBiddingCarWithoutImageMutation()
   const [captureModalOpen, setCaptureModalOpen] = useState(false);
@@ -810,6 +806,7 @@ const handleFileChange = async (event, fieldName, imgPreview = "") => {
       setCaptureModalOpen={setCaptureModalOpen}
       selectedLable={selectedLable}
       setSelectfiled={setSelectfiled}
+      handleChange={handleChange}
     />
 <Tyre/>
 <OtherComponent  handleCameraModal={handleCameraModal} 
@@ -825,7 +822,8 @@ const handleFileChange = async (event, fieldName, imgPreview = "") => {
       captureModalOpen={captureModalOpen}
       setCaptureModalOpen={setCaptureModalOpen}
       selectedLable={selectedLable}
-      setSelectfiled={setSelectfiled}/>
+      setSelectfiled={setSelectfiled}
+      handleChange={handleChange}/>
 
 <Structure  handleCameraModal={handleCameraModal} 
       userRole={userRole} 
@@ -840,7 +838,8 @@ const handleFileChange = async (event, fieldName, imgPreview = "") => {
       captureModalOpen={captureModalOpen}
       setCaptureModalOpen={setCaptureModalOpen}
       selectedLable={selectedLable}
-      setSelectfiled={setSelectfiled}/>
+      setSelectfiled={setSelectfiled}
+      handleChange={handleChange}/>
 
 
 {/* <div className="flex justify-end mt-10 px-8">
