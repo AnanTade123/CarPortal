@@ -85,6 +85,7 @@ import FinalReport from "./pages/InspectionReportPage/FinalReport";
 import LiveBid from "./pages/LiveBidding/LiveBid";
 import BiddingCarDetail from "./pages/LiveBidding/BiddingCarDetail";
 import BiddingCar from "./pages/bidding/BiddingCar";
+import DealerContact from "./components/carDetails/DealerContact";
 
 
 
@@ -247,7 +248,7 @@ export default function App() {
 
           </Route>
         </Route>
-
+<Route path="/DealerContact" element={<DealerContact/>}/>
         {/* <Route path="/trans" element={<CardDetailss/>}/> */}
         <Route element={<AppLayout2 />}>
           <Route path="/aboutus" element={<AboutUs />} />
@@ -255,6 +256,7 @@ export default function App() {
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/cookiepolicy" element={<CookiePolicy />} />
         </Route>
+
       </Routes>
     </>
   );
