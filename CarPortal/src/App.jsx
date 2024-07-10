@@ -85,6 +85,7 @@ import FinalReport from "./pages/InspectionReportPage/FinalReport";
 import LiveBid from "./pages/LiveBidding/LiveBid";
 import BiddingCarDetail from "./pages/LiveBidding/BiddingCarDetail";
 import BiddingCar from "./pages/bidding/BiddingCar";
+import WinnerSection from "./pages/dealer/WinnerSection";
 
 
 export default function App() {
@@ -203,6 +204,10 @@ export default function App() {
             <Route
               path="/dealer/live/cars"
               element={<LiveBid/>}
+            />
+             <Route
+              path="/dealer/winnersection"
+              element={<WinnerSection/>}
             />
             <Route
               path="/biddingcardetail"
