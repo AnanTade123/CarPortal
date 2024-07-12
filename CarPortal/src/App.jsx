@@ -86,6 +86,7 @@ import LiveBid from "./pages/LiveBidding/LiveBid";
 import BiddingCarDetail from "./pages/LiveBidding/BiddingCarDetail";
 import BiddingCar from "./pages/bidding/BiddingCar";
 import DealerContact from "./components/carDetails/DealerContact";
+import WinnerSection from "./pages/dealer/WinnerSection";
 
 
 
@@ -207,6 +208,10 @@ export default function App() {
             <Route
               path="/dealer/live/cars"
               element={<LiveBid/>}
+            />
+             <Route
+              path="/dealer/winnersection"
+              element={<WinnerSection/>}
             />
             <Route
               path="/biddingcardetail"
