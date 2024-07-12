@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import { FaLocationDot } from "react-icons/fa6";
 
-import { useBiddingCarByIdQuery, useGetCarIdTypeQuery } from "../../services/biddingAPI";
+import { useBiddingCarByIdQuery, useGetCarIdTypeQuery  } from "../../services/biddingAPI";
 // import TopBiddingAmount from "./TopBiddingAmount";
 import { Link } from "react-router-dom";
 import HighestBidAmount from "./HighestBidAmount";
+import { useGetInspectionReportQuery } from "../../services/inspectorapi";
 // eslint-disable-next-line react/prop-types
 const Card = ({ cardData }) => {
     console.log(cardData);
@@ -12,14 +13,18 @@ const Card = ({ cardData }) => {
     // eslint-disable-next-line react/prop-types
     const {data} = useBiddingCarByIdQuery(cardData?.beadingCarId);
     const {data : imageData} = useGetCarIdTypeQuery(cardData?.beadingCarId);
-    console.log(data,imageData);
+    const {data : images} = useGetInspectionReportQuery(cardData?.beadingCarId,"coverImage");
+
+    console.log("checkkk",imageData?.object[0]?.documentLink);
+    console.log("---",images);
+
     return (
         <>
             <div className="relative mx-auto w-full max-w-sm">
                 <Link to={`/dealer/live/carDetails/${cardData?.bidCarId}/${cardData?.beadingCarId}`} className="relative inline-block w-full transform transition-transform duration-300 ease-in-out hover:-translate-y-2">
                     <div className="rounded-lg bg-white   shadow-md border">
                         <div className="relative flex h-52 justify-center overflow-hidden rounded-lg">
-                            <img className="h-full w-full object-cover transform transition-transform duration-500 ease-in-out hover:scale-110" src="https://fastly-production.24c.in/hello-ar/dev/uploads/664db851724c78c7fc582356/b1bb3305-0394-48a0-b46d-ba534863c117/slot/10190831792-8a6e77eec6204a84b3a57dd2b38fbb43-Exterior-6.jpg?w=690&auto=format" alt="Car 1" />
+                            <img className="h-full w-full object-cover transform transition-transform duration-500 ease-in-out hover:scale-110" src={imageData?.object[0]?.documentLink} alt="Car 1" />
                         </div>
                         <div className="p-4">
                             <div className=" flex justify-between  items-center">
