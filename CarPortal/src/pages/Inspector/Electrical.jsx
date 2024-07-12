@@ -489,7 +489,7 @@ console.log(lables)
           </div>
           {images.Electricalwirings && (
             <img
-              src={images.Electricalwiring}
+              src={images.Electricalwirings}
               alt="Electrical Wiring uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
               onClick={() => handleImageClick(images.Electricalwirings)}

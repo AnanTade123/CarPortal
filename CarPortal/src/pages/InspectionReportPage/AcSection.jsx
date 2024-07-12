@@ -22,7 +22,7 @@ const AcSection = () => {
   });
   const { beadingCarId } = useParams();
   console.log(beadingCarId);
-  const { data } = useGetInspectionReportQuery({ id:beadingCarId, docType: "AC" });
+  const { data } = useGetInspectionReportQuery({ beadingCarId, docType: "AC" });
   console.log(data)
 
   useEffect(() => {

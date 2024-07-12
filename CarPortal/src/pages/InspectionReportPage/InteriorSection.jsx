@@ -20,7 +20,7 @@ const InteriorSection = () => {
 
   const { beadingCarId } = useParams();
   console.log(beadingCarId);
-  const { data } = useGetInspectionReportQuery({ id:beadingCarId, docType: "Interior" });
+  const { data } = useGetInspectionReportQuery({ beadingCarId, docType: "Interior" });
   console.log(data)
   
 useEffect(() => {

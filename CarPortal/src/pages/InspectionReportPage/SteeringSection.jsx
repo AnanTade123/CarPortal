@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { Grid, Typography,Button } from '@material-ui/core';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useGetInspectionReportQuery } from '../../services/inspectorapi';
 
 
 const SteeringSection = () => {
-  const navigate = useNavigate();
   const [formData, setFormData] = React.useState({
     Steering: "",
     Brake: "",
@@ -22,7 +21,7 @@ const SteeringSection = () => {
 
   const { beadingCarId } = useParams();
   console.log(beadingCarId);
-  const { data } = useGetInspectionReportQuery({ id:beadingCarId, docType: "Streeing" });
+  const { data } = useGetInspectionReportQuery({ beadingCarId, docType: "Steering" });
   console.log(data)
 
   useEffect(() => {
@@ -107,9 +106,8 @@ const SteeringSection = () => {
     variant="contained"
     color="primary"
     className="  rounded-lg bg-blue-500 text-white flex justify-centre items-center"
-    onClick={() => navigate(-1) }
   >
-   Back
+   Submit
   </Button>
   </div>
     </div>

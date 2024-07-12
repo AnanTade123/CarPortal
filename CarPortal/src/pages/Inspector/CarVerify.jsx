@@ -14,8 +14,14 @@ import Engine from "./Engine";
 import Steering from "./Steering";
 import AC from "./Ac";
 import Electrical from "./Electrical";
+import { useParams } from "react-router-dom";
+import { useFinalInspectionQuery } from "../../services/inspectorapi";
 
 export default function CarVerify() {
+  const {beadingCarId} = useParams()
+console.log(beadingCarId)
+const {data : inspData} = useFinalInspectionQuery(beadingCarId);
+console.log(inspData)
   const [activeTab, setActiveTab] = React.useState("Exterior");
   const data = [
     
@@ -52,7 +58,7 @@ export default function CarVerify() {
     {
       label: "Inspection Report",
       value: "report",
-      desc: <InspectionReport/>,
+      desc: <InspectionReport inspData={inspData}/>,
     }
   ];
 

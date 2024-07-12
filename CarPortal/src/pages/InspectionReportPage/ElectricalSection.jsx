@@ -18,7 +18,7 @@ const ElectricalSection = () => {
   });
   const { beadingCarId } = useParams();
   console.log(beadingCarId);
-  const { data } = useGetInspectionReportQuery({ id:beadingCarId, docType: "Electrical" });
+  const { data } = useGetInspectionReportQuery({ beadingCarId, docType: "Eletrical" });
   console.log(data)
   const [images, setImages] = useState({
     FourPowerWindowss: null,
@@ -159,7 +159,7 @@ const ElectricalSection = () => {
         <Typography variant="body1">Electrical Wiring : {formData.Electricalwiring}</Typography>
         {images.Electricalwirings && (
             <img
-              src={images.Electricalwiring}
+              src={images.Electricalwirings}
               alt="Electrical Wiring uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
               

@@ -1,13 +1,14 @@
-import React from 'react';
-import { MenuItem, FormControl, Select, InputLabel, TextField, Grid, Typography,Button } from '@material-ui/core';
+/* eslint-disable react/prop-types */
+import  { useEffect, useState } from 'react';
+import { MenuItem, FormControl, Select, InputLabel, TextField, Grid, Typography,Button, FormHelperText } from '@material-ui/core';
 import {useFinalInspectionReportMutation} from "../../services/inspectorapi"
 import { useNavigate, useParams } from 'react-router-dom';
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
-const ImportantDocuments = () => {
+const ImportantDocuments = ({inspData}) => {
 const navigate = useNavigate()
-
+console.log(inspData)
 const token = Cookies.get("token");
 let jwtDecodes;
 if (token) {
@@ -17,33 +18,65 @@ const {beadingCarId} = useParams()
 console.log(beadingCarId)
 const UserId = token ? jwtDecodes?.userId : null;
 console.log(UserId)
-  const [formData, setFormData] = React.useState({
-    rcAvailability: "",
-    mismatchInRC: "",
-    rtoNocIssued: "",
-    insuranceType:  "",
-    noClaimBonus: "",
-    underHypothecation: "",
-    roadTaxPaid: "",
-    partipeshiRequest: "",
-    duplicateKey: "",
-    chassisNumberEmbossing: "",
-    manufacturingDate: "",
-    registrationDate: "",
-    rto: "",
-    fitnessUpto: "",
-    cngLpgFitmentInRC: "",
-    LoanStatus:""
-  });
+const [formData, setFormData] = useState({
+  rcAvailability: '',
+  mismatchInRC: '',
+  rtoNocIssued: '',
+  insuranceType: '',
+  noClaimBonus: '',
+  underHypothecation: '',
+  roadTaxPaid: '',
+  partipeshiRequest: '',
+  duplicateKey: '',
+  chassisNumberEmbossing: '',
+  manufacturingDate: '',
+  registrationDate: '',
+  rto: '',
+  fitnessUpto: '',
+  cngLpgFitmentInRC: '',
+  LoanStatus: ''
+});
+
+  useEffect(() => {
+    if (inspData) {
+      setFormData({
+        rcAvailability: inspData.object.rcavailability,
+        mismatchInRC: inspData.object.mismatchInRC,
+        rtoNocIssued: inspData.object.rtoNocIssued,
+        insuranceType: inspData.object.insuranceType,
+        noClaimBonus: inspData.object.noClaimBonus,
+        underHypothecation: inspData.object.underHypothecation,
+        roadTaxPaid: inspData.object.roadTaxPaid,
+        partipeshiRequest: inspData.object.partipeshiRequest,
+        duplicateKey: inspData.object.duplicateKey,
+        chassisNumberEmbossing: inspData.object.chassisNumberEmbossing,
+        manufacturingDate: inspData.object.manufacturingDate ? inspData.object.manufacturingDate.split('T')[0] : '',
+        registrationDate: inspData.object.registrationDate ? inspData.object.registrationDate.split('T')[0] : '',
+        rto: inspData.object.rto,
+        fitnessUpto: inspData.object.fitnessUpto ? inspData.object.fitnessUpto.split('T')[0] : '',
+        cngLpgFitmentInRC: inspData.object.cngLpgFitmentInRC,
+        LoanStatus: inspData.object.LoanStatus
+      });
+    }
+  }, [inspData]);
 console.log(formData)
   const [finalInspectionReport] = useFinalInspectionReportMutation()
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
+
+    setErrors((prevState) => ({
+      ...prevState,
+      [name]: ''
+    }));
   };
 
   function handleSubmit (e) {
   e.preventDefault()
+  if (validateForm()) {
+    // Handle form submission
+    console.log('Form submitted successfully:', formData);
+  }
      const inspectionData = {
        userId: UserId,
        beadingCarId: beadingCarId,
@@ -74,7 +107,21 @@ console.log(formData)
     console.log(error)
   }
   }
+  const [errors, setErrors] = useState({});
+  const validateForm = () => {
+    let valid = true;
+    let errors = {};
 
+    for (const [key, value] of Object.entries(formData)) {
+      if (!value) {
+        valid = false;
+        errors[key] = 'This field is required';
+      }
+    }
+
+    setErrors(errors);
+    return valid;
+  };
   return (
     <div className='p-4'>
       <Typography variant="h4" className='text-black font-bold pb-5'>
@@ -83,25 +130,25 @@ console.log(formData)
       <form onSubmit={handleSubmit}>
       <Grid container spacing={3}>
         {/* RC Availability */}
-        <Grid item xs={12} sm={6} >
-          <FormControl fullWidth>
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth required error={!!errors.rcAvailability}>
             <InputLabel>RC Availability</InputLabel>
             <Select
               name="rcAvailability"
               value={formData.rcAvailability}
               onChange={handleChange}
               color="Green"
-              
             >
               <MenuItem value="Yes">Yes</MenuItem>
               <MenuItem value="No">No</MenuItem>
             </Select>
+            {errors.rcAvailability && <FormHelperText>{errors.rcAvailability}</FormHelperText>}
           </FormControl>
         </Grid>
 
         {/* Mismatch in RC */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required error={!!errors.mismatchInRC}>
             <InputLabel>Mismatch in RC</InputLabel>
             <Select
               name="mismatchInRC"
@@ -111,12 +158,13 @@ console.log(formData)
               <MenuItem value="No mismatch">No mismatch</MenuItem>
               <MenuItem value="Yes mismatch">Yes mismatch</MenuItem>
             </Select>
+            {errors.mismatchInRC && <FormHelperText>{errors.mismatchInRC}</FormHelperText>}
           </FormControl>
         </Grid>
 
         {/* RTO NOC Issued */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required error={!!errors.rtoNocIssued}>
             <InputLabel>RTO NOC Issued</InputLabel>
             <Select
               name="rtoNocIssued"
@@ -126,29 +174,30 @@ console.log(formData)
               <MenuItem value="Yes">Yes</MenuItem>
               <MenuItem value="No">No</MenuItem>
             </Select>
+            {errors.rtoNocIssued && <FormHelperText>{errors.rtoNocIssued}</FormHelperText>}
           </FormControl>
         </Grid>
 
         {/* Insurance Type */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required error={!!errors.insuranceType}>
             <InputLabel>Insurance Type</InputLabel>
             <Select
               name="insuranceType"
               value={formData.insuranceType}
               onChange={handleChange}
-             
             >
               <MenuItem value="Zero Depreciation">Zero Depreciation</MenuItem>
               <MenuItem value="Comprehensive">Comprehensive</MenuItem>
               <MenuItem value="3rd Party">3rd Party</MenuItem>
             </Select>
+            {errors.insuranceType && <FormHelperText>{errors.insuranceType}</FormHelperText>}
           </FormControl>
         </Grid>
 
         {/* No Claim Bonus */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required error={!!errors.noClaimBonus}>
             <InputLabel>No Claim Bonus</InputLabel>
             <Select
               name="noClaimBonus"
@@ -158,26 +207,28 @@ console.log(formData)
               <MenuItem value="Yes">Yes</MenuItem>
               <MenuItem value="No">No</MenuItem>
             </Select>
+            {errors.noClaimBonus && <FormHelperText>{errors.noClaimBonus}</FormHelperText>}
           </FormControl>
         </Grid>
 
         {/* Under Hypothecation */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel> Loan Status</InputLabel>
+          <FormControl fullWidth required error={!!errors.LoanStatus}>
+            <InputLabel>Loan Status</InputLabel>
             <Select
               name="LoanStatus"
               value={formData.LoanStatus}
               onChange={handleChange}
             >
-              <MenuItem value="Paid/Closed"> Paid/Closed</MenuItem>
-              <MenuItem value="unpaid/Pending">Unpaid/Pending</MenuItem>
+              <MenuItem value="Paid/Closed">Paid/Closed</MenuItem>
+              <MenuItem value="Unpaid/Pending">Unpaid/Pending</MenuItem>
             </Select>
+            {errors.LoanStatus && <FormHelperText>{errors.LoanStatus}</FormHelperText>}
           </FormControl>
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required error={!!errors.underHypothecation}>
             <InputLabel>Under Hypothecation</InputLabel>
             <Select
               name="underHypothecation"
@@ -187,12 +238,13 @@ console.log(formData)
               <MenuItem value="Yes">Yes</MenuItem>
               <MenuItem value="No">No</MenuItem>
             </Select>
+            {errors.underHypothecation && <FormHelperText>{errors.underHypothecation}</FormHelperText>}
           </FormControl>
         </Grid>
 
         {/* Road Tax Paid */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required error={!!errors.roadTaxPaid}>
             <InputLabel>Road Tax Paid</InputLabel>
             <Select
               name="roadTaxPaid"
@@ -202,12 +254,13 @@ console.log(formData)
               <MenuItem value="OTT">OTT</MenuItem>
               <MenuItem value="LTT">LTT</MenuItem>
             </Select>
+            {errors.roadTaxPaid && <FormHelperText>{errors.roadTaxPaid}</FormHelperText>}
           </FormControl>
         </Grid>
 
         {/* Partipeshi Request */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required error={!!errors.partipeshiRequest}>
             <InputLabel>Partipeshi Request</InputLabel>
             <Select
               name="partipeshiRequest"
@@ -217,12 +270,13 @@ console.log(formData)
               <MenuItem value="Yes">Yes</MenuItem>
               <MenuItem value="No">No</MenuItem>
             </Select>
+            {errors.partipeshiRequest && <FormHelperText>{errors.partipeshiRequest}</FormHelperText>}
           </FormControl>
         </Grid>
 
         {/* Duplicate Key */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required error={!!errors.duplicateKey}>
             <InputLabel>Duplicate Key</InputLabel>
             <Select
               name="duplicateKey"
@@ -232,25 +286,26 @@ console.log(formData)
               <MenuItem value="Yes">Yes</MenuItem>
               <MenuItem value="No">No</MenuItem>
             </Select>
+            {errors.duplicateKey && <FormHelperText>{errors.duplicateKey}</FormHelperText>}
           </FormControl>
         </Grid>
 
         {/* Chassis Number Embossing */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required error={!!errors.chassisNumberEmbossing}>
             <InputLabel>Chassis Number Embossing</InputLabel>
             <Select
               name="chassisNumberEmbossing"
               value={formData.chassisNumberEmbossing}
               onChange={handleChange}
             >
-              <MenuItem value="Yes">Yes 
-              </MenuItem>
+              <MenuItem value="Yes">Yes</MenuItem>
               <MenuItem value="No">No</MenuItem>
               <MenuItem value="Rusted">Rusted</MenuItem>
               <MenuItem value="Repunched">Repunched</MenuItem>
-              <MenuItem value="Traceable">Not Traceable</MenuItem>
+              <MenuItem value="Not Traceable">Not Traceable</MenuItem>
             </Select>
+            {errors.chassisNumberEmbossing && <FormHelperText>{errors.chassisNumberEmbossing}</FormHelperText>}
           </FormControl>
         </Grid>
 
@@ -258,12 +313,15 @@ console.log(formData)
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
+            required
             label="Manufacturing Date"
             type="date"
             name="manufacturingDate"
             value={formData.manufacturingDate}
             onChange={handleChange}
             InputLabelProps={{ shrink: true }}
+            error={!!errors.manufacturingDate}
+            helperText={errors.manufacturingDate}
           />
         </Grid>
 
@@ -271,12 +329,15 @@ console.log(formData)
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
+            required
             label="Registration Date"
             type="date"
             name="registrationDate"
             value={formData.registrationDate}
             onChange={handleChange}
             InputLabelProps={{ shrink: true }}
+            error={!!errors.registrationDate}
+            helperText={errors.registrationDate}
           />
         </Grid>
 
@@ -284,10 +345,13 @@ console.log(formData)
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
+            required
             label="RTO"
             name="rto"
             value={formData.rto}
             onChange={handleChange}
+            error={!!errors.rto}
+            helperText={errors.rto}
           />
         </Grid>
 
@@ -295,18 +359,21 @@ console.log(formData)
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
+            required
             label="Fitness Upto"
             type="date"
             name="fitnessUpto"
             value={formData.fitnessUpto}
             onChange={handleChange}
             InputLabelProps={{ shrink: true }}
+            error={!!errors.fitnessUpto}
+            helperText={errors.fitnessUpto}
           />
         </Grid>
 
         {/* CNG/LPG Fitment in RC */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required error={!!errors.cngLpgFitmentInRC}>
             <InputLabel>CNG/LPG Fitment in RC</InputLabel>
             <Select
               name="cngLpgFitmentInRC"
@@ -317,6 +384,7 @@ console.log(formData)
               <MenuItem value="No mismatch">No mismatch</MenuItem>
               <MenuItem value="Yes mismatch">Yes mismatch</MenuItem>
             </Select>
+            {errors.cngLpgFitmentInRC && <FormHelperText>{errors.cngLpgFitmentInRC}</FormHelperText>}
           </FormControl>
         </Grid>
       </Grid>
@@ -325,7 +393,7 @@ console.log(formData)
           Previous
         </Button>
         <Button
-        type='submit'
+          type="submit"
           variant="contained"
           color="primary"
           className="rounded-lg bg-blue-500 text-white flex justify-center items-center"
@@ -333,7 +401,7 @@ console.log(formData)
           Submit
         </Button>
       </div>
-      </form>
+    </form>
     </div>
   );
 };
