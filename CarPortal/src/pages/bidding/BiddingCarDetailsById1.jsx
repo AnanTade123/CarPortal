@@ -124,6 +124,14 @@ export default function BiddingCarDetailsById1() {
       }
     };
 
+    const handleMessage = (msg,action) => {
+      if(action == "error"){
+        toast.error(msg);
+      }else{
+        toast.success(msg);
+      }
+    }
+
   return (
     <div className="grid grid-flow-row-dense md:grid-cols-3 gap-4 container mx-auto ">
     <div className="p-4 md:col-span-2 max-h-screen overflow-scroll no-scrollbar ">
@@ -145,6 +153,7 @@ export default function BiddingCarDetailsById1() {
       getTopThreeBids={getTopThreeBids}
       topThreeBids={topThreeBids}
       placeBid={placeBid}
+      handleMessage={handleMessage}
         // price={price}
         // brand={brand}
         // fuelType={fuelType}

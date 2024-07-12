@@ -85,6 +85,9 @@ import FinalReport from "./pages/InspectionReportPage/FinalReport";
 import LiveBid from "./pages/LiveBidding/LiveBid";
 import BiddingCarDetail from "./pages/LiveBidding/BiddingCarDetail";
 import BiddingCar from "./pages/bidding/BiddingCar";
+import DealerContact from "./components/carDetails/DealerContact";
+import WinnerSection from "./pages/dealer/WinnerSection";
+
 
 
 export default function App() {
@@ -117,6 +120,8 @@ export default function App() {
             <Route path="/admin/salesuser" element={<SalesList />} />
             <Route path="/CarInspection" element={<CarInspectionTable />} />
             <Route path="/admin/inspector/info/:userId" element={<AdminInspectorInfo />} />
+            <Route path="/admin/inspection/report/:beadingCarId" element={<FinalReport/>} />
+
             <Route path="/carlistmodel" element={<CarListModels />} />
             <Route
               path="/admin/dealer/info/:id"
@@ -204,10 +209,15 @@ export default function App() {
               path="/dealer/live/cars"
               element={<LiveBid/>}
             />
+             <Route
+              path="/dealer/winnersection"
+              element={<WinnerSection/>}
+            />
             <Route
               path="/biddingcardetail"
               element={<BiddingCarDetail/>}
             />
+           
           </Route>
 
           <Route
@@ -245,7 +255,7 @@ export default function App() {
 
           </Route>
         </Route>
-
+<Route path="/DealerContact" element={<DealerContact/>}/>
         {/* <Route path="/trans" element={<CardDetailss/>}/> */}
         <Route element={<AppLayout2 />}>
           <Route path="/aboutus" element={<AboutUs />} />
@@ -253,6 +263,7 @@ export default function App() {
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/cookiepolicy" element={<CookiePolicy />} />
         </Route>
+
       </Routes>
     </>
   );

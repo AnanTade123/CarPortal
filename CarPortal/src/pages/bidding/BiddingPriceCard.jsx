@@ -9,8 +9,8 @@ import { IoHome } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaFileAlt } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
-import BiddingSetTime from "../../ui/BiddingSetTime";
-// import BiddingDailogeBox from "../../ui/BiddingDialogeBox"
+// import BiddingSetTime from "../../ui/BiddingSetTime";
+import BiddingDailogeBox from "../../ui/BiddingDialogeBox"
 import PlaceBid from "../../pages/dealer/PlaceBid";
 import {useGetbeadingGetByIdQuery} from "../../services/biddingAPI"
 import { Link } from "react-router-dom";
@@ -18,7 +18,8 @@ const BiddingPriceCard = ({
   beadingCarId,
   getTopThreeBids,
   topThreeBids,
-  placeBid
+  placeBid,
+  handleMessage
   // price,
   // brand,
   // fuelType,
@@ -99,7 +100,7 @@ const BiddingPriceCard = ({
             Parked at: {data?.area}, {data?.city}
           </div>
         </div>
-        <Link to={userRole === "SALESPERSON" ? `/sale/inspection/report/${data?.beadingCarId}` : `/dealer/finalreport/${data?.beadingCarId}`}>
+        <Link to={userRole === "SALESPERSON" ? `/sale/inspection/report/${data?.beadingCarId}` : userRole ==="ADMIN" ? `/admin/inspection/report/${data?.beadingCarId}` : `/dealer/finalreport/${data?.beadingCarId}`}>
             <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
               <FaFileAlt />
               <div className="mt-4 text-base text-gray-700 font-[latto]">
@@ -130,17 +131,18 @@ const BiddingPriceCard = ({
               <p className="text-2xl font-semibold text-black">Start Bidding</p>
               <div className="flex mt-5">
                 <div>
-                  <BiddingSetTime
+                  {/* <BiddingSetTime
                     userid={UserId}
                     biddingcarid={data?.beadingCarId}
+                  /> */}
+                </div>
+                <div className="ml-5">
+                  <BiddingDailogeBox
+                    userid={UserId}
+                    biddingcarid={data?.beadingCarId}
+                    handleMessage={handleMessage}
                   />
                 </div>
-                {/* <div className="ml-5">
-                  <BiddingDailogeBox
-                    userid={UserID}
-                    biddingcarid={data?.beadingCarId}
-                  />
-                </div> */}
                 <div className="ml-5">
                   {/* <PlaceBid /> */}
                 </div>

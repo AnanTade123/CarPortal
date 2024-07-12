@@ -10,7 +10,7 @@ import {
 import {  useBiddingAllCardQuery } from "../../services/biddingAPI";
  
 import TableComponent from "../../components/table/TableComponent";
-import { Link, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 // import { MdPendingActions } from "react-icons/md";
 // import StatusDialogeBox from "../../ui/StatusDialogeBox";
 // import BiddingDailogeBox from "../../ui/BiddingDialogeBox";
@@ -21,7 +21,7 @@ import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import { useState } from "react";
 
-const BiddingDealerCars = () => {
+const WinnerSection = () => {
   const { id } = useParams();
  
   const token = Cookies.get("token");
@@ -32,14 +32,13 @@ const BiddingDealerCars = () => {
  
   const UserID = jwtDecodes?.userId;
   const dealerId = jwtDecodes?.dealerId;
-  const userRole =  token ?  jwtDecodes?.authorities[0] :null;
+  // const userRole =  token ?  jwtDecodes?.authorities[0] :null;
   const [pageNo, setPageNo] = useState(0);
   console.log("UserId------",UserID,dealerId,id);
   // const { data, isLoading, error } = useBiddingCarByDealerIdQuery(UserID);
   // const { data, isLoading, error } = useGetByDealerIdQuery(dealerId);
   const {data , isLoading, error } = useBiddingAllCardQuery();
-  const [totalCars] = useState(data?.length || "-");
-
+  
 
   const itemsPerPage = 7;
   if (isLoading) {
@@ -76,35 +75,35 @@ const BiddingDealerCars = () => {
       disableSortBy: true,
     },
  
-    {
-      Header: "Inspection Report",
-      accessor: "carStatus",
-      Cell: (cell) => {
-        console.log(cell.row.values.carStatus);
+    // {
+    //   Header: "Inspection Report",
+    //   accessor: "carStatus",
+    //   Cell: (cell) => {
+    //     console.log(cell.row.values.carStatus);
 
 
-        return userRole === "DEALER" ? (
-          <Link to={`/dealer/finalreport/${cell.row.values.beadingCarId}`} className="button-link">
-        <Button variant="gradient" color="blue">
-            View Report
-        </Button>
-          </Link>
-        ) :(
-        cell.row.values.carStatus == "pending" ? (
-          <Link to={`/sale/carverify/${cell.row.values.beadingCarId}`} className="button-link">
-        <Button variant="gradient" color="blue">
-            Verify
-        </Button>
-          </Link>
-      ) : (
-          <Link to={`/sale/carverify/${cell.row.values.beadingCarId}`} className="button">
-        <Button variant="gradient" color="green">
-            Done
-        </Button>
-          </Link>
-      ))
-      },
-    },
+    //     return userRole === "DEALER" ? (
+    //       <Link to={`/dealer/finalreport/${cell.row.values.beadingCarId}`} className="button-link">
+    //     <Button variant="gradient" color="blue">
+    //         View Report
+    //     </Button>
+    //       </Link>
+    //     ) :(
+    //     cell.row.values.carStatus == "pending" ? (
+    //       <Link to={`/sale/carverify/${cell.row.values.beadingCarId}`} className="button-link">
+    //     <Button variant="gradient" color="blue">
+    //         Verify
+    //     </Button>
+    //       </Link>
+    //   ) : (
+    //       <Link to={`/sale/carverify/${cell.row.values.beadingCarId}`} className="button">
+    //     <Button variant="gradient" color="green">
+    //         Done
+    //     </Button>
+    //       </Link>
+    //   ))
+    //   },
+    // },
     // {
     //   Header: "Set Time",
     //   accessor: "",
@@ -155,22 +154,22 @@ const BiddingDealerCars = () => {
     //     );
     //   },
     // },
-    {
-      Header: "Action",
-      accessor: "",
-      Cell: (cell) => {
-        return (
-          <div>
-            <div className="flex gap-2 justify-center items-center  ">
-              <Link to={`/biddinglist/cardetails/${cell.row.values.beadingCarId}`}>
-                    <Button  className="bg-[#045e4f]">{userRole === 'DEALER' ? 'Place Bidding' : 'Set Bidding'} </Button>
-              </Link>
-              {/* <PlaceBid userid={UserID} id={id} /> */}
-            </div>
-          </div>
-        );
-      },
-    },
+    // {
+    //   Header: "Action",
+    //   accessor: "",
+    //   Cell: (cell) => {
+    //     return (
+    //       <div>
+    //         <div className="flex gap-2 justify-center items-center  ">
+    //           <Link to={`/biddinglist/cardetails/${cell.row.values.beadingCarId}`}>
+    //                 <Button  className="bg-[#045e4f]">{userRole === 'DEALER' ? 'Place Bidding' : 'Set Bidding'} </Button>
+    //           </Link>
+    //           {/* <PlaceBid userid={UserID} id={id} /> */}
+    //         </div>
+    //       </div>
+    //     );
+    //   },
+    // },
  
     // {
     //   Header: "Action",
@@ -265,29 +264,7 @@ const BiddingDealerCars = () => {
  
   return (
     <>
-     <h1 className="mt-2 text-xl ml-2 mb-5 font-bold">Bidding Car list</h1>
-     <div className="flex flex-wrap justify-center divide-x-4 mx-5 mb-8">
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-green-500 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
-          <div className="text-4xl font-bold text-white">{totalCars}</div>
-          <div className="mt-2 font-medium">Total Cars</div>
-        </div>
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-orange-500 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
-          <div className="text-4xl font-bold text-white">-/{totalCars}</div>
-          <div className="mt-2 font-medium">Active Cars</div>
-        </div>
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-red-400 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
-          <div className="text-4xl font-bold text-white">-/{totalCars}</div>
-          <div className="mt-2 font-medium">Pending Cars</div>
-        </div>
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-300 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
-          <div className="text-4xl font-bold text-white">-/{totalCars}</div>
-          <div className="mt-2 font-medium">Inspection Done Cars</div>
-        </div>
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-green-500 rounded-2xl shadow-xl sm:mb-2 sm:mr-5">
-          <div className="text-4xl font-bold text-white">-</div>
-          <div className="mt-2 font-medium">Sell Cars</div>
-        </div>
-      </div>
+  
  
       <div>
       {error?.status === 404 ? (
@@ -303,14 +280,14 @@ const BiddingDealerCars = () => {
         <Card className="h-full w-full">
           <CardHeader floated={false} shadow={false} className="rounded-none">
             <div className=" flex items-center justify-between gap-8">
-              {/* <div>
+              <div>
                 <Typography variant="h5" color="blue-gray">
-                  Bidding Car list
+                  Winning Car list
                 </Typography>
                 <Typography color="gray" className="mt-1 font-normal">
-                  See information about all cars
+                  See information about all winning cars
                 </Typography>
-              </div> */}
+              </div>
               {/* <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
                 <Link to={`/bidding/${UserID}/addcar`}>
                   <Button>Add Car</Button>
@@ -357,6 +334,6 @@ const BiddingDealerCars = () => {
   );
 };
  
-export default BiddingDealerCars;
+export default WinnerSection;
  
  
