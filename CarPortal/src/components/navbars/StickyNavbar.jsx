@@ -365,6 +365,22 @@ export function StickyNavbar() {
 
       </Link> */}
 
+<Link to={`/user/${jwtDecodes?.userId}/favorite`}>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname ===
+            `/dealer/${jwtDecodes?.userId}/booking/confirm`
+              ? "bg-indigo-200 text-white"
+              : ""
+          }`}
+        >
+          Favorite
+        </Typography>
+      </Link>
+
       <NotificationDialog />
     </>
   ) : null;

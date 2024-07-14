@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { Favorite } from "@material-ui/icons";
 import { apiSlice } from "./apiSlice";
 
 export const carApi = apiSlice.injectEndpoints({
@@ -27,7 +28,7 @@ export const carApi = apiSlice.injectEndpoints({
     getCarById: builder.query({
       query: (carId) => ({
         url: `/cars/getCar?carId=${carId}`,
-
+        transferResponse: console.log(carId),
         method: "GET",
       }),
       providesTags: ["CAR"],
@@ -133,7 +134,7 @@ export const carApi = apiSlice.injectEndpoints({
         method : `DELETE`
       }),
       invalidatesTags: ["CAR"],
-    })
+    }),
 
     // getCarImageById : builder.query({
     //   query : ({carId}) => ({
@@ -152,6 +153,44 @@ export const carApi = apiSlice.injectEndpoints({
     //   }),
     //   providesTags : ["CAR"],
     // })
+
+    favoriteCar: builder.mutation({
+      query: (data2) => ({
+        url: `/saveCar/add`,
+        transferResponse: console.log(data2),
+        method : "POST",
+        body :data2
+      }),
+      providesTags: ["CAR"],
+    }),
+
+    getbySaveCarId : builder.query({
+      query : (saveCarIds) =>({
+        url: `/saveCar/getBySaveCar?saveCarId=${saveCarIds}`,
+        transferResponse: console.log("saveCarId",saveCarIds),
+        method : 'GET'
+      }),
+      providesTags : ["CAR"],
+    }),
+
+    getbyUserCarId : builder.query({
+      query : ({UserId}) =>({
+        url: `/saveCar/GetByUser?userId=${UserId}`,
+        transferResponse: console.log("userId",UserId),
+        method : 'GET'
+      }),
+      providesTags : ["CAR"],
+    }),
+
+    CarremoveFavorite: builder.mutation({
+      query: ({saveCarId}) => ({
+        url: `/saveCar/delete?saveCarId=11`,
+        transferResponse:console.log(saveCarId),
+        method:'DELETE'
+      }),
+      invalidatesTags: ["CAR"],
+    }),
+
   }),
 });
 
@@ -169,5 +208,9 @@ export const {
   useGetPendingrequestQuery,
   useGetCarImageByIdQuery,
   useConfirmBookingMutation,
-  useDeleteCarImageByIdMutation
+  useDeleteCarImageByIdMutation,
+  useFavoriteCarMutation,
+  useGetbySaveCarIdQuery,
+  useGetbyUserCarIdQuery,
+  useCarremoveFavoriteMutation
 } = carApi;

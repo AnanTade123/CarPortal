@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Router,  } from "react-router-dom";
+import { FavoriteProvider } from "./ui/FavoriteContext";
 import Home from "./pages/Home";
 import AppLayout from "./ui/AppLayout";
 import { LoginCard } from "./pages/LoginCard";
@@ -84,6 +85,8 @@ import BiddingCarDetail from "./pages/LiveBidding/BiddingCarDetail";
 import BiddingCar from "./pages/bidding/BiddingCar";
 import DealerContact from "./components/carDetails/DealerContact";
 import WinnerSection from "./pages/dealer/WinnerSection";
+import { FavoritePage } from "./ui/FavoritePage";
+import { CardDefault } from "./ui/CardDefault";
 
 
 
@@ -251,7 +254,21 @@ export default function App() {
               <Route path="/sale/inspection/report/:beadingCarId" element={<FinalReport/>} />
 
           </Route>
+          <Route path="/user/:userid/favorite" element={<FavoritePage/>} />
         </Route>
+
+        
+        <Route>
+      {/* <Router> */}
+        {/* <Switch> */}
+        <Route path="/favorites" element={<FavoritePage />} />
+          <Route path="/" component={<CardDefault/>} />
+          {/* <Route path="/carlist/cardetails/:carId" element={<CardDetails />} /> */}
+        {/* </Switch> */}
+      {/* </Router> */}
+      </Route>
+    
+
 <Route path="/DealerContact" element={<DealerContact/>}/>
         {/* <Route path="/trans" element={<CardDetailss/>}/> */}
         <Route element={<AppLayout2 />}>
