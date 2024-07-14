@@ -14,32 +14,45 @@ import {
 // import SockJS from "sockjs-client/dist/sockjs"
 const TIME_ZONE = 'Asia/Kolkata';
 import moment from 'moment-timezone';
+import { useWebSocket } from "../../Utiles/WebSocketConnection";
  
 window.global = window;
 
 // eslint-disable-next-line react/prop-types
-export default function PlaceBid({beadingCarId,UserID,topThreeBids,placeBid}) {
+export default function PlaceBid({beadingCarId,UserID ,handleMessage,topThreeBids}) {
 const [bidAmount, setBidAmount] = useState(20000);
 const [lastBidAmount ,setLastBidAmount] = useState(40000);
 const [open, setOpen] = useState(false);
+const { placeBid ,getTopThreeBids } = useWebSocket();
+
 const handleOpen = () => {
   setOpen(!open);
 };
 const [error, setError] = useState(null);
 
-const handlePlaceBid = () => {
-  const bid = {
-    placedBidId: null,
-    userId: UserID,
-    bidCarId: beadingCarId,
-    dateTime: new Date().toISOString(),
-    // dateTime : moment().tz(TIME_ZONE).format('YYYY-MM-DD HH:mm:ss'),
-    amount: bidAmount,
-  };
-  placeBid(bid);
+const handlePlaceBid =async () => {
+  try{
+
+    const bid = {
+      placedBidId: null,
+      userId: UserID,
+      bidCarId: beadingCarId,
+      dateTime: new Date().toISOString(),
+      // dateTime : moment().tz(TIME_ZONE).format('YYYY-MM-DD HH:mm:ss'),
+      amount: bidAmount,
+    };
+    const message =await placeBid(bid);
+    if(message?.status == "error"){
+      handleMessage(message?.message,"error")
+    }else{
+      handleMessage(message,"success")
+    }
+    handleOpen();
+  }catch(error){
+    console.log("Error : ",error);
+  }
 };
 
-console.log("topThreeBids",topThreeBids)
 
 const handleMinusAmount = () =>{
   if(lastBidAmount > topThreeBids ){
