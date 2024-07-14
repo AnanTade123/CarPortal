@@ -261,15 +261,15 @@ export default function App() {
         </Route>
 
         
-        <Route>
+        {/* <Route> */}
       {/* <Router> */}
         {/* <Switch> */}
-        <Route path="/favorites" element={<FavoritePage />} />
-          <Route path="/" component={<CardDefault/>} />
+        {/* <Route path="/favorites" element={<FavoritePage />} /> */}
+          {/* <Route path="/" component={<CardDefault/>} /> */}
           {/* <Route path="/carlist/cardetails/:carId" element={<CardDetails />} /> */}
         {/* </Switch> */}
       {/* </Router> */}
-      </Route>
+      {/* </Route> */}
     
 
 <Route path="/DealerContact" element={<DealerContact/>}/>

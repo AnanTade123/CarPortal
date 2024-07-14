@@ -183,9 +183,9 @@ export const carApi = apiSlice.injectEndpoints({
     }),
 
     CarremoveFavorite: builder.mutation({
-      query: ({saveCarId}) => ({
-        url: `/saveCar/delete?saveCarId=11`,
-        transferResponse:console.log(saveCarId),
+      query: ({userId}) => ({
+        url: `/saveCar/delete?saveCarId=${userId}`,
+        transferResponse:console.log(userId),
         method:'DELETE'
       }),
       invalidatesTags: ["CAR"],
