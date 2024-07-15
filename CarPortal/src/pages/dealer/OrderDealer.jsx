@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import React from "react";
 import { useParams } from "react-router-dom";
 import { useGetAllDealerCompleteBookingQuery } from "../../services/dealerAPI";
 import CardUi from "../../ui/CardUi";
@@ -6,6 +7,10 @@ import {
   Button,
   CardFooter,
   CardHeader,
+  Dialog,
+  DialogBody,
+  DialogFooter,
+  DialogHeader,
   Typography,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
@@ -29,6 +34,9 @@ const OrderDealer = () => {
       }
     });
   };
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => setOpen(!open);
 
   if (error) {
     return (
@@ -70,8 +78,8 @@ const OrderDealer = () => {
     return (
       <div className="ml-8 mt-3 mb-3" key={index}>
         <CardUi>
-          <div className="w-[35rem] px-5 py-3 flex gap-7">
-            <div className="w-2/5">
+          <div className="w-full px-5 py-3 flex gap-7">
+            <div className="w-1/2">
               <CardHeader
                 floated={false}
                 shadow={false}
@@ -102,44 +110,76 @@ const OrderDealer = () => {
                   Contact No: ₹{item?.askingPrice}
                 </div>
               </div>
-              <Link to={`/carlist/cardetails/${item?.carId}`}>
-                <Button className="flex items-center gap-2 mt-1 bg-blue-400">
-                  Car details{" "}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6"
+              <div className="flex gap-10 align-middle items-center">
+                <Link to={`/carlist/cardetails/${item?.carId}`}>
+                  <Dialog open={open} handler={handleOpen}>
+                    <DialogHeader>Its a simple dialog.</DialogHeader>
+                    <DialogBody>
+                      The key to more success is to have a lot of pillows. Put
+                      it this way, it took me twenty five years to get these
+                      plants, twenty five years of blood sweat and tears, and
+                      I&apos;m never giving up, I&apos;m just getting started.
+                      I&apos;m up to something. Fan luv.
+                    </DialogBody>
+                    <DialogFooter>
+                      <Button
+                        variant="text"
+                        color="red"
+                        onClick={handleOpen}
+                        className="mr-1"
+                      >
+                        <span>Cancel</span>
+                      </Button>
+                      <Button
+                        variant="gradient"
+                        color="green"
+                        onClick={handleOpen}
+                      >
+                        <span>Confirm</span>
+                      </Button>
+                    </DialogFooter>
+                  </Dialog>
+                  <Button fullWidth className="flex items-center text-xs mt-1 bg-blue-400 w-full">
+                    Car details
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
+                      />
+                    </svg>
+                  </Button>
+                </Link>
+                <Link to={`/carlist/cardetails/${item?.carId}`}>
+                  <Button
+                    className="flex items-center text-xs gap-2 mt-1 bg-red-700"
+                    onClick={handleOpen}
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
-                    />
-                  </svg>
-                </Button>
-              </Link>
-              <Link to={`/carlist/cardetails/${item?.carId}`}>
-                <Button className="flex items-center gap-2 mt-2 bg-red-700">
-                  Revert Deal
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </Button>
-              </Link>
+                    Revert Deal
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </CardUi>

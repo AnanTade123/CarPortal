@@ -20,6 +20,7 @@ import {
   useDeleteSellerMutation,
   useGetAllSellerQuery,
 } from "../../services/salesAPI";
+import StatusDialogeBox from "../../ui/StatusDialogeBox";
 
 export default function SalesList() {
   const [pageNo, setPageNo] = useState(0);
@@ -96,12 +97,29 @@ export default function SalesList() {
     {
       Header: "user id",
       accessor: "userId",
-    
     },
 
     {
       Header: "Email",
       accessor: "email",
+    },
+    {
+      Header: "Status",
+      accessor: "status",
+      Cell: (cell) => {
+        const a = cell.row.values.status;
+
+        return (
+          <div>
+            <div className="flex gap-2 justify-center items-center">
+              <StatusDialogeBox2
+                dealer_id={cell.row.values.dealer_id}
+                status={cell.row.values.status}
+              />
+            </div>
+          </div>
+        );
+      },
     },
     {
       Header: "Actions",
