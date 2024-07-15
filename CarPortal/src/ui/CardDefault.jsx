@@ -14,7 +14,7 @@ import { useState } from "react";
 import { useFavorites } from "../ui/FavoriteContext";
 import { useFavoriteCarMutation, useCarremoveFavoriteMutation } from "../services/carAPI";
 import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 
 function RatedIcon() {
   return (
@@ -32,37 +32,44 @@ function UnratedIcon() {
   );
 }
 
-export function CardDefault({data}) {
-  console.log(data)
- const [favoriteCar] = useFavoriteCarMutation()
- const [CarremoveFavorite] = useCarremoveFavoriteMutation();
+export function CardDefault({ data }) {
+  console.log(data);
+  const [favoriteCar] = useFavoriteCarMutation();
+  const [CarremoveFavorite] = useCarremoveFavoriteMutation();
 
- const token = Cookies.get("token");
+  const token = Cookies.get("token");
 
- let jwtDecodes;
+  let jwtDecodes;
 
- if (token) {
-   jwtDecodes = jwtDecode(token);
- }
-const UserId  = jwtDecodes.userId
- console.log(UserId);
-
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
+  const UserId = jwtDecodes.userId;
+  console.log(UserId);
 
   const [rated, setRated] = useState();
 
-  const handleFavoriteClick = async() => {
+  const handleFavoriteClick = async () => {
     if (rated) {
-     console.log("first")
-    } else {
-     const data2={
-        carId: data.carId,
-        userId: UserId
-      }
+      const data2 = {
+        saveCarId: data.carId,
+      };
       try {
-        const res = await favoriteCar(data2)
-        console.log(res)
+        const res = await CarremoveFavorite(data2);
+        console.log(res);
       } catch (error) {
-       console.log(error) 
+        console.log(error);
+      }
+    } else {
+      const data2 = {
+        carId: data.carId,
+        userId: UserId,
+      };
+      try {
+        const res = await favoriteCar(data2);
+        console.log(res);
+      } catch (error) {
+        console.log(error);
       }
     }
     setRated(!rated);
@@ -73,14 +80,14 @@ const UserId  = jwtDecodes.userId
       <Card className="w-full flex justify-center sm:w-80 md:w-[260px] lg:w-full items-center border-2 hover:scale-105 border-gray-300 shadow-xl overflow-hidden mx-5 md:mx-0">
         <CardHeader floated={false} shadow={false} color="transparent" className="m-0 rounded-none">
           <Link to={`/carlist/cardetails/:carid`}>
-            <CarouselCustomArrows carId ={data.carId} />
+            <CarouselCustomArrows carId={data.carId} />
           </Link>
         </CardHeader>
         <CardBody className="mb-5">
           <div className="flex justify-end ">
             <div onClick={handleFavoriteClick} className="cursor-pointer">
-              <div className='-mb-6'>
-              {rated ? <RatedIcon /> : <UnratedIcon />}
+              <div className="-mb-6">
+                {rated ? <RatedIcon /> : <UnratedIcon />}
               </div>
             </div>
           </div>
