@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useGetAllDealerCompleteBookingQuery } from "../../services/dealerAPI";
+import { useCancelStatusSetMutation, useGetAllDealerCompleteBookingQuery } from "../../services/dealerAPI";
 import CardUi from "../../ui/CardUi";
 import {
   Button,
@@ -16,14 +16,19 @@ import {
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { CarouselCustomArrows } from "../../ui/CarouselCustomArrows";
+import { toast, ToastContainer } from "react-toastify";
 const OrderDealer = () => {
   const { id } = useParams();
 
   const [pageNo, setPageNo] = useState(0);
-  const { data, error, isLoading } = useGetAllDealerCompleteBookingQuery({
+  const [revertId ,setRevertId] = useState("");
+
+  const { data, error, isLoading ,refetch } = useGetAllDealerCompleteBookingQuery({
     pageNo,
     id,
   });
+
+  const [cancelStatusSet] = useCancelStatusSetMutation();
 
   const nextHandler = () => {
     setPageNo((prePageNo) => {
@@ -36,7 +41,23 @@ const OrderDealer = () => {
   };
   const [open, setOpen] = React.useState(false);
 
-  const handleOpen = () => setOpen(!open);
+  const handleOpen = (revertID) => {
+    setOpen(!open);
+    setRevertId(revertID)
+   
+  }
+
+  const handleRevertConfirmation = async () => {
+    try{
+      const res = await cancelStatusSet(revertId);
+      toast.success(res?.data?.status)
+      handleOpen(false);
+      refetch();
+      console.log("MyResult",res);
+    }catch(error){
+      console.log("Error :" , error);
+    }
+  }
 
   if (error) {
     return (
@@ -111,29 +132,7 @@ const OrderDealer = () => {
                 </div>
               </div>
               <div className="flex gap-10 align-middle items-center">
-                <Link to={`/carlist/cardetails/${item?.carId}`}>
-                  <Dialog open={open} handler={handleOpen}>
-                    <DialogHeader>
-                      Do you really want to Revert the Car?
-                    </DialogHeader>
-                    <DialogFooter>
-                      <Button
-                        variant="text"
-                        color="red"
-                        onClick={handleOpen}
-                        className="mr-1"
-                      >
-                        <span>Cancel</span>
-                      </Button>
-                      <Button
-                        variant="gradient"
-                        color="green"
-                        onClick={handleOpen}
-                      >
-                        <span>Confirm</span>
-                      </Button>
-                    </DialogFooter>
-                  </Dialog>
+                  <Link to={`/carlist/cardetails/${item?.carId}`}>
                   <Button
                     fullWidth
                     className="flex items-center text-xs mt-1 bg-blue-400 w-full"
@@ -158,7 +157,7 @@ const OrderDealer = () => {
 
                 <Button
                   className="flex items-center text-xs gap-2 mt-1 bg-red-700"
-                  onClick={handleOpen}
+                  onClick={() =>handleOpen(item?.id)}
                 >
                   Revert Deal
                   <svg
@@ -191,10 +190,11 @@ const OrderDealer = () => {
   }
   return (
     <>
+    <ToastContainer />
       <div className="flex flex-col md:grid md:grid-cols-2 md:auto-cols-auto md:auto-rows-auto">
         {renderData}
       </div>
-
+      
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
         <Typography variant="medium" color="blue-gray" className="font-normal">
           Page {pageNo + 1}
@@ -218,6 +218,28 @@ const OrderDealer = () => {
           </Button>
         </div>
       </CardFooter>
+      <Dialog open={open} handler={handleOpen}>
+        <DialogHeader>
+          Do you really want to Revert the Car?
+        </DialogHeader>
+        <DialogFooter>
+          <Button
+            variant="text"
+            color="red"
+            onClick={handleOpen}
+            className="mr-1"
+          >
+            <span>Cancel</span>
+          </Button>
+          <Button
+            variant="gradient"
+            color="green"
+            onClick={handleRevertConfirmation}
+          >
+            <span>Confirm</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
     </>
   );
 };
