@@ -95,8 +95,8 @@ const DealerCarPendingRequest = ({ item }) => {
 
         <div className="shadow-xl rounded-lg">
           <CardUi>
-            <div className="md:p-0 md:min-w-[38rem] md:w-[20rem] md:m-2 md:flex md:gap-4">
-              <div className="md:w-3/5">
+            <div className="md:p-0 md:min-w-[36rem] md:w-[20rem] md:my-2 md:flex md:gap-2">
+              <div className="md:w-1/2">
                 <CardHeader
                   floated={false}
                   shadow={false}
