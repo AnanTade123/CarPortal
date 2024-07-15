@@ -191,9 +191,9 @@ export const carApi = apiSlice.injectEndpoints({
     }),
 
     CarFavoriteAddRemove: builder.query({
-      query: ({carid,UserId}) => ({
-        url: `/saveCar/getByCarAndUserId?userId=${UserId}&carId=${carid}`,
-        transferResponse:console.log(carid,UserId),
+      query: ({carid,useid}) => ({
+        url: `/saveCar/getByCarAndUserId?userId=${useid}&carId=${carid}`,
+        transferResponse:console.log(carid,useid),
         method:'GET'
       }),
       invalidatesTags: ["CAR"],

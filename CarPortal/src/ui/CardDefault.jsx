@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import {
   Card,
@@ -38,36 +39,44 @@ export function CardDefault({ data, Carid }) {
   }
 
   const UserId = jwtDecodes.userId;
-  const carid = Carid;
-  const { data: favData } = useCarFavoriteAddRemoveQuery({ carid, UserId });
-console.log(favData)
-  const [rated, setRated] = useState(false);
-
-  useEffect(() => {
-    if (favData && favData.saveCarId) {
-      setRated(true);
-    }
-  }, [favData]);
   
+  // useEffect(() => {
+  //   if (favData && favData.saveCarId) {
+  //     setRated(true);
+  //   }
+  // }, [favData]);
+  
+  const [rated, setRated] = useState();
   const data2 = {
     carId: Carid,
     userId: UserId,
   };
   const handleFavoriteClick = async () => {
-    if (rated) {
-      console.log("Already rated");
-    } else {
-     
-      try {
+    try {
         const res = await favoriteCar(data2);
         console.log(res);
       } catch (error) {
         console.log(error);
       }
-    }
-    setRated(!rated);
+      setRated(!rated);
   };
+  const carid = data2.carId
+  const useid = data2.userId
+console.log(carid,useid)
 
+  const { data: favData } = useCarFavoriteAddRemoveQuery({ carid, useid });
+
+  console.log(favData)
+    console.log(favData?.object)
+
+ useEffect(() => {
+    if (favData?.object.saveCarId) {
+      setRated(true);
+    }
+    else{
+      setRated(false);
+    }
+  }, [favData]);
   return (
     <div className="flex justify-center mx-auto">
       <Card className="w-full flex justify-center sm:w-80 md:w-[260px] lg:w-full items-center border-2 hover:scale-105 border-gray-300 shadow-xl overflow-hidden mx-5 md:mx-0">
