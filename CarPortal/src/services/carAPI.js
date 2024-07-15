@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { Favorite } from "@material-ui/icons";
 import { apiSlice } from "./apiSlice";
 
 export const carApi = apiSlice.injectEndpoints({
@@ -27,7 +28,7 @@ export const carApi = apiSlice.injectEndpoints({
     getCarById: builder.query({
       query: (carId) => ({
         url: `/cars/getCar?carId=${carId}`,
-
+        transferResponse: console.log(carId),
         method: "GET",
       }),
       providesTags: ["CAR"],
@@ -134,14 +135,6 @@ export const carApi = apiSlice.injectEndpoints({
       invalidatesTags: ["CAR"],
     }),
 
-    cancelBooking: builder.mutation({
-      query: (id) => ({
-        url: `/confirmBooking/cancelStatusSet`,
-        method: "PUT",
-        params: { id },
-      }),
-      invalidatesTags: ["CAR"],
-    }),
     // getCarImageById : builder.query({
     //   query : ({carId}) => ({
     //     url : `/photo/get/${carId}`,
@@ -159,6 +152,44 @@ export const carApi = apiSlice.injectEndpoints({
     //   }),
     //   providesTags : ["CAR"],
     // })
+
+    favoriteCar: builder.mutation({
+      query: (data2) => ({
+        url: `/saveCar/add`,
+        transferResponse: console.log(data2),
+        method : "POST",
+        body :data2
+      }),
+      providesTags: ["CAR"],
+    }),
+
+    getbySaveCarId : builder.query({
+      query : (saveCarIds) =>({
+        url: `/saveCar/getBySaveCar?saveCarId=${saveCarIds}`,
+        transferResponse: console.log("saveCarId",saveCarIds),
+        method : 'GET'
+      }),
+      providesTags : ["CAR"],
+    }),
+
+    getbyUserCarId : builder.query({
+      query : ({UserId}) =>({
+        url: `/saveCar/GetByUser?userId=${UserId}`,
+        transferResponse: console.log("userId",UserId),
+        method : 'GET'
+      }),
+      providesTags : ["CAR"],
+    }),
+
+    CarremoveFavorite: builder.mutation({
+      query: ({userId}) => ({
+        url: `/saveCar/delete?saveCarId=${userId}`,
+        transferResponse:console.log(userId),
+        method:'DELETE'
+      }),
+      invalidatesTags: ["CAR"],
+    }),
+
   }),
 });
 
@@ -177,5 +208,8 @@ export const {
   useGetCarImageByIdQuery,
   useConfirmBookingMutation,
   useDeleteCarImageByIdMutation,
-  useCancelBookingMutation,
+  useFavoriteCarMutation,
+  useGetbySaveCarIdQuery,
+  useGetbyUserCarIdQuery,
+  useCarremoveFavoriteMutation
 } = carApi;
