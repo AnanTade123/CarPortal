@@ -44,7 +44,7 @@ const DealerCarPendingRequest = ({ item }) => {
       date: item?.date,
       price: item?.askingPrice,
       carId: item?.carId,
-      userId: UserID,
+      userId: item?.userId,
       dealerId: id,
     };
     try {
@@ -62,7 +62,7 @@ const DealerCarPendingRequest = ({ item }) => {
     }
   };
   const carid = item?.carId;
-  const year =item?.year;
+  const year = item?.year;
 
   return (
     <div className="w-full flex justify-center">
@@ -95,8 +95,8 @@ const DealerCarPendingRequest = ({ item }) => {
 
         <div className="shadow-xl rounded-lg">
           <CardUi>
-            <div className="md:min-w-[40rem] w-[20rem] m-2 flex gap-4">
-              <div>
+            <div className="p-2 md:p-0 md:min-w-[45rem] md:w-[20rem] md:m-2 md:flex md:gap-4">
+              <div className="md:w-2/5">
                 <CardHeader
                   floated={false}
                   shadow={false}
@@ -107,10 +107,9 @@ const DealerCarPendingRequest = ({ item }) => {
                     <CarouselCustomArrows carId={carid} />
                   </Link>
                 </CardHeader>
-                <div>{item?.year}</div>
               </div>
               <div>
-                <div className="flex justify-between">
+                <div className="flex justify-between m-3 md:m-0">
                   <Chip
                     variant="outlined"
                     value={`${item?.date}`}
@@ -137,62 +136,67 @@ const DealerCarPendingRequest = ({ item }) => {
                         Contact Details of the User
                       </div>
                       <div className="mt-1 font-[latto] text-base font-medium text-black">
-                        User Name: ₹{item?.askingPrice}
+                        User Name:
                       </div>
                       <div className="mt-1 font-[latto] text-base font-medium text-black">
-                        Contact No: ₹{item?.askingPrice}
+                        Contact No:
+                      </div>
+                      <div className="flex gap-5 pt-2">
+                        <div>
+                          <Link to={`/carlist/cardetails/${item?.carId}`}>
+                            <Button
+                              color="blue"
+                              className="flex items-center text-xs font-[latto]"
+                            >
+                              <span>Car Details</span>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-10 h-6"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                                />
+                              </svg>
+                            </Button>
+                          </Link>
+                        </div>
+                        <div>
+                          <Button
+                            color="green"
+                            className="flex items-center font-[latto]"
+                            onClick={handleOpen}
+                          >
+                            <span>Confirm Request</span>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              className="w-6 h-6"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                              />
+                            </svg>
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div>
-              <div className="flex justify-around gap-10">
-                <Link to={`/carlist/cardetails/${item?.carId}`}>
-                  <Button
-                    color="blue"
-                    className="flex gap-2 items-center my-1 font-[latto]"
-                  >
-                    <span>Car Details</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-10 h-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                      />
-                    </svg>
-                  </Button>
-                </Link>
-                <Button
-                  color="green"
-                  className="flex gap-2 items-center my-1 font-[latto]"
-                  onClick={handleOpen}
-                >
-                  <span>Confirm Request</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                    />
-                  </svg>
-                </Button>
-              </div>
+            <div className="w-full">
+              <div className="flex justify-around p-2 gap-3 md:gap-10"></div>
             </div>
           </CardUi>
         </div>
