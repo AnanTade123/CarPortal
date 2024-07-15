@@ -1,7 +1,5 @@
-/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-// import React from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable react/prop-types */
 import {
   Card,
   CardBody,
@@ -10,11 +8,11 @@ import {
 } from "@material-tailwind/react";
 import { CarouselCustomArrows } from "./CarouselCustomArrows";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useFavorites } from "../ui/FavoriteContext";
-import { useFavoriteCarMutation, useCarremoveFavoriteMutation } from "../services/carAPI";
+import { useState, useEffect } from "react";
+import { useFavoriteCarMutation,useCarremoveFavoriteMutation, useCarFavoriteAddRemoveQuery } from "../services/carAPI";
 import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
+
 
 function RatedIcon() {
   return (
@@ -32,55 +30,86 @@ function UnratedIcon() {
   );
 }
 
-export function CardDefault({data}) {
-  console.log(data)
- const [favoriteCar] = useFavoriteCarMutation()
- const [CarremoveFavorite] = useCarremoveFavoriteMutation();
+export function CardDefault({ data, Carid }) {
+  const [favoriteCar] = useFavoriteCarMutation();
+  const token = Cookies.get("token");
+  let jwtDecodes;
 
- const token = Cookies.get("token");
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
+  const UserId = jwtDecodes.userId;
+  console.log(UserId);
+ 
+  const [rated, setRated] = useState(true);
+  const data2 = {
+    carId: Carid,
+    userId: UserId,
+  }
+  const carid = data2.carId
+  const useid = data2.userId
+console.log(carid,useid)
 
- let jwtDecodes;
+  const { data: favData } = useCarFavoriteAddRemoveQuery({ carid, useid });
 
- if (token) {
-   jwtDecodes = jwtDecode(token);
- }
-const UserId  = jwtDecodes.userId
- console.log(UserId);
-
-
-  const [rated, setRated] = useState();
-
-  const handleFavoriteClick = async() => {
+  console.log(favData)
+  const [CarremoveFavorite] = useCarremoveFavoriteMutation()
+  const handleFavoriteClick = async () => {
     if (rated) {
-     console.log("first")
-    } else {
-     const data2={
-        carId: data.carId,
-        userId: UserId
-      }
+      const data3 = {
+        saveCarId: favData.object.saveCarId,
+      };
       try {
-        const res = await favoriteCar(data2)
-        console.log(res)
+        const res = await CarremoveFavorite(data3);
+        console.log(res);
       } catch (error) {
-       console.log(error) 
+        console.log(error);
+      }
+    } else {
+
+     try {
+        const res = await favoriteCar(data2);
+        console.log(res);
+      } catch (error) {
+        console.log(error);
       }
     }
     setRated(!rated);
   };
+  // const handleFavoriteClick = async () => {
+  //   try {
+  //       const res = await favoriteCar(data2);
+  //       console.log(res);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //     setRated(!rated);
+  // };
+  
+    console.log(favData?.object)
 
+ useEffect(() => {
+    if (favData?.object.saveCarId) {
+      setRated(true);
+    }
+    else{
+      setRated(false);
+    }
+  }, [favData]);
   return (
     <div className="flex justify-center mx-auto">
       <Card className="w-full flex justify-center sm:w-80 md:w-[260px] lg:w-full items-center border-2 hover:scale-105 border-gray-300 shadow-xl overflow-hidden mx-5 md:mx-0">
         <CardHeader floated={false} shadow={false} color="transparent" className="m-0 rounded-none">
           <Link to={`/carlist/cardetails/:carid`}>
-            <CarouselCustomArrows carId ={data.carId} />
+            <CarouselCustomArrows carId={data.carId} />
           </Link>
         </CardHeader>
         <CardBody className="mb-5">
-          <div className="flex justify-end ">
+          <div className="flex justify-end">
             <div onClick={handleFavoriteClick} className="cursor-pointer">
               <div className='-mb-6'>
-              {rated ? <RatedIcon /> : <UnratedIcon />}
+             
+                {rated ? <RatedIcon /> : <UnratedIcon />}
               </div>
             </div>
           </div>
@@ -91,7 +120,7 @@ const UserId  = jwtDecodes.userId
           <Typography variant="h7" color="blue-gray" className="mb-2">
             {data.title}
           </Typography>
-          <p className="text-sm uppercase mb-3 flex flex-wrap gap-2">
+          <p className="text-sm uppercase mb-3 flex-wrap gap-2">
             <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black">
               {data.kmDriven}KM
             </span>
@@ -117,18 +146,3 @@ const UserId  = jwtDecodes.userId
     </div>
   );
 }
-
-CardDefault.propTypes = {
-  data: PropTypes.shape({
-    carId: PropTypes.string.isRequired,
-    year: PropTypes.string.isRequired,
-    brand: PropTypes.string.isRequired,
-    model: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    kmDriven: PropTypes.string.isRequired,
-    fuelType: PropTypes.string.isRequired,
-    transmission: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
-    area: PropTypes.string.isRequired,
-  }).isRequired,
-};

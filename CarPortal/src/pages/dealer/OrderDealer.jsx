@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useGetAllDealerCompleteBookingQuery } from "../../services/dealerAPI";
+import { useCancelStatusSetMutation, useGetAllDealerCompleteBookingQuery } from "../../services/dealerAPI";
 import CardUi from "../../ui/CardUi";
 import {
   Button,
@@ -16,14 +16,19 @@ import {
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { CarouselCustomArrows } from "../../ui/CarouselCustomArrows";
+import { toast, ToastContainer } from "react-toastify";
 const OrderDealer = () => {
   const { id } = useParams();
 
   const [pageNo, setPageNo] = useState(0);
-  const { data, error, isLoading } = useGetAllDealerCompleteBookingQuery({
+  const [revertId ,setRevertId] = useState("");
+
+  const { data, error, isLoading ,refetch } = useGetAllDealerCompleteBookingQuery({
     pageNo,
     id,
   });
+
+  const [cancelStatusSet] = useCancelStatusSetMutation();
 
   const nextHandler = () => {
     setPageNo((prePageNo) => {
@@ -36,7 +41,22 @@ const OrderDealer = () => {
   };
   const [open, setOpen] = React.useState(false);
 
-  const handleOpen = () => setOpen(!open);
+  const handleOpen = (revertID) => {
+    setOpen(!open);
+    setRevertId(revertID)
+  }
+
+  const handleRevertConfirmation = async () => {
+    try{
+      const res = await cancelStatusSet(revertId);
+      toast.success(res?.data?.status)
+      handleOpen(false);
+      refetch();
+      console.log("MyResult",res);
+    }catch(error){
+      console.log("Error :" , error);
+    }
+  }
 
   if (error) {
     return (
@@ -76,7 +96,7 @@ const OrderDealer = () => {
   const renderData = data?.bookings?.map((item, index) => {
     const carid = item?.carId;
     return (
-      <div className="ml-8 mt-3 mb-3" key={index}>
+      <div className="ml-8 mt-3 mb-3 " key={index}>
         <CardUi>
           <div className="p-2 md:w-full md:px-5 md:py-3 md:flex md:gap-7">
             <div className="md:w-2/5">
@@ -95,48 +115,26 @@ const OrderDealer = () => {
               <p>
                 Date:<span className="text-lg font-semibold">{item?.date}</span>
               </p>
-              <p>
+              <p className="mt-2">
                 Price:
                 <span className="font-semibold text-lg">{item?.price}</span>
               </p>
               <div>
-                <div className="font-[latto] text-lg font-bold text-black">
+                <div className="font-[latto] mt-2 text-lg font-bold text-black">
                   Contact Details of the User
                 </div>
-                <div className="font-[latto] text-base font-medium text-black">
+                <div className="font-[latto] mt-1 text-base font-medium text-black">
                   User Name: ₹{item?.askingPrice}
                 </div>
                 <div className="font-[latto] text-base font-medium text-black">
                   Contact No: ₹{item?.askingPrice}
                 </div>
               </div>
-              <div className="flex gap-10 align-middle items-center">
-                <Link to={`/carlist/cardetails/${item?.carId}`}>
-                  <Dialog open={open} handler={handleOpen}>
-                    <DialogHeader>
-                      Do you really want to Revert the Car?
-                    </DialogHeader>
-                    <DialogFooter>
-                      <Button
-                        variant="text"
-                        color="red"
-                        onClick={handleOpen}
-                        className="mr-1"
-                      >
-                        <span>Cancel</span>
-                      </Button>
-                      <Button
-                        variant="gradient"
-                        color="green"
-                        onClick={handleOpen}
-                      >
-                        <span>Confirm</span>
-                      </Button>
-                    </DialogFooter>
-                  </Dialog>
+              <div className="flex gap-2 align-middle items-center">
+                  <Link to={`/carlist/cardetails/${item?.carId}`}>
                   <Button
                     fullWidth
-                    className="flex items-center text-xs mt-1 bg-blue-400 w-full"
+                    className="flex items-center text-xs mt-5 bg-blue-400 w-full"
                   >
                     Car details
                     <svg
@@ -155,27 +153,51 @@ const OrderDealer = () => {
                     </svg>
                   </Button>
                 </Link>
-
-                <Button
-                  className="flex items-center text-xs gap-2 mt-1 bg-red-700"
-                  onClick={handleOpen}
-                >
-                  Revert Deal
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6"
+                {
+                  item?.status === "cancel" ? (
+                    <Button
+                    className="flex items-center text-xs gap-2 mt-5 bg-red-700"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </Button>
+                    Cancel Deal
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </Button>
+                  ) : (
+                    <Button
+                    className="flex items-center text-xs gap-2 mt-5 bg-red-700"
+                    onClick={() =>handleOpen(item?.id)}
+                  >
+                    Revert Deal
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </Button>
+                  )
+                }
+              
               </div>
             </div>
           </div>
@@ -191,10 +213,11 @@ const OrderDealer = () => {
   }
   return (
     <>
+    <ToastContainer />
       <div className="flex flex-col md:grid md:grid-cols-2 md:auto-cols-auto md:auto-rows-auto">
         {renderData}
       </div>
-
+      
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
         <Typography variant="medium" color="blue-gray" className="font-normal">
           Page {pageNo + 1}
@@ -218,6 +241,28 @@ const OrderDealer = () => {
           </Button>
         </div>
       </CardFooter>
+      <Dialog open={open} handler={handleOpen}>
+        <DialogHeader>
+          Do you really want to Revert the Car?
+        </DialogHeader>
+        <DialogFooter>
+          <Button
+            variant="text"
+            color="red"
+            onClick={handleOpen}
+            className="mr-1"
+          >
+            <span>Cancel</span>
+          </Button>
+          <Button
+            variant="gradient"
+            color="green"
+            onClick={handleRevertConfirmation}
+          >
+            <span>Confirm</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
     </>
   );
 };
