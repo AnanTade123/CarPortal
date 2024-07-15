@@ -29,20 +29,21 @@ const SellForCar = () => {
   const active = "ACTIVE";
   const pending = "PENDING";
   const sell = "SOLD";
+  const deactive = "DEACTIVATE";
   const { data, isLoading, error } = useDealerIdByCarQuery({ id, pageNo ,status: active });
   const { data : pendingData, isLoading : pendingIsLoding, error : pendingerror } = useDealerIdByCarQuery({ id, pageNo ,status: pending });
   const { data : sellData, isLoading : sellIsLoding, error : sellerror } = useDealerIdByCarQuery({ id, pageNo ,status: sell });
+  const { data : deactiveData, isLoading : deactiveIsLoding, error : deactiveerror } = useDealerIdByCarQuery({ id, pageNo ,status: deactive });
   // const { data, isLoading, error } = useDealerIdByCarQuery({ id, pageNo ,"ACTIVE" });
 
   const activeCarsData = data?.list?.filter(car => car?.carStatus === "ACTIVE");
-  const pendingCarsData = pendingData?.list?.filter(car => car?.carStatus === "pending");
-  const sellCarsData = sellData?.list?.filter(car => car?.carStatus === "sell");
 
   const [totalCars, setTotalCars] = useState(data?.list?.length || "-");
   const [activeCars, setActiveCars] = useState(data?.list?.length || "-");
   const [pendingCars, setPendingCars] = useState(pendingData?.list?.length || "-");
-  const [inspectionDone, setInspectionDone] = useState(activeCarsData?.length || "-");
-  const [sellCars, setSellCars] = useState(sellCarsData?.length || "-");
+  const [inspectionDone, setInspectionDone] = useState(data?.length || "-");
+  const [sellCars, setSellCars] = useState(sellData?.length || "-");
+  const [deactiveCars, setdeactiveCars] = useState(deactiveData?.length || "-");
 
   const [open, setOpen] = useState(false);
   const [deleteid ,setDeleteid] = useState();
@@ -70,6 +71,10 @@ const SellForCar = () => {
   const handleFilterSellCars= () => {
     setList(sellData?.list ?? [])
   }
+  const handleFilterDeactiveCars = () => {
+    setList(deactiveData?.list ?? [])
+
+  }
 
   const deleteDealerHandler = async (carId) => {
     console.log(id);
@@ -82,16 +87,18 @@ const SellForCar = () => {
       const totalCars = 
       (data?.list?.length ?? 0) + 
       (pendingData?.list?.length ?? 0) + 
-      (sellData?.list?.length ?? 0);
+      (sellData?.list?.length ?? 0)+
+      (deactiveData?.list?.length ?? 0);
 
       setTotalCars(totalCars);
       setActiveCars(data?.list?.length || "-");
       setPendingCars(pendingData?.list?.length || "-");
       setInspectionDone(activeCarsData?.list?.length || "-");
       setSellCars(sellData?.list?.length || "-");
+      setdeactiveCars(deactiveData?.list?.length || "-");
       setList(data?.list)
     }
-  }, [data ,pendingData , sellData]);
+  }, [data ,pendingData , sellData,deactiveData]);
   const nextHandler = () => {
     setPageNo((prevPageNo) => {
       // Check if the error status is 404
@@ -110,14 +117,11 @@ const SellForCar = () => {
 
   // eslint-disable-next-line no-unused-vars
   const columns = [
-    {
-      Header: "ID",
-      accessor: "carId",
-    },
-    {
-      Header: "Brand",
-      accessor: "brand",
-    },
+    
+  {
+    Header: "ID",
+    accessor: "carId",
+  },
 
     {
       Header: "Model ",
@@ -364,13 +368,14 @@ const SellForCar = () => {
           <div className="text-4xl font-bold text-white">{pendingCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Pending Cars</div>
         </div>
-        {/* <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-300 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
-          <div className="text-4xl font-bold text-white">25/{totalCars}</div>
-          <div className="mt-2 font-medium">Inspection Done Cars</div>
-        </div> */}
-        <div onClick={handleFilterSellCars} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-red-500 rounded-2xl shadow-xl sm:mb-2 sm:mr-5 cursor-pointer">
+        
+        <div onClick={handleFilterSellCars} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-500 rounded-2xl shadow-xl sm:mb-2 sm:mr-5 cursor-pointer">
           <div className="text-4xl font-bold text-white">{sellCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Sold Cars</div>
+        </div>
+        <div  onClick={handleFilterDeactiveCars} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-red-500 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer">
+          <div className="text-4xl font-bold text-white">{deactiveCars}/{totalCars}</div>
+          <div className="mt-2 font-medium">Deactive Cars</div>
         </div>
       </div>
       {error?.status === 404 ? (
@@ -487,7 +492,7 @@ const SellForCar = () => {
                   variant="outlined"
                   size="sm"
                   onClick={nextHandler}
-                  disabled={data?.list?.length < 10}
+                  disabled={list?.length < 10}
                 >
                   Next
                 </Button>
