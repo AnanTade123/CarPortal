@@ -101,7 +101,7 @@ export function AddDealerForm() {
         <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add Dealer
       </Button>
       <Dialog
-        size="xs"
+        size="md"
         open={open}
         handler={handleOpen}
         className="bg-transparent shadow-none"
