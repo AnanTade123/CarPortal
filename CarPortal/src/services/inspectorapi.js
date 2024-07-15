@@ -19,7 +19,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         method: "GET",
       }),
 
-       providesTags:["Inspector"],
+      providesTags:["Inspector"]
        // Same here
     }),
 
@@ -30,6 +30,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         method : "POST",
         body :formDataToSend
       }),
+      providesTags:["Inspector"]
     }),
 
     getInspectionReport : builder.query ({
@@ -48,7 +49,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         method: 'PATCH',
         body:inspectordata
       }),
-      invalidatesTags: ['Inspctor']
+      invalidatesTags:["Inspector"],
     }),
 
     finalInspectionReport : builder.mutation({
@@ -58,6 +59,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         transerResponse:console.log("APi response",inspectionData),
        body : inspectionData 
       }),
+      
     }),
 
     addBiddingCarWithoutImage : builder.mutation ({
