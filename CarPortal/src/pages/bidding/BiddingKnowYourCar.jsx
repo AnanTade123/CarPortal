@@ -38,8 +38,9 @@ const BiddingKnowYourCar = ({
       <p className="text-2xl text-black font-bold my-6 md:ml-12 font-[Merriweather]">
         Know your Car
       </p>
+      <div className="w-full md:w-full">
       <CardUi>
-        <div className="w-3/4 h-max md:w-full">
+        <div className="w-full h-max md:w-full">
           {/* <div className="md:flex md:justify-between pl-4 align-middle items-center"> */}
             {/* <div className="flex items-center gap-6 md:mr-6">
               <div className="bg-blue-50 py-3 md:px-2 rounded-xl">
@@ -203,6 +204,7 @@ const BiddingKnowYourCar = ({
           </div>
         </div>
       </CardUi>
+      </div>
     </>
   );
 };

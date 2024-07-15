@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 const AdminDealerEdit = () => {
   const { userid, id } = useParams();
   const navigate1 = useNavigate();
-  const { data: dealerID } = useGetDealerQuery(id);
+  const { data: dealerID } = useGetDealerQuery({id});
   console.log(dealerID);
   console.log(userid);
   const [getEditDealer] = useGetEditDealerMutation(userid);

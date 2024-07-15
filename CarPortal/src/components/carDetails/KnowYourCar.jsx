@@ -37,8 +37,9 @@ const KnowYourCar = ({
       <p className="text-2xl text-black font-bold my-3 md:ml-12 font-[Merriweather]">
         Know your Car
       </p>
+      <div className="border shadow-xl items-center mx-auto w-full md:w-full">
       <CardUi>
-        <div className="w-3/4 h-max md:w-full">
+        <div className="w-full h-max md:w-full">
           
 
           <div className="max-w-full flex justify-start gap-10 px-4 md:justify-between mt-3 flex-wrap">
@@ -207,6 +208,7 @@ const KnowYourCar = ({
           </div>
         </div>
       </CardUi>
+      </div>
     </>
   );
 };
