@@ -49,7 +49,7 @@ const BiddingDealerCars = () => {
   const [soldCars , setSoldCars] = useState(soldCarCount || "-");
   console.log("activeCarCount",error);
 
-  const itemsPerPage = 7;
+  const itemsPerPage = 10;
   useEffect(() => {
     if (data) {
       setTotalCars(data?.length);
@@ -274,7 +274,8 @@ const BiddingDealerCars = () => {
   let dealerApiData;
   if (isLoading) {
     return <p>isLoading</p>;
-  } else {
+  } 
+  else {
     dealerApiData = data ? data?.slice(Math.max(data.length - 10, 0)) : [];
     // dealerApiData = data;
   }
