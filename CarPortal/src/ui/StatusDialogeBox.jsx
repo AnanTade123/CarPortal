@@ -47,7 +47,7 @@ export default function StatusDialogeBox({status , carId}) {
       case "PENDING":
         return "amber"; 
       default:
-        return "black"; 
+        return "red"; 
     }
   };
 
