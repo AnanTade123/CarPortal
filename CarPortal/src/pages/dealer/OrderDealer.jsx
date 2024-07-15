@@ -131,7 +131,7 @@ const OrderDealer = () => {
                   Contact No: ₹{item?.askingPrice}
                 </div>
               </div>
-              <div className="flex gap-10 align-middle items-center">
+              <div className="flex gap-2 align-middle items-center">
                   <Link to={`/carlist/cardetails/${item?.carId}`}>
                   <Button
                     fullWidth
@@ -156,7 +156,7 @@ const OrderDealer = () => {
                 </Link>
 
                 <Button
-                  className="flex items-center text-xs gap-2 mt-1 bg-red-700"
+                  className="flex items-center text-xs gap-2 mt-5 bg-red-700"
                   onClick={() =>handleOpen(item?.id)}
                 >
                   Revert Deal
