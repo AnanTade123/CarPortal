@@ -249,8 +249,18 @@ export default function App() {
             path="/car/:CarId/pendingreq"
             element={<BiddingDealerPendingReq />}
           />
-          <Route path="/bidding/:carId/uploadimage" element={<UploadImages3 />} />
-          <Route path="/bidding/:carId/:id/editimage" element={<EditImage />} />
+          <Route
+            path="/bidding/:beadingCarId/uploadimage"
+            element={<BiddingEditImage />}
+          />
+
+          <Route
+            path="/bidding/:beadingCarId/update/image"
+            element={<UploadImages3 />}
+          />
+ 
+          {/* <Route path="/bidding/:carId/uploadimage" element={<UploadImages3 />} /> */}
+          {/* <Route path="/bidding/:carId/:id/editimage" element={<EditImage />} /> */}
           <Route element={<SalePersonMiddleware allowedRoles={[...Object.values(onlySeller)]} />}>
             <Route path="/sales/biddingcar" element={<BiddingDealerCars />} />
             <Route path="/sale/carverify/:beadingCarId" element={<CarVerify />} />

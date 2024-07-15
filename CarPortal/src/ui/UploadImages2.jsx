@@ -4,7 +4,7 @@ import { useAddCarImagesMutation } from '../services/dealerAPI';
 import { Tabs, TabsHeader, TabsBody, TabPanel, Tab } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDealerIdByCarQuery } from '../services/carAPI';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import Cookies from 'js-cookie';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,7 +12,7 @@ import { IoAddCircleOutline, IoCloseCircle, IoCheckmarkCircle } from 'react-icon
 
 function UploadImages2() {
   const [images, setImages] = useState([]);
-  const [uploadStatus, setUploadStatus] = useState({}); // Track upload status for each image
+  const [uploadStatus, setUploadStatus] = useState({});
   const { id } = useParams();
   const token = Cookies.get('token');
   let jwtDecodes;
@@ -101,7 +101,7 @@ function UploadImages2() {
   const [activeTab, setActiveTab] = useState(initialData[0].value);
 
   const handleBack = () => {
-    navigate(-2); // Navigate back to the previous page
+    navigate(-2);
   };
 
   return (
@@ -117,7 +117,7 @@ function UploadImages2() {
                 </Tab>
               ))}
             </TabsHeader>
-            <TabsBody className="overflow-y-auto " style={{ maxHeight: '80vh' }}>
+            <TabsBody className="overflow-y-auto" style={{ maxHeight: '80vh' }}>
               {data1.map(({ value, images, showAddSection }) => (
                 <TabPanel key={value} value={value} className="grid grid-cols-1 gap-4">
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -147,9 +147,9 @@ function UploadImages2() {
                           <input
                             type="file"
                             accept="image/*"
-                            multiple
                             className="hidden"
                             onChange={(e) => readImages(e, value)}
+                            multiple={value !== 'coverimage'}
                           />
                         </label>
                       </div>

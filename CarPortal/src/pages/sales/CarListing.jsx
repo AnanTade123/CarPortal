@@ -264,8 +264,8 @@ export default function CarListing() {
                   size="sm"
                   // onClick={nextHandler}
                   // disabled={data?.list?.length < 10}
-                  onClick={() => setPageNo((prev) => (data.length > endIndex ? prev + 1 : prev))}
-                  disabled={data.length <= endIndex}
+                  onClick={() => setPageNo((prev) => (data?.length > endIndex ? prev + 1 : prev))}
+                  disabled={data?.length <= endIndex}
                 >
                   Next
                 </Button>
