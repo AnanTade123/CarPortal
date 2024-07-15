@@ -45,6 +45,7 @@ export default function EditDealerCar() {
     dealer_id: "",
     cVariant: "",
     insurancedate: "",
+    carInsuranceType: "",
   });
   const date = new Date(); // Create a new Date object with the current date
   const year = date.getFullYear(); // Get the year (e.g., 2024)
@@ -75,6 +76,7 @@ export default function EditDealerCar() {
         tyre: object?.tyre || "",
         dealer_id: object?.dealer_id || "",
         title: object?.title || "",
+        insuranceType: object?.carInsuranceType || ""
       });
     }
   }, [Carid]);
@@ -130,6 +132,8 @@ export default function EditDealerCar() {
       dealer_id: id,
 
       date: formattedDate,
+
+      carInsuranceType:formData.carInsuranceType
     };
     console.log(data);
 
@@ -150,6 +154,14 @@ export default function EditDealerCar() {
     //  // navigate("/dealer");
     // });
   };
+
+  const handleChangeType = (event) => {
+    const value = event.target.value;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      carInsuranceType: value,
+    }));
+  }
 
   const [mult, setMult] = React.useState([]);
 
@@ -325,7 +337,7 @@ export default function EditDealerCar() {
                 label={"Owner Serial"}
                 type={"number"}
                 name={"ownerSerial"}
-                value={formData.type}
+                value={formData.ownerSerial}
                 onChange={(event) =>
                   setFormData({
                     ...formData,
@@ -334,11 +346,11 @@ export default function EditDealerCar() {
                 }
               >
                 <option>Owner Serial</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+                <option>1st</option>
+                <option>2nd</option>
+                <option>3rd</option>
+                <option>4th</option>
+                <option>4th+</option>
               </select>
             </div>
           </div>
@@ -373,6 +385,7 @@ export default function EditDealerCar() {
                 <option value="false">No</option>
               </select>
               {showCalendar && (
+                <>
                 <div className="mt-3">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
@@ -388,6 +401,19 @@ export default function EditDealerCar() {
                     className="w-full border-2 border-gray-400 p-2 rounded-md"
                   />
                 </div>
+                 <select
+                 required
+                 className="w-full border-2 border-gray-400 p-2 rounded-md"
+                 name="carInsurance"
+                 value={formData.carInsuranceType}
+                 onChange={handleChangeType}
+               >
+                 <option value=""> Insurance Type</option>
+                 <option value="Comprehensive">Comprehensive</option>
+                 <option value="Zero Dept">Zero Dept</option>
+                 <option value="Third Party">Third Party</option>
+               </select>
+               </>
               )}
             </div>
           </div>
