@@ -26,7 +26,7 @@ export const dealerAPI = apiSlice.injectEndpoints({
         url: `/dealer/${id}`,
         transerResponse:console.log(id),
       }),
-      providesTags: ["Dealer"],
+      providesTags: ["Dealer","user"],
     }),
 
 
@@ -85,7 +85,22 @@ export const dealerAPI = apiSlice.injectEndpoints({
       }),
       providesTags: ['Dealer']
     }),
-    
+    cancelStatusSet: builder.mutation({
+      query: (id,data) => ({
+        url: `/confirmBooking/cancelStatusSet?id=${id}`,
+        method: "PUT",
+        transerResponse:console.log(id),
+        body : data,
+      }),
+      invalidatesTags: ["Dealer"],
+    }),
+    getUser: builder.query({
+      query: (id) => ({
+        url: `/user/getUser/${id}`,
+        method: "GET",
+      }),
+      providesTags: ['Dealer','User']
+    }),
   }),
 });
 
@@ -99,5 +114,6 @@ export const {
   useAddCarImagesMutation,
   useDealerStatusMutation,
   useGetAllDealerListQuery,
-  
+  useCancelStatusSetMutation,
+  useGetUserQuery
 } = dealerAPI;

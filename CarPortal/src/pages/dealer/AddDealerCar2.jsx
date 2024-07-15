@@ -94,6 +94,9 @@ export default function AddDealerCar() {
     dealer_id: "",
     cVariant: "",
     insurancedate: "",
+    insuranceType: "",
+    carInsuranceType: "",
+
   });
   const { id } = useParams();
   console.log(id);
@@ -157,6 +160,7 @@ export default function AddDealerCar() {
       dealer_id: id,
 
       date: formattedDate,
+      carInsuranceType:formData.carInsuranceType
     };
     console.log(data);
     const res = await carRegister(data);
@@ -207,6 +211,14 @@ export default function AddDealerCar() {
       registration: "", // Reset registration when city changes
     });
   };
+
+  const handleChangeType = (event) => {
+    const value = event.target.value;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      carInsuranceType: value,
+    }));
+  }
 
   // Car Insurance ValidDate
   const handleChange = (event) => {
@@ -429,7 +441,7 @@ export default function AddDealerCar() {
         <option value="2">2nd</option>
         <option value="3">3rd</option>
         <option value="4">4th</option>
-        <option value="5">5th</option>
+        <option value="5">4th +</option>
       </select>
     </div>
           </div>
@@ -461,9 +473,11 @@ export default function AddDealerCar() {
               >
                 <option value="">Car Insurance</option>
                 <option value="true">Yes</option>
-                <option value="false">No</option>
+          
+                 <option value="false">No</option>
               </select>
               {showCalendar && (
+                <>
                 <div className="mt-3">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
@@ -479,6 +493,19 @@ export default function AddDealerCar() {
                     className="w-full border-2 border-gray-400 p-2 rounded-md"
                   />
                 </div>
+                <select
+                 required
+                 className="w-full border-2 border-gray-400 p-2 rounded-md"
+                 name="carInsurance"
+                 value={formData.carInsuranceType}
+                 onChange={handleChangeType}
+               >
+                 <option value=""> Insurance Type</option>
+                 <option value="Comprehensive">Comprehensive</option>
+                 <option value="Zero Dept">Zero Dept</option>
+                 <option value="Third Party">Third Party</option>
+               </select>
+              </>
               )}
             </div>
           </div>
@@ -543,7 +570,7 @@ export default function AddDealerCar() {
               </select>
             </div>
 
-            <div className="mt-5 ml-2 w-full">
+            <div className="mt-5 md:ml-2 w-full">
               <select
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label="Registration"

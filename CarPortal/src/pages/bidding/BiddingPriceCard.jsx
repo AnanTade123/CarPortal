@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import Cookies from "js-cookie";
 import CardUi from "../../ui/CardUi";
@@ -14,11 +15,13 @@ import BiddingDailogeBox from "../../ui/BiddingDialogeBox"
 import PlaceBid from "../../pages/dealer/PlaceBid";
 import {useGetbeadingGetByIdQuery} from "../../services/biddingAPI"
 import { Link } from "react-router-dom";
+import { useWebSocket } from "../../Utiles/WebSocketConnection";
+import { useEffect } from "react";
 const BiddingPriceCard = ({
   beadingCarId,
-  getTopThreeBids,
-  topThreeBids,
-  placeBid,
+  // getTopThreeBids,
+  // topThreeBids,
+  // placeBid,
   handleMessage
   // price,
   // brand,
@@ -41,11 +44,20 @@ const BiddingPriceCard = ({
   }
   const userRole = jwtDecodes?.authorities[0];
   const UserId = token ? jwtDecodes?.userId : null;
-
+  const { getTopThreeBids ,topThreeBidsAmount } = useWebSocket();
+  console.log("topThreeBidsAmount",topThreeBidsAmount);
 
   const {data} = useGetbeadingGetByIdQuery(beadingCarId);
+  // const getTopThreeBidsOfdata = () => {
+  //   const data = getTopThreeBids(beadingCarId);
+  //   console.log(data);
+  // }
+  // useEffect(()=>{
+  //   getTopThreeBidsOfdata(beadingCarId)
+  // },[]);
   // console.log("topThreeBids",topThreeBids[0]?.amount)
   return (
+    <div className="w-full md:w-full">
     <CardUi>
       <div className="w-full md:w-full">
         <p className="font-extrabold text-2xl text-black uppercase font-[latto] ml-2">
@@ -54,7 +66,7 @@ const BiddingPriceCard = ({
         <p className="uppercase font-[Merriweather] ml-2 md:ml-0">
           {data?.color} {data?.bodyType} & {data?.transmission}
         </p>
-        <div className="my-4 flex gap-2 overflow-x-auto scrollbar ml-2 md:ml-0">
+        <div className="my-4 flex gap-2 flex-wrap lg:flex-nowrap overflow-x-auto scrollbar ml-2 md:ml-0">
           <Chip
             variant="outlined"
             value={`${data?.kmDriven} KM`}
@@ -118,7 +130,7 @@ const BiddingPriceCard = ({
         <div className="flex justify-center align-middle items-center my-3">
           <div className="text-center">
             <div className="text-xl font-bold text-black font-[latto]">
-            Top Bidding Amount:  ₹{topThreeBids[0]?.amount}
+            Top Bidding Amount:  ₹
             </div>
             <div className="uppercase text-gray-700 text-xs font-[latto]">
               Understand Price
@@ -167,13 +179,19 @@ const BiddingPriceCard = ({
               />
             </div> */}
             <div className="ml-5">
-              <PlaceBid beadingCarId={beadingCarId} UserID={UserId} getTopThreeBids={getTopThreeBids} topThreeBids={topThreeBids} placeBid={placeBid} />
+              <PlaceBid beadingCarId={beadingCarId} UserID={UserId} 
+              // getTopThreeBids={getTopThreeBids} 
+              // topThreeBids={topThreeBids}
+              handleMessage={handleMessage}
+              //  placeBid={placeBid}
+                />
             </div>
           </div>
         </div>) : null}
         </div>
       </div>
     </CardUi>
+    </div>
   );
 };
 

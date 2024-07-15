@@ -8,7 +8,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         transferResponse: console.log(userId),
         method: "GET",
       }),
-      providesTags:["Inspector"],
+      providesTags:["Inspector"]
   
        // You probably want providesTags here instead of invalidatesTags for queries
     }),
@@ -19,7 +19,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         method: "GET",
       }),
 
-       providesTags:["Inspector"],
+      providesTags:["Inspector"]
        // Same here
     }),
 
@@ -30,6 +30,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         method : "POST",
         body :formDataToSend
       }),
+      providesTags:["Inspector"]
     }),
 
     getInspectionReport : builder.query ({
@@ -48,8 +49,9 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         method: 'PATCH',
         body:inspectordata
       }),
-      
+      invalidatesTags:["Inspector"],
     }),
+
     finalInspectionReport : builder.mutation({
       query : ({inspectionData}) => ({
         url:`/inspectionReport/add`,
@@ -57,6 +59,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         transerResponse:console.log("APi response",inspectionData),
        body : inspectionData 
       }),
+      
     }),
 
     addBiddingCarWithoutImage : builder.mutation ({
@@ -76,6 +79,16 @@ export const inspectorAPI = apiSlice.injectEndpoints({
       })
     }),
 
+    // inspectorStatus: builder.mutation({
+    //   query: ({ inspectorProfileId, status }) => ({
+    //     url: 
+    //     `ispProfile/update?inspectorProfileId=${inspectorProfileId}&status=${status}`,
+    //    transerResponse:console.log("APi response",inspectorProfileId,status),
+    //     method: 'PATCH',
+    //   }),
+    //   invalidatesTags: ['Inspctor'],
+    // }),
+
   }),
 });
 
@@ -86,4 +99,6 @@ export const { useInspectorByIdQuery ,
   useInspectorupdateMutation ,
   useFinalInspectionReportMutation,
 useAddBiddingCarWithoutImageMutation,
-useFinalInspectionQuery } = inspectorAPI;
+useFinalInspectionQuery,
+
+ } = inspectorAPI;
