@@ -1,10 +1,13 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import Inputs from "../../forms/Inputs";
-import { Textarea, Input } from "@material-tailwind/react";
+import { Textarea, Input  } from "@material-tailwind/react";
 import { useCarRegisterMutation } from "../../services/carAPI";
 import { useNavigate, useParams } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
 import {useGetOnlyBrandsQuery,useGetVariantsQuery, useGetSubVariantsQuery} from "../../services/brandAPI";
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 
 const cityOptions = {
   Pune: ["MH-12"],
@@ -44,7 +47,7 @@ const cityOptions = {
 export default function AddDealerCar() {
     const { data: brandData } = useGetOnlyBrandsQuery();
   const brands = brandData?.list.map((item) => item.brand) || [];
-
+console.log(brands)
   const [selectedBrand, setSelectedBrand] = useState('');
   const [selectedModel, setSelectedModel] = useState('');
   const [modelOptions, setModelOptions] = useState([]);
@@ -55,7 +58,7 @@ export default function AddDealerCar() {
   const { data: variantData } = useGetVariantsQuery(selectedBrand, {
     skip: !selectedBrand,
   });
-
+console.log(variantData)
   const { data: subVariantData } = useGetSubVariantsQuery(
     { brand: selectedBrand, variant: selectedModel },
     {
@@ -122,8 +125,6 @@ export default function AddDealerCar() {
 
       carStatus: "ACTIVE",
 
-      // city: formData.city,
-
       color: formData.color,
 
       description: formData.description,
@@ -170,8 +171,9 @@ export default function AddDealerCar() {
     }
   };
 
-  const handleBrandChange = (event) => {
-    const brand = event.target.value;
+  const handleBrandChange = (event, newValue) => {
+    const brand = newValue;
+    console.log(brand);
     setSelectedBrand(brand);
     setFormData({
       ...formData,
@@ -181,8 +183,8 @@ export default function AddDealerCar() {
     });
   };
 
-  const handleModelChange = (event) => {
-    const model = event.target.value;
+  const handleModelChange = (event,newValue) => {
+    const model = newValue
     setSelectedModel(model);
     setFormData({
       ...formData,
@@ -191,8 +193,9 @@ export default function AddDealerCar() {
     });
   };
 
-  const handleVariantChange = (event) => {
-    const cVariant = event.target.value;
+  const handleVariantChange = (event,newValue) => {
+    const cVariant = newValue
+    console.log(cVariant)
     setFormData({
       ...formData,
       cVariant,
@@ -252,56 +255,103 @@ export default function AddDealerCar() {
           {/* first part */}
           <div className="md:flex gap-2">
           <div className="mt-5 w-full">
-                <select
-                  required
-                  className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  value={selectedBrand}
-                  onChange={handleBrandChange}
-                >
-                  <option value="">Brands</option>
-                  {brands.map((brand) => (
-                    <option key={brand} value={brand}>
-                      {brand}
-                    </option>
-                  ))}
-                </select>
+          <Autocomplete
+        id="free-solo-demo"
+        freeSolo
+        options={brands}
+        getOptionLabel={(option) => option}
+        sx={{ width: 390 }}
+        onChange={handleBrandChange}
+        
+        renderInput={(params) => <TextField sx={{ 
+          
+          '& .MuiInputBase-root': {
+            height: '40px',
+            padding: '0 14px',
+            paddingBottom: '8px',
+            top : 0
+          },
+          '& .MuiInputBase-input': {
+            height: '100%',
+            padding: '0',
+          }
+        }}{...params}  label="Brands"
+        InputLabelProps={{
+          style: { 
+            fontSize: '0.75rem',
+            // paddingTop : '20px',
+                //  background : 'black'  
+          },  // Adjust the font size here
+        }} />}
+      />
               </div>
 
               <div className="mt-5 w-full">
-                <select
-                  required
-                  className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  value={formData.model}
-                  onChange={handleModelChange}
-                  disabled={!selectedBrand}
-                >
-                  <option value="">Models</option>
-                  {modelOptions.map((model) => (
-                    <option key={model} value={model}>
-                      {model}
-                    </option>
-                  ))}
-                </select>
+
+              <Autocomplete
+        id="free-solo-demo"
+        freeSolo
+        options={modelOptions}
+        getOptionLabel={(option) => option}
+        sx={{ width: 400, height:50 }}
+        onChange={handleModelChange}
+        
+        renderInput={(params) => <TextField sx={{ 
+          
+          '& .MuiInputBase-root': {
+            height: '40px',
+            padding: '0 14px',
+            paddingBottom: '8px',
+            top : 0
+          },
+          '& .MuiInputBase-input': {
+            height: '100%',
+            padding: '0',
+          }
+        }}{...params}  label="Varient"
+        InputLabelProps={{
+          style: { 
+            fontSize: '0.75rem',
+            // paddingTop : '20px',
+                //  background : 'black'  
+          },  // Adjust the font size here
+        }} />}
+      />
               </div>
           </div>
 
           {/* second part */}
           <div className="md:flex">
           <div className="mt-5 w-full">
-                <select
-                  className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  name="cVariant"
-                  value={formData.cVariant}
-                  onChange={handleVariantChange}
-                  disabled={!modelOptions.length}
-                >
-                  <option value="">Car Variant</option>
-                  {variantOptions.map((cVariant) => (
-                    <option key={cVariant} value={cVariant}>
-                      {cVariant}
-                    </option>
-                  ))}
-                </select>
+          <Autocomplete
+        id="free-solo-demo"
+        freeSolo
+        options={variantOptions}
+        getOptionLabel={(option) => option}
+        sx={{ width: 390 }}
+        onChange={handleVariantChange}
+        
+        renderInput={(params) => <TextField sx={{ 
+          
+          '& .MuiInputBase-root': {
+            height: '40px',
+            padding: '0 14px',
+            paddingBottom: '8px',
+            top : 0
+          },
+          '& .MuiInputBase-input': {
+            height: '100%',
+            padding: '0',
+          }
+        }}{...params}  label="SubVarient"
+        InputLabelProps={{
+          style: { 
+            fontSize: '0.75rem',
+            // paddingTop : '20px',
+                //  background : 'black'  
+          },  // Adjust the font size here
+        }} />}
+      />
               </div>
 
             <div className="mt-5 md:ml-2 w-full">
