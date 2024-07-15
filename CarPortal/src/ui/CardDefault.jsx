@@ -39,6 +39,7 @@ export function CardDefault({ data, Carid }) {
     jwtDecodes = jwtDecode(token);
   }
   const UserId = jwtDecodes.userId;
+  const userRole = token ? jwtDecodes?.authorities[0] : null;
   console.log(UserId);
  
   const [rated, setRated] = useState(true);
@@ -105,6 +106,7 @@ console.log(carid,useid)
           </Link>
         </CardHeader>
         <CardBody className="mb-5">
+          {userRole === "USER" ? (
           <div className="flex justify-end">
             <div onClick={handleFavoriteClick} className="cursor-pointer">
               <div className='-mb-6'>
@@ -112,7 +114,7 @@ console.log(carid,useid)
                 {rated ? <RatedIcon /> : <UnratedIcon />}
               </div>
             </div>
-          </div>
+          </div>) : null}
           <Typography>{data.year}</Typography>
           <Typography variant="h5" color="blue-gray" className="mb-2">
             {data.brand} {data.model}
