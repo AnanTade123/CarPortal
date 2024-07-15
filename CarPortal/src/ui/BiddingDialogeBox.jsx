@@ -109,8 +109,9 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage })
           durationMinutes: diffInMinutes,
         };
         const {  error : bidError  } = await startBiddingSetTime(setTimeData);
-        if(bidError){
-        handleMessage(bidError?.data,"error");
+        console.log("bidError",bidError )
+        if(bidError || bidError?.data?.message ==="unsuccess"){
+          bidError?.data?.message ==="unsuccess" ? handleMessage(bidError?.data?.exception,"error") :handleMessage(bidError?.data,"error");
         handleOpen();
         }else{
           const createdAt = {
@@ -126,7 +127,7 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage })
         if(error){
           handleMessage(error?.message,"error")
         }else{
-          handleMessage("Bid placed successfully","success")
+          handleMessage("Car set for bid","success")
         }
         handleOpen();
       }
