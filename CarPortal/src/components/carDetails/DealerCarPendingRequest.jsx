@@ -95,8 +95,8 @@ const DealerCarPendingRequest = ({ item }) => {
 
         <div className="shadow-xl rounded-lg">
           <CardUi>
-            <div className="p-2 md:p-0 md:min-w-[45rem] md:w-[20rem] md:m-2 md:flex md:gap-4">
-              <div className="md:w-2/5">
+            <div className="md:p-0 md:min-w-[38rem] md:w-[20rem] md:m-2 md:flex md:gap-4">
+              <div className="md:w-3/5">
                 <CardHeader
                   floated={false}
                   shadow={false}
@@ -108,7 +108,7 @@ const DealerCarPendingRequest = ({ item }) => {
                   </Link>
                 </CardHeader>
               </div>
-              <div>
+              <div className="w-full">
                 <div className="flex justify-between m-3 md:m-0">
                   <Chip
                     variant="outlined"
@@ -141,7 +141,7 @@ const DealerCarPendingRequest = ({ item }) => {
                       <div className="mt-1 font-[latto] text-base font-medium text-black">
                         Contact No:
                       </div>
-                      <div className="flex gap-5 pt-2">
+                      <div className="flex gap-5 pt-1">
                         <div>
                           <Link to={`/carlist/cardetails/${item?.carId}`}>
                             <Button
@@ -155,7 +155,7 @@ const DealerCarPendingRequest = ({ item }) => {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="currentColor"
-                                className="w-10 h-6"
+                                className="w-6 h-6"
                               >
                                 <path
                                   strokeLinecap="round"
@@ -194,9 +194,6 @@ const DealerCarPendingRequest = ({ item }) => {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="w-full">
-              <div className="flex justify-around p-2 gap-3 md:gap-10"></div>
             </div>
           </CardUi>
         </div>
