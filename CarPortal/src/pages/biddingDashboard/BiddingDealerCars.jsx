@@ -345,7 +345,7 @@ const BiddingDealerCars = () => {
             </div>
           </CardHeader>
           <CardBody className="overflow-scroll px-0">
-            <TableComponent columns={columns} data={dealerApiData} />
+            <TableComponent columns={columns} data={paginatedData} />
           </CardBody>
           <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
             <Typography
@@ -354,6 +354,8 @@ const BiddingDealerCars = () => {
               className="font-normal"
             >
               {/* Page {pageNo + 1} */}
+              Page {pageNo + 1}
+
             </Typography>
             <div className="flex gap-2">
               <Button
@@ -361,6 +363,8 @@ const BiddingDealerCars = () => {
                 size="sm"
                 // disabled={pageNo <= 0}
                 // onClick={() => setPageNo((a) => a - 1)}
+                disabled={pageNo <= 0}
+                onClick={() => setPageNo((prev) => Math.max(prev - 1, 0))}
               >
                 Previous
               </Button>

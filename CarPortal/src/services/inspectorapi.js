@@ -8,7 +8,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         transferResponse: console.log(userId),
         method: "GET",
       }),
-      providesTags:["Inspector"],
+      providesTags:["Inspector"]
   
        // You probably want providesTags here instead of invalidatesTags for queries
     }),
@@ -48,8 +48,9 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         method: 'PATCH',
         body:inspectordata
       }),
-      
+      invalidatesTags: ['Inspctor']
     }),
+
     finalInspectionReport : builder.mutation({
       query : ({inspectionData}) => ({
         url:`/inspectionReport/add`,
@@ -76,6 +77,16 @@ export const inspectorAPI = apiSlice.injectEndpoints({
       })
     }),
 
+    // inspectorStatus: builder.mutation({
+    //   query: ({ inspectorProfileId, status }) => ({
+    //     url: 
+    //     `ispProfile/update?inspectorProfileId=${inspectorProfileId}&status=${status}`,
+    //    transerResponse:console.log("APi response",inspectorProfileId,status),
+    //     method: 'PATCH',
+    //   }),
+    //   invalidatesTags: ['Inspctor'],
+    // }),
+
   }),
 });
 
@@ -86,4 +97,6 @@ export const { useInspectorByIdQuery ,
   useInspectorupdateMutation ,
   useFinalInspectionReportMutation,
 useAddBiddingCarWithoutImageMutation,
-useFinalInspectionQuery } = inspectorAPI;
+useFinalInspectionQuery,
+
+ } = inspectorAPI;
