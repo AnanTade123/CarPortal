@@ -13,35 +13,17 @@ import { useInspectorupdateMutation, useInspectorByIdQuery } from "../../service
 
 
 export default function InspectorStatusDialogBox({ userId, inspectorProfileId, status }) {
+  console.log("status",status);
   const [open, setOpen] = React.useState(false);
-  const [isActive, setIsActive] = React.useState(status === "ACTIVE");
+  const [isActive, setIsActive] = React.useState(status === true);
 
   const { data, isLoading, isError, error } = useInspectorByIdQuery({ userId });
 
-  const [inputField, setInputField] = React.useState({
-    inspectorProfileId: inspectorProfileId || 0,
-    address: "",
-    city: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    mobileNo: "",
-    status: status
-  });
+  
 
   useEffect(() => {
     if (data && data.response) {
       const { response } = data;
-      setInputField({
-        inspectorProfileId: response.inspectorProfileId || 0,
-        address: response.address || "",
-        city: response.city || "",
-        firstName: response.firstName || "",
-        lastName: response.lastName || "",
-        email: response.email || "",
-        mobileNo: response.mobileNo || "",
-        status: response.status || ""
-      });
       setIsActive(response.status === "ACTIVE");
     }
   }, [data]);
@@ -60,21 +42,14 @@ export default function InspectorStatusDialogBox({ userId, inspectorProfileId, s
   };
 
   const getStatusText = () => {
-    return isActive ? "ACTIVE" : "DISABLE";
+    return isActive ? "Active" : "Disabled";
   };
 
   const handleConfirm = async (e) => {
     e.preventDefault();
 
     const inspectordata = {
-      inspectorProfileId: inputField.inspectorProfileId,
-      address: inputField.address,
-      city: inputField.city,
-      firstName: inputField.firstName,
-      lastName: inputField.lastName,
-      email: inputField.email,
-      mobileNo: inputField.mobileNo,
-      status: isActive ? "ACTIVE" : "DISABLE"
+      status: isActive ? true : false
     };
 
     console.log("Inspectordata to be sent:", inspectordata);
@@ -110,12 +85,12 @@ export default function InspectorStatusDialogBox({ userId, inspectorProfileId, s
           <DialogBody className="flex justify-center">
             <select
               className="border border-gray-400 p-4 rounded-md"
-              value={isActive ? "true" : "false"}
+              value={isActive ? true : false}
               onChange={handleSelectChange}
             >
               <option value="">Select</option>
-              <option value="true">ACTIVE</option>
-              <option value="false">DISABLE</option>
+              <option value={true}>ACTIVE</option>
+              <option value={false}>DISABLE</option>
             </select>
           </DialogBody>
           <DialogFooter>
