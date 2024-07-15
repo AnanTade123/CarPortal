@@ -44,7 +44,6 @@ const OrderDealer = () => {
   const handleOpen = (revertID) => {
     setOpen(!open);
     setRevertId(revertID)
-   
   }
 
   const handleRevertConfirmation = async () => {
@@ -154,27 +153,51 @@ const OrderDealer = () => {
                     </svg>
                   </Button>
                 </Link>
-
-                <Button
-                  className="flex items-center text-xs gap-2 mt-1 bg-red-700"
-                  onClick={() =>handleOpen(item?.id)}
-                >
-                  Revert Deal
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6"
+                {
+                  item?.status === "cancel" ? (
+                    <Button
+                    className="flex items-center text-xs gap-2 mt-1 bg-red-700"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </Button>
+                    Cancel Deal
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </Button>
+                  ) : (
+                    <Button
+                    className="flex items-center text-xs gap-2 mt-1 bg-red-700"
+                    onClick={() =>handleOpen(item?.id)}
+                  >
+                    Revert Deal
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </Button>
+                  )
+                }
+              
               </div>
             </div>
           </div>
