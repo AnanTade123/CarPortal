@@ -91,7 +91,7 @@ const UserId  = jwtDecodes.userId
           <Typography variant="h7" color="blue-gray" className="mb-2">
             {data.title}
           </Typography>
-          <p className="text-sm uppercase mb-3 flex flex-wrap gap-2">
+          <p className="text-sm uppercase mb-3 flex-wrap gap-2">
             <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black">
               {data.kmDriven}KM
             </span>
