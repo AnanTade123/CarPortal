@@ -44,7 +44,7 @@ const DealerCarPendingRequest = ({ item }) => {
       date: item?.date,
       price: item?.askingPrice,
       carId: item?.carId,
-      userId: UserID,
+      userId: item?.userId,
       dealerId: id,
     };
     try {
