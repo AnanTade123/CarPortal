@@ -78,7 +78,7 @@ export default function InspectorList() {
       accessor: "status",
       Cell: (cell) => {
         const a = cell.row.values.status
-        
+        console.log("Status",a);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
@@ -89,6 +89,7 @@ export default function InspectorList() {
         );
       },
     },
+    
     {
       Header: "Actions",
       accessor: "Actions",
