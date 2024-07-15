@@ -125,7 +125,10 @@ export default function App() {
             <Route path="/admin/inspector/info/:userId" element={<AdminInspectorInfo />} />
             <Route path="/admin/inspection/report/:beadingCarId" element={<FinalReport />} />
 
-            <Route path="/carlistmodel" element={<CarListModels />} />
+            <Route
+             path="/carlistmodel" 
+             element={<CarListModels />} />
+             
             <Route
               path="/admin/dealer/info/:id"
               element={<AdminDealerInfo />}

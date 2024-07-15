@@ -100,8 +100,13 @@ console.log(carid,useid)
   return (
     <div className="flex justify-center mx-auto">
       <Card className="w-full flex justify-center sm:w-80 md:w-[260px] lg:w-full items-center border-2 hover:scale-105 border-gray-300 shadow-xl overflow-hidden mx-5 md:mx-0">
-        <CardHeader floated={false} shadow={false} color="transparent" className="m-0 rounded-none">
-          <Link to={`/carlist/cardetails/:carid`}>
+        <CardHeader
+          floated={false}
+          shadow={false}
+          color="transparent"
+          className="m-0 rounded-none"
+        >
+          <Link to={`/carlist/cardetails/${data.carId}`}>
             <CarouselCustomArrows carId={data.carId} />
           </Link>
         </CardHeader>
@@ -109,8 +114,7 @@ console.log(carid,useid)
           {userRole === "USER" ? (
           <div className="flex justify-end">
             <div onClick={handleFavoriteClick} className="cursor-pointer">
-              <div className='-mb-6'>
-             
+              <div className="-mb-6">
                 {rated ? <RatedIcon /> : <UnratedIcon />}
               </div>
             </div>

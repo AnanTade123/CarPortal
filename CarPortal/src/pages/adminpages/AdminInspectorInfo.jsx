@@ -16,8 +16,6 @@ console.log(userId)
       firstName,
       lastName,
       mobileNo,
-
-    
       email,
       city,
       address,
