@@ -96,7 +96,7 @@ const OrderDealer = () => {
   const renderData = data?.bookings?.map((item, index) => {
     const carid = item?.carId;
     return (
-      <div className="ml-8 mt-3 mb-3" key={index}>
+      <div className="ml-8 mt-3 mb-3 " key={index}>
         <CardUi>
           <div className="p-2 md:w-full md:px-5 md:py-3 md:flex md:gap-7">
             <div className="md:w-2/5">

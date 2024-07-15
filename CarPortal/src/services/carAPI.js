@@ -182,10 +182,19 @@ export const carApi = apiSlice.injectEndpoints({
     }),
 
     CarremoveFavorite: builder.mutation({
-      query: ({userId}) => ({
-        url: `/saveCar/delete?saveCarId=${userId}`,
-        transferResponse:console.log(userId),
+      query: ({saveCarId}) => ({
+        url: `/saveCar/delete?saveCarId=${saveCarId}`,
+        transferResponse:console.log(saveCarId),
         method:'DELETE'
+      }),
+      invalidatesTags: ["CAR"],
+    }),
+
+    CarFavoriteAddRemove: builder.query({
+      query: ({carid,useid}) => ({
+        url: `/saveCar/getByCarAndUserId?userId=${useid}&carId=${carid}`,
+        transferResponse:console.log(carid,useid),
+        method:'GET'
       }),
       invalidatesTags: ["CAR"],
     }),
@@ -211,5 +220,6 @@ export const {
   useFavoriteCarMutation,
   useGetbySaveCarIdQuery,
   useGetbyUserCarIdQuery,
-  useCarremoveFavoriteMutation
+  useCarremoveFavoriteMutation,
+  useCarFavoriteAddRemoveQuery
 } = carApi;
