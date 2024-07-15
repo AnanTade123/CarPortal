@@ -73,7 +73,7 @@ const DealerAllPendingRequest = () => {
 
   return (
     <>
-      <div className="grid md:grid-cols-3  auto-cols-auto auto-rows-auto">
+      <div className="grid md:grid-cols-2 auto-cols-auto auto-rows-auto">
         {renderData}
       </div>
 

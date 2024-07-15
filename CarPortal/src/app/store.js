@@ -24,7 +24,8 @@ export const store = configureStore({
     [placebidAPI.reducerPath]:placebidAPI.reducer,
     [inspectorAPI.reducerPath]:inspectorAPI.reducer,
     [brandAPI.reducerPath]:brandAPI.reducer,
-    [salesAPI.reducerPath]:salesAPI.reducer
+    [salesAPI.reducerPath]:salesAPI.reducer,
+    [carApi.reducerPath]: carApi.reducer,
   },
   middleware:(getDefaultMiddleware)=>
   getDefaultMiddleware().concat(apiSlice.middleware),
