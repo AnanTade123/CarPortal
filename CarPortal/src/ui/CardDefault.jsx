@@ -9,9 +9,10 @@ import {
 import { CarouselCustomArrows } from "./CarouselCustomArrows";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useFavoriteCarMutation, useCarFavoriteAddRemoveQuery } from "../services/carAPI";
+import { useFavoriteCarMutation,useCarremoveFavoriteMutation, useCarFavoriteAddRemoveQuery } from "../services/carAPI";
 import Cookies from "js-cookie";
 import {jwtDecode} from "jwt-decode";
+
 
 function RatedIcon() {
   return (
@@ -37,29 +38,14 @@ export function CardDefault({ data, Carid }) {
   if (token) {
     jwtDecodes = jwtDecode(token);
   }
-
   const UserId = jwtDecodes.userId;
-  
-  // useEffect(() => {
-  //   if (favData && favData.saveCarId) {
-  //     setRated(true);
-  //   }
-  // }, [favData]);
-  
-  const [rated, setRated] = useState();
+  console.log(UserId);
+ 
+  const [rated, setRated] = useState(true);
   const data2 = {
     carId: Carid,
     userId: UserId,
-  };
-  const handleFavoriteClick = async () => {
-    try {
-        const res = await favoriteCar(data2);
-        console.log(res);
-      } catch (error) {
-        console.log(error);
-      }
-      setRated(!rated);
-  };
+  }
   const carid = data2.carId
   const useid = data2.userId
 console.log(carid,useid)
@@ -67,6 +53,39 @@ console.log(carid,useid)
   const { data: favData } = useCarFavoriteAddRemoveQuery({ carid, useid });
 
   console.log(favData)
+  const [CarremoveFavorite] = useCarremoveFavoriteMutation()
+  const handleFavoriteClick = async () => {
+    if (rated) {
+      const data3 = {
+        saveCarId: favData.object.saveCarId,
+      };
+      try {
+        const res = await CarremoveFavorite(data3);
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+
+     try {
+        const res = await favoriteCar(data2);
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    setRated(!rated);
+  };
+  // const handleFavoriteClick = async () => {
+  //   try {
+  //       const res = await favoriteCar(data2);
+  //       console.log(res);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //     setRated(!rated);
+  // };
+  
     console.log(favData?.object)
 
  useEffect(() => {
@@ -89,6 +108,7 @@ console.log(carid,useid)
           <div className="flex justify-end">
             <div onClick={handleFavoriteClick} className="cursor-pointer">
               <div className='-mb-6'>
+             
                 {rated ? <RatedIcon /> : <UnratedIcon />}
               </div>
             </div>
@@ -100,7 +120,7 @@ console.log(carid,useid)
           <Typography variant="h7" color="blue-gray" className="mb-2">
             {data.title}
           </Typography>
-          <p className="text-sm uppercase mb-3 flex flex-wrap gap-2">
+          <p className="text-sm uppercase mb-3 flex-wrap gap-2">
             <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black">
               {data.kmDriven}KM
             </span>
