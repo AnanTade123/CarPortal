@@ -21,6 +21,7 @@ import {
   useGetAllSellerQuery,
 } from "../../services/salesAPI";
 import StatusDialogeBox from "../../ui/StatusDialogeBox";
+import SallerStatusActive from "./SallerStatusActive";
 
 export default function SalesList() {
   const [pageNo, setPageNo] = useState(0);
@@ -112,8 +113,8 @@ export default function SalesList() {
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
-              <StatusDialogeBox2
-                dealer_id={cell.row.values.dealer_id}
+              <SallerStatusActive
+                salesPersonId={cell.row.values.salesPersonId}
                 status={cell.row.values.status}
               />
             </div>
