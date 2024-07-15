@@ -7,7 +7,7 @@ const AdminDealerInfo = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { data, isLoading, isError, error } = useGetDealerQuery(id);
+  const { data, isLoading, isError, error } = useGetDealerQuery({id});
   console.log(isLoading);
   console.log(isError);
   console.log(error);
