@@ -65,6 +65,11 @@ export function CardDefault({ data }) {
         carId: data.carId,
         userId: UserId,
       };
+
+
+
+      
+
       try {
         const res = await favoriteCar(data2);
         console.log(res);
