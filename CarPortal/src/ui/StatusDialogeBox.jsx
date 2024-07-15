@@ -44,10 +44,12 @@ export default function StatusDialogeBox({status , carId}) {
         return "green"; 
       case "DEACTIVATE":
         return "red"; 
+      case "SOLD":
+          return "blue"; 
       case "PENDING":
         return "amber"; 
       default:
-        return "black"; 
+        return "red"; 
     }
   };
 

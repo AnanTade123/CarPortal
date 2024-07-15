@@ -26,7 +26,7 @@ const BiddingEditImage = () => {
 
   const [trigger, setTrigger] = useState(0);
   const [biddingCarImageRemove] = useBiddingCarImageRemoveMutation();
-  const { data: imagess } = useGetbeadingImgGetByIdQuery(beadingCarId);
+  const { data: imagess, refetch } = useGetbeadingImgGetByIdQuery(beadingCarId, { skip: !beadingCarId });
   const [inspectionReport] = useInspectionReportMutation();
 
   const [uploadStatus, setUploadStatus] = useState({});
@@ -129,6 +129,7 @@ const BiddingEditImage = () => {
           ...prevStatus,
           [file.name]: "success",
         }));
+        refetch(); // Fetch updated images after a successful upload
       } catch (error) {
         console.error("Error uploading the file:", error);
         toast.error("Upload Failed");
@@ -145,6 +146,7 @@ const BiddingEditImage = () => {
       await biddingCarImageRemove({ beadingCarId: imageId }).unwrap();
       toast.success("Image Deleted Successfully");
       setTrigger((prev) => prev + 1);
+      refetch(); // Fetch updated images after a successful deletion
     } catch (error) {
       console.error(error);
       toast.error("Failed to Delete Image");
