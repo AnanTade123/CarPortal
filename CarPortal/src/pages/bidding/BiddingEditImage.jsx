@@ -1,32 +1,37 @@
 /* eslint-disable no-unused-vars */
-import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { IoAddCircleOutline, IoCloseCircle } from "react-icons/io5";
-import { Tabs, TabsHeader, TabsBody, Tab, TabPanel } from "@material-tailwind/react";
-import {  useGetCarImageByIdQuery, useDeleteCarImageByIdMutation } from "../../services/carAPI";
-import { useGetbeadingImgGetByIdQuery } from "../../services/biddingAPI";
-import { useAddCarImagesMutation } from '../../services/dealerAPI';
-import {jwtDecode} from 'jwt-decode';
-import Cookies from 'js-cookie';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {
+  Tabs,
+  TabsHeader,
+  TabsBody,
+  Tab,
+  TabPanel,
+} from "@material-tailwind/react";
+import {
+  useGetbeadingImgGetByIdQuery,
+  useBiddingCarImageRemoveMutation,
+  useBiddingCarRegisterMutation,
+} from "../../services/biddingAPI";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useInspectionReportMutation } from "../../services/inspectorapi";
 
 const BiddingEditImage = () => {
   const navigate = useNavigate();
   const { beadingCarId } = useParams();
 
-  const [trigger, setTrigger] = useState(0); // State to trigger re-fetch
-  // const { data: imagess } = useGetCarImageByIdQuery({ carId, trigger }); // Pass trigger to re-fetch data
-  const [deleteCarImageById] = useDeleteCarImageByIdMutation();
+  const [trigger, setTrigger] = useState(0);
+  const [biddingCarImageRemove] = useBiddingCarImageRemoveMutation();
+  const { data: imagess } = useGetbeadingImgGetByIdQuery(beadingCarId);
+  const [inspectionReport] = useInspectionReportMutation();
 
-const {data: imagess} = useGetbeadingImgGetByIdQuery({beadingCarId,trigger});
-console.log(data)
+  const [uploadStatus, setUploadStatus] = useState({});
 
-  console.log(imagess);
-  const [addCarImages] = useAddCarImagesMutation();
-  const [uploadStatus, setUploadStatus] = useState({}); 
-
-  const token = Cookies.get('token');
+  const token = Cookies.get("token");
   let jwtDecodes;
 
   if (token) {
@@ -47,118 +52,99 @@ console.log(data)
       value: "images",
       images: [],
       showAddSection: true,
-    }
+    },
   ]);
 
   useEffect(() => {
     if (imagess) {
       const coverImg = imagess.object
-        .filter(img => img.documentType === 'coverImage')
-        .map(img => ({ documentLink: img.documentLink, documentId: img.documentId }));
-      
-      const imgs = imagess.object
-        .filter(img => img.documentType === 'image')
-        .map(img => ({ documentLink: img.documentLink, documentId: img.documentId }));
+        .filter((img) => img.doctype === "coverImage")
+        .map((img) => ({
+          documentLink: img.documentLink,
+          documentId: img.documentId,
+        }));
 
-      setData(prevData => prevData.map(category => {
-        if (category.value === 'coverimage') {
-          return { ...category, images: coverImg, showAddSection: coverImg.length === 0 };
-        }
-        if (category.value === 'images') {
-          return { ...category, images: imgs };
-        }
-        return category;
-      }));
+      const imgs = imagess.object
+        .filter((img) => img.doctype === "image")
+        .map((img) => ({
+          documentLink: img.documentLink,
+          documentId: img.documentId,
+        }));
+
+      setData((prevData) =>
+        prevData.map((category) => {
+          if (category.value === "coverimage") {
+            return {
+              ...category,
+              images: coverImg,
+              showAddSection: coverImg.length === 0,
+            };
+          }
+          if (category.value === "images") {
+            return { ...category, images: imgs };
+          }
+          return category;
+        })
+      );
     }
   }, [imagess]);
 
-  const [activeTab, setActiveTab] = useState('coverimage');
+  const [activeTab, setActiveTab] = useState("coverimage");
 
   const handleBack = () => {
-    navigate(-2); // Navigate back to the previous page
+    navigate(-2);
   };
 
   const handleAddImage = async (event, categoryValue) => {
     const files = Array.from(event.target.files);
-    const documentType = categoryValue === 'coverimage' ? 'coverImage' : 'image';
+    const documentType =
+      categoryValue === "coverimage" ? "coverImage" : "image";
 
-    if (categoryValue === 'coverimage' && files.length > 1) {
+    if (categoryValue === "coverimage" && files.length > 1) {
       toast.error("Only one cover image can be added");
       return;
     }
 
-    const previewImages = files.map(file => URL.createObjectURL(file));
-    
     for (const file of files) {
-      const formData = new FormData();
-      formData.append('image', file);
-      formData.append('document', documentType);
+      const formDataToSend = new FormData();
+      formDataToSend.append("image", file);
+
+      const inspectionData = {
+        documentType: "InspectionReport",
+        beadingCarId: beadingCarId,
+        doc: "",
+        doctype: documentType,
+        subtype: "abcd",
+        comment: "pqrs",
+      };
 
       try {
-        const response = await addCarImages({
-          formData,
-          document: documentType,
-          firstCarId : beadingCarId,
-          UserID,
+        const res = await inspectionReport({
+          inspectionData,
+          formDataToSend,
         }).unwrap();
         toast.success("Uploaded Successfully");
-        setData((prevData) =>
-          prevData.map((category) => {
-            if (category.value === categoryValue) {
-              const updatedImages = category.images.map(img => {
-                if (previewImages.includes(img.documentLink)) {
-                  return { documentLink: response.imageUrl, documentId: img.documentId }; // Assuming response.imageUrl contains the URL of the uploaded image
-                }
-                return img;
-              });
-              return {
-                ...category,
-                images: updatedImages,
-                showAddSection: categoryValue === 'coverimage' ? updatedImages.length === 0 : category.showAddSection,
-              };
-            }
-            return category;
-          })
-        );
-
+        setTrigger((prev) => prev + 1);
         setUploadStatus((prevStatus) => ({
           ...prevStatus,
-          [file.name]: 'success',
+          [file.name]: "success",
         }));
-        setTrigger(prev => prev + 1); // Trigger re-fetch after successful upload
       } catch (error) {
-        console.error(error);
+        console.error("Error uploading the file:", error);
         toast.error("Upload Failed");
         setUploadStatus((prevStatus) => ({
           ...prevStatus,
-          [file.name]: 'error',
+          [file.name]: "error",
         }));
       }
     }
   };
 
   const handleDeleteImage = async (categoryValue, index, imageId) => {
-    console.log(imageId)
     try {
-    const res =  await deleteCarImageById({ id: imageId }).unwrap();
-    console.log(res)
+      await biddingCarImageRemove({ beadingCarId: imageId }).unwrap();
       toast.success("Image Deleted Successfully");
-
-      setData((prevData) => {
-        const newData = prevData.map((category) => {
-          if (category.value === categoryValue) {
-            const updatedImages = category.images.filter((_, i) => i !== index);
-            return {
-              ...category,
-              images: updatedImages,
-              showAddSection: categoryValue === 'coverimage' ? updatedImages.length === 0 : category.showAddSection,
-            };
-          }
-          return category;
-        });
-        return newData;
-      });
-      setTrigger(prev => prev + 1); // Trigger re-fetch after successful deletion
+      setTrigger((prev) => prev + 1);
     } catch (error) {
       console.error(error);
       toast.error("Failed to Delete Image");
@@ -178,9 +164,13 @@ console.log(data)
                 </Tab>
               ))}
             </TabsHeader>
-            <TabsBody className="overflow-y-auto" style={{ maxHeight: '80vh' }}>
+            <TabsBody className="overflow-y-auto" style={{ maxHeight: "80vh" }}>
               {data.map(({ value, images, showAddSection }) => (
-                <TabPanel key={value} value={value} className="grid grid-cols-1 gap-4">
+                <TabPanel
+                  key={value}
+                  value={value}
+                  className="grid grid-cols-1 gap-4"
+                >
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                     {images.map(({ documentLink, documentId }, index) => (
                       <div key={index} className="relative">
@@ -189,13 +179,15 @@ console.log(data)
                           alt={`Image ${index + 1}`}
                           className="object-cover w-full h-auto"
                           style={{
-                            height: '200px',
-                            margin: '5px',
+                            height: "200px",
+                            margin: "5px",
                           }}
                         />
                         <IoCloseCircle
                           className="absolute top-2 right-2 cursor-pointer text-red-500 md:mr-6 md:h-8 md:w-8"
-                          onClick={() => handleDeleteImage(value, index, documentId)}
+                          onClick={() =>
+                            handleDeleteImage(value, index, documentId)
+                          }
                         />
                       </div>
                     ))}
@@ -206,7 +198,7 @@ console.log(data)
                           <input
                             type="file"
                             accept="image/*"
-                            multiple={value !== 'coverimage'}
+                            multiple={value !== "coverimage"}
                             className="hidden"
                             onChange={(e) => handleAddImage(e, value)}
                           />
