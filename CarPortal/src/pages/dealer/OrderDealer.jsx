@@ -78,8 +78,8 @@ const OrderDealer = () => {
     return (
       <div className="ml-8 mt-3 mb-3 " key={index}>
         <CardUi>
-          <div className="w-full px-5 py-3 flex gap-7">
-            <div className="w-1/2">
+          <div className="p-2 md:w-full md:px-5 md:py-3 md:flex md:gap-7">
+            <div className="md:w-2/5">
               <CardHeader
                 floated={false}
                 shadow={false}
@@ -113,14 +113,9 @@ const OrderDealer = () => {
               <div className="flex gap-10 align-middle items-center">
                 <Link to={`/carlist/cardetails/${item?.carId}`}>
                   <Dialog open={open} handler={handleOpen}>
-                    <DialogHeader>Its a simple dialog.</DialogHeader>
-                    <DialogBody>
-                      The key to more success is to have a lot of pillows. Put
-                      it this way, it took me twenty five years to get these
-                      plants, twenty five years of blood sweat and tears, and
-                      I&apos;m never giving up, I&apos;m just getting started.
-                      I&apos;m up to something. Fan luv.
-                    </DialogBody>
+                    <DialogHeader>
+                      Do you really want to Revert the Car?
+                    </DialogHeader>
                     <DialogFooter>
                       <Button
                         variant="text"
@@ -139,7 +134,10 @@ const OrderDealer = () => {
                       </Button>
                     </DialogFooter>
                   </Dialog>
-                  <Button fullWidth className="flex items-center text-xs mt-1 bg-blue-400 w-full">
+                  <Button
+                    fullWidth
+                    className="flex items-center text-xs mt-1 bg-blue-400 w-full"
+                  >
                     Car details
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -157,28 +155,27 @@ const OrderDealer = () => {
                     </svg>
                   </Button>
                 </Link>
-                <Link to={`/carlist/cardetails/${item?.carId}`}>
-                  <Button
-                    className="flex items-center text-xs gap-2 mt-1 bg-red-700"
-                    onClick={handleOpen}
+
+                <Button
+                  className="flex items-center text-xs gap-2 mt-1 bg-red-700"
+                  onClick={handleOpen}
+                >
+                  Revert Deal
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
                   >
-                    Revert Deal
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-6 h-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </Button>
-                </Link>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </Button>
               </div>
             </div>
           </div>
@@ -194,7 +191,7 @@ const OrderDealer = () => {
   }
   return (
     <>
-      <div className="grid grid-cols-2 auto-cols-auto auto-rows-auto">
+      <div className="flex flex-col md:grid md:grid-cols-2 md:auto-cols-auto md:auto-rows-auto">
         {renderData}
       </div>
 

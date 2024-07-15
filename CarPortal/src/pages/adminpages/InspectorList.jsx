@@ -89,6 +89,7 @@ export default function InspectorList() {
         );
       },
     },
+    
     {
       Header: "Actions",
       accessor: "Actions",
