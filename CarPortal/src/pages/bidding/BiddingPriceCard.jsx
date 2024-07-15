@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import Cookies from "js-cookie";
 import CardUi from "../../ui/CardUi";
@@ -47,7 +48,7 @@ const BiddingPriceCard = ({
 
   const {data} = useGetbeadingGetByIdQuery(beadingCarId);
   const getTopThreeBidsOfdata = () => {
-    const data = getTopThreeBids(beadingCarId);
+    // const data = getTopThreeBids(beadingCarId);
     console.log(data);
   }
   useEffect(()=>{

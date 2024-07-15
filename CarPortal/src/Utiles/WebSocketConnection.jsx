@@ -52,6 +52,7 @@ export const WebSocketProvider = ({ children }) => {
   }, []);
 
   const getTopThreeBids = (bidCarId) => {
+    console.log("Pendingcars---",bidCarId);
     if (client) {
     const bidRequest = {
       bidCarId: bidCarId,

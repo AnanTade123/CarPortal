@@ -158,8 +158,8 @@ const OrderDealer = () => {
                   </Button>
                 </Link>
                 {item?.status === "cancel" ? (
-                  <Button className="flex items-center text-xs gap-2 mt-5 bg-red-700">
-                    Cancel Deal
+                  <Button className="flex items-center text-xs gap-2 mt-5 bg-red-300">
+                    Canceled Deal
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
