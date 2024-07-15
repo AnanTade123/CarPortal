@@ -44,16 +44,17 @@ const BiddingPriceCard = ({
   }
   const userRole = jwtDecodes?.authorities[0];
   const UserId = token ? jwtDecodes?.userId : null;
-  const { getTopThreeBids } = useWebSocket();
+  const { getTopThreeBids ,topThreeBidsAmount } = useWebSocket();
+  console.log("topThreeBidsAmount",topThreeBidsAmount);
 
   const {data} = useGetbeadingGetByIdQuery(beadingCarId);
-  const getTopThreeBidsOfdata = () => {
-    // const data = getTopThreeBids(beadingCarId);
-    console.log(data);
-  }
-  useEffect(()=>{
-    getTopThreeBidsOfdata(beadingCarId)
-  },[]);
+  // const getTopThreeBidsOfdata = () => {
+  //   const data = getTopThreeBids(beadingCarId);
+  //   console.log(data);
+  // }
+  // useEffect(()=>{
+  //   getTopThreeBidsOfdata(beadingCarId)
+  // },[]);
   // console.log("topThreeBids",topThreeBids[0]?.amount)
   return (
     <div className="w-full md:w-full">
