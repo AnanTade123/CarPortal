@@ -115,26 +115,26 @@ const OrderDealer = () => {
               <p>
                 Date:<span className="text-lg font-semibold">{item?.date}</span>
               </p>
-              <p>
+              <p className="mt-2">
                 Price:
                 <span className="font-semibold text-lg">{item?.price}</span>
               </p>
               <div>
-                <div className="font-[latto] text-lg font-bold text-black">
+                <div className="font-[latto] mt-2 text-lg font-bold text-black">
                   Contact Details of the User
                 </div>
-                <div className="font-[latto] text-base font-medium text-black">
+                <div className="font-[latto] mt-1 text-base font-medium text-black">
                   User Name: ₹{item?.askingPrice}
                 </div>
                 <div className="font-[latto] text-base font-medium text-black">
                   Contact No: ₹{item?.askingPrice}
                 </div>
               </div>
-              <div className="flex gap-10 align-middle items-center">
+              <div className="flex gap-2 align-middle items-center">
                   <Link to={`/carlist/cardetails/${item?.carId}`}>
                   <Button
                     fullWidth
-                    className="flex items-center text-xs mt-1 bg-blue-400 w-full"
+                    className="flex items-center text-xs mt-5 bg-blue-400 w-full"
                   >
                     Car details
                     <svg
@@ -156,7 +156,7 @@ const OrderDealer = () => {
                 {
                   item?.status === "cancel" ? (
                     <Button
-                    className="flex items-center text-xs gap-2 mt-1 bg-red-700"
+                    className="flex items-center text-xs gap-2 mt-5 bg-red-700"
                   >
                     Cancel Deal
                     <svg
@@ -176,7 +176,7 @@ const OrderDealer = () => {
                   </Button>
                   ) : (
                     <Button
-                    className="flex items-center text-xs gap-2 mt-1 bg-red-700"
+                    className="flex items-center text-xs gap-2 mt-5 bg-red-700"
                     onClick={() =>handleOpen(item?.id)}
                   >
                     Revert Deal
