@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/prop-types */
-import React, { useEffect } from "react";    
+import React, { useEffect, useState } from "react";    
 import {
   Button,
   Dialog,
@@ -15,18 +15,16 @@ import { useInspectorupdateMutation, useInspectorByIdQuery } from "../../service
 export default function InspectorStatusDialogBox({ userId, inspectorProfileId, status }) {
   console.log("status",status);
   const [open, setOpen] = React.useState(false);
-  const [isActive, setIsActive] = React.useState(status === true);
-
+  const [isActive, setIsActive] = React.useState(status);
   const { data, isLoading, isError, error } = useInspectorByIdQuery({ userId });
-
+  const [StatusData ,setStatusData] = useState(status);
   
 
-  useEffect(() => {
-    if (data && data.response) {
-      const { response } = data;
-      setIsActive(response.status === "ACTIVE");
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data && data.response) {
+  //     setIsActive(status);
+  //   }
+  // }, [data]);
 
   const [InspctorStatus, { isLoading: isUpdating, error: updateError }] = useInspectorupdateMutation();
 
@@ -34,7 +32,7 @@ export default function InspectorStatusDialogBox({ userId, inspectorProfileId, s
 
   const handleSelectChange = (event) => {
     const newIsActive = event.target.value === "true";
-    setIsActive(newIsActive);
+    setStatusData(newIsActive);
   };
 
   const getButtonColor = () => {
@@ -49,7 +47,7 @@ export default function InspectorStatusDialogBox({ userId, inspectorProfileId, s
     e.preventDefault();
 
     const inspectordata = {
-      status: isActive ? true : false
+      status: StatusData ? true : false
     };
 
     console.log("Inspectordata to be sent:", inspectordata);
@@ -58,6 +56,8 @@ export default function InspectorStatusDialogBox({ userId, inspectorProfileId, s
       console.log("Updating Inspector with ID:", inspectorProfileId, "to status:", isActive);
 
       const res = await InspctorStatus({ id: inspectorProfileId, inspectordata }).unwrap();
+      setIsActive(StatusData);
+
       console.log("API response:", res);
       console.log("Inspector status updated successfully!");
       setOpen(false); 
@@ -85,12 +85,12 @@ export default function InspectorStatusDialogBox({ userId, inspectorProfileId, s
           <DialogBody className="flex justify-center">
             <select
               className="border border-gray-400 p-4 rounded-md"
-              value={isActive ? true : false}
+              value={isActive}
               onChange={handleSelectChange}
             >
               <option value="">Select</option>
-              <option value={true}>ACTIVE</option>
-              <option value={false}>DISABLE</option>
+              <option value="true">ACTIVE</option>
+              <option value="false">DISABLE</option>
             </select>
           </DialogBody>
           <DialogFooter>
