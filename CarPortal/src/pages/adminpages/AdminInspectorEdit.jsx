@@ -8,11 +8,12 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
  
-const AdminInspectorEdit = () => {
+const   AdminInspectorEdit = () => {
   const { userid, inspectorprofileid } = useParams();
   const userId = userid;
   const navigate = useNavigate();
   const { data, isLoading, isError, error } = useInspectorByIdQuery({ userId });
+  console.log(data)
   const [inspectorupdate] = useInspectorupdateMutation();
  
   const [inputField, setInputField] = React.useState({
