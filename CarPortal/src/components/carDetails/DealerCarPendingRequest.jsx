@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { useState } from "react";
 import { CarouselCustomArrows } from "../../ui/CarouselCustomArrows";
+import { useGetUserQuery } from "../../services/dealerAPI";
 
 const DealerCarPendingRequest = ({ item }) => {
   const { id } = useParams();
@@ -27,6 +28,7 @@ const DealerCarPendingRequest = ({ item }) => {
   const handleOpen = () => setOpen(!open);
 
   const navigate = useNavigate();
+
   const token = Cookies.get("token");
   let jwtDecodes;
   if (token) {
@@ -37,6 +39,7 @@ const DealerCarPendingRequest = ({ item }) => {
   console.log("User ID", UserID);
 
   const [ConfirmBooking] = useConfirmBookingMutation();
+  const {data} = useGetUserQuery(item?.userId)
 
   const handleConfirmBook = async (event) => {
     event.preventDefault();

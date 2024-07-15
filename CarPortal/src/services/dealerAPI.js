@@ -26,7 +26,7 @@ export const dealerAPI = apiSlice.injectEndpoints({
         url: `/dealer/${id}`,
         transerResponse:console.log(id),
       }),
-      providesTags: ["Dealer"],
+      providesTags: ["Dealer","user"],
     }),
 
 
@@ -94,6 +94,13 @@ export const dealerAPI = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Dealer"],
     }),
+    getUser: builder.query({
+      query: (id) => ({
+        url: `/user/getUser/${id}`,
+        method: "GET",
+      }),
+      providesTags: ['Dealer','User']
+    }),
   }),
 });
 
@@ -108,4 +115,5 @@ export const {
   useDealerStatusMutation,
   useGetAllDealerListQuery,
   useCancelStatusSetMutation,
+  useGetUserQuery
 } = dealerAPI;
