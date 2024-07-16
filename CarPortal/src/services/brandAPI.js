@@ -5,8 +5,9 @@ export const brandAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     //GET
     getAllBrands: builder.query({
-      query: () => ({
-        url: `/brands/getAll`,
+      query: ({ pageNo, pageSize }) => ({
+        url: `./brands/getAll?pageNo=${pageNo}&pageSize=${pageSize}`,
+        transferResponce: console.log(pageNo),
         method: "GET",
       }),
       invalidatesTags: ["Admin"],
@@ -25,20 +26,20 @@ export const brandAPI = apiSlice.injectEndpoints({
     getVariants: builder.query({
       query: (brand) => ({
         url: `/brands/variants`,
-        method: 'GET',
+        method: "GET",
         params: { brand },
       }),
-      providesTags: ['Admin'],
+      providesTags: ["Admin"],
     }),
 
     // GET SUB-VARIANT
     getSubVariants: builder.query({
       query: ({ brand, variant }) => ({
         url: `/brands/sub-variants`,
-        method: 'GET',
+        method: "GET",
         params: { brand, variant },
       }),
-      providesTags: ['Admin'],
+      providesTags: ["Admin"],
     }),
 
     //POST
@@ -63,16 +64,15 @@ export const brandAPI = apiSlice.injectEndpoints({
     }),
 
     //DELETE
-  deleteCarBrands: builder.mutation({
-    query: (brandDataId) => ({
-      url: `/brands/delete?id=${brandDataId}`,
-      method: "DELETE",
-      transferResponse: console.log(brandDataId),
+    deleteCarBrands: builder.mutation({
+      query: (brandDataId) => ({
+        url: `/brands/delete?id=${brandDataId}`,
+        method: "DELETE",
+        transferResponse: console.log(brandDataId),
+      }),
+      invalidatesTags: ["Admin"],
     }),
-    invalidatesTags: ["Admin"],
   }),
-  }),
-
 });
 
 export const {
