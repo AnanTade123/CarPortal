@@ -4,6 +4,7 @@ import { Card } from "@material-tailwind/react";
 import { Button, Slider, Typography } from "@material-tailwind/react";
 import { FaFilter } from "react-icons/fa";
 import { useGetOnlyBrandsQuery, useGetVariantsQuery } from "../../services/brandAPI";
+import { Autocomplete, TextField } from "@mui/material";
 
 // eslint-disable-next-line react/prop-types
 const FilterCars = ({ setUrlState }) => {
@@ -27,8 +28,8 @@ const FilterCars = ({ setUrlState }) => {
     }
   }, [variantData]);
 
-  const handleBrandChange = (event) => {
-    const brand = event.target.value;
+  const handleBrandChange = (event, newValue) => {
+    const brand = newValue;
     setSelectedBrand(brand);
     setFilterForm({
       ...filterForm,
@@ -37,15 +38,14 @@ const FilterCars = ({ setUrlState }) => {
     });
   };
 
-  const handleModelChange = (event) => {
-    const model = event.target.value;
+  const handleModelChange = (event,newValue) => {
+    const model = newValue;
     setFilterForm({
       ...filterForm,
       model,
     });
   };
 
-  console.log(value);
   const [filterForm, setFilterForm] = useState({
     area: "",
     year: "",
@@ -102,6 +102,44 @@ const FilterCars = ({ setUrlState }) => {
     formattedAmount = new Intl.NumberFormat("en-IN").format(value);
   }
 
+  const AreaData = [
+    {area : "Viman Nagar",year : 2005},
+    {area : "Koregaon Park",year : 2006},
+    {area : "Aundh",year : 2007},
+    {area : "Kothrud",year : 2008},
+    {area : "Hadapsar",year : 2009},
+    {area : "Shivajinagar",year : 2010},
+    {area : "Kalyani Nagar",year : 2011},
+    {area : "Pimpri-Chinchwad",year : 2012},
+    {area : "Magarpatta",year : 2013},
+    {area : "Wadgaon Sheri",year : 2014},
+    {area : "Katraj",year : 2015},
+    {area : "Model Colony",year : 2016},
+    {area : "Pune Cantonment",year : 2017},
+    {area : "Senapati Bapat Road",year : 2018},
+    {area : "Bhosari",year : 2018},
+    {area : "Chakan",year : 2019},
+    {area : "Bavdhan",year : 2020},
+    {area : "Hinjewadi",year : 2021},
+    {area : "Baner",year : 2022},
+    {area : "Kharadi",year : 2023},
+    {area : "Wagholi",year : 2024},
+    
+  ]
+  
+  const FuleType = [
+    {fuelType : 'Petrol'},
+    {fuelType : 'Diesel'},
+    {fuelType : 'Electric'},
+    {fuelType : 'CNG'},
+    {fuelType : 'Petrol+CNG'},
+  ]
+
+  const Transmission =[
+    {transmission : "Automatic"},
+    {transmission : "Manual"},
+    
+  ]
   return (
     <div className="border-2 shadow-lg rounded-lg">
       <div className="flex justify-end mr-5 ">
@@ -132,7 +170,7 @@ const FilterCars = ({ setUrlState }) => {
                 <Slider
                   className="overflow-hidden w-fit"
                   color="black"
-                  defaultValue={200000}
+                  defaultValue={10000000}
                   step={10000}
                   min={200000}
                   max={10000000}
@@ -140,115 +178,108 @@ const FilterCars = ({ setUrlState }) => {
                 />
               </div>
 
-              <select
-                name="area"
-                className="border border-gray-700 h-10 rounded-lg md:w-full lg:w-full"
-                value={filterForm.area}
-                onChange={handleChange}
-              >
-                <option>Select Area</option>
-                <option>Wagholi</option>
-                <option>Kharadi</option>
-                <option>Baner</option>
-                <option>Hinjewadi</option>
-                <option>Viman Nagar</option>
-                <option>Koregaon Park</option>
-                <option>Aundh</option>
-                <option>Kothrud</option>
-                <option>Hadapsar</option>
-                <option>Shivajinagar</option>
-                <option>Kalyani Nagar</option>
-                <option>Pimpri-Chinchwad</option>
-                <option>Erandwane</option>
-                <option>Magarpatta</option>
-                <option>Wadgaon Sheri</option>
-                <option>Katraj</option>
-                <option>Model Colony</option>
-                <option>Pune Cantonment</option>
-                <option>Senapati Bapat Road</option>
-                <option>Bhosari</option>
-                <option>Boat Club Road</option>
-                <option>Chakan</option>
-                <option>Bavdhan</option>
-              </select>
-              <select
-                name="year"
-                onChange={handleChange}
-                value={filterForm.year}
-                className="border border-gray-700 h-10 rounded-lg"
-              >
-                <option>Select Year</option>
-                <option>2005</option>
-                <option>2006</option>
-                <option>2007</option>
-                <option>2008</option>
-                <option>2009</option>
-                <option>2010</option>
-                <option>2011</option>
-                <option>2012</option>
-                <option>2013</option>
-                <option>2014</option>
-                <option>2015</option>
-                <option>2016</option>
-                <option>2017</option>
-                <option>2018</option>
-                <option>2019</option>
-                <option>2020</option>
-                <option>2021</option>
-                <option>2022</option>
-                <option>2023</option>
-                <option>2024</option>
-              </select>
-              <select
-                name="brand"
-                onChange={handleBrandChange}
-                value={selectedBrand}
-                className="border border-gray-700 h-10 rounded-lg"
-              >
-                <option value="">Brands</option>
-                {brands.map((brand) => (
-                  <option key={brand} value={brand}>
-                    {brand}
-                  </option>
-                ))}
-              </select>
-              <select
-                name="model"
-                onChange={handleModelChange}
-                value={filterForm.model}
-                disabled={!selectedBrand}
-                className="border border-gray-700 h-10 rounded-lg"
-              >
-                <option value="">Models</option>
-                {modelOptions.map((model) => (
-                  <option key={model} value={model}>
-                    {model}
-                  </option>
-                ))}
-              </select>
-              <select
-                name="fuelType"
-                onChange={handleChange}
-                value={filterForm.fuelType}
-                className="border border-gray-700 h-10 rounded-lg"
-              >
-                <option>Fuel Type</option>
-                <option>Petrol</option>
-                <option>Diesel</option>
-                <option>Electric</option>
-                <option>CNG</option>
-                <option value="Petrol,CNG">Petrol+CNG</option>
-              </select>
-              <select
-                name="transmission"
-                onChange={handleChange}
-                value={filterForm.transmission}
-                className="border border-gray-700 h-10 rounded-lg"
-              >
-                <option>Transmission</option>
-                <option>Manual</option>
-                <option>Automatic</option>
-              </select>
+              <Autocomplete
+  id="free-solo-demo"
+  freeSolo
+  options={AreaData}
+  getOptionLabel={(option) => option.area}
+  sx={{ width: 250, background: "White" }}
+  onInputChange={(event, newInputValue) => {
+    
+    setFilterForm((prevForm) => ({
+      ...prevForm,
+      area: newInputValue,
+    }));
+  }}
+  onChange={(event, newValue) => {
+    setFilterForm((prevForm) => ({
+      ...prevForm,
+      area: newValue ? newValue.area : "",
+    }));
+  }}
+  renderInput={(params) => <TextField {...params} label="Area" />}
+/>
+<Autocomplete
+  id="free-solo-demo"
+  freeSolo
+  options={AreaData}
+  getOptionLabel={(option) => option.year}
+  sx={{ width: 250, background: "White" }}
+  onInputChange={(event, newInputValue) => {
+    
+    setFilterForm((prevForm) => ({
+      ...prevForm,
+      year: newInputValue,
+    }));
+  }}
+  onChange={(event, newValue) => {
+    setFilterForm((prevForm) => ({
+      ...prevForm,
+      year: newValue ? newValue.year : "",
+    }));
+  }}
+  renderInput={(params) => <TextField {...params} label="Year" />}
+/>
+<Autocomplete
+  id="free-solo-demo"
+  freeSolo
+  options={brands}
+  getOptionLabel={(option) => option}
+  sx={{ width: 250, background: "White" }}
+  onChange={handleBrandChange}
+  renderInput={(params) => <TextField {...params} label="Brands" />}
+/>
+<Autocomplete
+  id="free-solo-demo"
+  freeSolo
+  options={modelOptions}
+  getOptionLabel={(option) => option}
+  sx={{ width: 250, background: "White" }}
+  onChange={handleModelChange}
+  renderInput={(params) => <TextField {...params} label="Models" />}
+/>
+<Autocomplete
+  id="free-solo-demo"
+  freeSolo
+  options={FuleType}
+  getOptionLabel={(option) => option.fuelType}
+  sx={{ width: 250, background: "White" }}
+  onInputChange={(event, newInputValue) => {
+    
+    setFilterForm((prevForm) => ({
+      ...prevForm,
+      fuleType: newInputValue,
+    }));
+  }}
+  onChange={(event, newValue) => {
+    setFilterForm((prevForm) => ({
+      ...prevForm,
+      fuelType: newValue ? newValue.fuelType : "",
+    }));
+  }}
+  renderInput={(params) => <TextField {...params} label="Fule Type" />}
+/>
+<Autocomplete
+  id="free-solo-demo"
+  freeSolo
+  options={Transmission}
+  getOptionLabel={(option) => option.transmission}
+  sx={{ width: 250, background: "White" }}
+  onInputChange={(event, newInputValue) => {
+    
+    setFilterForm((prevForm) => ({
+      ...prevForm,
+      transmission: newInputValue,
+    }));
+  }}
+  onChange={(event, newValue) => {
+    setFilterForm((prevForm) => ({
+      ...prevForm,
+      transmission: newValue ? newValue.transmission : "",
+    }));
+  }}
+  renderInput={(params) => <TextField {...params} label="Transmission" />}
+/>
             </div>
             <div className="flex gap-5 mt-5 md:flex-col lg:flex">
 
