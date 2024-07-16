@@ -102,6 +102,7 @@ export default function BiddingAddCar2() {
     dealer_id: "",
     cVariant: "",
     insurancedate: "",
+    carInsuranceType: "",
   });
   const userInfo = localStorage.getItem("userInfo");
   const { userId: userid } = JSON.parse(userInfo);
@@ -163,7 +164,10 @@ export default function BiddingAddCar2() {
       userId: parseInt(userid),
 
       date: formattedDate,
+      
       dealerId: formData.dealerId,
+      
+      carInsuranceType:formData.carInsuranceType
     };
     console.log(data);
     const res = await biddingCarRegister(data);
@@ -180,6 +184,14 @@ export default function BiddingAddCar2() {
       toast.error("Somthing is wrong");
     }
   };
+
+  const handleChangeType = (event) => {
+    const value = event.target.value;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      carInsuranceType: value,
+    }));
+  }
 
   const handleBrandChange = (event, newValue) => {
     const brand = newValue;
@@ -526,6 +538,7 @@ export default function BiddingAddCar2() {
                   <option value="false">No</option>
                 </select>
                 {showCalendar && (
+                  <>
                   <div className="mt-3">
                     <label
                       className="block text-gray-700 text-sm font-bold mb-2"
@@ -541,6 +554,25 @@ export default function BiddingAddCar2() {
                       className="w-full border-2 border-gray-400 p-2 rounded-md"
                     />
                   </div>
+                  <label
+                    className="block text-gray-700 text-sm font-bold mt-2"
+                    htmlFor="carInsuranceType"
+                  >
+                 Insurance Type
+                  </label>
+                  <select
+                 required
+                 className="w-full border-2 border-gray-400 p-2 rounded-md"
+                 name="carInsurance"
+                 value={formData.carInsuranceType}
+                 onChange={handleChangeType}
+               >
+                 <option value=""> Insurance Type</option>
+                 <option value="Comprehensive">Comprehensive</option>
+                 <option value="Zero Dept">Zero Depreciation </option>
+                 <option value="Third Party">Third Party</option>
+               </select>
+                  </>
                 )}
               </div>
             </div>
