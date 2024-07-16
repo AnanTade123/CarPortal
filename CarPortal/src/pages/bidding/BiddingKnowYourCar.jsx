@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import CardUi from "../../ui/CardUi";
 import { IoLogoModelS } from "react-icons/io";
@@ -37,10 +38,11 @@ const BiddingKnowYourCar = ({
       <p className="text-2xl text-black font-bold my-6 md:ml-12 font-[Merriweather]">
         Know your Car
       </p>
+      <div className="w-full md:w-full">
       <CardUi>
-        <div className="w-3/4 h-max md:w-full">
-          <div className="md:flex md:justify-between pl-4 align-middle items-center">
-            <div className="flex items-center gap-6 md:mr-6">
+        <div className="w-full h-max md:w-full">
+          {/* <div className="md:flex md:justify-between pl-4 align-middle items-center"> */}
+            {/* <div className="flex items-center gap-6 md:mr-6">
               <div className="bg-blue-50 py-3 md:px-2 rounded-xl">
                 <IoLogoModelS className="w-12 h-8" />
               </div>
@@ -52,8 +54,8 @@ const BiddingKnowYourCar = ({
                   Top varient that is equipped with all features of the model
                 </div>
               </div>
-            </div>
-            <div className="flex items-center gap-6 mr-6 mt-11 md:mt-0">
+            </div> */}
+            {/* <div className="flex items-center gap-6 mr-6 mt-11 md:mt-0">
               <div className="bg-blue-50 py-3 px-2 rounded-xl">
                 <GrServices className="w-12 h-8" />
               </div>
@@ -65,9 +67,9 @@ const BiddingKnowYourCar = ({
                   Top varient that is equipped with all features of the model
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="flex items-center gap-6 mt-11 pl-4">
+            </div> */}
+          {/* </div> */}
+          {/* <div className="flex items-center gap-6 mt-11 pl-4">
             <div className="bg-blue-50 py-3 px-2 rounded-xl">
               <MdOutlineAirlineSeatReclineExtra className="w-12 h-8" />
             </div>
@@ -80,7 +82,7 @@ const BiddingKnowYourCar = ({
                 features of the model
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className="max-w-full flex justify-start gap-10 px-4 md:justify-between mt-10 flex-wrap">
             <div className="flex flex-col">
@@ -202,6 +204,7 @@ const BiddingKnowYourCar = ({
           </div>
         </div>
       </CardUi>
+      </div>
     </>
   );
 };

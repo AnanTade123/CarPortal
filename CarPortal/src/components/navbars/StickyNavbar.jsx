@@ -49,10 +49,12 @@ export function StickyNavbar() {
   const UserId = token ? jwtDecodes?.userId : null;
 
   const location = useLocation();
+ 
+  const handleMenuItemClick = () => {
+    setOpenNav(false)
+  };
 
   const active = location.pathname === `/dealer/${jwtDecodes?.dealerId}`;
-
-  console.log(userRole);
   function NavListMenu() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -190,6 +192,7 @@ export function StickyNavbar() {
               ? "bg-indigo-200 text-white"
               : ""
           }`}
+          onClick={handleMenuItemClick}
         >
           Dealers
         </Typography>
@@ -206,6 +209,7 @@ export function StickyNavbar() {
               ? "bg-indigo-200 text-white"
               : ""
           }`}
+          onClick={handleMenuItemClick}
         >
           Inspectors
         </Typography>
@@ -220,6 +224,7 @@ export function StickyNavbar() {
               ? "bg-indigo-200 text-white"
               : ""
           }`}
+          onClick={handleMenuItemClick}
         >
           Seller
         </Typography>
@@ -241,6 +246,7 @@ export function StickyNavbar() {
               ? "bg-indigo-200 text-white"
               : ""
           }`}
+          onClick={handleMenuItemClick}
         >
           Cars
         </Typography>
@@ -270,6 +276,7 @@ export function StickyNavbar() {
               ? "bg-indigo-200 text-white"
               : ""
           }`}
+          onClick={handleMenuItemClick}
         >
           Buy Car
         </Typography>
@@ -285,6 +292,7 @@ export function StickyNavbar() {
               ? "bg-indigo-200 text-white"
               : ""
           }`}
+          onClick={handleMenuItemClick}
         >
           Live Cars
         </Typography>
@@ -303,12 +311,13 @@ export function StickyNavbar() {
               ? "bg-indigo-200 text-white"
               : ""
           }`}
+          onClick={handleMenuItemClick}
         >
-          Pendig Request
+          Pending Request
         </Typography>
       </Link>
 
-      <Link to={`/dealer/${jwtDecodes?.dealerId}/booking/confirm`}>
+      <Link to={`/dealer/${jwtDecodes?.dealerId}/booking/confirm`} >
         <Typography
           as="li"
           variant="small"
@@ -319,6 +328,7 @@ export function StickyNavbar() {
               ? "bg-indigo-200 text-white"
               : ""
           }`}
+          onClick={handleMenuItemClick}
         >
           Confirm Booking
         </Typography>
@@ -365,6 +375,22 @@ export function StickyNavbar() {
 
       </Link> */}
 
+<Link to={`/user/${jwtDecodes?.userId}/favorite`}>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname ===
+            `/dealer/${jwtDecodes?.userId}/booking/confirm`
+              ? "bg-indigo-200 text-white"
+              : ""
+          }`}
+        >
+          Favorite
+        </Typography>
+      </Link>
+
       <NotificationDialog />
     </>
   ) : null;
@@ -372,10 +398,10 @@ export function StickyNavbar() {
   React.useEffect(() => {
     window.addEventListener(
       "resize",
-
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
+
 
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 p-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
@@ -387,6 +413,7 @@ export function StickyNavbar() {
           className={`p-3 rounded-md font-normal ${
             window.location.pathname === "/" ? "bg-indigo-200 text-white" : ""
           }`}
+          onClick={handleMenuItemClick}
         >
           Home
         </Typography>
@@ -405,16 +432,14 @@ export function StickyNavbar() {
                 ? "bg-indigo-200 text-white"
                 : ""
             }`}
+            onClick={handleMenuItemClick}
           >
             Buy Car
           </Typography>
         </Link>
       )}
-
       {adminDashboard}
-
       {dealerDashboard}
-
       {userDashboard}
       {inspectorDashboard}
       {salePersonDashboard}
@@ -426,7 +451,7 @@ export function StickyNavbar() {
       <div className="flex items-center justify-between text-blue-gray-900">
         <Link to={"/"}>
           <Typography className="mr-4 cursor-pointer py-1.5 font-bold text-2xl">
-            Cartechindia
+            CarTechIndia
           </Typography>
         </Link>
 
@@ -507,7 +532,7 @@ export function StickyNavbar() {
 
       <Collapse open={openNav}>
         {navList}
-
+        {token ? null : (
         <div className="flex items-center gap-x-1">
           <Link to="/signin">
             <Button fullWidth variant="text" size="sm" className="">
@@ -520,7 +545,7 @@ export function StickyNavbar() {
               <span>Sign up</span>
             </Button>
           </Link>
-        </div>
+        </div> )}
       </Collapse>
     </Navbar>
   );

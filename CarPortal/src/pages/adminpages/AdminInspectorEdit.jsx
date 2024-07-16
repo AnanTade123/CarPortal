@@ -8,11 +8,12 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
  
-const AdminInspectorEdit = () => {
+const   AdminInspectorEdit = () => {
   const { userid, inspectorprofileid } = useParams();
   const userId = userid;
   const navigate = useNavigate();
   const { data, isLoading, isError, error } = useInspectorByIdQuery({ userId });
+  console.log(data)
   const [inspectorupdate] = useInspectorupdateMutation();
  
   const [inputField, setInputField] = React.useState({
@@ -91,7 +92,7 @@ const AdminInspectorEdit = () => {
   }
  
   return (
-    <div className="mx-auto container flex justify-center w-[50%]">
+    <div className="mx-auto container flex justify-center w-full md:w-[50%]">
       <form className="w-full border border-gray-500 px-2 py-2 rounded-md mt-2 mb-2" onSubmit={onSubmitHandler}>
         <div className="mt-5">
           <p className="text-3xl font-semibold">Edit Inspector Details</p>

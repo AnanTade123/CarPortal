@@ -15,6 +15,7 @@ import TableComponent from "../../components/table/TableComponent";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AddInspectorForm } from "../AddInspectorForm";
+import InspectorStatusDialogBox from "./InspectorStatusDialogBox";
  
 export default function InspectorList() {
   const [pageNo, setPageNo] = useState(0);
@@ -67,10 +68,28 @@ export default function InspectorList() {
       Header: "City",
       accessor: "city",
     },
+    
     {
       Header: "Email",
       accessor: "email",
     },
+    {
+      Header: "Status",
+      accessor: "status",
+      Cell: (cell) => {
+        const a = cell.row.values.status
+        console.log("Status",a);
+        return (
+          <div>
+            <div className="flex gap-2 justify-center items-center">
+              <InspectorStatusDialogBox  data={data} userId={cell.row.values.userId} inspectorProfileId={cell.row.values.inspectorProfileId} status={cell.row.values.status} />
+            
+            </div>
+          </div>
+        );
+      },
+    },
+    
     {
       Header: "Actions",
       accessor: "Actions",

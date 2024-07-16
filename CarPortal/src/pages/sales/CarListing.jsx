@@ -34,7 +34,8 @@ export default function CarListing() {
   const [open, setOpen] = useState(false);
   const [deleteid, setDeleteid] = useState();
   // const [bidCarList, setBidCarList] = useState([]);
-  // const itemsPerPage = 10;
+
+  const itemsPerPage = 10;
 
   const handleOpen = (id) => {
     setOpen(!open);
@@ -172,9 +173,15 @@ export default function CarListing() {
   let biddingCarData;
   if (isLoading) {
     return <p>isLoading</p>;
-  } else {
-    biddingCarData = data ? data.slice(Math.max(data.length - 10, 0)) : [];
-  }
+  } 
+  // else {
+  //   biddingCarData = data ? data.slice(Math.max(data.length - 10, 0)) : [];
+  // }
+
+  const startIndex = pageNo * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedData = data ? data.slice(startIndex, endIndex) : [];
+
   return (
     <>
       <h1 className="mt-2 text-xl ml-2 mb-5 font-bold">Car Listing</h1>
@@ -232,14 +239,16 @@ export default function CarListing() {
                 </Link>
               </div>
               <CardBody className="overflow-scroll px-0">
-                <TableComponent columns={columns} data={biddingCarData} />
+                <TableComponent columns={columns} data={paginatedData} />
               </CardBody>
               <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
                 <Button
                   variant="outlined"
                   size="sm"
-                  disabled={pageNo <= 0}
-                  onClick={() => setPageNo((a) => a - 1)}
+                  // disabled={pageNo <= 0}
+                  // onClick={() => setPageNo((a) => a - 1)}
+                   disabled={pageNo <= 0}
+                  onClick={() => setPageNo((prev) => Math.max(prev - 1, 0))}
                 >
                   Previous
                 </Button>
@@ -253,8 +262,10 @@ export default function CarListing() {
                 <Button
                   variant="outlined"
                   size="sm"
-                  onClick={nextHandler}
-                  disabled={data?.list?.length < 10}
+                  // onClick={nextHandler}
+                  // disabled={data?.list?.length < 10}
+                  onClick={() => setPageNo((prev) => (data?.length > endIndex ? prev + 1 : prev))}
+                  disabled={data?.length <= endIndex}
                 >
                   Next
                 </Button>

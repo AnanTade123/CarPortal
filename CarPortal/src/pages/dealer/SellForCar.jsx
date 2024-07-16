@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useDealerIdByCarQuery } from "../../services/carAPI";
 import { Tooltip } from "@material-tailwind/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // eslint-disable-next-line no-unused-vars
 import TableComponent from "../../components/table/TableComponent";
 import {
@@ -26,11 +26,28 @@ const SellForCar = () => {
   const { id } = useParams();
 
   const [carRemove] = useCarRemoveMutation();
+  const active = "ACTIVE";
+  const pending = "PENDING";
+  const sell = "SOLD";
+  const deactive = "DEACTIVATE";
+  const { data, isLoading, error } = useDealerIdByCarQuery({ id, pageNo ,status: active });
+  const { data : pendingData, isLoading : pendingIsLoding, error : pendingerror } = useDealerIdByCarQuery({ id, pageNo ,status: pending });
+  const { data : sellData, isLoading : sellIsLoding, error : sellerror } = useDealerIdByCarQuery({ id, pageNo ,status: sell });
+  const { data : deactiveData, isLoading : deactiveIsLoding, error : deactiveerror } = useDealerIdByCarQuery({ id, pageNo ,status: deactive });
+  // const { data, isLoading, error } = useDealerIdByCarQuery({ id, pageNo ,"ACTIVE" });
 
-  const { data, isLoading, error } = useDealerIdByCarQuery({ id, pageNo });
+  const activeCarsData = data?.list?.filter(car => car?.carStatus === "ACTIVE");
+
+  const [totalCars, setTotalCars] = useState(data?.list?.length || "-");
+  const [activeCars, setActiveCars] = useState(data?.list?.length || "-");
+  const [pendingCars, setPendingCars] = useState(pendingData?.list?.length || "-");
+  const [inspectionDone, setInspectionDone] = useState(data?.length || "-");
+  const [sellCars, setSellCars] = useState(sellData?.length || "-");
+  const [deactiveCars, setdeactiveCars] = useState(deactiveData?.length || "-");
 
   const [open, setOpen] = useState(false);
-  const [deleteid ,setDeleteid] = useState()
+  const [deleteid ,setDeleteid] = useState();
+  const [list ,setList] = useState([]);
  
   const handleOpen = (carId) => {
     setOpen(!open);
@@ -42,12 +59,46 @@ const SellForCar = () => {
     setOpen(!open)
   };
 
+  const handleFilterActiveCars= () => {
+    setList(data?.list)
+  }
+
+  const handleFilterPendingCars= () => {
+    console.log("pendingData?.list",pendingData?.list)
+    setList(pendingData?.list ?? [])
+  }
+
+  const handleFilterSellCars= () => {
+    setList(sellData?.list ?? [])
+  }
+  const handleFilterDeactiveCars = () => {
+    setList(deactiveData?.list ?? [])
+
+  }
+
   const deleteDealerHandler = async (carId) => {
     console.log(id);
     console.log(carId);
     const res = await carRemove({ id, carId });
     console.log(res);
   };
+  useEffect(() => {
+    if (data) {
+      const totalCars = 
+      (data?.list?.length ?? 0) + 
+      (pendingData?.list?.length ?? 0) + 
+      (sellData?.list?.length ?? 0)+
+      (deactiveData?.list?.length ?? 0);
+
+      setTotalCars(totalCars);
+      setActiveCars(data?.list?.length || "-");
+      setPendingCars(pendingData?.list?.length || "-");
+      setInspectionDone(activeCarsData?.list?.length || "-");
+      setSellCars(sellData?.list?.length || "-");
+      setdeactiveCars(deactiveData?.list?.length || "-");
+      setList(data?.list)
+    }
+  }, [data ,pendingData , sellData,deactiveData]);
   const nextHandler = () => {
     setPageNo((prevPageNo) => {
       // Check if the error status is 404
@@ -66,15 +117,16 @@ const SellForCar = () => {
 
   // eslint-disable-next-line no-unused-vars
   const columns = [
+    
+  {
+    Header: "ID",
+    accessor: "carId",
+  },
+
     {
-      Header: "ID",
-      accessor: "carId",
-    },
-    {
-      Header: "Brand",
+      Header: "Brand ",
       accessor: "brand",
     },
-
     {
       Header: "Model ",
       accessor: "model",
@@ -114,11 +166,11 @@ const SellForCar = () => {
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
-              <Link to={`/car/${cell.row.values.carId}/pendinguser`}>
+              {/* <Link to={`/car/${cell.row.values.carId}/pendinguser`}>
                 <div className="w- h-">
                   <MdPendingActions color="#b09b12" className="h-6 w-6" />
                 </div>
-              </Link>
+              </Link> */}
               <Link to={`/carlist/cardetails/${cell.row.values.carId}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -287,6 +339,8 @@ const SellForCar = () => {
   } else {
     dealerApiData = data?.list;
   }
+
+ 
   
   // const data1 = [
   //   {
@@ -306,25 +360,26 @@ const SellForCar = () => {
     <>
      <h1 className="mt-2 text-2xl ml-2 mb-5 font-bold">Car Listing</h1>
      <div className="flex flex-wrap justify-center divide-x-4 mx-5 mb-8">
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-green-500 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
-          <div className="text-4xl font-bold text-white">100</div>
+        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-400 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer">
+          <div className="text-4xl font-bold text-white">{totalCars}</div>
           <div className="mt-2 font-medium">Total Cars</div>
         </div>
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-orange-500 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
-          <div className="text-4xl font-bold text-white">20/100</div>
+        <div onClick={handleFilterActiveCars} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-green-500 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer">
+          <div className="text-4xl font-bold text-white">{activeCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Active Cars</div>
         </div>
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-red-400 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
-          <div className="text-4xl font-bold text-white">30/100</div>
+        <div onClick={handleFilterPendingCars} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-yellow-800 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer">
+          <div className="text-4xl font-bold text-white">{pendingCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Pending Cars</div>
         </div>
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-300 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
-          <div className="text-4xl font-bold text-white">25/100</div>
-          <div className="mt-2 font-medium">Inspection Done Cars</div>
+        
+        <div onClick={handleFilterSellCars} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-500 rounded-2xl shadow-xl sm:mb-2 sm:mr-5 cursor-pointer">
+          <div className="text-4xl font-bold text-white">{sellCars}/{totalCars}</div>
+          <div className="mt-2 font-medium">Sold Cars</div>
         </div>
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-green-500 rounded-2xl shadow-xl sm:mb-2 sm:mr-5">
-          <div className="text-4xl font-bold text-white">41</div>
-          <div className="mt-2 font-medium">Sell Cars</div>
+        <div  onClick={handleFilterDeactiveCars} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-red-500 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer">
+          <div className="text-4xl font-bold text-white">{deactiveCars}/{totalCars}</div>
+          <div className="mt-2 font-medium">Deactive Cars</div>
         </div>
       </div>
       {error?.status === 404 ? (
@@ -388,7 +443,7 @@ const SellForCar = () => {
               </div> */}
 
               <div className="overflow-scroll px-0">
-              <TableComponent columns={columns} data={dealerApiData} />
+              <TableComponent columns={columns} data={list} />
               </div>
             </CardHeader>
             {error ? (
@@ -441,7 +496,7 @@ const SellForCar = () => {
                   variant="outlined"
                   size="sm"
                   onClick={nextHandler}
-                  disabled={data?.list?.length < 10}
+                  disabled={list?.length < 10}
                 >
                   Next
                 </Button>

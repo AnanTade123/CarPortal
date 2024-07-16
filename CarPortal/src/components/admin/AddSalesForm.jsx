@@ -111,7 +111,7 @@ export function AddSalesForm() {
         <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add Seller
       </Button>
       <Dialog
-        size="xs"
+        size="md"
         open={open}
         handler={handleOpen}
         className="bg-transparent shadow-none"

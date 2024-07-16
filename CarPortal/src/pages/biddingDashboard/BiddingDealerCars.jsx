@@ -10,7 +10,7 @@ import {
 import {  useBiddingAllCardQuery } from "../../services/biddingAPI";
  
 import TableComponent from "../../components/table/TableComponent";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 // import { MdPendingActions } from "react-icons/md";
 // import StatusDialogeBox from "../../ui/StatusDialogeBox";
 // import BiddingDailogeBox from "../../ui/BiddingDialogeBox";
@@ -19,10 +19,11 @@ import { Link, useParams } from "react-router-dom";
 // import BiddingSetTime from "../../ui/BiddingSetTime";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
-import { useState } from "react";
+import {  useEffect, useState } from "react";
 
 const BiddingDealerCars = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
  
   const token = Cookies.get("token");
   let jwtDecodes;
@@ -38,11 +39,31 @@ const BiddingDealerCars = () => {
   // const { data, isLoading, error } = useBiddingCarByDealerIdQuery(UserID);
   // const { data, isLoading, error } = useGetByDealerIdQuery(dealerId);
   const {data , isLoading, error } = useBiddingAllCardQuery();
-  const [totalCars] = useState(data?.length || "-");
+  const [totalCars,setTotalCars] = useState(data?.length || "-");
+  const activeCarCount = data?.filter(car => car.carStatus === "ACTIVE").length;
+  const pendingCarCount =  data?.filter(car => car.carStatus === "pending").length;
+  const soldCarCount =  data?.filter(car => car.carStatus === "sold").length;
+  
+  const [activeCars,setActiveCars ] = useState(activeCarCount || "-");
+  const [pendingCars ,setPendingCars ] = useState(pendingCarCount || "-");
+  const [soldCars , setSoldCars] = useState(soldCarCount || "-");
+  console.log("activeCarCount",error);
 
-  const itemsPerPage = 7;
+  const itemsPerPage = 10;
+  useEffect(() => {
+    if (data) {
+      setTotalCars(data?.length);
+      setActiveCars(data?.filter((car) => car.carStatus === "ACTIVE").length);
+      setPendingCars(data?.filter((car) => car.carStatus === "pending").length);
+      setSoldCars(data?.filter((car) => car.carStatus === "sold").length);
+      
+    }
+  }, [data]);
   if (isLoading) {
     return <p>Loading..</p>;
+  }
+  if(error?.status){
+    navigate("/signin");
   }
   // const userId = data[0].userId; // Access userId from the first object
   // console.log('User ID:', userId);
@@ -253,15 +274,21 @@ const BiddingDealerCars = () => {
   let dealerApiData;
   if (isLoading) {
     return <p>isLoading</p>;
-  } else {
-    dealerApiData = data ? data.slice(Math.max(data.length - 10, 0)) : [];
+  } 
+  else {
+    dealerApiData = data ? data?.slice(Math.max(data.length - 10, 0)) : [];
     // dealerApiData = data;
   }
+
+ 
+  
+
   console.log("dealerApiData------",dealerApiData);
   const startIndex = pageNo * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   // eslint-disable-next-line no-unused-vars
   const paginatedData = data ? data.slice(startIndex, endIndex) : [];
+
  
   return (
     <>
@@ -272,19 +299,19 @@ const BiddingDealerCars = () => {
           <div className="mt-2 font-medium">Total Cars</div>
         </div>
         <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-orange-500 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
-          <div className="text-4xl font-bold text-white">20/100</div>
+          <div className="text-4xl font-bold text-white">{activeCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Active Cars</div>
         </div>
         <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-red-400 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
-          <div className="text-4xl font-bold text-white">30/100</div>
+          <div className="text-4xl font-bold text-white">{pendingCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Pending Cars</div>
         </div>
         <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-300 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
-          <div className="text-4xl font-bold text-white">25/100</div>
+          <div className="text-4xl font-bold text-white">{activeCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Inspection Done Cars</div>
         </div>
         <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-green-500 rounded-2xl shadow-xl sm:mb-2 sm:mr-5">
-          <div className="text-4xl font-bold text-white">41</div>
+          <div className="text-4xl font-bold text-white">{soldCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Sell Cars</div>
         </div>
       </div>
@@ -319,7 +346,7 @@ const BiddingDealerCars = () => {
             </div>
           </CardHeader>
           <CardBody className="overflow-scroll px-0">
-            <TableComponent columns={columns} data={dealerApiData} />
+            <TableComponent columns={columns} data={paginatedData} />
           </CardBody>
           <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
             <Typography
@@ -328,6 +355,8 @@ const BiddingDealerCars = () => {
               className="font-normal"
             >
               {/* Page {pageNo + 1} */}
+              Page {pageNo + 1}
+
             </Typography>
             <div className="flex gap-2">
               <Button
@@ -335,6 +364,8 @@ const BiddingDealerCars = () => {
                 size="sm"
                 // disabled={pageNo <= 0}
                 // onClick={() => setPageNo((a) => a - 1)}
+                disabled={pageNo <= 0}
+                onClick={() => setPageNo((prev) => Math.max(prev - 1, 0))}
               >
                 Previous
               </Button>

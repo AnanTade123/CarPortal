@@ -34,8 +34,6 @@ const PriceCard = ({
   handleBuyCar,
 }) => {
   const cookie = Cookies.get("token");
-
-  console.log(cookie);
   const jwtDecodes = cookie ? jwtDecode(cookie) : null;
 
   const userRole = jwtDecodes?.authorities[0];
@@ -46,16 +44,16 @@ const PriceCard = ({
 
   console.log(data);
   return (
-    <div>
+    <div className="border mx-auto shadow-xl w-full md:w-full">
     <CardUi>
       <div className="w-full md:w-full ">
         <p className="font-extrabold text-2xl text-black uppercase font-[latto] ml-2 ">
           {year} {brand} {model}
         </p>
-        <p className="uppercase font-[Merriweather] ml-2 md:ml-0">
+        <p className="uppercase font-[Merriweather] ml-2 ">
           {color} {bodyType} & MANUAL
         </p>
-        <div className="my-4 flex gap-2 overflow-x-auto scrollbar ml-2 md:ml-0">
+        <div className="my-4 flex gap-2 flex-wrap scrollbar ml-2">
           <Chip
             variant="outlined"
             value={`${kmDriven} KM`}
@@ -89,13 +87,13 @@ const PriceCard = ({
             className="text-base text-black font-[latto] hover:bg-gray-900 hover:text-white"
           />
         </div>
-        <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
+        <div className="flex align-bottom items-baseline gap-3 ml-2">
           <IoHome />
           <div className=" mt-4 text-base font-[lotto]">
             Home Test Drive Available
           </div>
         </div>
-        <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
+        <div className="flex align-bottom items-baseline gap-3 ml-2">
           <FaLocationDot />
           <div className=" mt-4 text-base text-gray-700 font-[lotto]">
             Parked at: {area},{city}
@@ -103,7 +101,7 @@ const PriceCard = ({
         </div>
         {
           userRole === 'DEALEAR' ? (
-            <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
+            <div className="flex align-bottom items-baseline gap-3 ml-2">
             <FaFileAlt />
             <div className=" mt-4 text-base text-gray-700 font-[lotto]">
               View Inspection Report
@@ -111,7 +109,7 @@ const PriceCard = ({
           </div>
           ) : null
         }
-        <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
+        <div className="flex align-bottom items-baseline gap-3 ml-2 ">
           <IoLogoWhatsapp />
           <div className=" mt-4 mb-6 text-base text-gray-700 font-[lotto]">
             Get Service History Report
@@ -170,8 +168,9 @@ const PriceCard = ({
       
     </CardUi>
     <div>
-  <DealerContact dealer_id={dealer_id}/>
-</div>
+      {cookie && (
+        <DealerContact dealer_id={dealer_id}/>)}
+      </div>
 
     </div>
     

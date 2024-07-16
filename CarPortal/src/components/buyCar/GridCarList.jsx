@@ -22,7 +22,7 @@ const GridCarList = ({ data, error }) => {
             return (
               <div key={index}>
                 <div className="flex">
-                  <CardDefault data={items} />
+                  <CardDefault data={items} Carid={items.carId} />
                 </div>
               </div>
             );
