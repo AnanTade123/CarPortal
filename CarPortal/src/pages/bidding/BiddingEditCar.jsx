@@ -322,6 +322,7 @@ export default function BiddingEditCar() {
                 value={formData?.cVariant}
                 onChange={handleVariantChange}
                 disabled={!modelOptions.length}
+                required
               >
                 <option value="">Car Variant</option>
                 {variantOptions?.map((cVariant, i) => (
