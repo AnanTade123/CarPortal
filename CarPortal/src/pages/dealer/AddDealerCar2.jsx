@@ -261,7 +261,7 @@ console.log(variantData)
     <ToastContainer/>
     <div className="md:flex justify-center m-6 md:m-0">
       <div>
-        <form onSubmit={handleSubmit} className="w-full md:w-[50rem]">
+        <form onSubmit={handleSubmit} className="w-full md:w-[45rem]">
           <div className="flex justify-center">
             <p className="text-3xl font-semibold m-4">Add Dealer Car</p>
           </div>
@@ -273,7 +273,6 @@ console.log(variantData)
         freeSolo
         options={brands}
         getOptionLabel={(option) => option}
-        sx={{ width: 390 }}
         onChange={handleBrandChange}
         
         renderInput={(params) => <TextField sx={{ 
@@ -306,7 +305,6 @@ console.log(variantData)
         freeSolo
         options={modelOptions}
         getOptionLabel={(option) => option}
-        sx={{ width: 400, height:50 }}
         onChange={handleModelChange}
         
         renderInput={(params) => <TextField sx={{ 
@@ -340,8 +338,7 @@ console.log(variantData)
         id="free-solo-demo"
         freeSolo
         options={variantOptions}
-        getOptionLabel={(option) => option}
-        sx={{ width: 390 }}
+        getOptionLabel={(option) => option}   
         onChange={handleVariantChange}
         
         renderInput={(params) => <TextField sx={{ 

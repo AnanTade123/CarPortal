@@ -191,7 +191,7 @@ export default function EditDealerCar() {
     <div className="md:flex justify-center m-6 md:m-0">
       <div>
       
-        <form onSubmit={handleSubmit} className="w-full  md:w-[50rem]">
+        <form onSubmit={handleSubmit} className="w-full  md:w-[45rem]">
           <div className="flex justify-center">
             <p className="text-3xl font-semibold m-4">Edit Dealer Car</p>
           </div>
