@@ -474,7 +474,8 @@ console.log(variantData)
       <select
         className="w-full border-2 border-gray-400 p-2 rounded-md"
         name="ownerSerial"
-        value={formData.ownerSerial}
+        value={formData.ownerSerial
+        }
         onChange={(event) =>
           setFormData({
             ...formData,
@@ -485,11 +486,11 @@ console.log(variantData)
         <option value="" disabled>
           Select Owner Serial
         </option>
-        <option value="1">1st</option>
-        <option value="2">2nd</option>
-        <option value="3">3rd</option>
-        <option value="4">4th</option>
-        <option value="5">4th +</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
       </select>
     </div>
           </div>
@@ -528,7 +529,7 @@ console.log(variantData)
                 <>
                 <div className="mt-3">
                   <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
+                    className="block text-gray-700 text-sm font-bold "
                     htmlFor="date"
                   >
                     Select Date
@@ -541,6 +542,12 @@ console.log(variantData)
                     className="w-full border-2 border-gray-400 p-2 rounded-md"
                   />
                 </div>
+                <label
+                    className="block text-gray-700 text-sm font-bold mt-2"
+                    htmlFor="date"
+                  >
+                 Insurance Type
+                  </label>
                 <select
                  required
                  className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -548,9 +555,10 @@ console.log(variantData)
                  value={formData.carInsuranceType}
                  onChange={handleChangeType}
                >
-                 <option value=""> Insurance Type</option>
+              
+                 
                  <option value="Comprehensive">Comprehensive</option>
-                 <option value="Zero Dept">Zero Dept</option>
+                 <option value="Zero Dept">Zero Depreciation </option>
                  <option value="Third Party">Third Party</option>
                </select>
               </>
