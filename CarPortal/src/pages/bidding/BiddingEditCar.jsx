@@ -97,6 +97,8 @@ export default function BiddingEditCar() {
     tyre: "",
     userId:userid,
     dealerId: Carid?.dealerId,
+    carInsuranceType: Carid?.carInsuranceType,
+
   });
   const { data: variantData } = useGetVariantsQuery(selectedBrand, {
     skip: !selectedBrand,
@@ -134,6 +136,7 @@ export default function BiddingEditCar() {
         tyre: Carid?.tyre || "",
         dealerId: Carid?.dealerId || "",
         title: Carid?.title || "",
+        insuranceType: Carid?.carInsuranceType || ""
       });
       setSelectedModel(Carid?.model);
       setSelectedBrand(Carid?.brand);
@@ -174,7 +177,8 @@ export default function BiddingEditCar() {
       year: formData.year,
       dealerId: formData.dealerId,
       date: "2023-07-19",
-      beadingCarId : beadingCarId
+      beadingCarId : beadingCarId,
+      carInsuranceType:formData.carInsuranceType
     };
 
     try {
@@ -201,6 +205,13 @@ export default function BiddingEditCar() {
   //     registration: "", // Reset registration when city changes
   //   });
   // };
+  const handleChangeType = (event) => {
+    const value = event.target.value;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      carInsuranceType: value,
+    }));
+  }
 
   const handleChange = (event) => {
     const value = event.target.value === "true";
@@ -435,7 +446,7 @@ export default function BiddingEditCar() {
                 <option value="" disabled>
                   Select Owner Serial
                 </option>
-                {["1st", "2nd", "3rd", "4th", "5th"].map((serial) => (
+                {["1", "2", "3", "4", "5"].map((serial) => (
                   <option key={serial} value={serial}>
                     {serial}
                   </option>
@@ -471,6 +482,7 @@ export default function BiddingEditCar() {
                 <option value="false">No</option>
               </select>
               {showCalendar && (
+                <>
                 <div className="mt-3">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
@@ -486,6 +498,25 @@ export default function BiddingEditCar() {
                     className="w-full border-2 border-gray-400 p-2 rounded-md"
                   />
                 </div>
+                <label
+                    className="block text-gray-700 text-sm font-bold mt-2"
+                    htmlFor="insurance"
+                  >
+                 Insurance Type
+                  </label>
+                <select
+                 required
+                 className="w-full border-2 border-gray-400 p-2 rounded-md"
+                 name="carInsurance"
+                 value={formData.carInsuranceType}
+                 onChange={handleChangeType}
+               >
+                 <option value=""> Insurance Type</option>
+                 <option value="Comprehensive">Comprehensive</option>
+                 <option value="Zero Dept">Zero Depreciation </option>
+                 <option value="Third Party">Third Party</option>
+               </select>
+                </>
               )}
             </div>
           </div>
