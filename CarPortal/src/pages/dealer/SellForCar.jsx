@@ -374,11 +374,11 @@ const SellForCar = () => {
           <div className="mt-2 font-medium">Pending Cars</div>
         </div>
         
-        <div onClick={handleFilterSellCars} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-500 rounded-2xl shadow-xl sm:mb-2 sm:mr-5 cursor-pointer">
+        <div onClick={handleFilterSellCars} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-500 rounded-2xl shadow-xl sm:mb-2 mb-5 sm:mr-5 cursor-pointer">
           <div className="text-4xl font-bold text-white">{sellCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Sold Cars</div>
         </div>
-        <div  onClick={handleFilterDeactiveCars} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-red-500 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer">
+        <div  onClick={handleFilterDeactiveCars} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-red-500 rounded-2xl shadow-xl  sm:mb-2 sm:mr-5 cursor-pointer">
           <div className="text-4xl font-bold text-white">{deactiveCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Deactive Cars</div>
         </div>

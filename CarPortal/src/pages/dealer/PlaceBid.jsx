@@ -75,15 +75,16 @@ const handleamountChange = (e) => {
 
   return (
     <>
+      <div className="">
       <Button onClick={handleOpen} className="bg-[#045e4f]">
         Place Bid
       </Button>
-      <Dialog open={open} handler={handleOpen}>
+      <Dialog open={open} handler={handleOpen} className="max-w-full">
         <DialogHeader>Place Your Bid</DialogHeader>
         <DialogBody>
           {error && <p className="text-red-500">{error}</p>} {/* Display error message if present */}
           {/* <Input label="Amount" value={bidAmount} onChange={handleamountChange} /> */}
-          <div className="flex  w-full max-w-[35rem]">
+          <div className="flex   w-full max-w-[35rem]">
           <Button
             
               // color={email ? "gray" : "blue-gray"}
@@ -124,6 +125,7 @@ const handleamountChange = (e) => {
           </Button>
         </DialogFooter>
       </Dialog>
+      </div>
     </>
   );
 }
