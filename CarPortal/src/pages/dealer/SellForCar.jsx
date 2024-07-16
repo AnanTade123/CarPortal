@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useDealerIdByCarQuery } from "../../services/carAPI";
 import { Tooltip } from "@material-tailwind/react";
