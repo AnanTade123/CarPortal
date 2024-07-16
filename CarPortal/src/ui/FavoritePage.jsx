@@ -31,7 +31,7 @@ export function FavoritePage() {
   }
 
   return (
-    <div className="flex flex-wrap justify-center mx-auto lg:gap-5">
+    <div className="flex flex-wrap justify-center mx-auto space-y-5 lg:space-y-0 md:space-y-5 lg:gap-5">
       {userCars?.list && userCars?.list?.map((data , key) => (
         <FavCard favoriteCarData={data} key={key}/> 
       ))}
