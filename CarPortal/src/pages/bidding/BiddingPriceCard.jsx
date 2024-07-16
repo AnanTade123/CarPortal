@@ -59,7 +59,7 @@ const BiddingPriceCard = ({
   return (
     <div className="w-full md:w-full">
     <CardUi>
-      <div className="w-full md:w-full">
+      <div className="w-full md:w-full p-4">
         <p className="font-extrabold text-2xl text-black uppercase font-[latto] ml-2">
           {data?.year} {data?.brand} {data?.model}
         </p>

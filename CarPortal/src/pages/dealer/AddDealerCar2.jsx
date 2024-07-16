@@ -6,8 +6,9 @@ import { useCarRegisterMutation } from "../../services/carAPI";
 import { useNavigate, useParams } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
 import {useGetOnlyBrandsQuery,useGetVariantsQuery, useGetSubVariantsQuery} from "../../services/brandAPI";
-import TextField from '@mui/material/TextField';
+
 import Autocomplete from '@mui/material/Autocomplete';
+import { TextField } from "@material-ui/core";
 
 const cityOptions = {
   Pune: ["MH-12"],
@@ -260,7 +261,7 @@ console.log(variantData)
     <ToastContainer/>
     <div className="md:flex justify-center m-6 md:m-0">
       <div>
-        <form onSubmit={handleSubmit} className="w-full md:w-[50rem]">
+        <form onSubmit={handleSubmit} className="w-full md:w-[45rem]">
           <div className="flex justify-center">
             <p className="text-3xl font-semibold m-4">Add Dealer Car</p>
           </div>
@@ -272,7 +273,6 @@ console.log(variantData)
         freeSolo
         options={brands}
         getOptionLabel={(option) => option}
-        sx={{ width: 390 }}
         onChange={handleBrandChange}
         
         renderInput={(params) => <TextField sx={{ 
@@ -305,7 +305,6 @@ console.log(variantData)
         freeSolo
         options={modelOptions}
         getOptionLabel={(option) => option}
-        sx={{ width: 400, height:50 }}
         onChange={handleModelChange}
         
         renderInput={(params) => <TextField sx={{ 
@@ -339,8 +338,7 @@ console.log(variantData)
         id="free-solo-demo"
         freeSolo
         options={variantOptions}
-        getOptionLabel={(option) => option}
-        sx={{ width: 390 }}
+        getOptionLabel={(option) => option}   
         onChange={handleVariantChange}
         
         renderInput={(params) => <TextField sx={{ 
@@ -476,7 +474,8 @@ console.log(variantData)
       <select
         className="w-full border-2 border-gray-400 p-2 rounded-md"
         name="ownerSerial"
-        value={formData.ownerSerial}
+        value={formData.ownerSerial
+        }
         onChange={(event) =>
           setFormData({
             ...formData,
@@ -487,11 +486,11 @@ console.log(variantData)
         <option value="" disabled>
           Select Owner Serial
         </option>
-        <option value="1">1st</option>
-        <option value="2">2nd</option>
-        <option value="3">3rd</option>
-        <option value="4">4th</option>
-        <option value="5">4th +</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
       </select>
     </div>
           </div>
@@ -530,7 +529,7 @@ console.log(variantData)
                 <>
                 <div className="mt-3">
                   <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
+                    className="block text-gray-700 text-sm font-bold "
                     htmlFor="date"
                   >
                     Select Date
@@ -543,6 +542,12 @@ console.log(variantData)
                     className="w-full border-2 border-gray-400 p-2 rounded-md"
                   />
                 </div>
+                <label
+                    className="block text-gray-700 text-sm font-bold mt-2"
+                    htmlFor="date"
+                  >
+                 Insurance Type
+                  </label>
                 <select
                  required
                  className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -550,9 +555,10 @@ console.log(variantData)
                  value={formData.carInsuranceType}
                  onChange={handleChangeType}
                >
-                 <option value=""> Insurance Type</option>
+              
+                 
                  <option value="Comprehensive">Comprehensive</option>
-                 <option value="Zero Dept">Zero Dept</option>
+                 <option value="Zero Dept">Zero Depreciation </option>
                  <option value="Third Party">Third Party</option>
                </select>
               </>
