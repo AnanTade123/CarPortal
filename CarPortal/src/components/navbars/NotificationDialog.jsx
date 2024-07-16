@@ -17,7 +17,13 @@ export function NotificationDialog() {
   return (
     <>
       
-      <p className="text-2xl bg-transparent hover:cursor-pointer" onClick={handleOpen}><IoNotifications color="black"/></p>
+      <p className="text-2xl bg-transparent hover:cursor-pointer" onClick={handleOpen}>
+        
+        
+        
+        
+        
+        <IoNotifications color="black"/></p>
       <Dialog open={open} handler={handleOpen}>
         <DialogHeader>
           <Typography variant="h5" color="blue-gray">

@@ -77,10 +77,11 @@ export default function PlaceBid({
 
   return (
     <>
+      <div className="">
       <Button onClick={handleOpen} className="bg-[#045e4f]">
         Place Bid
       </Button>
-      <Dialog open={open} handler={handleOpen}>
+      <Dialog open={open} handler={handleOpen} className="max-w-full">
         <DialogHeader>Place Your Bid</DialogHeader>
         <DialogBody>
           {error && <p className="text-red-500">{error}</p>}{" "}
@@ -130,6 +131,7 @@ export default function PlaceBid({
           </Button>
         </DialogFooter>
       </Dialog>
+      </div>
     </>
   );
 }
