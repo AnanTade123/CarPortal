@@ -185,24 +185,24 @@ export default function CarListing() {
   return (
     <>
       <h1 className="mt-2 text-xl ml-2 mb-5 font-bold">Car Listing</h1>
-      <div className="flex divide-x-4 mx-5">
-        <div className="flex-1 p-5 text-center mr-5 bg-green-500 rounded-2xl shadow-xl">
+      <div className="flex flex-wrap justify-center divide-x-4 mx-5 mb-8">
+        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-400 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer">
           <div className="text-4xl font-bold text-white">{totalCars}</div>
           <div className="mt-2 font-medium">Total Cars</div>
         </div>
-        <div className="flex-1 p-5 text-center mr-5 bg-orange-500 rounded-2xl shadow-xl">
+        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-green-500 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer">
           <div className="text-4xl font-bold text-white">{`${activeCars}/${totalCars}`}</div>
           <div className="mt-2 font-medium">Active Cars</div>
         </div>
-        <div className="flex-1 p-5 text-center mr-5 bg-red-400 rounded-2xl shadow-xl">
+        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-yellow-800 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer">
           <div className="text-4xl font-bold text-white">{`${pendingCars}/${totalCars}`}</div>
           <div className="mt-2 font-medium">Pending Cars</div>
         </div>
-        <div className="flex-1 p-5 text-center mr-5 bg-blue-300 rounded-2xl shadow-xl">
+        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-500 rounded-2xl shadow-xl sm:mb-2 mb-5 sm:mr-5 cursor-pointer">
           <div className="text-4xl font-bold text-white">{`${inspectionDone}/${totalCars}`}</div>
           <div className="mt-2 font-medium">Inspection Done Cars</div>
         </div>
-        <div className="flex-1 p-5 text-center mr-5 bg-green-500 rounded-2xl shadow-xl">
+        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-red-500 rounded-2xl shadow-xl  sm:mb-2 sm:mr-5 cursor-pointer">
           <div className="text-4xl font-bold text-white">{sellCars}</div>
           <div className="mt-2 font-medium">Sell Cars</div>
         </div>

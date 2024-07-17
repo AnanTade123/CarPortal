@@ -1,10 +1,14 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import Inputs from "../../forms/Inputs";
-import { Textarea, Input } from "@material-tailwind/react";
+import { Textarea, Input  } from "@material-tailwind/react";
 import { useCarRegisterMutation } from "../../services/carAPI";
 import { useNavigate, useParams } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
 import {useGetOnlyBrandsQuery,useGetVariantsQuery, useGetSubVariantsQuery} from "../../services/brandAPI";
+
+import Autocomplete from '@mui/material/Autocomplete';
+import { TextField } from "@material-ui/core";
 
 const cityOptions = {
   Pune: ["MH-12"],
@@ -44,7 +48,7 @@ const cityOptions = {
 export default function AddDealerCar() {
     const { data: brandData } = useGetOnlyBrandsQuery();
   const brands = brandData?.list.map((item) => item.brand) || [];
-
+console.log(brands)
   const [selectedBrand, setSelectedBrand] = useState('');
   const [selectedModel, setSelectedModel] = useState('');
   const [modelOptions, setModelOptions] = useState([]);
@@ -55,7 +59,7 @@ export default function AddDealerCar() {
   const { data: variantData } = useGetVariantsQuery(selectedBrand, {
     skip: !selectedBrand,
   });
-
+console.log(variantData)
   const { data: subVariantData } = useGetSubVariantsQuery(
     { brand: selectedBrand, variant: selectedModel },
     {
@@ -125,8 +129,6 @@ export default function AddDealerCar() {
 
       carStatus: "ACTIVE",
 
-      // city: formData.city,
-
       color: formData.color,
 
       description: formData.description,
@@ -174,8 +176,9 @@ export default function AddDealerCar() {
     }
   };
 
-  const handleBrandChange = (event) => {
-    const brand = event.target.value;
+  const handleBrandChange = (event, newValue) => {
+    const brand = newValue;
+    console.log(brand);
     setSelectedBrand(brand);
     setFormData({
       ...formData,
@@ -185,8 +188,8 @@ export default function AddDealerCar() {
     });
   };
 
-  const handleModelChange = (event) => {
-    const model = event.target.value;
+  const handleModelChange = (event,newValue) => {
+    const model = newValue
     setSelectedModel(model);
     setFormData({
       ...formData,
@@ -195,8 +198,9 @@ export default function AddDealerCar() {
     });
   };
 
-  const handleVariantChange = (event) => {
-    const cVariant = event.target.value;
+  const handleVariantChange = (event,newValue) => {
+    const cVariant = newValue
+    console.log(cVariant)
     setFormData({
       ...formData,
       cVariant,
@@ -257,63 +261,107 @@ export default function AddDealerCar() {
     <ToastContainer/>
     <div className="md:flex justify-center m-6 md:m-0">
       <div>
-        <form onSubmit={handleSubmit} className="w-full md:w-[50rem]">
+        <form onSubmit={handleSubmit} className="w-full md:w-[45rem]">
           <div className="flex justify-center">
             <p className="text-3xl font-semibold m-4">Add Dealer Car</p>
           </div>
           {/* first part */}
           <div className="md:flex gap-2">
           <div className="mt-5 w-full">
-                <select
-                  required
-                  className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  value={selectedBrand}
-                  onChange={handleBrandChange}
-                >
-                  <option value="">Brands</option>
-                  {brands.map((brand) => (
-                    <option key={brand} value={brand}>
-                      {brand}
-                    </option>
-                  ))}
-                </select>
+          <Autocomplete
+        id="free-solo-demo"
+        freeSolo
+        options={brands}
+        getOptionLabel={(option) => option}
+        onChange={handleBrandChange}
+        
+        renderInput={(params) => <TextField sx={{ 
+          
+          '& .MuiInputBase-root': {
+            height: '40px',
+            padding: '0 14px',
+            paddingBottom: '8px',
+            top : 0
+          },
+          '& .MuiInputBase-input': {
+            height: '100%',
+            padding: '0',
+          }
+        }}{...params}  label="Brands"
+        InputLabelProps={{
+          style: { 
+            fontSize: '0.75rem',
+            // paddingTop : '20px',
+                //  background : 'black'  
+          },  // Adjust the font size here
+        }} />}
+      />
               </div>
 
               <div className="mt-5 w-full">
-                <select
-                  required
-                  className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  value={formData.model}
-                  onChange={handleModelChange}
-                  disabled={!selectedBrand}
-                >
-                  <option value="">Models</option>
-                  {modelOptions.map((model) => (
-                    <option key={model} value={model}>
-                      {model}
-                    </option>
-                  ))}
-                </select>
+
+              <Autocomplete
+        id="free-solo-demo"
+        freeSolo
+        options={modelOptions}
+        getOptionLabel={(option) => option}
+        onChange={handleModelChange}
+        
+        renderInput={(params) => <TextField sx={{ 
+          
+          '& .MuiInputBase-root': {
+            height: '40px',
+            padding: '0 14px',
+            paddingBottom: '8px',
+            top : 0
+          },
+          '& .MuiInputBase-input': {
+            height: '100%',
+            padding: '0',
+          }
+        }}{...params}  label="Varient"
+        InputLabelProps={{
+          style: { 
+            fontSize: '0.75rem',
+            // paddingTop : '20px',
+                //  background : 'black'  
+          },  // Adjust the font size here
+        }} />}
+      />
               </div>
           </div>
 
           {/* second part */}
           <div className="md:flex">
           <div className="mt-5 w-full">
-                <select
-                  className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  name="cVariant"
-                  value={formData.cVariant}
-                  onChange={handleVariantChange}
-                  disabled={!modelOptions.length}
-                >
-                  <option value="">Car Variant</option>
-                  {variantOptions.map((cVariant) => (
-                    <option key={cVariant} value={cVariant}>
-                      {cVariant}
-                    </option>
-                  ))}
-                </select>
+          <Autocomplete
+        id="free-solo-demo"
+        freeSolo
+        options={variantOptions}
+        getOptionLabel={(option) => option}   
+        onChange={handleVariantChange}
+        
+        renderInput={(params) => <TextField sx={{ 
+          
+          '& .MuiInputBase-root': {
+            height: '40px',
+            padding: '0 14px',
+            paddingBottom: '8px',
+            top : 0
+          },
+          '& .MuiInputBase-input': {
+            height: '100%',
+            padding: '0',
+          }
+        }}{...params}  label="SubVarient"
+        InputLabelProps={{
+          style: { 
+            fontSize: '0.75rem',
+            // paddingTop : '20px',
+                //  background : 'black'  
+          },  // Adjust the font size here
+        }} />}
+      />
               </div>
 
             <div className="mt-5 md:ml-2 w-full">
@@ -426,7 +474,8 @@ export default function AddDealerCar() {
       <select
         className="w-full border-2 border-gray-400 p-2 rounded-md"
         name="ownerSerial"
-        value={formData.ownerSerial}
+        value={formData.ownerSerial
+        }
         onChange={(event) =>
           setFormData({
             ...formData,
@@ -437,11 +486,11 @@ export default function AddDealerCar() {
         <option value="" disabled>
           Select Owner Serial
         </option>
-        <option value="1">1st</option>
-        <option value="2">2nd</option>
-        <option value="3">3rd</option>
-        <option value="4">4th</option>
-        <option value="5">4th +</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
       </select>
     </div>
           </div>
@@ -480,7 +529,7 @@ export default function AddDealerCar() {
                 <>
                 <div className="mt-3">
                   <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
+                    className="block text-gray-700 text-sm font-bold "
                     htmlFor="date"
                   >
                     Select Date
@@ -493,6 +542,12 @@ export default function AddDealerCar() {
                     className="w-full border-2 border-gray-400 p-2 rounded-md"
                   />
                 </div>
+                <label
+                    className="block text-gray-700 text-sm font-bold mt-2"
+                    htmlFor="date"
+                  >
+                 Insurance Type
+                  </label>
                 <select
                  required
                  className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -500,9 +555,10 @@ export default function AddDealerCar() {
                  value={formData.carInsuranceType}
                  onChange={handleChangeType}
                >
-                 <option value=""> Insurance Type</option>
+              
+                 
                  <option value="Comprehensive">Comprehensive</option>
-                 <option value="Zero Dept">Zero Dept</option>
+                 <option value="Zero Dept">Zero Depreciation </option>
                  <option value="Third Party">Third Party</option>
                </select>
               </>

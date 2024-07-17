@@ -96,36 +96,36 @@ const BiddingDealerCars = () => {
       disableSortBy: true,
     },
  
-    {
-      Header: "Inspection Report",
-      accessor: "carStatus",
-      Cell: (cell) => {
-        console.log(cell.row.values.carStatus);
-
-
-        return userRole === "DEALER" ? (
-          <Link to={`/dealer/finalreport/${cell.row.values.beadingCarId}`} className="button-link">
-        <Button variant="gradient" color="blue">
-            View Report
-        </Button>
-          </Link>
-        ) :(
-        cell.row.values.carStatus == "pending" ? (
-          
-          
-        <Button variant="gradient" color="yellow">
-            Pending
-        </Button>
-          
-      ) : (
-          
-        <Button variant="gradient" color="green">
-            Done
-        </Button>
-         
-      ))
+    ...(userRole !== "ADMIN" ? [
+      {
+        Header: "Inspection Report",
+        accessor: "carStatus",
+        Cell: (cell) => {
+          console.log(cell.row.values.carStatus);
+  
+          return userRole === "DEALER" ? (
+            <Link to={`/dealer/finalreport/${cell.row.values.beadingCarId}`} className="button-link">
+              <Button variant="gradient" color="blue">
+                View Report
+              </Button>
+            </Link>
+          ) : cell.row.values.carStatus === "pending" ? (
+            <Link to={`/sale/carverify/${cell.row.values.beadingCarId}`}>
+            <Button variant="gradient" color="yellow">
+              Pending
+            </Button>
+            </Link>
+          ) : (
+            <Link to={`/sale/inspection/report/${cell.row.values.beadingCarId}`}>
+            
+            <Button variant="gradient" color="green">
+              Done
+            </Button>
+            </Link>
+          );
+        },
       },
-    },
+    ] : []),
     // {
     //   Header: "Set Time",
     //   accessor: "",
@@ -292,7 +292,7 @@ const BiddingDealerCars = () => {
  
   return (
     <>
-     <h1 className="mt-2 text-xl ml-2 mb-5 font-bold">Bidding Car list</h1>
+     <h1 className="mt-2 text-xl ml-2 mb-5 font-bold">Car Listing</h1>
      <div className="flex flex-wrap justify-center divide-x-4 mx-5 mb-8">
         <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-green-500 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5">
           <div className="text-4xl font-bold text-white">{totalCars}</div>
@@ -330,14 +330,14 @@ const BiddingDealerCars = () => {
         <Card className="h-full w-full">
           <CardHeader floated={false} shadow={false} className="rounded-none">
             <div className=" flex items-center justify-between gap-8">
-              {/* <div>
+              <div>
                 <Typography variant="h5" color="blue-gray">
                   Bidding Car list
                 </Typography>
                 <Typography color="gray" className="mt-1 font-normal">
                   See information about all cars
                 </Typography>
-              </div> */}
+              </div>
               {/* <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
                 <Link to={`/bidding/${UserID}/addcar`}>
                   <Button>Add Car</Button>

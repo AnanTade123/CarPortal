@@ -1,29 +1,44 @@
 /* eslint-disable no-unused-vars */
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import TableComponent from "../../components/table/TableComponent";
-import { Card, CardHeader, CardBody, CardFooter, Typography, Button, Dialog, DialogBody, DialogFooter } from "@material-tailwind/react";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Typography,
+  Button,
+  Dialog,
+  DialogBody,
+  DialogFooter,
+} from "@material-tailwind/react";
 import { CarModelsForm } from "./CarModelsForm";
 import EditCarForm from "../adminpages/EdiCarForm";
-import { useGetAllBrandsQuery, useDeleteCarBrandsMutation } from "../../services/brandAPI";
+import {
+  useGetAllBrandsQuery,
+  useDeleteCarBrandsMutation,
+} from "../../services/brandAPI";
 
 const getInitialCarList = () => {
-  const data = JSON.parse(localStorage.getItem('carList')) || [];
+  const data = JSON.parse(localStorage.getItem("carList")) || [];
   return data;
 };
 
 const saveCarListToStorage = (carList) => {
-  localStorage.setItem('carList', JSON.stringify(carList));
+  localStorage.setItem("carList", JSON.stringify(carList));
 };
 
 const getNextBrandDataId = () => {
   const carList = getInitialCarList();
-  const ids = carList.map(car => car.brandDataId);
+  const ids = carList.map((car) => car.brandDataId);
   const maxId = Math.max(0, ...ids);
   return maxId + 1;
 };
 
 const CarListModels = () => {
-  const { data, refetch } = useGetAllBrandsQuery();
+  const [pageNo, setPageNo] = useState(0);
+  const [pageSize, setPageSize] = useState(50);
+  const { data, refetch, error } = useGetAllBrandsQuery({ pageNo,pageSize });
   const [deleteCarBrands] = useDeleteCarBrandsMutation();
   const [carList, setCarList] = useState(getInitialCarList());
   const [open, setOpen] = useState(false);
@@ -45,7 +60,7 @@ const CarListModels = () => {
   const addCar = (newCar) => {
     const newCarWithId = {
       ...newCar,
-      brandDataId: getNextBrandDataId()
+      brandDataId: getNextBrandDataId(),
     };
     const updatedCarList = [...carList, newCarWithId];
     setCarList(updatedCarList);
@@ -53,7 +68,9 @@ const CarListModels = () => {
   };
 
   const updateCar = (updatedCar) => {
-    const updatedCarList = carList.map(car => car.brandDataId === updatedCar.brandDataId ? updatedCar : car);
+    const updatedCarList = carList.map((car) =>
+      car.brandDataId === updatedCar.brandDataId ? updatedCar : car
+    );
     setCarList(updatedCarList);
     saveCarListToStorage(updatedCarList);
     refetch();
@@ -67,13 +84,26 @@ const CarListModels = () => {
   const deleteCar = async () => {
     try {
       await deleteCarBrands(selectedCarId).unwrap();
-      const updatedCarList = carList.filter(car => car.brandDataId !== selectedCarId);
+      const updatedCarList = carList.filter(
+        (car) => car.brandDataId !== selectedCarId
+      );
       setCarList(updatedCarList);
       saveCarListToStorage(updatedCarList);
       refetch();
       setOpen(false);
     } catch (error) {
-      console.error('Failed to delete the car brand:', error);
+      console.error("Failed to delete the car brand:", error);
+    }
+  };
+  const nextHandler = () => {
+    if (!error) {
+      setPageNo((prevPageNo) => prevPageNo + 1);
+    }
+  };
+
+  const prevHandler = () => {
+    if (pageNo > 0) {
+      setPageNo((prevPageNo) => prevPageNo - 1);
     }
   };
 
@@ -101,12 +131,21 @@ const CarListModels = () => {
         const car = cell.row.original;
         return (
           <div className="flex gap-2 justify-center items-center">
-            <EditCarForm initialData={car} brandDataId={cell.row.values.brandDataId} onSave={updateCar} />
-            <Button color="red" onClick={() => handleOpen(cell.row.values.brandDataId)}>Delete</Button>
+            <EditCarForm
+              initialData={car}
+              brandDataId={cell.row.values.brandDataId}
+              onSave={updateCar}
+            />
+            <Button
+              color="red"
+              onClick={() => handleOpen(cell.row.values.brandDataId)}
+            >
+              Delete
+            </Button>
           </div>
         );
       },
-    }
+    },
   ];
 
   return (
@@ -128,17 +167,31 @@ const CarListModels = () => {
           </div>
         </CardHeader>
         <CardBody className="overflow-scroll px-0">
-          <TableComponent columns={columns} data={carList} className=""/>
+          <TableComponent columns={columns} data={carList} className="" />
         </CardBody>
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-          <Typography variant="medium" color="blue-gray" className="font-normal">
-            {/* Page {pageNo + 1} */}
+          <Typography
+            variant="medium"
+            color="blue-gray"
+            className="font-normal"
+          >
+            Page {pageNo + 1}
           </Typography>
           <div className="flex gap-2">
-            <Button variant="outlined" size="sm">
+            <Button
+              variant="outlined"
+              size="sm"
+              disabled={pageNo <= 0}
+              onClick={prevHandler}
+            >
               Previous
             </Button>
-            <Button variant="outlined" size="sm">
+            <Button
+              variant="outlined"
+              size="sm"
+              onClick={nextHandler}
+              disabled={data?.list?.length < pageSize}
+            >
               Next
             </Button>
           </div>
@@ -147,7 +200,9 @@ const CarListModels = () => {
 
       <Dialog open={open} handler={handleOpen}>
         <DialogBody className="flex justify-center">
-          <p className="font-semibold text-xl">Are you sure you want to delete?</p> 
+          <p className="font-semibold text-xl">
+            Are you sure you want to delete?
+          </p>
         </DialogBody>
         <DialogFooter className="flex justify-center">
           <Button
