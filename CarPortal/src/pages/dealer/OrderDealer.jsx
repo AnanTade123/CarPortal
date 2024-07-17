@@ -31,7 +31,7 @@ const OrderDealer = () => {
       pageNo,
       id,
     });
-
+console.log(data)
   const [cancelStatusSet] = useCancelStatusSetMutation();
 
   const nextHandler = () => {

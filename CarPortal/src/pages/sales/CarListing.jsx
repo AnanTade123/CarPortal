@@ -21,6 +21,7 @@ import { useBiddingAllCardQuery } from "../../services/biddingAPI";
 
 export default function CarListing() {
   const { data, error ,isLoading} = useBiddingAllCardQuery();
+  console.log(data)
   const activeCarsData = data?.filter(car => car?.carStatus === "ACTIVE");
   const pendingCarsData = data?.filter(car => car?.carStatus === "pending");
   const sellCarsData = data?.filter(car => car?.carStatus === "sell");
@@ -96,7 +97,7 @@ export default function CarListing() {
       Header: "Status",
       accessor: "carStatus",
       Cell: (cell) => {
-        return cell.row.values.carStatus == "pending" ? (
+        return (cell.row.values.carStatus == "ACTIVE" || cell.row.values.carStatus == "pending") ? (
             <Link to={`/inspector/carverify/${cell.row.values.beadingCarId}`} className="button-link">
           <Button variant="gradient" color="blue">
               Verify

@@ -139,10 +139,10 @@ const DealerCarPendingRequest = ({ item }) => {
                         Contact Details of the User
                       </div>
                       <div className="mt-1 font-[latto] text-base font-medium text-black">
-                        User Name:
+                        User Name: {item?.username}
                       </div>
                       <div className="mt-1 font-[latto] text-base font-medium text-black">
-                        Contact No:
+                        Contact No: {item?.mobileNumber}
                       </div>
                       <div className="flex gap-2 p-2 md:p-0 md:pt-2 ">
                         <div>
