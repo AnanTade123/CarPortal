@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { CardDefault } from "../../ui/CardDefault";
-import CardUi from "../../ui/CardUi";
+// import CardUi from "../../ui/CardUi";
 import { useEffect, useState } from "react";
 
 const GridCarList = ({ data, error }) => {
@@ -16,7 +16,7 @@ const GridCarList = ({ data, error }) => {
 
   return (
     <>
-      <CardUi>
+      {/* <CardUi> */}
         <div className="grid lg:grid-cols-3 lg:grid-rows-1 md:grid-cols-2 md:grid-rows-2 gap-5 justify-center">
           {posts?.map((items, index) => {
             return (
@@ -28,7 +28,7 @@ const GridCarList = ({ data, error }) => {
             );
           })}
         </div>
-      </CardUi>
+      {/* </CardUi> */}
     </>
   );
 };
