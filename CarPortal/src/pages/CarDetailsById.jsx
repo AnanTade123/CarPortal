@@ -23,7 +23,7 @@ const CarDetailsById = () => {
    const { data:data1, error1 } = useFilterCarQuery();
    console.log(data1)
   const { data, isLoading, error } = useGetCarByIdQuery(carId);
-  console.log(data)
+  console.log("error-----",error?.data?.message)
 const [bookingRequest] = useBookingRequestMutation();
 
   if (isLoading) {
@@ -34,6 +34,10 @@ const [bookingRequest] = useBookingRequestMutation();
 
     navigate("/signin");
     return null
+  }
+  if(error?.data?.message === "unsuccess"){
+    return <h3>Car not found
+     </h3>
   }
 
   const handleBuyCar = async (formData) => {

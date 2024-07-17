@@ -23,7 +23,7 @@ import {
 function UploadImages2() {
   const [images, setImages] = useState([]);
   const [uploadStatus, setUploadStatus] = useState({});
-  const { id } = useParams();
+  const { id ,carId } = useParams();
   const token = Cookies.get("token");
   let jwtDecodes;
 
@@ -34,7 +34,8 @@ function UploadImages2() {
   const UserID = jwtDecodes?.userId;
   const { data } = useDealerIdByCarQuery({ id, pageNo: 0, status: "Active" });
   console.log(data);
-  const firstCarId = data?.list?.length > 0 ? data?.list[0].carId : null;
+  // const firstCarId = data?.list?.length > 0 ? data?.list[0].carId : null;
+  const firstCarId = carId;
   console.log(firstCarId);
 
   const [addCarImages] = useAddCarImagesMutation();

@@ -17,10 +17,23 @@ import {
 import TableComponent from "../../components/table/TableComponent";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useBiddingAllCardQuery } from "../../services/biddingAPI";
+import {  useBiddingCarByDealerIdQuery } from "../../services/biddingAPI";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 export default function CarListing() {
-  const { data, error ,isLoading} = useBiddingAllCardQuery();
+
+  const token = Cookies.get("token");
+
+  let jwtDecodes;
+
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
+  const UserId = token ? jwtDecodes?.userId : null;
+
+  // const { data, error ,isLoading} = useBiddingAllCardQuery();
+  const { data, error ,isLoading} = useBiddingCarByDealerIdQuery(UserId);
   console.log(data)
   const activeCarsData = data?.filter(car => car?.carStatus === "ACTIVE");
   const pendingCarsData = data?.filter(car => car?.carStatus === "pending");

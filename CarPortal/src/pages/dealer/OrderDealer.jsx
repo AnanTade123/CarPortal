@@ -128,10 +128,11 @@ console.log(data)
                   Contact Details of the User
                 </div>
                 <div className="font-[latto] mt-1 text-base font-medium text-black">
-                  User Name: ₹{item?.askingPrice}
+                  User Name:{item?.username}
+                 
                 </div>
                 <div className="font-[latto] text-base font-medium text-black">
-                  Contact No: ₹{item?.askingPrice}
+                  Contact No: {item?.mobileNumber}
                 </div>
               </div>
               <div className="flex gap-2 align-middle items-center">
