@@ -388,10 +388,10 @@ console.log(formData)
           </FormControl>
         </Grid>
       </Grid>
-      <div className="flex justify-between mt-10 px-8">
-        <Button variant="contained" color="primary">
+      <div className="flex justify-end mt-10 px-8">
+        {/* <Button variant="contained" color="primary">
           Previous
-        </Button>
+        </Button> */}
         <Button
           type="submit"
           variant="contained"

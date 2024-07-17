@@ -113,7 +113,7 @@ console.log(data)
   };
 
   return (
-    <div className='p-4'>
+    <div className='p-4 '>
       <Typography variant="h4" className='text-black font-bold pb-5 pt-15 '>
         Windshield And Lights
       </Typography>
