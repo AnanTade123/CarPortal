@@ -191,7 +191,7 @@ export default function EditDealerCar() {
     <div className="md:flex justify-center m-6 md:m-0">
       <div>
       
-        <form onSubmit={handleSubmit} className="w-full  md:w-[50rem]">
+        <form onSubmit={handleSubmit} className="w-full  md:w-[45rem]">
           <div className="flex justify-center">
             <p className="text-3xl font-semibold m-4">Edit Dealer Car</p>
           </div>
@@ -375,6 +375,7 @@ export default function EditDealerCar() {
             <div className="mt-5 md:ml-2 w-full">
               <select
                 required
+                
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 name="carInsurance"
                 value={formData.carInsurance}
@@ -388,7 +389,7 @@ export default function EditDealerCar() {
                 <>
                 <div className="mt-3">
                   <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
+                    className="block text-gray-700 text-sm font-bold "
                     htmlFor="date"
                   >
                     Select Date
@@ -401,6 +402,12 @@ export default function EditDealerCar() {
                     className="w-full border-2 border-gray-400 p-2 rounded-md"
                   />
                 </div>
+                <label
+                    className="block text-gray-700 text-sm font-bold mt-2"
+                    htmlFor="date"
+                  >
+                 Insurance Type
+                  </label>
                  <select
                  required
                  className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -408,9 +415,9 @@ export default function EditDealerCar() {
                  value={formData.carInsuranceType}
                  onChange={handleChangeType}
                >
-                 <option value=""> Insurance Type</option>
+               
                  <option value="Comprehensive">Comprehensive</option>
-                 <option value="Zero Dept">Zero Dept</option>
+                 <option value="Zero Dept">Zero Depreciation </option>
                  <option value="Third Party">Third Party</option>
                </select>
                </>

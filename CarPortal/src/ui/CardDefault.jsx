@@ -116,7 +116,7 @@ export function CardDefault({ data, Carid }) {
   }, [favData]);
   return (
     <div className="flex justify-center mx-auto">
-      <Card className="w-full flex justify-center sm:w-80 md:w-[260px] lg:w-full items-center border-2 hover:scale-105 border-gray-300 shadow-xl overflow-hidden mx-5 md:mx-0">
+      <Card className="max-w-[19rem] overflow-hidden">
         <CardHeader
           floated={false}
           shadow={false}
@@ -127,7 +127,7 @@ export function CardDefault({ data, Carid }) {
             <CarouselCustomArrows carId={data.carId} />
           </Link>
         </CardHeader>
-        <CardBody className="mb-5">
+        <CardBody>
           {userRole === "USER" ? (
             <div className="flex justify-end">
               <div onClick={handleFavoriteClick} className="cursor-pointer">
@@ -145,13 +145,13 @@ export function CardDefault({ data, Carid }) {
             {data.title}
           </Typography>
           <p className="text-sm uppercase mb-3 flex-wrap gap-2">
-            <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black">
+            <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black text-xs">
               {data.kmDriven}KM
             </span>
-            <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black">
+            <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black text-xs">
               {data.fuelType}
             </span>
-            <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black">
+            <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black text-xs">
               {data.transmission}
             </span>
           </p>
