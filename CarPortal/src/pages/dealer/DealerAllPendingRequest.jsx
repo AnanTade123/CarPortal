@@ -13,7 +13,7 @@ const DealerAllPendingRequest = () => {
     id,
     pageNo,
   });
-
+console.log(data)
   const nextHandler = () => {
     setPageNo((prePageNo) => {
       if (error?.status === 404) {
