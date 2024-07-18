@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { useParams } from 'react-router-dom';
-import { useAddBiddingCarWithoutImageMutation, useGetInspectionReportQuery, useInspectionReportMutation } from '../../../services/inspectorapi';
+import { useAddBiddingCarWithoutImageMutation, useGetInspectionReportQuery, useInspectionReportMutation, useInspectionReportNewMutation } from '../../../services/inspectorapi';
 import Cookies from "js-cookie";
 import { jwtDecode } from 'jwt-decode';
 import UploadImage4 from '../../../ui/UploadImageComponents/UploadImage4';
@@ -59,7 +59,9 @@ const Tyre = () => {
     SpareTyre: []
   });
 
-  const [inspectionReport] = useInspectionReportMutation();
+  const [inspectionReport ] = useInspectionReportMutation();
+  const [inspectionReportNew ] = useInspectionReportNewMutation();
+
   const [addBiddingCarWithoutImage] = useAddBiddingCarWithoutImageMutation()
   const [captureModalOpen, setCaptureModalOpen] = useState(false);
   const [selectedLable ,setSelectedLable] = useState("");
@@ -134,6 +136,12 @@ console.log(userRole)
   
     const formDataToSend = new FormData();
     formDataToSend.append('image', file);
+    formDataToSend.append('documentType', "InspectionReport");
+    formDataToSend.append('beadingCarId', beadingCarId);
+    formDataToSend.append('doc', "");
+    formDataToSend.append('doctype', "Exterior");
+    formDataToSend.append('subtype', lables);
+    formDataToSend.append('comment', selectfiled);
   
     const reader = new FileReader();
     reader.onload = async () => {
@@ -141,17 +149,17 @@ console.log(userRole)
       console.log(imageData)
           setFormData({ ...formData, ["FourPowerWindowss"]: imageData });
   
-      const inspectionData = {
-        documentType: "InspectionReport",
-        beadingCarId: beadingCarId,
-        doc: "",
-        doctype: "Exterior",
-        subtype: lables,
-        comment: selectfiled,
-      };
+      // const inspectionData = {
+      //   documentType: "InspectionReport",
+      //   beadingCarId: beadingCarId,
+      //   doc: "",
+      //   doctype: "Exterior",
+      //   subtype: lables,
+      //   // comment: selectfiled,
+      // };
   
       try {
-        const res = await inspectionReport({ inspectionData, formDataToSend });
+        const res = await inspectionReportNew({  formDataToSend });
         refetch()
         console.log(res);
         if (res.data?.message === "success") {
