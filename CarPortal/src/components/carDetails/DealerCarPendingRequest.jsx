@@ -27,6 +27,7 @@ const DealerCarPendingRequest = ({ item }) => {
   const handleOpen = () => setOpen(!open);
 
   const navigate = useNavigate();
+
   const token = Cookies.get("token");
   let jwtDecodes;
   if (token) {
@@ -95,8 +96,8 @@ const DealerCarPendingRequest = ({ item }) => {
 
         <div className="shadow-xl rounded-lg">
           <CardUi>
-            <div className="md:p-0 md:min-w-[38rem] md:w-[20rem] md:m-2 md:flex md:gap-4">
-              <div className="md:w-3/5">
+            <div className="md:p-3 md:min-w-[36rem] md:w-[20rem] md:my-2 md:flex md:gap-2">
+              <div className="md:w-1/2">
                 <CardHeader
                   floated={false}
                   shadow={false}
@@ -122,7 +123,7 @@ const DealerCarPendingRequest = ({ item }) => {
                   />
                 </div>
                 <div className="w-full flex flex-col justify-center">
-                  <div className="mt-2 flex flex-col justify-center">
+                  <div className="pl-4 mt-2 flex flex-col justify-center">
                     <div>
                       <div className="text-lg mt-1 font-[latto] font-medium text-black">
                         Car Price: ₹{item?.price}
@@ -136,12 +137,12 @@ const DealerCarPendingRequest = ({ item }) => {
                         Contact Details of the User
                       </div>
                       <div className="mt-1 font-[latto] text-base font-medium text-black">
-                        User Name:
+                        User Name: {item?.username}
                       </div>
                       <div className="mt-1 font-[latto] text-base font-medium text-black">
-                        Contact No:
+                        Contact No: {item?.mobileNumber}
                       </div>
-                      <div className="flex gap-5 pt-1">
+                      <div className="flex gap-2 p-2 md:p-0 md:pt-2 ">
                         <div>
                           <Link to={`/carlist/cardetails/${item?.carId}`}>
                             <Button

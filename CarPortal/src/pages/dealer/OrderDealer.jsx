@@ -1,7 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useCancelStatusSetMutation, useGetAllDealerCompleteBookingQuery } from "../../services/dealerAPI";
+import {
+  useCancelStatusSetMutation,
+  useGetAllDealerCompleteBookingQuery,
+} from "../../services/dealerAPI";
 import CardUi from "../../ui/CardUi";
 import {
   Button,
@@ -21,13 +24,14 @@ const OrderDealer = () => {
   const { id } = useParams();
 
   const [pageNo, setPageNo] = useState(0);
-  const [revertId ,setRevertId] = useState("");
+  const [revertId, setRevertId] = useState("");
 
-  const { data, error, isLoading ,refetch } = useGetAllDealerCompleteBookingQuery({
-    pageNo,
-    id,
-  });
-
+  const { data, error, isLoading, refetch } =
+    useGetAllDealerCompleteBookingQuery({
+      pageNo,
+      id,
+    });
+console.log(data)
   const [cancelStatusSet] = useCancelStatusSetMutation();
 
   const nextHandler = () => {
@@ -43,20 +47,20 @@ const OrderDealer = () => {
 
   const handleOpen = (revertID) => {
     setOpen(!open);
-    setRevertId(revertID)
-  }
+    setRevertId(revertID);
+  };
 
   const handleRevertConfirmation = async () => {
-    try{
+    try {
       const res = await cancelStatusSet(revertId);
-      toast.success(res?.data?.status)
+      toast.success(res?.data?.status);
       handleOpen(false);
       refetch();
-      console.log("MyResult",res);
-    }catch(error){
-      console.log("Error :" , error);
+      console.log("MyResult", res);
+    } catch (error) {
+      console.log("Error :", error);
     }
-  }
+  };
 
   if (error) {
     return (
@@ -96,10 +100,10 @@ const OrderDealer = () => {
   const renderData = data?.bookings?.map((item, index) => {
     const carid = item?.carId;
     return (
-      <div className="ml-8 mt-3 mb-3 " key={index}>
+      <div className="md:mx-10 mx-5 mt-3 mb-3" key={index}>
         <CardUi>
-          <div className="p-2 md:w-full md:px-5 md:py-3 md:flex md:gap-7">
-            <div className="md:w-2/5">
+          <div className="p-2 md:w-full md:px-5 md:py-3 md:flex md:gap-3">
+            <div className="md:w-1/3">
               <CardHeader
                 floated={false}
                 shadow={false}
@@ -124,14 +128,15 @@ const OrderDealer = () => {
                   Contact Details of the User
                 </div>
                 <div className="font-[latto] mt-1 text-base font-medium text-black">
-                  User Name: ₹{item?.askingPrice}
+                  User Name:{item?.username}
+                 
                 </div>
                 <div className="font-[latto] text-base font-medium text-black">
-                  Contact No: ₹{item?.askingPrice}
+                  Contact No: {item?.mobileNumber}
                 </div>
               </div>
               <div className="flex gap-2 align-middle items-center">
-                  <Link to={`/carlist/cardetails/${item?.carId}`}>
+                <Link to={`/carlist/cardetails/${item?.carId}`}>
                   <Button
                     fullWidth
                     className="flex items-center text-xs mt-5 bg-blue-400 w-full"
@@ -153,12 +158,9 @@ const OrderDealer = () => {
                     </svg>
                   </Button>
                 </Link>
-                {
-                  item?.status === "cancel" ? (
-                    <Button
-                    className="flex items-center text-xs gap-2 mt-5 bg-red-700"
-                  >
-                    Cancel Deal
+                {item?.status === "cancel" ? (
+                  <Button className="flex items-center text-xs gap-2 mt-5 bg-red-300">
+                    Canceled Deal
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -174,10 +176,10 @@ const OrderDealer = () => {
                       />
                     </svg>
                   </Button>
-                  ) : (
-                    <Button
+                ) : (
+                  <Button
                     className="flex items-center text-xs gap-2 mt-5 bg-red-700"
-                    onClick={() =>handleOpen(item?.id)}
+                    onClick={() => handleOpen(item?.id)}
                   >
                     Revert Deal
                     <svg
@@ -195,9 +197,7 @@ const OrderDealer = () => {
                       />
                     </svg>
                   </Button>
-                  )
-                }
-              
+                )}
               </div>
             </div>
           </div>
@@ -213,11 +213,11 @@ const OrderDealer = () => {
   }
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       <div className="flex flex-col md:grid md:grid-cols-2 md:auto-cols-auto md:auto-rows-auto">
         {renderData}
       </div>
-      
+
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
         <Typography variant="medium" color="blue-gray" className="font-normal">
           Page {pageNo + 1}
@@ -242,9 +242,7 @@ const OrderDealer = () => {
         </div>
       </CardFooter>
       <Dialog open={open} handler={handleOpen}>
-        <DialogHeader>
-          Do you really want to Revert the Car?
-        </DialogHeader>
+        <DialogHeader>Do you really want to Revert the Car?</DialogHeader>
         <DialogFooter>
           <Button
             variant="text"

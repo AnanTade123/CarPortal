@@ -45,6 +45,7 @@ export default function EditDealerCar() {
     dealer_id: "",
     cVariant: "",
     insurancedate: "",
+    carInsuranceType: "",
   });
   const date = new Date(); // Create a new Date object with the current date
   const year = date.getFullYear(); // Get the year (e.g., 2024)
@@ -75,6 +76,7 @@ export default function EditDealerCar() {
         tyre: object?.tyre || "",
         dealer_id: object?.dealer_id || "",
         title: object?.title || "",
+        insuranceType: object?.carInsuranceType || ""
       });
     }
   }, [Carid]);
@@ -130,6 +132,8 @@ export default function EditDealerCar() {
       dealer_id: id,
 
       date: formattedDate,
+
+      carInsuranceType:formData.carInsuranceType
     };
     console.log(data);
 
@@ -150,6 +154,14 @@ export default function EditDealerCar() {
     //  // navigate("/dealer");
     // });
   };
+
+  const handleChangeType = (event) => {
+    const value = event.target.value;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      carInsuranceType: value,
+    }));
+  }
 
   const [mult, setMult] = React.useState([]);
 
@@ -179,7 +191,7 @@ export default function EditDealerCar() {
     <div className="md:flex justify-center m-6 md:m-0">
       <div>
       
-        <form onSubmit={handleSubmit} className="w-full  md:w-[50rem]">
+        <form onSubmit={handleSubmit} className="w-full  md:w-[45rem]">
           <div className="flex justify-center">
             <p className="text-3xl font-semibold m-4">Edit Dealer Car</p>
           </div>
@@ -325,7 +337,7 @@ export default function EditDealerCar() {
                 label={"Owner Serial"}
                 type={"number"}
                 name={"ownerSerial"}
-                value={formData.type}
+                value={formData.ownerSerial}
                 onChange={(event) =>
                   setFormData({
                     ...formData,
@@ -338,7 +350,7 @@ export default function EditDealerCar() {
                 <option>2</option>
                 <option>3</option>
                 <option>4</option>
-                <option>5</option>
+                <option>4</option>
               </select>
             </div>
           </div>
@@ -363,6 +375,7 @@ export default function EditDealerCar() {
             <div className="mt-5 md:ml-2 w-full">
               <select
                 required
+                
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 name="carInsurance"
                 value={formData.carInsurance}
@@ -373,9 +386,10 @@ export default function EditDealerCar() {
                 <option value="false">No</option>
               </select>
               {showCalendar && (
+                <>
                 <div className="mt-3">
                   <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
+                    className="block text-gray-700 text-sm font-bold "
                     htmlFor="date"
                   >
                     Select Date
@@ -388,6 +402,25 @@ export default function EditDealerCar() {
                     className="w-full border-2 border-gray-400 p-2 rounded-md"
                   />
                 </div>
+                <label
+                    className="block text-gray-700 text-sm font-bold mt-2"
+                    htmlFor="date"
+                  >
+                 Insurance Type
+                  </label>
+                 <select
+                 required
+                 className="w-full border-2 border-gray-400 p-2 rounded-md"
+                 name="carInsurance"
+                 value={formData.carInsuranceType}
+                 onChange={handleChangeType}
+               >
+               
+                 <option value="Comprehensive">Comprehensive</option>
+                 <option value="Zero Dept">Zero Depreciation </option>
+                 <option value="Third Party">Third Party</option>
+               </select>
+               </>
               )}
             </div>
           </div>

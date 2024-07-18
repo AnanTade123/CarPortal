@@ -13,7 +13,7 @@ export function CarouselCustomArrows({ carId }) {
       <div className="text-center mt-5">
         No Image Available{" "}
         <img
-          className="w-[12rem] ml-12 opacity-50"
+          className="h-[15rem] w-[19rem]  opacity-50"
           src="..\..\cars\no-image-available.png"
           alt="no image"
         />
@@ -81,7 +81,8 @@ export function CarouselCustomArrows({ carId }) {
               key={item.documentId}
               src={item.documentLink}
               alt={`Car Image ${item?.documentId}`}
-              className="rounded-lg md:w-[19rem] h-[15rem]"
+              // className="rounded-lg md:w-[19rem] h-[15rem]"
+              className="rounded-lg h-[15rem] w-[19rem]"
             />
           ) : null
         )}

@@ -13,9 +13,21 @@ const UploadImage4 = ({ onClose ,handleCaptureImage,selectfiled }) => {
   const [confirmedImage, setConfirmedImage] = useState(null);
   const videoRef = useRef(null);
  
+  // const startCamera = async () => {
+  //   try {
+  //     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+  //     setCameraStream(stream);
+  //     setPreviewMode(true);
+  //   } catch (err) {
+  //     console.error('Error accessing the camera:', err);
+  //   }
+  // };
+
   const startCamera = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'environment' }
+      });
       setCameraStream(stream);
       setPreviewMode(true);
     } catch (err) {

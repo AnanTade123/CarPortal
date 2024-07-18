@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
 import { FaLocationDot } from 'react-icons/fa6';
@@ -10,11 +11,7 @@ import { useGetDealerQuery } from "../../services/dealerAPI";
 const DealerContact = ({dealer_id}) => {
     
     const { data, isLoading, isError, error } = useGetDealerQuery({id:dealer_id});
-    console.log(isLoading);
-  console.log(isError);
-  console.log(error);
-  console.log(data);
-console.log(dealer_id)
+   
 
   const {
     dealerDto: {
@@ -27,6 +24,9 @@ console.log(dealer_id)
       address,
     } = {},
   } = data || {};
+  if(isLoading){
+    return <></>
+  }
   return (
     <div className="w-full md:w-full bg-white rounded-lg shadow-xl overflow-hidden mt-6">
       <div className="p-4">

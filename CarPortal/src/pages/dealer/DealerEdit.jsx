@@ -15,7 +15,7 @@ import { toast, ToastContainer } from 'react-toastify';
 
 const DealerEdit = () => {
   const { id } = useParams();
-  const { data: dealerID } = useGetDealerQuery(id);
+  const { data: dealerID } = useGetDealerQuery({id});
 
   const token = Cookies.get("token");
   let jwtDecodes

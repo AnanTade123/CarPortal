@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import CardUi from "../../ui/CardUi";
 import { IoLogoModelS } from "react-icons/io";
@@ -161,7 +162,7 @@ const KnowYourCar = ({
             </div>
           </div>
           <br/>
-           <div className="md:flex md:justify-between pl-4 align-middle items-center">
+           {/* <div className="md:flex md:justify-between pl-4 align-middle items-center">
             <div className="flex items-center gap-6 md:mr-6">
               <div className="bg-blue-50 py-3 md:px-2 rounded-xl">
                 <IoLogoModelS className="w-12 h-8" />
@@ -202,7 +203,7 @@ const KnowYourCar = ({
                 features of the model
               </div>
             </div>
-          </div>
+          </div> */}
           <div  className="font-[latto] text-lg">
 
           </div>

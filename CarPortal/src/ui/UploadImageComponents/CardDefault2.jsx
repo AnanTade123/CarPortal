@@ -9,7 +9,7 @@ export function CardDefault2({ data }) {
   console.log(carid);
   return (
     <Card className="mt-6 w-96 md:m-0 items-center max-w-[20rem] overflow-hidden">
-      <div className="w-[18rem] h-[16rem] ">
+      <div className="">
       <Link to={`/carlist/cardetails/${carid}`}>
         <CarouselCustomArrows carId={carid} />
         </Link>

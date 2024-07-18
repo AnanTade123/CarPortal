@@ -34,8 +34,6 @@ const PriceCard = ({
   handleBuyCar,
 }) => {
   const cookie = Cookies.get("token");
-
-  console.log(cookie);
   const jwtDecodes = cookie ? jwtDecode(cookie) : null;
 
   const userRole = jwtDecodes?.authorities[0];
@@ -170,8 +168,9 @@ const PriceCard = ({
       
     </CardUi>
     <div>
-  <DealerContact dealer_id={dealer_id}/>
-</div>
+      {cookie && (
+        <DealerContact dealer_id={dealer_id}/>)}
+      </div>
 
     </div>
     

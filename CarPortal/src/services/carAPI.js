@@ -34,8 +34,8 @@ export const carApi = apiSlice.injectEndpoints({
       providesTags: ["CAR"],
     }),
     dealerIdByCar: builder.query({
-      query: ({ id, pageNo }) => ({
-        url: `/car/dealer?dealerId=${id}&carStatus=ACTIVE&pageNo=${pageNo}`,
+      query: ({ id, pageNo ,status }) => ({
+        url: `/car/dealer?dealerId=${id}&carStatus=${status}&pageNo=${pageNo}`,
         method: "GET",
         transferResponse: console.log(id, pageNo),
       }),

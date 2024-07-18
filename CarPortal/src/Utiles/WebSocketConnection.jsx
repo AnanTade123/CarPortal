@@ -12,6 +12,7 @@ const WebSocketContext = createContext(null);
 export const WebSocketProvider = ({ children }) => {
   const [isConnected, setIsConnected] = useState(false);
   const [client, setClient] = useState(null);
+  const [topThreeBidsAmount ,setTopThreeBidsAmount]= useState([]);
 //   const bidCarId = "your_bid_car_id"; // replace with actual value
 
   useEffect(() => {
@@ -30,12 +31,14 @@ export const WebSocketProvider = ({ children }) => {
         });
         stompClient.subscribe('/topic/topThreeBids', (message) => {
           const topBids = JSON.parse(message.body);
+          setTopThreeBidsAmount(topBids);
           // Handle top bids message
         });
         stompClient.subscribe('/app/placeBid', (message) => {
           const topBids = JSON.parse(message.body);
           // Handle place bid message
         }, { ack: 'client' });
+         getTopThreeBids(stompClient);
       },
       onStompError: (frame) => {
         console.error('Broker reported error: ' + frame.headers['message']);
@@ -52,6 +55,7 @@ export const WebSocketProvider = ({ children }) => {
   }, []);
 
   const getTopThreeBids = (bidCarId) => {
+    console.log("Pendingcars---",client);
     if (client) {
     const bidRequest = {
       bidCarId: bidCarId,
@@ -115,7 +119,7 @@ export const WebSocketProvider = ({ children }) => {
   
 
   return (
-    <WebSocketContext.Provider value={{ isConnected, placeBid ,getTopThreeBids }}>
+    <WebSocketContext.Provider value={{ isConnected, placeBid ,getTopThreeBids ,topThreeBidsAmount }}>
       {children}
     </WebSocketContext.Provider>
   );

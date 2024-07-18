@@ -125,7 +125,10 @@ export default function App() {
             <Route path="/admin/inspector/info/:userId" element={<AdminInspectorInfo />} />
             <Route path="/admin/inspection/report/:beadingCarId" element={<FinalReport />} />
 
-            <Route path="/carlistmodel" element={<CarListModels />} />
+            <Route
+             path="/carlistmodel" 
+             element={<CarListModels />} />
+             
             <Route
               path="/admin/dealer/info/:id"
               element={<AdminDealerInfo />}
@@ -172,7 +175,7 @@ export default function App() {
           >
             <Route path="/dealer/:id" element={<SellForCar />} />
             <Route path="/dealer/:id/addcar" element={<AddDealerCar2 />} />
-            <Route path="/dealer/:id/uploadimage" element={<Uploadimages2 />} />
+            <Route path="/dealer/:id/uploadimage/:carId" element={<Uploadimages2 />} />
             <Route path="/dealer/:id/edit" element={<DealerEdit />} />
             <Route path="/dealer/finalreport/:beadingCarId" element={<FinalReport />} />
 
