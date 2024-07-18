@@ -4,9 +4,8 @@
 import WindshieldAndLights from "./ExteriorsComponent/WindshieldAndLights";
 import Tyre from "./ExteriorsComponent/Tyre";
 import { useEffect, useState } from 'react';
-import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Modal, makeStyles } from '@material-ui/core';
+import { MenuItem, FormControl, Select, InputLabel, Grid, Typography,Button, Modal, makeStyles } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import { Button } from "@material-tailwind/react";
 import { useGetInspectionReportQuery, useInspectionReportMutation } from '../../services/inspectorapi';
 import { useParams } from 'react-router-dom';
 import Cookies from "js-cookie";
@@ -15,6 +14,9 @@ import UploadImage4 from '../../ui/UploadImageComponents/UploadImage4';
 import { useAddBiddingCarWithoutImageMutation } from "../../services/inspectorapi"
 import OtherComponent from "./ExteriorsComponent/OtherComponent"
 import Structure from "./ExteriorsComponent/Structure"
+import { FaCamera } from "react-icons/fa";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -41,7 +43,7 @@ const Exterior = () => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
   console.log(beadingCarId);
-  const { data } = useGetInspectionReportQuery({ beadingCarId, docType: "Exterior" });
+  const { data,refetch } = useGetInspectionReportQuery({ beadingCarId, docType: "Exterior" });
   console.log(data);
   
 const [formData, setFormData] = useState({
@@ -185,13 +187,13 @@ const [formData, setFormData] = useState({
   }
 
   const userRole = token ? jwtDecodes?.authorities[0] : null;
-console.log(userRole)
 
-const handleFileChange = async (event, fieldName, imgPreview = "") => {
+
+  const handleFileChange = async (event, fieldName, imgPreview = "") => {
     console.log(imgPreview);
     let file;
     let imageData;
-  if (!event?.target) {
+    if (!event?.target) {
       console.log("name");
       file = event;
       imageData = file;
@@ -207,8 +209,8 @@ const handleFileChange = async (event, fieldName, imgPreview = "") => {
     const reader = new FileReader();
     reader.onload = async () => {
       imageData = reader.result;
-      console.log(imageData)
-          setFormData({ ...formData, ["FourPowerWindowss"]: imageData });
+      console.log(imageData);
+      setFormData({ ...formData, [fieldName]: imageData });
   
       const inspectionData = {
         documentType: "InspectionReport",
@@ -221,30 +223,43 @@ const handleFileChange = async (event, fieldName, imgPreview = "") => {
   
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
+        refetch()
         console.log(res);
-        alert("Data Uploaded");
+        if (res.data?.message === "success") {
+          toast.success("Data Uploaded", { autoClose: 500 });
+        } else {
+          toast.error("Data Upload failed", { autoClose: 500 });
+        }
       } catch (error) {
         console.error('Error uploading the file:', error);
-        alert("Data not Uploaded");
+        toast.error("Data not Uploaded", { autoClose: 500 });
       }
     };
     reader.readAsDataURL(file);
   };
   
+  
   const handleSubmitWithoutImage = async () => {
   
     const formDataToSend1 = new FormData();
     formDataToSend1.append('beadingCarId', beadingCarId);
-    formDataToSend1.append('doctype', "Steering");
+    formDataToSend1.append('doctype', "Exterior");
     formDataToSend1.append('subtype', lables);
     formDataToSend1.append('comment', selectfiled);
+    formDataToSend1.append('documentType', "InspectionReport");
+    formDataToSend1.append('doc', "");
     try {
       const res = await addBiddingCarWithoutImage({formDataToSend1});
+      refetch()
       console.log(res);
-      alert("Data Uploaded")
+      if (res.data?.message === "success") {
+        toast.success("Data Uploaded", { autoClose: 500 });
+      } else {
+        toast.error("Data Upload failed", { autoClose: 500 });
+      }
     } catch (error) {
-      console.error('Error uploading the data:', error);
-      alert("Data not Uploaded")
+      
+      toast.error("Data not Uploaded", { autoClose: 500 });
     }
   };
 
@@ -305,12 +320,12 @@ const handleFileChange = async (event, fieldName, imgPreview = "") => {
           </Select>
         </FormControl>
         <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" className="bg-[#22c55e]" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small"  variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained"  className="bg-[#3b82f6]">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
@@ -354,12 +369,12 @@ const handleFileChange = async (event, fieldName, imgPreview = "") => {
           </Select>
         </FormControl>
         <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
@@ -403,12 +418,12 @@ const handleFileChange = async (event, fieldName, imgPreview = "") => {
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
@@ -452,12 +467,12 @@ const handleFileChange = async (event, fieldName, imgPreview = "") => {
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
@@ -501,12 +516,12 @@ const handleFileChange = async (event, fieldName, imgPreview = "") => {
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
@@ -550,12 +565,12 @@ const handleFileChange = async (event, fieldName, imgPreview = "") => {
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
@@ -595,12 +610,12 @@ const handleFileChange = async (event, fieldName, imgPreview = "") => {
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
@@ -644,12 +659,12 @@ const handleFileChange = async (event, fieldName, imgPreview = "") => {
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
@@ -693,12 +708,12 @@ const handleFileChange = async (event, fieldName, imgPreview = "") => {
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
@@ -742,12 +757,12 @@ const handleFileChange = async (event, fieldName, imgPreview = "") => {
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
@@ -845,7 +860,7 @@ const handleFileChange = async (event, fieldName, imgPreview = "") => {
 
 {/* <div className="flex justify-end mt-10 px-8">
         
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="success">
           Next
         </Button> 
       </div> */}

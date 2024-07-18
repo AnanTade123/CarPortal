@@ -64,7 +64,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
 
     addBiddingCarWithoutImage : builder.mutation ({
       query : ({formDataToSend1}) => ({
-        url : `/uploadFileBidCar/addWithoutPhoto?doc=&doctype=&subtype=&comment=`,
+        url : `/uploadFileBidCar/addWithoutPhoto`,
         method : "POST",
         transerResponse:console.log(formDataToSend1),
         body : formDataToSend1
