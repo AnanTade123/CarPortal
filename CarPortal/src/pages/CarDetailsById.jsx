@@ -40,20 +40,12 @@ const [bookingRequest] = useBookingRequestMutation();
      </h3>
   }
 
-  const handleBuyCar = async (formData) => {
-    try{
-
-      const res = await bookingRequest(formData);
-      console.log(res);
-      if (res?.data) {
-        toast.success('Request sent successfully!');
-      } else if (res.error) {
-        toast.error(res.error.data.message);
+  const handleBuyCar =  (formData, status) => {
+      if (status === "success") {
+        toast.success(formData);
+      } else if (status==="error") {
+        toast.error(formData);
       }
-    }catch(error){
-      toast.error(error);
-    }
-
   }
 
   const {
