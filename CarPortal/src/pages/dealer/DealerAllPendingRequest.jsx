@@ -9,7 +9,7 @@ const DealerAllPendingRequest = () => {
   const { id } = useParams();
   const [pageNo, setPageNo] = useState(0);
 
-  const { data, isLoading, error } = useGetAllDealerPendingBookingQuery({
+  const { data, isLoading, error ,refetch } = useGetAllDealerPendingBookingQuery({
     id,
     pageNo,
   });
@@ -27,7 +27,7 @@ console.log(data)
   const renderData = data?.list.map((item, index) => {
     return (
       <div key={index} className="mt-5">
-        <DealerCarPendingRequest item={item} />
+        <DealerCarPendingRequest item={item} refetch={refetch} />
       </div>
     );
   });

@@ -160,7 +160,7 @@ console.log(data)
                 </Link>
                 {item?.status === "cancel" ? (
                   <Button className="flex items-center text-xs gap-2 mt-5 bg-red-300">
-                    Canceled Deal
+                    Canceled Booking
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -181,7 +181,7 @@ console.log(data)
                     className="flex items-center text-xs gap-2 mt-5 bg-red-700"
                     onClick={() => handleOpen(item?.id)}
                   >
-                    Revert Deal
+                    Cancel Booking
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
