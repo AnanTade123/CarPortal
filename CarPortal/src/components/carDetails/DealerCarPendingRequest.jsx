@@ -18,7 +18,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { useState } from "react";
 import { CarouselCustomArrows } from "../../ui/CarouselCustomArrows";
 
-const DealerCarPendingRequest = ({ item }) => {
+const DealerCarPendingRequest = ({ item ,refetch }) => {
   const { id } = useParams();
 
   console.log(item);
@@ -53,6 +53,7 @@ const DealerCarPendingRequest = ({ item }) => {
       const response = await ConfirmBooking(formdata);
       toast.success("Car added");
       setOpen(!open);
+      refetch();
       setTimeout(() => {
         navigate(`/dealer/${id}/booking/confirm`);
       }, 1000);

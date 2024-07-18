@@ -32,6 +32,15 @@ export const inspectorAPI = apiSlice.injectEndpoints({
       }),
       providesTags:["Inspector"]
     }),
+    inspectionReportNew : builder.mutation ({
+      query : ({formDataToSend}) => ({
+        url : `/uploadFileBidCar/add`,
+        transerResponse:console.log(formDataToSend),
+        method : "POST",
+        body :formDataToSend
+      }),
+      providesTags:["Inspector"]
+    }),
 
     getInspectionReport : builder.query ({
       query :({beadingCarId ,docType}) => ({
@@ -64,7 +73,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
 
     addBiddingCarWithoutImage : builder.mutation ({
       query : ({formDataToSend1}) => ({
-        url : `/uploadFileBidCar/addWithoutPhoto?doc=&doctype=&subtype=&comment=`,
+        url : `/uploadFileBidCar/addWithoutPhoto`,
         method : "POST",
         transerResponse:console.log(formDataToSend1),
         body : formDataToSend1
@@ -96,6 +105,7 @@ export const { useInspectorByIdQuery ,
   useGetallInspectorQuery,
   useGetInspectionReportQuery,
   useInspectionReportMutation,
+  useInspectionReportNewMutation,
   useInspectorupdateMutation ,
   useFinalInspectionReportMutation,
 useAddBiddingCarWithoutImageMutation,

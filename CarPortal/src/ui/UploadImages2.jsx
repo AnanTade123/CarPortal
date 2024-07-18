@@ -19,6 +19,7 @@ import {
   IoCloseCircle,
   IoCheckmarkCircle,
 } from "react-icons/io5";
+import imageCompression from "browser-image-compression";
 
 function UploadImages2() {
   const [images, setImages] = useState([]);
@@ -43,12 +44,33 @@ function UploadImages2() {
   const readImages = async (event, categoryValue) => {
     const files = Array.from(event.target.files);
     const documentType = categoryValue === "coverimage" ? "coverImage" : "image";
-    setImages(files);
 
-    for (const file of files) {
+    const compressedFiles = await Promise.all(
+      files.map(async (file) => {
+        try {
+          const compressedFile = await imageCompression(file, {
+            maxSizeMB: 1, // Maximum file size (MB)
+            maxWidthOrHeight: 1920, // Max width or height
+            useWebWorker: true, // Use multi-threading for faster compression
+          });
+          return compressedFile;
+        } catch (error) {
+          console.error(error);
+          toast.error("Image Compression Failed");
+          return null;
+        }
+      })
+    );
+
+    const validCompressedFiles = compressedFiles.filter(file => file !== null);
+
+    setImages(validCompressedFiles);
+
+    for (const file of validCompressedFiles) {
       const formData = new FormData();
       formData.append("image", file);
       formData.append("document", documentType);
+      console.log(file, documentType, 'Rishi');
 
       try {
         const response = await addCarImages({
@@ -87,7 +109,7 @@ function UploadImages2() {
         return category;
       })
     );
-  };
+  }
 
   const navigate = useNavigate();
 

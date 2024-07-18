@@ -9,6 +9,7 @@ import Tyres from "../Img_UI/Tyres.webp";
 import Engine from "../Img_UI/Engine.webp";
 
 import { useGetCarImageByIdQuery } from "../../services/carAPI";
+import "../../../src/index.css"
 
 // eslint-disable-next-line react/prop-types
 const CarView1 = ({ carId }) => {
@@ -78,7 +79,7 @@ const CarView1 = ({ carId }) => {
         )} */}
 
         {interior && (
-          <Carousel className="bg-white rounded-lg shadow-md  ">
+          <Carousel className="bg-white rounded-lg shadow-md   ">
             {data.object.length > 0 ? (
               data.object.map((item) => (
                 <img
