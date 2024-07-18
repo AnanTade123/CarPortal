@@ -8,6 +8,8 @@ import Cookies from "js-cookie";
 import { jwtDecode } from 'jwt-decode';
 import UploadImage4 from '../../ui/UploadImageComponents/UploadImage4';
 import { useAddBiddingCarWithoutImageMutation } from "../../services/inspectorapi"
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -34,7 +36,7 @@ const Ac = () => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
   console.log(beadingCarId);
-  const { data } = useGetInspectionReportQuery({ beadingCarId, docType: "AC" });
+  const { data,refetch } = useGetInspectionReportQuery({ beadingCarId, docType: "AC" });
   console.log(data);
 
   const [formData, setFormData] = useState({
@@ -106,8 +108,13 @@ if (!event?.target) {
 
     try {
       const res = await inspectionReport({ inspectionData, formDataToSend });
+      refetch()
       console.log(res);
-      alert("Data Uploaded");
+      if (res.data?.message === "success") {
+        toast.success("Data Uploaded", { autoClose: 500 });
+      } else {
+        toast.error("Data Upload failed", { autoClose: 500 });
+      }
     } catch (error) {
       console.error('Error uploading the file:', error);
       alert("Data not Uploaded");
@@ -120,9 +127,11 @@ const handleSubmitWithoutImage = async () => {
 
   const formDataToSend1 = new FormData();
   formDataToSend1.append('beadingCarId', beadingCarId);
-  formDataToSend1.append('doctype', "Steering");
+  formDataToSend1.append('doctype', "AC");
   formDataToSend1.append('subtype', lables);
   formDataToSend1.append('comment', selectfiled);
+  formDataToSend1.append('documentType', "InspectionReport");
+  formDataToSend1.append('doc', "");
   try {
     const res = await addBiddingCarWithoutImage({formDataToSend1});
     console.log(res);
@@ -207,12 +216,12 @@ const handleCaptureImage = (imageUrl) => {
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
@@ -246,12 +255,12 @@ const handleCaptureImage = (imageUrl) => {
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
@@ -285,12 +294,12 @@ const handleCaptureImage = (imageUrl) => {
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
@@ -324,12 +333,12 @@ const handleCaptureImage = (imageUrl) => {
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
@@ -372,10 +381,10 @@ const handleCaptureImage = (imageUrl) => {
       </Modal>
 
       {/* <div className="flex justify-between mt-10 px-8">
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="success">
           Previous
         </Button>
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="success">
           Next
         </Button>
       </div> */}

@@ -54,8 +54,6 @@ const WindshieldAndLights = ({ handleCameraModal,
 }) => {
   const classes = useStyles();
 
-console.log(userRole)
-console.log(data)
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -113,7 +111,7 @@ console.log(data)
   };
 
   return (
-    <div className='p-4 '>
+    <div className='p-4 mt-10'>
       <Typography variant="h4" className='text-black font-bold pb-5 pt-15 '>
         Windshield And Lights
       </Typography>
@@ -139,12 +137,12 @@ console.log(data)
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
@@ -186,12 +184,12 @@ console.log(data)
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
@@ -228,12 +226,12 @@ console.log(data)
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
@@ -274,12 +272,12 @@ console.log(data)
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
@@ -320,12 +318,12 @@ console.log(data)
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
@@ -366,12 +364,12 @@ console.log(data)
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
@@ -412,12 +410,12 @@ console.log(data)
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
@@ -458,12 +456,12 @@ console.log(data)
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
