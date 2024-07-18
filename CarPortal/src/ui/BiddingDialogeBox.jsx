@@ -123,9 +123,10 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage })
         };
         // eslint-disable-next-line no-unused-vars
         const {data , error} = await createBidding(createdAt);
-        console.log("checkkkkMAsg",data)
+        console.log("checkkkkMAsg",error)
         if(error){
-          handleMessage(error?.message,"error")
+          handleMessage(error?.data?.exception,"error");
+          handleMessage(error?.message,"error");
         }else{
           handleMessage("Car set for bid","success")
         }

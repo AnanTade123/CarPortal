@@ -17,7 +17,6 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { useState } from "react";
 import { CarouselCustomArrows } from "../../ui/CarouselCustomArrows";
-import { useGetUserQuery } from "../../services/dealerAPI";
 
 const DealerCarPendingRequest = ({ item }) => {
   const { id } = useParams();
@@ -39,7 +38,6 @@ const DealerCarPendingRequest = ({ item }) => {
   console.log("User ID", UserID);
 
   const [ConfirmBooking] = useConfirmBookingMutation();
-  const {data} = useGetUserQuery(item?.userId)
 
   const handleConfirmBook = async (event) => {
     event.preventDefault();
@@ -139,10 +137,10 @@ const DealerCarPendingRequest = ({ item }) => {
                         Contact Details of the User
                       </div>
                       <div className="mt-1 font-[latto] text-base font-medium text-black">
-                        User Name:
+                        User Name: {item?.username}
                       </div>
                       <div className="mt-1 font-[latto] text-base font-medium text-black">
-                        Contact No:
+                        Contact No: {item?.mobileNumber}
                       </div>
                       <div className="flex gap-2 p-2 md:p-0 md:pt-2 ">
                         <div>

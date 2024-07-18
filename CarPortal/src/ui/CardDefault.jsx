@@ -116,7 +116,7 @@ export function CardDefault({ data, Carid }) {
   }, [favData]);
   return (
     <div className="flex justify-center mx-auto">
-      <Card className="max-w-[19rem]">
+      <Card className="max-w-[19rem] overflow-hidden">
         <CardHeader
           floated={false}
           shadow={false}

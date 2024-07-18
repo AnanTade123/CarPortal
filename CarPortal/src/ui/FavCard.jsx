@@ -27,7 +27,7 @@ function FavCard({favoriteCarData}) {
 
   return (
     <div className="flex flex-wrap justify-center mx-auto lg:gap-5">
-      <Card className="w-full flex justify-center sm:w-80 md:w-[260px] lg:w-fit items-center border-2 hover:scale-105 border-gray-300 shadow-xl overflow-hidden mx-5 md:mx-0">
+      <Card className="max-w-[24rem] overflow-hidden">
         <CardHeader floated={false} shadow={false} color="transparent" className="m-0 rounded-none">
           <Link to={`/carlist/cardetails/${car.carId}`}>
             <CarouselCustomArrows carId={car.carId} />

@@ -170,7 +170,7 @@ console.log(variantData)
     if (res?.data?.status === "success") {
       toast.success("Car Added");
       setTimeout(() => {
-        navigate(`/dealer/${id}/uploadimage`); // Corrected URL string with backticks (`) for interpolation
+        navigate(`/dealer/${id}/uploadimage/${res?.data?.message}`); // Corrected URL string with backticks (`) for interpolation
       }, 2000);
       
     }
