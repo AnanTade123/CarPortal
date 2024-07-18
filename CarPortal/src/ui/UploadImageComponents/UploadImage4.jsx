@@ -5,6 +5,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { IoCameraOutline, IoChevronBack } from 'react-icons/io5';
 import { Button } from '@material-tailwind/react';
+import { ToastContainer } from 'react-toastify';
  
 const UploadImage4 = ({ onClose ,handleCaptureImage,selectfiled }) => {
   const [image, setImage] = useState(null);
@@ -81,6 +82,7 @@ const UploadImage4 = ({ onClose ,handleCaptureImage,selectfiled }) => {
  
   return (
     <div className="flex flex-col items-center justify-center h-screen p-4">
+      <ToastContainer/>
       {!previewMode && !confirmedImage ? (
         <div className="cursor-pointer flex flex-col items-center">
           <IoCameraOutline className="w-16 h-16 mb-4 text-gray-600" />
@@ -112,9 +114,7 @@ const UploadImage4 = ({ onClose ,handleCaptureImage,selectfiled }) => {
               <Button size="md" onClick={handleRecapture}>
                 Recapture
               </Button>
-              <Button size="md" onClick={handleDone}>
-                Done
-              </Button>
+             
             </div>
           )}
           <Button
@@ -122,7 +122,7 @@ const UploadImage4 = ({ onClose ,handleCaptureImage,selectfiled }) => {
             className="mt-4 cursor-pointer flex items-center"
             onClick={handleBackClick}
           >
-            <IoChevronBack className="w-5 h-5" /> Back
+            <IoChevronBack className="w-5 h-5" onClick={handleBackClick} /> Back
           </Button>
         </div>
       ) : confirmedImage ? (
@@ -138,7 +138,7 @@ const UploadImage4 = ({ onClose ,handleCaptureImage,selectfiled }) => {
             className="mt-4 cursor-pointer flex items-center"
             onClick={handleBackClick}
           >
-            <IoChevronBack className="w-5 h-5" /> Back
+            <IoChevronBack className="w-5 h-5" /> OK
           </Button>
         </div>
       ) : null}

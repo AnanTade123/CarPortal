@@ -35,7 +35,12 @@ const BiddingCarView1 = ({ beadingCarId }) => {
     return (
       <div className="container mx-auto w-full md:w-3/4 md:h-[30rem]">
         {interior && (
-          <Carousel className="bg-white rounded-lg shadow-md  ">
+          <Carousel
+            className="bg-white rounded-lg shadow-md"
+            arrowClassName="custom-arrow"
+            prevButtonOptions={{ style: { backgroundColor: '#000000' } }}
+            nextButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
+          >
             {data.object.length > 0 ? (
               data.object.map((item) => (
                 <img
@@ -53,14 +58,19 @@ const BiddingCarView1 = ({ beadingCarId }) => {
                 <img
                   src={fallbackImage}
                   alt="no image"
-                  className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50 "
+                  className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50"
                 />
               </div>
             )}
           </Carousel>
         )}
         {exterior && (
-          <Carousel className="bg-white rounded-lg shadow-md ">
+          <Carousel
+            className="bg-white rounded-lg shadow-md"
+            arrowClassName="custom-arrow"
+            prevButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
+            nextButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
+          >
             {data.object.length > 0 ? (
               data.object.map((item) => (
                 <img
@@ -77,7 +87,7 @@ const BiddingCarView1 = ({ beadingCarId }) => {
                 <img
                   src={fallbackImage}
                   alt="no image"
-                  className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50 "
+                  className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50"
                 />
               </div>
             )}
@@ -85,7 +95,12 @@ const BiddingCarView1 = ({ beadingCarId }) => {
         )}
 
         {features && (
-          <Carousel className="bg-white rounded-lg shadow-md ">
+          <Carousel
+            className="bg-white rounded-lg shadow-md"
+            arrowClassName="custom-arrow"
+            prevButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
+            nextButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
+          >
             {data.object.length > 0 ? (
               data.object.map((item) => (
                 <img
@@ -102,7 +117,7 @@ const BiddingCarView1 = ({ beadingCarId }) => {
                 <img
                   src={fallbackImage}
                   alt="no image"
-                  className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50 "
+                  className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50"
                 />
               </div>
             )}
@@ -110,7 +125,12 @@ const BiddingCarView1 = ({ beadingCarId }) => {
         )}
 
         {tyres && (
-          <Carousel className="bg-white rounded-lg shadow-md">
+          <Carousel
+            className="bg-white rounded-lg shadow-md"
+            arrowClassName="custom-arrow"
+            prevButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
+            nextButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
+          >
             {data.object.length > 0 ? (
               data.object.map((item) => (
                 <img
@@ -127,7 +147,7 @@ const BiddingCarView1 = ({ beadingCarId }) => {
                 <img
                   src={fallbackImage}
                   alt="no image"
-                  className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50 "
+                  className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50"
                 />
               </div>
             )}
@@ -135,7 +155,12 @@ const BiddingCarView1 = ({ beadingCarId }) => {
         )}
 
         {engines && (
-          <Carousel className="bg-white rounded-lg shadow-md  ">
+          <Carousel
+            className="bg-white rounded-lg shadow-md"
+            arrowClassName="custom-arrow"
+            prevButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
+            nextButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
+          >
             {data.object.length > 0 ? (
               data.object.map((item) => (
                 <img
@@ -152,7 +177,7 @@ const BiddingCarView1 = ({ beadingCarId }) => {
                 <img
                   src={fallbackImage}
                   alt="no image"
-                  className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 "
+                  className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8"
                 />
               </div>
             )}
@@ -163,7 +188,7 @@ const BiddingCarView1 = ({ beadingCarId }) => {
   };
 
   return (
-    <div className="w-4/5 md:w-full container  md:px-4 lg:px-8">
+    <div className="w-4/5 md:w-full container md:px-4 lg:px-8">
       <div className="flex flex-col justify-between">
         <ChooseCarColor />
         <div className="w-11/12 max-w-xl mx-auto m-5 mb-10 overflow-x-auto scrollbar">
