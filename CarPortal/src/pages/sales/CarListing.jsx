@@ -225,6 +225,11 @@ export default function CarListing() {
         {error?.status === 404 ? (
           <div>
             <p className="text-3xl font-semibold">No Data Available</p>
+            <div className="flex ml-auto shrink-0 flex-col gap-2 sm:flex-row">
+                <Link to={`/inspector/car/add`}>
+                  <Button>Add Car</Button>
+                </Link>
+              </div>
           </div>
         ) : (
           <div>
