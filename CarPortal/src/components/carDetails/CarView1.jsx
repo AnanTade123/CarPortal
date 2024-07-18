@@ -78,7 +78,7 @@ const CarView1 = ({ carId }) => {
         )} */}
 
         {interior && (
-          <Carousel className="bg-white rounded-lg shadow-md  ">
+          <Carousel className="bg-white rounded-lg shadow-md   ">
             {data.object.length > 0 ? (
               data.object.map((item) => (
                 <img
