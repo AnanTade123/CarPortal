@@ -100,9 +100,7 @@ const UploadImage4 = ({ onClose ,handleCaptureImage,selectfiled }) => {
               <Button size="md" onClick={handleRecapture}>
                 Recapture
               </Button>
-              <Button size="md" onClick={handleDone}>
-                Done
-              </Button>
+             
             </div>
           )}
           <Button

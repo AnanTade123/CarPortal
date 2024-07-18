@@ -4,8 +4,9 @@
 import WindshieldAndLights from "./ExteriorsComponent/WindshieldAndLights";
 import Tyre from "./ExteriorsComponent/Tyre";
 import { useEffect, useState } from 'react';
-import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles } from '@material-ui/core';
+import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Modal, makeStyles } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { Button } from "@material-tailwind/react";
 import { useGetInspectionReportQuery, useInspectionReportMutation } from '../../services/inspectorapi';
 import { useParams } from 'react-router-dom';
 import Cookies from "js-cookie";
@@ -304,12 +305,12 @@ const handleFileChange = async (event, fieldName, imgPreview = "") => {
           </Select>
         </FormControl>
         <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} variant="contained" className="bg-[#22c55e]" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } variant="contained"  className="bg-[#3b82f6]">
             Open Camera
             </Button>
           </div>
