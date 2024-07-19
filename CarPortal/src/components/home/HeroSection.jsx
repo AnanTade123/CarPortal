@@ -93,13 +93,13 @@ const HeroSection = () => {
     <Carousel className="rounded-xl overflow-hidden">
       <div className="flex justify-between overflow-hidden">
         <div className="md:pl-28 p-4 h-[400px] bg-blue-100 w-full">
-          <p className="flex mb-3 justify-center items-center md:justify-start font-[latto] text-3xl md:mt-8 md:text-base lg:text-4xl opacity-0 animate-slidein [--slidein-delay:300ms]">
+          <p className="flex mb-3 justify-center items-center md:justify-start font-[latto] font-semibold text-3xl md:mt-8 md:text-4xl lg:text-4xl opacity-0 animate-slidein [--slidein-delay:300ms]">
             Welcomes to CarTechIndia
           </p>
-          <p className="flex justify-center items-center md:justify-start text-xl md:mb-3 md:text-xl lg:text-4xl font-[latto] animate-slidein [--slidein-delay:600ms] opacity-0 ">
+          <p className="flex justify-center items-center md:justify-start text-xl md:mb-3 md:text-2xl lg:text-2xl font-[latto] animate-slidein [--slidein-delay:600ms] opacity-0 ">
             Your Journey to Exceptional
           </p>
-          <p className="flex mb-3 justify-center items-center md:justify-start text-xl md:text-xl lg:text-4xl font-[latto] animate-slidein [--slidein-delay:900ms] opacity-0 ">
+          <p className="flex mb-3 justify-center items-center md:justify-start text-xl md:text-2xl lg:text-2xl font-[latto] animate-slidein [--slidein-delay:900ms] opacity-0 ">
             Cars Begins Here!
           </p>
           <div className=" flex right-0 items-center justify-center">
