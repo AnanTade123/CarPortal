@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   MenuItem,
   FormControl,
@@ -208,27 +208,58 @@ console.log(userRole)
       setSelectfiled(value);
     }
   };
-
-  const handleCaptureImage = (imageUrl) => {
-    setSelectedImage(imageUrl);
-    setCaptureModalOpen(false); // Close the camera modal after capturing the image
+  const fileInputRef = useRef(null);
+  const handleCaptureImage = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
   };
+
+  const handleImageClick =  async(event)  => {
+    // Handle the image upload here
+    const file = event.target.files[0];
+    const formDataToSend = new FormData();
+    formDataToSend.append('image', file);
+    
+    const inspectionData = {
+        documentType: "InspectionReport",
+        beadingCarId: beadingCarId,
+        doc: "",
+        doctype: "Exterior",
+        subtype: lables,
+        comment: selectfiled,
+      };
+  
+      try {
+        const res = await inspectionReport({ inspectionData, formDataToSend });
+        refetch()
+        console.log(res);
+        if (res.data?.message === "success") {
+          toast.success("Data Uploaded", { autoClose: 500 });
+        } else {
+          toast.error("Data Upload failed", { autoClose: 500 });
+        }
+      } catch (error) {
+        console.error('Error uploading the file:', error);
+        toast.error("Data not Uploaded", { autoClose: 500 });
+      }
+    };
 
   const handleCameraModal = (key) => {
     setCaptureModalOpen(true);
     setSelectedLable(key)
   }
 
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
-    setOpenModal(true);
-  };
+  // const handleImageClick = (image) => {
+  //   setSelectedImage(image);
+  //   setOpenModal(true);
+  // };
 
   const closeModal = () => {
     setOpenModal(false);
     setSelectedImage(null);
   };
-
+  
   return (
     <div className='p-4'>
       <ToastContainer/>
@@ -260,7 +291,14 @@ console.log(userRole)
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -304,7 +342,14 @@ console.log(userRole)
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -348,7 +393,14 @@ console.log(userRole)
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -392,7 +444,14 @@ console.log(userRole)
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -436,7 +495,14 @@ console.log(userRole)
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>

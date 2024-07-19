@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { useGetInspectionReportQuery, useInspectionReportMutation } from '../../services/inspectorapi';
@@ -139,11 +139,16 @@ console.log(userRole)
     formDataToSend1.append('doc', "");
     try {
       const res = await addBiddingCarWithoutImage({formDataToSend1});
+      refetch()
       console.log(res);
-      alert("Data Uploaded")
+      if (res.data?.message === "success") {
+        toast.success("Data Uploaded", { autoClose: 500 });
+      } else {
+        toast.error("Data Upload failed", { autoClose: 500 });
+      }
     } catch (error) {
-      console.error('Error uploading the data:', error);
-      alert("Data not Uploaded")
+      
+      toast.error("Data not Uploaded", { autoClose: 500 });
     }
   };
 
@@ -169,20 +174,58 @@ console.log(userRole)
     });
   }, [data]);
 
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
-    setOpenModal(true);
-  };
+  // const handleImageClick = (image) => {
+  //   setSelectedImage(image);
+  //   setOpenModal(true);
+  // };
 
   const handleCameraModal = (key) => {
     setCaptureModalOpen(true);
     setSelectedLable(key)
   }
 
-  const handleCaptureImage = (imageUrl) => {
-    setSelectedImage(imageUrl);
-    setCaptureModalOpen(false); // Close the camera modal after capturing the image
+  // const handleCaptureImage = (imageUrl) => {
+  //   setSelectedImage(imageUrl);
+  //   setCaptureModalOpen(false); // Close the camera modal after capturing the image
+  // };
+
+  const fileInputRef = useRef(null);
+
+  const handleCaptureImage = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
   };
+
+  const handleImageClick =  async(event)  => {
+    // Handle the image upload here
+    const file = event.target.files[0];
+    const formDataToSend = new FormData();
+    formDataToSend.append('image', file);
+    
+    const inspectionData = {
+        documentType: "InspectionReport",
+        beadingCarId: beadingCarId,
+        doc: "",
+        doctype: "Steering",
+        subtype: lables,
+        comment: selectfiled,
+      };
+  
+      try {
+        const res = await inspectionReport({ inspectionData, formDataToSend });
+        refetch()
+        console.log(res);
+        if (res.data?.message === "success") {
+          toast.success("Data Uploaded", { autoClose: 500 });
+        } else {
+          toast.error("Data Upload failed", { autoClose: 500 });
+        }
+      } catch (error) {
+        console.error('Error uploading the file:', error);
+        toast.error("Data not Uploaded", { autoClose: 500 });
+      }
+    };
 
   return (
     <div>
@@ -215,7 +258,14 @@ console.log(userRole)
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -255,7 +305,14 @@ console.log(userRole)
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -294,7 +351,14 @@ console.log(userRole)
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>

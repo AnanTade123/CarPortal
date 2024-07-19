@@ -269,8 +269,8 @@ console.log(variantData)
           <div className="md:flex gap-2">
           <div className="mt-5 w-full">
           <Autocomplete
-        id="free-solo-demo"
-        freeSolo
+         id="free-solo-demo"
+         freeSolo
         options={brands}
         getOptionLabel={(option) => option}
         onChange={handleBrandChange}
