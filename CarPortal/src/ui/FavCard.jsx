@@ -26,7 +26,7 @@ function FavCard({favoriteCarData}) {
   }
 
   return (
-    <div className="flex flex-wrap justify-center mx-auto lg:gap-5">
+    <div className="flex flex-wrap justify-center">
       <Card className="max-w-[24rem] overflow-hidden">
         <CardHeader floated={false} shadow={false} color="transparent" className="m-0 rounded-none">
           <Link to={`/carlist/cardetails/${car.carId}`}>
