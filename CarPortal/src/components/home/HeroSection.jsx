@@ -12,7 +12,7 @@ import { Carousel, Typography } from "@material-tailwind/react";
 import { useNavigate } from "react-router";
 const HeroSection = () => {
   // const [locationState, setLocation] = useState("");
-
+ 
   // const [carBrandState, setCarBrand] = useState("");
   const navigate = useNavigate();
   const submitHandler = (e) => {
@@ -264,5 +264,5 @@ const HeroSection = () => {
     </Carousel>
   );
 };
-
+ 
 export default HeroSection;

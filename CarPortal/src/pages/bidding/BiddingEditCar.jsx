@@ -136,7 +136,11 @@ export default function BiddingEditCar() {
         tyre: Carid?.tyre || "",
         dealerId: Carid?.dealerId || "",
         title: Carid?.title || "",
-        insuranceType: Carid?.carInsuranceType || ""
+        insuranceType: Carid?.carInsuranceType || "",
+        musicFeature: Carid?.musicFeature || "",
+        acFeature: Carid?.acFeature || "",
+        powerWindowFeature: Carid?.powerWindowFeature || "",
+        rearParkingCameraFeature: Carid?.rearParkingCameraFeature || ""
       });
       setSelectedModel(Carid?.model);
       setSelectedBrand(Carid?.brand);
@@ -606,11 +610,12 @@ export default function BiddingEditCar() {
                 label={"Music Feature"}
                 type={"checkbox"}
                 name={"musicFeature"}
-                value={formData.musicFeature}
+                // value={formData.musicFeature}
+                checked={formData.musicFeature}
                 onChange={(event) =>
                   setFormData({
                     ...formData,
-                    musicFeature: event.target.value,
+                    musicFeature: event.target.checked,
                   })
                 }
               />{" "}
@@ -622,11 +627,12 @@ export default function BiddingEditCar() {
                 label={"Power Window Feature"}
                 type={"checkbox"}
                 name={"powerWindowFeature"}
-                value={formData.powerWindowFeature}
+                // value={formData.powerWindowFeature}
+                checked={formData.powerWindowFeature}
                 onChange={(event) =>
                   setFormData({
                     ...formData,
-                    powerWindowFeature: event.target.value,
+                    powerWindowFeature: event.target.checked,
                   })
                 }
               />{" "}
@@ -638,11 +644,12 @@ export default function BiddingEditCar() {
                 label={"Ac Feature"}
                 type={"checkbox"}
                 name={"acFeature"}
-                value={formData.acFeature}
+                // value={formData.acFeature}
+                checked={formData.acFeature}
                 onChange={(event) =>
                   setFormData({
                     ...formData,
-                    acFeature: event.target.value,
+                    acFeature: event.target.checked,
                   })
                 }
               />{" "}
@@ -654,11 +661,12 @@ export default function BiddingEditCar() {
                 label={"Rear Parking Camera Feature"}
                 type={"checkbox"}
                 name={"rearParkingCameraFeature"}
-                value={formData.rearParkingCameraFeature}
+                // value={formData.rearParkingCameraFeature}
+                checked={formData.rearParkingCameraFeature}
                 onChange={(event) =>
                   setFormData({
                     ...formData,
-                    rearParkingCameraFeature: event.target.value,
+                    rearParkingCameraFeature: event.target.checked,
                   })
                 }
               />{" "}

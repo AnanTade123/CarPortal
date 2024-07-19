@@ -160,7 +160,7 @@ export const carApi = apiSlice.injectEndpoints({
         method : "POST",
         body :data2
       }),
-      providesTags: ["CAR"],
+      invalidatesTags : ["CAR"],
     }),
 
     getbySaveCarId : builder.query({
