@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import UploadImage4 from '../../../ui/UploadImageComponents/UploadImage4';
+import { ToastContainer } from 'react-toastify';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -51,7 +52,8 @@ OtherComponent = ({  handleCameraModal,
   setUploadedImages,
   captureModalOpen,
   setCaptureModalOpen,
-  selectedLable,handleChange }) => {
+  selectedLable,
+  handleChange,handleImageClick,fileInputRef }) => {
   const classes = useStyles();
 
   const [openModal, setOpenModal] = useState(false);
@@ -82,10 +84,10 @@ OtherComponent = ({  handleCameraModal,
 
 
 
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
-    setOpenModal(true);
-  };
+  // const handleImageClick = (image) => {
+  //   setSelectedImage(image);
+  //   setOpenModal(true);
+  // };
 
   const closeModal = () => {
     setOpenModal(false);
@@ -94,6 +96,7 @@ OtherComponent = ({  handleCameraModal,
 
   return (
     <div className='p-4'>
+      <ToastContainer/>
       <Typography variant="h4" className='text-black font-bold pb-5 pt-16 '>
         Other Components
       </Typography>
@@ -118,17 +121,24 @@ OtherComponent = ({  handleCameraModal,
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -164,17 +174,24 @@ OtherComponent = ({  handleCameraModal,
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -209,17 +226,24 @@ OtherComponent = ({  handleCameraModal,
             </Select>
           </FormControl>
           <div className='flex'>  
-            <Button onClick={handleSubmitWithoutImage} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
               <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } variant="contained" color="primary">
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
             Open Camera
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>

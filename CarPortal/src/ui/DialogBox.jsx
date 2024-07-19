@@ -8,14 +8,14 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import Inputs from "../forms/Inputs";
-// import { useBookingRequestMutation } from "../services/carAPI";
+import { useBookingRequestMutation } from "../services/carAPI";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router";
 // import { toast } from "react-toastify";
 export default function DialogBox({ price, dealer_id, carId ,handleBuyCar}) {
   console.log(carId);
   const navigate = useNavigate()
-  // const [bookingRequest] = useBookingRequestMutation();
+  const [bookingRequest] = useBookingRequestMutation();
   const [open, setOpen] = React.useState(false);
   console.log(dealer_id);
   const [inputForm, setInoutForm] = useState("");
@@ -58,39 +58,16 @@ navigate('/signin')
       userId: numUserId,
     };
     console.log(formData)
-    handleBuyCar(formData)
-    // const res = await bookingRequest(formData);
+    
+    const res = await bookingRequest(formData);
     // console.log(res);
-    // if (res?.data) {
-    //   toast('🦄 Wow so easy!', {
-    //     position: "top-right",
-    //     autoClose: 1000,
-    //     // hideProgressBar: false,
-    //     // closeOnClick: true,
-    //     // pauseOnHover: true,
-    //     // draggable: true,
-    //     // progress: undefined,
-    //     // theme: "light",
-    //     // transition: Bounce,
-    //     });
-    //   alert("request send");
-    //   setInoutForm("");
-    // }
-    // if (res.error) {
-    //   toast('🦄 Wow so easy!', {
-    //     position: "top-right",
-    //     autoClose: 1000,
-    //     // hideProgressBar: false,
-    //     // closeOnClick: true,
-    //     // pauseOnHover: true,
-    //     // draggable: true,
-    //     // progress: undefined,
-    //     // theme: "light",
-    //     // transition: Bounce,
-    //     });
-    //   alert(res.error.data.message);
-    // }
-    setInoutForm("");
+    if (res?.data) {
+      handleBuyCar("Request sent successfully!","success")
+      setInoutForm("");
+    }
+    if (res.error) {
+      handleBuyCar(res.error.data.message,"error")
+    }
   };
   return (
     <>

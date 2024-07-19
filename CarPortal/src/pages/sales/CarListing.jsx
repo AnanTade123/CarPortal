@@ -17,37 +17,34 @@ import {
 import TableComponent from "../../components/table/TableComponent";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {  useBiddingCarByDealerIdQuery } from "../../services/biddingAPI";
+import { useBiddingCarByDealerIdQuery } from "../../services/biddingAPI";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
 export default function CarListing() {
-
   const token = Cookies.get("token");
-
   let jwtDecodes;
-
   if (token) {
     jwtDecodes = jwtDecode(token);
   }
   const UserId = token ? jwtDecodes?.userId : null;
 
-  // const { data, error ,isLoading} = useBiddingAllCardQuery();
-  const { data, error ,isLoading} = useBiddingCarByDealerIdQuery(UserId);
-  console.log(data)
+  const { data, error, isLoading } = useBiddingCarByDealerIdQuery(UserId);
   const activeCarsData = data?.filter(car => car?.carStatus === "ACTIVE");
   const pendingCarsData = data?.filter(car => car?.carStatus === "pending");
   const sellCarsData = data?.filter(car => car?.carStatus === "sell");
-  const [totalCars ,setTotalCars] = useState(data?.length || "-");
-  const [activeCars ,setActiveCars] = useState(activeCarsData?.length || "-");
-  const [pendingCars ,setPendingCars] = useState(pendingCarsData?.length || "-");
-  const [inspectionDone ,setInspectionDone] = useState(activeCarsData?.length || "-");
-  const [sellCars ,setSellCars] = useState(sellCarsData?.length || "-");
+
+  const [totalCars, setTotalCars] = useState(data?.length || "-");
+  const [activeCars, setActiveCars] = useState(activeCarsData?.length || "-");
+  const [pendingCars, setPendingCars] = useState(pendingCarsData?.length || "-");
+  const [inspectionDone, setInspectionDone] = useState(activeCarsData?.length || "-");
+  const [sellCars, setSellCars] = useState(sellCarsData?.length || "-");
+
+  const [filteredCars, setFilteredCars] = useState(data || []);
   const [pageNo, setPageNo] = useState(0);
   const [deleteDealer] = useDeleteDealerMutation();
   const [open, setOpen] = useState(false);
   const [deleteid, setDeleteid] = useState();
-  // const [bidCarList, setBidCarList] = useState([]);
 
   const itemsPerPage = 10;
 
@@ -79,7 +76,6 @@ export default function CarListing() {
       if (error?.status === 404) {
         return prevPageNo; // Keep pageNo unchanged
       } else {
-        // setBidCarList(data.slice(pageNo * itemsPerPage, (pageNo + 1) * itemsPerPage));
         return prevPageNo + 1;
       }
     });
@@ -180,43 +176,66 @@ export default function CarListing() {
       setPendingCars(pendingCarsData?.length);
       setInspectionDone(activeCarsData?.length);
       setSellCars(sellCarsData?.length);
+      setFilteredCars(data); // Initialize with all cars data
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeCarsData, pendingCarsData, sellCarsData]);
+  }, [data]);
 
-  let biddingCarData;
-  if (isLoading) {
-    return <p>isLoading</p>;
-  } 
-  // else {
-  //   biddingCarData = data ? data.slice(Math.max(data.length - 10, 0)) : [];
-  // }
+  const handleFilterCars = (status) => {
+    if (status === "ACTIVE") {
+      setFilteredCars(activeCarsData);
+    } else if (status === "pending") {
+      setFilteredCars(pendingCarsData);
+    } else if (status === "sell") {
+      setFilteredCars(sellCarsData);
+    } else {
+      setFilteredCars(data);
+    }
+  };
 
   const startIndex = pageNo * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const paginatedData = data ? data.slice(startIndex, endIndex) : [];
+  const paginatedData = filteredCars ? filteredCars.slice(startIndex, endIndex) : [];
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <>
       <h1 className="mt-2 text-xl ml-2 mb-5 font-bold">Car Listing</h1>
       <div className="flex flex-wrap justify-center divide-x-4 mx-5 mb-8">
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-400 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer">
+        <div 
+          onClick={() => handleFilterCars("ALL")}
+          className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-[#FE9496]  rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer"
+        >
           <div className="text-4xl font-bold text-white">{totalCars}</div>
           <div className="mt-2 font-medium">Total Cars</div>
         </div>
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-green-500 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer">
+        <div 
+          onClick={() => handleFilterCars("ACTIVE")}
+          className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-[#4BCBEB] rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer"
+        >
           <div className="text-4xl font-bold text-white">{`${activeCars}/${totalCars}`}</div>
           <div className="mt-2 font-medium">Active Cars</div>
         </div>
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-yellow-800 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer">
+        <div 
+          onClick={() => handleFilterCars("pending")}
+          className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-[#9E58FF] rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer"
+        >
           <div className="text-4xl font-bold text-white">{`${pendingCars}/${totalCars}`}</div>
           <div className="mt-2 font-medium">Pending Cars</div>
         </div>
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-500 rounded-2xl shadow-xl sm:mb-2 mb-5 sm:mr-5 cursor-pointer">
+        <div 
+          onClick={() => handleFilterCars("INSPECTION_DONE")}
+          className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-[#1DC9B7] rounded-2xl shadow-xl sm:mb-2 mb-5 sm:mr-5 cursor-pointer"
+        >
           <div className="text-4xl font-bold text-white">{`${inspectionDone}/${totalCars}`}</div>
           <div className="mt-2 font-medium">Inspection Done Cars</div>
         </div>
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-red-500 rounded-2xl shadow-xl  sm:mb-2 sm:mr-5 cursor-pointer">
+        <div 
+          onClick={() => handleFilterCars("sell")}
+          className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-green-500 rounded-2xl shadow-xl  sm:mb-2 sm:mr-5 cursor-pointer"
+        >
           <div className="text-4xl font-bold text-white">{sellCars}</div>
           <div className="mt-2 font-medium">Sell Cars</div>
         </div>
@@ -225,6 +244,11 @@ export default function CarListing() {
         {error?.status === 404 ? (
           <div>
             <p className="text-3xl font-semibold">No Data Available</p>
+            <div className="flex ml-auto shrink-0 flex-col gap-2 sm:flex-row">
+                <Link to={`/inspector/car/add`}>
+                  <Button>Add Car</Button>
+                </Link>
+              </div>
           </div>
         ) : (
           <div>
@@ -259,9 +283,7 @@ export default function CarListing() {
                 <Button
                   variant="outlined"
                   size="sm"
-                  // disabled={pageNo <= 0}
-                  // onClick={() => setPageNo((a) => a - 1)}
-                   disabled={pageNo <= 0}
+                  disabled={pageNo <= 0}
                   onClick={() => setPageNo((prev) => Math.max(prev - 1, 0))}
                 >
                   Previous
@@ -276,10 +298,8 @@ export default function CarListing() {
                 <Button
                   variant="outlined"
                   size="sm"
-                  // onClick={nextHandler}
-                  // disabled={data?.list?.length < 10}
-                  onClick={() => setPageNo((prev) => (data?.length > endIndex ? prev + 1 : prev))}
-                  disabled={data?.length <= endIndex}
+                  onClick={() => setPageNo((prev) => (filteredCars?.length > endIndex ? prev + 1 : prev))}
+                  disabled={filteredCars?.length <= endIndex}
                 >
                   Next
                 </Button>

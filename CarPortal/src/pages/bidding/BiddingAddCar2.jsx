@@ -499,11 +499,11 @@ export default function BiddingAddCar2() {
                   <option value="" disabled>
                     Select Owner Serial
                   </option>
-                  <option value="1">1st</option>
-                  <option value="2">2nd</option>
-                  <option value="3">3rd</option>
-                  <option value="4">4th</option>
-                  <option value="5">5th</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
                 </select>
               </div>
             </div>

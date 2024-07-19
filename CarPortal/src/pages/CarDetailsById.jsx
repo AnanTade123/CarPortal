@@ -40,23 +40,19 @@ const [bookingRequest] = useBookingRequestMutation();
      </h3>
   }
 
-  const handleBuyCar = async (formData) => {
-    try{
-
-      const res = await bookingRequest(formData);
-      console.log(res);
-      if (res?.data) {
-        toast.success('Request sent successfully!');
-      } else if (res.error) {
-        toast.error(res.error.data.message);
+  const handleBuyCar =  (formData, status) => {
+      if (status === "success") {
+        toast.success(formData);
+      } else if (status==="error") {
+        toast.error(formData);
       }
-    }catch(error){
-      toast.error(error);
-    }
-
   }
 
   const {
+    acFeature,
+    musicFeature,
+    powerWindowFeature,
+    rearParkingCameraFeature,
     price,
     brand,
     fuelType,
@@ -90,6 +86,10 @@ const [bookingRequest] = useBookingRequestMutation();
           carInsurance={carInsurance}
           kmDriven={kmDriven}
           carId = {carId}
+          acFeature={acFeature}
+          musicFeature={musicFeature}
+          powerWindowFeature={powerWindowFeature}
+          rearParkingCameraFeature={rearParkingCameraFeature}
         />
       </div>
       <div className="p-4 sticky top-0">
@@ -109,6 +109,7 @@ const [bookingRequest] = useBookingRequestMutation();
           dealer_id = {dealer_id}
           carId = {carId}
           handleBuyCar={handleBuyCar}
+          
         />
       </div>
     </div>
