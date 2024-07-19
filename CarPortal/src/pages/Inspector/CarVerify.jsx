@@ -16,6 +16,7 @@ import AC from "./Ac";
 import Electrical from "./Electrical";
 import { useParams } from "react-router-dom";
 import { useFinalInspectionQuery } from "../../services/inspectorapi";
+import { ToastContainer } from "react-toastify";
 
 export default function CarVerify() {
   const {beadingCarId} = useParams()
@@ -64,6 +65,7 @@ console.log(inspData)
 
   return (
     <div className="mt-5">
+      
       <Tabs value={activeTab}>
       <TabsHeader
   className="rounded-none border-b border-blue-gray-50 overflow-x-auto md:overflow-x-visible p-2"
@@ -90,6 +92,7 @@ console.log(inspData)
         ))}
       </TabsBody>
     </Tabs>
+    <ToastContainer/>
     </div>
   )
 }

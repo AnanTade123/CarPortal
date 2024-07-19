@@ -5,6 +5,8 @@ import {useFinalInspectionReportMutation} from "../../services/inspectorapi"
 import { useNavigate, useParams } from 'react-router-dom';
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ImportantDocuments = ({inspData}) => {
 const navigate = useNavigate()
@@ -19,22 +21,22 @@ console.log(beadingCarId)
 const UserId = token ? jwtDecodes?.userId : null;
 console.log(UserId)
 const [formData, setFormData] = useState({
-  rcAvailability: '',
-  mismatchInRC: '',
-  rtoNocIssued: '',
-  insuranceType: '',
-  noClaimBonus: '',
-  underHypothecation: '',
-  roadTaxPaid: '',
-  partipeshiRequest: '',
-  duplicateKey: '',
-  chassisNumberEmbossing: '',
-  manufacturingDate: '',
-  registrationDate: '',
-  rto: '',
-  fitnessUpto: '',
-  cngLpgFitmentInRC: '',
-  LoanStatus: ''
+  rcAvailability: "",
+  mismatchInRC: "",
+  rtoNocIssued: "",
+  insuranceType: "",
+  noClaimBonus: "",
+  underHypothecation: "",
+  roadTaxPaid: "",
+  partipeshiRequest: "",
+  duplicateKey: "",
+  chassisNumberEmbossing: "",
+  manufacturingDate: "",
+  registrationDate: "",
+  rto: "",
+  fitnessUpto: "",
+  cngLpgFitmentInRC: "",
+  LoanStatus: ""
 });
 
   useEffect(() => {
@@ -78,15 +80,15 @@ console.log(formData)
     console.log('Form submitted successfully:', formData);
   }
      const inspectionData = {
-       userId: UserId,
-       beadingCarId: beadingCarId,
+       userId: Number(UserId),
+       beadingCarId: Number(beadingCarId),
       rcavailability:formData.rcAvailability ,
       mismatchInRC: formData.mismatchInRC,
       rtonocissued: formData.rtoNocIssued,
       insuranceType: formData.insuranceType,
       noClaimBonus: formData.noClaimBonus,
       underHypothecation:formData.underHypothecation ,
-      loanStatus: formData.loanStatus,
+      loanStatus: formData.LoanStatus,
       roadTaxPaid: formData.roadTaxPaid,
       partipeshiRequest:formData.partipeshiRequest,
       duplicateKey: formData.duplicateKey,
@@ -100,9 +102,12 @@ console.log(formData)
   try {
     const res = finalInspectionReport({inspectionData})
     console.log(res)
-    alert("Data Added")
-    navigate("/inspector/car")
-
+    
+      toast.success("Data Uploaded");
+      setTimeout(() => {
+        navigate("/sales/biddingcar")
+      },1000)
+     
   } catch (error) {
     console.log(error)
   }
