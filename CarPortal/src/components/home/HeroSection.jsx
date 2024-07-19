@@ -5,7 +5,7 @@ import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router";
 const HeroSection = () => {
   // const [locationState, setLocation] = useState("");
-
+ 
   // const [carBrandState, setCarBrand] = useState("");
   const navigate = useNavigate();
   const submitHandler = (e) => {
@@ -73,7 +73,7 @@ const HeroSection = () => {
           </Button>
         </div>
       </div>
-
+ 
       <div className="absolute right-0 ">
         <img
           alt="car"
@@ -84,5 +84,5 @@ const HeroSection = () => {
     </div>
   );
 };
-
+ 
 export default HeroSection;
