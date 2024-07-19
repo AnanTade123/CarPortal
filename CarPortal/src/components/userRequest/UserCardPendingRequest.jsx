@@ -12,7 +12,7 @@ const UserCardPendingRequest = ({ item }) => {
     <div className="w-96px items-center flex justify-center mx-8">
       <div className="shadow-xl rounded-lg">
         <CardUi>
-          <div className="md:min-w-[30rem] min-w-[20rem]">
+          <div className="md:min-w-[24rem] min-w-[20rem]">
             <div className="flex w-full">
               <div className="w-full p-4">
                 <CardHeader
