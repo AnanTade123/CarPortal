@@ -49,6 +49,10 @@ const [bookingRequest] = useBookingRequestMutation();
   }
 
   const {
+    acFeature,
+    musicFeature,
+    powerWindowFeature,
+    rearParkingCameraFeature,
     price,
     brand,
     fuelType,
@@ -82,6 +86,10 @@ const [bookingRequest] = useBookingRequestMutation();
           carInsurance={carInsurance}
           kmDriven={kmDriven}
           carId = {carId}
+          acFeature={acFeature}
+          musicFeature={musicFeature}
+          powerWindowFeature={powerWindowFeature}
+          rearParkingCameraFeature={rearParkingCameraFeature}
         />
       </div>
       <div className="p-4 sticky top-0">
@@ -101,6 +109,7 @@ const [bookingRequest] = useBookingRequestMutation();
           dealer_id = {dealer_id}
           carId = {carId}
           handleBuyCar={handleBuyCar}
+          
         />
       </div>
     </div>
