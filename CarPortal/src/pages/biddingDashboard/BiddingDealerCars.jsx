@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-undef */
 import {
   Card,
@@ -7,7 +8,7 @@ import {
   CardBody,
   CardFooter,
 } from "@material-tailwind/react";
-import { useBiddingAllCardQuery } from "../../services/biddingAPI";
+import { useBiddingAllCardQuery, useGetByDealerIdQuery } from "../../services/biddingAPI";
 import TableComponent from "../../components/table/TableComponent";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
@@ -31,7 +32,11 @@ const BiddingDealerCars = () => {
   const [filteredData, setFilteredData] = useState(null);
 
   console.log("UserId------", UserID, dealerId, id);
-  const { data, isLoading, error } = useBiddingAllCardQuery();
+  const dataQuery = (userRole === "DEALER") 
+  ? useGetByDealerIdQuery({ UserID }) 
+  : useBiddingAllCardQuery();
+
+const { data, isLoading, error } = dataQuery;
   const [totalCars, setTotalCars] = useState(data?.length || "-");
   const activeCarCount = data?.filter((car) => car.carStatus === "ACTIVE").length;
   const pendingCarCount = data?.filter((car) => car.carStatus === "pending").length;

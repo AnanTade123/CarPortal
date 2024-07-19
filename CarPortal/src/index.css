@@ -16,3 +16,7 @@
         scrollbar-width: none;  /* Firefox */
   }
 }
+
+.-ml-1, .ml-1{
+    color: black
+}
