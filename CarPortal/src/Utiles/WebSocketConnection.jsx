@@ -55,22 +55,28 @@ export const WebSocketProvider = ({ children }) => {
   }, []);
 
   const getTopThreeBids = (bidCarId) => {
-    console.log("Pendingcars---",client);
-    if (client) {
-    const bidRequest = {
-      bidCarId: bidCarId,
-    };
-    if (client) {
-      client?.publish({
-        destination: '/app/topThreeBids',
-        body: JSON.stringify(bidRequest),
-      });
-    } else {
-      console.error('Stomp client is not initialized.');
-    }
-    }else{
-        console.error('Stomp client is not initialized.');
-    }
+    return new Promise((resolve, reject) => {
+      if (client) {
+        const bidRequest = {
+          bidCarId: bidCarId,
+        };
+        client.publish({
+          destination: '/app/topThreeBids',
+          body: JSON.stringify(bidRequest),
+        });
+
+        client.subscribe(`/topic/topThreeBids`, (message) => {
+          const topBids = JSON.parse(message.body);
+          console.log("Mydatachcek---",topBids);
+          setTopThreeBidsAmount(topBids);
+
+
+          resolve(topBids);
+        }, { ack: 'client' });
+      } else {
+        reject('Stomp client is not initialized.');
+      }
+    });
   };
 
   const placeBid = (userData) => {

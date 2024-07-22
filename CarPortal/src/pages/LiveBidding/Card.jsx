@@ -2,10 +2,12 @@
 import { FaLocationDot } from "react-icons/fa6";
 import { useBiddingCarByIdQuery, useGetCarIdTypeQuery } from "../../services/biddingAPI";
 import { Link } from "react-router-dom";
-import HighestBidAmount from "./HighestBidAmount";
+// import HighestBidAmount from "./HighestBidAmount";
 import dayjs from "dayjs";
 import duration from 'dayjs/plugin/duration';
 import { useEffect, useState } from "react";
+import { useWebSocket } from '../../Utiles/WebSocketConnection';
+
 
 dayjs.extend(duration);
 
@@ -15,7 +17,8 @@ const Card = ({ cardData }) => {
     const { data: imageData } = useGetCarIdTypeQuery(cardData?.beadingCarId);
     // eslint-disable-next-line no-unused-vars
     const [timeLeft, setTimeLeft] = useState('');
-
+    const bidCarId =cardData?.bidCarId;
+    const [topThreeBids, setTopThreeBids] = useState([]);
     useEffect(() => {
         const updateTimer = () => {
             const now = dayjs();
@@ -42,6 +45,24 @@ const Card = ({ cardData }) => {
         return () => clearInterval(timerId);
     }, [closeTime]);
 
+    const { isConnected, getTopThreeBids } = useWebSocket();
+    useEffect(() => {
+        const fetchTopThreeBids = async () => {
+          if (isConnected && bidCarId) {
+            try {
+              const bids = await getTopThreeBids(bidCarId);
+              setTopThreeBids(bids);
+              console.log("checkData------", bids);
+            } catch (error) {
+              console.error('Failed to fetch top three bids:', error);
+            }
+          }
+        };
+    
+        fetchTopThreeBids();
+      }, [isConnected, bidCarId]);
+    const highestBid = topThreeBids[0]?.amount || "-";
+
     return (
         <div className="relative mx-auto w-full max-w-sm">
             <Link to={`/dealer/live/carDetails/${cardData?.bidCarId}/${cardData?.beadingCarId}`} className="relative inline-block w-full transform transition-transform duration-300 ease-in-out hover:-translate-y-2">
@@ -63,7 +84,10 @@ const Card = ({ cardData }) => {
                         </div>
                         <div className="mt-4 -ml-4 flex justify-between items-center">
                             <p className="text-primary mt-2 inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
-                                <span className="text-[16px] bg-indigo-300 p-3 text-white">Highest Bid ₹ <HighestBidAmount bidId={cardData?.bidCarId} /></span>
+                                <span className="text-[16px] bg-indigo-300 p-3 text-white">Highest Bid ₹ 
+                                    {/* <HighestBidAmount bidId={cardData?.bidCarId} /> */}
+                                    {highestBid || "-"}
+                                    </span>
                             </p>
                             <div className="text-center">
                                 <p className="text-primary inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">

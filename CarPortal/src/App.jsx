@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Router,  } from "react-router-dom";
+import { FavoriteProvider } from "./ui/FavoriteContext";
 import Home from "./pages/Home";
 import AppLayout from "./ui/AppLayout";
 import { LoginCard } from "./pages/LoginCard";
@@ -18,6 +19,7 @@ import {
 } from "./components/config/Roles";
 import AdminDealerInfo from "./pages/adminpages/AdminDealerInfo";
 import AdminDealerEdit from "./pages/adminpages/AdminDealerEdit";
+import DealerDashboard from "./pages/dealer/DealerDashboard";
 import DealerMiddleware from "./middleware/DealerMiddleware";
 import BiddingMainPage from "./pages/bidding/BiddingMainPage";
 import AddDealerCar2 from "./pages/dealer/AddDealerCar2";
@@ -34,6 +36,7 @@ import PendingRequest from "./pages/PendingRequest";
 import OrderDealer from "./pages/dealer/OrderDealer";
 import UserConfirmBooking from "./pages/UserConfirmBooking";
 import DealerAllPendingRequest from "./pages/dealer/DealerAllPendingRequest";
+import BiddingCarDetailsById from "./pages/bidding/BiddingCarDetailsById";
 import DealerPendingRequest from "./pages/dealer/DealerPendingRequest";
 import BiddingDealerPendingReq from "./pages/bidding/BiddingDealerPendingReq";
 import Uploadimages2 from "./ui/UploadImages2";
@@ -48,14 +51,25 @@ import Wallet from "./pages/transaction/Wallet";
 import TransactionController from "./pages/transaction/TransactionController";
 import EditImage from "./pages/dealer/EditImage";
 import InspectorMiddleware from "./middleware/InspectorMiddleware";
+import { object } from "prop-types";
 import PendingRequest2 from "./pages/dealer/PendingRequest2";
 import SalesList from "./pages/adminpages/SalesList";
+// import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
 import CarListing from "./pages/sales/CarListing";
 
 import CarListModels from "./pages/adminpages/CarListModels";
 import SellForCar from "./pages/dealer/SellForCar";
 import BiddingDealerCars from "./pages/biddingDashboard/BiddingDealerCars";
 import CarListTable from "./pages/biddingDashboard/CarListTable";
+import BiddingDealer from "./pages/dealer/BiddingDealer";
+import BiddingCars from "./pages/adminpages/BiddingCars";
+import CarDocumentSection from "./pages/InspectionReportPage/CarDocumentSection";
+import ExteriorSection from "./pages/InspectionReportPage/ExteriorSection";
+import EngineSection from "./pages/InspectionReportPage/EngineSection";
+import AcSection from "./pages/InspectionReportPage/AcSection";
+import ElectricalSection from "./pages/InspectionReportPage/ElectricalSection";
+import SteeringSection from "./pages/InspectionReportPage/SteeringSection";
+import InteriorSection from "./pages/InspectionReportPage/InteriorSection";
 import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
 import UploadImages3 from "./ui/UploadImages3";
 import BiddingAddCar2 from "./pages/bidding/BiddingAddCar2";
@@ -64,6 +78,7 @@ import AdminSalesEdit from "./pages/adminpages/AdminSalesEdit";
 import BiddingCarDetailsById1 from "./pages/bidding/BiddingCarDetailsById1";
 import BiddingEditImage from "./pages/bidding/BiddingEditImage";
 import SalePersonMiddleware from "./middleware/SalePersonMiddleware";
+import ImageUploader from "./components/demo/uploadimage";
 import FinalReport from "./pages/InspectionReportPage/FinalReport";
 import LiveBid from "./pages/LiveBidding/LiveBid";
 import BiddingCarDetail from "./pages/LiveBidding/BiddingCarDetail";
@@ -71,6 +86,7 @@ import BiddingCar from "./pages/bidding/BiddingCar";
 import DealerContact from "./components/carDetails/DealerContact";
 import WinnerSection from "./pages/dealer/WinnerSection";
 import { FavoritePage } from "./ui/FavoritePage";
+import { CardDefault } from "./ui/CardDefault";
 
 
 import WebSocketConnection from "./Utiles/WebSocketConnection";
@@ -222,8 +238,8 @@ export default function App() {
               path="/inspector/car"
               element={<CarListing />}
             />
-            <Route path="/inspector/carverify/:beadingCarId" element={<CarVerify />} />
-            <Route path="/inspector/car" element={<CarListing />} />
+            {/* <Route path="/inspector/carverify/:beadingCarId" element={<CarVerify />} /> */}
+            {/* <Route path="/inspector/car" element={<CarListing />} /> */}
             <Route path="/inspector/car/add" element={<BiddingAddCar2 />} />
 
           </Route>
