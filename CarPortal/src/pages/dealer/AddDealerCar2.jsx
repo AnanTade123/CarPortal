@@ -269,8 +269,8 @@ console.log(variantData)
           <div className="md:flex gap-2">
           <div className="mt-5 w-full">
           <Autocomplete
-        id="free-solo-demo"
-        freeSolo
+         id="free-solo-demo"
+         freeSolo
         options={brands}
         getOptionLabel={(option) => option}
         onChange={handleBrandChange}
@@ -654,11 +654,12 @@ console.log(variantData)
                 label="Music Feature"
                 type="checkbox"
                 name="musicFeature"
-                value={formData.musicFeature}
+                // value={formData.musicFeature}
+                checked={formData.musicFeature}
                 onChange={(event) =>
                   setFormData({
                     ...formData,
-                    musicFeature: event.target.value,
+                    musicFeature: event.target.checked,
                   })
                 }
               />{" "}
@@ -670,11 +671,12 @@ console.log(variantData)
                 label="Power Window Feature"
                 type="checkbox"
                 name="powerWindowFeature"
-                value={formData.powerWindowFeature}
+                // value={formData.powerWindowFeature}
+                checked={formData.powerWindowFeature}
                 onChange={(event) =>
                   setFormData({
                     ...formData,
-                    powerWindowFeature: event.target.value,
+                    powerWindowFeature: event.target.checked,
                   })
                 }
               />{" "}
@@ -686,11 +688,12 @@ console.log(variantData)
                 label="Ac Feature"
                 type="checkbox"
                 name="acFeature"
-                value={formData.acFeature}
+                // value={formData.acFeature}
+                checked={formData.acFeature}
                 onChange={(event) =>
                   setFormData({
                     ...formData,
-                    acFeature: event.target.value,
+                    acFeature: event.target.checked,
                   })
                 }
               />{" "}
@@ -702,11 +705,12 @@ console.log(variantData)
                 label="Rear Parking Camera Feature"
                 type="checkbox"
                 name="rearParkingCameraFeature"
-                value={formData.rearParkingCameraFeature}
+                // value={formData.rearParkingCameraFeature}
+                checked={formData.rearParkingCameraFeature}
                 onChange={(event) =>
                   setFormData({
                     ...formData,
-                    rearParkingCameraFeature: event.target.value,
+                    rearParkingCameraFeature: event.target.checked,
                   })
                 }
               />{" "}

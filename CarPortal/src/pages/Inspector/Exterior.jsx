@@ -3,7 +3,7 @@
 /* eslint-disable react/prop-types */
 import WindshieldAndLights from "./ExteriorsComponent/WindshieldAndLights";
 import Tyre from "./ExteriorsComponent/Tyre";
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MenuItem, FormControl, Select, InputLabel, Grid, Typography,Button, Modal, makeStyles } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { useGetInspectionReportQuery, useInspectionReportMutation } from '../../services/inspectorapi';
@@ -15,7 +15,7 @@ import { useAddBiddingCarWithoutImageMutation } from "../../services/inspectorap
 import OtherComponent from "./ExteriorsComponent/OtherComponent"
 import Structure from "./ExteriorsComponent/Structure"
 import { FaCamera } from "react-icons/fa";
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -263,10 +263,10 @@ const [formData, setFormData] = useState({
     }
   };
 
-  const handleCaptureImage = (imageUrl) => {
-    setSelectedImage(imageUrl);
-    setCaptureModalOpen(false); // Close the camera modal after capturing the image
-  };
+  // const handleCaptureImage = (imageUrl) => {
+  //   setSelectedImage(imageUrl);
+  //   setCaptureModalOpen(false); // Close the camera modal after capturing the image
+  // };
 
   const handleCameraModal = (key) => {
     setCaptureModalOpen(true);
@@ -283,19 +283,57 @@ const [formData, setFormData] = useState({
     }
   };
 
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
-    setOpenModal(true);
-  };
+  // const handleImageClick = (image) => {
+  //   setSelectedImage(image);
+  //   setOpenModal(true);
+  // };
 
   const closeModal = () => {
     setOpenModal(false);
     setSelectedImage(null);
   };
+  const fileInputRef = useRef(null);
+
+  const handleCaptureImage = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleImageClick =  async(event)  => {
+    // Handle the image upload here
+    const file = event.target.files[0];
+    const formDataToSend = new FormData();
+    formDataToSend.append('image', file);
+    
+    const inspectionData = {
+        documentType: "InspectionReport",
+        beadingCarId: beadingCarId,
+        doc: "",
+        doctype: "Exterior",
+        subtype: lables,
+        comment: selectfiled,
+      };
+  
+      try {
+        const res = await inspectionReport({ inspectionData, formDataToSend });
+        refetch()
+        console.log(res);
+        if (res.data?.message === "success") {
+          toast.success("Data Uploaded", { autoClose: 500 });
+        } else {
+          toast.error("Data Upload failed", { autoClose: 500 });
+        }
+      } catch (error) {
+        console.error('Error uploading the file:', error);
+        toast.error("Data not Uploaded", { autoClose: 500 });
+      }
+    };
+ 
 
   return (
     <div className="p-4">
-      
+     
       <Typography variant="h4" className="text-black font-bold pb-5">
         Exterior Panel
       </Typography>
@@ -330,7 +368,14 @@ const [formData, setFormData] = useState({
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -379,7 +424,14 @@ const [formData, setFormData] = useState({
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -428,7 +480,14 @@ const [formData, setFormData] = useState({
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -477,7 +536,14 @@ const [formData, setFormData] = useState({
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -526,7 +592,14 @@ const [formData, setFormData] = useState({
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -575,7 +648,14 @@ const [formData, setFormData] = useState({
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -620,7 +700,14 @@ const [formData, setFormData] = useState({
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -669,7 +756,14 @@ const [formData, setFormData] = useState({
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -718,7 +812,14 @@ const [formData, setFormData] = useState({
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -767,7 +868,14 @@ const [formData, setFormData] = useState({
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -787,7 +895,7 @@ const [formData, setFormData] = useState({
           )}
         </Grid>
       </Grid>
-
+      <ToastContainer/>
       {/* Modal for displaying clicked image */}
       <Modal
         open={captureModalOpen}
@@ -808,6 +916,8 @@ const [formData, setFormData] = useState({
       </Modal>
 
       <WindshieldAndLights 
+      handleImageClick={handleImageClick}
+      fileInputRef={fileInputRef}
       handleCameraModal={handleCameraModal} 
       userRole={userRole} 
       handleCaptureImage={handleCaptureImage} 
@@ -825,7 +935,9 @@ const [formData, setFormData] = useState({
       handleChange={handleChange}
     />
 <Tyre/>
-<OtherComponent  handleCameraModal={handleCameraModal} 
+<OtherComponent handleImageClick={handleImageClick}
+      fileInputRef={fileInputRef}
+       handleCameraModal={handleCameraModal} 
       userRole={userRole} 
       handleCaptureImage={handleCaptureImage} 
       handleSubmitWithoutImage={handleSubmitWithoutImage} 
@@ -841,7 +953,10 @@ const [formData, setFormData] = useState({
       setSelectfiled={setSelectfiled}
       handleChange={handleChange}/>
 
-<Structure  handleCameraModal={handleCameraModal} 
+<Structure 
+handleImageClick={handleImageClick}
+fileInputRef={fileInputRef}
+ handleCameraModal={handleCameraModal} 
       userRole={userRole} 
       handleCaptureImage={handleCaptureImage} 
       handleSubmitWithoutImage={handleSubmitWithoutImage} 

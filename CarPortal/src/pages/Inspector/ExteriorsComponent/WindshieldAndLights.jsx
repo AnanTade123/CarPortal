@@ -15,6 +15,7 @@ import {
 } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import UploadImage4 from '../../../ui/UploadImageComponents/UploadImage4';
+import { ToastContainer } from 'react-toastify';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -50,7 +51,7 @@ const WindshieldAndLights = ({ handleCameraModal,
   captureModalOpen,
   setCaptureModalOpen,
   selectedLable,
-  handleChange
+  handleChange,handleImageClick,fileInputRef
 }) => {
   const classes = useStyles();
 
@@ -100,10 +101,7 @@ const WindshieldAndLights = ({ handleCameraModal,
   }, [data]);
 
  
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
-    setOpenModal(true);
-  };
+ 
 
   const closeModal = () => {
     setOpenModal(false);
@@ -115,6 +113,7 @@ const WindshieldAndLights = ({ handleCameraModal,
       <Typography variant="h4" className='text-black font-bold pb-5 pt-15 '>
         Windshield And Lights
       </Typography>
+      <ToastContainer/>
       <Grid container spacing={3}>
         {/* Windshield */}
         <Grid item xs={12} sm={6}>
@@ -147,7 +146,14 @@ const WindshieldAndLights = ({ handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -194,7 +200,14 @@ const WindshieldAndLights = ({ handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -236,7 +249,14 @@ const WindshieldAndLights = ({ handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -282,7 +302,14 @@ const WindshieldAndLights = ({ handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -328,7 +355,14 @@ const WindshieldAndLights = ({ handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -374,7 +408,14 @@ const WindshieldAndLights = ({ handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -420,7 +461,14 @@ const WindshieldAndLights = ({ handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -466,7 +514,14 @@ const WindshieldAndLights = ({ handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>

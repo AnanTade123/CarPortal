@@ -238,8 +238,8 @@ export default function App() {
               path="/inspector/car"
               element={<CarListing />}
             />
-            <Route path="/inspector/carverify/:beadingCarId" element={<CarVerify />} />
-            <Route path="/inspector/car" element={<CarListing />} />
+            {/* <Route path="/inspector/carverify/:beadingCarId" element={<CarVerify />} /> */}
+            {/* <Route path="/inspector/car" element={<CarListing />} /> */}
             <Route path="/inspector/car/add" element={<BiddingAddCar2 />} />
 
           </Route>

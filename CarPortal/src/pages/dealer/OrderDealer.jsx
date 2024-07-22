@@ -31,7 +31,7 @@ const OrderDealer = () => {
       pageNo,
       id,
     });
-console.log(data)
+  console.log(data);
   const [cancelStatusSet] = useCancelStatusSetMutation();
 
   const nextHandler = () => {
@@ -129,7 +129,6 @@ console.log(data)
                 </div>
                 <div className="font-[latto] mt-1 text-base font-medium text-black">
                   User Name:{item?.username}
-                 
                 </div>
                 <div className="font-[latto] text-base font-medium text-black">
                   Contact No: {item?.mobileNumber}
