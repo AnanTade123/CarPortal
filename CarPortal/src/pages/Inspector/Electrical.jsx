@@ -267,8 +267,8 @@ console.log(lables)
               onChange={handleChange}
             >
               <MenuItem value="Not Working">Not Working</MenuItem>
-              <MenuItem value="NA">NA</MenuItem>
-              <MenuItem value="Damage">Damage</MenuItem>
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -315,8 +315,8 @@ console.log(lables)
               onChange={handleChange}
             >
               <MenuItem value="Not Working">Not Working</MenuItem>
-              <MenuItem value="NA">NA</MenuItem>
-              <MenuItem value="Damage">Damage</MenuItem>
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -363,8 +363,8 @@ console.log(lables)
               onChange={handleChange}
             >
               <MenuItem value="Not Working">Not Working</MenuItem>
-              <MenuItem value="NA">NA</MenuItem>
-              <MenuItem value="Damage">Damage</MenuItem>
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -412,7 +412,7 @@ console.log(lables)
             >
               <MenuItem value="Not Working">Not Working</MenuItem>
               <MenuItem value="NA">NA</MenuItem>
-              <MenuItem value="Damage">Damage</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -458,9 +458,10 @@ console.log(lables)
               value={formData.ABS}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Not Working">Not Working</MenuItem>
               <MenuItem value="NA">NA</MenuItem>
-              <MenuItem value="Damage">Damage</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -508,7 +509,7 @@ console.log(lables)
             >
               <MenuItem value="Not Working">Not Working</MenuItem>
               <MenuItem value="NA">NA</MenuItem>
-              <MenuItem value="Damage">Damage</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -555,8 +556,8 @@ console.log(lables)
               onChange={handleChange}
             >
               <MenuItem value="Not Working">Not Working</MenuItem>
-              <MenuItem value="NA">NA</MenuItem>
-              <MenuItem value="Damage">Damage</MenuItem>
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  

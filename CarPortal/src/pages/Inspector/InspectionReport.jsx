@@ -161,7 +161,7 @@ console.log(formData)
               onChange={handleChange}
             >
               <MenuItem value="No mismatch">No mismatch</MenuItem>
-              <MenuItem value="Yes mismatch">Yes mismatch</MenuItem>
+              <MenuItem value="mismatch">mismatch</MenuItem>
             </Select>
             {errors.mismatchInRC && <FormHelperText>{errors.mismatchInRC}</FormHelperText>}
           </FormControl>
@@ -195,6 +195,7 @@ console.log(formData)
               <MenuItem value="Zero Depreciation">Zero Depreciation</MenuItem>
               <MenuItem value="Comprehensive">Comprehensive</MenuItem>
               <MenuItem value="3rd Party">3rd Party</MenuItem>
+              <MenuItem value="Insurance Expired">Insurance Expired</MenuItem>
             </Select>
             {errors.insuranceType && <FormHelperText>{errors.insuranceType}</FormHelperText>}
           </FormControl>
@@ -304,8 +305,8 @@ console.log(formData)
               value={formData.chassisNumberEmbossing}
               onChange={handleChange}
             >
-              <MenuItem value="Yes">Yes</MenuItem>
-              <MenuItem value="No">No</MenuItem>
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Floor Laminated">Floor Laminated</MenuItem>
               <MenuItem value="Rusted">Rusted</MenuItem>
               <MenuItem value="Repunched">Repunched</MenuItem>
               <MenuItem value="Not Traceable">Not Traceable</MenuItem>
@@ -387,7 +388,7 @@ console.log(formData)
             >
               <MenuItem value="">Select</MenuItem>
               <MenuItem value="No mismatch">No mismatch</MenuItem>
-              <MenuItem value="Yes mismatch">Yes mismatch</MenuItem>
+              <MenuItem value="mismatch">mismatch</MenuItem>
             </Select>
             {errors.cngLpgFitmentInRC && <FormHelperText>{errors.cngLpgFitmentInRC}</FormHelperText>}
           </FormControl>

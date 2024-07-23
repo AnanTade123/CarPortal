@@ -249,6 +249,7 @@ const handleSubmitWithoutImage = async () => {
               value={formData.ACCooling}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Misfiring">Ineffective</MenuItem>
               <MenuItem value="Long cranking due to weak Compression">Not Working</MenuItem>
             </Select>
@@ -295,6 +296,7 @@ const handleSubmitWithoutImage = async () => {
               value={formData.Heater}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Misfiring">Ineffective</MenuItem>
               <MenuItem value="Long cranking due to weak Compression">Not Working</MenuItem>
             </Select>
@@ -341,6 +343,7 @@ const handleSubmitWithoutImage = async () => {
               value={formData.ClimateControlAC}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Misfiring">Ineffective</MenuItem>
               <MenuItem value="Long cranking due to weak Compression">Not Working</MenuItem>
             </Select>
@@ -387,8 +390,8 @@ const handleSubmitWithoutImage = async () => {
               value={formData.AcVent}
               onChange={handleChange}
             >
-              <MenuItem value="Abnormal Noise">Abnormal Noise</MenuItem>
-              <MenuItem value="Weak">Weak</MenuItem>
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  

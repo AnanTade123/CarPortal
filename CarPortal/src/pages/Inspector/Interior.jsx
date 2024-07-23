@@ -253,6 +253,7 @@ console.log(userRole)
               value={formData.LeatherSeat}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Torn">Torn</MenuItem>
               <MenuItem value="Worn Out">Worn Out</MenuItem>
             </Select>
@@ -299,6 +300,7 @@ console.log(userRole)
               value={formData.Odometer}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Tempered">Tempered</MenuItem>
               <MenuItem value="Not Tempered">Not Tempered</MenuItem>
             </Select>
@@ -345,12 +347,14 @@ console.log(userRole)
               value={formData.CabinFloor}
               onChange={handleChange}
             >
-              <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Ok">Ok</MenuItem>
+              {/* <MenuItem value="Repainted">Repainted</MenuItem> */}
               <MenuItem value="Dented">Dented</MenuItem>
-              <MenuItem value="Scratched">Scratched</MenuItem>
+              {/* <MenuItem value="Scratched">Scratched</MenuItem> */}
               <MenuItem value="Rusted">Rusted</MenuItem>
-              <MenuItem value="Repaired">Repaired</MenuItem>
-              <MenuItem value="Damaged">Damaged</MenuItem>
+
+              {/* <MenuItem value="Repaired">Repaired</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem> */}
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -395,6 +399,7 @@ console.log(userRole)
               value={formData.Dashboard}
               onChange={handleChange}
             >
+               <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>

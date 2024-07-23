@@ -242,9 +242,9 @@ console.log(userRole)
                 value={formData.Steering}
                 onChange={handleChange}
               >
-                <MenuItem value="Misfiring">Misfiring</MenuItem>
+                <MenuItem value="Ok">Ok</MenuItem>
                 <MenuItem value="Abnormal Noise">Abnormal Noise</MenuItem>
-                <MenuItem value="Hard Noise"> Hard Noise</MenuItem>
+                <MenuItem value="Hard"> Hard</MenuItem>
               </Select>
             </FormControl>
              <div className='flex'>  
@@ -290,8 +290,10 @@ console.log(userRole)
                 value={formData.Brake}
                 onChange={handleChange}
               >
+                <MenuItem value="Ok">Ok</MenuItem>
                 <MenuItem value="Noisy">Noisy</MenuItem>
                 <MenuItem value="Hard Noise">Hard Noise</MenuItem>
+                <MenuItem value="Not Working">Not Working</MenuItem>
               </Select>
             </FormControl>
             <div className='flex'>  
@@ -336,8 +338,11 @@ console.log(userRole)
                 value={formData.Suspension}
                 onChange={handleChange}
               >
+                <MenuItem value="Ok">Ok</MenuItem>
                 <MenuItem value="Abnormal Noise">Abnormal Noise</MenuItem>
                 <MenuItem value="Weak">Weak</MenuItem>
+                <MenuItem value="Not Working">Not Working</MenuItem>
+                
               </Select>
             </FormControl>
             <div className='flex'>  
