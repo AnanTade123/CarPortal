@@ -56,6 +56,7 @@ const Card = ({ cardData }) => {
             try {
               const bids = await getTopThreeBids(bidCarId);
               setTopThreeBids(bids);
+
             } catch (error) {
               console.error('Failed to fetch top three bids:', error);
             }
@@ -63,12 +64,24 @@ const Card = ({ cardData }) => {
         };
 
         fetchTopThreeBids();
-      }, [isConnected, bidCarId]);
 
-      const highestBidAmount = () => {
-        const BiddingAmountData = topThreeBidsAmountArray.filter(data => bidCarId === data?.bidCarId);
-        return BiddingAmountData.length > 0 ? BiddingAmountData[0].amount : "0";
-      };
+      }, [isConnected, bidCarId]);
+      useEffect(() =>{
+
+          
+          const highestBidAmount = () => {
+              const BiddingAmountData = topThreeBidsAmountArray.filter(data => bidCarId === data?.bidCarId);
+              const highestBidAmount = BiddingAmountData.length > 0 ? BiddingAmountData[0].amount : "0";
+              
+              setHighestBid(prevState => ({
+                  ...prevState,
+                  [bidCarId]: highestBidAmount
+                }));
+            };
+        highestBidAmount();
+
+        },[topThreeBidsAmountArray,bidCarId])
+            console.log("highestBid",highestBid);
 
     return (
         <div className="relative mx-auto w-full max-w-sm">
@@ -93,8 +106,9 @@ const Card = ({ cardData }) => {
                             <p className="text-primary mt-2 inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
                                 <span className="text-[16px] bg-indigo-300 p-3 text-white">Highest Bid ₹ 
                                     {/* <HighestBidAmount bidId={cardData?.bidCarId} /> */}
-                                    {/* {highestBid || "0"} */}
-                                    {highestBidAmount()}
+                                    {highestBid[bidCarId] || "0"}
+                                    {/* {highestBidAmount()} */}
+
                                     </span>
                             </p>
                             <div className="text-center">
