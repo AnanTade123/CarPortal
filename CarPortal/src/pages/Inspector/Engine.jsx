@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 import { jwtDecode } from 'jwt-decode';
 import UploadImage4 from '../../ui/UploadImageComponents/UploadImage4';
 import { useAddBiddingCarWithoutImageMutation } from "../../services/inspectorapi"
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -38,7 +38,7 @@ const Engine = () => {
   console.log(beadingCarId);
   const { data ,refetch} = useGetInspectionReportQuery({ beadingCarId, docType: "Engine" });
   console.log(data);
-  console.log(data);
+ 
 
   const [formData, setFormData] = useState({
     Engine: [],
@@ -83,7 +83,7 @@ const Engine = () => {
   }
 
   const userRole = token ? jwtDecodes?.authorities[0] : null;
-console.log(userRole)
+
   useEffect(() => {
     // Pre-fill form data and uploaded images based on API data
     data?.object.map((item) => {
@@ -193,7 +193,9 @@ console.log(userRole)
       refetch()
       console.log(res);
       if (res.data?.message === "success") {
+        
         toast.success("Data Uploaded", { autoClose: 500 });
+        
       } else {
         toast.error("Data Upload failed", { autoClose: 500 });
       }
@@ -272,6 +274,7 @@ console.log(userRole)
       <Typography variant="h4" className='text-black font-bold pb-5'>
         Engine
       </Typography>
+      
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
@@ -716,7 +719,7 @@ console.log(userRole)
           />
         </div>
  
-       
+        
       </Modal>
 
       {/* <div className="flex justify-between mt-10 px-8">
@@ -727,6 +730,7 @@ console.log(userRole)
           Next
         </Button>
       </div> */}
+      
     </div>
   );
 };

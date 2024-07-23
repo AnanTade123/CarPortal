@@ -11,6 +11,8 @@ import {
 import { useDispatch } from "react-redux";
 import { logout } from "../../features/authSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { RiLockPasswordLine } from "react-icons/ri";
+
 const Profile = ({dealer_id,userrole}) => {
 
   const userLocal =JSON.parse(localStorage.getItem('userInfo')) 
@@ -56,8 +58,11 @@ const Profile = ({dealer_id,userrole}) => {
           </MenuItem>
 
           {userrole === 'DEALER' ? (
+            <div>
+
+            
     <Link to={`/dealer/${dealer_id}/edit`}>
-      <MenuItem className="flex items-center gap-2">
+      <MenuItem className=" flex items-center gap-2">
         <svg
           width="16"
           height="16"
@@ -76,8 +81,23 @@ const Profile = ({dealer_id,userrole}) => {
         <Typography variant="small" className="font-medium">
           Edit Profile
         </Typography>
+
       </MenuItem>
     </Link>
+    <MenuItem className="flex items-center gap-2">
+    <RiLockPasswordLine className="text-xl" />
+    <Link to="/changePassword">
+    
+    <Typography
+      variant="small"
+      
+      className="font-medium"
+    >
+      Change Password
+    </Typography>
+  </Link>
+  </MenuItem>
+  </div>
   ) : null}
           <hr className="my-2 border-blue-gray-50" />
           <MenuItem className="flex items-center gap-2 " onClick={handleLogout}>

@@ -1,7 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-import React, { useEffect, useRef, useState } from 'react';
+
+import{ useEffect, useRef, useState } from 'react';
 import {
   MenuItem,
   FormControl,
@@ -19,8 +17,8 @@ import { useAddBiddingCarWithoutImageMutation, useGetInspectionReportQuery, useI
 import Cookies from "js-cookie";
 import { jwtDecode } from 'jwt-decode';
 import UploadImage4 from '../../../ui/UploadImageComponents/UploadImage4';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {  toast } from 'react-toastify';
+
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -67,11 +65,7 @@ const Tyre = () => {
   const [selectedLable ,setSelectedLable] = useState("");
   const [lables, setLables] = useState("");
   const [selectfiled, setSelectfiled] = useState("")
-  const [openModal, setOpenModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-  
-  console.log(lables)
-  console.log(selectfiled)
+
   const [uploadedImages, setUploadedImages] = useState({
     LHSFrontTyres: null,
     RHSFrontTyres: null,
@@ -255,14 +249,10 @@ console.log(userRole)
   //   setOpenModal(true);
   // };
 
-  const closeModal = () => {
-    setOpenModal(false);
-    setSelectedImage(null);
-  };
   
   return (
     <div className='p-4'>
-      <ToastContainer/>
+      
       <Typography variant="h4" className='text-black font-bold pb-5 pt-16'>
         Tyres
       </Typography>
