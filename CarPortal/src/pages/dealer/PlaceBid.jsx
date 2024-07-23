@@ -12,8 +12,6 @@ import {
 // import {usePlacebidsMutation} from "../../services/placingbidApi";
 // import { Client } from '@stomp/stompjs';
 // import SockJS from "sockjs-client/dist/sockjs"
-const TIME_ZONE = "Asia/Kolkata";
-import moment from "moment-timezone";
 import { useWebSocket } from "../../Utiles/WebSocketConnection";
 
 window.global = window;
@@ -23,24 +21,25 @@ export default function PlaceBid({
   UserID,
   handleMessage,
   topThreeBids,
-  bidCarId
+  bidCarId,
+  biddingAmount
 }) {
-  const [bidAmount, setBidAmount] = useState();
-  const [lastBidAmount, setLastBidAmount] = useState();
+  const [bidAmount, setBidAmount] = useState(biddingAmount + 2000);
+  const [lastBidAmount, setLastBidAmount] = useState(biddingAmount + 2000);
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(!open);
   };
   const [error, setError] = useState(null);
-  const { isConnected, getTopThreeBids, topThreeBidsAmount, placeBid } = useWebSocket();
-  useEffect(() => {
-    if (isConnected) {
-      getTopThreeBids(bidCarId);
-      setBidAmount(Number(topThreeBidsAmount[0]?.amount) + 2000 || 0);
-      setLastBidAmount(Number(topThreeBidsAmount[0]?.amount) + 2000 || 0);
-    }
-  }, [isConnected]);
+  const {  getTopThreeBids, topThreeBidsAmount, placeBid } = useWebSocket();
+  
+
+  useEffect(()=>{
+    setBidAmount(biddingAmount + 2000);
+    setLastBidAmount(biddingAmount + 2000)
+  },[biddingAmount])
+
 
   const handlePlaceBid = async () => {
     try {
@@ -55,7 +54,7 @@ export default function PlaceBid({
       if (message?.status === "error") {
         handleMessage(message?.message, "error");
       } else {
-        handleMessage(message, "success");
+        handleMessage(message?.message, "success");
         getTopThreeBids(bidCarId); // Fetch top three bids after placing a bid
         setBidAmount(topThreeBidsAmount[0]?.amount)
       }

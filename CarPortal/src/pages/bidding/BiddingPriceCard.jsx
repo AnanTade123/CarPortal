@@ -53,7 +53,8 @@ const BiddingPriceCard = ({
     if (isConnected) {
       getTopThreeBids(bidCarId);
     }
-  }, [isConnected]);
+  }, [isConnected ,bidCarId]);
+  console.log("topThreeBidsAmount",topThreeBidsAmount);
  
   return (
     <div className="w-full md:w-full">
@@ -180,6 +181,7 @@ const BiddingPriceCard = ({
             <div className="ml-5">
               <PlaceBid beadingCarId={beadingCarId} UserID={UserId} 
               bidCarId={bidCarId}
+              biddingAmount={topThreeBidsAmount[0]?.amount || 0}
               // getTopThreeBids={getTopThreeBids} 
               // topThreeBids={topThreeBids}
               handleMessage={handleMessage}

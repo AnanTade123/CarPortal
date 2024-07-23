@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { FaLocationDot } from "react-icons/fa6";
 import { useBiddingCarByIdQuery, useGetCarIdTypeQuery } from "../../services/biddingAPI";
@@ -19,6 +20,8 @@ const Card = ({ cardData }) => {
     const [timeLeft, setTimeLeft] = useState('');
     const bidCarId =cardData?.bidCarId;
     const [topThreeBids, setTopThreeBids] = useState([]);
+    const [highestBid , setHighestBid] = useState(0);
+    // let highestBid = "";
     useEffect(() => {
         const updateTimer = () => {
             const now = dayjs();
@@ -45,23 +48,27 @@ const Card = ({ cardData }) => {
         return () => clearInterval(timerId);
     }, [closeTime]);
 
-    const { isConnected, getTopThreeBids } = useWebSocket();
+    const { isConnected, getTopThreeBids,topThreeBidsAmountArray } = useWebSocket();
     useEffect(() => {
         const fetchTopThreeBids = async () => {
+            console.log("checkData------",bidCarId)
           if (isConnected && bidCarId) {
             try {
               const bids = await getTopThreeBids(bidCarId);
               setTopThreeBids(bids);
-              console.log("checkData------", bids);
             } catch (error) {
               console.error('Failed to fetch top three bids:', error);
             }
           }
         };
-    
+
         fetchTopThreeBids();
       }, [isConnected, bidCarId]);
-    const highestBid = topThreeBids[0]?.amount || "-";
+
+      const highestBidAmount = () => {
+        const BiddingAmountData = topThreeBidsAmountArray.filter(data => bidCarId === data?.bidCarId);
+        return BiddingAmountData.length > 0 ? BiddingAmountData[0].amount : "0";
+      };
 
     return (
         <div className="relative mx-auto w-full max-w-sm">
@@ -86,7 +93,8 @@ const Card = ({ cardData }) => {
                             <p className="text-primary mt-2 inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
                                 <span className="text-[16px] bg-indigo-300 p-3 text-white">Highest Bid ₹ 
                                     {/* <HighestBidAmount bidId={cardData?.bidCarId} /> */}
-                                    {highestBid || "-"}
+                                    {/* {highestBid || "0"} */}
+                                    {highestBidAmount()}
                                     </span>
                             </p>
                             <div className="text-center">
