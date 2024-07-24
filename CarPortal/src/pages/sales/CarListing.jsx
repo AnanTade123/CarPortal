@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useNavigate } from "react-router-dom";
 import { DialogBody } from "@material-tailwind/react";
@@ -106,7 +107,7 @@ export default function CarListing() {
       Header: "Status",
       accessor: "carStatus",
       Cell: (cell) => {
-        return (cell.row.values.carStatus == "ACTIVE" || cell.row.values.carStatus == "pending") ? (
+        return  cell.row.values.carStatus == "pending" ? (
             <Link to={`/inspector/carverify/${cell.row.values.beadingCarId}`} className="button-link">
           <Button variant="gradient" color="blue">
               Verify
