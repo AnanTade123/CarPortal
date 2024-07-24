@@ -105,7 +105,7 @@ console.log(formData)
     
       toast.success("Data Uploaded");
       setTimeout(() => {
-        navigate("/sales/biddingcar")
+        navigate("/inspector/car")
       },1000)
      
   } catch (error) {
