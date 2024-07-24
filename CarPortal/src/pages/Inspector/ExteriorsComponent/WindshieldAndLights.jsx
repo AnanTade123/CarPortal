@@ -120,13 +120,13 @@ const WindshieldAndLights = ({ handleCameraModal,
               color="Green"
             
             >
-              <MenuItem value="Repainted">Repainted</MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
-              <MenuItem value="Scratched">Scratched</MenuItem>
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Dented">Replaced</MenuItem>
+              {/* <MenuItem value="Scratched">Scratched</MenuItem>
               <MenuItem value="Rusted">Rusted</MenuItem>
-              <MenuItem value="Repaired">Repaired</MenuItem>
+              <MenuItem value="Repaired">Repaired</MenuItem> */}
               <MenuItem value="Damaged">Damaged</MenuItem>
-              <MenuItem value="NotWorking">Not Working</MenuItem>
+              {/* <MenuItem value="NotWorking">Not Working</MenuItem> */}
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -174,13 +174,15 @@ const WindshieldAndLights = ({ handleCameraModal,
               color="Green"
               
             >
-              <MenuItem value="Repainted">Repainted</MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
+              {/* <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem> */}
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted">Rusted</MenuItem>
+              {/* <MenuItem value="Rusted">Rusted</MenuItem> */}
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
-              <MenuItem value="NotWorking">Not Working</MenuItem>
+              
+              <MenuItem value="Replaced">Replaced</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -227,9 +229,14 @@ const WindshieldAndLights = ({ handleCameraModal,
               onChange={handleChange}
               
             >
-              <MenuItem value="ok-69-85%">Ok 69-85%</MenuItem>
-              <MenuItem value="not-ok-22-38%">Not Ok 22-38%</MenuItem>
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem>
+              <MenuItem value="Scratched">Scratched</MenuItem>
+              <MenuItem value="Rusted">Rusted</MenuItem>
+              <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
+              
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -276,6 +283,7 @@ const WindshieldAndLights = ({ handleCameraModal,
               onChange={handleChange}
             
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -329,10 +337,11 @@ const WindshieldAndLights = ({ handleCameraModal,
               onChange={handleChange}
               
             >
-              <MenuItem value="Repainted">Repainted</MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
+              {/* <MenuItem value="Repainted">Repainted</MenuItem> */}
+              {/* <MenuItem value="Dented">Dented</MenuItem> */}
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted">Rusted</MenuItem>
+              {/* <MenuItem value="Rusted">Rusted</MenuItem> */}
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="NotWorking">Not Working</MenuItem>
@@ -382,10 +391,11 @@ const WindshieldAndLights = ({ handleCameraModal,
               onChange={handleChange}
              
             >
-              <MenuItem value="Repainted">Repainted</MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
+              {/* <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem> */}
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted">Rusted</MenuItem>
+              {/* <MenuItem value="Rusted">Rusted</MenuItem> */}
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="NotWorking">Not Working</MenuItem>
@@ -435,10 +445,11 @@ const WindshieldAndLights = ({ handleCameraModal,
               onChange={handleChange}
           
             >
-              <MenuItem value="Repainted">Repainted</MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
+              {/* <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem> */}
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted">Rusted</MenuItem>
+              {/* <MenuItem value="Rusted">Rusted</MenuItem> */}
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="NotWorking">Not Working</MenuItem>
@@ -488,10 +499,11 @@ const WindshieldAndLights = ({ handleCameraModal,
               onChange={handleChange}
               
             >
-              <MenuItem value="Repainted">Repainted</MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
+              {/* <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem> */}
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted">Rusted</MenuItem>
+              {/* <MenuItem value="Rusted">Rusted</MenuItem> */}
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="NotWorking">Not Working</MenuItem>

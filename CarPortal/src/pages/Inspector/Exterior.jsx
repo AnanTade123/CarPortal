@@ -323,13 +323,14 @@ const [formData, setFormData] = useState({
         {/* Bonnet Hood */}
         <Grid item xs={12} sm={6}>
         <FormControl fullWidth>
-          <InputLabel>Bonnet Hood</InputLabel>
+          <InputLabel>Bonnet / Hood</InputLabel>
           <Select
             required
             name="BonnetHood"
             value={formData.BonnetHood}
             onChange={handleChange}
           >
+            <MenuItem value="Ok">Ok</MenuItem>
             <MenuItem value="Repainted">Repainted</MenuItem>
             <MenuItem value="Dented">Dented</MenuItem>
             <MenuItem value="Scratched">Scratched</MenuItem>
@@ -386,6 +387,7 @@ const [formData, setFormData] = useState({
             value={formData.RightDoorFront}
             onChange={handleChange}
           >
+            <MenuItem value="Ok">Ok</MenuItem>
             <MenuItem value="Repainted">Repainted</MenuItem>
             <MenuItem value="Dented">Dented</MenuItem>
             <MenuItem value="Scratched">Scratched</MenuItem>
@@ -442,6 +444,7 @@ const [formData, setFormData] = useState({
               value={formData.LeftDoorFront}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -498,6 +501,7 @@ const [formData, setFormData] = useState({
               value={formData.RightFender}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -554,6 +558,7 @@ const [formData, setFormData] = useState({
               value={formData.LeftQuarterPanel}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -610,6 +615,7 @@ const [formData, setFormData] = useState({
               value={formData.RightQuarterPanel}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -662,6 +668,7 @@ const [formData, setFormData] = useState({
           <FormControl fullWidth>
             <InputLabel>Roof</InputLabel>
             <Select name="Roof" value={formData.Roof} onChange={handleChange}>
+            <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -718,6 +725,7 @@ const [formData, setFormData] = useState({
               value={formData.DickyDoor}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -774,6 +782,7 @@ const [formData, setFormData] = useState({
               value={formData.LeftDoorRear}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -830,6 +839,7 @@ const [formData, setFormData] = useState({
               value={formData.RightDoorRear}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>

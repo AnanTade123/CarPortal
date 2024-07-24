@@ -13,7 +13,9 @@ export const WebSocketProvider = ({ children }) => {
   const [isConnected, setIsConnected] = useState(false);
   const [client, setClient] = useState(null);
   const [topThreeBidsAmount ,setTopThreeBidsAmount]= useState([]);
+  const [topThreeBidsAmountArray ,setTopThreeBidsAmountArray]= useState([]);
 //   const bidCarId = "your_bid_car_id"; // replace with actual value
+const biddingData = [];
 
   useEffect(() => {
     const socket = new SockJS('https://cffffftasting-production.up.railway.app/Aucbidding');
@@ -55,24 +57,35 @@ export const WebSocketProvider = ({ children }) => {
   }, []);
 
   const getTopThreeBids = (bidCarId) => {
-    console.log("Pendingcars---",client);
-    if (client) {
-    const bidRequest = {
-      bidCarId: bidCarId,
-    };
-    if (client) {
-      client?.publish({
-        destination: '/app/topThreeBids',
-        body: JSON.stringify(bidRequest),
-      });
-    } else {
-      console.error('Stomp client is not initialized.');
-    }
-    }else{
-        console.error('Stomp client is not initialized.');
-    }
+    // return new Promise((resolve, reject) => {
+      if (client) {
+        const bidRequest = {
+          bidCarId: bidCarId,
+        };
+  
+        client.publish({
+          destination: '/app/topThreeBids',
+          body: JSON.stringify(bidRequest),
+        });
+  
+        const subscription = client.subscribe(`/topic/topThreeBids`, (message) => {
+          const topBids = JSON.parse(message.body);
+          console.log("exists------", bidCarId);
+          console.log("exists------", biddingData);
+          const exists = biddingData.some(item => bidCarId == item.bidCarId);
+          console.log(exists,"exists------",topBids);
+          if (!exists) {
+            biddingData.push(...topBids);
+          } 
+          setTopThreeBidsAmount(topBids);
+          setTopThreeBidsAmountArray(biddingData);
+        }, { ack: 'client' });
+      } else {
+        console.log('Stomp client is not initialized.');
+      }
+    // });
   };
-
+  
   const placeBid = (userData) => {
     console.log("placebid----", userData);
     const bid = {
@@ -88,20 +101,25 @@ export const WebSocketProvider = ({ children }) => {
         client.publish({
           destination: '/app/placeBid',
           body: JSON.stringify(bid),
-        }, (error, response) => {
-          if (error) {
-            console.error('Error placing bid:', error);
-            reject(error);
-          } else {
-            console.log('Bid placed successfully:', response);
-            getTopThreeBids(client);
-            resolve('Bid placed successfully');
-          }
-        });
+        })
+        
+        // , (error, response) => {
+        //   if (error) {
+        //     console.error('Error placing bid:', error);
+        //     reject(error);
+        //   } else {
+        //     console.log('Bid placed successfully:', response);
+        //     // getTopThreeBids(client);
+        //     resolve('Bid placed successfully');
+        //   }
+        // });
   
         client.subscribe("/topic/bids", function (message) {
           var response = JSON.parse(message.body);
-          resolve(response);
+          if(response?.status){
+            console.log("bidcheck",response?.status)
+            resolve(response);
+          }
         });
       } else {
         console.error('Stomp client is not initialized.');
@@ -119,7 +137,7 @@ export const WebSocketProvider = ({ children }) => {
   
 
   return (
-    <WebSocketContext.Provider value={{ isConnected, placeBid ,getTopThreeBids ,topThreeBidsAmount }}>
+    <WebSocketContext.Provider value={{ isConnected, placeBid ,getTopThreeBids ,topThreeBidsAmount,topThreeBidsAmountArray}}>
       {children}
     </WebSocketContext.Provider>
   );

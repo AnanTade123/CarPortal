@@ -181,6 +181,7 @@ export default function BiddingCarDetailsById1() {
   <div className="md:col-span-1 sticky top-0">
     <BiddingPriceCard
       beadingCarId={beadingCarId}
+      bidCarId={bidCarId}
       // getTopThreeBids={getTopThreeBids}
       topThreeBids={topThreeBids}
       // placeBid={handlePlaceBid}

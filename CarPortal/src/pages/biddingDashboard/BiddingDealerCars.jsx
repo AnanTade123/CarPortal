@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-undef */
 import {
@@ -33,7 +34,7 @@ const BiddingDealerCars = () => {
 
   console.log("UserId------", UserID, dealerId, id);
   const dataQuery = (userRole === "DEALER") 
-  ? useGetByDealerIdQuery({ UserID }) 
+  ? useGetByDealerIdQuery( UserID ) 
   : useBiddingAllCardQuery();
 
 const { data, isLoading, error } = dataQuery;
@@ -62,9 +63,9 @@ console.log(data)
     return <p>Loading..</p>;
   }
 
-  if (error?.status) {
-    navigate("/signin");
-  }
+  // if (error?.status == 401) {
+  //   navigate("/signin");
+  // }
 
   const handleCardClick = (status) => {
     if (status === "ALL") {
@@ -209,7 +210,7 @@ console.log(data)
       <div>
         {error?.status === 404 ? (
           <div>
-            <p className="text-3xl font-semibold ">No Data Available</p>
+            <p className="text-3xl font-semibold ">{error?.data?.message}</p>
           </div>
         ) : (
           <Card className="h-full w-full">

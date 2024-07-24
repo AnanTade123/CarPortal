@@ -10,10 +10,10 @@ export function CarouselCustomArrows({ carId }) {
   if (isLoading) return <div>Loading...</div>;
   if (error)
     return (
-      <div className="text-center ">
-        {/* No Image Available{" "} */}
+      <div className="text-center mt-5">
+        {" "}
         <img
-          className="rounded-lg h-[15rem] w-[19rem] opacity-40"
+          className="h-[14rem] w-[19rem] p-[20px]  opacity-50"
           src="..\..\cars\no-image-available.png"
           alt="no image"
         />

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import Cookies from "js-cookie";
@@ -19,6 +20,7 @@ import { useWebSocket } from "../../Utiles/WebSocketConnection";
 import { useEffect } from "react";
 const BiddingPriceCard = ({
   beadingCarId,
+  bidCarId,
   // getTopThreeBids,
   // topThreeBids,
   // placeBid,
@@ -44,18 +46,16 @@ const BiddingPriceCard = ({
   }
   const userRole = jwtDecodes?.authorities[0];
   const UserId = token ? jwtDecodes?.userId : null;
-  const { getTopThreeBids ,topThreeBidsAmount } = useWebSocket();
-  console.log("topThreeBidsAmount",topThreeBidsAmount);
 
   const {data} = useGetbeadingGetByIdQuery(beadingCarId);
-  // const getTopThreeBidsOfdata = () => {
-  //   const data = getTopThreeBids(beadingCarId);
-  //   console.log(data);
-  // }
-  // useEffect(()=>{
-  //   getTopThreeBidsOfdata(beadingCarId)
-  // },[]);
-  // console.log("topThreeBids",topThreeBids[0]?.amount)
+  const { isConnected, getTopThreeBids,topThreeBidsAmount } = useWebSocket();
+  useEffect(() => {
+    if (isConnected) {
+      getTopThreeBids(bidCarId);
+    }
+  }, [isConnected ,bidCarId]);
+  console.log("topThreeBidsAmount",topThreeBidsAmount);
+ 
   return (
     <div className="w-full md:w-full">
     <CardUi>
@@ -130,7 +130,7 @@ const BiddingPriceCard = ({
         <div className="flex justify-center align-middle items-center my-3">
           <div className="text-center">
             <div className="text-xl font-bold text-black font-[latto]">
-            Top Bidding Amount:  ₹
+            Top Bidding Amount: {topThreeBidsAmount[0]?.amount || "-"}  ₹
             </div>
             <div className="uppercase text-gray-700 text-xs font-[latto]">
               Understand Price
@@ -180,6 +180,8 @@ const BiddingPriceCard = ({
             </div> */}
             <div className="ml-5">
               <PlaceBid beadingCarId={beadingCarId} UserID={UserId} 
+              bidCarId={bidCarId}
+              biddingAmount={topThreeBidsAmount[0]?.amount || 0}
               // getTopThreeBids={getTopThreeBids} 
               // topThreeBids={topThreeBids}
               handleMessage={handleMessage}

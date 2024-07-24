@@ -133,12 +133,13 @@ const Structure = ({ handleCameraModal,
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
-            <InputLabel>CowlTop</InputLabel>
+            <InputLabel>Cowl Top</InputLabel>
             <Select
               name="CowlTop"
               value={formData.CowlTop}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -194,6 +195,7 @@ const Structure = ({ handleCameraModal,
               value={formData.BootFloor}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -249,6 +251,7 @@ const Structure = ({ handleCameraModal,
               value={formData.RightApronLEG}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -256,6 +259,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Replaced">Replaced</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -304,6 +308,7 @@ const Structure = ({ handleCameraModal,
               value={formData.LeftApronLEG}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -311,6 +316,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Replaced">Replaced</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -359,6 +365,7 @@ const Structure = ({ handleCameraModal,
               value={formData.RightApron}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -366,6 +373,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Replaced">Replaced</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -414,6 +422,7 @@ const Structure = ({ handleCameraModal,
               value={formData.LeftApron}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -421,6 +430,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Replaced">Replaced</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -469,6 +479,7 @@ const Structure = ({ handleCameraModal,
               value={formData.LeftPillar}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -476,6 +487,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Sealent Broken">Sealent Broken</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -524,6 +536,7 @@ const Structure = ({ handleCameraModal,
               value={formData.RightPillar}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -531,6 +544,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Sealent Broken">Sealent Broken</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  

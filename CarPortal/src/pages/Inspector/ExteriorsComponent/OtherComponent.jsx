@@ -112,6 +112,7 @@ OtherComponent = ({  handleCameraModal,
               color="Green"
               
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -165,6 +166,7 @@ OtherComponent = ({  handleCameraModal,
               color="Green"
               
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -217,6 +219,7 @@ OtherComponent = ({  handleCameraModal,
               onChange={handleChange}
 
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>

@@ -284,6 +284,7 @@ const Engine = () => {
               value={formData.Engine}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Misfiring">Misfiring</MenuItem>
               <MenuItem value="Long cranking due to weak Compression">Long cranking due to weak Compression</MenuItem>
               <MenuItem value="Permissible blow- by on idle">Permissible blow- by on idle</MenuItem>
@@ -335,6 +336,7 @@ const Engine = () => {
               value={formData.EngineMounting}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Loose">Loose</MenuItem>
               <MenuItem value="Tight">Tight</MenuItem>
               <MenuItem value="Excess Vibration">Excess Vibration</MenuItem>
@@ -382,6 +384,7 @@ const Engine = () => {
               value={formData.EngineSound}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Minor sound">Minor sound</MenuItem>
               <MenuItem value="No engine sound">No engine sound</MenuItem>
               <MenuItem value="Critical sound">Critical sound</MenuItem>
@@ -430,6 +433,7 @@ const Engine = () => {
               value={formData.Exhaustsmoke}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Black">Black</MenuItem>
               <MenuItem value="Blue">Blue</MenuItem>
               <MenuItem value="Silencer assembly Damaged and Create Noise">Silencer assembly Damaged and Create Noise</MenuItem>
@@ -477,6 +481,8 @@ const Engine = () => {
               value={formData.Gearbox}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Abnormal Noise">Abnormal Noise</MenuItem>
               <MenuItem value="Oil leakage">Oil leakage</MenuItem>
               <MenuItem value="Shifting-Hard">Shifting-Hard</MenuItem>
             </Select>
@@ -570,8 +576,11 @@ const Engine = () => {
               value={formData.Battery}
               onChange={handleChange}
             >
-              <MenuItem value="Battery Voltage 2.5 Volt">Battery Voltage 2.5 Volt</MenuItem>
-              <MenuItem value="Electrical Fault - Start Motor">Electrical Fault - Start Motor</MenuItem>
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Weak">Weak</MenuItem>
+              <MenuItem value="jump start">jump start</MenuItem>
+              <MenuItem value="Dead">Dead</MenuItem>
+              <MenuItem value="Acid leakage">Acid leakage</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -663,8 +672,10 @@ const Engine = () => {
               value={formData.Clutch}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Slipping">Slipping</MenuItem>
               <MenuItem value="Hard">Hard</MenuItem>
+              <MenuItem value="Spongy">Spongy</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
