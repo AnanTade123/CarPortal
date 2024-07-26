@@ -101,19 +101,13 @@ const WindshieldAndLights = ({ handleCameraModal,
   }, [data]);
 
  
- 
-
-  const closeModal = () => {
-    setOpenModal(false);
-    setSelectedImage(null);
-  };
 
   return (
     <div className='p-4 mt-10'>
       <Typography variant="h4" className='text-black font-bold pb-5 pt-15 '>
         Windshield And Lights
       </Typography>
-      <ToastContainer/>
+      
       <Grid container spacing={3}>
         {/* Windshield */}
         <Grid item xs={12} sm={6}>

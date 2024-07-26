@@ -101,6 +101,14 @@ export const dealerAPI = apiSlice.injectEndpoints({
       }),
       providesTags: ['Dealer','User']
     }),
+
+    chnagePassword : builder.mutation({
+      query : ({passChange,dealerId}) => ({
+        url : `/dealer/changePassword/${dealerId}`,
+        method: "PUT",
+        body : passChange
+      })
+    })
   }),
 });
 
@@ -115,5 +123,6 @@ export const {
   useDealerStatusMutation,
   useGetAllDealerListQuery,
   useCancelStatusSetMutation,
-  useGetUserQuery
+  useGetUserQuery,
+  useChnagePasswordMutation
 } = dealerAPI;

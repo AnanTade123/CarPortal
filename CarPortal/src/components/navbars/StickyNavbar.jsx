@@ -36,11 +36,11 @@ export function StickyNavbar() {
     jwtDecodes = jwtDecode(token);
   }
 
-  console.log(jwtDecodes);
+ 
 
   const userRole = token ? jwtDecodes?.authorities[0] : null;
 
-  console.log(userRole);
+
 
   // eslint-disable-next-line no-unused-vars
 

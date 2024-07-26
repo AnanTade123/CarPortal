@@ -10,16 +10,16 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const ImportantDocuments = ({inspData}) => {
 const navigate = useNavigate()
-console.log(inspData)
+
 const token = Cookies.get("token");
 let jwtDecodes;
 if (token) {
   jwtDecodes = jwtDecode(token);
 }
 const {beadingCarId} = useParams()
-console.log(beadingCarId)
+
 const UserId = token ? jwtDecodes?.userId : null;
-console.log(UserId)
+
 const [formData, setFormData] = useState({
   rcAvailability: "",
   mismatchInRC: "",
@@ -44,7 +44,7 @@ const [formData, setFormData] = useState({
       setFormData({
         rcAvailability: inspData.object.rcavailability,
         mismatchInRC: inspData.object.mismatchInRC,
-        rtoNocIssued: inspData.object.rtoNocIssued,
+        rtoNocIssued: inspData.object.rtonocissued,
         insuranceType: inspData.object.insuranceType,
         noClaimBonus: inspData.object.noClaimBonus,
         underHypothecation: inspData.object.underHypothecation,
@@ -56,12 +56,11 @@ const [formData, setFormData] = useState({
         registrationDate: inspData.object.registrationDate ? inspData.object.registrationDate.split('T')[0] : '',
         rto: inspData.object.rto,
         fitnessUpto: inspData.object.fitnessUpto ? inspData.object.fitnessUpto.split('T')[0] : '',
-        cngLpgFitmentInRC: inspData.object.cngLpgFitmentInRC,
-        LoanStatus: inspData.object.LoanStatus
+        cngLpgFitmentInRC: inspData.object.cnglpgfitmentInRC,
+        LoanStatus: inspData.object.loanStatus
       });
     }
   }, [inspData]);
-console.log(formData)
   const [finalInspectionReport] = useFinalInspectionReportMutation()
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -105,7 +104,7 @@ console.log(formData)
     
       toast.success("Data Uploaded");
       setTimeout(() => {
-        navigate("/sales/biddingcar")
+        navigate("/inspector/car")
       },1000)
      
   } catch (error) {

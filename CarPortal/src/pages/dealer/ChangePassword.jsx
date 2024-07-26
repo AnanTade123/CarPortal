@@ -1,28 +1,43 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
-import { Button, Checkbox, Typography } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Button, Typography } from "@material-tailwind/react";
 import CardUi from "../../ui/CardUi";
-// import { useSignUpMutation } from "../../services/authAPI";
 import Inputs from "../../forms/Inputs";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
+import {useChnagePasswordMutation} from "../../services/dealerAPI"
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 
 export function ChangePassword() {
-//   const [SignUp] = useSignUpMutation();
+const token  =  Cookies.get("token")
+
+let jwtDecodes;
+
+if (token)
+  {
+    jwtDecodes =jwtDecode(token)
+}
+
+const navigate = useNavigate()
+const dealerId = token ? jwtDecodes?.dealerId:null
+console.log(dealerId)
   const [showPassword, setShowPassword] = useState(false);
   const [formStateData, setFormData] = useState({
-    dealerId: "",
     oldPassword: "",
     newPassword: "",
     confirmNewPassword: "",
   });
-
+console.log(formStateData)
   const [errors, setErrors] = useState({
     dealerId: "",
     oldPassword: "",
     newPassword: "",
     confirmNewPassword: "",
   });
-
+const [chnagePassword] = useChnagePasswordMutation()
   const handleChange = (e) => {
     const { name, value, checked, type } = e.target;
     setFormData((prevData) => ({
@@ -51,15 +66,12 @@ export function ChangePassword() {
         break;
       case "confirmNewPassword":
         error = value.trim() === "" ? "Confirm Password is required" : "";
+        if (value.trim() !== formStateData.newPassword) {
+          error = "Passwords do not match";
+        }
         break;
       default:
         break;
-    }
-
-    if (name === "confirmNewPassword" || name === "newPassword") {
-      if (formStateData.newPassword !== formStateData.confirmNewPassword) {
-        error = "Passwords do not match";
-      }
     }
 
     setErrors((prevErrors) => ({
@@ -67,6 +79,7 @@ export function ChangePassword() {
       [name]: error,
     }));
   };
+
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
@@ -91,51 +104,52 @@ export function ChangePassword() {
       }));
       hasError = true;
     }
-     console.log(formStateData);
 
-    if (!hasError) {
-      // Your form submission logic goes here
-      console.log("Form data submitted:", formStateData);
+    const passChange = {
+      oldPassword : formStateData.oldPassword,
+      newPassword : formStateData.newPassword,
+      confirmNewPassword : formStateData.confirmNewPassword
+    }
+  
       try {
-        // const { data } = await SignUp(formStateData);
-        // console.log(data);
-        alert("Password Changed Successfully");
+        
+          const res = await chnagePassword({passChange,dealerId});
+          
+          
+          if (res?.data.status === "success") {
+            toast.success(`${res?.data.message}`)
+            setTimeout(() =>{
+              navigate("/")
+            },1000)
+          }else{
+            toast.error(`${res?.error.data.message}`) 
+          }
       } catch (error) {
         console.log(error);
       }
-    }
+   
   };
   
 
   return (
     <div className="h-auto mt-10 flex justify-center items-center">
-      <CardUi color="transparent" shadow={false}>
+      <CardUi color="transparent" shadow={true} className="">
         <Typography variant="h3" color="black" className="text-center">
           Change Password
         </Typography>
 
         <form
           onSubmit={handleSubmit}
-          className="mt-2 mb-2 w-80 max-w-screen-lg sm:w-96"
+          className="mt-2 mb-2 w-80 p-5  max-w-screen-lg sm:w-96"
         >
           <div className="mb-1 flex flex-col gap-6 w-100">
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Dealer Id
-            </Typography>
-            <Inputs
-              label={"Enter Dealer Id"}
-              name="dealerId"
-              value={formStateData.dealerId}
-              onChange={handleChange}
-              error={errors.dealerId}
-              required={"required"}
-            />
+            
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Old Password
             </Typography>
             <Inputs
               label={"Old Password"}
-              type={showPassword ? "text" : "oldPassword"}
+              type={showPassword ? "text" : "password"}
               name="oldPassword"
               value={formStateData.oldPassword}
               onChange={handleChange}
@@ -160,7 +174,7 @@ export function ChangePassword() {
             </Typography>
             <Inputs
               label={"New Password"}
-              type={showPassword ? "text" : "newPassword"}
+              type={showPassword ? "text" : "password"}
               name="newPassword"
               value={formStateData.newPassword}
               onChange={handleChange}
@@ -172,7 +186,7 @@ export function ChangePassword() {
             </Typography>
             <Inputs
               label={"Confirm Password"}
-              type={showPassword ? "text" : "oldPassword"}
+              type={showPassword ? "text" : "password"}
               name="confirmNewPassword"
               value={formStateData.confirmNewPassword}
               onChange={handleChange}
@@ -180,33 +194,13 @@ export function ChangePassword() {
               required={"required"}
             />
           </div>
-          <Checkbox
-            label={
-              <Typography
-                variant="small"
-                color="gray"
-                className="flex items-center font-normal"
-              >
-                I agree to the
-                <Link
-                  to="#"
-                  className="font-medium transition-colors hover:text-gray-900"
-                >
-                  &nbsp;Terms and Conditions
-                </Link>
-              </Typography>
-            }
-            containerProps={{ className: "-ml-2.5" }}
-            name="status"
-            checked={formStateData.status}
-            onChange={handleChange}
-            // error={errors.agreeTerms}
-          />
+          
           <Button className="mt-6" fullWidth type="submit">
             Change Password
           </Button>
         </form>
       </CardUi>
+      <ToastContainer/>
     </div>
   );
 }

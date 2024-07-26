@@ -1,9 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
+
 import WindshieldAndLights from "./ExteriorsComponent/WindshieldAndLights";
 import Tyre from "./ExteriorsComponent/Tyre";
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState  } from 'react';
 import { MenuItem, FormControl, Select, InputLabel, Grid, Typography,Button, Modal, makeStyles } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { useGetInspectionReportQuery, useInspectionReportMutation } from '../../services/inspectorapi';
@@ -14,8 +13,7 @@ import UploadImage4 from '../../ui/UploadImageComponents/UploadImage4';
 import { useAddBiddingCarWithoutImageMutation } from "../../services/inspectorapi"
 import OtherComponent from "./ExteriorsComponent/OtherComponent"
 import Structure from "./ExteriorsComponent/Structure"
-import { FaCamera } from "react-icons/fa";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -174,11 +172,6 @@ const [formData, setFormData] = useState({
   const [selectedLable ,setSelectedLable] = useState("");
   const [lables, setLables] = useState("");
   const [selectfiled, setSelectfiled] = useState("")
-  const [openModal, setOpenModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  console.log(selectfiled)
-  console.log(lables)
 
   const token = Cookies.get("token");
   let jwtDecodes;
@@ -227,6 +220,7 @@ const [formData, setFormData] = useState({
         console.log(res);
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
+          
         } else {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
@@ -251,8 +245,8 @@ const [formData, setFormData] = useState({
     try {
       const res = await addBiddingCarWithoutImage({formDataToSend1});
       refetch()
-      console.log(res);
-      if (res.data?.message === "success") {
+      console.log(res?.data.message);
+      if (res?.data.message === "success") {
         toast.success("Data Uploaded", { autoClose: 500 });
       } else {
         toast.error("Data Upload failed", { autoClose: 500 });
@@ -263,11 +257,7 @@ const [formData, setFormData] = useState({
     }
   };
 
-  // const handleCaptureImage = (imageUrl) => {
-  //   setSelectedImage(imageUrl);
-  //   setCaptureModalOpen(false); // Close the camera modal after capturing the image
-  // };
-
+ 
   const handleCameraModal = (key) => {
     setCaptureModalOpen(true);
     setSelectedLable(key)
@@ -283,15 +273,6 @@ const [formData, setFormData] = useState({
     }
   };
 
-  // const handleImageClick = (image) => {
-  //   setSelectedImage(image);
-  //   setOpenModal(true);
-  // };
-
-  const closeModal = () => {
-    setOpenModal(false);
-    setSelectedImage(null);
-  };
   const fileInputRef = useRef(null);
 
   const handleCaptureImage = () => {
@@ -333,10 +314,11 @@ const [formData, setFormData] = useState({
 
   return (
     <div className="p-4">
-     
+ 
       <Typography variant="h4" className="text-black font-bold pb-5">
         Exterior Panel
       </Typography>
+      
       <Grid container spacing={3}>
         {/* Bonnet Hood */}
         <Grid item xs={12} sm={6}>
@@ -905,7 +887,7 @@ const [formData, setFormData] = useState({
           )}
         </Grid>
       </Grid>
-      <ToastContainer/>
+      
       {/* Modal for displaying clicked image */}
       <Modal
         open={captureModalOpen}
@@ -922,7 +904,7 @@ const [formData, setFormData] = useState({
           />
         </div>
  
-       
+   
       </Modal>
 
       <WindshieldAndLights 
@@ -989,6 +971,7 @@ fileInputRef={fileInputRef}
           Next
         </Button> 
       </div> */}
+      
     </div>
   );
 };

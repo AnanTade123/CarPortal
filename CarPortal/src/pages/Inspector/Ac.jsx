@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useRef, useState } from 'react';
-import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles } from '@material-ui/core';
+import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles, SnackbarContent } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { useGetInspectionReportQuery, useInspectionReportMutation } from '../../services/inspectorapi';
 import { useParams } from 'react-router-dom';
@@ -8,8 +8,9 @@ import Cookies from "js-cookie";
 import { jwtDecode } from 'jwt-decode';
 import UploadImage4 from '../../ui/UploadImageComponents/UploadImage4';
 import { useAddBiddingCarWithoutImageMutation } from "../../services/inspectorapi"
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -38,7 +39,6 @@ const Ac = () => {
   console.log(beadingCarId);
   const { data,refetch } = useGetInspectionReportQuery({ beadingCarId, docType: "AC" });
   console.log(data);
-
   const [formData, setFormData] = useState({
     ACCooling: [],
     Heater: [],
@@ -234,13 +234,14 @@ const handleSubmitWithoutImage = async () => {
     setCaptureModalOpen(true);
     setSelectedLable(key)
   }
-  
+
   return (
     <div className='p-4'>
       <Typography variant="h4" className='text-black font-bold pb-5'>
         AC
       </Typography>
       <Grid container spacing={3}>
+       <ToastContainer/>
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
             <InputLabel>AC Cooling</InputLabel>
@@ -457,6 +458,7 @@ const handleSubmitWithoutImage = async () => {
           Next
         </Button>
       </div> */}
+    
     </div>
   );
 };
