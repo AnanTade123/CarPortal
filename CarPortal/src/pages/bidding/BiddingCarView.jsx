@@ -11,6 +11,7 @@ import { Button } from "@material-tailwind/react";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
+import TopFeatures from "../../components/carDetails/TopFeatures";
 
 const BiddingCarView = ({
   fuelType,
@@ -22,6 +23,16 @@ const BiddingCarView = ({
   kmDriven,
   beadingCarId,
   data,
+  musicFeature,
+  acFeature,
+  powerWindowFeature,
+  rearParkingCameraFeature,
+  adas,
+  childSafetyLocks,
+  automaticEmergencyBraking,
+  parkingSensors,
+  sunroof,
+  adaptiveHeadlights
 }) => {
   
   const token = Cookies.get("token");
@@ -48,7 +59,18 @@ const BiddingCarView = ({
 
       
           
-      {/* <TopFeatures/> */}
+      <TopFeatures
+      adas={adas}
+      childSafetyLocks={childSafetyLocks}
+      sunroof={sunroof}
+      adaptiveHeadlights={adaptiveHeadlights}
+      automaticEmergencyBraking={automaticEmergencyBraking}
+      parkingSensors={parkingSensors}
+      acFeature={acFeature}
+      musicFeature={musicFeature}
+      powerWindowFeature={powerWindowFeature}
+      rearParkingCameraFeature={rearParkingCameraFeature}
+      />
     </div>
   );
 };

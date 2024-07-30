@@ -18,7 +18,13 @@ const CarView = ({
   musicFeature,
   acFeature,
   powerWindowFeature,
-  rearParkingCameraFeature
+  rearParkingCameraFeature,
+  adas,
+  childSafetyLocks,
+  automaticEmergencyBraking,
+  parkingSensors,
+  sunroof,
+  adaptiveHeadlights
 }) => {
   return (
     <div>
@@ -36,6 +42,12 @@ const CarView = ({
       {/* <InspectionReport/> */}
       
       <TopFeatures
+      adas={adas}
+      childSafetyLocks={childSafetyLocks}
+      sunroof={sunroof}
+      adaptiveHeadlights={adaptiveHeadlights}
+      automaticEmergencyBraking={automaticEmergencyBraking}
+      parkingSensors={parkingSensors}
       acFeature={acFeature}
       musicFeature={musicFeature}
       powerWindowFeature={powerWindowFeature}

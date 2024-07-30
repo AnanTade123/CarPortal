@@ -78,6 +78,13 @@ export default function AddDealerCar() {
     musicFeature: false,
     powerWindowFeature: false,
     rearParkingCameraFeature: false,
+    automaticEmergencyBraking:false,
+    adas:false,
+    sunroof:false,
+    parkingSensors:false,
+    adaptiveHeadlights:false,
+    childSafetyLocks:false,
+
 
     // fields
     brand: "",
@@ -118,6 +125,19 @@ export default function AddDealerCar() {
     console.log(formData);
     // Prepare the form data to send to the backend
     const data = {
+
+      automaticEmergencyBraking: formData.automaticEmergencyBraking,
+
+      adas: formData.adas,
+
+      sunroof: formData.sunroof,
+
+      parkingSensors: formData.parkingSensors,
+
+      adaptiveHeadlights: formData.adaptiveHeadlights,
+
+      childSafetyLocks: formData.childSafetyLocks,
+
       acFeature: formData.acFeature,
 
       musicFeature: formData.musicFeature,
@@ -728,6 +748,113 @@ export default function AddDealerCar() {
                   }
                 />{" "}
                 Rear Parking Camera
+              </div>
+            </div>
+
+            {/* tenth part */}
+            <div className="md:flex">
+              <div className="mt-5 ml-5">
+                <input
+                  label="Automatic Emergency Braking"
+                  type="checkbox"
+                  name="automaticEmergencyBraking"
+                  // value={formData.musicFeature}
+                  checked={formData.automaticEmergencyBraking}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      automaticEmergencyBraking: event.target.checked,
+                    })
+                  }
+                />{" "}
+                Automatic Emergency Braking
+              </div>
+
+              <div className="mt-5 ml-5">
+                <input
+                  label="ADAS"
+                  type="checkbox"
+                  name="adas"
+                  // value={formData.powerWindowFeature}
+                  checked={formData.adas}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      adas: event.target.checked,
+                    })
+                  }
+                />{" "}
+                ADAS
+              </div>
+
+              <div className="mt-5 ml-5">
+                <input
+                  label="Sunroof"
+                  type="checkbox"
+                  name="sunroof"
+                  // value={formData.acFeature}
+                  checked={formData.sunroof}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      sunroof: event.target.checked,
+                    })
+                  }
+                />{" "}
+                Sunroof
+              </div>
+
+              <div className="mt-5 ml-5">
+                <input
+                  label="Child Safety Locks"
+                  type="checkbox"
+                  name="childSafetyLocks"
+                  // value={formData.rearParkingCameraFeature}
+                  checked={formData.childSafetyLocks}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      childSafetyLocks: event.target.checked,
+                    })
+                  }
+                />{" "}
+                Child Safety Locks
+              </div>
+            </div>
+
+            <div className="md:flex">
+              <div className="mt-5 ml-5">
+                <input
+                  label="Adaptive Headlights"
+                  type="checkbox"
+                  name="adaptiveHeadlights"
+                  // value={formData.musicFeature}
+                  checked={formData.adaptiveHeadlights}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      adaptiveHeadlights: event.target.checked,
+                    })
+                  }
+                />{" "}
+                Adaptive Headlights
+              </div>
+
+              <div className="mt-5 ml-5">
+                <input
+                  label="Parking Sensors"
+                  type="checkbox"
+                  name="parkingSensors"
+                  // value={formData.musicFeature}
+                  checked={formData.parkingSensors}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      parkingSensors: event.target.checked,
+                    })
+                  }
+                />{" "}
+                Parking Sensors
               </div>
             </div>
 
