@@ -50,7 +50,7 @@ const TopFeatures = ({
       <CardUi>
         <div className="w-full md:w-full md:flex gap-7">
           <div className="w-full md:h-52 ">
-            <Carousel
+            {/* <Carousel
               className="rounded-xl w-full"
               navigation={({ setActiveIndex, activeIndex, length }) => (
                 <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
@@ -65,19 +65,18 @@ const TopFeatures = ({
                   ))}
                 </div>
               )}
-            >
-            <div className="flex w-full h-full justify-center">
-              <img
-                src="https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
-                alt="image 1"
-                className="h-full w-1/2 object-cover"
-              />
+            > */}
+              <div className="flex w-full h-full justify-center">
+                <img
+                  src="https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+                  alt="image 1"
+                  className="h-full w-1/2 object-cover rounded-2xl"
+                />
               </div>
-            </Carousel>
+            {/* </Carousel> */}
           </div>
         </div>
-        <div className="w-full flex flex-col">
-        <div className="flex gap-3">
+        <div className="w-full md:ml-5 md:grid md:grid-cols-3">
           {musicFeature ? (
             <div className="flex mt-5">
               <FaBluetooth className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
@@ -102,8 +101,15 @@ const TopFeatures = ({
               </div>
             </div>
           ) : null}
-          </div>
-          <div className="flex gap-3">
+          {adaptiveHeadlights ? (
+            <div className="flex mt-5">
+              <PiHeadlightsBold className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
+              <div className="font-semibold text-black font-[latto] text-lg">
+                Adaptive Headlights
+              </div>
+            </div>
+          ) : null}
+
           {rearParkingCameraFeature ? (
             <div className="flex mt-5">
               <FaCameraRetro className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
@@ -128,21 +134,12 @@ const TopFeatures = ({
               </div>
             </div>
           ) : null}
-          {adaptiveHeadlights ? (
+
+          {parkingSensors ? (
             <div className="flex mt-5">
-              <PiHeadlightsBold className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
+              <LuParkingCircle className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
               <div className="font-semibold text-black font-[latto] text-lg">
-                Adaptive Headlights
-              </div>
-            </div>
-          ) : null}
-          </div>
-          <div className="flex gap-3">
-          {automaticEmergencyBraking ? (
-            <div className="flex mt-5">
-              <TbEmergencyBed className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
-              <div className="font-semibold text-black font-[latto] text-lg">
-                Automatic Emergency Braking
+                Parking Sensors
               </div>
             </div>
           ) : null}
@@ -154,15 +151,14 @@ const TopFeatures = ({
               </div>
             </div>
           ) : null}
-          {parkingSensors ? (
+          {automaticEmergencyBraking ? (
             <div className="flex mt-5">
-              <LuParkingCircle className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
+              <TbEmergencyBed className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
               <div className="font-semibold text-black font-[latto] text-lg">
-                Parking Sensors
+                Automatic Emergency Braking
               </div>
             </div>
           ) : null}
-          </div>
         </div>
 
         {userRole === "Dealer" ? (
