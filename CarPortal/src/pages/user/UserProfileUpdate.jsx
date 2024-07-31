@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 
 import { useParams } from "react-router-dom";
-import { useInspectorupdateMutation, useInspectorByIdQuery } from "../../services/inspectorapi";
+import {  useGetUserByIdQuery } from "../../services/userAPI";
 import Inputs from "../../forms/Inputs";
 import React, { useEffect } from "react";
 import { Button } from "@material-tailwind/react";
@@ -8,13 +9,13 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
  
-const   AdminInspectorEdit = () => {
-  const { userid, inspectorprofileid } = useParams();
+const   UserProfileUpdate = () => {
+  const { userid} = useParams();
   const userId = userid;
   const navigate = useNavigate();
-  const { data, isLoading, isError, error } = useInspectorByIdQuery({ userId });
+  const { data, isLoading, isError, error } = useGetUserByIdQuery( userId );
   console.log(data)
-  const [inspectorupdate] = useInspectorupdateMutation();
+//   const [inspectorupdate] = useInspectorupdateMutation();
  
   const [inputField, setInputField] = React.useState({
     address: "",
@@ -59,28 +60,28 @@ const   AdminInspectorEdit = () => {
       email: inputField.email,
       mobileNo: inputField.mobileNo
     };
-    try {
-      const res = await inspectorupdate({ id: inspectorprofileid, inspectordata }).unwrap();
+    // try {
+    //   const res = await inspectorupdate({inspectordata }).unwrap();
      
-      console.log("Update Response:", res);
-      if (res.status === 'success') {
-        toast.success("Changes successful", {
-         // autoClose: 2000,
-        });
-        setTimeout(() => {
-          navigate('/');
-        }, 1000);
-      } else {
-        toast.error("Failed to update inspector", {
-          autoClose: 2000, // 2 seconds
-        });
-      }
-    } catch (error) {
-      toast.error("Error updating inspector", {
-        autoClose: 2000, // 2 seconds
-      });
-      console.log("Error:", error);
-    }
+    //   console.log("Update Response:", res);
+    //   if (res.status === 'success') {
+    //     toast.success("Changes successful", {
+    //      // autoClose: 2000,
+    //     });
+    //     setTimeout(() => {
+    //       navigate('/');
+    //     }, 1000);
+    //   } else {
+    //     toast.error("Failed to update inspector", {
+    //       autoClose: 2000, // 2 seconds
+    //     });
+    //   }
+    // } catch (error) {
+    //   toast.error("Error updating inspector", {
+    //     autoClose: 2000, // 2 seconds
+    //   });
+    //   console.log("Error:", error);
+    // }
   };
  
   if (isLoading) {
@@ -165,6 +166,6 @@ const   AdminInspectorEdit = () => {
   );
 };
  
-export default AdminInspectorEdit;
+export default UserProfileUpdate;
  
  

@@ -45,7 +45,11 @@ export function StickyNavbar() {
   // eslint-disable-next-line no-unused-vars
 
   const DealerId = token ? jwtDecodes?.dealerId : null;
-
+  // const userid = token ? jwtDecodes?.userId : null;
+  const InspectorProfileId = token ? jwtDecodes?.inspectorProfileId : null;
+console.log("InspectorProfileId",InspectorProfileId)
+const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
+console.log("salesPersonId",salesPersonId)
   const UserId = token ? jwtDecodes?.userId : null;
 
   const location = useLocation();
@@ -464,6 +468,11 @@ export function StickyNavbar() {
                 userId={UserId}
                 dealer_id={DealerId}
                 userrole={userRole}
+                inspectorProfileId={InspectorProfileId}
+                salesPersonId={salesPersonId}
+              
+
+
               />
             ) : (
               <>
