@@ -58,13 +58,14 @@ const AdminSalesEdit = () => {
       lastName: inputField.lastName,
       email: inputField.email,
       mobileNo: inputField.mobileNo,
+      area: inputField.area,
     };
     try {
       const res = await salesupdate({ id: salesPersonId, salesdata });
       console.log(res);
       if (res.data.status === "success") {
         alert(" Sucessfully Edit");
-        navigate("/admin/salesuser");
+        navigate("/");
       }
     } catch (error) {
       console.log(error);

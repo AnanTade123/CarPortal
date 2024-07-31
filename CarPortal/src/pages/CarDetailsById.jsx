@@ -49,6 +49,12 @@ const [bookingRequest] = useBookingRequestMutation();
   }
 
   const {
+    automaticEmergencyBraking,
+    adas,
+    sunroof,
+    parkingSensors,
+    adaptiveHeadlights,
+    childSafetyLocks,
     acFeature,
     musicFeature,
     powerWindowFeature,
@@ -90,6 +96,14 @@ const [bookingRequest] = useBookingRequestMutation();
           musicFeature={musicFeature}
           powerWindowFeature={powerWindowFeature}
           rearParkingCameraFeature={rearParkingCameraFeature}
+          childSafetyLocks={childSafetyLocks}
+          adas={adas}
+          automaticEmergencyBraking={automaticEmergencyBraking}
+          sunroof={sunroof}
+          parkingSensors={parkingSensors}
+          adaptiveHeadlights={adaptiveHeadlights}
+
+
         />
       </div>
       <div className="p-4 sticky top-0">

@@ -35,6 +35,16 @@ export default function BiddingCarDetailsById1() {
     }
     console.log(data);
     const {
+      automaticEmergencyBraking,
+    adas,
+    sunroof,
+    parkingSensors,
+    adaptiveHeadlights,
+    childSafetyLocks,
+    acFeature,
+    musicFeature,
+    powerWindowFeature,
+    rearParkingCameraFeature,
       price,
       brand,
       fuelType,
@@ -77,6 +87,16 @@ export default function BiddingCarDetailsById1() {
       year={year}
       carInsurance={carInsurance}
       kmDriven={kmDriven}
+      acFeature={acFeature}
+          musicFeature={musicFeature}
+          powerWindowFeature={powerWindowFeature}
+          rearParkingCameraFeature={rearParkingCameraFeature}
+          childSafetyLocks={childSafetyLocks}
+          adas={adas}
+          automaticEmergencyBraking={automaticEmergencyBraking}
+          sunroof={sunroof}
+          parkingSensors={parkingSensors}
+          adaptiveHeadlights={adaptiveHeadlights}
     />
   </div>
   <div className="md:col-span-1 sticky top-0">
