@@ -113,6 +113,10 @@ export default function App() {
             path="/biddinglist/cardetails/:beadingCarId"
             element={<BiddingCarDetailsById1 />}
           />
+          <Route
+            path="/biddinglist/cardetail/:page/:beadingCarId"
+            element={<BiddingCarDetailsById1 />}
+          />
           <Route path="/pendinrequest/:userid" element={<PendingRequest />} />
           <Route path="/user/booking/:id" element={<UserConfirmBooking />} />
           <Route  path="/user/UserProfileUpdate/:userId" element={<UserProfileUpdate/>}/>
