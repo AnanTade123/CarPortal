@@ -364,7 +364,7 @@ export default function BiddingEditCar() {
                   });
                 }}
               >
-                <option>Transmission</option>
+                <option value="">Transmission</option>
                 <option>Automatic</option>
                 <option>Manual</option>
               </select>
@@ -373,6 +373,7 @@ export default function BiddingEditCar() {
           <div className="md:flex">
             <div className="mt-5 w-full">
               <Inputs
+              required
                 label="Price"
                 type="number"
                 name="price"
@@ -388,6 +389,7 @@ export default function BiddingEditCar() {
 
             <div className="mt-5 md:ml-2 w-full">
               <select
+              required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label={"year"}
                 type={"number"}
@@ -416,6 +418,7 @@ export default function BiddingEditCar() {
           <div className="md:flex">
             <div className="mt-5 w-full">
               <select
+              required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label={"Color"}
                 type={"text"}
@@ -428,7 +431,7 @@ export default function BiddingEditCar() {
                   })
                 }
               >
-                <option>Color</option>
+                <option value="">Color</option>
                 {[
                   "Red",
                   "Blue",
@@ -452,6 +455,7 @@ export default function BiddingEditCar() {
 
             <div className="mt-5 md:ml-2 w-full">
               <select
+              required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 name="ownerSerial"
                 value={formData.type}
@@ -462,7 +466,7 @@ export default function BiddingEditCar() {
                   })
                 }
               >
-                <option value="" disabled>
+                <option value="">
                   Select Owner Serial
                 </option>
                 {["1", "2", "3", "4", "5"].map((serial) => (
@@ -476,6 +480,7 @@ export default function BiddingEditCar() {
           <div className="md:flex gap-2">
             <div className="mt-5 w-full">
               <Inputs
+              required
                 label={"Area"}
                 type={"text"}
                 name={"area"}
@@ -542,6 +547,7 @@ export default function BiddingEditCar() {
           <div className="md:flex gap-2">
             <div className="mt-5 w-full">
               <Inputs
+              required
                 label={"Km Driven"}
                 type={"number"}
                 name={"kmDriven"}
@@ -556,6 +562,7 @@ export default function BiddingEditCar() {
             </div>
             <div className="mt-5 w-full">
               <select
+              required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label={"fuelType"}
                 type={"text"}
@@ -568,7 +575,7 @@ export default function BiddingEditCar() {
                   })
                 }
               >
-                <option>Fuel Type</option>
+                <option value="">Fuel Type</option>
                 {["Petrol", "Diesel", "CNG", "Electric", "Hybrid"].map(
                   (fuel) => (
                     <option key={fuel} value={fuel}>
@@ -793,13 +800,9 @@ export default function BiddingEditCar() {
               Parking Sensors
             </div>
           </div>
-
-
-
-
-
           <div className="mt-5 w-50">
             <select
+            required
               className="w-full border-2 border-gray-400 p-2 rounded-md"
               label={"Select Dealer"}
               name={"dealerId"}
@@ -811,7 +814,7 @@ export default function BiddingEditCar() {
                 })
               }
             >
-              <option>Select Dealar</option>
+              <option value="">Select Dealar</option>
               {dealarList?.list?.map((dealer) => (
                 <option key={dealer.dealer_id} value={dealer.dealer_id}>{dealer.firstName + " " + dealer.lastName}</option>
               ))}
@@ -820,6 +823,7 @@ export default function BiddingEditCar() {
           
           <div className="mt-5 w-full">
               <Inputs
+              required
                 label={"Title"}
                 type={"text"}
                 name={"title"}
@@ -834,6 +838,7 @@ export default function BiddingEditCar() {
             </div>
           <div className="mt-5">
             <Textarea
+            required
               label="Description"
               name="description"
               value={formData.description}

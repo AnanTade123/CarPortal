@@ -99,7 +99,7 @@ const FilterCars = ({ setUrlState }) => {
   let formattedAmount;
 
   if (value == null || value === "" || isNaN(value)) {
-    formattedAmount = "---";
+    formattedAmount = "30000";
   } else {
     formattedAmount = new Intl.NumberFormat("en-IN").format(value);
   }
@@ -173,16 +173,22 @@ const FilterCars = ({ setUrlState }) => {
                 <div style={{ width: "300px" }}></div>
               </div>
               ₹ {formattedAmount}
-              <div className="w-auto flex justify-center">
+              <div className="w-full flex items-center justify-center">
+                <div className="flex text-center font-bold font-[latto] text-black">
+                  30K
+                </div>
                 <Slider
-                  className="overflow-hidden w-fit"
+                  className="overflow-hidden w-4/5 px-2 mx-1"
                   color="black"
                   defaultValue={10000000}
                   step={10000}
-                  min={200000}
+                  min={30000}
                   max={10000000}
                   onChange={(e) => setValue(e.target.value)}
                 />
+                <div className="flex text-center font-bold font-[latto] text-black">
+                  1Cr
+                </div>
               </div>
               <Autocomplete
                 id="free-solo-demo"
