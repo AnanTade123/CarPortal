@@ -90,6 +90,8 @@ import { CardDefault } from "./ui/CardDefault";
 
 
 import WebSocketConnection from "./Utiles/WebSocketConnection";
+import UserProfileUpdate from "./pages/user/UserProfileUpdate";
+
 
 export default function App() {
 
@@ -99,6 +101,7 @@ export default function App() {
       <Routes>
         <Route path="/pendingrequest2" element={<PendingRequest2 />} />
         <Route path="/" element={<Home />} />
+      
         <Route element={<AppLayout />}>
           <Route path="signin" element={<LoginCard />} />
           <Route path="signup" element={<SimpleRegistrationForm />} />
@@ -112,6 +115,7 @@ export default function App() {
           />
           <Route path="/pendinrequest/:userid" element={<PendingRequest />} />
           <Route path="/user/booking/:id" element={<UserConfirmBooking />} />
+          <Route  path="/user/UserProfileUpdate/:userId" element={<UserProfileUpdate/>}/>
           <Route
             element={
               <AdminMiddleware allowedRoles={[...Object.values(onlyAdmin)]} />
