@@ -15,7 +15,7 @@ import { IoLogoWhatsapp } from "react-icons/io";
 import BiddingDailogeBox from "../../ui/BiddingDialogeBox"
 import PlaceBid from "../../pages/dealer/PlaceBid";
 import {useGetbeadingGetByIdQuery} from "../../services/biddingAPI"
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useWebSocket } from "../../Utiles/WebSocketConnection";
 import { useEffect } from "react";
 const BiddingPriceCard = ({
@@ -46,6 +46,7 @@ const BiddingPriceCard = ({
   }
   const userRole = jwtDecodes?.authorities[0];
   const UserId = token ? jwtDecodes?.userId : null;
+const {page} = useParams()
 
   const {data} = useGetbeadingGetByIdQuery(beadingCarId);
   const { isConnected, getTopThreeBids,topThreeBidsAmount } = useWebSocket();
@@ -54,7 +55,7 @@ const BiddingPriceCard = ({
       getTopThreeBids(bidCarId);
     }
   }, [isConnected ,bidCarId]);
-  console.log("topThreeBidsAmount",topThreeBidsAmount);
+
  
   return (
     <div className="w-full md:w-full">
@@ -161,7 +162,7 @@ const BiddingPriceCard = ({
               </div>
             </div>
           ) :
-          userRole === "DEALER" ?
+          (userRole === "DEALER" && page !== "winnigPage") ?
           
           (<div>
           <p className="text-2xl font-semibold text-black">Start Bidding</p>

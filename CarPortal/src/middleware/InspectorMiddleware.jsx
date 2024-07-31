@@ -20,7 +20,7 @@ const InspectorMiddleware = ({ allowedRoles }) => {
   console.log(userRole)
   useEffect(() => {
     if (!allowedRoles.includes(userRole)) {
-      return alert("You must be an admin to access this page.");
+      return alert("You must be an Inspector to access this page.");
     }
   }, [allowedRoles, userRole]);
   let content = allowedRoles.includes(userRole) ? (
