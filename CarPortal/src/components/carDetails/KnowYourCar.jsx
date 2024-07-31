@@ -23,6 +23,9 @@ const KnowYourCar = ({
   year,
   carInsurance,
   kmDriven,
+  insurancedate,
+  carInsuranceType,
+  insuranceType,
 }) => {
   console.log(
     fuelType,
@@ -31,7 +34,10 @@ const KnowYourCar = ({
     transmission,
     year,
     carInsurance,
-    kmDriven
+    kmDriven,
+    insurancedate,
+    carInsuranceType,
+    insuranceType
   );
   return (
     <>
@@ -39,24 +45,21 @@ const KnowYourCar = ({
         Know your Car
       </p>
       <div className="border shadow-xl items-center mx-auto w-full md:w-full">
-      <CardUi>
-        <div className="w-full h-max md:w-full">
-          
-
-          <div className="max-w-full flex justify-start gap-10 px-4 md:justify-between mt-3 flex-wrap">
-            <div className="flex flex-col">
+        <CardUi>
+          <div className="w-full h-max md:w-full">
+            <div className="w-full grid grid-cols-3 gap-y-8 mt-5 px-8">
               <div className="flex items-center gap-5">
                 <div>
                   <FaRegWindowMaximize className="w-5 h-5" />
                 </div>
                 <div className="flex flex-col">
-                  <div className="font-[latto]">Reg Year</div>
+                  <div className="font-[latto]">Reg Number</div>
                   <div className="font-bold text-black text-sm mt-2 font-[latto] uppercase">
                     {registration}
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-5 mt-6">
+              <div className="flex items-center gap-5">
                 <div>
                   <FaCalendarDay className="w-5 h-5" />
                 </div>
@@ -67,7 +70,7 @@ const KnowYourCar = ({
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-5 mt-6">
+              {/* <div className="flex items-center gap-5 mt-6">
                 <div>
                   <FaRoad className="w-5 h-5" />
                 </div>
@@ -77,8 +80,8 @@ const KnowYourCar = ({
                     ABC-1234567
                   </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-5 mt-6">
+              </div> */}
+              <div className="flex items-center gap-5">
                 <div>
                   <BsFillFuelPumpFill className="w-5 h-5" />
                 </div>
@@ -89,9 +92,8 @@ const KnowYourCar = ({
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-5">
+
+              {/* <div className="flex items-center gap-5">
                 <div>
                   <PiEngineFill className="w-5 h-5" />
                 </div>
@@ -101,19 +103,9 @@ const KnowYourCar = ({
                     1551 cc
                   </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-5 mt-6">
-                <div>
-                  <AiFillInsurance className="w-5 h-5" />
-                </div>
-                <div className="flex flex-col">
-                  <div className="font-[latto]">Insurance</div>
-                  <div className="font-bold text-black text-sm mt-2 font-[latto]">
-                    Upto 25/12/2025
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center gap-5 mt-6">
+              </div> */}
+
+              {/* <div className="flex items-center gap-5 mt-6">
                 <div>
                   <FaKey className="w-5 h-5" />
                 </div>
@@ -123,9 +115,8 @@ const KnowYourCar = ({
                     Yes
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className="flex flex-col">
+              </div> */}
+
               <div className="flex items-center gap-5">
                 <div>
                   <GiCarWheel className="w-5 h-5" />
@@ -137,7 +128,7 @@ const KnowYourCar = ({
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-5  mt-6">
+              <div className="flex items-center gap-5">
                 <div>
                   <MdDriveEta className="w-5 h-5" />
                 </div>
@@ -148,7 +139,7 @@ const KnowYourCar = ({
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-5 mt-6">
+              <div className="flex items-center gap-5">
                 <div>
                   <IoIosMan className="w-5 h-5" />
                 </div>
@@ -159,10 +150,22 @@ const KnowYourCar = ({
                   </div>
                 </div>
               </div>
+              {carInsurance && (
+                <div className="flex items-center gap-5">
+                  <div>
+                    <AiFillInsurance className="w-5 h-5" />
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="font-[latto]">Insurance Type</div>
+                    <div className="font-bold text-black text-sm mt-2 font-[latto]">
+                      {carInsuranceType}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
-          <br/>
-           {/* <div className="md:flex md:justify-between pl-4 align-middle items-center">
+            <br />
+            {/* <div className="md:flex md:justify-between pl-4 align-middle items-center">
             <div className="flex items-center gap-6 md:mr-6">
               <div className="bg-blue-50 py-3 md:px-2 rounded-xl">
                 <IoLogoModelS className="w-12 h-8" />
@@ -204,11 +207,9 @@ const KnowYourCar = ({
               </div>
             </div>
           </div> */}
-          <div  className="font-[latto] text-lg">
-
+            <div className="font-[latto] text-lg"></div>
           </div>
-        </div>
-      </CardUi>
+        </CardUi>
       </div>
     </>
   );

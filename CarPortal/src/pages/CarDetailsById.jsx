@@ -74,68 +74,70 @@ const [bookingRequest] = useBookingRequestMutation();
     color,
     bodyType,
     dealer_id,
-
+    insurancedate,
+    carInsuranceType,
+    insuranceType,
   } = data?.object;
  
   return (
     <>
-    <div className="grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3 gap-2 container mx-auto">
-      <div className="p-4 md:col-span-2 max-h-screen overflow-scroll no-scrollbar ">
-       <ToastContainer position="top-right" autoClose={1000} />
+      <div className="grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3 gap-2 container mx-auto">
+        <div className="p-4 md:col-span-2 no-scrollbar ">
+          <ToastContainer position="top-right" autoClose={1000} />
 
-        <CarView
-          fuelType={fuelType}
-          registration={registration}
-          ownerSerial={ownerSerial}
-          transmission={transmission}
-          year={year}
-          carInsurance={carInsurance}
-          kmDriven={kmDriven}
-          carId = {carId}
-          acFeature={acFeature}
-          musicFeature={musicFeature}
-          powerWindowFeature={powerWindowFeature}
-          rearParkingCameraFeature={rearParkingCameraFeature}
-          childSafetyLocks={childSafetyLocks}
-          adas={adas}
-          automaticEmergencyBraking={automaticEmergencyBraking}
-          sunroof={sunroof}
-          parkingSensors={parkingSensors}
-          adaptiveHeadlights={adaptiveHeadlights}
-
-
-        />
+          <CarView
+            fuelType={fuelType}
+            registration={registration}
+            ownerSerial={ownerSerial}
+            transmission={transmission}
+            year={year}
+            carInsurance={carInsurance}
+            kmDriven={kmDriven}
+            carId={carId}
+            acFeature={acFeature}
+            musicFeature={musicFeature}
+            powerWindowFeature={powerWindowFeature}
+            rearParkingCameraFeature={rearParkingCameraFeature}
+            childSafetyLocks={childSafetyLocks}
+            adas={adas}
+            automaticEmergencyBraking={automaticEmergencyBraking}
+            sunroof={sunroof}
+            parkingSensors={parkingSensors}
+            adaptiveHeadlights={adaptiveHeadlights}
+            insurancedate={insurancedate}
+            carInsuranceType={carInsuranceType}
+            insuranceType={insuranceType}
+          />
+        </div>
+        <div className="p-4 sticky top-0">
+          <PriceCard
+            price={price}
+            brand={brand}
+            fuelType={fuelType}
+            kmDriven={kmDriven}
+            ownerSerial={ownerSerial}
+            year={year}
+            model={model}
+            registration={registration}
+            area={area}
+            city={city}
+            color={color}
+            bodyType={bodyType}
+            dealer_id={dealer_id}
+            carId={carId}
+            handleBuyCar={handleBuyCar}
+            transmission={transmission}
+          />
+        </div>
       </div>
-      <div className="p-4 sticky top-0">
-        <PriceCard
-          price={price}
-          brand={brand}
-          fuelType={fuelType}
-          kmDriven={kmDriven}
-          ownerSerial={ownerSerial}
-          year={year}
-          model={model}
-          registration={registration}
-          area={area}
-          city={city}
-          color={color}
-          bodyType={bodyType}
-          dealer_id = {dealer_id}
-          carId = {carId}
-          handleBuyCar={handleBuyCar}
-          
-        />
-      </div>
-    </div>
 
-    {/* <div className="flex justify-center text-{A0937D} md:mt-24 md:mb-12 mt-10 mb-6">
+      {/* <div className="flex justify-center text-{A0937D} md:mt-24 md:mb-12 mt-10 mb-6">
     <u><p className="text-4xl font-semibold ">Similar Cars</p></u>
     </div> */}
-    
-    {/* <div className="flex justify-center">
+
+      {/* <div className="flex justify-center">
     <GridCarList data={data1} error={error1} />
     </div> */}
-   
     </>
   );
 };
