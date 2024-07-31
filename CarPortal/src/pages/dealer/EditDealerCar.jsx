@@ -228,6 +228,7 @@ export default function EditDealerCar() {
           <div className="md:flex gap-2">
             <div className="mt-5 w-full">
               <Inputs
+              required
                 label={"Brand"}
                 type={"text"}
                 name={"Brand"}
@@ -243,6 +244,7 @@ export default function EditDealerCar() {
 
             <div className="md:ml-2 mt-5 w-full">
               <Inputs
+              required
                 label={"model"}
                 type={"text"}
                 name={"model"}
@@ -261,6 +263,7 @@ export default function EditDealerCar() {
           <div className="md:flex">
             <div className="mt-5 w-full">
               <Inputs
+              required
                 label={"price"}
                 type={"number"}
                 name={"price"}
@@ -276,6 +279,7 @@ export default function EditDealerCar() {
 
             <div className="mt-5 md:ml-2 w-full">
               <Inputs
+              required
                 label={"year"}
                 type={"number"}
                 name={"year"}
@@ -319,7 +323,7 @@ export default function EditDealerCar() {
                   });
                 }}
               >
-                <option>Transmission</option>
+                <option value="">Transmission</option>
                 <option>Automatic</option>
                 <option>Manual</option>
               </select>
@@ -328,6 +332,7 @@ export default function EditDealerCar() {
             <div className="mt-5 md:ml-2 w-full">
             
               <Inputs
+              required
                 label={"Area"}
                 type={"text"}
                 name={"area"}
@@ -347,6 +352,7 @@ export default function EditDealerCar() {
           <div className="md:flex">
             <div className="mt-5 w-full">
               <Inputs
+              required
                 label={"Color"}
                 type={"text"}
                 name={"color"}
@@ -362,6 +368,7 @@ export default function EditDealerCar() {
 
             <div className="mt-5 md:ml-2 w-full">
             <select
+            required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label={"Owner Serial"}
                 type={"number"}
@@ -374,7 +381,7 @@ export default function EditDealerCar() {
                   })
                 }
               >
-                <option>Owner Serial</option>
+                <option value="">Owner Serial</option>
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -388,6 +395,7 @@ export default function EditDealerCar() {
           <div className="md:flex">
             <div className="mt-5 w-full">
               <Inputs
+              required
                 label={"Registration"}
                 type={"text"}
                 name={"registration"}
@@ -404,7 +412,6 @@ export default function EditDealerCar() {
             <div className="mt-5 md:ml-2 w-full">
               <select
                 required
-                
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 name="carInsurance"
                 value={formData.carInsurance}
@@ -458,6 +465,7 @@ export default function EditDealerCar() {
           <div className="md:flex">
             <div className="mt-5 w-full">
               <Inputs
+              required
                 label={"Km Driven"}
                 type={"number"}
                 name={"kmDriven"}
@@ -484,7 +492,7 @@ export default function EditDealerCar() {
                   });
                 }}
               >
-                <option>Fuel Type</option>
+                <option value="">Fuel Type</option>
                 <option>Petrol</option>
                 <option>Diesel</option>
                 <option>Electric</option>
