@@ -241,6 +241,10 @@ export default function App() {
             {/* <Route path="/inspector/carverify/:beadingCarId" element={<CarVerify />} /> */}
             {/* <Route path="/inspector/car" element={<CarListing />} /> */}
             <Route path="/inspector/car/add" element={<BiddingAddCar2 />} />
+            <Route
+              path="/inspector/edit/:userid/:inspectorprofileid"
+              element={<AdminInspectorEdit />}
+            />
 
           </Route>
 
@@ -268,7 +272,10 @@ export default function App() {
             <Route path="/sales/biddingcar" element={<BiddingDealerCars />} />
             <Route path="/sale/carverify/:beadingCarId" element={<CarVerify />} />
             <Route path="/sale/inspection/report/:beadingCarId" element={<FinalReport />} />
-
+            <Route
+              path="/seller/edit/:userid/:salesPersonId"
+              element={<AdminSalesEdit />}
+            />
           </Route>
           <Route path="/user/:userid/favorite" element={<FavoritePage/>} />
         </Route>
