@@ -76,7 +76,7 @@ export default function BiddingCarDetailsById1() {
 
   return (
     <div className="grid grid-flow-row-dense md:grid-cols-3 gap-4 container mx-auto">
-  <div className="p-4 md:col-span-2 max-h-screen overflow-scroll no-scrollbar">
+  <div className="p-4 md:col-span-2 no-scrollbar">
     <ToastContainer />
     <BiddingCarView
       beadingCarId={beadingCarId}
