@@ -282,6 +282,7 @@ console.log(userId)
 
 {userrole === 'USER' ? (
             <div>
+               <Link to={`/user`}>
   <MenuItem className="flex items-center gap-2">
             <svg
               width="16"
@@ -302,7 +303,7 @@ console.log(userId)
               {userLocal?.firstname ? userLocal?.firstname : "Admin"}
             </Typography>
           </MenuItem>
-          
+          </Link>
     <Link to={`/user/UserProfileUpdate/${userProfileId}`}>
       <MenuItem className=" flex items-center gap-2">
         <svg

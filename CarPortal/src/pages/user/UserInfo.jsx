@@ -23,6 +23,11 @@ const UserInfo = () => {
   const { data } = useGetUserByIdQuery(userProfileId);
 
   console.log(data);
+  if (!data) {
+    return <div>
+     <p>No Data Found</p>
+    </div>
+ }
 
   return (
     <>
@@ -89,9 +94,12 @@ const UserInfo = () => {
               </table>
             </div>
             <div className="flex justify-center items-center mt-4 md:mt-0">
+            <Link to={`/user/UserProfileUpdate/${userProfileId}`}>
               <div className="flex items-center mt-5">
-                 <Button>Hello</Button>
+                 <Button>Update Profile</Button>
+                
               </div>
+              </Link>
             </div>
           </div>
         </div>
