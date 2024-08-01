@@ -91,6 +91,7 @@ import { CardDefault } from "./ui/CardDefault";
 
 import WebSocketConnection from "./Utiles/WebSocketConnection";
 import UserProfileUpdate from "./pages/user/UserProfileUpdate";
+import UserInfo from "./pages/user/UserInfo";
 
 
 export default function App() {
@@ -119,7 +120,7 @@ export default function App() {
           />
           <Route path="/pendinrequest/:userid" element={<PendingRequest />} />
           <Route path="/user/booking/:id" element={<UserConfirmBooking />} />
-          <Route  path="/user/UserProfileUpdate/:userId" element={<UserProfileUpdate/>}/>
+          <Route  path="/user/UserProfileUpdate/:userProfileId" element={<UserProfileUpdate/>}/>
           <Route
             element={
               <AdminMiddleware allowedRoles={[...Object.values(onlyAdmin)]} />
@@ -160,7 +161,7 @@ export default function App() {
             />
             <Route
               path="/admin/inspector/edit/:userid/:inspectorprofileid"
-              element={<AdminInspectorEdit />}
+              element={<AdminInspectorEdit  />}
             />
             <Route
               path="/transactionbyaccount"
@@ -186,6 +187,10 @@ export default function App() {
             <Route path="/dealer/:id/uploadimage/:carId" element={<Uploadimages2 />} />
             <Route path="/dealer/:id/edit" element={<DealerEdit />} />
             <Route path="/dealer/finalreport/:beadingCarId" element={<FinalReport />} />
+            <Route
+              path="/dealer/info/:id"
+              element={<AdminDealerInfo />}
+            />
 
             <Route
               path="/dealer/live/carDetails/:bidCarId/:beadingCarId"
@@ -241,6 +246,8 @@ export default function App() {
               />
             }
           >
+         <Route path="/inspector/info/:userId" element={<AdminInspectorInfo />} />
+
             <Route path="/inspector/carverify/:beadingCarId" element={<CarVerify />} />
             <Route
               path="/inspector/car"
@@ -284,22 +291,14 @@ export default function App() {
               path="/seller/edit/:userid/:salesPersonId"
               element={<AdminSalesEdit />}
             />
+            <Route
+              path="/seller/info/:userId"
+              element={<AdminSalesInfo />}
+            />
           </Route>
           <Route path="/user/:userid/favorite" element={<FavoritePage/>} />
         </Route>
-
-        
-        {/* <Route> */}
-      {/* <Router> */}
-        {/* <Switch> */}
-        {/* <Route path="/favorites" element={<FavoritePage />} /> */}
-          {/* <Route path="/" component={<CardDefault/>} /> */}
-          {/* <Route path="/carlist/cardetails/:carId" element={<CardDetails />} /> */}
-        {/* </Switch> */}
-      {/* </Router> */}
-      {/* </Route> */}
-    
-
+        <Route path="/user" element={<UserInfo/>} />
 <Route path="/DealerContact" element={<DealerContact/>}/>
         {/* <Route path="/trans" element={<CardDetailss/>}/> */}
         <Route element={<AppLayout2 />}>

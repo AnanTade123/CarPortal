@@ -48,10 +48,13 @@ export function StickyNavbar() {
   // const userid = token ? jwtDecodes?.userId : null;
   const InspectorProfileId = token ? jwtDecodes?.inspectorProfileId : null;
 console.log("InspectorProfileId",InspectorProfileId)
+
 const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
 console.log("salesPersonId",salesPersonId)
-  const UserId = token ? jwtDecodes?.userId : null;
 
+  const UserId = token ? jwtDecodes?.userId : null;
+ const userProfileId = token  ? jwtDecodes?.userProfileId : null;
+ console.log("userProfileId",userProfileId)
   const location = useLocation();
  
   const handleMenuItemClick = () => {
@@ -470,7 +473,7 @@ console.log("salesPersonId",salesPersonId)
                 userrole={userRole}
                 inspectorProfileId={InspectorProfileId}
                 salesPersonId={salesPersonId}
-              
+                userProfileId ={userProfileId}
 
 
               />
@@ -545,7 +548,7 @@ console.log("salesPersonId",salesPersonId)
         <div className="flex items-center gap-x-1">
           <Link to="/signin">
             <Button fullWidth variant="text" size="sm" className="">
-              <span>Sing In</span>
+              <span>Sign In</span>
             </Button>
           </Link>
 

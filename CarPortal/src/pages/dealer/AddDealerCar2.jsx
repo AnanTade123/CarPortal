@@ -78,13 +78,12 @@ export default function AddDealerCar() {
     musicFeature: false,
     powerWindowFeature: false,
     rearParkingCameraFeature: false,
-    automaticEmergencyBraking:false,
-    adas:false,
-    sunroof:false,
-    parkingSensors:false,
-    adaptiveHeadlights:false,
-    childSafetyLocks:false,
-
+    automaticEmergencyBraking: false,
+    adas: false,
+    sunroof: false,
+    parkingSensors: false,
+    adaptiveHeadlights: false,
+    childSafetyLocks: false,
 
     // fields
     brand: "",
@@ -125,7 +124,6 @@ export default function AddDealerCar() {
     console.log(formData);
     // Prepare the form data to send to the backend
     const data = {
-
       automaticEmergencyBraking: formData.automaticEmergencyBraking,
 
       adas: formData.adas,
@@ -163,6 +161,8 @@ export default function AddDealerCar() {
       ownerSerial: formData.ownerSerial,
 
       powerWindowFeature: formData.powerWindowFeature,
+
+      city: formData.city,
 
       price: formData.price,
 
@@ -595,6 +595,9 @@ export default function AddDealerCar() {
                       value={formData.carInsuranceType}
                       onChange={handleChangeType}
                     >
+                      <option value="" disabled>
+                        Insurance Type
+                      </option>
                       <option value="Comprehensive">Comprehensive</option>
                       <option value="Zero Dept">Zero Depreciation </option>
                       <option value="Third Party">Third Party</option>

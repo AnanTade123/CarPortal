@@ -8,7 +8,7 @@ import { Chip } from "@material-tailwind/react";
 import { IoHome } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaFileAlt } from "react-icons/fa";
-import { IoLogoWhatsapp } from "react-icons/io";
+// import { IoLogoWhatsapp } from "react-icons/io";
 // import BiddingSetTime from "../../ui/BiddingSetTime";
 // import BiddingDailogeBox from "../../ui/BiddingDialogeBox"
 import { useBiddingCarByDealerIdQuery } from "../../services/biddingAPI";
@@ -32,6 +32,7 @@ const PriceCard = ({
   dealer_id,
   carId,
   handleBuyCar,
+  transmission,
 }) => {
   const cookie = Cookies.get("token");
   const jwtDecodes = cookie ? jwtDecode(cookie) : null;
@@ -45,100 +46,97 @@ const PriceCard = ({
   console.log(data);
   return (
     <div className="border mx-auto shadow-xl w-full md:w-full">
-    <CardUi>
-      <div className="w-full md:w-full ">
-        <p className="font-extrabold text-2xl text-black uppercase font-[latto] ml-2 ">
-          {year} {brand} {model}
-        </p>
-        <p className="uppercase font-[Merriweather] ml-2 ">
-          {color} {bodyType} & MANUAL
-        </p>
-        <div className="my-4 flex gap-2 flex-wrap scrollbar ml-2">
-          <Chip
-            variant="outlined"
-            value={`${kmDriven} KM`}
-            className="text-sm text-black font-[latto] hover:bg-gray-900 hover:text-white "
-          />
-          <Chip
-            variant="outlined"
-            value={`${
-              ownerSerial == 1
-                ? "1ST"
-                : ownerSerial == 2
-                ? "2ND"
-                : ownerSerial == 3
-                ? "3RD"
-                : ownerSerial == 4
-                ? "4TH"
-                : ownerSerial == 5
-                ? "5TH"
-                : ""
-            } Owner`}
-            className="text-base text-black font-[latto] hover:bg-gray-900 hover:text-white"
-          />
-          <Chip
-            variant="outlined"
-            value={`${fuelType}`}
-            className="text-base text-black font-[latto] hover:bg-gray-900 hover:text-white"
-          />
-          <Chip
-            variant="outlined"
-            value={`${registration}`}
-            className="text-base text-black font-[latto] hover:bg-gray-900 hover:text-white"
-          />
-        </div>
-        <div className="flex align-bottom items-baseline gap-3 ml-2">
-          <IoHome />
-          <div className=" mt-4 text-base font-[lotto]">
-            Home Test Drive Available
+      <CardUi>
+        <div className="w-full md:w-full ">
+          <p className="font-extrabold text-2xl text-black uppercase font-[latto] ml-2 ">
+            {year} {brand} {model}
+          </p>
+          <p className="uppercase font-[Merriweather] ml-2 ">
+            {color} {bodyType} & {transmission}
+          </p>
+          <div className="my-4 flex gap-2 flex-wrap scrollbar ml-2">
+            <Chip
+              variant="outlined"
+              value={`${kmDriven} KM`}
+              className="text-sm text-black font-[latto] "
+            />
+            <Chip
+              variant="outlined"
+              value={`${
+                ownerSerial == 1
+                  ? "1ST"
+                  : ownerSerial == 2
+                  ? "2ND"
+                  : ownerSerial == 3
+                  ? "3RD"
+                  : ownerSerial == 4
+                  ? "4TH"
+                  : ownerSerial == 5
+                  ? "5TH"
+                  : ""
+              } Owner`}
+              className="text-base text-black font-[latto]"
+            />
+            <Chip
+              variant="outlined"
+              value={`${fuelType}`}
+              className="text-base text-black font-[latto]"
+            />
+            <Chip
+              variant="outlined"
+              value={`${registration}`}
+              className="text-base text-black font-[latto]"
+            />
           </div>
-        </div>
-        <div className="flex align-bottom items-baseline gap-3 ml-2">
-          <FaLocationDot />
-          <div className=" mt-4 text-base text-gray-700 font-[lotto]">
-            Parked at: {area},{city}
+          <div className="flex align-bottom items-baseline gap-3 ml-2">
+            <IoHome />
+            <div className=" mt-4 text-base font-[lotto]">
+              Home Test Drive Available
+            </div>
           </div>
-        </div>
-        {
-          userRole === 'DEALEAR' ? (
-            <div className="flex align-bottom items-baseline gap-3 ml-2">
-            <FaFileAlt />
+          <div className="flex align-bottom items-baseline gap-3 ml-2">
+            <FaLocationDot />
             <div className=" mt-4 text-base text-gray-700 font-[lotto]">
-              View Inspection Report
+              Parked at: {area},{city}
             </div>
           </div>
-          ) : null
-        }
-        <div className="flex align-bottom items-baseline gap-3 ml-2 ">
-          <IoLogoWhatsapp />
-          <div className=" mt-4 mb-6 text-base text-gray-700 font-[lotto]">
-            Get Service History Report
-          </div>
-        </div>
-        <hr className="border-gray-400" />
-        <div className="flex justify-center align-middle items-center my-3">
-          <div className="text-center">
-            <div className="text-xl font-bold text-black font-[latto]">
-              ₹{price}
+          {userRole === "DEALEAR" ? (
+            <div className="flex align-bottom items-baseline gap-3 ml-2">
+              <FaFileAlt />
+              <div className=" mt-4 text-base text-gray-700 font-[lotto]">
+                View Inspection Report
+              </div>
             </div>
-            <div className="uppercase text-gray-700 text-xs font-[lotto]">
-              Understand Price
+          ) : null}
+          {/* <div className="flex align-bottom items-baseline gap-3 ml-2 ">
+            <IoLogoWhatsapp />
+            <div className=" mt-4 mb-6 text-base text-gray-700 font-[lotto]">
+              Get Service History Report
+            </div>
+          </div> */}
+          <hr className="border-gray-400 mt-8" />
+          <div className="flex justify-center align-middle items-center my-3">
+            <div className="text-center">
+              <div className="text-xl font-bold text-black font-[latto]">
+                ₹{price}
+              </div>
+              <div className="uppercase text-gray-700 text-xs font-[lotto]">
+                Fixed Road Price
+              </div>
             </div>
           </div>
-        </div>
-        <div className="flex justify-center items-center align-middle mb-3">
-        {(userRole === "DEALER" || userRole === "ADMIN") ? null : (
-  <DialogBox
-    price={price}
-    dealer_id={dealer_id}
-    carId={carId}
-    handleBuyCar={handleBuyCar}
-    className
-  />
-)}
+          <div className="flex justify-center items-center align-middle mb-3">
+            {userRole === "DEALER" || userRole === "ADMIN" ? null : (
+              <DialogBox
+                price={price}
+                dealer_id={dealer_id}
+                carId={carId}
+                handleBuyCar={handleBuyCar}
+                className
+              />
+            )}
 
-
-          {/* {userRole == "DEALER" ? (
+            {/* {userRole == "DEALER" ? (
             <div>
               <p className="text-2xl font-semibold text-black">Start Bidding</p>
               <div className="flex mt-5">
@@ -160,20 +158,12 @@ const PriceCard = ({
               </div>
             </div>
           ) : null} */}
+          </div>
+          <div></div>
         </div>
-        <div>
-         
-        </div>
-      </div>
-      
-    </CardUi>
-    <div>
-      {cookie && (
-        <DealerContact dealer_id={dealer_id}/>)}
-      </div>
-
+      </CardUi>
+      <div>{cookie && <DealerContact dealer_id={dealer_id} />}</div>
     </div>
-    
   );
 };
 

@@ -47,6 +47,7 @@ const TopFeatures = ({
       <div className="text-2xl text-black font-bold my-6 ml-12 font-[Merriweather]">
         Top Features
       </div>
+      <div className="border shadow-xl rounded-lg">
       <CardUi>
         <div className="w-full md:w-full md:flex gap-7">
           <div className="w-full md:h-52 ">
@@ -76,7 +77,7 @@ const TopFeatures = ({
             {/* </Carousel> */}
           </div>
         </div>
-        <div className="w-full md:ml-5 md:grid md:grid-cols-3">
+        <div className="w-full md:ml-5 md:grid md:grid-cols-3 mb-9 mt-5">
           {musicFeature ? (
             <div className="flex mt-5">
               <FaBluetooth className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
@@ -175,6 +176,7 @@ const TopFeatures = ({
           </div>
         ) : null}
       </CardUi>
+      </div>
     </>
   );
 };
