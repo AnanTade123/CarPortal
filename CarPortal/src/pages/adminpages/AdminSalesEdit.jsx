@@ -92,6 +92,7 @@ const AdminSalesEdit = () => {
             value={inputField.firstName}
             type={"text"}
             name={"firstName"}
+            
           />
         </div>
         <div className="mt-5">
