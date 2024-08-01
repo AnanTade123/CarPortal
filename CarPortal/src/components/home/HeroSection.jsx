@@ -89,7 +89,12 @@ const navigate = useNavigate();
     //   </div>
     // </div>
 
-    <Carousel className="rounded-xl overflow-hidden" autoplay autoplayDelay={5000} loop>
+    <Carousel
+      className="rounded-xl overflow-hidden"
+      autoplay
+      autoplayDelay={5000}
+      loop
+    >
       <div className="flex justify-between overflow-hidden">
         <div className="md:pl-28 p-4 h-[400px] md:h-[300px] bg-blue-100 w-full">
           <p className="flex mb-3 justify-center items-center md:justify-start font-[latto] font-semibold text-3xl md:mt-8 md:text-4xl lg:text-4xl opacity-0 animate-slidein [--slidein-delay:300ms]">
@@ -170,17 +175,17 @@ const navigate = useNavigate();
             >
               The Best Cars For The Best Journey
             </Typography>
-            <Typography
+            {/* <Typography
               variant="lead"
               color="white"
               className="mb-4 w-3/4 lg:w-[68%] font-[latto] text-black text-sm md:mb-3 md:text-xl lg:text-xl"
             >
               We provide best cars with the best prices. We are expert in car
               rental. Enjoy your holiday with us. We make your drive memorable.
-            </Typography>
+            </Typography> */}
             <Button
               onClick={submitHandler}
-              className="mt-2 flex items-center gap-2 animate-slidein [--slidein-delay:950ms] opacity-0"
+              className="mt-2 md:mt-20 flex items-center gap-2 animate-slidein [--slidein-delay:950ms] opacity-0"
             >
               Get Started{" "}
               <svg
@@ -221,17 +226,17 @@ const navigate = useNavigate();
             >
               The Best Cars For The Best Journey
             </Typography>
-            <Typography
+            {/* <Typography
               variant="lead"
               color="white"
               className="mb-4 w-3/4 lg:w-[68%] font-[latto] text-white text-sm md:mb-3 md:text-xl lg:text-xl"
             >
               We provide best cars with the best prices. We are expert in car
               rental. Enjoy your holiday with us. We make your drive memorable.
-            </Typography>
+            </Typography> */}
             <Button
               onClick={submitHandler}
-              className="mt-2 flex items-center gap-2 animate-slidein [--slidein-delay:950ms] opacity-0"
+              className="mt-2 md:mt-20 flex items-center gap-2 animate-slidein [--slidein-delay:950ms] opacity-0"
             >
               Get Started{" "}
               <svg
