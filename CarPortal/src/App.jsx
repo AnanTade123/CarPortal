@@ -186,6 +186,10 @@ export default function App() {
             <Route path="/dealer/:id/uploadimage/:carId" element={<Uploadimages2 />} />
             <Route path="/dealer/:id/edit" element={<DealerEdit />} />
             <Route path="/dealer/finalreport/:beadingCarId" element={<FinalReport />} />
+            <Route
+              path="/dealer/info/:id"
+              element={<AdminDealerInfo />}
+            />
 
             <Route
               path="/dealer/live/carDetails/:bidCarId/:beadingCarId"

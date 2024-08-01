@@ -61,7 +61,7 @@ console.log(userId)
 
           {userrole === 'DEALER' ? (
             <div>
-
+<Link to={`/dealer/info/${dealer_id}`}> 
 
 <MenuItem className="flex items-center gap-2">
             <svg
@@ -84,8 +84,12 @@ console.log(userId)
             </Typography>
           </MenuItem>
           
+          </Link>
 
     <Link to={`/dealer/${dealer_id}/edit`}>
+
+
+    
       <MenuItem className=" flex items-center gap-2">
         <svg
           width="16"
