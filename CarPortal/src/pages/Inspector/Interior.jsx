@@ -122,6 +122,7 @@ console.log(userRole)
   
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
+        refetch()
         console.log(res);
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });

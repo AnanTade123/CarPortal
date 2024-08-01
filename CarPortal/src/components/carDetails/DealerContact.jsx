@@ -30,7 +30,7 @@ const DealerContact = ({dealer_id}) => {
   return (
     <div className="w-full md:w-full bg-white rounded-lg shadow-xl overflow-hidden mt-6">
       <div className="p-4">
-        <h2 className="text-xl font-semibold text-gray-800">Dealer Contact</h2>
+        <h2 className="text-xl font-semibold text-gray-800">Dealer details</h2>
         <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0 mt-4">
           <MdPerson />
           <p className="text-gray-600">

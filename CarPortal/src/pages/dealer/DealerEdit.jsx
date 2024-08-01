@@ -58,7 +58,7 @@ const navigate = useNavigate()
     if(res.data.status ==='success'){
       toast.success(" Sucessfully Edit");
       setTimeout(() => {
-        navigate("/");
+        navigate(-1);
       }, 1000);
     }
     } catch (error) {

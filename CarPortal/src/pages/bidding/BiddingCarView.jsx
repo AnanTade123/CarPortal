@@ -28,12 +28,11 @@ const BiddingCarView = ({
   acFeature,
   powerWindowFeature,
   rearParkingCameraFeature,
-  adas,
+  abs,
   childSafetyLocks,
-  automaticEmergencyBraking,
-  parkingSensors,
+  buttonStart,
+  airbag,
   sunroof,
-  adaptiveHeadlights
 }) => {
   
   const token = Cookies.get("token");
@@ -62,12 +61,11 @@ const BiddingCarView = ({
       
           
       <TopFeatures
-      adas={adas}
+      abs={abs}
       childSafetyLocks={childSafetyLocks}
       sunroof={sunroof}
-      adaptiveHeadlights={adaptiveHeadlights}
-      automaticEmergencyBraking={automaticEmergencyBraking}
-      parkingSensors={parkingSensors}
+      airbag={airbag}
+      buttonStart={buttonStart}
       acFeature={acFeature}
       musicFeature={musicFeature}
       powerWindowFeature={powerWindowFeature}
