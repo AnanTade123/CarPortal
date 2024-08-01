@@ -78,11 +78,10 @@ export default function AddDealerCar() {
     musicFeature: false,
     powerWindowFeature: false,
     rearParkingCameraFeature: false,
-    automaticEmergencyBraking: false,
-    adas: false,
+    buttonStart: false,
+    abs: false,
     sunroof: false,
-    parkingSensors: false,
-    adaptiveHeadlights: false,
+    airbag: false,
     childSafetyLocks: false,
 
     // fields
@@ -124,15 +123,13 @@ export default function AddDealerCar() {
     console.log(formData);
     // Prepare the form data to send to the backend
     const data = {
-      automaticEmergencyBraking: formData.automaticEmergencyBraking,
+      buttonStart: formData.buttonStart,
 
-      adas: formData.adas,
+      abs: formData.abs,
 
       sunroof: formData.sunroof,
 
-      parkingSensors: formData.parkingSensors,
-
-      adaptiveHeadlights: formData.adaptiveHeadlights,
+      airbag: formData.airbag,
 
       childSafetyLocks: formData.childSafetyLocks,
 
@@ -769,36 +766,36 @@ export default function AddDealerCar() {
             <div className="md:flex">
               <div className="mt-5 ml-5">
                 <input
-                  label="Automatic Emergency Braking"
+                  label="Button Start"
                   type="checkbox"
-                  name="automaticEmergencyBraking"
+                  name="buttonStart"
                   // value={formData.musicFeature}
-                  checked={formData.automaticEmergencyBraking}
+                  checked={formData.buttonStart}
                   onChange={(event) =>
                     setFormData({
                       ...formData,
-                      automaticEmergencyBraking: event.target.checked,
+                      buttonStart: event.target.checked,
                     })
                   }
                 />{" "}
-                Automatic Emergency Braking
+                Button Start
               </div>
 
               <div className="mt-5 ml-5">
                 <input
-                  label="ADAS"
+                  label="ABS"
                   type="checkbox"
-                  name="adas"
+                  name="abs"
                   // value={formData.powerWindowFeature}
-                  checked={formData.adas}
+                  checked={formData.abs}
                   onChange={(event) =>
                     setFormData({
                       ...formData,
-                      adas: event.target.checked,
+                      abs: event.target.checked,
                     })
                   }
                 />{" "}
-                ADAS
+                ABS
               </div>
 
               <div className="mt-5 ml-5">
@@ -834,41 +831,21 @@ export default function AddDealerCar() {
                 />{" "}
                 Child Safety Locks
               </div>
-            </div>
-
-            <div className="md:flex">
               <div className="mt-5 ml-5">
                 <input
-                  label="Adaptive Headlights"
+                  label="AirBag"
                   type="checkbox"
-                  name="adaptiveHeadlights"
+                  name="airbag"
                   // value={formData.musicFeature}
-                  checked={formData.adaptiveHeadlights}
+                  checked={formData.airbag}
                   onChange={(event) =>
                     setFormData({
                       ...formData,
-                      adaptiveHeadlights: event.target.checked,
+                      airbag: event.target.checked,
                     })
                   }
                 />{" "}
-                Adaptive Headlights
-              </div>
-
-              <div className="mt-5 ml-5">
-                <input
-                  label="Parking Sensors"
-                  type="checkbox"
-                  name="parkingSensors"
-                  // value={formData.musicFeature}
-                  checked={formData.parkingSensors}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      parkingSensors: event.target.checked,
-                    })
-                  }
-                />{" "}
-                Parking Sensors
+                AirBag
               </div>
             </div>
 

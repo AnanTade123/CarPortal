@@ -71,11 +71,10 @@ export default function BiddingEditCar() {
     musicFeature: Carid?.musicFeature,
     powerWindowFeature: Carid?.powerWindowFeature,
     rearParkingCameraFeature: Carid?.rearParkingCameraFeature,
-    automaticEmergencyBraking: Carid?.automaticEmergencyBraking,
-        adas: Carid?.adas,
+    buttonStart: Carid?.buttonStart,
+        abs: Carid?.abs,
         sunroof: Carid?.sunroof,
-        parkingSensors: Carid?.parkingSensors,
-        adaptiveHeadlights: Carid?.adaptiveHeadlights,
+        airbag: Carid?.airbag,
         childSafetyLocks: Carid?.childSafetyLocks,
     // fields
     brand: Carid?.brand,
@@ -142,11 +141,10 @@ export default function BiddingEditCar() {
         acFeature: Carid?.acFeature || "",
         powerWindowFeature: Carid?.powerWindowFeature || "",
         rearParkingCameraFeature: Carid?.rearParkingCameraFeature || "",
-        automaticEmergencyBraking: Carid?.automaticEmergencyBraking || "",
-        adas: Carid?.adas || "",
+        buttonStart: Carid?.buttonStart || "",
+        abs: Carid?.abs || "",
         sunroof: Carid?.sunroof || "",
-        parkingSensors: Carid?.parkingSensors || "",
-        adaptiveHeadlights: Carid?.adaptiveHeadlights || "",
+        airbag: Carid?.airbag || "",
         childSafetyLocks: Carid?.childSafetyLocks || ""
       });
       setSelectedModel(Carid?.model);
@@ -162,11 +160,10 @@ export default function BiddingEditCar() {
 
     // Prepare the form data to send to the backend
     const data = {
-      automaticEmergencyBraking: formData.automaticEmergencyBraking,
-      adas: formData.adas,
+      buttonStart: formData.buttonStart,
+      abs: formData.abs,
       sunroof: formData.sunroof,
-      parkingSensors: formData.parkingSensors,
-      adaptiveHeadlights: formData.adaptiveHeadlights,
+      airbag: formData.airbag,
       childSafetyLocks: formData.childSafetyLocks,
       acFeature: formData.acFeature,
       musicFeature: formData.musicFeature,
@@ -698,36 +695,36 @@ export default function BiddingEditCar() {
           <div className="md:flex">
             <div className="mt-5 ml-5">
               <input
-                label={"Automatic Emergency Braking"}
+                label={"Button Start"}
                 type={"checkbox"}
-                name={"automaticEmergencyBraking"}
+                name={"buttonStart"}
                 // value={formData.musicFeature}
-                checked={formData.automaticEmergencyBraking}
+                checked={formData.buttonStart}
                 onChange={(event) =>
                   setFormData({
                     ...formData,
-                    automaticEmergencyBraking: event.target.checked,
+                    buttonStart: event.target.checked,
                   })
                 }
               />{" "}
-              Automatic Emergency Breaking
+              Button Start
             </div>
 
             <div className="mt-5 ml-5">
               <input
-                label={"ADAS"}
+                label={"ABS"}
                 type={"checkbox"}
-                name={"adas"}
+                name={"abs"}
                 // value={formData.powerWindowFeature}
-                checked={formData.adas}
+                checked={formData.abs}
                 onChange={(event) =>
                   setFormData({
                     ...formData,
-                    adas: event.target.checked,
+                    abs: event.target.checked,
                   })
                 }
               />{" "}
-              ADAS
+              ABS
             </div>
 
             <div className="mt-5 ml-5">
@@ -763,41 +760,21 @@ export default function BiddingEditCar() {
               />{" "}
               Child Safety Locks
             </div>
-          </div>
-
-          <div className="md:flex">
             <div className="mt-5 ml-5">
               <input
-                label={"Adaptive Headlights"}
+                label={"AirBag"}
                 type={"checkbox"}
-                name={"adaptiveHeadlights"}
+                name={"airbag"}
                 // value={formData.musicFeature}
-                checked={formData.adaptiveHeadlights}
+                checked={formData.airbag}
                 onChange={(event) =>
                   setFormData({
                     ...formData,
-                    adaptiveHeadlights: event.target.checked,
+                    airbag: event.target.checked,
                   })
                 }
               />{" "}
-              Adaptive Headlights
-            </div>
-
-            <div className="mt-5 ml-5">
-              <input
-                label={"Parking Sensors"}
-                type={"checkbox"}
-                name={"parkingSensors"}
-                // value={formData.musicFeature}
-                checked={formData.parkingSensors}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    parkingSensors: event.target.checked,
-                  })
-                }
-              />{" "}
-              Parking Sensors
+              AirBag
             </div>
           </div>
           <div className="mt-5 w-50">
