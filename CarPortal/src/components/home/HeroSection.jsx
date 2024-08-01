@@ -8,13 +8,15 @@ import Mask_group2 from "/cars/Mask_group2.png";
 
 import { Button } from "@material-tailwind/react";
 import { Carousel, Typography } from "@material-tailwind/react";
-
+import { useNavigate } from "react-router";
 
 const HeroSection = () => {
   // const [locationState, setLocation] = useState("");
-
+const navigate = useNavigate();
   // const [carBrandState, setCarBrand] = useState("");
-  const submitHandler = () => {
+  const submitHandler = (e) => {
+    e.target.value;
+    navigate("/carlist");
     // console.log(locationState, carBrandState);
   };
   return (
