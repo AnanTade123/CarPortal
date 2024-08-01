@@ -91,6 +91,7 @@ import { CardDefault } from "./ui/CardDefault";
 
 import WebSocketConnection from "./Utiles/WebSocketConnection";
 import UserProfileUpdate from "./pages/user/UserProfileUpdate";
+import UserInfo from "./pages/user/UserInfo";
 
 
 export default function App() {
@@ -297,19 +298,7 @@ export default function App() {
           </Route>
           <Route path="/user/:userid/favorite" element={<FavoritePage/>} />
         </Route>
-
-        
-        {/* <Route> */}
-      {/* <Router> */}
-        {/* <Switch> */}
-        {/* <Route path="/favorites" element={<FavoritePage />} /> */}
-          {/* <Route path="/" component={<CardDefault/>} /> */}
-          {/* <Route path="/carlist/cardetails/:carId" element={<CardDetails />} /> */}
-        {/* </Switch> */}
-      {/* </Router> */}
-      {/* </Route> */}
-    
-
+        <Route path="/user" element={<UserInfo/>} />
 <Route path="/DealerContact" element={<DealerContact/>}/>
         {/* <Route path="/trans" element={<CardDetailss/>}/> */}
         <Route element={<AppLayout2 />}>

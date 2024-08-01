@@ -19,12 +19,11 @@ const CarView = ({
   acFeature,
   powerWindowFeature,
   rearParkingCameraFeature,
-  adas,
+  abs,
   childSafetyLocks,
-  automaticEmergencyBraking,
-  parkingSensors,
+  buttonStart,
+  airbag,
   sunroof,
-  adaptiveHeadlights,
   insurancedate,
   carInsuranceType,
   insuranceType,
@@ -48,12 +47,11 @@ const CarView = ({
       {/* <InspectionReport/> */}
 
       <TopFeatures
-        adas={adas}
+        abs={abs}
         childSafetyLocks={childSafetyLocks}
         sunroof={sunroof}
-        adaptiveHeadlights={adaptiveHeadlights}
-        automaticEmergencyBraking={automaticEmergencyBraking}
-        parkingSensors={parkingSensors}
+        buttonStart={buttonStart}
+        airbag={airbag}
         acFeature={acFeature}
         musicFeature={musicFeature}
         powerWindowFeature={powerWindowFeature}

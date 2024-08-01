@@ -49,11 +49,10 @@ const [bookingRequest] = useBookingRequestMutation();
   }
 
   const {
-    automaticEmergencyBraking,
-    adas,
+    buttonStart,
+    abs,
     sunroof,
-    parkingSensors,
-    adaptiveHeadlights,
+    airbag,
     childSafetyLocks,
     acFeature,
     musicFeature,
@@ -99,11 +98,10 @@ const [bookingRequest] = useBookingRequestMutation();
             powerWindowFeature={powerWindowFeature}
             rearParkingCameraFeature={rearParkingCameraFeature}
             childSafetyLocks={childSafetyLocks}
-            adas={adas}
-            automaticEmergencyBraking={automaticEmergencyBraking}
+            abs={abs}
+            buttonStart={buttonStart}
             sunroof={sunroof}
-            parkingSensors={parkingSensors}
-            adaptiveHeadlights={adaptiveHeadlights}
+            airbag={airbag}
             insurancedate={insurancedate}
             carInsuranceType={carInsuranceType}
             insuranceType={insuranceType}
