@@ -304,7 +304,7 @@ console.log(userId)
             </Typography>
           </MenuItem>
           </Link>
-    <Link to={`/user/UserProfileUpdate/${userProfileId}`}>
+    {/* <Link to={`/user/UserProfileUpdate/${userProfileId}`}>
       <MenuItem className=" flex items-center gap-2">
         <svg
           width="16"
@@ -326,7 +326,7 @@ console.log(userId)
         </Typography>
 
       </MenuItem>
-    </Link>
+    </Link> */}
 
     
     <MenuItem className="flex items-center gap-2">
