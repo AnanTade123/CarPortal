@@ -177,15 +177,17 @@ const FilterCars = ({ setUrlState }) => {
                 <div className="flex text-center font-bold font-[latto] text-black">
                   30K
                 </div>
-                <Slider
-                  className="overflow-hidden w-4/5 px-2 mx-1"
-                  color="black"
-                  defaultValue={10000000}
-                  step={10000}
-                  min={30000}
-                  max={10000000}
-                  onChange={(e) => setValue(e.target.value)}
-                />
+                <div className="overflow-hidden w-full px-1 mx-1">
+                  <Slider
+                    className="overflow-hidden w-full"
+                    color="black"
+                    defaultValue={10000000}
+                    step={10000}
+                    min={30000}
+                    max={10000000}
+                    onChange={(e) => setValue(e.target.value)}
+                  />
+                </div>
                 <div className="flex text-center font-bold font-[latto] text-black">
                   1Cr
                 </div>
@@ -195,7 +197,7 @@ const FilterCars = ({ setUrlState }) => {
                 freeSolo
                 options={AreaData}
                 getOptionLabel={(option) => option.area}
-                sx={{ width: 250, background: "White" }}
+                sx={{ width: "Full", background: "White" }}
                 onInputChange={(event, newInputValue) => {
                   setFilterForm((prevForm) => ({
                     ...prevForm,
@@ -215,7 +217,7 @@ const FilterCars = ({ setUrlState }) => {
                 freeSolo
                 options={AreaData}
                 getOptionLabel={(option) => option.year}
-                sx={{ width: 250, background: "White" }}
+                sx={{ width: "Full", background: "White" }}
                 onInputChange={(event, newInputValue) => {
                   setFilterForm((prevForm) => ({
                     ...prevForm,
@@ -235,7 +237,7 @@ const FilterCars = ({ setUrlState }) => {
                 freeSolo
                 options={brands}
                 getOptionLabel={(option) => option}
-                sx={{ width: 250, background: "White" }}
+                sx={{ width: "Full", background: "White" }}
                 onChange={handleBrandChange}
                 renderInput={(params) => (
                   <TextField {...params} label="Brands" />
@@ -246,7 +248,7 @@ const FilterCars = ({ setUrlState }) => {
                 freeSolo
                 options={modelOptions}
                 getOptionLabel={(option) => option}
-                sx={{ width: 250, background: "White" }}
+                sx={{ width: "Full", background: "White" }}
                 onChange={handleModelChange}
                 renderInput={(params) => (
                   <TextField {...params} label="Models" />
@@ -257,7 +259,7 @@ const FilterCars = ({ setUrlState }) => {
                 freeSolo
                 options={FuleType}
                 getOptionLabel={(option) => option.fuelType}
-                sx={{ width: 250, background: "White" }}
+                sx={{ width: "Full", background: "White" }}
                 onInputChange={(event, newInputValue) => {
                   setFilterForm((prevForm) => ({
                     ...prevForm,
@@ -279,7 +281,7 @@ const FilterCars = ({ setUrlState }) => {
                 freeSolo
                 options={Transmission}
                 getOptionLabel={(option) => option.transmission}
-                sx={{ width: 250, background: "White" }}
+                sx={{ width: "Full", background: "White" }}
                 onInputChange={(event, newInputValue) => {
                   setFilterForm((prevForm) => ({
                     ...prevForm,
