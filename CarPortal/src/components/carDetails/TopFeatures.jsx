@@ -9,11 +9,12 @@ import { FaCameraRetro } from "react-icons/fa";
 import { GiWindow } from "react-icons/gi";
 import { TbAirConditioning } from "react-icons/tb";
 import { FaAirbnb } from "react-icons/fa";
-import { TbShieldLockFilled } from "react-icons/tb";
 import { IoIosArrowForward } from "react-icons/io";
+import { RiAnticlockwiseFill } from "react-icons/ri";
 import { MdOutlineHealthAndSafety } from "react-icons/md";
 import { PiHeadlightsBold } from "react-icons/pi";
-import { LuParkingCircle } from "react-icons/lu";
+import { CiAirportSign1 } from "react-icons/ci";
+import { FaHockeyPuck } from "react-icons/fa6";
 import { IoSunnySharp } from "react-icons/io5";
 import { TbEmergencyBed } from "react-icons/tb";
 import { FaDashcube } from "react-icons/fa6";
@@ -119,7 +120,7 @@ const TopFeatures = ({
           ) : null}
           {abs ? (
             <div className="flex mt-5">
-              <FaDashcube className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
+              <RiAnticlockwiseFill className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
               <div className="font-semibold text-black font-[latto] text-lg">
                 ABS
               </div>
@@ -127,7 +128,7 @@ const TopFeatures = ({
           ) : null}
           {airbag ? (
             <div className="flex mt-5">
-              <LuParkingCircle className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
+              <CiAirportSign1 className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
               <div className="font-semibold text-black font-[latto] text-lg">
               Air Bag
               </div>
@@ -143,7 +144,7 @@ const TopFeatures = ({
           ) : null}
           {buttonStart ? (
             <div className="flex mt-5">
-              <TbEmergencyBed className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
+              <FaHockeyPuck className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
               <div className="font-semibold text-black font-[latto] text-lg">
               Button Start
               </div>

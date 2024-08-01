@@ -265,6 +265,21 @@ console.log("salesPersonId",salesPersonId)
 
   const salePersonDashboard = userRole?.includes("SALESPERSON") ? (
     <>
+      <Link to={"/sales/salesDealers"}>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === "/sales/salesDealers"
+              ? "bg-indigo-200 text-white"
+              : ""
+          }`}
+          onClick={handleMenuItemClick}
+        >
+          Dealers
+        </Typography>
+      </Link>
       <NavListMenu />
 
       <NotificationDialog />
