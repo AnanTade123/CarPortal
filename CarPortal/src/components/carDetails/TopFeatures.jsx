@@ -21,12 +21,11 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
 const TopFeatures = ({
-  adas,
+  abs,
   childSafetyLocks,
-  automaticEmergencyBraking,
-  parkingSensors,
+  buttonStart,
   sunroof,
-  adaptiveHeadlights,
+  airbag,
   acFeature,
   musicFeature,
   powerWindowFeature,
@@ -47,6 +46,7 @@ const TopFeatures = ({
       <div className="text-2xl text-black font-bold my-6 ml-12 font-[Merriweather]">
         Top Features
       </div>
+      <div className="border shadow-xl rounded-lg">
       <CardUi>
         <div className="w-full md:w-full md:flex gap-7">
           <div className="w-full md:h-52 ">
@@ -101,15 +101,6 @@ const TopFeatures = ({
               </div>
             </div>
           ) : null}
-          {adaptiveHeadlights ? (
-            <div className="flex mt-5">
-              <PiHeadlightsBold className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
-              <div className="font-semibold text-black font-[latto] text-lg">
-                Adaptive Headlights
-              </div>
-            </div>
-          ) : null}
-
           {rearParkingCameraFeature ? (
             <div className="flex mt-5">
               <FaCameraRetro className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
@@ -126,20 +117,19 @@ const TopFeatures = ({
               </div>
             </div>
           ) : null}
-          {adas ? (
+          {abs ? (
             <div className="flex mt-5">
               <FaDashcube className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
               <div className="font-semibold text-black font-[latto] text-lg">
-                ADAS
+                ABS
               </div>
             </div>
           ) : null}
-
-          {parkingSensors ? (
+          {airbag ? (
             <div className="flex mt-5">
               <LuParkingCircle className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
               <div className="font-semibold text-black font-[latto] text-lg">
-                Parking Sensors
+              Air Bag
               </div>
             </div>
           ) : null}
@@ -151,11 +141,11 @@ const TopFeatures = ({
               </div>
             </div>
           ) : null}
-          {automaticEmergencyBraking ? (
+          {buttonStart ? (
             <div className="flex mt-5">
               <TbEmergencyBed className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
               <div className="font-semibold text-black font-[latto] text-lg">
-                Automatic Emergency Braking
+              Button Start
               </div>
             </div>
           ) : null}
@@ -175,6 +165,7 @@ const TopFeatures = ({
           </div>
         ) : null}
       </CardUi>
+      </div>
     </>
   );
 };

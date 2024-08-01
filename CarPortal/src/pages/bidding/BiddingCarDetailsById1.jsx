@@ -35,11 +35,10 @@ export default function BiddingCarDetailsById1() {
     }
     console.log(data);
     const {
-      automaticEmergencyBraking,
-    adas,
+      buttonStart,
+    abs,
     sunroof,
-    parkingSensors,
-    adaptiveHeadlights,
+    airbag,
     childSafetyLocks,
     acFeature,
     musicFeature,
@@ -92,11 +91,10 @@ export default function BiddingCarDetailsById1() {
           powerWindowFeature={powerWindowFeature}
           rearParkingCameraFeature={rearParkingCameraFeature}
           childSafetyLocks={childSafetyLocks}
-          adas={adas}
-          automaticEmergencyBraking={automaticEmergencyBraking}
+          abs={abs}
+          buttonStart={buttonStart}
           sunroof={sunroof}
-          parkingSensors={parkingSensors}
-          adaptiveHeadlights={adaptiveHeadlights}
+          airbag={airbag}
     />
   </div>
   <div className="md:col-span-1 sticky top-0">

@@ -20,6 +20,7 @@ const BiddingCarView = ({
   transmission,
   year,
   carInsurance,
+  carInsuranceType,
   kmDriven,
   beadingCarId,
   data,
@@ -27,12 +28,11 @@ const BiddingCarView = ({
   acFeature,
   powerWindowFeature,
   rearParkingCameraFeature,
-  adas,
+  abs,
   childSafetyLocks,
-  automaticEmergencyBraking,
-  parkingSensors,
+  buttonStart,
+  airbag,
   sunroof,
-  adaptiveHeadlights
 }) => {
   
   const token = Cookies.get("token");
@@ -54,18 +54,18 @@ const BiddingCarView = ({
         year={year}
         carInsurance={carInsurance}
         kmDriven={kmDriven}
+        carInsuranceType={carInsuranceType}
       />
       {/* <BiddingInspectionReport /> */}
 
       
           
       <TopFeatures
-      adas={adas}
+      abs={abs}
       childSafetyLocks={childSafetyLocks}
       sunroof={sunroof}
-      adaptiveHeadlights={adaptiveHeadlights}
-      automaticEmergencyBraking={automaticEmergencyBraking}
-      parkingSensors={parkingSensors}
+      airbag={airbag}
+      buttonStart={buttonStart}
       acFeature={acFeature}
       musicFeature={musicFeature}
       powerWindowFeature={powerWindowFeature}

@@ -68,7 +68,7 @@ const   AdminInspectorEdit = () => {
          // autoClose: 2000,
         });
         setTimeout(() => {
-          navigate('/');
+          navigate(-1);
         }, 1000);
       } else {
         toast.error("Failed to update inspector", {
@@ -104,6 +104,7 @@ const   AdminInspectorEdit = () => {
             value={inputField.firstName}
             type={"text"}
             name={"firstName"}
+            required
           />
         </div>
         <div className="mt-5">
@@ -113,6 +114,7 @@ const   AdminInspectorEdit = () => {
             value={inputField.lastName}
             type={"text"}
             name={"lastName"}
+            required
           />
         </div>
         <div className="mt-5">
@@ -122,6 +124,7 @@ const   AdminInspectorEdit = () => {
             value={inputField.email}
             type={"email"}
             name={"email"}
+            required
           />
         </div>
         <div className="mt-5">
@@ -131,6 +134,7 @@ const   AdminInspectorEdit = () => {
             value={inputField.mobileNo}
             type={"number"}
             name={"mobileNo"}
+            required
           />
         </div>
         <div className="mt-5">
@@ -140,6 +144,7 @@ const   AdminInspectorEdit = () => {
             value={inputField.address}
             type={"text"}
             name={"address"}
+            required
           />
         </div>
         <div className="mt-5">
@@ -149,6 +154,7 @@ const   AdminInspectorEdit = () => {
             value={inputField.city}
             type={"text"}
             name={"city"}
+            required
           />
         </div>
         <div className="mt-5 ml-2">

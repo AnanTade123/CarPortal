@@ -61,7 +61,7 @@ const {page} = useParams()
     <div className="w-full md:w-full">
     <CardUi>
       <div className="w-full md:w-full p-4">
-        <p className="font-extrabold text-2xl text-black uppercase font-[latto] ml-2">
+        <p className="font-extrabold text-2xl text-black uppercase font-[latto] ml-2 md:ml-0">
           {data?.year} {data?.brand} {data?.model}
         </p>
         <p className="uppercase font-[Merriweather] ml-2 md:ml-0">
@@ -71,7 +71,7 @@ const {page} = useParams()
           <Chip
             variant="outlined"
             value={`${data?.kmDriven} KM`}
-            className="text-sm text-black font-[latto] hover:bg-gray-900 hover:text-white"
+            className="text-sm text-black font-[latto]"
           />
           <Chip
             variant="outlined"
@@ -88,17 +88,17 @@ const {page} = useParams()
                 ? "5TH"
                 : ""
             } Owner`}
-            className="text-base text-black font-[latto] hover:bg-gray-900 hover:text-white"
+            className="text-base text-black font-[latto]"
           />
           <Chip
             variant="outlined"
             value={`${data?.fuelType}`}
-            className="text-base text-black font-[latto] hover:bg-gray-900 hover:text-white"
+            className="text-base text-black font-[latto]"
           />
           <Chip
             variant="outlined"
             value={`${data?.registration}`}
-            className="text-base text-black font-[latto] hover:bg-gray-900 hover:text-white"
+            className="text-base text-black font-[latto]"
           />
         </div>
         <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
@@ -114,19 +114,19 @@ const {page} = useParams()
           </div>
         </div>
         <Link to={userRole === "SALESPERSON" ? `/sale/inspection/report/${data?.beadingCarId}` : userRole ==="ADMIN" ? `/admin/inspection/report/${data?.beadingCarId}` : `/dealer/finalreport/${data?.beadingCarId}`}>
-            <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
+            <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0 mb-5">
               <FaFileAlt />
               <div className="mt-4 text-base text-gray-700 font-[latto]">
                 View Inspection Report
               </div>
             </div>
         </Link>
-        <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
+        {/* <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0">
           <IoLogoWhatsapp />
           <div className="mt-4 mb-6 text-base text-gray-700 font-[latto]">
             Get Service History Report
           </div>
-        </div>
+        </div> */}
         <hr className="border-gray-400" />
         <div className="flex justify-center align-middle items-center my-3">
           <div className="text-center">
@@ -134,7 +134,7 @@ const {page} = useParams()
             Top Bidding Amount: {topThreeBidsAmount[0]?.amount || "-"}  ₹
             </div>
             <div className="uppercase text-gray-700 text-xs font-[latto]">
-              Understand Price
+              Fixed Road Price
             </div>
           </div>
         </div>

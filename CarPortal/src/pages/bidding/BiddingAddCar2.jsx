@@ -83,11 +83,10 @@ export default function BiddingAddCar2() {
     musicFeature: false,
     powerWindowFeature: false,
     rearParkingCameraFeature: false,
-    automaticEmergencyBraking: false,
-    adas: false,
+    buttonStart: false,
+    abs: false,
     sunroof: false,
-    parkingSensors: false,
-    adaptiveHeadlights: false,
+    airbag: false,
     childSafetyLocks: false,
     // fields
     brand: "",
@@ -127,15 +126,13 @@ export default function BiddingAddCar2() {
     console.log(formData);
     // Prepare the form data to send to the backend
     const data = {
-      automaticEmergencyBraking: formData.automaticEmergencyBraking,
+      buttonStart: formData.buttonStart,
 
-      adas: formData.adas,
+      abs: formData.abs,
 
       sunroof: formData.sunroof,
 
-      parkingSensors: formData.parkingSensors,
-
-      adaptiveHeadlights: formData.adaptiveHeadlights,
+      airbag: formData.airbag,
 
       childSafetyLocks: formData.childSafetyLocks,
 
@@ -305,7 +302,7 @@ export default function BiddingAddCar2() {
                   freeSolo
                   options={brands}
                   getOptionLabel={(option) => option}
-                  sx={{ width: 390 }}
+                  sx={{ width: "full" }}
                   onChange={handleBrandChange}
                   renderInput={(params) => (
                     <TextField
@@ -342,7 +339,7 @@ export default function BiddingAddCar2() {
                   freeSolo
                   options={modelOptions}
                   getOptionLabel={(option) => option}
-                  sx={{ width: 400, height: 50 }}
+                  sx={{ width:"Full", height: 50 }}
                   onChange={handleModelChange}
                   renderInput={(params) => (
                     <TextField
@@ -382,7 +379,7 @@ export default function BiddingAddCar2() {
                   freeSolo
                   options={variantOptions}
                   getOptionLabel={(option) => option}
-                  sx={{ width: 390 }}
+                  sx={{ width:"Full" }}
                   onChange={handleVariantChange}
                   renderInput={(params) => (
                     <TextField
@@ -468,25 +465,25 @@ export default function BiddingAddCar2() {
                 >
                   <option value="" disabled>Year</option>
                   <option value={2005}>2005</option>
-                  <option value={2005}>2006</option>
-                  <option value={2005}>2007</option>
-                  <option value={2005}>2008</option>
-                  <option value={2005}>2009</option>
-                  <option value={2005}>2010</option>
-                  <option value={2005}>2011</option>
-                  <option value={2005}>2012</option>
-                  <option value={2005}>2013</option>
-                  <option value={2005}>2014</option>
-                  <option value={2005}>2015</option>
-                  <option value={2005}>2016</option>
-                  <option value={2005}>2017</option>
-                  <option value={2005}>2018</option>
-                  <option value={2005}>2019</option>
-                  <option value={2005}>2020</option>
-                  <option value={2005}>2021</option>
-                  <option value={2005}>2022</option>
-                  <option value={2005}>2023</option>
-                  <option value={2005}>2024</option>
+                  <option value={2006}>2006</option>
+                  <option value={2007}>2007</option>
+                  <option value={2008}>2008</option>
+                  <option value={2009}>2009</option>
+                  <option value={2010}>2010</option>
+                  <option value={2011}>2011</option>
+                  <option value={2012}>2012</option>
+                  <option value={2013}>2013</option>
+                  <option value={2014}>2014</option>
+                  <option value={2015}>2015</option>
+                  <option value={2016}>2016</option>
+                  <option value={2017}>2017</option>
+                  <option value={2018}>2018</option>
+                  <option value={2019}>2019</option>
+                  <option value={2020}>2020</option>
+                  <option value={2021}>2021</option>
+                  <option value={2022}>2022</option>
+                  <option value={2023}>2023</option>
+                  <option value={2024}>2024</option>
                 </select>
               </div>
             </div>
@@ -681,7 +678,7 @@ export default function BiddingAddCar2() {
                 </select>
               </div>
 
-              <div className="mt-5 ml-2 w-full">
+              <div className="mt-5 w-full">
                 <select
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label="Registration"
@@ -780,36 +777,36 @@ export default function BiddingAddCar2() {
             <div className="md:flex">
               <div className="mt-5 ml-5">
                 <input
-                  label="Automatic Emergency Braking"
+                  label="ABS"
                   type="checkbox"
-                  name="automaticEmergencyBraking"
+                  name="abs"
                   // value={formData.musicFeature}
-                  checked={formData.automaticEmergencyBraking}
+                  checked={formData.abs}
                   onChange={(event) =>
                     setFormData({
                       ...formData,
-                      automaticEmergencyBraking: event.target.checked,
+                      abs: event.target.checked,
                     })
                   }
                 />{" "}
-                Automatic Emergency Breaking
+                ABS
               </div>
 
               <div className="mt-5 ml-5">
                 <input
-                  label="ADAS"
+                  label="Button Start"
                   type="checkbox"
-                  name="adas"
+                  name="buttonStart"
                   // value={formData.powerWindowFeature}
-                  checked={formData.adas}
+                  checked={formData.buttonStart}
                   onChange={(event) =>
                     setFormData({
                       ...formData,
-                      adas: event.target.checked,
+                      buttonStart: event.target.checked,
                     })
                   }
                 />{" "}
-                ADAS
+                Button Start
               </div>
 
               <div className="mt-5 ml-5">
@@ -845,43 +842,24 @@ export default function BiddingAddCar2() {
                 />{" "}
                 Child Safety Locks
               </div>
-            </div>
-
-            <div className="md:flex">
               <div className="mt-5 ml-5">
                 <input
-                  label="Adaptive Headlights"
+                  label="AirBag"
                   type="checkbox"
-                  name="adaptiveHeadlights"
+                  name="airbag"
                   // value={formData.musicFeature}
-                  checked={formData.adaptiveHeadlights}
+                  checked={formData.airbag}
                   onChange={(event) =>
                     setFormData({
                       ...formData,
-                      adaptiveHeadlights: event.target.checked,
+                      airbag: event.target.checked,
                     })
                   }
                 />{" "}
-                Adaptive Headlights
-              </div>
-
-              <div className="mt-5 ml-5">
-                <input
-                  label="Parking Sensors"
-                  type="checkbox"
-                  name="parkingSensors"
-                  // value={formData.musicFeature}
-                  checked={formData.parkingSensors}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      parkingSensors: event.target.checked,
-                    })
-                  }
-                />{" "}
-                Parking Sensors
+                AirBag
               </div>
             </div>
+
             <div className="mt-5 md:ml-2 w-50">
               <select
                 required
