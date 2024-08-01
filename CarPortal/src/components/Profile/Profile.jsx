@@ -86,7 +86,7 @@ console.log(userId)
           
           </Link>
 
-    <Link to={`/dealer/${dealer_id}/edit`}>
+    {/* <Link to={`/dealer/${dealer_id}/edit`}>
 
 
     
@@ -111,7 +111,7 @@ console.log(userId)
         </Typography>
 
       </MenuItem>
-    </Link>
+    </Link> */}
 
     
     <MenuItem className="flex items-center gap-2">
@@ -174,7 +174,7 @@ console.log(userId)
               {userLocal?.firstname ? userLocal?.firstname : "Admin"}
             </Typography>
           </MenuItem> */}
-    <Link to={`/inspector/edit/${userId}/${inspectorProfileId}`}>
+    {/* <Link to={`/inspector/edit/${userId}/${inspectorProfileId}`}>
       <MenuItem className=" flex items-center gap-2">
         <svg
           width="16"
@@ -196,7 +196,7 @@ console.log(userId)
         </Typography>
 
       </MenuItem>
-    </Link>
+    </Link> */}
 
     
     <MenuItem className="flex items-center gap-2">
@@ -239,7 +239,7 @@ console.log(userId)
             </Typography>
           </MenuItem>
           </Link>
-    <Link to={`seller/info/${userId}`}>
+    {/* <Link to={`seller/info/${userId}`}>
       <MenuItem className=" flex items-center gap-2">
         <svg
           width="16"
@@ -261,7 +261,7 @@ console.log(userId)
         </Typography>
 
       </MenuItem>
-    </Link>
+    </Link> */}
 
     
     <MenuItem className="flex items-center gap-2">
