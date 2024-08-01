@@ -47,7 +47,7 @@ const KnowYourCar = ({
       <div className="border shadow-xl items-center mx-auto w-full md:w-full">
         <CardUi>
           <div className="w-full h-max md:w-full">
-            <div className="w-full grid grid-cols-1 ml-5 md:ml-0 gap-y-4  md:grid md:grid-cols-3 md:gap-y-8 mt-5 px-8">
+            <div className="w-full grid grid-cols-1 ml-5 md:ml-0 gap-y-4 md:grid md:grid-cols-3 md:gap-y-8 mt-5 px-8">
               <div className="flex items-center gap-5">
                 <div>
                   <FaRegWindowMaximize className="w-5 h-5" />
