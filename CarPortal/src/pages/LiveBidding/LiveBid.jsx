@@ -1,37 +1,55 @@
-import { useEffect, useMemo } from 'react';
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useCallback, useEffect, useMemo } from 'react';
 import { useGetAllLiveBiddingCarsQuery } from '../../services/biddingAPI';
 import Card from './Card';
+import { useWebSocket } from '../../Utiles/WebSocketConnection';
 
 const LiveBid = () => {
-  const { data, isLoading, refetch } = useGetAllLiveBiddingCarsQuery();
-
-  // Memoize liveCarData to optimize re-renders
-  const liveCarData = useMemo(() => {
-    if (!isLoading && data) {
-      return data;
-    }
-    return [];
-  }, [data, isLoading]);
-
+  // const { data, isLoading, refetch } = useGetAllLiveBiddingCarsQuery();
+  // if (isLoading) {
+  //   return <span>Loading...</span>;
+  // }
+  const { isConnected, getTopThreeBids,topThreeBidsAmountArray,topThreeBidsAmount,getLiveCars ,liveCars} = useWebSocket();
   useEffect(() => {
+    const fetchLiveCars = () => {
+      if (isConnected) {
+        try {
+          getLiveCars();
+        } catch (error) {
+          console.error('Failed to fetch live cars:', error);
+        }
+      }
+    };
+
+    fetchLiveCars();
+
+    // Optionally, set up an interval to fetch live cars continuously
     const intervalId = setInterval(() => {
-      refetch();
-    }, 1000);
+      fetchLiveCars();
+    }, 1000); // Fetch every 5 seconds, adjust as needed
 
-    // Cleanup interval on component unmount
+    // Cleanup the interval on component unmount
     return () => clearInterval(intervalId);
-  }, [refetch]);
+  }, [isConnected, getLiveCars]);
 
-  if (isLoading) {
-    return <span>Loading...</span>;
-  }
-
+    // const handleHighestBidAmount = useCallback(async (bidCarId) => {
+    //   try {
+    //     // Make an API call to fetch the highest bid amount for the given car ID
+    //     const response = await  getTopThreeBids(bidCarId);
+    //     console.log("topThreeBidsAmount",response);
+    //     // Update state with the highest bid amount
+    //     return response;
+    //   } catch (error) {
+    //     console.error("Error fetching highest bid amount:", error);
+    //   }
+    // }, []);
   return (
     <div className="mx-4 mb-10 sm:mx-12">
       <h1 className="text-2xl font-bold text-center mb-8 sm:text-3xl">Bidding Car Live</h1>
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {liveCarData.map((cardData, i) => (
-          <Card key={i} cardData={cardData} />
+        {liveCars && liveCars?.map((cardData, i) => (
+          <Card key={i} cardData={cardData} handleHighestBidAmount="" />
         ))}
       </div>
     </div>

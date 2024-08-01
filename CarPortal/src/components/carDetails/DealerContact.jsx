@@ -6,6 +6,7 @@ import { FaLocationDot } from 'react-icons/fa6';
 import { IoLogoWhatsapp } from 'react-icons/io';
 import { MdEmail, MdPerson } from 'react-icons/md';
 import { useGetDealerQuery } from "../../services/dealerAPI";
+import CardUi from '../../ui/CardUi';
 
 
 const DealerContact = ({dealer_id}) => {
@@ -28,9 +29,11 @@ const DealerContact = ({dealer_id}) => {
     return <></>
   }
   return (
-    <div className="w-full md:w-full bg-white rounded-lg shadow-xl overflow-hidden mt-6">
+    
+    <div className="w-full md:w-full rounded-lg shadow-xl overflow-hidden mt-6">
+      <CardUi>
       <div className="p-4">
-        <h2 className="text-xl font-semibold text-gray-800">Dealer details</h2>
+        <h2 className="text-xl font-semibold text-gray-800">Dealer Contact</h2>
         <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0 mt-4">
           <MdPerson />
           <p className="text-gray-600">
@@ -56,6 +59,7 @@ const DealerContact = ({dealer_id}) => {
           </p>
         </div>
       </div>
+      </CardUi>
     </div>
   );
 };
