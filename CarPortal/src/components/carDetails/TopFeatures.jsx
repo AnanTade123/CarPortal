@@ -46,6 +46,7 @@ const TopFeatures = ({
       <div className="text-2xl text-black font-bold my-6 ml-12 font-[Merriweather]">
         Top Features
       </div>
+      <div className="border shadow-xl rounded-lg">
       <CardUi>
         <div className="w-full md:w-full md:flex gap-7">
           <div className="w-full md:h-52 ">
@@ -164,6 +165,7 @@ const TopFeatures = ({
           </div>
         ) : null}
       </CardUi>
+      </div>
     </>
   );
 };

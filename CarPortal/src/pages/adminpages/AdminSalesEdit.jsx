@@ -92,6 +92,7 @@ const AdminSalesEdit = () => {
             value={inputField.firstName}
             type={"text"}
             name={"firstName"}
+            required
           />
         </div>
         <div className="mt-5">
@@ -101,6 +102,7 @@ const AdminSalesEdit = () => {
             value={inputField.lastName}
             type={"text"}
             name={"lastName"}
+            required
           />
         </div>
         <div className="mt-5">
@@ -110,6 +112,7 @@ const AdminSalesEdit = () => {
             value={inputField.email}
             type={"email"}
             name={"email"}
+            required
           />
         </div>
         <div className="mt-5">
@@ -119,6 +122,7 @@ const AdminSalesEdit = () => {
             value={inputField.mobileNo}
             type={"number"}
             name={"mobileNo"}
+            required
           />
         </div>
         <div className="mt-5">
@@ -128,6 +132,7 @@ const AdminSalesEdit = () => {
             value={inputField.address}
             type={"text"}
             name={"address"}
+            required
           />
         </div>
         <div className="mt-5">
@@ -137,6 +142,7 @@ const AdminSalesEdit = () => {
             value={inputField.city}
             type={"text"}
             name={"city"}
+            required
           />
         </div>
         <div className="mt-5">
@@ -146,6 +152,7 @@ const AdminSalesEdit = () => {
             value={inputField.area}
             type={"text"}
             name={"area"}
+            required
           />
         </div>
         <div className="mt-5 ml-2 space-x-4">
