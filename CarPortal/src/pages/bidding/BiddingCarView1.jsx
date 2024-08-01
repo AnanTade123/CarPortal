@@ -33,7 +33,7 @@ console.log(data)
 
   const ChooseCarColor = () => {
     return (
-      <div className="container mx-auto w-full md:w-3/4 md:h-[30rem]">
+      <div className="w-full h-[16rem] md:w-full md:h-[30rem]">
         {interior && (
           <Carousel
             className="bg-white rounded-lg shadow-md"
@@ -188,7 +188,7 @@ console.log(data)
   };
 
   return (
-    <div className="w-4/5 md:w-full container md:px-4 lg:px-8">
+    <div className="w-5/5 md:w-full container md:px-4 lg:px-8">
       <div className="flex flex-col justify-between">
         <ChooseCarColor />
         <div className="w-11/12 max-w-xl mx-auto m-5 mb-10 overflow-x-auto scrollbar">

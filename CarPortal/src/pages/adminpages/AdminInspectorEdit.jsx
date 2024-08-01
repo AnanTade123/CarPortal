@@ -68,7 +68,7 @@ const   AdminInspectorEdit = () => {
          // autoClose: 2000,
         });
         setTimeout(() => {
-          navigate('/');
+          navigate(-1);
         }, 1000);
       } else {
         toast.error("Failed to update inspector", {
