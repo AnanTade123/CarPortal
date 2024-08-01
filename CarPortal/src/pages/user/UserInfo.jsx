@@ -1,15 +1,15 @@
-import {Link, useNavigate, useParams } from "react-router-dom";
-import { useGetDealerQuery } from "../../services/dealerAPI";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useGetUserByIdQuery } from "../../services/userAPI";
 import { IoChevronBack } from "react-icons/io5";
 import { Button } from "@material-tailwind/react";
-import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 
-const AdminDealerInfo = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-
+const UserInfo = () => {
+  
   
   const token = Cookies.get("token");
 
@@ -18,33 +18,22 @@ const AdminDealerInfo = () => {
   if (token) {
     jwtDecodes = jwtDecode(token);
   }
+  const userProfileId = token ? jwtDecodes?.userProfileId : null;
+  console.log(userProfileId )
+  const { data } = useGetUserByIdQuery(userProfileId);
 
-  const DealerId = token ? jwtDecodes?.dealerId : null;
-
-  const userRole = token ? jwtDecodes?.authorities[0] : null;
-
-  const { data, isLoading, isError, error } = useGetDealerQuery({id});
-  console.log(isLoading);
-  console.log(isError);
-  console.log(error);
   console.log(data);
-
-  const {
-    dealerDto: {
-      firstName,
-      lastName,
-      mobileNo,
-      shopName,
-      area,
-      email,
-      city,
-      address,
-    } = {},
-  } = data || {};
+  if (!data) {
+    return <div>
+     <p>No Data Found</p>
+    </div>
+ }
 
   return (
     <>
-      <div className="text-3xl font-bold mt-10 ml-16 mb-[-5rem]">Dealer Information</div>
+      <div className="text-3xl font-bold mt-10 ml-16 mb-[-5rem]">
+       User Information
+      </div>
       <div className="flex justify-center items-center h-screen">
         <div className="w-full max-w-4xl flex flex-col md:flex-row shadow-lg">
           <div className="w-full md:w-1/2">
@@ -63,7 +52,7 @@ const AdminDealerInfo = () => {
                       First Name
                     </th>
                     <td className="px-4 py-2 border border-gray-200">
-                      {firstName}
+                      {data.firstName}
                     </td>
                   </tr>
                   <tr>
@@ -71,7 +60,7 @@ const AdminDealerInfo = () => {
                       Last Name
                     </th>
                     <td className="px-4 py-2 border border-gray-200">
-                      {lastName}
+                      {data.lastName}
                     </td>
                   </tr>
                   <tr>
@@ -79,64 +68,38 @@ const AdminDealerInfo = () => {
                       Mobile Number
                     </th>
                     <td className="px-4 py-2 border border-gray-200">
-                      {mobileNo}
+                      {data.mobile_no}
                     </td>
                   </tr>
-                  <tr>
-                    <th className="px-4 py-2 border border-gray-200">
-                      Shop Name
-                    </th>
-                    <td className="px-4 py-2 border border-gray-200">
-                      {shopName}
-                    </td>
-                  </tr>
-                  <tr>
-                    <th className="px-4 py-2 border border-gray-200">Area</th>
-                    <td className="px-4 py-2 border border-gray-200">{area}</td>
-                  </tr>
+
                   <tr>
                     <th className="px-4 py-2 border border-gray-200">Email</th>
                     <td className="px-4 py-2 border border-gray-200">
-                      {email}
+                      {data.email}
                     </td>
                   </tr>
                   <tr>
                     <th className="px-4 py-2 border border-gray-200">City</th>
-                    <td className="px-4 py-2 border border-gray-200">{city}</td>
+                    <td className="px-4 py-2 border border-gray-200">{data.city}</td>
                   </tr>
                   <tr>
                     <th className="px-4 py-2 border border-gray-200">
                       Address
                     </th>
                     <td className="px-4 py-2 border border-gray-200">
-                      {address}
+                      {data.address}
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <div className="flex justify-center items-center mt-4 md:mt-0">
-              <span className="flex items-center">
-              {userRole === 'Admin' ? (
-                <Button
-                  size="md"
-                  className="mt-2 ml-2 cursor-pointer flex items-center"
-                  onClick={() => navigate(-1)}
-                >
-                  <IoChevronBack className="w-5 h-5" /> Back
-                </Button>  ) : null}
-                {userRole === 'DEALER' ? (
-               
-               <Link to={`/dealer/${DealerId}/edit`}>
-               <Button
-                  size="md"
-                  className="mt-2 ml-2 cursor-pointer flex items-center"
-                  
-                >
-                  Update Profile
-                </Button>  </Link>
-                 ) : null}
-              </span>
+            <Link to={`/user/UserProfileUpdate/${userProfileId}`}>
+              <div className="flex items-center mt-5">
+                 <Button>Update Profile</Button>
+                
+              </div>
+              </Link>
             </div>
           </div>
         </div>
@@ -145,4 +108,4 @@ const AdminDealerInfo = () => {
   );
 };
 
-export default AdminDealerInfo;
+export default UserInfo;

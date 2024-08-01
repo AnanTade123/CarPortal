@@ -91,6 +91,7 @@ import { CardDefault } from "./ui/CardDefault";
 
 import WebSocketConnection from "./Utiles/WebSocketConnection";
 import UserProfileUpdate from "./pages/user/UserProfileUpdate";
+import UserInfo from "./pages/user/UserInfo";
 import SalesDealer from "./pages/sales/SalesDealer";
 
 
@@ -124,7 +125,7 @@ export default function App() {
           <Route path="/pendinrequest/:userid" element={<PendingRequest />} />
           <Route path="/user/booking/:id" element={<UserConfirmBooking />} />
           <Route
-            path="/user/UserProfileUpdate/:userId"
+            path="/user/UserProfileUpdate/:userProfileId"
             element={<UserProfileUpdate />}
           />
           <Route
@@ -168,7 +169,7 @@ export default function App() {
             />
             <Route
               path="/admin/inspector/edit/:userid/:inspectorprofileid"
-              element={<AdminInspectorEdit />}
+              element={<AdminInspectorEdit  />}
             />
             <Route
               path="/transactionbyaccount"
@@ -196,9 +197,10 @@ export default function App() {
               element={<Uploadimages2 />}
             />
             <Route path="/dealer/:id/edit" element={<DealerEdit />} />
+            <Route path="/dealer/finalreport/:beadingCarId" element={<FinalReport />} />
             <Route
-              path="/dealer/finalreport/:beadingCarId"
-              element={<FinalReport />}
+              path="/dealer/info/:id"
+              element={<AdminDealerInfo />}
             />
 
             <Route
@@ -242,6 +244,9 @@ export default function App() {
               />
             }
           >
+         <Route path="/inspector/info/:userId" element={<AdminInspectorInfo />} />
+
+            <Route path="/inspector/carverify/:beadingCarId" element={<CarVerify />} />
             <Route
               path="/inspector/carverify/:beadingCarId"
               element={<CarVerify />}
@@ -300,21 +305,15 @@ export default function App() {
               path="/seller/edit/:userid/:salesPersonId"
               element={<AdminSalesEdit />}
             />
+            <Route
+              path="/seller/info/:userId"
+              element={<AdminSalesInfo />}
+            />
           </Route>
           <Route path="/user/:userid/favorite" element={<FavoritePage />} />
         </Route>
-
-        {/* <Route> */}
-        {/* <Router> */}
-        {/* <Switch> */}
-        {/* <Route path="/favorites" element={<FavoritePage />} /> */}
-        {/* <Route path="/" component={<CardDefault/>} /> */}
-        {/* <Route path="/carlist/cardetails/:carId" element={<CardDetails />} /> */}
-        {/* </Switch> */}
-        {/* </Router> */}
-        {/* </Route> */}
-
-        <Route path="/DealerContact" element={<DealerContact />} />
+        <Route path="/user" element={<UserInfo/>} />
+<Route path="/DealerContact" element={<DealerContact/>}/>
         {/* <Route path="/trans" element={<CardDetailss/>}/> */}
         <Route element={<AppLayout2 />}>
           <Route path="/aboutus" element={<AboutUs />} />
