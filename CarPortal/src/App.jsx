@@ -119,7 +119,7 @@ export default function App() {
           />
           <Route path="/pendinrequest/:userid" element={<PendingRequest />} />
           <Route path="/user/booking/:id" element={<UserConfirmBooking />} />
-          <Route  path="/user/UserProfileUpdate/:userId" element={<UserProfileUpdate/>}/>
+          <Route  path="/user/UserProfileUpdate/:userProfileId" element={<UserProfileUpdate/>}/>
           <Route
             element={
               <AdminMiddleware allowedRoles={[...Object.values(onlyAdmin)]} />
@@ -160,7 +160,7 @@ export default function App() {
             />
             <Route
               path="/admin/inspector/edit/:userid/:inspectorprofileid"
-              element={<AdminInspectorEdit />}
+              element={<AdminInspectorEdit  />}
             />
             <Route
               path="/transactionbyaccount"
@@ -241,6 +241,8 @@ export default function App() {
               />
             }
           >
+         <Route path="/inspector/info/:userId" element={<AdminInspectorInfo />} />
+
             <Route path="/inspector/carverify/:beadingCarId" element={<CarVerify />} />
             <Route
               path="/inspector/car"
@@ -283,6 +285,10 @@ export default function App() {
             <Route
               path="/seller/edit/:userid/:salesPersonId"
               element={<AdminSalesEdit />}
+            />
+            <Route
+              path="/seller/info/:userId"
+              element={<AdminSalesInfo />}
             />
           </Route>
           <Route path="/user/:userid/favorite" element={<FavoritePage/>} />

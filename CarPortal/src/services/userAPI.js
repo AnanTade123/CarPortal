@@ -3,9 +3,9 @@ import { apiSlice } from "./apiSlice";
 export const UserAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     GetUserById: builder.query({
-      query: ({userId}) => ({
-        url: `app/user/getUser/${userId}`,
-        transferResponse: console.log(userId),
+      query: (userProfileId) => ({
+        url: `/user/getUser/${userProfileId}`,
+        transferResponse: console.log(userProfileId),
         method: "GET",
       }),
       providesTags:["User"]
@@ -13,10 +13,20 @@ export const UserAPI = apiSlice.injectEndpoints({
        // You probably want providesTags here instead of invalidatesTags for queries
     }),
 
+    Userupdate: builder.mutation({
+      query: ({userProfileId ,userupdate})  => ({
+        url: `user/edit/${userProfileId}`,
+        transerResponse:console.log("APi response" , userProfileId),
+        method: 'PUT',
+        body:userupdate
+      }),
+      invalidatesTags:["User"],
+    }),
+
   }),
 });
 
-export const { useGetUserByIdQuery 
-  
+export const { useGetUserByIdQuery ,
+useUserupdateMutation
 
  } = UserAPI;
