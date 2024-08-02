@@ -5,7 +5,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client/dist/sockjs';
-import { toast, ToastContainer } from 'react-toastify';
 
 const WebSocketContext = createContext(null);
 
@@ -105,6 +104,11 @@ export const WebSocketProvider = ({ children }) => {
       client.publish({
         destination: `/topBids/${bidCarId}`,
       });
+      client.subscribe('/topic/topBids', (message) => {
+        const topBids = JSON.parse(message.body);
+        console.log('Live cars received:', topBids);
+        setTopThreeBidsAmount(topBids);
+      });
     }
   };
 
@@ -142,7 +146,6 @@ export const WebSocketProvider = ({ children }) => {
   return (
     <WebSocketContext.Provider value={{ isConnected, placeBid, getTopThreeBids, topThreeBidsAmount, topThreeBidsAmountArray, getLiveCars, liveCars, refreshTopThreeBids }}>
       {children}
-      <ToastContainer />
     </WebSocketContext.Provider>
   );
 };
@@ -152,7 +155,6 @@ export const useWebSocket = () => useContext(WebSocketContext);
 const WebSocketConnection = () => {
   return (
    <>
-    <ToastContainer />
    </>
   );
 };

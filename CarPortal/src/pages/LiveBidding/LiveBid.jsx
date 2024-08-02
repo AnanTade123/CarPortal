@@ -25,12 +25,12 @@ const LiveBid = () => {
     fetchLiveCars();
 
     // Optionally, set up an interval to fetch live cars continuously
-    const intervalId = setInterval(() => {
-      fetchLiveCars();
-    }, 1000); // Fetch every 5 seconds, adjust as needed
+    // const intervalId = setInterval(() => {
+    //   fetchLiveCars();
+    // }, 7000); // Fetch every 5 seconds, adjust as needed
 
-    // Cleanup the interval on component unmount
-    return () => clearInterval(intervalId);
+    // // Cleanup the interval on component unmount
+    // return () => clearInterval(intervalId);
   }, [isConnected, getLiveCars]);
 
     // const handleHighestBidAmount = useCallback(async (bidCarId) => {

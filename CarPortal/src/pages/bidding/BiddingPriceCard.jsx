@@ -46,7 +46,7 @@ const BiddingPriceCard = ({
   }
   const userRole = jwtDecodes?.authorities[0];
   const UserId = token ? jwtDecodes?.userId : null;
-const {page} = useParams()
+  const {page} = useParams()
 
   const {data} = useGetbeadingGetByIdQuery(beadingCarId);
   const { isConnected, getTopThreeBids,topThreeBidsAmount } = useWebSocket();
