@@ -109,8 +109,6 @@ export default function EditDealerCar() {
 
       airbag: formData.airbag,
 
-      // adaptiveHeadlights: formData.adaptiveHeadlights,
-
       childSafetyLocks: formData.childSafetyLocks,
 
       acFeature: formData.acFeature,
@@ -490,7 +488,7 @@ export default function EditDealerCar() {
                   <option>Diesel</option>
                   <option>Electric</option>
                   <option>CNG</option>
-                  <option value="Petrol,CNG">Petrol+CNG</option>
+                  <option>Petrol+CNG</option>
                 </select>
               </div>
             </div>

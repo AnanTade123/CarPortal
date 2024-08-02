@@ -128,7 +128,7 @@ export default function BiddingEditCar() {
         city: Carid?.city || "",
         fuelType: Carid?.fuelType || "",
         kmDriven: Carid?.kmDriven || "",
-        carInsurance: Carid?.carInsurance || "",
+        carInsurance: Carid?.carInsurance !== undefined ? Carid.carInsurance : "",
         registration: Carid?.registration || "",
         description: Carid?.description || "",
         area: Carid?.area || "",
@@ -455,7 +455,7 @@ export default function BiddingEditCar() {
               required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 name="ownerSerial"
-                value={formData.type}
+                value={formData.ownerSerial}
                 onChange={(event) =>
                   setFormData({
                     ...formData,
@@ -573,6 +573,7 @@ export default function BiddingEditCar() {
                 }
               >
                 <option value="">Fuel Type</option>
+                {["Petrol", "Diesel", "CNG", "Electric", "Petrol+CNG"].map(
                 {["Petrol", "Diesel", "CNG", "Electric", "Hybrid", "Petrol+CNG"].map(
                   (fuel) => (
                     <option key={fuel} value={fuel}>

@@ -23,7 +23,7 @@ export const carApi = apiSlice.injectEndpoints({
           method: "GET",
         };
       },
-      providesTags: ["CAR", "INSPECTOR"],
+      providesTags: ["CAR", "Dealer"],
     }),
     getCarById: builder.query({
       query: (carId) => ({
@@ -187,7 +187,7 @@ export const carApi = apiSlice.injectEndpoints({
         
         method:'DELETE'
       }),
-      invalidatesTags: ["CAR"],
+      providesTags: ["User"],
     }),
 
     CarFavoriteAddRemove: builder.query({
@@ -196,7 +196,7 @@ export const carApi = apiSlice.injectEndpoints({
        
         method:'GET'
       }),
-      invalidatesTags: ["CAR"],
+      invalidatesTags: ["User"],
     }),
 
   }),

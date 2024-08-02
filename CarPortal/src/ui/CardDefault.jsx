@@ -68,44 +68,12 @@ export function CardDefault({ data, Carid }) {
   };
   const carid = data2.carId;
   const useid = data2.userId;
-  
+  console.log(carid, useid);
 
-  const { data: favData } = useCarFavoriteAddRemoveQuery({ carid, useid });
+  const { data: favData ,refetch} = useCarFavoriteAddRemoveQuery({ carid, useid });
 
-  
+  console.log(favData);
   const [CarremoveFavorite] = useCarremoveFavoriteMutation();
-  const handleFavoriteClick = async () => {
-    if (rated) {
-      const data3 = {
-        saveCarId: favData.object.saveCarId,
-      };
-      try {
-        const res = await CarremoveFavorite(data3);
-       
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      try {
-        const res = await favoriteCar(data2);
-        
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    setRated(!rated);
-  };
-  // const handleFavoriteClick = async () => {
-  //   try {
-  //       const res = await favoriteCar(data2);
-  //       console.log(res);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //     setRated(!rated);
-  // };
-
- 
 
   useEffect(() => {
     if (favData?.object.saveCarId) {
@@ -114,6 +82,30 @@ export function CardDefault({ data, Carid }) {
       setRated(false);
     }
   }, [favData]);
+  const handleFavoriteClick = async () => {
+    if (rated) {
+      const data3 = {
+        saveCarId: favData.object.saveCarId,
+      };
+      try {
+        const res = await CarremoveFavorite(data3);
+        refetch()
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        const res = await favoriteCar(data2);
+        refetch()
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    setRated(!rated);
+  };
+ 
   return (
     <div className="flex justify-center mx-auto">
       <Card className="max-w-[19rem] overflow-hidden">

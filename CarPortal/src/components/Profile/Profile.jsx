@@ -17,6 +17,7 @@ import { GrUserSettings } from "react-icons/gr";
 import { IoMdLogOut } from "react-icons/io";
 
 
+
 const Profile = ({dealer_id,userrole,userId,inspectorProfileId,salesPersonId,userProfileId}) => {
 
 
@@ -310,7 +311,8 @@ const Profile = ({dealer_id,userrole,userId,inspectorProfileId,salesPersonId,use
     
     <MenuItem className="flex items-center gap-2">
     <RiLockPasswordLine className="text-xl -ml-[1px]" />
-    <Link to="/changePassword">
+   
+    <Link to="/user/ChangePassword">
      
     <Typography
       variant="small"
