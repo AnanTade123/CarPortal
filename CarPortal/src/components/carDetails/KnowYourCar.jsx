@@ -41,7 +41,7 @@ const KnowYourCar = ({
   );
   return (
     <>
-      <p className="text-2xl text-black font-bold my-3 md:ml-12 font-[Merriweather]">
+      <p className="text-2xl text-black font-bold md:ml-12 my-3  font-[Merriweather]">
         Know your Car
       </p>
       <div className="border shadow-xl items-center mx-auto w-full md:w-full">
