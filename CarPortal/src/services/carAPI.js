@@ -178,7 +178,7 @@ export const carApi = apiSlice.injectEndpoints({
         transferResponse: console.log("userId",UserId),
         method : 'GET'
       }),
-      invalidatesTags : ["CAR"],
+      providesTags : ["CAR"],
     }),
 
     CarremoveFavorite: builder.mutation({
