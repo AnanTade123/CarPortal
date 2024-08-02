@@ -45,6 +45,7 @@ const PriceCard = ({
 
   console.log(data);
   return (
+    <>
     <div className="border mx-auto shadow-xl w-full md:w-full">
       <CardUi>
         <div className="w-full md:w-full ">
@@ -161,9 +162,21 @@ const PriceCard = ({
           </div>
           <div></div>
         </div>
-      </CardUi>
-      <div>{cookie && <DealerContact dealer_id={dealer_id} />}</div>
-    </div>
+        <div>
+         
+        </div>
+      {/* </div> */}
+      {cookie && (
+  <DealerContact dealer_id={dealer_id}/>)}
+    
+    </CardUi>
+
+    {/* </div> */}
+
+{/* <div> */}
+
+</div>
+</>
   );
 };
 

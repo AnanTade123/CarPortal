@@ -302,7 +302,7 @@ export default function BiddingAddCar2() {
                   freeSolo
                   options={brands}
                   getOptionLabel={(option) => option}
-                  sx={{ width: 390 }}
+                  sx={{ width: "full" }}
                   onChange={handleBrandChange}
                   renderInput={(params) => (
                     <TextField
@@ -339,7 +339,7 @@ export default function BiddingAddCar2() {
                   freeSolo
                   options={modelOptions}
                   getOptionLabel={(option) => option}
-                  sx={{ width: 400, height: 50 }}
+                  sx={{ width:"Full", height: 50 }}
                   onChange={handleModelChange}
                   renderInput={(params) => (
                     <TextField
@@ -379,7 +379,7 @@ export default function BiddingAddCar2() {
                   freeSolo
                   options={variantOptions}
                   getOptionLabel={(option) => option}
-                  sx={{ width: 390 }}
+                  sx={{ width:"Full" }}
                   onChange={handleVariantChange}
                   renderInput={(params) => (
                     <TextField
@@ -678,7 +678,7 @@ export default function BiddingAddCar2() {
                 </select>
               </div>
 
-              <div className="mt-5 ml-2 w-full">
+              <div className="mt-5 w-full">
                 <select
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label="Registration"

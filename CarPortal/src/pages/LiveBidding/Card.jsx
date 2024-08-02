@@ -14,12 +14,11 @@ dayjs.extend(duration);
 
 const Card = ({ cardData }) => {
     const closeTime = cardData?.closingTime;
-    const { data } = useBiddingCarByIdQuery(cardData?.beadingCarId);
+    const { data , refetch} = useBiddingCarByIdQuery(cardData?.beadingCarId);
     const { data: imageData } = useGetCarIdTypeQuery(cardData?.beadingCarId);
     // eslint-disable-next-line no-unused-vars
     const [timeLeft, setTimeLeft] = useState('');
-    const bidCarId =cardData?.bidCarId;
-    const [topThreeBids, setTopThreeBids] = useState([]);
+    const bidCarId = cardData?.bidCarId;
     const [highestBid , setHighestBid] = useState(0);
     // let highestBid = "";
     useEffect(() => {
@@ -48,16 +47,13 @@ const Card = ({ cardData }) => {
         return () => clearInterval(timerId);
     }, [closeTime]);
 
-    const { isConnected, getTopThreeBids,topThreeBidsAmountArray } = useWebSocket();
+    const { isConnected, getTopThreeBids,topThreeBidsAmountArray,refreshTopThreeBids ,topThreeBidsAmount} = useWebSocket();
     useEffect(() => {
         const fetchTopThreeBids = async () => {
-            console.log("checkData------",bidCarId)
-          if (isConnected && bidCarId) {
-            try {
-              const bids = await getTopThreeBids(bidCarId);
-              setTopThreeBids(bids);
-
-            } catch (error) {
+            if (isConnected && bidCarId) {
+                try {
+                    await refreshTopThreeBids(bidCarId);
+                } catch (error) {
               console.error('Failed to fetch top three bids:', error);
             }
           }
@@ -66,22 +62,7 @@ const Card = ({ cardData }) => {
         fetchTopThreeBids();
 
       }, [isConnected, bidCarId]);
-      useEffect(() =>{
-
-          
-          const highestBidAmount = () => {
-              const BiddingAmountData = topThreeBidsAmountArray.filter(data => bidCarId === data?.bidCarId);
-              const highestBidAmount = BiddingAmountData.length > 0 ? BiddingAmountData[0].amount : "0";
-              
-              setHighestBid(prevState => ({
-                  ...prevState,
-                  [bidCarId]: highestBidAmount
-                }));
-            };
-        highestBidAmount();
-
-        },[topThreeBidsAmountArray,bidCarId])
-            console.log("highestBid",highestBid);
+      console.log("checkkkkkk",topThreeBidsAmount)
 
     return (
         <div className="relative mx-auto w-full max-w-sm">

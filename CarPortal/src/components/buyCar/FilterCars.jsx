@@ -155,7 +155,7 @@ const FilterCars = ({ setUrlState }) => {
         </button>
       </div>
 
-      <Card className={`p-4 ${showFilters ? "block" : "hidden"} md:block`}>
+      <Card className={`p-4 ${showFilters ? "block" : "hidden bg-gray-100"} md:block`}>
         <div className="space-y-4">
           <form onSubmit={submitHandle}>
             <div>

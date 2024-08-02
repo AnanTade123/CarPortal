@@ -12,10 +12,10 @@ const WebSocketContext = createContext(null);
 export const WebSocketProvider = ({ children }) => {
   const [isConnected, setIsConnected] = useState(false);
   const [client, setClient] = useState(null);
-  const [topThreeBidsAmount ,setTopThreeBidsAmount]= useState([]);
-  const [topThreeBidsAmountArray ,setTopThreeBidsAmountArray]= useState([]);
-//   const bidCarId = "your_bid_car_id"; // replace with actual value
-const biddingData = [];
+  const [topThreeBidsAmount, setTopThreeBidsAmount] = useState([]);
+  const [topThreeBidsAmountArray, setTopThreeBidsAmountArray] = useState([]);
+  const [liveCars, setLiveCars] = useState([]);
+  const biddingData = [];
 
   useEffect(() => {
     const socket = new SockJS('https://cffffftasting-production.up.railway.app/Aucbidding');
@@ -33,14 +33,20 @@ const biddingData = [];
         });
         stompClient.subscribe('/topic/topThreeBids', (message) => {
           const topBids = JSON.parse(message.body);
+          console.log("MyDAtacheck");
           setTopThreeBidsAmount(topBids);
-          // Handle top bids message
         });
-        stompClient.subscribe('/app/placeBid', (message) => {
+        stompClient.subscribe('/topic/liveCars', (message) => {
+          const cars = JSON.parse(message.body);
+          console.log('Live cars received:', cars);
+          setLiveCars(cars);
+        });
+        stompClient.subscribe('/topic/topBids', (message) => {
           const topBids = JSON.parse(message.body);
-          // Handle place bid message
-        }, { ack: 'client' });
-         getTopThreeBids(stompClient);
+          console.log('Live cars received:', topBids);
+          setTopThreeBidsAmount(topBids);
+        });
+        stompClient.publish({ destination: '/app/liveCars' });
       },
       onStompError: (frame) => {
         console.error('Broker reported error: ' + frame.headers['message']);
@@ -56,36 +62,52 @@ const biddingData = [];
     };
   }, []);
 
+  const getLiveCars = () => {
+    if (client) {
+      client.publish({
+        destination: '/app/liveCars'
+      });
+    } else {
+      console.log('Stomp client is not initialized.');
+    }
+  }
+
   const getTopThreeBids = (bidCarId) => {
-    // return new Promise((resolve, reject) => {
-      if (client) {
-        const bidRequest = {
-          bidCarId: bidCarId,
-        };
-  
-        client.publish({
-          destination: '/app/topThreeBids',
-          body: JSON.stringify(bidRequest),
-        });
-  
-        const subscription = client.subscribe(`/topic/topThreeBids`, (message) => {
-          const topBids = JSON.parse(message.body);
-          console.log("exists------", bidCarId);
-          console.log("exists------", biddingData);
-          const exists = biddingData.some(item => bidCarId == item.bidCarId);
-          console.log(exists,"exists------",topBids);
-          if (!exists) {
-            biddingData.push(...topBids);
-          } 
-          setTopThreeBidsAmount(topBids);
-          setTopThreeBidsAmountArray(biddingData);
-        }, { ack: 'client' });
-      } else {
-        console.log('Stomp client is not initialized.');
-      }
-    // });
+    if (client) {
+      const bidRequest = {
+        bidCarId: bidCarId,
+      };
+
+      client.publish({
+        destination: '/app/topThreeBids',
+        body: JSON.stringify(bidRequest),
+      });
+
+      client.subscribe(`/topic/topThreeBids`, (message) => {
+        const topBids = JSON.parse(message.body);
+        console.log("exists------", bidCarId);
+        console.log("exists------", biddingData);
+        const exists = biddingData.some(item => bidCarId == item.bidCarId);
+        console.log(exists,"exists------",topBids);
+        if (!exists) {
+          biddingData.push(...topBids);
+        }
+        setTopThreeBidsAmount(topBids);
+        setTopThreeBidsAmountArray(biddingData);
+      }, { ack: 'client' });
+    } else {
+      console.log('Stomp client is not initialized.');
+    }
   };
-  
+
+  const refreshTopThreeBids = (bidCarId) => {
+    if (client && bidCarId) {
+      client.publish({
+        destination: `/topBids/${bidCarId}`,
+      });
+    }
+  };
+
   const placeBid = (userData) => {
     console.log("placebid----", userData);
     const bid = {
@@ -95,26 +117,15 @@ const biddingData = [];
       dateTime: new Date().toISOString(),
       amount: userData.amount,
     };
-  
+
     return new Promise((resolve, reject) => {
       if (client) {
         client.publish({
           destination: '/app/placeBid',
           body: JSON.stringify(bid),
-        })
-        
-        // , (error, response) => {
-        //   if (error) {
-        //     console.error('Error placing bid:', error);
-        //     reject(error);
-        //   } else {
-        //     console.log('Bid placed successfully:', response);
-        //     // getTopThreeBids(client);
-        //     resolve('Bid placed successfully');
-        //   }
-        // });
-  
-        client.subscribe("/topic/bids", function (message) {
+        });
+
+        client.subscribe("/topic/bids", (message) => {
           var response = JSON.parse(message.body);
           if(response?.status){
             console.log("bidcheck",response?.status)
@@ -127,18 +138,11 @@ const biddingData = [];
       }
     });
   };
-  
-//   // Usage example
-//   placeBid(userData).then((message) => {
-//     console.log('Message:', message);
-//   }).catch((error) => {
-//     console.error('Error:', error);
-//   });
-  
 
   return (
-    <WebSocketContext.Provider value={{ isConnected, placeBid ,getTopThreeBids ,topThreeBidsAmount,topThreeBidsAmountArray}}>
+    <WebSocketContext.Provider value={{ isConnected, placeBid, getTopThreeBids, topThreeBidsAmount, topThreeBidsAmountArray, getLiveCars, liveCars, refreshTopThreeBids }}>
       {children}
+      <ToastContainer />
     </WebSocketContext.Provider>
   );
 };
@@ -148,7 +152,7 @@ export const useWebSocket = () => useContext(WebSocketContext);
 const WebSocketConnection = () => {
   return (
    <>
-    <ToastContainer/>
+    <ToastContainer />
    </>
   );
 };

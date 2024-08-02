@@ -23,18 +23,19 @@ const UserInfo = () => {
   const { data } = useGetUserByIdQuery(userProfileId);
 
   console.log(data);
-if (!data) {
-   return <div>
-    <p>No Data Found</p>
-   </div> 
-}
+  if (!data) {
+    return <div>
+     <p>No Data Found</p>
+    </div>
+ }
+
   return (
     <>
-      <div className="text-3xl font-bold mt-10 ml-16 mb-[-5rem]">
+      <div className="text-3xl font-bold mt-5 md:ml-16 md:mb-[-5rem]">
        User Information
       </div>
       <div className="flex justify-center items-center h-screen">
-        <div className="w-full max-w-4xl flex flex-col md:flex-row shadow-lg">
+        <div className="w-full max-w-4xl flex flex-col md:flex-row shadow-xl">
           <div className="w-full md:w-1/2">
             <img
               src="https://www.shutterstock.com/image-photo/smiling-friendly-car-seller-suit-600nw-2105619599.jpg"
@@ -44,7 +45,7 @@ if (!data) {
           </div>
           <div className="w-full md:w-1/2 p-8 flex flex-col justify-between">
             <div>
-              <table className="table w-full ml-2 border-collapse border border-gray-200">
+              <table className="table w-full -mt-8 mb-5 ml-2 border-collapse border border-gray-200">
                 <tbody>
                   <tr>
                     <th className="px-4 py-2 border border-gray-200">
@@ -93,9 +94,12 @@ if (!data) {
               </table>
             </div>
             <div className="flex justify-center items-center mt-4 md:mt-0">
+            <Link to={`/user/UserProfileUpdate/${userProfileId}`}>
               <div className="flex items-center mt-5">
-                 <Button>Hello</Button>
+                 <Button>Update Profile</Button>
+                
               </div>
+              </Link>
             </div>
           </div>
         </div>

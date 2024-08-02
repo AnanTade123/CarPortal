@@ -51,11 +51,10 @@ const {page} = useParams()
   const {data} = useGetbeadingGetByIdQuery(beadingCarId);
   const { isConnected, getTopThreeBids,topThreeBidsAmount } = useWebSocket();
   useEffect(() => {
-    if (isConnected) {
+    if (isConnected && bidCarId) {
       getTopThreeBids(bidCarId);
     }
   }, [isConnected ,bidCarId]);
-
  
   return (
     <div className="w-full md:w-full">
