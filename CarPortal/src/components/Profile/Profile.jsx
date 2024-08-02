@@ -70,7 +70,7 @@ console.log(userId)
 <MenuItem className="flex items-center gap-2">
             
             
-            <GrUser className="text-xl" />
+            <GrUser className="text-xl -ml-[2px]" />
           <Typography variant="small" className="font-medium capitalize ">
      <span className="text-l">Hi     {userLocal?.firstname ? userLocal?.firstname : "Admin"}</span>  
           </Typography>
@@ -83,7 +83,7 @@ console.log(userId)
  
             <MenuItem className="flex items-center gap-2">
           
-            <GrUserSettings className="text-xl" />
+            <GrUserSettings className="text-xl -ml-3" />
             <span className="text-l" > Profile</span>
       
         </MenuItem>
@@ -141,7 +141,7 @@ console.log(userId)
 <MenuItem className="flex items-center gap-2">
             
             
-            <GrUser className="text-xl" />
+            <GrUser className="text-xl -ml-[2px]" />
           <Typography variant="small" className="font-medium capitalize ">
      <span className="text-l">Hi     {userLocal?.firstname ? userLocal?.firstname : "Admin"}</span>  
           </Typography>
@@ -154,7 +154,7 @@ console.log(userId)
  
             <MenuItem className="flex items-center gap-2">
           
-            <GrUserSettings className="text-xl" />
+            <GrUserSettings className="text-xl -ml-3" />
             <span className="text-l" > Profile</span>
       
         </MenuItem>
@@ -211,7 +211,7 @@ console.log(userId)
               <MenuItem className="flex items-center gap-2">
             
             
-              <GrUser className="text-xl" />
+              <GrUser className="text-xl -ml-[2px]" />
             <Typography variant="small" className="font-medium capitalize ">
        <span className="text-l">Hi     {userLocal?.firstname ? userLocal?.firstname : "Admin"}</span>  
             </Typography>
@@ -222,7 +222,7 @@ console.log(userId)
  
             <MenuItem className="flex items-center gap-2">
           
-            <GrUserSettings className="text-xl" />
+            <GrUserSettings className="text-xl -ml-3" />
             <span className="text-l" > Profile</span>
       
         </MenuItem>
@@ -252,7 +252,7 @@ console.log(userId)
          <MenuItem className="flex items-center gap-2">
            
             
-         <GrUser className="text-xl" />
+         <GrUser className="text-xl -ml-[1px]" />
             <Typography variant="small" className="font-medium capitalize ">
        <span className="text-l">Hi     {userLocal?.firstname ? userLocal?.firstname : "Admin"}</span>  
             </Typography>
@@ -263,7 +263,7 @@ console.log(userId)
    
   <MenuItem className="flex items-center gap-2">
           
-  <GrUserSettings className="text-xl" />
+  <GrUserSettings className="text-xl ml-[2px]" />
   <span className="text-l" > Profile</span>
             
           </MenuItem>
@@ -292,7 +292,7 @@ console.log(userId)
   <MenuItem className="flex items-center gap-2">
            
             
-<GrUser className="text-xl" />
+<GrUser className="text-xl -ml-[2px]" />
             <Typography variant="small" className="font-medium capitalize ">
        <span className="text-l">Hi     {userLocal?.firstname ? userLocal?.firstname : "Admin"}</span>  
             </Typography>
@@ -310,7 +310,7 @@ console.log(userId)
 
     
     <MenuItem className="flex items-center gap-2">
-    <RiLockPasswordLine className="text-xl" />
+    <RiLockPasswordLine className="text-xl -ml-[1px]" />
     <Link to="/changePassword">
      
     <Typography
@@ -332,6 +332,7 @@ console.log(userId)
               viewBox="0 0 16 14"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              className="ml-1"
             >
               <path
                 fillRule="evenodd"
