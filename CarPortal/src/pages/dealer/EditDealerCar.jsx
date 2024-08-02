@@ -109,8 +109,6 @@ export default function EditDealerCar() {
 
       airbag: formData.airbag,
 
-      // adaptiveHeadlights: formData.adaptiveHeadlights,
-
       childSafetyLocks: formData.childSafetyLocks,
 
       acFeature: formData.acFeature,
