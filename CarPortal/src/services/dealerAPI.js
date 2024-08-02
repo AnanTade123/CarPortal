@@ -11,12 +11,15 @@ export const dealerAPI = apiSlice.injectEndpoints({
       providesTags: (result) =>
         result ? [{ type: "Dealer", pageNo: result.pageNo }] : [],
     }),
+
     getDealerbySales: builder.query({
       query: (userid) => ({
         url: `/dealer/getAllDealersBySalesPersonID?salesPersonID=${userid}`,
         transferResponce: console.log(userid),
         method: "GET",
       }),
+        providesTags: ["Dealer", "user"],
+
     }),
     deleteDealer: builder.mutation({
       query: (id) => ({
