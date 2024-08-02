@@ -187,7 +187,7 @@ export const carApi = apiSlice.injectEndpoints({
         transferResponse:console.log(saveCarId),
         method:'DELETE'
       }),
-      invalidatesTags: ["CAR"],
+      providesTags: ["User"],
     }),
 
     CarFavoriteAddRemove: builder.query({
@@ -196,7 +196,7 @@ export const carApi = apiSlice.injectEndpoints({
         transferResponse:console.log(carid,useid),
         method:'GET'
       }),
-      invalidatesTags: ["CAR"],
+      invalidatesTags: ["User"],
     }),
 
   }),
