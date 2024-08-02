@@ -128,10 +128,10 @@ const OrderDealer = () => {
                   Contact Details of the User
                 </div>
                 <div className="font-[latto] mt-1 text-base font-medium text-black">
-                  User Name: <span className="font-semibold text-lg">{item?.firstName}</span>
+                  User Name:{item?.firstName}
                 </div>
                 <div className="font-[latto] text-base font-medium text-black">
-                  Contact No: <span className="font-semibold">{item?.mobileNo}</span>
+                  Contact No: {item?.mobileNo}
                 </div>
               </div>
               <div className="flex gap-2 align-middle items-center">

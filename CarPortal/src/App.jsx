@@ -306,8 +306,16 @@ export default function App() {
               element={<AdminSalesEdit />}
             />
             <Route
+              path="/sale/dealer/edit/:userid/:id"
+              element={<AdminDealerEdit />}
+            />
+            <Route
               path="/seller/info/:userId"
               element={<AdminSalesInfo />}
+            />
+            <Route
+              path="/sale/dealer/info/:id"
+              element={<AdminDealerInfo />}
             />
           </Route>
           <Route path="/user/:userid/favorite" element={<FavoritePage/>} />
@@ -320,7 +328,7 @@ export default function App() {
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-          <Route path="/cookiepolicy" element={<CookiePolicy />} />
+          <Route path="/cookiepolicy " element={<CookiePolicy />} />
         </Route>
       </Routes>
     </>
