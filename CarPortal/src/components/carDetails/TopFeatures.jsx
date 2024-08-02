@@ -1,23 +1,16 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import CardUi from "../../ui/CardUi";
-import { Carousel } from "@material-tailwind/react";
-import { RiSteering2Fill } from "react-icons/ri";
-import { IoRadioButtonOnSharp } from "react-icons/io5";
 import { FaBluetooth } from "react-icons/fa6";
 import { FaCameraRetro } from "react-icons/fa";
 import { GiWindow } from "react-icons/gi";
+import { IoRadioButtonOnSharp } from "react-icons/io5";
 import { TbAirConditioning } from "react-icons/tb";
 import { FaAirbnb } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 import { RiAnticlockwiseFill } from "react-icons/ri";
 import { MdOutlineHealthAndSafety } from "react-icons/md";
-import { PiHeadlightsBold } from "react-icons/pi";
-import { CiAirportSign1 } from "react-icons/ci";
-import { FaHockeyPuck } from "react-icons/fa6";
 import { IoSunnySharp } from "react-icons/io5";
-import { TbEmergencyBed } from "react-icons/tb";
-import { FaDashcube } from "react-icons/fa6";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
@@ -128,7 +121,7 @@ const TopFeatures = ({
           ) : null}
           {airbag ? (
             <div className="flex mt-5">
-              <CiAirportSign1 className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
+              <FaAirbnb className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
               <div className="font-semibold text-black font-[latto] text-lg">
               Air Bag
               </div>
@@ -144,7 +137,7 @@ const TopFeatures = ({
           ) : null}
           {buttonStart ? (
             <div className="flex mt-5">
-              <FaHockeyPuck className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
+              <IoRadioButtonOnSharp  className="w-[1.5rem] h-[1.5rem] ml-3 mr-5" />
               <div className="font-semibold text-black font-[latto] text-lg">
               Button Start
               </div>
