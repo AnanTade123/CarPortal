@@ -4,9 +4,9 @@ import { CarouselCustomArrows } from "../CarouselCustomArrows";
 import { Link } from "react-router-dom";
 
 export function CardDefault2({ data }) {
-  console.log(data);
+ 
   const carid = data?.carId;
-  console.log(carid);
+  
   return (
     <Card className="mt-6 w-96 md:m-0 items-center max-w-[20rem] overflow-hidden">
       <div className="">

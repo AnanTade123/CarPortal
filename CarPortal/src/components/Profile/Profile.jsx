@@ -14,11 +14,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { RiLockPasswordLine } from "react-icons/ri";
 
 const Profile = ({dealer_id,userrole,userId,inspectorProfileId,salesPersonId,userProfileId}) => {
-console.log(userId)
-  console.log(inspectorProfileId)
+
 
   const userLocal =JSON.parse(localStorage.getItem('userInfo')) 
-  console.log(userLocal)
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {

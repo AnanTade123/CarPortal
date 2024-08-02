@@ -59,7 +59,7 @@ export function CardDefault({ data, Carid }) {
   }
   const UserId = jwtDecodes?.userId;
   const userRole = token ? jwtDecodes?.authorities[0] : null;
-  console.log(UserId);
+  
 
   const [rated, setRated] = useState(true);
   const data2 = {
@@ -68,11 +68,11 @@ export function CardDefault({ data, Carid }) {
   };
   const carid = data2.carId;
   const useid = data2.userId;
-  console.log(carid, useid);
+  
 
   const { data: favData } = useCarFavoriteAddRemoveQuery({ carid, useid });
 
-  console.log(favData);
+  
   const [CarremoveFavorite] = useCarremoveFavoriteMutation();
   const handleFavoriteClick = async () => {
     if (rated) {
@@ -81,14 +81,14 @@ export function CardDefault({ data, Carid }) {
       };
       try {
         const res = await CarremoveFavorite(data3);
-        console.log(res);
+       
       } catch (error) {
         console.log(error);
       }
     } else {
       try {
         const res = await favoriteCar(data2);
-        console.log(res);
+        
       } catch (error) {
         console.log(error);
       }
@@ -105,7 +105,7 @@ export function CardDefault({ data, Carid }) {
   //     setRated(!rated);
   // };
 
-  console.log(favData?.object);
+ 
 
   useEffect(() => {
     if (favData?.object.saveCarId) {
