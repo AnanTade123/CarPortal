@@ -20,6 +20,9 @@ import TableComponent from "../../components/table/TableComponent";
 import { useState } from "react";
 import { AddDealerForm } from "../../components/admin/AddDealerForm";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+
 
 export default function SalesDealer() {
   const [pageNo, setPageNo] = useState(0);
@@ -29,6 +32,17 @@ export default function SalesDealer() {
   const [deleteDealer] = useDeleteDealerMutation();
   const [open, setOpen] = useState(false);
   const [deleteid, setDeleteid] = useState();
+
+  const token = Cookies.get("token");
+
+  let jwtDecodes;
+
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
+  const userRole = token ? jwtDecodes?.authorities[0] : null;
+
+  console.log("userRole",userRole);
 
   const handleOpen = (id) => {
     setOpen(!open);
@@ -119,7 +133,7 @@ export default function SalesDealer() {
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
-              <Link to={`/admin/dealer/info/${cell.row.values.dealer_id}`}>
+              <Link to={userRole === "SALESPERSON" ? `/sale/dealer/info/${cell.row.values.dealer_id}`  :`/admin/dealer/info/${cell.row.values.dealer_id}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -138,7 +152,7 @@ export default function SalesDealer() {
               </Link>
 
               <Link
-                to={`/admin/dealer/edit/${cell.row.values.userId}/${cell.row.values.dealer_id}`}
+                to={userRole === "SALESPERSON" ?`/sale/dealer/edit/${cell.row.values.userId}/${cell.row.values.dealer_id}` :`/admin/dealer/edit/${cell.row.values.userId}/${cell.row.values.dealer_id}`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

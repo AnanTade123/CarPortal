@@ -306,8 +306,16 @@ export default function App() {
               element={<AdminSalesEdit />}
             />
             <Route
+              path="/sale/dealer/edit/:userid/:id"
+              element={<AdminDealerEdit />}
+            />
+            <Route
               path="/seller/info/:userId"
               element={<AdminSalesInfo />}
+            />
+            <Route
+              path="/sale/dealer/info/:id"
+              element={<AdminDealerInfo />}
             />
           </Route>
           <Route path="/user/:userid/favorite" element={<FavoritePage/>} />
