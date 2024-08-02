@@ -15,20 +15,21 @@ import {
 import {
   useDeleteDealerMutation,
   useGetAllDealerQuery,
+  useGetDealerbySalesQuery,
 } from "../../services/dealerAPI";
 import TableComponent from "../../components/table/TableComponent";
 import { useState } from "react";
-import { AddDealerForm } from "../../components/admin/AddDealerForm";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import { AddDealerFormSales } from "../../components/admin/AddDealerFormSales";
 
 
 export default function SalesDealer() {
   const [pageNo, setPageNo] = useState(0);
   console.log(pageNo);
-  const { data, isLoading, error } = useGetAllDealerQuery(pageNo);
-  console.log(data);
+  
+  
   const [deleteDealer] = useDeleteDealerMutation();
   const [open, setOpen] = useState(false);
   const [deleteid, setDeleteid] = useState();
@@ -40,9 +41,17 @@ export default function SalesDealer() {
   if (token) {
     jwtDecodes = jwtDecode(token);
   }
-  const userRole = token ? jwtDecodes?.authorities[0] : null;
 
-  console.log("userRole",userRole);
+   const userid = token ? jwtDecodes?.userId : null;
+   console.log("userid", userid);
+const { data, isLoading, error } = useGetDealerbySalesQuery(userid);
+console.log(data);
+
+const userRole = token ? jwtDecodes?.authorities[0] : null;
+
+console.log("userRole", userRole);
+  
+
 
   const handleOpen = (id) => {
     setOpen(!open);
@@ -212,7 +221,7 @@ export default function SalesDealer() {
           <p className="text-3xl font-semibold ">No Data Available</p>
           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
             <></>
-            <AddDealerForm />
+            <AddDealerFormSales />
           </div>
         </div>
       ) : (
@@ -249,7 +258,7 @@ export default function SalesDealer() {
                   </Typography>
                 </div>
                 <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-                  <AddDealerForm />
+                  <AddDealerFormSales/>
                 </div>
               </div>
             </CardHeader>
