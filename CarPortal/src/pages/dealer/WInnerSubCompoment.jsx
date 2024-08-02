@@ -22,7 +22,7 @@ export default function WInnerSubCompoment({ carId }) {
   }
   
   if (!data) {
-    return <div>No car data available</div>;
+    return null;
   }
   
   return (

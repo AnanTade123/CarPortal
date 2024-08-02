@@ -23,7 +23,11 @@ const UserInfo = () => {
   const { data } = useGetUserByIdQuery(userProfileId);
 
   console.log(data);
-
+if (!data) {
+   return <div>
+    <p>No Data Found</p>
+   </div> 
+}
   return (
     <>
       <div className="text-3xl font-bold mt-10 ml-16 mb-[-5rem]">
