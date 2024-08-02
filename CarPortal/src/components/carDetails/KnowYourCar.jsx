@@ -122,7 +122,7 @@ const KnowYourCar = ({
                   <GiCarWheel className="w-5 h-5" />
                 </div>
                 <div className="flex flex-col">
-                  <div className="font-[latto]">Transimission</div>
+                  <div className="font-[latto]">Transmission</div>
                   <div className="font-bold text-black text-sm mt-2 font-[latto]">
                     {transmission}
                   </div>
