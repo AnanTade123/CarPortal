@@ -41,7 +41,7 @@ const KnowYourCar = ({
   );
   return (
     <>
-      <p className="text-2xl text-black font-bold my-3 md:ml-12 font-[Merriweather]">
+      <p className="text-2xl text-black font-bold md:ml-12 my-3  font-[Merriweather]">
         Know your Car
       </p>
       <div className="border shadow-xl items-center mx-auto w-full md:w-full">
@@ -122,7 +122,7 @@ const KnowYourCar = ({
                   <GiCarWheel className="w-5 h-5" />
                 </div>
                 <div className="flex flex-col">
-                  <div className="font-[latto]">Transimission</div>
+                  <div className="font-[latto]">Transmission</div>
                   <div className="font-bold text-black text-sm mt-2 font-[latto]">
                     {transmission}
                   </div>
