@@ -122,14 +122,17 @@ export function SimpleRegistrationForm() {
     }
 
     try {
-      const { data } = await SignUp(formStateData);
-      console.log(data);
-      toast.success("Register Sucessfully");
+      const res = await SignUp(formStateData);
+      console.log("Response",res);
+      if (res.data.code === "Successful") {
+        toast.success("Register Sucessfully");
         setTimeout(() => {
           navigate("/signin");
         }, 1000);
+      }
     } catch (error) {
-      console.log(error);
+      console.log("hello")
+        toast.error("Register UnSucessfully");
     }
   };
 
