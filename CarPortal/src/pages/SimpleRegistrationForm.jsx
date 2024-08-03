@@ -157,7 +157,7 @@ export function SimpleRegistrationForm() {
           onSubmit={handleSubmit}
           className="mt-2 mb-2 w-80 max-w-screen-lg sm:w-96"
         >
-          <div className="mb-1 flex flex-col gap-6 w-100">
+          <div className="mb-1 m-4 flex flex-col gap-6 w-100">
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               First Name
             </Typography>
@@ -250,7 +250,6 @@ export function SimpleRegistrationForm() {
                 onChange={handleChange}
                 type={"number"}
                 required={"required"}
-                // error={errors.mobileNumber}
               />
             </div>
             <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -265,19 +264,6 @@ export function SimpleRegistrationForm() {
               error={errors.password}
               required={"required"}
             />
-            {/* <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Select Role
-            </Typography>
-            <select
-        className="border border-gray-400 p-3 rounded-md"
-        name="roles" // Make sure name matches the state property name
-        value={formStateData.roles} // Bind selected value to form state
-        onChange={handleChange}
-      >
-        <option value="">Select</option>
-        <option value="DEALER">Dealer</option>
-        <option value="USER">User</option>
-      </select> */}
 
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Address
@@ -313,6 +299,7 @@ export function SimpleRegistrationForm() {
               required={"required"}
             />
           </div>
+          <div className="ml-4">
           <Checkbox
             label={
               <Typography
@@ -335,9 +322,12 @@ export function SimpleRegistrationForm() {
             onChange={handleChange}
             // error={errors.agreeTerms}
           />
-          <Button className="mt-6" fullWidth type="submit">
+          </div>
+          <div className="flex justify-center">
+          <Button className="mt-6 w-28" fullWidth type="submit">
             Sign Up
           </Button>
+          </div>
           <Typography color="gray" className="mt-4 text-center font-normal">
             Already have an account?{" "}
             <Link to="/signin" className="font-medium text-gray-900">

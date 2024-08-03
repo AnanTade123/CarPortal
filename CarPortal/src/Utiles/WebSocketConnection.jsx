@@ -5,7 +5,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client/dist/sockjs';
-import { toast, ToastContainer } from 'react-toastify';
 
 const WebSocketContext = createContext(null);
 
@@ -33,17 +32,17 @@ export const WebSocketProvider = ({ children }) => {
         });
         stompClient.subscribe('/topic/topThreeBids', (message) => {
           const topBids = JSON.parse(message.body);
-          console.log("MyDAtacheck");
+          // console.log("MyDAtacheck");
           setTopThreeBidsAmount(topBids);
         });
         stompClient.subscribe('/topic/liveCars', (message) => {
           const cars = JSON.parse(message.body);
-          console.log('Live cars received:', cars);
+          // console.log('Live cars received:', cars);
           setLiveCars(cars);
         });
         stompClient.subscribe('/topic/topBids', (message) => {
           const topBids = JSON.parse(message.body);
-          console.log('Live cars received:', topBids);
+          // console.log('Live cars received:', topBids);
           setTopThreeBidsAmount(topBids);
         });
         stompClient.publish({ destination: '/app/liveCars' });
@@ -85,10 +84,7 @@ export const WebSocketProvider = ({ children }) => {
 
       client.subscribe(`/topic/topThreeBids`, (message) => {
         const topBids = JSON.parse(message.body);
-        console.log("exists------", bidCarId);
-        console.log("exists------", biddingData);
         const exists = biddingData.some(item => bidCarId == item.bidCarId);
-        console.log(exists,"exists------",topBids);
         if (!exists) {
           biddingData.push(...topBids);
         }
@@ -100,16 +96,37 @@ export const WebSocketProvider = ({ children }) => {
     }
   };
 
-  const refreshTopThreeBids = (bidCarId) => {
-    if (client && bidCarId) {
-      client.publish({
-        destination: `/topBids/${bidCarId}`,
-      });
+  // const refreshTopThreeBids = (bidCarId) => {
+  //   if (client && bidCarId) {
+  //     client.publish({
+  //       destination: `/topBids/${bidCarId}`,
+  //     });
+  //     client.subscribe('/topic/topBids', (message) => {
+  //       const topBids = JSON.parse(message.body);
+  //       console.log('Live cars received:', topBids);
+  //       setTopThreeBidsAmount(topBids);
+  //     });
+  //   }
+  // };
+
+  function refreshTopThreeBids(bidCarId) {
+    // const bidCarId = document.getElementById('bidCarId').value;
+    if (bidCarId && client) {
+        // if (bidCarId) {
+        //     client.unsubscribe(`/topic/topBids/${bidCarId}`);
+        // }
+        // bidCarId = bidCarId;
+
+        client.subscribe(`/topic/topBids/${bidCarId}`, function (message) {
+            const topBid = JSON.parse(message.body);
+            // updateTopBid(topBid);
+        });
+
+        client.send(`/app/topBids/${bidCarId}`, {}, {});
     }
-  };
+}
 
   const placeBid = (userData) => {
-    console.log("placebid----", userData);
     const bid = {
       placedBidId: null,
       userId: userData.userId,
@@ -142,7 +159,6 @@ export const WebSocketProvider = ({ children }) => {
   return (
     <WebSocketContext.Provider value={{ isConnected, placeBid, getTopThreeBids, topThreeBidsAmount, topThreeBidsAmountArray, getLiveCars, liveCars, refreshTopThreeBids }}>
       {children}
-      <ToastContainer />
     </WebSocketContext.Provider>
   );
 };
@@ -152,7 +168,6 @@ export const useWebSocket = () => useContext(WebSocketContext);
 const WebSocketConnection = () => {
   return (
    <>
-    <ToastContainer />
    </>
   );
 };

@@ -62,9 +62,6 @@ export default function BiddingCarDetailsById1() {
   
     } = data;
 
-   
-   
-
     const handleMessage = (msg,action) => {
       if(action == "error"){
         toast.error(msg);

@@ -3,10 +3,9 @@ import { useGetCarImageByIdQuery } from "../services/carAPI";
 
 // eslint-disable-next-line react/prop-types
 export function CarouselCustomArrows({ carId }) {
-  console.log("Carid in customearrow", carId);
+ 
   const { data, isLoading, error } = useGetCarImageByIdQuery({ carId });
-  console.log("Data of image", data);
-
+  
   if (isLoading) return <div>Loading...</div>;
   if (error)
     return (

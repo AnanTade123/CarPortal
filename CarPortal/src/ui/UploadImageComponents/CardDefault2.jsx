@@ -4,9 +4,9 @@ import { CarouselCustomArrows } from "../CarouselCustomArrows";
 import { Link } from "react-router-dom";
 
 export function CardDefault2({ data }) {
-  console.log(data);
+ 
   const carid = data?.carId;
-  console.log(carid);
+  
   return (
     <Card className="mt-6 w-96 md:m-0 items-center max-w-[20rem] overflow-hidden">
       <div className="">
@@ -19,7 +19,7 @@ export function CardDefault2({ data }) {
         <Typography variant="h5" color="blue-gray" className="mb-2">
           {data.brand} {data.model}
         </Typography>
-        <p className="text-sm uppercase ">
+        <p className="text-xs font-medium uppercase flex-wrap ">
           <span className="bg-gray-200 p-[5px] mr-2 rounded-sm text-black">{data.kmDriven} KM</span>
           <span className="bg-gray-200 p-[5px] mr-2 rounded-sm text-black">{data.fuelType}</span>
           <span className="bg-gray-200 p-[5px] mr-2 rounded-sm text-black">{data.transmission}</span>

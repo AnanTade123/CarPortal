@@ -17,12 +17,12 @@ import { GrUserSettings } from "react-icons/gr";
 import { IoMdLogOut } from "react-icons/io";
 
 
+
 const Profile = ({dealer_id,userrole,userId,inspectorProfileId,salesPersonId,userProfileId}) => {
-console.log(userId)
-  console.log(inspectorProfileId)
+
 
   const userLocal =JSON.parse(localStorage.getItem('userInfo')) 
-  console.log(userLocal)
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -233,8 +233,8 @@ console.log(userId)
     
     <MenuItem className="flex items-center gap-2">
     <RiLockPasswordLine className="text-xl" />
-    <Link to="/changePassword">
     
+    <Link to={`/Inspector/ChangePassword`}>
     <Typography
       variant="small"
       
@@ -273,7 +273,7 @@ console.log(userId)
     
     <MenuItem className="flex items-center gap-2">
     <RiLockPasswordLine className="text-xl" />
-    <Link to="/changePassword">
+    <Link to="/Seller/ChangePassword">
     
     <Typography
       variant="small"
@@ -311,7 +311,8 @@ console.log(userId)
     
     <MenuItem className="flex items-center gap-2">
     <RiLockPasswordLine className="text-xl -ml-[1px]" />
-    <Link to="/changePassword">
+   
+    <Link to="/user/ChangePassword">
      
     <Typography
       variant="small"
