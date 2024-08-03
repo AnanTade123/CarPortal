@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import UploadImage4 from '../../../ui/UploadImageComponents/UploadImage4';
+import { ToastContainer } from 'react-toastify';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -51,7 +52,8 @@ OtherComponent = ({  handleCameraModal,
   setUploadedImages,
   captureModalOpen,
   setCaptureModalOpen,
-  selectedLable,handleChange }) => {
+  selectedLable,
+  handleChange,handleImageClick,fileInputRef }) => {
   const classes = useStyles();
 
   const [openModal, setOpenModal] = useState(false);
@@ -82,10 +84,10 @@ OtherComponent = ({  handleCameraModal,
 
 
 
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
-    setOpenModal(true);
-  };
+  // const handleImageClick = (image) => {
+  //   setSelectedImage(image);
+  //   setOpenModal(true);
+  // };
 
   const closeModal = () => {
     setOpenModal(false);
@@ -94,6 +96,7 @@ OtherComponent = ({  handleCameraModal,
 
   return (
     <div className='p-4'>
+      
       <Typography variant="h4" className='text-black font-bold pb-5 pt-16 '>
         Other Components
       </Typography>
@@ -109,6 +112,7 @@ OtherComponent = ({  handleCameraModal,
               color="Green"
               
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -128,7 +132,14 @@ OtherComponent = ({  handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -155,6 +166,7 @@ OtherComponent = ({  handleCameraModal,
               color="Green"
               
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -174,7 +186,14 @@ OtherComponent = ({  handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -200,6 +219,7 @@ OtherComponent = ({  handleCameraModal,
               onChange={handleChange}
 
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -219,7 +239,14 @@ OtherComponent = ({  handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>

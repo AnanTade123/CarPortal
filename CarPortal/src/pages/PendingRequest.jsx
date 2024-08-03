@@ -66,36 +66,33 @@ const PendingRequest = () => {
 }
   return (
     <>
-
-      {renderData}
+      <div className="flex flex-col md:grid md:grid-cols-3 md:auto-cols-auto md:auto-rows-auto">
+        {renderData}
+      </div>
 
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-              <Typography
-                variant="medium"
-                color="blue-gray"
-                className="font-normal"
-              >
-                Page {pageNo + 1}
-              </Typography>
-              <div className="flex gap-2">
-                <Button
-                  variant="outlined"
-                  size="sm"
-                  disabled={pageNo <= 0}
-                  onClick={() => setPageNo((a) => a - 1)}
-                >
-                  Previous
-                </Button>
-                <Button
-                  variant="outlined"
-                  size="sm"
-                  onClick={nextHandler}
-                  disabled={data?.list?.length < 10}
-                >
-                  Next
-                </Button>
-              </div>
-            </CardFooter>
+        <Typography variant="medium" color="blue-gray" className="font-normal">
+          Page {pageNo + 1}
+        </Typography>
+        <div className="flex gap-2">
+          <Button
+            variant="outlined"
+            size="sm"
+            disabled={pageNo <= 0}
+            onClick={() => setPageNo((a) => a - 1)}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outlined"
+            size="sm"
+            onClick={nextHandler}
+            disabled={data?.list?.length < 10}
+          >
+            Next
+          </Button>
+        </div>
+      </CardFooter>
     </>
   );
 };

@@ -11,9 +11,12 @@ import {
   useGetSubVariantsQuery,
 } from "../../services/brandAPI";
 import { useBiddingCarRegisterMutation } from "../../services/biddingAPI";
-import { useGetAllDealerListQuery, useGetAllDealerQuery } from "../../services/dealerAPI";
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
+import {
+  useGetAllDealerListQuery,
+  useGetAllDealerQuery,
+} from "../../services/dealerAPI";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
 
 const cityOptions = {
   Pune: ["MH-12"],
@@ -29,7 +32,7 @@ const cityOptions = {
   Satara: ["MH-11"],
   Sangli: ["MH-10"],
   Nashik: ["MH-15", "MH-51"],
-  Beed: ["MH-32"],
+  Beed: ["MH-23"],
   Jalna: ["MH-21"],
   Nagpur: ["MH-31", "MH-49  "],
   Gondia: ["MH-35"],
@@ -80,7 +83,11 @@ export default function BiddingAddCar2() {
     musicFeature: false,
     powerWindowFeature: false,
     rearParkingCameraFeature: false,
-
+    buttonStart: false,
+    abs: false,
+    sunroof: false,
+    airbag: false,
+    childSafetyLocks: false,
     // fields
     brand: "",
     bodyType: "",
@@ -119,6 +126,16 @@ export default function BiddingAddCar2() {
     console.log(formData);
     // Prepare the form data to send to the backend
     const data = {
+      buttonStart: formData.buttonStart,
+
+      abs: formData.abs,
+
+      sunroof: formData.sunroof,
+
+      airbag: formData.airbag,
+
+      childSafetyLocks: formData.childSafetyLocks,
+
       acFeature: formData.acFeature,
 
       musicFeature: formData.musicFeature,
@@ -164,10 +181,10 @@ export default function BiddingAddCar2() {
       userId: parseInt(userid),
 
       date: formattedDate,
-      
+
       dealerId: formData.dealerId,
-      
-      carInsuranceType:formData.carInsuranceType
+
+      carInsuranceType: formData.carInsuranceType,
     };
     console.log(data);
     const res = await biddingCarRegister(data);
@@ -191,7 +208,7 @@ export default function BiddingAddCar2() {
       ...prevFormData,
       carInsuranceType: value,
     }));
-  }
+  };
 
   const handleBrandChange = (event, newValue) => {
     const brand = newValue;
@@ -205,9 +222,9 @@ export default function BiddingAddCar2() {
     });
   };
 
-  const handleModelChange = (event,newValue) => {
-    const model = newValue
-    console.log(model)
+  const handleModelChange = (event, newValue) => {
+    const model = newValue;
+    console.log(model);
     setSelectedModel(model);
     setFormData({
       ...formData,
@@ -216,9 +233,9 @@ export default function BiddingAddCar2() {
     });
   };
 
-  const handleVariantChange = (event,newValue) => {
-    const cVariant = newValue
-    console.log(cVariant)
+  const handleVariantChange = (event, newValue) => {
+    const cVariant = newValue;
+    console.log(cVariant);
     setFormData({
       ...formData,
       cVariant,
@@ -270,118 +287,133 @@ export default function BiddingAddCar2() {
 
   return (
     <>
-    <ToastContainer/>
-    <div className="md:flex justify-center m-6 md:m-0">
-      <div>
-        <form onSubmit={handleSubmit} className="w-full md:w-[50rem]">
-          <div className="flex justify-center">
-            <p className="text-3xl font-semibold m-4">Add Bidding Car</p>
-          </div>
-          {/* first part */}
-          <div className="md:flex gap-2">
-          <div className="mt-5 w-full">
-          <Autocomplete
-        id="free-solo-demo"
-        freeSolo
-        options={brands}
-        getOptionLabel={(option) => option}
-        sx={{ width: 390 }}
-        onChange={handleBrandChange}
-        
-        renderInput={(params) => <TextField sx={{ 
-          
-          '& .MuiInputBase-root': {
-            height: '40px',
-            padding: '0 14px',
-            paddingBottom: '8px',
-            top : 0
-          },
-          '& .MuiInputBase-input': {
-            height: '100%',
-            padding: '0',
-          }
-        }}{...params}  label="Brands"
-        InputLabelProps={{
-          style: { 
-            fontSize: '0.75rem',
-            // paddingTop : '20px',
-                //  background : 'black'  
-          },  // Adjust the font size here
-        }} />}
-      />
+      <ToastContainer />
+      <div className="md:flex justify-center m-6 md:m-0">
+        <div>
+          <form onSubmit={handleSubmit} className="w-full md:w-[50rem]">
+            <div className="flex justify-center">
+              <p className="text-3xl font-semibold m-4">Add Bidding Car</p>
+            </div>
+            {/* first part */}
+            <div className="md:flex gap-2">
+              <div className="mt-5 w-full">
+                <Autocomplete
+                  id="free-solo-demo"
+                  freeSolo
+                  options={brands}
+                  getOptionLabel={(option) => option}
+                  sx={{ width: "full" }}
+                  onChange={handleBrandChange}
+                  renderInput={(params) => (
+                    <TextField
+                      required
+                      sx={{
+                        "& .MuiInputBase-root": {
+                          height: "40px",
+                          padding: "0 14px",
+                          paddingBottom: "8px",
+                          top: 0,
+                        },
+                        "& .MuiInputBase-input": {
+                          height: "100%",
+                          padding: "0",
+                        },
+                      }}
+                      {...params}
+                      label="Brands"
+                      InputLabelProps={{
+                        style: {
+                          fontSize: "0.75rem",
+                          // paddingTop : '20px',
+                          //  background : 'black'
+                        }, // Adjust the font size here
+                      }}
+                    />
+                  )}
+                />
               </div>
 
               <div className="mt-5 w-full">
-              <Autocomplete
-        id="free-solo-demo"
-        freeSolo
-        options={modelOptions}
-        getOptionLabel={(option) => option}
-        sx={{ width: 400, height:50 }}
-        onChange={handleModelChange}
-        
-        renderInput={(params) => <TextField sx={{ 
-          
-          '& .MuiInputBase-root': {
-            height: '40px',
-            padding: '0 14px',
-            paddingBottom: '8px',
-            top : 0
-          },
-          '& .MuiInputBase-input': {
-            height: '100%',
-            padding: '0',
-          }
-        }}{...params}  label="Varient"
-        InputLabelProps={{
-          style: { 
-            fontSize: '0.75rem',
-            // paddingTop : '20px',
-                //  background : 'black'  
-          },  // Adjust the font size here
-        }} />}
-      />
+                <Autocomplete
+                  id="free-solo-demo"
+                  freeSolo
+                  options={modelOptions}
+                  getOptionLabel={(option) => option}
+                  sx={{ width:"Full", height: 50 }}
+                  onChange={handleModelChange}
+                  renderInput={(params) => (
+                    <TextField
+                      required
+                      sx={{
+                        "& .MuiInputBase-root": {
+                          height: "40px",
+                          padding: "0 14px",
+                          paddingBottom: "8px",
+                          top: 0,
+                        },
+                        "& .MuiInputBase-input": {
+                          height: "100%",
+                          padding: "0",
+                        },
+                      }}
+                      {...params}
+                      label="Varient"
+                      InputLabelProps={{
+                        style: {
+                          fontSize: "0.75rem",
+                          // paddingTop : '20px',
+                          //  background : 'black'
+                        }, // Adjust the font size here
+                      }}
+                    />
+                  )}
+                />
               </div>
             </div>
 
-          {/* second part */}
-          <div className="md:flex">
-          <div className="mt-5 w-full">
-          <Autocomplete
-        id="free-solo-demo"
-        freeSolo
-        options={variantOptions}
-        getOptionLabel={(option) => option}
-        sx={{ width: 390 }}
-        onChange={handleVariantChange}
-        
-        renderInput={(params) => <TextField sx={{ 
-          
-          '& .MuiInputBase-root': {
-            height: '40px',
-            padding: '0 14px',
-            paddingBottom: '8px',
-            top : 0
-          },
-          '& .MuiInputBase-input': {
-            height: '100%',
-            padding: '0',
-          }
-        }}{...params}  label="SubVarient"
-        InputLabelProps={{
-          style: { 
-            fontSize: '0.75rem',
-            // paddingTop : '20px',
-                //  background : 'black'  
-          },  // Adjust the font size here
-        }} />}
-      />
+            {/* second part */}
+            <div className="md:flex">
+              <div className="mt-5 w-full">
+                <Autocomplete
+                  id="free-solo-demo"
+                  freeSolo
+                  options={variantOptions}
+                  getOptionLabel={(option) => option}
+                  sx={{ width:"Full" }}
+                  onChange={handleVariantChange}
+                  renderInput={(params) => (
+                    <TextField
+                      required
+                      sx={{
+                        "& .MuiInputBase-root": {
+                          height: "40px",
+                          padding: "0 14px",
+                          paddingBottom: "8px",
+                          top: 0,
+                        },
+                        "& .MuiInputBase-input": {
+                          height: "100%",
+                          padding: "0",
+                        },
+                      }}
+                      {...params}
+                      label="SubVarient"
+                      InputLabelProps={{
+                        style: {
+                          fontSize: "0.75rem",
+                          // paddingTop : '20px',
+                          //  background : 'black'
+                        }, // Adjust the font size here
+                      }}
+                    />
+                  )}
+                />
               </div>
 
               <div className="mt-5 md:ml-2 w-full">
                 <select
-                  required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
+                  required
                   name="transmission"
                   value={formData.transmission}
                   onChange={(event) => {
@@ -391,15 +423,18 @@ export default function BiddingAddCar2() {
                     });
                   }}
                 >
-                  <option>Transmission</option>
-                  <option>Automatic</option>
-                  <option>Manual</option>
+                  <option value="" disabled>
+                    Transmission
+                  </option>
+                  <option value="Automatic">Automatic</option>
+                  <option value="Manual">Manual</option>
                 </select>
               </div>
             </div>
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <Input
+                  required
                   label="Price"
                   type="number"
                   name="price"
@@ -416,6 +451,7 @@ export default function BiddingAddCar2() {
               <div className="mt-5 md:ml-2 w-full">
                 <select
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
+                  required
                   label={"year"}
                   type={"number"}
                   name={"year"}
@@ -427,27 +463,27 @@ export default function BiddingAddCar2() {
                     })
                   }
                 >
-                  <option>Year</option>
-                  <option>2005</option>
-                  <option>2006</option>
-                  <option>2007</option>
-                  <option>2008</option>
-                  <option>2009</option>
-                  <option>2010</option>
-                  <option>2011</option>
-                  <option>2012</option>
-                  <option>2013</option>
-                  <option>2014</option>
-                  <option>2015</option>
-                  <option>2016</option>
-                  <option>2017</option>
-                  <option>2018</option>
-                  <option>2019</option>
-                  <option>2020</option>
-                  <option>2021</option>
-                  <option>2022</option>
-                  <option>2023</option>
-                  <option>2024</option>
+                  <option value="" disabled>Year</option>
+                  <option value={2005}>2005</option>
+                  <option value={2006}>2006</option>
+                  <option value={2007}>2007</option>
+                  <option value={2008}>2008</option>
+                  <option value={2009}>2009</option>
+                  <option value={2010}>2010</option>
+                  <option value={2011}>2011</option>
+                  <option value={2012}>2012</option>
+                  <option value={2013}>2013</option>
+                  <option value={2014}>2014</option>
+                  <option value={2015}>2015</option>
+                  <option value={2016}>2016</option>
+                  <option value={2017}>2017</option>
+                  <option value={2018}>2018</option>
+                  <option value={2019}>2019</option>
+                  <option value={2020}>2020</option>
+                  <option value={2021}>2021</option>
+                  <option value={2022}>2022</option>
+                  <option value={2023}>2023</option>
+                  <option value={2024}>2024</option>
                 </select>
               </div>
             </div>
@@ -457,6 +493,7 @@ export default function BiddingAddCar2() {
               <div className="mt-5 w-full">
                 <select
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
+                  required
                   label={"Color"}
                   type={"text"}
                   name={"color"}
@@ -468,7 +505,7 @@ export default function BiddingAddCar2() {
                     })
                   }
                 >
-                  <option>Color</option>
+                  <option value="" disabled>Color</option>
                   <option>Red</option>
                   <option>Blue</option>
                   <option>Yellow</option>
@@ -488,6 +525,7 @@ export default function BiddingAddCar2() {
                 <select
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   name="ownerSerial"
+                  required
                   value={formData.ownerSerial}
                   onChange={(event) =>
                     setFormData({
@@ -512,6 +550,7 @@ export default function BiddingAddCar2() {
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <Inputs
+                  required
                   label={"Area"}
                   type={"text"}
                   name={"area"}
@@ -539,39 +578,39 @@ export default function BiddingAddCar2() {
                 </select>
                 {showCalendar && (
                   <>
-                  <div className="mt-3">
+                    <div className="mt-3">
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="date"
+                      >
+                        Select Date
+                      </label>
+                      <input
+                        type="date"
+                        id="date"
+                        value={formData.insurancedate}
+                        onChange={handleDateChange}
+                        className="w-full border-2 border-gray-400 p-2 rounded-md"
+                      />
+                    </div>
                     <label
-                      className="block text-gray-700 text-sm font-bold mb-2"
-                      htmlFor="date"
+                      className="block text-gray-700 text-sm font-bold mt-2"
+                      htmlFor="carInsuranceType"
                     >
-                      Select Date
+                      Insurance Type
                     </label>
-                    <input
-                      type="date"
-                      id="date"
-                      value={formData.insurancedate}
-                      onChange={handleDateChange}
+                    <select
+                      required
                       className="w-full border-2 border-gray-400 p-2 rounded-md"
-                    />
-                  </div>
-                  <label
-                    className="block text-gray-700 text-sm font-bold mt-2"
-                    htmlFor="carInsuranceType"
-                  >
-                 Insurance Type
-                  </label>
-                  <select
-                 required
-                 className="w-full border-2 border-gray-400 p-2 rounded-md"
-                 name="carInsurance"
-                 value={formData.carInsuranceType}
-                 onChange={handleChangeType}
-               >
-                 <option value=""> Insurance Type</option>
-                 <option value="Comprehensive">Comprehensive</option>
-                 <option value="Zero Dept">Zero Depreciation </option>
-                 <option value="Third Party">Third Party</option>
-               </select>
+                      name="carInsurance"
+                      value={formData.carInsuranceType}
+                      onChange={handleChangeType}
+                    >
+                      <option value=""> Insurance Type</option>
+                      <option value="Comprehensive">Comprehensive</option>
+                      <option value="Zero Dept">Zero Depreciation </option>
+                      <option value="Third Party">Third Party</option>
+                    </select>
                   </>
                 )}
               </div>
@@ -581,6 +620,7 @@ export default function BiddingAddCar2() {
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <Input
+                  required
                   label="Km Driven"
                   type="number"
                   name="kmDriven"
@@ -607,7 +647,7 @@ export default function BiddingAddCar2() {
                     });
                   }}
                 >
-                  <option>Fuel Type</option>
+                  <option value="" disabled>Fuel Type</option>
                   <option>Petrol</option>
                   <option>Diesel</option>
                   <option>Electric</option>
@@ -622,6 +662,7 @@ export default function BiddingAddCar2() {
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <select
+                  required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label="City"
                   name="city"
@@ -637,11 +678,12 @@ export default function BiddingAddCar2() {
                 </select>
               </div>
 
-              <div className="mt-5 ml-2 w-full">
+              <div className="mt-5 w-full">
                 <select
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label="Registration"
                   name="registration"
+                  required
                   value={formData.registration}
                   onChange={(event) =>
                     setFormData({
@@ -668,11 +710,12 @@ export default function BiddingAddCar2() {
                   label="Music Feature"
                   type="checkbox"
                   name="musicFeature"
-                  value={formData.musicFeature}
+                  // value={formData.musicFeature}
+                  checked={formData.musicFeature}
                   onChange={(event) =>
                     setFormData({
                       ...formData,
-                      musicFeature: event.target.value,
+                      musicFeature: event.target.checked,
                     })
                   }
                 />{" "}
@@ -684,11 +727,12 @@ export default function BiddingAddCar2() {
                   label="Power Window Feature"
                   type="checkbox"
                   name="powerWindowFeature"
-                  value={formData.powerWindowFeature}
+                  // value={formData.powerWindowFeature}
+                  checked={formData.powerWindowFeature}
                   onChange={(event) =>
                     setFormData({
                       ...formData,
-                      powerWindowFeature: event.target.value,
+                      powerWindowFeature: event.target.checked,
                     })
                   }
                 />{" "}
@@ -700,11 +744,12 @@ export default function BiddingAddCar2() {
                   label="Ac Feature"
                   type="checkbox"
                   name="acFeature"
-                  value={formData.acFeature}
+                  // value={formData.acFeature}
+                  checked={formData.acFeature}
                   onChange={(event) =>
                     setFormData({
                       ...formData,
-                      acFeature: event.target.value,
+                      acFeature: event.target.checked,
                     })
                   }
                 />{" "}
@@ -716,19 +761,108 @@ export default function BiddingAddCar2() {
                   label="Rear Parking Camera Feature"
                   type="checkbox"
                   name="rearParkingCameraFeature"
-                  value={formData.rearParkingCameraFeature}
+                  // value={formData.rearParkingCameraFeature}
+                  checked={formData.rearParkingCameraFeature}
                   onChange={(event) =>
                     setFormData({
                       ...formData,
-                      rearParkingCameraFeature: event.target.value,
+                      rearParkingCameraFeature: event.target.checked,
                     })
                   }
                 />{" "}
                 Rear Parking Camera
               </div>
             </div>
+            {/* tenth part */}
+            <div className="md:flex">
+              <div className="mt-5 ml-5">
+                <input
+                  label="ABS"
+                  type="checkbox"
+                  name="abs"
+                  // value={formData.musicFeature}
+                  checked={formData.abs}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      abs: event.target.checked,
+                    })
+                  }
+                />{" "}
+                ABS
+              </div>
+
+              <div className="mt-5 ml-5">
+                <input
+                  label="Button Start"
+                  type="checkbox"
+                  name="buttonStart"
+                  // value={formData.powerWindowFeature}
+                  checked={formData.buttonStart}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      buttonStart: event.target.checked,
+                    })
+                  }
+                />{" "}
+                Button Start
+              </div>
+
+              <div className="mt-5 ml-5">
+                <input
+                  label="Sunroof"
+                  type="checkbox"
+                  name="sunroof"
+                  // value={formData.acFeature}
+                  checked={formData.sunroof}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      sunroof: event.target.checked,
+                    })
+                  }
+                />{" "}
+                Sunroof
+              </div>
+
+              <div className="mt-5 ml-5">
+                <input
+                  label="Child Safety Locks"
+                  type="checkbox"
+                  name="childSafetyLocks"
+                  // value={formData.rearParkingCameraFeature}
+                  checked={formData.childSafetyLocks}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      childSafetyLocks: event.target.checked,
+                    })
+                  }
+                />{" "}
+                Child Safety Locks
+              </div>
+              <div className="mt-5 ml-5">
+                <input
+                  label="AirBag"
+                  type="checkbox"
+                  name="airbag"
+                  // value={formData.musicFeature}
+                  checked={formData.airbag}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      airbag: event.target.checked,
+                    })
+                  }
+                />{" "}
+                AirBag
+              </div>
+            </div>
+
             <div className="mt-5 md:ml-2 w-50">
               <select
+                required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label={"Select Dealer"}
                 name={"userid"}

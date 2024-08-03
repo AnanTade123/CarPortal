@@ -15,6 +15,7 @@ import {
 } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import UploadImage4 from '../../../ui/UploadImageComponents/UploadImage4';
+import { ToastContainer } from 'react-toastify';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -50,7 +51,7 @@ const WindshieldAndLights = ({ handleCameraModal,
   captureModalOpen,
   setCaptureModalOpen,
   selectedLable,
-  handleChange
+  handleChange,handleImageClick,fileInputRef
 }) => {
   const classes = useStyles();
 
@@ -100,21 +101,13 @@ const WindshieldAndLights = ({ handleCameraModal,
   }, [data]);
 
  
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
-    setOpenModal(true);
-  };
-
-  const closeModal = () => {
-    setOpenModal(false);
-    setSelectedImage(null);
-  };
 
   return (
     <div className='p-4 mt-10'>
       <Typography variant="h4" className='text-black font-bold pb-5 pt-15 '>
         Windshield And Lights
       </Typography>
+      
       <Grid container spacing={3}>
         {/* Windshield */}
         <Grid item xs={12} sm={6}>
@@ -127,13 +120,13 @@ const WindshieldAndLights = ({ handleCameraModal,
               color="Green"
             
             >
-              <MenuItem value="Repainted">Repainted</MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
-              <MenuItem value="Scratched">Scratched</MenuItem>
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Dented">Replaced</MenuItem>
+              {/* <MenuItem value="Scratched">Scratched</MenuItem>
               <MenuItem value="Rusted">Rusted</MenuItem>
-              <MenuItem value="Repaired">Repaired</MenuItem>
+              <MenuItem value="Repaired">Repaired</MenuItem> */}
               <MenuItem value="Damaged">Damaged</MenuItem>
-              <MenuItem value="NotWorking">Not Working</MenuItem>
+              {/* <MenuItem value="NotWorking">Not Working</MenuItem> */}
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -147,7 +140,14 @@ const WindshieldAndLights = ({ handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -174,13 +174,15 @@ const WindshieldAndLights = ({ handleCameraModal,
               color="Green"
               
             >
-              <MenuItem value="Repainted">Repainted</MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
+              {/* <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem> */}
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted">Rusted</MenuItem>
+              {/* <MenuItem value="Rusted">Rusted</MenuItem> */}
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
-              <MenuItem value="NotWorking">Not Working</MenuItem>
+              
+              <MenuItem value="Replaced">Replaced</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -194,7 +196,14 @@ const WindshieldAndLights = ({ handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -220,9 +229,14 @@ const WindshieldAndLights = ({ handleCameraModal,
               onChange={handleChange}
               
             >
-              <MenuItem value="ok-69-85%">Ok 69-85%</MenuItem>
-              <MenuItem value="not-ok-22-38%">Not Ok 22-38%</MenuItem>
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem>
+              <MenuItem value="Scratched">Scratched</MenuItem>
+              <MenuItem value="Rusted">Rusted</MenuItem>
+              <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
+              
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -236,7 +250,14 @@ const WindshieldAndLights = ({ handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -262,6 +283,7 @@ const WindshieldAndLights = ({ handleCameraModal,
               onChange={handleChange}
             
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -282,7 +304,14 @@ const WindshieldAndLights = ({ handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -308,10 +337,11 @@ const WindshieldAndLights = ({ handleCameraModal,
               onChange={handleChange}
               
             >
-              <MenuItem value="Repainted">Repainted</MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
+              {/* <MenuItem value="Repainted">Repainted</MenuItem> */}
+              {/* <MenuItem value="Dented">Dented</MenuItem> */}
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted">Rusted</MenuItem>
+              {/* <MenuItem value="Rusted">Rusted</MenuItem> */}
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="NotWorking">Not Working</MenuItem>
@@ -328,7 +358,14 @@ const WindshieldAndLights = ({ handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -354,10 +391,11 @@ const WindshieldAndLights = ({ handleCameraModal,
               onChange={handleChange}
              
             >
-              <MenuItem value="Repainted">Repainted</MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
+              {/* <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem> */}
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted">Rusted</MenuItem>
+              {/* <MenuItem value="Rusted">Rusted</MenuItem> */}
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="NotWorking">Not Working</MenuItem>
@@ -374,7 +412,14 @@ const WindshieldAndLights = ({ handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -400,10 +445,11 @@ const WindshieldAndLights = ({ handleCameraModal,
               onChange={handleChange}
           
             >
-              <MenuItem value="Repainted">Repainted</MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
+              {/* <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem> */}
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted">Rusted</MenuItem>
+              {/* <MenuItem value="Rusted">Rusted</MenuItem> */}
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="NotWorking">Not Working</MenuItem>
@@ -420,7 +466,14 @@ const WindshieldAndLights = ({ handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -446,10 +499,11 @@ const WindshieldAndLights = ({ handleCameraModal,
               onChange={handleChange}
               
             >
-              <MenuItem value="Repainted">Repainted</MenuItem>
-              <MenuItem value="Dented">Dented</MenuItem>
+              {/* <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem> */}
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
-              <MenuItem value="Rusted">Rusted</MenuItem>
+              {/* <MenuItem value="Rusted">Rusted</MenuItem> */}
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="NotWorking">Not Working</MenuItem>
@@ -466,7 +520,14 @@ const WindshieldAndLights = ({ handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>

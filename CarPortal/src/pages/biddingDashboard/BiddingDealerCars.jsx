@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-undef */
 import {
@@ -31,21 +32,21 @@ const BiddingDealerCars = () => {
   const [pageNo, setPageNo] = useState(0);
   const [filteredData, setFilteredData] = useState(null);
 
-  console.log("UserId------", UserID, dealerId, id);
+  
   const dataQuery = (userRole === "DEALER") 
-  ? useGetByDealerIdQuery({ UserID }) 
+  ? useGetByDealerIdQuery( UserID ) 
   : useBiddingAllCardQuery();
 
-const { data, isLoading, error } = dataQuery;
+  const { data, isLoading, error } = dataQuery;
   const [totalCars, setTotalCars] = useState(data?.length || "-");
   const activeCarCount = data?.filter((car) => car.carStatus === "ACTIVE").length;
   const pendingCarCount = data?.filter((car) => car.carStatus === "pending").length;
   const soldCarCount = data?.filter((car) => car.carStatus === "sold").length;
-console.log(data)
+  
   const [activeCars, setActiveCars] = useState(activeCarCount || "-");
   const [pendingCars, setPendingCars] = useState(pendingCarCount || "-");
   const [soldCars, setSoldCars] = useState(soldCarCount || "-");
-  console.log("activeCarCount", error);
+  
 
   const itemsPerPage = 10;
   useEffect(() => {
@@ -62,9 +63,9 @@ console.log(data)
     return <p>Loading..</p>;
   }
 
-  if (error?.status) {
-    navigate("/signin");
-  }
+  // if (error?.status == 401) {
+  //   navigate("/signin");
+  // }
 
   const handleCardClick = (status) => {
     if (status === "ALL") {
@@ -106,7 +107,7 @@ console.log(data)
             Header: "Inspection Report",
             accessor: "carStatus",
             Cell: (cell) => {
-              console.log(cell.row.values.carStatus);
+              
 
               return userRole === "DEALER" ? (
                 <Link
@@ -188,7 +189,7 @@ console.log(data)
         </div>
         <div
           className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-[#1DC9B7] rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer"
-          onClick={() => handleCardClick("INSPECTION_DONE")}
+          onClick={() => handleCardClick("ACTIVE")}
         >
           <div className="text-4xl font-bold text-white">
             {activeCars}/{totalCars}
@@ -202,14 +203,14 @@ console.log(data)
           <div className="text-4xl font-bold text-white">
             {soldCars}/{totalCars}
           </div>
-          <div className="mt-2 font-medium">Sell Cars</div>
+          <div className="mt-2 font-medium">Sold Cars</div>
         </div>
       </div>
 
       <div>
         {error?.status === 404 ? (
           <div>
-            <p className="text-3xl font-semibold ">No Data Available</p>
+            <p className="text-3xl font-semibold ">{error?.data?.message}</p>
           </div>
         ) : (
           <Card className="h-full w-full">

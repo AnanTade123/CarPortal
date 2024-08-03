@@ -46,7 +46,7 @@ export function FavoritePage() {
       <div className="text-3xl font-bold mt-3 ml-16 mb-6">
         Favorite Page
       </div>
-      <div className="flex flex-wrap justify-center mx-auto lg:gap-5">
+      <div className="md:grid md:grid-cols-4 md:mx-20 gap-x-4 gap-y-4">
         {userCars?.list &&
           userCars?.list?.map((data, key) => (
             <FavCard favoriteCarData={data} key={key} />

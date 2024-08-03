@@ -82,7 +82,7 @@ const UploadImage4 = ({ onClose ,handleCaptureImage,selectfiled }) => {
  
   return (
     <div className="flex flex-col items-center justify-center h-screen p-4">
-      <ToastContainer/>
+      
       {!previewMode && !confirmedImage ? (
         <div className="cursor-pointer flex flex-col items-center">
           <IoCameraOutline className="w-16 h-16 mb-4 text-gray-600" />
@@ -142,6 +142,7 @@ const UploadImage4 = ({ onClose ,handleCaptureImage,selectfiled }) => {
           </Button>
         </div>
       ) : null}
+      
     </div>
   );
 };

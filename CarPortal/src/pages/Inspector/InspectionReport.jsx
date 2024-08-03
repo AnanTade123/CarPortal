@@ -5,36 +5,38 @@ import {useFinalInspectionReportMutation} from "../../services/inspectorapi"
 import { useNavigate, useParams } from 'react-router-dom';
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ImportantDocuments = ({inspData}) => {
 const navigate = useNavigate()
-console.log(inspData)
+
 const token = Cookies.get("token");
 let jwtDecodes;
 if (token) {
   jwtDecodes = jwtDecode(token);
 }
 const {beadingCarId} = useParams()
-console.log(beadingCarId)
+
 const UserId = token ? jwtDecodes?.userId : null;
-console.log(UserId)
+
 const [formData, setFormData] = useState({
-  rcAvailability: '',
-  mismatchInRC: '',
-  rtoNocIssued: '',
-  insuranceType: '',
-  noClaimBonus: '',
-  underHypothecation: '',
-  roadTaxPaid: '',
-  partipeshiRequest: '',
-  duplicateKey: '',
-  chassisNumberEmbossing: '',
-  manufacturingDate: '',
-  registrationDate: '',
-  rto: '',
-  fitnessUpto: '',
-  cngLpgFitmentInRC: '',
-  LoanStatus: ''
+  rcAvailability: "",
+  mismatchInRC: "",
+  rtoNocIssued: "",
+  insuranceType: "",
+  noClaimBonus: "",
+  underHypothecation: "",
+  roadTaxPaid: "",
+  partipeshiRequest: "",
+  duplicateKey: "",
+  chassisNumberEmbossing: "",
+  manufacturingDate: "",
+  registrationDate: "",
+  rto: "",
+  fitnessUpto: "",
+  cngLpgFitmentInRC: "",
+  LoanStatus: ""
 });
 
   useEffect(() => {
@@ -42,7 +44,7 @@ const [formData, setFormData] = useState({
       setFormData({
         rcAvailability: inspData.object.rcavailability,
         mismatchInRC: inspData.object.mismatchInRC,
-        rtoNocIssued: inspData.object.rtoNocIssued,
+        rtoNocIssued: inspData.object.rtonocissued,
         insuranceType: inspData.object.insuranceType,
         noClaimBonus: inspData.object.noClaimBonus,
         underHypothecation: inspData.object.underHypothecation,
@@ -54,12 +56,11 @@ const [formData, setFormData] = useState({
         registrationDate: inspData.object.registrationDate ? inspData.object.registrationDate.split('T')[0] : '',
         rto: inspData.object.rto,
         fitnessUpto: inspData.object.fitnessUpto ? inspData.object.fitnessUpto.split('T')[0] : '',
-        cngLpgFitmentInRC: inspData.object.cngLpgFitmentInRC,
-        LoanStatus: inspData.object.LoanStatus
+        cngLpgFitmentInRC: inspData.object.cnglpgfitmentInRC,
+        LoanStatus: inspData.object.loanStatus
       });
     }
   }, [inspData]);
-console.log(formData)
   const [finalInspectionReport] = useFinalInspectionReportMutation()
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -78,15 +79,15 @@ console.log(formData)
     console.log('Form submitted successfully:', formData);
   }
      const inspectionData = {
-       userId: UserId,
-       beadingCarId: beadingCarId,
+       userId: Number(UserId),
+       beadingCarId: Number(beadingCarId),
       rcavailability:formData.rcAvailability ,
       mismatchInRC: formData.mismatchInRC,
       rtonocissued: formData.rtoNocIssued,
       insuranceType: formData.insuranceType,
       noClaimBonus: formData.noClaimBonus,
       underHypothecation:formData.underHypothecation ,
-      loanStatus: formData.loanStatus,
+      loanStatus: formData.LoanStatus,
       roadTaxPaid: formData.roadTaxPaid,
       partipeshiRequest:formData.partipeshiRequest,
       duplicateKey: formData.duplicateKey,
@@ -100,9 +101,12 @@ console.log(formData)
   try {
     const res = finalInspectionReport({inspectionData})
     console.log(res)
-    alert("Data Added")
-    navigate("/inspector/car")
-
+    
+      toast.success("Data Uploaded");
+      setTimeout(() => {
+        navigate("/inspector/car")
+      },1000)
+     
   } catch (error) {
     console.log(error)
   }
@@ -156,7 +160,7 @@ console.log(formData)
               onChange={handleChange}
             >
               <MenuItem value="No mismatch">No mismatch</MenuItem>
-              <MenuItem value="Yes mismatch">Yes mismatch</MenuItem>
+              <MenuItem value="mismatch">mismatch</MenuItem>
             </Select>
             {errors.mismatchInRC && <FormHelperText>{errors.mismatchInRC}</FormHelperText>}
           </FormControl>
@@ -190,6 +194,7 @@ console.log(formData)
               <MenuItem value="Zero Depreciation">Zero Depreciation</MenuItem>
               <MenuItem value="Comprehensive">Comprehensive</MenuItem>
               <MenuItem value="3rd Party">3rd Party</MenuItem>
+              <MenuItem value="Insurance Expired">Insurance Expired</MenuItem>
             </Select>
             {errors.insuranceType && <FormHelperText>{errors.insuranceType}</FormHelperText>}
           </FormControl>
@@ -299,8 +304,8 @@ console.log(formData)
               value={formData.chassisNumberEmbossing}
               onChange={handleChange}
             >
-              <MenuItem value="Yes">Yes</MenuItem>
-              <MenuItem value="No">No</MenuItem>
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Floor Laminated">Floor Laminated</MenuItem>
               <MenuItem value="Rusted">Rusted</MenuItem>
               <MenuItem value="Repunched">Repunched</MenuItem>
               <MenuItem value="Not Traceable">Not Traceable</MenuItem>
@@ -382,7 +387,7 @@ console.log(formData)
             >
               <MenuItem value="">Select</MenuItem>
               <MenuItem value="No mismatch">No mismatch</MenuItem>
-              <MenuItem value="Yes mismatch">Yes mismatch</MenuItem>
+              <MenuItem value="mismatch">mismatch</MenuItem>
             </Select>
             {errors.cngLpgFitmentInRC && <FormHelperText>{errors.cngLpgFitmentInRC}</FormHelperText>}
           </FormControl>

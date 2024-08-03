@@ -35,6 +35,15 @@ export default function BiddingCarDetailsById1() {
     }
     console.log(data);
     const {
+      buttonStart,
+    abs,
+    sunroof,
+    airbag,
+    childSafetyLocks,
+    acFeature,
+    musicFeature,
+    powerWindowFeature,
+    rearParkingCameraFeature,
       price,
       brand,
       fuelType,
@@ -53,108 +62,6 @@ export default function BiddingCarDetailsById1() {
   
     } = data;
 
-    // if (isLoading) {
-    //   return <p>Loading...</p>;
-    // }
-    
-  //  console.log(carId);
-    
-    // if (error?.status === 401) {
-    //   console.log("navigate");
-  
-    //   navigate("/signin");
-    //   return null
-    // }
-    // useEffect(() => {
-    //   const socket = new SockJS('https://cffffftasting-production.up.railway.app/Aucbidding');
-    //   const stompClient = new Client({
-    //     webSocketFactory: () => socket,
-    //     debug: (str) => {
-    //       console.log(str);
-    //     },
-    //     onConnect: () => {
-    //       console.log('Connected');
-    //       setIsConnected(true); // Update connection status
-    //       stompClient.subscribe('/topic/bids', (message) => {
-    //         const bid = JSON.parse(message.body);
-    //         setBids((prevBids) => [...prevBids, bid]);
-    //       });
-    //       stompClient.subscribe('/topic/topThreeBids', (message) => {
-    //         const topBids = JSON.parse(message.body);
-    //         setTopThreeBids(topBids);
-    //       });
-    //       stompClient.subscribe('/app/placeBid', (message) => {
-    //         const topBids = JSON.parse(message.body);
-    //         setTopThreeBids(topBids);
-    //       },{ack: 'client'});
-          
-    //       getTopThreeBids(stompClient); // Fetch top three bids when connected
-    //     },
-    //     onStompError: (frame) => {
-    //       console.error('Broker reported error: ' + frame.headers['message']);
-    //       console.error('Additional details: ' + frame.body);
-    //     },
-    //   });
-  
-    //   stompClient.activate();
-    //   setClient(stompClient);
-  
-    //   return () => {
-    //     stompClient.deactivate();
-    //   };
-    // }, []);
-    
-    // const getTopThreeBids = (stompClient) => {
-    //   const bidRequest = {
-    //     bidCarId: bidCarId,
-    //   };
-    //   if (stompClient) {
-    //     stompClient.publish({
-    //       destination: '/app/topThreeBids',
-    //       body: JSON.stringify(bidRequest),
-    //     });
-    //   } else {
-    //     console.error('Stomp client is not initialized.');
-    //   }
-    // };
-
-    // const placeBid = (userData) => {
-    //   const bid = {
-    //     placedBidId: null,
-    //     userId: userData.userId,
-    //     bidCarId: bidCarId,
-    //     dateTime: new Date().toISOString(),
-    //     // dateTime : moment().tz(TIME_ZONE).format('YYYY-MM-DD HH:mm:ss'),
-    //     amount: userData.amount,
-    //   };
-     
-    //   if (client) {
-    //     client.publish({
-    //       destination: '/app/placeBid',
-    //       body: JSON.stringify(bid),
-    //     }, (error, response) => {
-    //       if (error) {
-    //         toast.error('Error placing bid:', error);
-    //         // console.error('Error placing bid:', error);
-    //       } else {
-    //         toast.error('Bid placed successfully:');
-            
-    //         console.log('Bid placed successfully:', response);
-    //         getTopThreeBids(client);
-    //       }
-    //     });
-      
-    //     client.subscribe("/app/placeBid", function(message) {
-    //       var quote = JSON.parse(message.body);
-    //       alert(quote.symbol + " is at " + quote.value);
-    //     });
-    //   } else {
-    //     toast.error('Stomp client is not initialized.');
-    //     // console.error('Stomp client is not initialized.');
-    //   }
-    // };
-   
-
     const handleMessage = (msg,action) => {
       if(action == "error"){
         toast.error(msg);
@@ -165,7 +72,7 @@ export default function BiddingCarDetailsById1() {
 
   return (
     <div className="grid grid-flow-row-dense md:grid-cols-3 gap-4 container mx-auto">
-  <div className="p-4 md:col-span-2 max-h-screen overflow-scroll no-scrollbar">
+  <div className="p-4 md:col-span-2 no-scrollbar">
     <ToastContainer />
     <BiddingCarView
       beadingCarId={beadingCarId}
@@ -176,11 +83,21 @@ export default function BiddingCarDetailsById1() {
       year={year}
       carInsurance={carInsurance}
       kmDriven={kmDriven}
+      acFeature={acFeature}
+          musicFeature={musicFeature}
+          powerWindowFeature={powerWindowFeature}
+          rearParkingCameraFeature={rearParkingCameraFeature}
+          childSafetyLocks={childSafetyLocks}
+          abs={abs}
+          buttonStart={buttonStart}
+          sunroof={sunroof}
+          airbag={airbag}
     />
   </div>
   <div className="md:col-span-1 sticky top-0">
     <BiddingPriceCard
       beadingCarId={beadingCarId}
+      bidCarId={bidCarId}
       // getTopThreeBids={getTopThreeBids}
       topThreeBids={topThreeBids}
       // placeBid={handlePlaceBid}

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from 'react';
-import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles } from '@material-ui/core';
+import { useEffect, useRef, useState } from 'react';
+import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles, SnackbarContent } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { useGetInspectionReportQuery, useInspectionReportMutation } from '../../services/inspectorapi';
 import { useParams } from 'react-router-dom';
@@ -8,8 +8,9 @@ import Cookies from "js-cookie";
 import { jwtDecode } from 'jwt-decode';
 import UploadImage4 from '../../ui/UploadImageComponents/UploadImage4';
 import { useAddBiddingCarWithoutImageMutation } from "../../services/inspectorapi"
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -38,7 +39,6 @@ const Ac = () => {
   console.log(beadingCarId);
   const { data,refetch } = useGetInspectionReportQuery({ beadingCarId, docType: "AC" });
   console.log(data);
-
   const [formData, setFormData] = useState({
     ACCooling: [],
     Heater: [],
@@ -134,18 +134,23 @@ const handleSubmitWithoutImage = async () => {
   formDataToSend1.append('doc', "");
   try {
     const res = await addBiddingCarWithoutImage({formDataToSend1});
+    refetch()
     console.log(res);
-    alert("Data Uploaded")
+    if (res.data?.message === "success") {
+      toast.success("Data Uploaded", { autoClose: 500 });
+    } else {
+      toast.error("Data Upload failed", { autoClose: 500 });
+    }
   } catch (error) {
-    console.error('Error uploading the data:', error);
-    alert("Data not Uploaded")
+    
+    toast.error("Data not Uploaded", { autoClose: 500 });
   }
 };
 
-const handleCaptureImage = (imageUrl) => {
-  setSelectedImage(imageUrl);
-  setCaptureModalOpen(false); // Close the camera modal after capturing the image
-};
+// const handleCaptureImage = (imageUrl) => {
+//   setSelectedImage(imageUrl);
+//   setCaptureModalOpen(false); // Close the camera modal after capturing the image
+// };
 
   useEffect(() => {
     // Pre-fill form data and uploaded images based on API data
@@ -182,27 +187,61 @@ const handleCaptureImage = (imageUrl) => {
     }
   };
 
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
-    setOpenModal(true);
+  // const handleImageClick = (image) => {
+  //   setSelectedImage(image);
+  //   setOpenModal(true);
+  // };
+
+  const fileInputRef = useRef(null);
+
+  const handleCaptureImage = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
   };
 
-  const closeModal = () => {
-    setOpenModal(false);
-    setSelectedImage(null);
-  };
+  const handleImageClick =  async(event)  => {
+    // Handle the image upload here
+    const file = event.target.files[0];
+    const formDataToSend = new FormData();
+    formDataToSend.append('image', file);
+    
+    const inspectionData = {
+        documentType: "InspectionReport",
+        beadingCarId: beadingCarId,
+        doc: "",
+        doctype: "AC",
+        subtype: lables,
+        comment: selectfiled,
+      };
+  
+      try {
+        const res = await inspectionReport({ inspectionData, formDataToSend });
+        refetch()
+        console.log(res);
+        if (res.data?.message === "success") {
+          toast.success("Data Uploaded", { autoClose: 500 });
+        } else {
+          toast.error("Data Upload failed", { autoClose: 500 });
+        }
+      } catch (error) {
+        console.error('Error uploading the file:', error);
+        toast.error("Data not Uploaded", { autoClose: 500 });
+      }
+    };
 
   const handleCameraModal = (key) => {
     setCaptureModalOpen(true);
     setSelectedLable(key)
   }
-  
+
   return (
     <div className='p-4'>
       <Typography variant="h4" className='text-black font-bold pb-5'>
         AC
       </Typography>
       <Grid container spacing={3}>
+    
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
             <InputLabel>AC Cooling</InputLabel>
@@ -211,6 +250,7 @@ const handleCaptureImage = (imageUrl) => {
               value={formData.ACCooling}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Misfiring">Ineffective</MenuItem>
               <MenuItem value="Long cranking due to weak Compression">Not Working</MenuItem>
             </Select>
@@ -226,7 +266,14 @@ const handleCaptureImage = (imageUrl) => {
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -250,6 +297,7 @@ const handleCaptureImage = (imageUrl) => {
               value={formData.Heater}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Misfiring">Ineffective</MenuItem>
               <MenuItem value="Long cranking due to weak Compression">Not Working</MenuItem>
             </Select>
@@ -265,7 +313,14 @@ const handleCaptureImage = (imageUrl) => {
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -289,6 +344,7 @@ const handleCaptureImage = (imageUrl) => {
               value={formData.ClimateControlAC}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Misfiring">Ineffective</MenuItem>
               <MenuItem value="Long cranking due to weak Compression">Not Working</MenuItem>
             </Select>
@@ -304,7 +360,14 @@ const handleCaptureImage = (imageUrl) => {
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -328,8 +391,8 @@ const handleCaptureImage = (imageUrl) => {
               value={formData.AcVent}
               onChange={handleChange}
             >
-              <MenuItem value="Abnormal Noise">Abnormal Noise</MenuItem>
-              <MenuItem value="Weak">Weak</MenuItem>
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -343,7 +406,14 @@ const handleCaptureImage = (imageUrl) => {
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -388,6 +458,7 @@ const handleCaptureImage = (imageUrl) => {
           Next
         </Button>
       </div> */}
+    
     </div>
   );
 };

@@ -52,8 +52,9 @@ export default function SalesList() {
     const res = await deleteSeller(id);
     console.log(res);
   };
+
   const nextHandler = () => {
-    if (!error) {
+    if (!error && data?.list?.length === pageSize) {
       setPageNo((prevPageNo) => prevPageNo + 1);
     }
   };
@@ -284,7 +285,4 @@ export default function SalesList() {
       )}
     </>
   );
-}
-{
-  /* <AddDealerForm /> */
 }

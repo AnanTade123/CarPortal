@@ -28,6 +28,7 @@ import {
 } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import UploadImage4 from '../../../ui/UploadImageComponents/UploadImage4';
+import { ToastContainer } from 'react-toastify';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -50,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Structure = ({handleCameraModal, 
+const Structure = ({ handleCameraModal, 
   userRole, 
   handleCaptureImage, 
   handleSubmitWithoutImage, 
@@ -62,7 +63,8 @@ const Structure = ({handleCameraModal,
   setUploadedImages,
   captureModalOpen,
   setCaptureModalOpen,
-  selectedLable,handleChange }) => {
+  selectedLable,
+  handleChange,handleImageClick,fileInputRef }) => {
   const classes = useStyles();
 
 
@@ -112,10 +114,10 @@ const Structure = ({handleCameraModal,
   }, [data]);
  
 
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
-    setOpenModal(true);
-  };
+  // const handleImageClick = (image) => {
+  //   setSelectedImage(image);
+  //   setOpenModal(true);
+  // };
 
   const closeModal = () => {
     setOpenModal(false);
@@ -124,18 +126,20 @@ const Structure = ({handleCameraModal,
 
   return (
     <div className='p-4'>
+    
       <Typography variant="h4" className='text-black font-bold pb-5 pt-16'>
         Structure
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
-            <InputLabel>CowlTop</InputLabel>
+            <InputLabel>Cowl Top</InputLabel>
             <Select
               name="CowlTop"
               value={formData.CowlTop}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -156,7 +160,14 @@ const Structure = ({handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -184,6 +195,7 @@ const Structure = ({handleCameraModal,
               value={formData.BootFloor}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -204,7 +216,14 @@ const Structure = ({handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -232,6 +251,7 @@ const Structure = ({handleCameraModal,
               value={formData.RightApronLEG}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -239,6 +259,7 @@ const Structure = ({handleCameraModal,
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Replaced">Replaced</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -252,7 +273,14 @@ const Structure = ({handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -280,6 +308,7 @@ const Structure = ({handleCameraModal,
               value={formData.LeftApronLEG}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -287,6 +316,7 @@ const Structure = ({handleCameraModal,
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Replaced">Replaced</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -300,7 +330,14 @@ const Structure = ({handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -328,6 +365,7 @@ const Structure = ({handleCameraModal,
               value={formData.RightApron}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -335,6 +373,7 @@ const Structure = ({handleCameraModal,
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Replaced">Replaced</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -348,7 +387,14 @@ const Structure = ({handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -376,6 +422,7 @@ const Structure = ({handleCameraModal,
               value={formData.LeftApron}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -383,6 +430,7 @@ const Structure = ({handleCameraModal,
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Replaced">Replaced</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -396,7 +444,14 @@ const Structure = ({handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -424,6 +479,7 @@ const Structure = ({handleCameraModal,
               value={formData.LeftPillar}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -431,6 +487,7 @@ const Structure = ({handleCameraModal,
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Sealent Broken">Sealent Broken</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -444,7 +501,14 @@ const Structure = ({handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>
@@ -472,6 +536,7 @@ const Structure = ({handleCameraModal,
               value={formData.RightPillar}
               onChange={handleChange}
             >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -479,6 +544,7 @@ const Structure = ({handleCameraModal,
               <MenuItem value="Repaired">Repaired</MenuItem>
               <MenuItem value="Damaged">Damaged</MenuItem>
               <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Sealent Broken">Sealent Broken</MenuItem>
             </Select>
           </FormControl>
           <div className='flex'>  
@@ -492,7 +558,14 @@ const Structure = ({handleCameraModal,
             </Button>
           </div>
           ): (
-            <label htmlFor="upload-MusicSystems" className="cursor-pointer flex items-center">
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
             <CloudUploadIcon />
             <span className="ml-2">Upload Image</span>
           </label>

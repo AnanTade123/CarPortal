@@ -10,7 +10,7 @@ export const brandAPI = apiSlice.injectEndpoints({
         transferResponce: console.log(pageNo),
         method: "GET",
       }),
-      invalidatesTags: ["Admin"],
+      providesTags: ["Admin"],
     }),
 
     //GET ONLY BRANDS
@@ -50,6 +50,7 @@ export const brandAPI = apiSlice.injectEndpoints({
         transferResponse: console.log(carBrand),
         body: carBrand,
       }),
+      invalidatesTags:["Admin"]
     }),
 
     //PATCH

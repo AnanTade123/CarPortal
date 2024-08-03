@@ -12,6 +12,15 @@ export const dealerAPI = apiSlice.injectEndpoints({
         result ? [{ type: "Dealer", pageNo: result.pageNo }] : [],
     }),
 
+    getDealerbySales: builder.query({
+      query: (userid) => ({
+        url: `/dealer/getAllDealersBySalesPersonID?salesPersonID=${userid}`,
+        transferResponce: console.log(userid),
+        method: "GET",
+      }),
+        providesTags: ["Dealer", "user"],
+
+    }),
     deleteDealer: builder.mutation({
       query: (id) => ({
         url: `/dealer/delete/${id}`,
@@ -20,77 +29,78 @@ export const dealerAPI = apiSlice.injectEndpoints({
       invalidatesTags: ["Dealer"],
     }),
 
-
     getDealer: builder.query({
-      query: ({id}) => ({
+      query: ({ id }) => ({
         url: `/dealer/${id}`,
-        transerResponse:console.log(id),
+        transerResponse: console.log(id),
       }),
-      providesTags: ["Dealer","user"],
+      providesTags: ["Dealer", "user"],
     }),
-
 
     getEditDealer: builder.mutation({
       query: (userid) => ({
         url: `/dealer/updateDealer/${userid.id}`,
         method: "PUT",
-       transerResponse:console.log(userid.id),
+        transerResponse: console.log(userid.id),
         body: userid.inputField,
       }),
       invalidatesTags: ["Dealer"],
     }),
 
-
     getAllDealerCompleteBooking: builder.query({
-      query: ({pageNo,id}) => ({
+      query: ({ pageNo, id }) => ({
         url: `/confirmBooking/getAllBookingsByDealerId?pageNo=${pageNo}&dealerId=${id}`,
-        transerResponse:console.log(pageNo,id)
+        transerResponse: console.log(pageNo, id),
       }),
       providesTags: ["DEALERBOOKING"],
     }),
 
-
     getAllDealerPendingBooking: builder.query({
-      query: ({id,pageNo}) => ({
+      query: ({ id, pageNo }) => ({
         url: `/booking/getPendingBookingDetailsByDealerID?pageNo=${pageNo}&dealerId=${id}`,
-        transerResponse:console.log(pageNo,id)
+        transerResponse: console.log(pageNo, id),
       }),
       providesTags: ["DEALERBOOKING"],
     }),
 
     addCarImages: builder.mutation({
-      query: ({ formData, document, firstCarId,UserID}) => ({
+      query: ({ formData, document, firstCarId, UserID }) => ({
         url: `/uploadFile/add?documentType=${document}&userId=${UserID}&carId=${firstCarId}`,
-        transerResponse:console.log("APi response",formData, firstCarId,document,UserID),
-        method: 'POST',
+        transerResponse: console.log(
+          "APi response",
+          formData,
+          firstCarId,
+          document,
+          UserID
+        ),
+        method: "POST",
         body: formData,
       }),
-      invalidatesTags: ['Dealer'],
+      invalidatesTags: ["Dealer"],
     }),
 
     dealerStatus: builder.mutation({
       query: ({ dealer_id, status }) => ({
         url: `/dealer/statusUpdate?dealerId=${dealer_id}&status=${status}`,
-        transerResponse:console.log("APi response",dealer_id,status),
-        method: 'PATCH',
+        transerResponse: console.log("APi response", dealer_id, status),
+        method: "PATCH",
       }),
-      invalidatesTags: ['Dealer'],
+      invalidatesTags: ["Dealer"],
     }),
-
 
     getAllDealerList: builder.query({
       query: () => ({
         url: `dealer/allDealer`,
         method: "GET",
       }),
-      providesTags: ['Dealer']
+      providesTags: ["Dealer"],
     }),
     cancelStatusSet: builder.mutation({
-      query: (id,data) => ({
+      query: (id, data) => ({
         url: `/confirmBooking/cancelStatusSet?id=${id}`,
         method: "PUT",
-        transerResponse:console.log(id),
-        body : data,
+        transerResponse: console.log(id),
+        body: data,
       }),
       invalidatesTags: ["Dealer"],
     }),
@@ -99,13 +109,22 @@ export const dealerAPI = apiSlice.injectEndpoints({
         url: `/user/getUser/${id}`,
         method: "GET",
       }),
-      providesTags: ['Dealer','User']
+      providesTags: ["Dealer", "User"],
+    }),
+
+    chnagePassword: builder.mutation({
+      query: ({ passChange, dealerId }) => ({
+        url: `/dealer/changePassword/${dealerId}`,
+        method: "PUT",
+        body: passChange,
+      }),
     }),
   }),
 });
 
 export const {
   useGetAllDealerQuery,
+  useGetDealerbySalesQuery,
   useDeleteDealerMutation,
   useGetDealerQuery,
   useGetEditDealerMutation,
@@ -115,5 +134,6 @@ export const {
   useDealerStatusMutation,
   useGetAllDealerListQuery,
   useCancelStatusSetMutation,
-  useGetUserQuery
+  useGetUserQuery,
+  useChnagePasswordMutation
 } = dealerAPI;

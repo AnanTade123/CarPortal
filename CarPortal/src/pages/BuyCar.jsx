@@ -8,12 +8,12 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 const BuyCar = () => {
   const [urlState, setUrlState] = useState();
- console.log(urlState)
+ 
   // eslint-disable-next-line no-unused-vars
   const { data, error } = useFilterCarQuery(urlState);
 
   const navigate = useNavigate();
- console.log(data)
+ 
 
   // if (isLoading) {
   //   return <p>Loading...</p>;
@@ -27,7 +27,7 @@ const BuyCar = () => {
     <>
     <div className="container mx-auto mt-12">
       <div className="grid grid-cols-1 gap-2 md:grid-cols-4 lg:gap-12">
-        <div className="md:col-span-1 sticky top-0">
+        <div className="md:col-span-1 top-0">
           <FilterCars setUrlState={setUrlState} />
         </div>
         <div className="md:col-span-3 no-scrollbar ">

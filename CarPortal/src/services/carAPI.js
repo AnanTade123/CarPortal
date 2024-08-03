@@ -17,18 +17,18 @@ export const carApi = apiSlice.injectEndpoints({
           Transmission = "",
           FuleType = "",
         } = urlState || {};
-        console.log(urlState);
+        
         return {
           url: `/cars/mainFilter?minPrice=${MinPrice}&maxPrice=${MaxPrice}&area=${Area}&year=${Year}&brand=${Brand}&model=${Model}&transmission=${Transmission}&fuelType=${FuleType}`,
           method: "GET",
         };
       },
-      providesTags: ["CAR", "INSPECTOR"],
+      providesTags: ["CAR", "Dealer"],
     }),
     getCarById: builder.query({
       query: (carId) => ({
         url: `/cars/getCar?carId=${carId}`,
-        transferResponse: console.log(carId),
+        
         method: "GET",
       }),
       providesTags: ["CAR"],
@@ -37,7 +37,7 @@ export const carApi = apiSlice.injectEndpoints({
       query: ({ id, pageNo ,status }) => ({
         url: `/car/dealer?dealerId=${id}&carStatus=${status}&pageNo=${pageNo}`,
         method: "GET",
-        transferResponse: console.log(id, pageNo),
+        
       }),
       providesTags: ["CAR", "Dealer"],
     }),
@@ -50,7 +50,7 @@ export const carApi = apiSlice.injectEndpoints({
     }),
     bookingRequest: builder.mutation({
       query: (formData) => ({
-        transferResponse: console.log(formData),
+       
         url: `/booking/request`,
 
         method: "POST",
@@ -62,7 +62,7 @@ export const carApi = apiSlice.injectEndpoints({
       query: (data) => ({
         url: `/car/carregister`,
 
-        transferResponse: console.log(data),
+        
         body: data,
         method: "POST",
       }),
@@ -71,7 +71,7 @@ export const carApi = apiSlice.injectEndpoints({
     carUpdate: builder.mutation({
       query: ({ data, carId }) => ({
         url: `/car/edit/${carId}`,
-        transferResponse: console.log(data, carId),
+       
         method: "PUT",
         body: data,
       }),
@@ -80,7 +80,7 @@ export const carApi = apiSlice.injectEndpoints({
     carRemove: builder.mutation({
       query: ({ id, carId }) => ({
         url: `/car/removeCar?carId=${carId}&dealerId=${id}`,
-        transferResponse: console.log(id, carId),
+        
         method: "DELETE",
       }),
       invalidatesTags: ["CAR"],
@@ -88,7 +88,7 @@ export const carApi = apiSlice.injectEndpoints({
     userAllCarRequest: builder.query({
       query: ({ pageNo, userid }) => ({
         url: `/booking/getByUserId?pageNo=${pageNo}&userId=${userid}`,
-        transferResponse: console.log(pageNo, userid),
+        
       }),
       providesTags: ["CAR"],
     }),
@@ -102,7 +102,7 @@ export const carApi = apiSlice.injectEndpoints({
     ConfirmBooking: builder.mutation({
       query: (formdata) => ({
         url: `/confirmBooking/book`,
-        transferResponse: console.log(formdata),
+        
         method: "POST",
         body: formdata,
       }),
@@ -129,7 +129,7 @@ export const carApi = apiSlice.injectEndpoints({
     deleteCarImageById: builder.mutation({
       query: ({ id }) => ({
         url: `uploadFile/deleteDocumentId?DocumentId=${id}`,
-        transferResponse: console.log(id),
+        
         method: `DELETE`,
       }),
       invalidatesTags: ["CAR"],
@@ -156,17 +156,17 @@ export const carApi = apiSlice.injectEndpoints({
     favoriteCar: builder.mutation({
       query: (data2) => ({
         url: `/saveCar/add`,
-        transferResponse: console.log(data2),
+       
         method : "POST",
         body :data2
       }),
-      providesTags: ["CAR"],
+      invalidatesTags : ["CAR"],
     }),
 
     getbySaveCarId : builder.query({
       query : (saveCarIds) =>({
         url: `/saveCar/getBySaveCar?saveCarId=${saveCarIds}`,
-        transferResponse: console.log("saveCarId",saveCarIds),
+       
         method : 'GET'
       }),
       providesTags : ["CAR"],
@@ -175,7 +175,7 @@ export const carApi = apiSlice.injectEndpoints({
     getbyUserCarId : builder.query({
       query : ({UserId}) =>({
         url: `/saveCar/GetByUser?userId=${UserId}`,
-        transferResponse: console.log("userId",UserId),
+        
         method : 'GET'
       }),
       providesTags : ["CAR"],
@@ -184,19 +184,19 @@ export const carApi = apiSlice.injectEndpoints({
     CarremoveFavorite: builder.mutation({
       query: ({saveCarId}) => ({
         url: `/saveCar/delete?saveCarId=${saveCarId}`,
-        transferResponse:console.log(saveCarId),
+        
         method:'DELETE'
       }),
-      invalidatesTags: ["CAR"],
+      providesTags: ["User"],
     }),
 
     CarFavoriteAddRemove: builder.query({
       query: ({carid,useid}) => ({
         url: `/saveCar/getByCarAndUserId?userId=${useid}&carId=${carid}`,
-        transferResponse:console.log(carid,useid),
+       
         method:'GET'
       }),
-      invalidatesTags: ["CAR"],
+      invalidatesTags: ["User"],
     }),
 
   }),
