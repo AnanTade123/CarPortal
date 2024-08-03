@@ -4,14 +4,14 @@ import { Button, Typography } from "@material-tailwind/react";
 import CardUi from "../../ui/CardUi";
 import Inputs from "../../forms/Inputs";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
-import {useChangePasswordMutation} from "../../services/userAPI"
+import {useInspChangePasswordMutation} from "../../services/inspectorapi"
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
 
-export function UserChangePassword() {
+export function InspectorChangePassword() {
 const token  =  Cookies.get("token")
 
 let jwtDecodes;
@@ -22,22 +22,23 @@ if (token)
 }
 
 const navigate = useNavigate()
-const userProfileId = token ? jwtDecodes?.userProfileId:null
-console.log(userProfileId)
+const InspectorProfileId = token ? jwtDecodes?.inspectorProfileId : null;
+console.log("InspectorProfileId",InspectorProfileId)
+
   const [showPassword, setShowPassword] = useState(false);
   const [formStateData, setFormData] = useState({
     oldPassword: "",
     newPassword: "",
-    confirmPassword: "",
+    confirmNewPassword: "",
   });
 console.log(formStateData)
   const [errors, setErrors] = useState({
     userProfileId: "",
     oldPassword: "",
     newPassword: "",
-    confirmPassword: "",
+    confirmNewPassword: "",
   });
-const [changePassword] = useChangePasswordMutation()
+const [changePassword] = useInspChangePasswordMutation()
   const handleChange = (e) => {
     const { name, value, checked, type } = e.target;
     setFormData((prevData) => ({
@@ -113,7 +114,7 @@ const [changePassword] = useChangePasswordMutation()
   console.log(passChange)
       try {
         
-          const res = await changePassword({passChange,userProfileId});
+          const res = await changePassword({passChange,InspectorProfileId});
           console.log(res)
           
           if (res?.data.code === "Successful") {
@@ -205,4 +206,4 @@ const [changePassword] = useChangePasswordMutation()
   );
 }
 
-export default UserChangePassword;
+export default InspectorChangePassword;

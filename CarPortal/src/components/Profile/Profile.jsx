@@ -234,8 +234,8 @@ console.log(userId)
     
     <MenuItem className="flex items-center gap-2">
     <RiLockPasswordLine className="text-xl" />
-    <Link to="/changePassword">
     
+    <Link to={`/Inspector/ChangePassword`}>
     <Typography
       variant="small"
       
@@ -274,7 +274,7 @@ console.log(userId)
     
     <MenuItem className="flex items-center gap-2">
     <RiLockPasswordLine className="text-xl" />
-    <Link to="/changePassword">
+    <Link to="/Seller/ChangePassword">
     
     <Typography
       variant="small"
