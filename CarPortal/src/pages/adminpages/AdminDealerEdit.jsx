@@ -62,7 +62,7 @@ const AdminDealerEdit = () => {
       if (res.data.status === 'success') {
         toast.success("Successfully Edited");
         setTimeout(() => {
-          navigate("/admin");
+          navigate(-1);
         }, 1000);
       }
     } catch (error) {

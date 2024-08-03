@@ -31,7 +31,7 @@ const OrderDealer = () => {
       pageNo,
       id,
     });
-  console.log("Data",data);
+ 
   const [cancelStatusSet] = useCancelStatusSetMutation();
 
   const nextHandler = () => {
@@ -56,7 +56,7 @@ const OrderDealer = () => {
       toast.success(res?.data?.status);
       handleOpen(false);
       refetch();
-      console.log("MyResult", res);
+      
     } catch (error) {
       console.log("Error :", error);
     }

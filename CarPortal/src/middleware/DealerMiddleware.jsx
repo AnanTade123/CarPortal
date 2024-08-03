@@ -9,12 +9,12 @@ import { useLocation } from "react-router-dom";
 const DealerMiddleware = ({allowedRoles}) => {
     const location = useLocation();
     const token = Cookies.get("token");
-  console.log(token)
+  
     let jwtDecodes;
     if (token) {
       jwtDecodes = jwtDecode(token);
     }
-  console.log(jwtDecodes)
+  
       
         // Check if token is expired
         const tokenExpirationTime = jwtDecodes.exp * 1000; // Convert to milliseconds
@@ -25,7 +25,7 @@ const DealerMiddleware = ({allowedRoles}) => {
             return <Navigate to="/signin" />;
         }
     const userRole = token ? jwtDecodes.authorities[0] : null;
-    console.log(userRole)
+    
     useEffect(() => {
       if (!allowedRoles.includes(userRole)) {
         return alert("You must be an dealer to access this page.");

@@ -32,7 +32,7 @@ const BiddingDealerCars = () => {
   const [pageNo, setPageNo] = useState(0);
   const [filteredData, setFilteredData] = useState(null);
 
-  console.log("UserId------", UserID, dealerId, id);
+  
   const dataQuery = (userRole === "DEALER") 
   ? useGetByDealerIdQuery( UserID ) 
   : useBiddingAllCardQuery();
@@ -42,11 +42,11 @@ const BiddingDealerCars = () => {
   const activeCarCount = data?.filter((car) => car.carStatus === "ACTIVE").length;
   const pendingCarCount = data?.filter((car) => car.carStatus === "pending").length;
   const soldCarCount = data?.filter((car) => car.carStatus === "sold").length;
-  console.log(data)
+  
   const [activeCars, setActiveCars] = useState(activeCarCount || "-");
   const [pendingCars, setPendingCars] = useState(pendingCarCount || "-");
   const [soldCars, setSoldCars] = useState(soldCarCount || "-");
-  console.log("activeCarCount", error);
+  
 
   const itemsPerPage = 10;
   useEffect(() => {
@@ -107,7 +107,7 @@ const BiddingDealerCars = () => {
             Header: "Inspection Report",
             accessor: "carStatus",
             Cell: (cell) => {
-              console.log(cell.row.values.carStatus);
+              
 
               return userRole === "DEALER" ? (
                 <Link

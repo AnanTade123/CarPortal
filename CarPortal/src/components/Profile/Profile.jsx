@@ -19,11 +19,10 @@ import { IoMdLogOut } from "react-icons/io";
 
 
 const Profile = ({dealer_id,userrole,userId,inspectorProfileId,salesPersonId,userProfileId}) => {
-console.log(userId)
-  console.log(inspectorProfileId)
+
 
   const userLocal =JSON.parse(localStorage.getItem('userInfo')) 
-  console.log(userLocal)
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
