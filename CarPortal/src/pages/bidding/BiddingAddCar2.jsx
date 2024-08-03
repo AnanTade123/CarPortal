@@ -32,7 +32,7 @@ const cityOptions = {
   Satara: ["MH-11"],
   Sangli: ["MH-10"],
   Nashik: ["MH-15", "MH-51"],
-  Beed: ["MH-32"],
+  Beed: ["MH-23"],
   Jalna: ["MH-21"],
   Nagpur: ["MH-31", "MH-49  "],
   Gondia: ["MH-35"],

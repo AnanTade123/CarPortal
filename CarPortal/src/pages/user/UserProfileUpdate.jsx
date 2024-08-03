@@ -109,6 +109,7 @@ const   UserProfileUpdate = () => {
             value={inputField.firstName}
             type={"text"}
             name={"firstName"}
+            required
           />
         </div>
         <div className="mt-5">
@@ -118,6 +119,7 @@ const   UserProfileUpdate = () => {
             value={inputField.lastName}
             type={"text"}
             name={"lastName"}
+            required
           />
         </div>
         <div className="mt-5">
@@ -127,6 +129,7 @@ const   UserProfileUpdate = () => {
             value={inputField.email}
             type={"email"}
             name={"email"}
+            required
           />
         </div>
         <div className="mt-5">
@@ -136,6 +139,7 @@ const   UserProfileUpdate = () => {
             value={inputField.mobileNo}
             type={"number"}
             name={"mobileNo"}
+            required
           />
         </div>
         <div className="mt-5">
@@ -145,6 +149,7 @@ const   UserProfileUpdate = () => {
             value={inputField.address}
             type={"text"}
             name={"address"}
+            required
           />
         </div>
         <div className="mt-5">
@@ -154,6 +159,7 @@ const   UserProfileUpdate = () => {
             value={inputField.city}
             type={"text"}
             name={"city"}
+            required
           />
         </div>
         <div className="mt-5 ml-2">

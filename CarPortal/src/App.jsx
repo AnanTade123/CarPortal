@@ -93,6 +93,9 @@ import WebSocketConnection from "./Utiles/WebSocketConnection";
 import UserProfileUpdate from "./pages/user/UserProfileUpdate";
 import UserInfo from "./pages/user/UserInfo";
 import SalesDealer from "./pages/sales/SalesDealer";
+import UserChangePassword from "./pages/user/UserChangePassword";
+import InspectorChangePassword from "./pages/Inspector/InspectorChangePassword";
+import SalerChangePassword from "./pages/sales/SalerChangePassword";
 
 
 export default function App() {
@@ -128,6 +131,7 @@ export default function App() {
             path="/user/UserProfileUpdate/:userProfileId"
             element={<UserProfileUpdate />}
           />
+          <Route path="/user/ChangePassword" element={<UserChangePassword/>} />
           <Route
             element={
               <AdminMiddleware allowedRoles={[...Object.values(onlyAdmin)]} />
@@ -244,6 +248,7 @@ export default function App() {
               />
             }
           >
+            <Route path="/Inspector/ChangePassword" element={<InspectorChangePassword/>}/>
          <Route path="/inspector/info/:userId" element={<AdminInspectorInfo />} />
 
             <Route path="/inspector/carverify/:beadingCarId" element={<CarVerify />} />
@@ -291,6 +296,7 @@ export default function App() {
               />
             }
           >
+            <Route path="/Seller/ChangePassword" element={<SalerChangePassword/>}/>
             <Route path="/sales/salesDealers" element={<SalesDealer />} />
             <Route path="/sales/biddingcar" element={<BiddingDealerCars />} />
             <Route

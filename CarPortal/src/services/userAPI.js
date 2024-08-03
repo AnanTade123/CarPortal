@@ -1,5 +1,6 @@
 import { apiSlice } from "./apiSlice";
 
+
 export const UserAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     GetUserById: builder.query({
@@ -23,10 +24,22 @@ export const UserAPI = apiSlice.injectEndpoints({
       invalidatesTags:["User"],
     }),
 
+
+    changePassword : builder.mutation({
+      query : ({passChange,userProfileId}) => ({
+        url : `/user/changePassword/${userProfileId}`,
+        method: "PUT",
+        body : passChange,
+        transerResponse:console.log(userProfileId,passChange),
+       
+      })
+      
+    }),
+    invalidatesTags:["User"],
   }),
 });
 
 export const { useGetUserByIdQuery ,
-useUserupdateMutation
-
+useUserupdateMutation,
+useChangePasswordMutation
  } = UserAPI;

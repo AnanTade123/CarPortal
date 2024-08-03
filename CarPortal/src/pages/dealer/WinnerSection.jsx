@@ -31,10 +31,10 @@ const WinnerSection = () => {
   const dealerId = jwtDecodes?.dealerId;
  
  
-  console.log("UserId------",UserID,dealerId,id);
+ 
 
   const {data:didData} = useAllDealerFinalBidQuery(UserID)
-  console.log(didData)
+  
  
   const [carIds, setCarIds] = useState([]);
   
@@ -45,7 +45,7 @@ const WinnerSection = () => {
       setCarIds(carIdList);
     }
   }, [didData]);
-console.log(carIds)
+
   if (carIds.length===0) {
     return <div>
       <p>No Data Available</p>

@@ -47,14 +47,13 @@ export function StickyNavbar() {
   const DealerId = token ? jwtDecodes?.dealerId : null;
   // const userid = token ? jwtDecodes?.userId : null;
   const InspectorProfileId = token ? jwtDecodes?.inspectorProfileId : null;
-console.log("InspectorProfileId",InspectorProfileId)
+
 
 const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
-console.log("salesPersonId",salesPersonId)
 
   const UserId = token ? jwtDecodes?.userId : null;
  const userProfileId = token  ? jwtDecodes?.userProfileId : null;
- console.log("userProfileId",userProfileId)
+ 
   const location = useLocation();
  
   const handleMenuItemClick = () => {
