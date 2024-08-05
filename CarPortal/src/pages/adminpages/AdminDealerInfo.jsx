@@ -44,7 +44,7 @@ const AdminDealerInfo = () => {
 
   return (
     <>
-      <div className="text-3xl font-bold mt-5 md:ml-16 mb-5 md:mb-[-5rem]">Dealer Information</div>
+      <div className="text-3xl font-bold mt-5 md:ml-16  mb-24 md:mb-0">Dealer Information</div>
       <div className="flex justify-center items-center h-screen">
         <div className="w-full max-w-4xl flex flex-col md:flex-row shadow-xl">
           <div className="w-full md:w-1/2">
@@ -130,7 +130,7 @@ const AdminDealerInfo = () => {
                <Link to={`/dealer/${DealerId}/edit`}>
                <Button
                   size="md"
-                  className="mt-2 ml-2 cursor-pointer flex items-center"
+                  className="mt-2 ml-2 cursor-pointer flex items-center md:mb-0 mb-16"
                   
                 >
                   Update Profile
