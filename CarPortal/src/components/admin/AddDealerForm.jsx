@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { UserPlusIcon } from "@heroicons/react/24/solid";
 import { Button, Dialog, CardBody, Typography, Input } from "@material-tailwind/react";
@@ -69,9 +70,14 @@ export function AddDealerForm() {
 
     // Perform form submission logic here, e.g., send data to backend
     try {
-      const { data } = await SignUp(formData);
-      console.log(data);
-      alert("Register Successfully");
+      const { data ,error} = await SignUp(formData);
+      console.log(error);
+      if(error?.data?.code === "Unsuccessful"){
+        alert(error?.data?.message)
+      }else{
+        alert("Register Successfully");
+
+      }
     } catch (error) {
       console.log(error);
     }
