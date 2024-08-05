@@ -197,7 +197,7 @@ export function AddSalesForm() {
                 required
               />
               <Input
-                label="Document Id"
+                label="Adhar No"
                 name="documentId"
                 value={formData.documentId}
                 onChange={handleChange}
