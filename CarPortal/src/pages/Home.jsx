@@ -18,7 +18,7 @@ const Home = () => {
       <div className="mt-[4rem] md:mt-[1rem] flex justify-center">
         <BrandList />
       </div>
-      <div className="my-10">
+      <div className="mt-2 md:my-5">
         <FeaturedCars data={data} error={error} />
       </div>
       <AccordionCustom />
