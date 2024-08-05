@@ -97,13 +97,13 @@ const navigate = useNavigate();
     >
       <div className="flex justify-between overflow-hidden">
         <div className="md:pl-28 p-4 h-[400px] md:h-[300px] bg-blue-100 w-full">
-          <p className="flex mb-3 justify-center items-center md:justify-start font-[latto] font-semibold text-3xl md:mt-8 md:text-4xl lg:text-4xl opacity-0 animate-slidein [--slidein-delay:300ms]">
+          <p className="flex mb-1 justify-center items-center md:justify-start font-[latto] font-semibold text-2xl md:mt-8 md:text-4xl lg:text-4xl opacity-0 animate-slidein [--slidein-delay:300ms]">
             Welcomes to CarTechIndia
           </p>
-          <p className="flex justify-center items-center md:justify-start text-xl md:mb-3 md:text-2xl lg:text-2xl font-[latto] animate-slidein [--slidein-delay:600ms] opacity-0 ">
+          <p className="flex justify-center mb-1 items-center md:justify-start text-xl md:mb-3 md:text-2xl lg:text-2xl font-[latto] animate-slidein [--slidein-delay:600ms] opacity-0 ">
             Your Journey to Exceptional
           </p>
-          <p className="flex mb-3 justify-center items-center md:justify-start text-xl md:text-2xl lg:text-2xl font-[latto] animate-slidein [--slidein-delay:900ms] opacity-0 ">
+          <p className="flex justify-center items-center md:justify-start text-xl md:text-2xl lg:text-2xl font-[latto] animate-slidein [--slidein-delay:900ms] opacity-0 ">
             Cars Begins Here!
           </p>
           <div className=" flex right-0 items-center justify-center">
@@ -171,7 +171,7 @@ const navigate = useNavigate();
             <Typography
               variant="h1"
               color="white"
-              className="mb-4 lg:w-3/4 mt-3 text-black font-[latto] text-4xl md:text-4xl lg:text-4xl"
+              className="mb-4 lg:w-3/4 mt-3 text-black font-[latto] mx-4 text-3xl md:text-4xl lg:text-4xl"
             >
               The Best Cars For The Best Journey
             </Typography>
@@ -185,7 +185,7 @@ const navigate = useNavigate();
             </Typography> */}
             <Button
               onClick={submitHandler}
-              className="mt-2 md:mt-20 flex items-center gap-2 animate-slidein [--slidein-delay:950ms] opacity-0"
+              className="mt-2 mx-5 md:mt-20 flex items-center gap-2 animate-slidein [--slidein-delay:950ms] opacity-0"
             >
               Get Started{" "}
               <svg
@@ -218,25 +218,25 @@ const navigate = useNavigate();
           className="h-[400px] w-full object-cover block lg:hidden absolute"
         />
         <div className="absolute grid h-full w-full bg-black/50">
-          <div className="w-full mt-20 md:m-3 lg:mt-3 m-4 md:ml-16 md:w-2/4 absolute">
+          <div className="w-full m-4 md:ml-16 md:w-2/4 absolute">
             <Typography
               variant="h1"
               color="white"
-              className="mb-4 lg:w-3/4 mt-3 text-white font-[latto] text-4xl md:text-4xl lg:text-4xl"
+              className="mb-4 lg:w-3/4 mt-3 text-white font-[latto] mx-4 text-3xl md:text-4xl lg:text-4xl"
             >
               The Best Cars For The Best Journey
             </Typography>
             {/* <Typography
               variant="lead"
               color="white"
-              className="mb-4 w-3/4 lg:w-[68%] font-[latto] text-white text-sm md:mb-3 md:text-xl lg:text-xl"
+              className="mb-4 w-3/4 lg:w-[68%] font-[latto] text-black text-sm md:mb-3 md:text-xl lg:text-xl"
             >
               We provide best cars with the best prices. We are expert in car
               rental. Enjoy your holiday with us. We make your drive memorable.
             </Typography> */}
             <Button
               onClick={submitHandler}
-              className="mt-2 md:mt-20 flex items-center gap-2 animate-slidein [--slidein-delay:950ms] opacity-0"
+              className="mt-2 mx-5 md:mt-20 flex items-center gap-2 animate-slidein [--slidein-delay:950ms] opacity-0"
             >
               Get Started{" "}
               <svg

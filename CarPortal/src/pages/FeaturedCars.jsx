@@ -15,7 +15,7 @@ const FeaturedCars = ({ data, error }) => {
   return (
     <>
     <div className="text-3xl font-bold p-10 font-[latto]">Recently Added Cars</div>
-        <div className="w-full   lg:pl-0 md:overflow-scroll">
+        <div className="w-full lg:pl-0 md:overflow-scroll">
           <div className="flex flex-wrap justify-center md:justify-evenly ">
             
             {posts?.slice(0,4).map((items, index) => {
