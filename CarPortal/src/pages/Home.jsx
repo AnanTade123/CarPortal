@@ -15,7 +15,7 @@ const Home = () => {
     <div>
       <StickyNavbar />
       <HeroSection />
-      <div className="mt-[5rem] flex justify-center">
+      <div className="mt-[4rem] md:mt-[1rem] flex justify-center">
         <BrandList />
       </div>
       <div className="my-10">

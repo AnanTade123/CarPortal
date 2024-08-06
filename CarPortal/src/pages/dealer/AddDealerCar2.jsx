@@ -78,6 +78,11 @@ export default function AddDealerCar() {
     musicFeature: false,
     powerWindowFeature: false,
     rearParkingCameraFeature: false,
+    buttonStart: false,
+    abs: false,
+    sunroof: false,
+    airbag: false,
+    childSafetyLocks: false,
 
     // fields
     brand: "",
@@ -118,6 +123,16 @@ export default function AddDealerCar() {
     console.log(formData);
     // Prepare the form data to send to the backend
     const data = {
+      buttonStart: formData.buttonStart,
+
+      abs: formData.abs,
+
+      sunroof: formData.sunroof,
+
+      airbag: formData.airbag,
+
+      childSafetyLocks: formData.childSafetyLocks,
+
       acFeature: formData.acFeature,
 
       musicFeature: formData.musicFeature,
@@ -143,6 +158,8 @@ export default function AddDealerCar() {
       ownerSerial: formData.ownerSerial,
 
       powerWindowFeature: formData.powerWindowFeature,
+
+      city: formData.city,
 
       price: formData.price,
 
@@ -278,6 +295,7 @@ export default function AddDealerCar() {
                   onChange={handleBrandChange}
                   renderInput={(params) => (
                     <TextField
+                    required
                       sx={{
                         "& .MuiInputBase-root": {
                           height: "40px",
@@ -313,6 +331,7 @@ export default function AddDealerCar() {
                   onChange={handleModelChange}
                   renderInput={(params) => (
                     <TextField
+                    required
                       sx={{
                         "& .MuiInputBase-root": {
                           height: "40px",
@@ -351,6 +370,7 @@ export default function AddDealerCar() {
                   onChange={handleVariantChange}
                   renderInput={(params) => (
                     <TextField
+                    required
                       sx={{
                         "& .MuiInputBase-root": {
                           height: "40px",
@@ -390,7 +410,7 @@ export default function AddDealerCar() {
                     });
                   }}
                 >
-                  <option>Transmission</option>
+                  <option value="" disabled>Transmission</option>
                   <option>Automatic</option>
                   <option>Manual</option>
                 </select>
@@ -399,6 +419,7 @@ export default function AddDealerCar() {
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <Input
+                required
                   label="Price"
                   type="number"
                   name="price"
@@ -414,6 +435,7 @@ export default function AddDealerCar() {
 
               <div className="mt-5 md:ml-2 w-full">
                 <select
+                required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label={"year"}
                   type={"number"}
@@ -426,7 +448,7 @@ export default function AddDealerCar() {
                     })
                   }
                 >
-                  <option>Year</option>
+                  <option value="" disabled>Year</option>
                   <option>2005</option>
                   <option>2006</option>
                   <option>2007</option>
@@ -455,6 +477,7 @@ export default function AddDealerCar() {
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <select
+                required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label={"Color"}
                   type={"text"}
@@ -467,7 +490,7 @@ export default function AddDealerCar() {
                     })
                   }
                 >
-                  <option>Color</option>
+                  <option value="" disabled>Color</option>
                   <option>Red</option>
                   <option>Blue</option>
                   <option>Yellow</option>
@@ -485,6 +508,7 @@ export default function AddDealerCar() {
 
               <div className="mt-5 md:ml-2 w-full">
                 <select
+                required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   name="ownerSerial"
                   value={formData.ownerSerial}
@@ -511,6 +535,7 @@ export default function AddDealerCar() {
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <Inputs
+                required
                   label={"Area"}
                   type={"text"}
                   name={"area"}
@@ -567,6 +592,9 @@ export default function AddDealerCar() {
                       value={formData.carInsuranceType}
                       onChange={handleChangeType}
                     >
+                      <option value="" disabled>
+                        Insurance Type
+                      </option>
                       <option value="Comprehensive">Comprehensive</option>
                       <option value="Zero Dept">Zero Depreciation </option>
                       <option value="Third Party">Third Party</option>
@@ -580,6 +608,7 @@ export default function AddDealerCar() {
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <Input
+                required
                   label="Km Driven"
                   type="number"
                   name="kmDriven"
@@ -606,7 +635,7 @@ export default function AddDealerCar() {
                     });
                   }}
                 >
-                  <option>Fuel Type</option>
+                  <option value="" disabled>Fuel Type</option>
                   <option>Petrol</option>
                   <option>Diesel</option>
                   <option>Electric</option>
@@ -621,6 +650,7 @@ export default function AddDealerCar() {
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <select
+                required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label="City"
                   name="city"
@@ -638,6 +668,7 @@ export default function AddDealerCar() {
 
               <div className="mt-5 md:ml-2 w-full">
                 <select
+                required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label="Registration"
                   name="registration"
@@ -728,6 +759,93 @@ export default function AddDealerCar() {
                   }
                 />{" "}
                 Rear Parking Camera
+              </div>
+            </div>
+
+            {/* tenth part */}
+            <div className="md:flex">
+              <div className="mt-5 ml-5">
+                <input
+                  label="Button Start"
+                  type="checkbox"
+                  name="buttonStart"
+                  // value={formData.musicFeature}
+                  checked={formData.buttonStart}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      buttonStart: event.target.checked,
+                    })
+                  }
+                />{" "}
+                Button Start
+              </div>
+
+              <div className="mt-5 ml-5">
+                <input
+                  label="ABS"
+                  type="checkbox"
+                  name="abs"
+                  // value={formData.powerWindowFeature}
+                  checked={formData.abs}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      abs: event.target.checked,
+                    })
+                  }
+                />{" "}
+                ABS
+              </div>
+
+              <div className="mt-5 ml-5">
+                <input
+                  label="Sunroof"
+                  type="checkbox"
+                  name="sunroof"
+                  // value={formData.acFeature}
+                  checked={formData.sunroof}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      sunroof: event.target.checked,
+                    })
+                  }
+                />{" "}
+                Sunroof
+              </div>
+
+              <div className="mt-5 ml-5">
+                <input
+                  label="Child Safety Locks"
+                  type="checkbox"
+                  name="childSafetyLocks"
+                  // value={formData.rearParkingCameraFeature}
+                  checked={formData.childSafetyLocks}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      childSafetyLocks: event.target.checked,
+                    })
+                  }
+                />{" "}
+                Child Safety Locks
+              </div>
+              <div className="mt-5 ml-5">
+                <input
+                  label="AirBag"
+                  type="checkbox"
+                  name="airbag"
+                  // value={formData.musicFeature}
+                  checked={formData.airbag}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      airbag: event.target.checked,
+                    })
+                  }
+                />{" "}
+                AirBag
               </div>
             </div>
 

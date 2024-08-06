@@ -10,7 +10,7 @@ import {
 } from "react-table";
 
 const TableComponent = ({ columns, data }) => {
-  console.log(data);
+  
 
   const {
     getTableProps,
@@ -53,7 +53,7 @@ const TableComponent = ({ columns, data }) => {
   // Memoize the row rendering
   const renderRows = useMemo(() => {
     return page.map((row, index) => {
-      console.log(data.length - 1 == index);
+      
       const isLast = data?.length - 1 === index;
       const classes = isLast ? "p-1" : "p-3 border-b border-blue-gray-50";
       prepareRow(row);

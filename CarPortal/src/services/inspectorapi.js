@@ -88,6 +88,17 @@ export const inspectorAPI = apiSlice.injectEndpoints({
       })
     }),
 
+    inspChangePassword : builder.mutation({
+      query : ({passChange,InspectorProfileId}) => ({
+        url : `/ispProfile/ispChangePassword/${InspectorProfileId}`,
+        method: "PUT",
+        body : passChange,
+        transerResponse:console.log(InspectorProfileId,passChange),
+       
+      })
+      
+    }),
+
     // inspectorStatus: builder.mutation({
     //   query: ({ inspectorProfileId, status }) => ({
     //     url: 
@@ -110,5 +121,5 @@ export const { useInspectorByIdQuery ,
   useFinalInspectionReportMutation,
 useAddBiddingCarWithoutImageMutation,
 useFinalInspectionQuery,
-
+useInspChangePasswordMutation
  } = inspectorAPI;

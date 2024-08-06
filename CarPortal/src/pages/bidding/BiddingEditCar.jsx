@@ -54,8 +54,6 @@ export default function BiddingEditCar() {
   const { data: dealarList } = useGetAllDealerListQuery();
   const brands = brandData?.list.map((item) => item.brand) || [];
 
-  
-
   const [selectedModel, setSelectedModel] = useState('');
   const [selectedBrand, setSelectedBrand] = useState(''); //Two field Brands and Model
   const [modelOptions, setModelOptions] = useState([]);
@@ -73,7 +71,11 @@ export default function BiddingEditCar() {
     musicFeature: Carid?.musicFeature,
     powerWindowFeature: Carid?.powerWindowFeature,
     rearParkingCameraFeature: Carid?.rearParkingCameraFeature,
-
+    buttonStart: Carid?.buttonStart,
+        abs: Carid?.abs,
+        sunroof: Carid?.sunroof,
+        airbag: Carid?.airbag,
+        childSafetyLocks: Carid?.childSafetyLocks,
     // fields
     brand: Carid?.brand,
     bodyType: Carid?.model,
@@ -111,8 +113,6 @@ export default function BiddingEditCar() {
     }
   );
 
-
-
   const [biddingcarUpdate] = useBiddingcarUpdateMutation();
   useEffect(() => {
     if (Carid) {
@@ -128,7 +128,7 @@ export default function BiddingEditCar() {
         city: Carid?.city || "",
         fuelType: Carid?.fuelType || "",
         kmDriven: Carid?.kmDriven || "",
-        carInsurance: Carid?.carInsurance || "",
+        carInsurance: Carid?.carInsurance !== undefined ? Carid.carInsurance : "",
         registration: Carid?.registration || "",
         description: Carid?.description || "",
         area: Carid?.area || "",
@@ -140,7 +140,12 @@ export default function BiddingEditCar() {
         musicFeature: Carid?.musicFeature || "",
         acFeature: Carid?.acFeature || "",
         powerWindowFeature: Carid?.powerWindowFeature || "",
-        rearParkingCameraFeature: Carid?.rearParkingCameraFeature || ""
+        rearParkingCameraFeature: Carid?.rearParkingCameraFeature || "",
+        buttonStart: Carid?.buttonStart || "",
+        abs: Carid?.abs || "",
+        sunroof: Carid?.sunroof || "",
+        airbag: Carid?.airbag || "",
+        childSafetyLocks: Carid?.childSafetyLocks || ""
       });
       setSelectedModel(Carid?.model);
       setSelectedBrand(Carid?.brand);
@@ -155,6 +160,11 @@ export default function BiddingEditCar() {
 
     // Prepare the form data to send to the backend
     const data = {
+      buttonStart: formData.buttonStart,
+      abs: formData.abs,
+      sunroof: formData.sunroof,
+      airbag: formData.airbag,
+      childSafetyLocks: formData.childSafetyLocks,
       acFeature: formData.acFeature,
       musicFeature: formData.musicFeature,
       area: formData.area,
@@ -209,6 +219,7 @@ export default function BiddingEditCar() {
   //     registration: "", // Reset registration when city changes
   //   });
   // };
+
   const handleChangeType = (event) => {
     const value = event.target.value;
     setFormData((prevFormData) => ({
@@ -350,7 +361,7 @@ export default function BiddingEditCar() {
                   });
                 }}
               >
-                <option>Transmission</option>
+                <option value="">Transmission</option>
                 <option>Automatic</option>
                 <option>Manual</option>
               </select>
@@ -359,6 +370,7 @@ export default function BiddingEditCar() {
           <div className="md:flex">
             <div className="mt-5 w-full">
               <Inputs
+              required
                 label="Price"
                 type="number"
                 name="price"
@@ -374,6 +386,7 @@ export default function BiddingEditCar() {
 
             <div className="mt-5 md:ml-2 w-full">
               <select
+              required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label={"year"}
                 type={"number"}
@@ -402,6 +415,7 @@ export default function BiddingEditCar() {
           <div className="md:flex">
             <div className="mt-5 w-full">
               <select
+              required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label={"Color"}
                 type={"text"}
@@ -414,7 +428,7 @@ export default function BiddingEditCar() {
                   })
                 }
               >
-                <option>Color</option>
+                <option value="">Color</option>
                 {[
                   "Red",
                   "Blue",
@@ -438,9 +452,10 @@ export default function BiddingEditCar() {
 
             <div className="mt-5 md:ml-2 w-full">
               <select
+              required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 name="ownerSerial"
-                value={formData.type}
+                value={formData.ownerSerial}
                 onChange={(event) =>
                   setFormData({
                     ...formData,
@@ -448,7 +463,7 @@ export default function BiddingEditCar() {
                   })
                 }
               >
-                <option value="" disabled>
+                <option value="">
                   Select Owner Serial
                 </option>
                 {["1", "2", "3", "4", "5"].map((serial) => (
@@ -462,6 +477,7 @@ export default function BiddingEditCar() {
           <div className="md:flex gap-2">
             <div className="mt-5 w-full">
               <Inputs
+              required
                 label={"Area"}
                 type={"text"}
                 name={"area"}
@@ -528,6 +544,7 @@ export default function BiddingEditCar() {
           <div className="md:flex gap-2">
             <div className="mt-5 w-full">
               <Inputs
+              required
                 label={"Km Driven"}
                 type={"number"}
                 name={"kmDriven"}
@@ -542,6 +559,7 @@ export default function BiddingEditCar() {
             </div>
             <div className="mt-5 w-full">
               <select
+              required
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
                 label={"fuelType"}
                 type={"text"}
@@ -554,8 +572,9 @@ export default function BiddingEditCar() {
                   })
                 }
               >
-                <option>Fuel Type</option>
-                {["Petrol", "Diesel", "CNG", "Electric", "Hybrid"].map(
+                <option value="">Fuel Type</option>
+                
+                {["Petrol", "Diesel", "CNG", "Electric", "Hybrid", "Petrol+CNG"].map(
                   (fuel) => (
                     <option key={fuel} value={fuel}>
                       {fuel}
@@ -673,8 +692,95 @@ export default function BiddingEditCar() {
               Rear Parking Camera
             </div>
           </div>
+          {/* tenth part */}
+          <div className="md:flex">
+            <div className="mt-5 ml-5">
+              <input
+                label={"Button Start"}
+                type={"checkbox"}
+                name={"buttonStart"}
+                // value={formData.musicFeature}
+                checked={formData.buttonStart}
+                onChange={(event) =>
+                  setFormData({
+                    ...formData,
+                    buttonStart: event.target.checked,
+                  })
+                }
+              />{" "}
+              Button Start
+            </div>
+
+            <div className="mt-5 ml-5">
+              <input
+                label={"ABS"}
+                type={"checkbox"}
+                name={"abs"}
+                // value={formData.powerWindowFeature}
+                checked={formData.abs}
+                onChange={(event) =>
+                  setFormData({
+                    ...formData,
+                    abs: event.target.checked,
+                  })
+                }
+              />{" "}
+              ABS
+            </div>
+
+            <div className="mt-5 ml-5">
+              <input
+                label={"Sunroof"}
+                type={"checkbox"}
+                name={"sunroof"}
+                // value={formData.acFeature}
+                checked={formData.sunroof}
+                onChange={(event) =>
+                  setFormData({
+                    ...formData,
+                    sunroof: event.target.checked,
+                  })
+                }
+              />{" "}
+              Sunroof
+            </div>
+
+            <div className="mt-5 ml-5">
+              <input
+                label={"Child Safety Locks"}
+                type={"checkbox"}
+                name={"childSafetyLocks"}
+                // value={formData.rearParkingCameraFeature}
+                checked={formData.childSafetyLocks}
+                onChange={(event) =>
+                  setFormData({
+                    ...formData,
+                    childSafetyLocks: event.target.checked,
+                  })
+                }
+              />{" "}
+              Child Safety Locks
+            </div>
+            <div className="mt-5 ml-5">
+              <input
+                label={"AirBag"}
+                type={"checkbox"}
+                name={"airbag"}
+                // value={formData.musicFeature}
+                checked={formData.airbag}
+                onChange={(event) =>
+                  setFormData({
+                    ...formData,
+                    airbag: event.target.checked,
+                  })
+                }
+              />{" "}
+              AirBag
+            </div>
+          </div>
           <div className="mt-5 w-50">
             <select
+            required
               className="w-full border-2 border-gray-400 p-2 rounded-md"
               label={"Select Dealer"}
               name={"dealerId"}
@@ -686,7 +792,7 @@ export default function BiddingEditCar() {
                 })
               }
             >
-              <option>Select Dealar</option>
+              <option value="">Select Dealar</option>
               {dealarList?.list?.map((dealer) => (
                 <option key={dealer.dealer_id} value={dealer.dealer_id}>{dealer.firstName + " " + dealer.lastName}</option>
               ))}
@@ -695,6 +801,7 @@ export default function BiddingEditCar() {
           
           <div className="mt-5 w-full">
               <Inputs
+              required
                 label={"Title"}
                 type={"text"}
                 name={"title"}
@@ -709,6 +816,7 @@ export default function BiddingEditCar() {
             </div>
           <div className="mt-5">
             <Textarea
+            required
               label="Description"
               name="description"
               value={formData.description}

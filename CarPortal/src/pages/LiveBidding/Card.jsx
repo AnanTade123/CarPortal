@@ -14,12 +14,11 @@ dayjs.extend(duration);
 
 const Card = ({ cardData }) => {
     const closeTime = cardData?.closingTime;
-    const { data } = useBiddingCarByIdQuery(cardData?.beadingCarId);
+    const { data , refetch} = useBiddingCarByIdQuery(cardData?.beadingCarId);
     const { data: imageData } = useGetCarIdTypeQuery(cardData?.beadingCarId);
     // eslint-disable-next-line no-unused-vars
     const [timeLeft, setTimeLeft] = useState('');
-    const bidCarId =cardData?.bidCarId;
-    const [topThreeBids, setTopThreeBids] = useState([]);
+    const bidCarId = cardData?.bidCarId;
     const [highestBid , setHighestBid] = useState(0);
     // let highestBid = "";
     useEffect(() => {
@@ -48,40 +47,21 @@ const Card = ({ cardData }) => {
         return () => clearInterval(timerId);
     }, [closeTime]);
 
-    const { isConnected, getTopThreeBids,topThreeBidsAmountArray } = useWebSocket();
+    const { isConnected, getTopThreeBids,topThreeBidsAmountArray,refreshTopThreeBids ,topThreeBidsAmount} = useWebSocket();
     useEffect(() => {
         const fetchTopThreeBids = async () => {
-            console.log("checkData------",bidCarId)
-          if (isConnected && bidCarId) {
-            try {
-              const bids = await getTopThreeBids(bidCarId);
-              setTopThreeBids(bids);
-
-            } catch (error) {
+            if (isConnected && bidCarId) {
+                try {
+                    await refreshTopThreeBids(bidCarId);
+                    console.log("topThreeBidsAmount",topThreeBidsAmount);
+                } catch (error) {
               console.error('Failed to fetch top three bids:', error);
             }
           }
         };
 
         fetchTopThreeBids();
-
       }, [isConnected, bidCarId]);
-      useEffect(() =>{
-
-          
-          const highestBidAmount = () => {
-              const BiddingAmountData = topThreeBidsAmountArray.filter(data => bidCarId === data?.bidCarId);
-              const highestBidAmount = BiddingAmountData.length > 0 ? BiddingAmountData[0].amount : "0";
-              
-              setHighestBid(prevState => ({
-                  ...prevState,
-                  [bidCarId]: highestBidAmount
-                }));
-            };
-        highestBidAmount();
-
-        },[topThreeBidsAmountArray,bidCarId])
-            console.log("highestBid",highestBid);
 
     return (
         <div className="relative mx-auto w-full max-w-sm">
@@ -92,22 +72,23 @@ const Card = ({ cardData }) => {
                     </div>
                     <div className="p-4">
                         <div className="flex justify-between items-center">
-                            <h2 className="line-clamp-1 text-[14px] font-semibold text-gray-800" title="New York">{data?.year + " " + data?.brand + " " + data?.model}</h2>
+                            <h2 className="line-clamp-1 text-lg font-semibold text-gray-800" title="New York">{data?.year + " " + data?.brand + " " + data?.model}</h2>
                             <i className="fa fa-heart"></i>
                         </div>
                         <div className="flex md:space-x-1 space-x-1 mt-3">
-                            <div className="p-2 text-[10px] bg-gray-100 rounded-md">{data?.kmDriven} km</div>
-                            <div className="p-2 text-[10px] bg-gray-100 rounded-md">{data?.ownerSerial} owner</div>
-                            <div className="p-2 text-[10px] bg-gray-100 rounded-md">{data?.fuelType}</div>
-                            <div className="p-2 text-[10px] bg-gray-100 rounded-md">{data?.registration}</div>
-                            <div className="p-2 text-[10px] bg-gray-100 rounded-md">Engine 4.5 ✰</div>
+                            <div className="p-2 text-[15px] font-medium bg-gray-100 rounded-md">{data?.kmDriven} km</div>
+                            <div className="p-2 text-[15px] font-medium bg-gray-100 rounded-md">{data?.ownerSerial} owner</div>
+                            <div className="p-2 text-[15px] font-medium bg-gray-100 rounded-md">{data?.fuelType}</div>
+                            <div className="p-2 text-[15px] font-medium bg-gray-100 rounded-md">{data?.registration}</div>
+                            {/* <div className="p-2 text-xs font-semibold bg-gray-100 rounded-md">Engine</div> */}
                         </div>
                         <div className="mt-4 -ml-4 flex justify-between items-center">
                             <p className="text-primary mt-2 inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
                                 <span className="text-[16px] bg-indigo-300 p-3 text-white">Highest Bid ₹ 
                                     {/* <HighestBidAmount bidId={cardData?.bidCarId} /> */}
-                                    {highestBid[bidCarId] || "0"}
+                                    {/* {highestBid[bidCarId] || "0"} */}
                                     {/* {highestBidAmount()} */}
+                                    {topThreeBidsAmount && topThreeBidsAmount[0]?.amount}
 
                                     </span>
                             </p>

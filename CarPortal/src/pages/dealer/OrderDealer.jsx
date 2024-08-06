@@ -31,7 +31,7 @@ const OrderDealer = () => {
       pageNo,
       id,
     });
-  console.log(data);
+ 
   const [cancelStatusSet] = useCancelStatusSetMutation();
 
   const nextHandler = () => {
@@ -56,7 +56,7 @@ const OrderDealer = () => {
       toast.success(res?.data?.status);
       handleOpen(false);
       refetch();
-      console.log("MyResult", res);
+      
     } catch (error) {
       console.log("Error :", error);
     }
@@ -128,10 +128,10 @@ const OrderDealer = () => {
                   Contact Details of the User
                 </div>
                 <div className="font-[latto] mt-1 text-base font-medium text-black">
-                  User Name:{item?.username}
+                  User Name:{item?.firstName}
                 </div>
                 <div className="font-[latto] text-base font-medium text-black">
-                  Contact No: {item?.mobileNumber}
+                  Contact No: {item?.mobileNo}
                 </div>
               </div>
               <div className="flex gap-2 align-middle items-center">

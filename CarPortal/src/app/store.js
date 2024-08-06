@@ -11,6 +11,8 @@ import { placebidAPI } from '../services/placingbidApi';
 import { inspectorAPI } from '../services/inspectorapi';
 import { brandAPI } from '../services/brandAPI';
 import { salesAPI } from '../services/salesAPI';
+import { UserAPI } from '../services/userAPI';
+
 
 export const store = configureStore({
   reducer: {
@@ -26,6 +28,7 @@ export const store = configureStore({
     [brandAPI.reducerPath]:brandAPI.reducer,
     [salesAPI.reducerPath]:salesAPI.reducer,
     [carApi.reducerPath]: carApi.reducer,
+    [UserAPI.reducerPath]: UserAPI.reducer,
   },
   middleware:(getDefaultMiddleware)=>
   getDefaultMiddleware().concat(apiSlice.middleware),

@@ -26,6 +26,8 @@ export const salesAPI = apiSlice.injectEndpoints({
       }),
       providesTags: ["SALESPERSON"],
     }),
+
+
     sellerupdate: builder.mutation({
       query: ({id, salesdata}) => ({
         url: `/salesPerson/updateSPersonDetails?salesPersonId=${id}`,
@@ -35,6 +37,18 @@ export const salesAPI = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["SALESPERSON"],
     }),
+
+    sellerChangePassword : builder.mutation({
+      query : ({passChange,salesPersonId}) => ({
+        url : `/salesPerson/passwordChange/${salesPersonId}`,
+        method: "PUT",
+        body : passChange,
+        transerResponse:console.log(salesPersonId,passChange),
+       
+      })
+      
+    }),
+
   }),
 });
 
@@ -42,5 +56,6 @@ export const {
   useGetAllSellerQuery,
   useDeleteSellerMutation,
   useSellerByIdQuery,
-  useSellerupdateMutation
+  useSellerupdateMutation,
+  useSellerChangePasswordMutation
 } = salesAPI;

@@ -57,7 +57,7 @@ const CarView1 = ({ carId }) => {
 
   const ChooseCarColor = () => {
     return (
-      <div className="container mx-auto w-full h-[16rem] md:w-3/4 ml-8 md:ml-5 md:h-[30rem]">
+      <div className="w-full h-[16rem] md:w-full md:h-[30rem]">
         {/* {img360 && (
           <div className="max-w-md mx-auto mb-5">
             <div className="flex justify-center">
@@ -224,7 +224,7 @@ const CarView1 = ({ carId }) => {
   };
 
   return (
-    <div className="w-4/5 md:w-full container md:px-4 lg:px-8">
+    <div className="w-5/5 md:w-full container md:px-4 lg:px-8">
       <div className="flex flex-col justify-between">
         {/* <div className="max-w-lg mx-auto mb-5"> */}
         <ChooseCarColor />

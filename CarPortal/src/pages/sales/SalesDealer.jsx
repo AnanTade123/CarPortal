@@ -15,29 +15,52 @@ import {
 import {
   useDeleteDealerMutation,
   useGetAllDealerQuery,
+  useGetDealerbySalesQuery,
 } from "../../services/dealerAPI";
 import TableComponent from "../../components/table/TableComponent";
 import { useState } from "react";
-import { AddDealerForm } from "../../components/admin/AddDealerForm";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+import { AddDealerFormSales } from "../../components/admin/AddDealerFormSales";
 
-export default function Admin() {
+
+export default function SalesDealer() {
   const [pageNo, setPageNo] = useState(0);
   console.log(pageNo);
-  const { data, isLoading, error } = useGetAllDealerQuery(pageNo);
-console.log(data)
+  
+  
   const [deleteDealer] = useDeleteDealerMutation();
   const [open, setOpen] = useState(false);
-  const [deleteid ,setDeleteid] = useState()
- 
+  const [deleteid, setDeleteid] = useState();
+
+  const token = Cookies.get("token");
+
+  let jwtDecodes;
+
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
+
+   const userid = token ? jwtDecodes?.userId : null;
+   console.log("userid", userid);
+const { data, isLoading, error } = useGetDealerbySalesQuery(userid);
+console.log(data);
+
+const userRole = token ? jwtDecodes?.authorities[0] : null;
+
+console.log("userRole", userRole);
+  
+
+
   const handleOpen = (id) => {
     setOpen(!open);
     setDeleteid(id);
   };
 
   const handleOpen1 = (id) => {
-    deleteDealerHandler(deleteid)
-    setOpen(!open)
+    deleteDealerHandler(deleteid);
+    setOpen(!open);
   };
 
   const navigate = useNavigate();
@@ -97,12 +120,15 @@ console.log(data)
       Header: "Status",
       accessor: "status",
       Cell: (cell) => {
-        const a = cell.row.values.status
-        
+        const a = cell.row.values.status;
+
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
-              <StatusDialogeBox2 dealer_id={cell.row.values.dealer_id} status={cell.row.values.status} />
+              <StatusDialogeBox2
+                dealer_id={cell.row.values.dealer_id}
+                status={cell.row.values.status}
+              />
             </div>
           </div>
         );
@@ -113,11 +139,10 @@ console.log(data)
       Header: "Actions",
       accessor: "Actions",
       Cell: (cell) => {
-        
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
-              <Link to={`/admin/dealer/info/${cell.row.values.dealer_id}`}>
+              <Link to={userRole === "SALESPERSON" ? `/sale/dealer/info/${cell.row.values.dealer_id}`  :`/admin/dealer/info/${cell.row.values.dealer_id}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -136,7 +161,7 @@ console.log(data)
               </Link>
 
               <Link
-                to={`/admin/dealer/edit/${cell.row.values.userId}/${cell.row.values.dealer_id}`}
+                to={userRole === "SALESPERSON" ?`/sale/dealer/edit/${cell.row.values.userId}/${cell.row.values.dealer_id}` :`/admin/dealer/edit/${cell.row.values.userId}/${cell.row.values.dealer_id}`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -188,87 +213,91 @@ console.log(data)
   } else {
     dealerApiData = data?.list;
   }
- 
+
   return (
     <>
-
-    {error?.status===404 ? (
+      {error?.status === 404 ? (
         <div>
-           <p className="text-3xl font-semibold ">No Data Available</p>
-           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-           <></>
-           <AddDealerForm />
-            </div>
-            </div>
-            ):
-            ( <div>
-            <Card className="h-full w-full">
-      <Dialog open={open} handler={handleOpen}>
-      <DialogBody className="flex justify-center" >
-        <p className="font-semibold text-xl">Are you sure want to delete?</p> 
-        </DialogBody>
-        <DialogFooter className="flex justify-center">
-          <Button
-            variant="text"
-            color="red"
-            onClick={handleOpen}
-            className="mr-1"
-          >
-            <span>Cancel</span>
-          </Button>
-          <Button variant="gradient" color="green" onClick={handleOpen1}>
-            <span>Confirm</span>
-          </Button>
-        </DialogFooter>
-      </Dialog>
-        <CardHeader floated={false} shadow={false} className="rounded-none">
-          <div className=" flex items-center justify-between gap-8">
-            <div>
-              <Typography variant="h5" color="blue-gray">
-               Dealer List
-              </Typography>
-              <Typography color="gray" className="mt-1 font-normal">
-                See information about all Dealers
-              </Typography>
-            </div>
-            <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-            <AddDealerForm />
-            </div>
+          <p className="text-3xl font-semibold ">No Data Available</p>
+          <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+            <></>
+            <AddDealerFormSales />
           </div>
-        </CardHeader>
-        <CardBody className="overflow-scroll px-0">
-          <TableComponent columns={columns} data={dealerApiData} />
-        </CardBody>
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-          <Typography
-            variant="medium"
-            color="blue-gray"
-            className="font-normal"
-          >
-            Page {pageNo + 1}
-          </Typography>
-          <div className="flex gap-2">
-            <Button
-              variant="outlined"
-              size="sm"
-              disabled={pageNo <= 0}
-              onClick={() => setPageNo((a) => a - 1)}
-            >
-              Previous
-            </Button>
-            <Button
-              variant="outlined"
-              size="sm"
-              onClick={nextHandler}
-              disabled={data?.list?.length < 10}
-            >
-              Next
-            </Button>
-          </div>
-        </CardFooter>
-      </Card></div>)}
-     
+        </div>
+      ) : (
+        <div>
+          <Card className="h-full w-full">
+            <Dialog open={open} handler={handleOpen}>
+              <DialogBody className="flex justify-center">
+                <p className="font-semibold text-xl">
+                  Are you sure want to delete?
+                </p>
+              </DialogBody>
+              <DialogFooter className="flex justify-center">
+                <Button
+                  variant="text"
+                  color="red"
+                  onClick={handleOpen}
+                  className="mr-1"
+                >
+                  <span>Cancel</span>
+                </Button>
+                <Button variant="gradient" color="green" onClick={handleOpen1}>
+                  <span>Confirm</span>
+                </Button>
+              </DialogFooter>
+            </Dialog>
+            <CardHeader floated={false} shadow={false} className="rounded-none">
+              <div className=" flex items-center justify-between gap-8">
+                <div>
+                  <Typography variant="h5" color="blue-gray">
+                    Dealer List
+                  </Typography>
+                  <Typography color="gray" className="mt-1 font-normal">
+                    See information about all members
+                  </Typography>
+                </div>
+                <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+                  <AddDealerFormSales/>
+                </div>
+              </div>
+            </CardHeader>
+            <CardBody className="overflow-scroll px-0">
+              <TableComponent columns={columns} data={dealerApiData} />
+            </CardBody>
+            <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+              <Typography
+                variant="medium"
+                color="blue-gray"
+                className="font-normal"
+              >
+                Page {pageNo + 1}
+              </Typography>
+              <div className="flex gap-2">
+                <Button
+                  variant="outlined"
+                  size="sm"
+                  disabled={pageNo <= 0}
+                  onClick={() => setPageNo((a) => a - 1)}
+                >
+                  Previous
+                </Button>
+                <Button
+                  variant="outlined"
+                  size="sm"
+                  onClick={nextHandler}
+                  disabled={data?.list?.length < 10}
+                >
+                  Next
+                </Button>
+              </div>
+            </CardFooter>
+          </Card>
+        </div>
+      )}
     </>
   );
 }
-{/* <AddDealerForm /> */}
+{
+  /* <AddDealerForm /> */
+}

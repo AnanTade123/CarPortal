@@ -45,9 +45,15 @@ export function StickyNavbar() {
   // eslint-disable-next-line no-unused-vars
 
   const DealerId = token ? jwtDecodes?.dealerId : null;
+  // const userid = token ? jwtDecodes?.userId : null;
+  const InspectorProfileId = token ? jwtDecodes?.inspectorProfileId : null;
+
+
+const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
 
   const UserId = token ? jwtDecodes?.userId : null;
-
+ const userProfileId = token  ? jwtDecodes?.userProfileId : null;
+ 
   const location = useLocation();
  
   const handleMenuItemClick = () => {
@@ -258,6 +264,21 @@ export function StickyNavbar() {
 
   const salePersonDashboard = userRole?.includes("SALESPERSON") ? (
     <>
+      <Link to={"/sales/salesDealers"}>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === "/sales/salesDealers"
+              ? "bg-indigo-200 text-white"
+              : ""
+          }`}
+          onClick={handleMenuItemClick}
+        >
+          Dealers
+        </Typography>
+      </Link>
       <NavListMenu />
 
       <NotificationDialog />
@@ -337,6 +358,8 @@ export function StickyNavbar() {
       <NotificationDialog />
     </>
   ) : null;
+
+
 
   const userDashboard = userRole?.includes("USER") ? (
     <>
@@ -460,10 +483,16 @@ export function StickyNavbar() {
 
           <div className="flex items-center gap-x-1">
             {token ? (
+              
               <Profile
                 userId={UserId}
                 dealer_id={DealerId}
                 userrole={userRole}
+                inspectorProfileId={InspectorProfileId}
+                salesPersonId={salesPersonId}
+                userProfileId ={userProfileId}
+
+
               />
             ) : (
               <>
@@ -536,7 +565,7 @@ export function StickyNavbar() {
         <div className="flex items-center gap-x-1">
           <Link to="/signin">
             <Button fullWidth variant="text" size="sm" className="">
-              <span>Sing In</span>
+              <span>Sign In</span>
             </Button>
           </Link>
 

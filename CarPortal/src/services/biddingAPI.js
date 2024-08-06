@@ -12,6 +12,14 @@ export const biddingAPI = apiSlice.injectEndpoints({
       providesTags: ["BIDDING"],
     }),
 
+    AllDealerFinalBid: builder.query({
+      query: (UserID) => ({
+        url: `/Bid/getAllDealerFinalBids?buyerDealerId=${UserID}`,
+        method: "GET",
+      }),
+      providesTags: ["BIDDING"],
+    }),
+
     biddingCarByDealerId: builder.query({
       query: (UserID) => ({
         url: `/BeadingCarController/getByUserId1/${UserID}`,
@@ -178,6 +186,7 @@ export const biddingAPI = apiSlice.injectEndpoints({
 });
 
 export const {useBiddingAllCardQuery,
+  useAllDealerFinalBidQuery,
   useBiddingCarByIdQuery, 
   useBiddingcarUpdateMutation, 
   useBiddingRemoveMutation ,

@@ -99,7 +99,7 @@ const FilterCars = ({ setUrlState }) => {
   let formattedAmount;
 
   if (value == null || value === "" || isNaN(value)) {
-    formattedAmount = "---";
+    formattedAmount = "30000";
   } else {
     formattedAmount = new Intl.NumberFormat("en-IN").format(value);
   }
@@ -155,7 +155,7 @@ const FilterCars = ({ setUrlState }) => {
         </button>
       </div>
 
-      <Card className={`p-4 ${showFilters ? "block" : "hidden"} md:block`}>
+      <Card className={`p-4 ${showFilters ? "block" : "hidden bg-gray-100"} md:block`}>
         <div className="space-y-4">
           <form onSubmit={submitHandle}>
             <div>
@@ -173,23 +173,31 @@ const FilterCars = ({ setUrlState }) => {
                 <div style={{ width: "300px" }}></div>
               </div>
               ₹ {formattedAmount}
-              <div className="w-auto flex justify-center">
-                <Slider
-                  className="overflow-hidden w-fit"
-                  color="black"
-                  defaultValue={10000000}
-                  step={10000}
-                  min={200000}
-                  max={10000000}
-                  onChange={(e) => setValue(e.target.value)}
-                />
+              <div className="w-full flex items-center justify-center">
+                <div className="flex text-center font-bold font-[latto] text-black">
+                  30K
+                </div>
+                <div className="overflow-hidden w-full px-1 mx-1">
+                  <Slider
+                    className="overflow-hidden w-full"
+                    color="black"
+                    defaultValue={10000000}
+                    step={10000}
+                    min={30000}
+                    max={10000000}
+                    onChange={(e) => setValue(e.target.value)}
+                  />
+                </div>
+                <div className="flex text-center font-bold font-[latto] text-black">
+                  1Cr
+                </div>
               </div>
               <Autocomplete
                 id="free-solo-demo"
                 freeSolo
                 options={AreaData}
                 getOptionLabel={(option) => option.area}
-                sx={{ width: 250, background: "White" }}
+                sx={{ width: "Full", background: "White" }}
                 onInputChange={(event, newInputValue) => {
                   setFilterForm((prevForm) => ({
                     ...prevForm,
@@ -209,7 +217,7 @@ const FilterCars = ({ setUrlState }) => {
                 freeSolo
                 options={AreaData}
                 getOptionLabel={(option) => option.year}
-                sx={{ width: 250, background: "White" }}
+                sx={{ width: "Full", background: "White" }}
                 onInputChange={(event, newInputValue) => {
                   setFilterForm((prevForm) => ({
                     ...prevForm,
@@ -229,7 +237,7 @@ const FilterCars = ({ setUrlState }) => {
                 freeSolo
                 options={brands}
                 getOptionLabel={(option) => option}
-                sx={{ width: 250, background: "White" }}
+                sx={{ width: "Full", background: "White" }}
                 onChange={handleBrandChange}
                 renderInput={(params) => (
                   <TextField {...params} label="Brands" />
@@ -240,7 +248,7 @@ const FilterCars = ({ setUrlState }) => {
                 freeSolo
                 options={modelOptions}
                 getOptionLabel={(option) => option}
-                sx={{ width: 250, background: "White" }}
+                sx={{ width: "Full", background: "White" }}
                 onChange={handleModelChange}
                 renderInput={(params) => (
                   <TextField {...params} label="Models" />
@@ -251,7 +259,7 @@ const FilterCars = ({ setUrlState }) => {
                 freeSolo
                 options={FuleType}
                 getOptionLabel={(option) => option.fuelType}
-                sx={{ width: 250, background: "White" }}
+                sx={{ width: "Full", background: "White" }}
                 onInputChange={(event, newInputValue) => {
                   setFilterForm((prevForm) => ({
                     ...prevForm,
@@ -273,7 +281,7 @@ const FilterCars = ({ setUrlState }) => {
                 freeSolo
                 options={Transmission}
                 getOptionLabel={(option) => option.transmission}
-                sx={{ width: 250, background: "White" }}
+                sx={{ width: "Full", background: "White" }}
                 onInputChange={(event, newInputValue) => {
                   setFilterForm((prevForm) => ({
                     ...prevForm,

@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 
 import { useParams } from "react-router-dom";
-import { useInspectorupdateMutation, useInspectorByIdQuery } from "../../services/inspectorapi";
+import {useUserupdateMutation,   useGetUserByIdQuery } from "../../services/userAPI";
 import Inputs from "../../forms/Inputs";
 import React, { useEffect } from "react";
 import { Button } from "@material-tailwind/react";
@@ -8,13 +9,14 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
  
-const   AdminInspectorEdit = () => {
-  const { userid, inspectorprofileid } = useParams();
-  const userId = userid;
+const   UserProfileUpdate = () => {
+  const { userProfileId } = useParams();
+ 
+  console.log(userProfileId)
   const navigate = useNavigate();
-  const { data, isLoading, isError, error } = useInspectorByIdQuery({ userId });
+  const { data, isLoading, isError, error } = useGetUserByIdQuery( userProfileId );
   console.log(data)
-  const [inspectorupdate] = useInspectorupdateMutation();
+   const [Userupdate] = useUserupdateMutation();
  
   const [inputField, setInputField] = React.useState({
     address: "",
@@ -26,16 +28,15 @@ const   AdminInspectorEdit = () => {
   });
  
   useEffect(() => {
-    if (data && data.response) {
-      const { response } = data;
+    if (data) {
       setInputField({
-        inspectorProfileId: response.inspectorProfileId || 0,
-        address: response.address || "",
-        city: response.city || "",
-        firstName: response.firstName || "",
-        lastName: response.lastName || "",
-        email: response.email || "",
-        mobileNo: response.mobileNo || ""
+        userProfileId: data.userProfileId || 0,
+        address: data.address || "",
+        city: data.city || "",
+        firstName: data.firstName || "",
+        lastName: data.lastName || "",
+        email: data.email || "",
+        mobileNo: data.mobile_no || ""
       });
     }
   }, [data]);
@@ -50,33 +51,37 @@ const   AdminInspectorEdit = () => {
  
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    const inspectordata = {
-      inspectorProfileId: inputField.inspectorProfileId,
+    const userupdate = {
+   
+     
+      id: userProfileId,
+      mobile_no: inputField.mobileNo,
       address: inputField.address,
+      email: inputField.email,
       city: inputField.city,
       firstName: inputField.firstName,
       lastName: inputField.lastName,
-      email: inputField.email,
-      mobileNo: inputField.mobileNo
+     
+      
     };
     try {
-      const res = await inspectorupdate({ id: inspectorprofileid, inspectordata }).unwrap();
+      const res = await Userupdate({userupdate ,userProfileId }).unwrap();
      
       console.log("Update Response:", res);
-      if (res.status === 'success') {
+      if (res.code === 'Successful') {
         toast.success("Changes successful", {
          // autoClose: 2000,
         });
         setTimeout(() => {
-          navigate(-1);
+          navigate('/');
         }, 1000);
       } else {
-        toast.error("Failed to update inspector", {
+        toast.error("Failed to update User", {
           autoClose: 2000, // 2 seconds
         });
       }
     } catch (error) {
-      toast.error("Error updating inspector", {
+      toast.error("Error updating User", {
         autoClose: 2000, // 2 seconds
       });
       console.log("Error:", error);
@@ -95,7 +100,7 @@ const   AdminInspectorEdit = () => {
     <div className="mx-auto container flex justify-center w-full md:w-[50%]">
       <form className="w-full border border-gray-500 px-2 py-2 rounded-md mt-2 mb-2" onSubmit={onSubmitHandler}>
         <div className="mt-5">
-          <p className="text-3xl font-semibold">Edit Inspector Details</p>
+          <p className="text-3xl font-semibold">Edit User Details</p>
         </div>
         <div className="mt-5">
           <Inputs
@@ -171,6 +176,6 @@ const   AdminInspectorEdit = () => {
   );
 };
  
-export default AdminInspectorEdit;
+export default UserProfileUpdate;
  
  

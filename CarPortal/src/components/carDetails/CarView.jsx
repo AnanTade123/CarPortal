@@ -18,11 +18,19 @@ const CarView = ({
   musicFeature,
   acFeature,
   powerWindowFeature,
-  rearParkingCameraFeature
+  rearParkingCameraFeature,
+  abs,
+  childSafetyLocks,
+  buttonStart,
+  airbag,
+  sunroof,
+  insurancedate,
+  carInsuranceType,
+  insuranceType,
 }) => {
   return (
     <div>
-      <CarView1 carId = {carId} />
+      <CarView1 carId={carId} />
       <KnowYourCar
         fuelType={fuelType}
         registration={registration}
@@ -31,15 +39,23 @@ const CarView = ({
         year={year}
         carInsurance={carInsurance}
         kmDriven={kmDriven}
+        insurancedate={insurancedate}
+        carInsuranceType={carInsuranceType}
+        insuranceType={insuranceType}
       />
 
       {/* <InspectionReport/> */}
-      
+
       <TopFeatures
-      acFeature={acFeature}
-      musicFeature={musicFeature}
-      powerWindowFeature={powerWindowFeature}
-      rearParkingCameraFeature={rearParkingCameraFeature}
+        abs={abs}
+        childSafetyLocks={childSafetyLocks}
+        sunroof={sunroof}
+        buttonStart={buttonStart}
+        airbag={airbag}
+        acFeature={acFeature}
+        musicFeature={musicFeature}
+        powerWindowFeature={powerWindowFeature}
+        rearParkingCameraFeature={rearParkingCameraFeature}
       />
     </div>
   );
