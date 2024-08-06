@@ -9,15 +9,12 @@ import { jwtDecode } from "jwt-decode";
 const AdminInspectorInfo = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
-  console.log(userId);
-  const { data } = useInspectorByIdQuery({ userId });
 
-  console.log(data);
+  const { data } = useInspectorByIdQuery({ userId });
 
   const {
     response: { firstName, lastName, mobileNo, email, city, address } = {},
   } = data || {};
-
 
   const token = Cookies.get("token");
 
@@ -26,18 +23,15 @@ const AdminInspectorInfo = () => {
   if (token) {
     jwtDecodes = jwtDecode(token);
   }
-  console.log(jwtDecodes)
+  
   const InspectorProfileId = token ? jwtDecodes?.inspectorProfileId : null;
-  console.log("InspectorProfileId",InspectorProfileId)
-
   const userRole = token ? jwtDecodes?.authorities[0] : null;
-
   const DealerId = token ? jwtDecodes?.dealerId : null;
-  console.log(DealerId)
+console.log(DealerId)
   return (
     <>
-      <div className="text-3xl font-bold  mt-5 md:ml-16 md:mb-[-3rem] mb-4">
-        Inspector Information
+      <div className="text-3xl font-bold mt-5 md:ml-16 md:mb-[-3rem] mb-4">
+        Profile Information
       </div>
       <div className="flex justify-center items-center h-screen">
         <div className="w-full max-w-4xl flex flex-col md:flex-row shadow-xl">
@@ -49,8 +43,8 @@ const AdminInspectorInfo = () => {
             />
           </div>
           <div className="w-full md:w-1/2 p-8 flex flex-col justify-between">
-            <div>
-              <table className="table w-full ml-2 -mt-8 border-collapse border mb-5 border-gray-200">
+            <div className="overflow-x-auto md:overflow-visible">
+              <table className="table w-full border-collapse border border-gray-200  ">
                 <tbody>
                   <tr>
                     <th className="px-4 py-2 border border-gray-200">
@@ -76,7 +70,6 @@ const AdminInspectorInfo = () => {
                       {mobileNo}
                     </td>
                   </tr>
-
                   <tr>
                     <th className="px-4 py-2 border border-gray-200">Email</th>
                     <td className="px-4 py-2 border border-gray-200">
@@ -100,27 +93,25 @@ const AdminInspectorInfo = () => {
             </div>
             <div className="flex justify-center items-center mt-4 md:mt-0">
               <span className="flex items-center">
-
-              {userRole === 'Admin' ? (
-                <Button
-                  size="md"
-                  className="mt-2 ml-2 cursor-pointer flex items-center"
-                  onClick={() => navigate(-1)}
-                >
-                  <IoChevronBack className="w-5 h-5" /> Back
-                </Button> ) : null}
-
-
+                {userRole === 'Admin' ? (
+                  <Button
+                    size="md"
+                    className="mt-2 ml-2 cursor-pointer flex items-center"
+                    onClick={() => navigate(-1)}
+                  >
+                    <IoChevronBack className="w-5 h-5" /> Back
+                  </Button>
+                ) : null}
                 {userRole === 'INSPECTOR' ? (
-                      <Link to={`/inspector/edit/${userId}/${InspectorProfileId}`}>
-
-                <Button
-                  size="md"
-                  className="mt-2 ml-2 cursor-pointer flex items-center"
-                 
-                >
-                 Update Profile
-                </Button>  </Link>) : null}
+                  <Link to={`/inspector/edit/${userId}/${InspectorProfileId}`}>
+                    <Button
+                      size="md"
+                      className="mt-2 ml-2 cursor-pointer flex items-center"
+                    >
+                      Edit Profile
+                    </Button>
+                  </Link>
+                ) : null}
               </span>
             </div>
           </div>
