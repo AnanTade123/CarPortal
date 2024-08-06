@@ -44,8 +44,8 @@ const UserInfo = () => {
             />
           </div>
           <div className="w-full md:w-1/2 p-8 flex flex-col justify-between">
-            <div>
-              <table className="table w-full -mt-8 mb-5 ml-2 border-collapse border border-gray-200">
+          <div className="overflow-x-auto md:overflow-visible">
+              <table className="table w-full mb-5 ml-2 border-collapse border border-gray-200">
                 <tbody>
                   <tr>
                     <th className="px-4 py-2 border border-gray-200">
