@@ -42,8 +42,8 @@ const TopFeatures = ({
       </div>
       <div className="border shadow-xl rounded-lg">
       <CardUi>
-        <div className="w-full md:w-full md:flex gap-7">
-          <div className="w-full md:h-52 ">
+        {/* <div className="w-full md:w-full md:flex gap-7">
+          <div className="w-full md:h-52 "> */}
             {/* <Carousel
               className="rounded-xl w-full"
               navigation={({ setActiveIndex, activeIndex, length }) => (
@@ -60,16 +60,16 @@ const TopFeatures = ({
                 </div>
               )}
             > */}
-              <div className="flex w-full h-full justify-center">
+              {/* <div className="flex w-full h-full justify-center">
                 <img
                   src="https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
                   alt="image 1"
                   className="h-full w-1/2 object-cover rounded-2xl"
                 />
-              </div>
+              </div> */}
             {/* </Carousel> */}
-          </div>
-        </div>
+          {/* </div>
+        </div> */}
         <div className="w-full md:ml-5 md:grid md:grid-cols-3 mb-9 mt-5">
           {musicFeature ? (
             <div className="flex mt-5">

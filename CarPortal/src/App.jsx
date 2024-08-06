@@ -334,7 +334,7 @@ export default function App() {
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-          <Route path="/cookiepolicy " element={<CookiePolicy />} />
+          <Route path="/cookiepolicy" element={<CookiePolicy />} />
         </Route>
       </Routes>
     </>
