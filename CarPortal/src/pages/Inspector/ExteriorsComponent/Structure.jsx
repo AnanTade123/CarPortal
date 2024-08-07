@@ -149,7 +149,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -205,7 +205,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -262,7 +262,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Replaced">Replaced</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -319,7 +319,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Replaced">Replaced</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -376,7 +376,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Replaced">Replaced</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -433,7 +433,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Replaced">Replaced</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -490,7 +490,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Sealent Broken">Sealent Broken</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -547,7 +547,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Sealent Broken">Sealent Broken</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>

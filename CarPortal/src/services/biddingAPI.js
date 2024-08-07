@@ -102,7 +102,7 @@ export const biddingAPI = apiSlice.injectEndpoints({
     }),
     
     getbeadingCarImage: builder.query({
-      query: (beadingCarId) => ({
+      query: ({beadingCarId}) => ({
         url: `/uploadFileBidCar/getByBidCarID?beadingCarId=${beadingCarId}`,
         method: "GET",
         transferResponse: console.log("Data to backend :- ", beadingCarId),

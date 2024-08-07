@@ -66,7 +66,7 @@ const BiddingPriceCard = ({
         <p className="uppercase font-[Merriweather] ml-2 md:ml-0">
           {data?.color} {data?.bodyType} & {data?.transmission}
         </p>
-        <div className="my-4 flex gap-2 flex-wrap lg:flex-nowrap overflow-x-auto scrollbar ml-2 md:ml-0">
+        <div className="my-4 flex gap-2 flex-wrap ml-2">
           <Chip
             variant="outlined"
             value={`${data?.kmDriven} KM`}
