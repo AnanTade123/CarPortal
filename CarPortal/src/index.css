@@ -21,24 +21,24 @@
     color: black
 }
 
-/* .carousel-height{
-    height: 73vh !important;
-} */
+.carousel-height{
+    height: 50vh !important;
+}
 
-/* @media screen and (min-width: 320px) {
+@media screen and (min-width: 320px) {
     .carousel-height{
       height: 30vh !important;
     }
-} */
+}
 
-/* @media screen and (min-width: 715px) and (max-device-width: 1599px) {
+@media screen and (min-width: 715px) and (max-device-width: 1599px) {
     .carousel-height{
       height: 43vh !important;
     }
-} */
+}
 
-@media screen and (min-width: 1600px) and (max-device-width: 2000px) {
+/* @media screen and (min-width: 1600px) and (max-device-width: 2000px) {
   .carousel-height{
     height: 50vh !important;
   }
-}
+} */
