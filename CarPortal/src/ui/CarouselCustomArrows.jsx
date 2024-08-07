@@ -21,6 +21,7 @@ export function CarouselCustomArrows({ carId }) {
 
   return (
     <>
+    <div className="flex justify-center">
       {data &&
         data.object.map((item) =>
           item.documentType === "coverImage" ? (
@@ -32,7 +33,7 @@ export function CarouselCustomArrows({ carId }) {
             />
           ) : null
         )}
-
+</div>
       {/* // </Carousel> */}
     </>
   );

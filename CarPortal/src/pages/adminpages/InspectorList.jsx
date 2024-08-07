@@ -162,16 +162,16 @@ export default function InspectorList() {
       ) : (
         <Card className="h-full w-full">
           <CardHeader floated={false} shadow={false} className="rounded-none">
-            <div className="flex items-center justify-between gap-8">
+            <div className="flex flex-col sm:flex-row justify-between gap-4 items-center">
               <div>
-                <Typography variant="h5" color="blue-gray">
+                <Typography variant="h5" color="blue-gray" className="text-center lg:text-start">
                   Inspectors List
                 </Typography>
-                <Typography color="gray" className="mt-1 font-normal">
+                <Typography color="gray" className="mt-1 font-normal ">
                   See information about all members
                 </Typography>
               </div>
-              <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+              <div className="flex shrink-0 flex-col gap-2 sm:flex-row md:w-48 ">
                 <AddInspectorForm />
               </div>
             </div>

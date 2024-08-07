@@ -117,7 +117,7 @@ export function AddDealerForm() {
             <Typography variant="h4" color="blue-gray">
               Add Dealer
             </Typography>
-            <form onSubmit={handleSubmit} className="space-y-3 md:w-full w-[220px]">
+            <form onSubmit={handleSubmit} className="space-y-3 md:w-full w-full">
               <div className="flex md:flex-row flex-col gap-2 ">
                 <Input
                   label="First Name"

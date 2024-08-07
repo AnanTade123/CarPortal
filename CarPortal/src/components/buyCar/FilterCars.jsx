@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import { Card } from "@material-tailwind/react";
-import { Button, Slider, Typography } from "@material-tailwind/react";
+import { Button, Typography } from "@material-tailwind/react";
 import { FaFilter } from "react-icons/fa";
+import Slider from "@mui/material/Slider";
 import {
   useGetOnlyBrandsQuery,
   useGetVariantsQuery,
@@ -16,7 +17,7 @@ const FilterCars = ({ setUrlState }) => {
 
   const [selectedBrand, setSelectedBrand] = useState("");
   const [modelOptions, setModelOptions] = useState([]);
-  const [value, setValue] = useState();
+  const [value, setValue] = useState([1000000, 7000000]);
   const [showFilters, setShowFilters] = useState(false);
 
   const { data: variantData } = useGetVariantsQuery(selectedBrand, {
@@ -65,8 +66,8 @@ const FilterCars = ({ setUrlState }) => {
 
   const submitHandle = (e) => {
     e.preventDefault();
-    const minPrice = 3999; // Assuming this is your default minimum price
-    const maxPrice = value; // Maximum price from the slider
+    const minPrice = value[0]; // Minimum price from the slider
+    const maxPrice = value[1]; // Maximum price from the slider
     const url = {
       Area: filterForm.area,
       Year: filterForm.year,
@@ -81,28 +82,31 @@ const FilterCars = ({ setUrlState }) => {
   };
 
   const resetForm = () => {
-    setValue(200000);
-    setSelectedBrand("");
-    setModelOptions([]);
-    const data = {
+    setValue([1000000, 7000000]); // Reset slider values to default
+    setSelectedBrand(""); // Reset brand selection
+    setModelOptions([]); // Reset model options
+    setFilterForm({
+      area: "", // Reset area
+      year: "", // Reset year
+      brand: "", // Reset brand
+      model: "", // Reset model
+      fuelType: "", // Reset fuel type
+      transmission: "", // Reset transmission
+    });
+    setUrlState({
       area: "",
       year: "",
       brand: "",
       model: "",
       fuelType: "",
       transmission: "",
-    };
-    setFilterForm(data);
-    setUrlState(data);
+      MinPrice: 1000000, // Reset MinPrice
+      MaxPrice: 7000000, // Reset MaxPrice
+    });
   };
 
-  let formattedAmount;
-
-  if (value == null || value === "" || isNaN(value)) {
-    formattedAmount = "30000";
-  } else {
-    formattedAmount = new Intl.NumberFormat("en-IN").format(value);
-  }
+  let formattedAmountMin = new Intl.NumberFormat("en-IN").format(value[0]);
+  let formattedAmountMax = new Intl.NumberFormat("en-IN").format(value[1]);
 
   const AreaData = [
     { area: "Viman Nagar", year: 2005 },
@@ -155,7 +159,11 @@ const FilterCars = ({ setUrlState }) => {
         </button>
       </div>
 
-      <Card className={`p-4 ${showFilters ? "block" : "hidden bg-gray-100"} md:block`}>
+      <Card
+        className={`p-4 ${
+          showFilters ? "block" : "hidden bg-gray-100"
+        } md:block`}
+      >
         <div className="space-y-4">
           <form onSubmit={submitHandle}>
             <div>
@@ -172,20 +180,37 @@ const FilterCars = ({ setUrlState }) => {
               <div className="flex justify-center items-center">
                 <div style={{ width: "300px" }}></div>
               </div>
-              ₹ {formattedAmount}
+              <div className="flex justify-between mx-3">
+                <div className="flex flex-col items-center">
+                  <span className="bg-white text-black p-2 border-2 border-gray-300">
+                    ₹ {formattedAmountMin}
+                  </span>
+                  <div className="text-black mt-1">Min</div>
+                </div>
+                <div className="flex flex-col items-center">
+                  <span className="bg-white text-black p-2 border-2 border-gray-300">
+                    ₹ {formattedAmountMax}
+                  </span>
+                  <div className="text-black mt-1">Max</div>
+                </div>
+              </div>
               <div className="w-full flex items-center justify-center">
                 <div className="flex text-center font-bold font-[latto] text-black">
                   30K
                 </div>
-                <div className="overflow-hidden w-full px-1 mx-1">
+                <div className="w-full flex items-center px-2 mx-1">
                   <Slider
-                    className="overflow-hidden w-full"
+                    className="w-full"
                     color="black"
-                    defaultValue={10000000}
-                    step={10000}
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                    valueLabelDisplay="auto"
                     min={30000}
                     max={10000000}
-                    onChange={(e) => setValue(e.target.value)}
+                    step={25000}
+                    getAriaLabel={(index) =>
+                      index === 0 ? "Minimum price" : "Maximum price"
+                    }
                   />
                 </div>
                 <div className="flex text-center font-bold font-[latto] text-black">
@@ -193,11 +218,14 @@ const FilterCars = ({ setUrlState }) => {
                 </div>
               </div>
               <Autocomplete
-                id="free-solo-demo"
+                id="area-autocomplete"
                 freeSolo
                 options={AreaData}
                 getOptionLabel={(option) => option.area}
-                sx={{ width: "Full", background: "White" }}
+                sx={{ width: "100%", background: "White" }}
+                value={
+                  filterForm.area ? { area: filterForm.area } : { area: "" }
+                }
                 onInputChange={(event, newInputValue) => {
                   setFilterForm((prevForm) => ({
                     ...prevForm,
@@ -212,12 +240,14 @@ const FilterCars = ({ setUrlState }) => {
                 }}
                 renderInput={(params) => <TextField {...params} label="Area" />}
               />
+
               <Autocomplete
-                id="free-solo-demo"
+                id="year-autocomplete"
                 freeSolo
                 options={AreaData}
-                getOptionLabel={(option) => option.year}
+                getOptionLabel={(option) => option.year.toString()}
                 sx={{ width: "Full", background: "White" }}
+                value={filterForm.year ? { year: filterForm.year } : {year :""}} // Bind to state
                 onInputChange={(event, newInputValue) => {
                   setFilterForm((prevForm) => ({
                     ...prevForm,
@@ -232,38 +262,46 @@ const FilterCars = ({ setUrlState }) => {
                 }}
                 renderInput={(params) => <TextField {...params} label="Year" />}
               />
+
               <Autocomplete
-                id="free-solo-demo"
+                id="brand-autocomplete"
                 freeSolo
                 options={brands}
                 getOptionLabel={(option) => option}
                 sx={{ width: "Full", background: "White" }}
+                value={filterForm.brand}
                 onChange={handleBrandChange}
                 renderInput={(params) => (
                   <TextField {...params} label="Brands" />
                 )}
               />
+
               <Autocomplete
-                id="free-solo-demo"
+                id="model-autocomplete"
                 freeSolo
                 options={modelOptions}
                 getOptionLabel={(option) => option}
                 sx={{ width: "Full", background: "White" }}
+                value={filterForm.model}
                 onChange={handleModelChange}
                 renderInput={(params) => (
                   <TextField {...params} label="Models" />
                 )}
               />
+
               <Autocomplete
-                id="free-solo-demo"
+                id="fueltype-autocomplete"
                 freeSolo
                 options={FuleType}
                 getOptionLabel={(option) => option.fuelType}
                 sx={{ width: "Full", background: "White" }}
+                value={
+                  filterForm.fuelType ? { fuelType: filterForm.fuelType } : {fuelType:""}
+                } // Bind to state
                 onInputChange={(event, newInputValue) => {
                   setFilterForm((prevForm) => ({
                     ...prevForm,
-                    fuleType: newInputValue,
+                    fuelType: newInputValue,
                   }));
                 }}
                 onChange={(event, newValue) => {
@@ -273,15 +311,21 @@ const FilterCars = ({ setUrlState }) => {
                   }));
                 }}
                 renderInput={(params) => (
-                  <TextField {...params} label="Fule Type" />
+                  <TextField {...params} label="Fuel Type" />
                 )}
               />
+
               <Autocomplete
-                id="free-solo-demo"
+                id="transmission-autocomplete"
                 freeSolo
                 options={Transmission}
                 getOptionLabel={(option) => option.transmission}
                 sx={{ width: "Full", background: "White" }}
+                value={
+                  filterForm.transmission
+                    ? { transmission: filterForm.transmission }
+                    : {transmission:""}
+                } // Bind to state
                 onInputChange={(event, newInputValue) => {
                   setFilterForm((prevForm) => ({
                     ...prevForm,

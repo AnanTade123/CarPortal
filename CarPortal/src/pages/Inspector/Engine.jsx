@@ -294,7 +294,7 @@ const Engine = () => {
               <MenuItem value="Over Heating">Over Heating</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success"  style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -342,7 +342,7 @@ const Engine = () => {
               <MenuItem value="Excess Vibration">Excess Vibration</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -391,7 +391,7 @@ const Engine = () => {
               <MenuItem value="No Blow-by">No Blow-by</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -439,7 +439,7 @@ const Engine = () => {
               <MenuItem value="Silencer assembly Damaged and Create Noise">Silencer assembly Damaged and Create Noise</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -487,7 +487,7 @@ const Engine = () => {
               <MenuItem value="Shifting-Hard">Shifting-Hard</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -534,7 +534,7 @@ const Engine = () => {
               <MenuItem value="Deteriorated">Deteriorated</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -583,7 +583,7 @@ const Engine = () => {
               <MenuItem value="Acid leakage">Acid leakage</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -630,7 +630,7 @@ const Engine = () => {
               <MenuItem value="Deteriorated">Deteriorated</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -678,7 +678,7 @@ const Engine = () => {
               <MenuItem value="Spongy">Spongy</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>

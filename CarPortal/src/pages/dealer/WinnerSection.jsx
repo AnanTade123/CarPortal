@@ -1,21 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import {
-  Card,
-  CardHeader,
-  Typography,
-  Button,
-  CardBody,
-  CardFooter,
-} from "@material-tailwind/react";
+
 import {  useAllDealerFinalBidQuery,useBiddingCarByIdQuery} from "../../services/biddingAPI";
  
 import TableComponent from "../../components/table/TableComponent";
-import {  Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
-import GridCarList from "../../components/buyCar/GridCarList";
 import WInnerSubCompoment from "./WInnerSubCompoment";
 
 const WinnerSection = () => {
@@ -30,27 +22,34 @@ const WinnerSection = () => {
   const UserID = jwtDecodes?.userId;
   const dealerId = jwtDecodes?.dealerId;
  
- 
+ console.log(UserID,dealerId)
  
 
   const {data:didData} = useAllDealerFinalBidQuery(UserID)
-  
+  console.log(didData)
  
-  const [carIds, setCarIds] = useState([]);
+  // const [carIds, setCarIds] = useState([]);
   
 
-  useEffect(() => {
-    if (didData?.finalBids) {
-      const carIdList = didData.finalBids.map(car => car?.beadingCarId);
-      setCarIds(carIdList);
-    }
-  }, [didData]);
+  // useEffect(() => {
+  //   if (didData?.finalBids) {
+  //     const carIdList = didData.finalBids.map(car => car?.beadingCarId);
+  //     setCarIds(carIdList);
+  //   }
+  // }, [didData]);
 
-  if (carIds.length===0) {
-    return <div>
-      <p>No Data Available</p>
-    </div>
-  }
+  // if (carIds.length===0) {
+  //   return <div>
+  //     <p>No Data Available</p>
+  //   </div>
+  // }
+
+  const columns = [
+    {
+      Header : "",
+      accessaor : ""
+    }
+  ]
   return (
     <>
   
@@ -58,10 +57,14 @@ const WinnerSection = () => {
     <p className="text-3xl font-semibold">Winner Section</p>
    </div>
   <div className="flex flex-wrap gap-5 justify-center">
-      {carIds.map((carId, index) => (
+      {didData?.finalBids.map((carId, index) => (
         <WInnerSubCompoment key={index} carId={carId} />
       ))}
     </div>
+
+<div>
+  <TableComponent columns={columns} data={didData} />
+</div>
     </>
   );
 };
