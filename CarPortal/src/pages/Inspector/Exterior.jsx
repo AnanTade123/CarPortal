@@ -322,7 +322,7 @@ const [formData, setFormData] = useState({
       <Grid container spacing={3}>
         {/* Bonnet Hood */}
         <Grid item xs={12} sm={6}>
-        <FormControl fullWidth>
+        <FormControl fullWidth required>
           <InputLabel>Bonnet / Hood</InputLabel>
           <Select
             required
@@ -380,9 +380,10 @@ const [formData, setFormData] = useState({
 
       {/* Right Door Front */}
       <Grid item xs={12} sm={6}>
-        <FormControl fullWidth>
+        <FormControl fullWidth required>
           <InputLabel>Right Door Front</InputLabel>
           <Select
+          required
             name="RightDoorFront"
             value={formData.RightDoorFront}
             onChange={handleChange}
@@ -437,9 +438,10 @@ const [formData, setFormData] = useState({
 
         {/* Left Door Front */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Left Door Front</InputLabel>
             <Select
+            required
               name="LeftDoorFront"
               value={formData.LeftDoorFront}
               onChange={handleChange}
@@ -494,9 +496,10 @@ const [formData, setFormData] = useState({
 
         {/* Right Fender */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Right Fender</InputLabel>
             <Select
+            required
               name="RightFender"
               value={formData.RightFender}
               onChange={handleChange}
@@ -551,9 +554,10 @@ const [formData, setFormData] = useState({
 
         {/* Left Quarter Panel */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Left Quarter Panel</InputLabel>
             <Select
+            required
               name="LeftQuarterPanel"
               value={formData.LeftQuarterPanel}
               onChange={handleChange}
@@ -608,9 +612,10 @@ const [formData, setFormData] = useState({
 
         {/* Right Quarter Panel */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Right Quarter Panel</InputLabel>
             <Select
+            required
               name="RightQuarterPanel"
               value={formData.RightQuarterPanel}
               onChange={handleChange}
@@ -665,9 +670,9 @@ const [formData, setFormData] = useState({
 
         {/* Roof */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Roof</InputLabel>
-            <Select name="Roof" value={formData.Roof} onChange={handleChange}>
+            <Select name="Roof" required value={formData.Roof} onChange={handleChange}>
             <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
@@ -718,9 +723,10 @@ const [formData, setFormData] = useState({
 
         {/* Dicky Door */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Dicky Door</InputLabel>
             <Select
+            required
               name="DickyDoor"
               value={formData.DickyDoor}
               onChange={handleChange}
@@ -775,9 +781,10 @@ const [formData, setFormData] = useState({
 
         {/* Left Door Rear */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Left Door Rear</InputLabel>
             <Select
+            required
               name="LeftDoorRear"
               value={formData.LeftDoorRear}
               onChange={handleChange}
@@ -832,9 +839,10 @@ const [formData, setFormData] = useState({
 
         {/* Right Door Rear */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Right Door Rear</InputLabel>
             <Select
+            required
               name="RightDoorRear"
               value={formData.RightDoorRear}
               onChange={handleChange}

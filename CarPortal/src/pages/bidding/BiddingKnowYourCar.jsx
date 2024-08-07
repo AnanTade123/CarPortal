@@ -23,6 +23,8 @@ const BiddingKnowYourCar = ({
   year,
   carInsurance,
   carInsuranceType,
+  insurancedate,
+  insuranceType,
   kmDriven,
 }) => {
   console.log(
@@ -33,6 +35,8 @@ const BiddingKnowYourCar = ({
     year,
     carInsurance,
     carInsuranceType,
+    insurancedate,
+  insuranceType,
     kmDriven
   );
   return (
@@ -190,7 +194,7 @@ const BiddingKnowYourCar = ({
                 </div>
               </div>
 
-              {/* {carInsurance && (
+              {carInsurance && (
                 <div className="flex items-center gap-5">
                   <div>
                     <AiFillInsurance className="w-5 h-5" />
@@ -202,7 +206,7 @@ const BiddingKnowYourCar = ({
                     </div>
                   </div>
                 </div>
-              )} */}
+              )}
             
           </div>
         </div>
