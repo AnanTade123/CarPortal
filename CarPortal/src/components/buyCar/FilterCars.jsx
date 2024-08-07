@@ -145,7 +145,7 @@ const FilterCars = ({ setUrlState }) => {
       <div className="flex justify-end mr-5 ">
         <button
           type="button"
-          className="md:hidden -mt-10 text-black font-bold flex hover:rounded-2xl hover:p-2 hover:shadow-2xl hover:border-2"
+          className="md:hidden -mt-10 text-black font-bold flex hover:rounded-2xl hover:p-2 hover:shadow-2xl "
           onClick={() => setShowFilters(!showFilters)}
         >
           <span className="mt-1 mr-1">
