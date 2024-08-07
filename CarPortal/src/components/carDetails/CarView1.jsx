@@ -115,7 +115,7 @@ const CarView1 = ({ carId }) => {
                   key={item.documentId}
                   src={item.documentLink}
                   alt={`Car Image ${item.documentId}`}
-                  className="w-full carousel-height relative blur-md bg-cover overflow-hidden"
+                  className="w-full h-[27vh] md:h-[50vh] carousel-height relative blur-md bg-cover overflow-hidden"
                 />
                 <img
                   key={item.documentId}

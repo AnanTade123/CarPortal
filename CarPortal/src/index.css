@@ -20,9 +20,9 @@
 .-ml-1, .ml-1{
     color: black
 }
-
+/* 
 .carousel-height{
-    height: 50vh !important;
+    height: 70vh !important;
 }
 
 @media screen and (min-width: 320px) {
@@ -35,9 +35,15 @@
     .carousel-height{
       height: 43vh !important;
     }
-}
+} */
 
-/* @media screen and (min-width: 1600px) and (max-device-width: 2000px) {
+@media screen and (min-width: 1200px) and (max-device-width: 2000px) {
+    .carousel-height{
+      height: 460px !important;
+    }
+  }
+
+/* @media screen and (min-width: 1700px) and (max-device-width: 2000px) {
   .carousel-height{
     height: 50vh !important;
   }
