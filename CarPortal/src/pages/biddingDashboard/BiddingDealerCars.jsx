@@ -34,7 +34,7 @@ const BiddingDealerCars = () => {
 
   
   const dataQuery = (userRole === "DEALER") 
-  ? useGetByDealerIdQuery( UserID ) 
+  ? useGetByDealerIdQuery( dealerId ) 
   : useBiddingAllCardQuery();
 
   const { data, isLoading, error } = dataQuery;
