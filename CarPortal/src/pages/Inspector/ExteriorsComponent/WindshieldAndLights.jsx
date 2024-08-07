@@ -111,9 +111,10 @@ const WindshieldAndLights = ({ handleCameraModal,
       <Grid container spacing={3}>
         {/* Windshield */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Windshield</InputLabel>
             <Select
+            required
               name="Windshield"
               value={formData.Windshield}
               onChange={handleChange}
@@ -165,9 +166,10 @@ const WindshieldAndLights = ({ handleCameraModal,
 
         {/* Light */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Light</InputLabel>
             <Select
+            required
               name="Light"
               value={formData.Light}
               onChange={handleChange}
@@ -221,9 +223,10 @@ const WindshieldAndLights = ({ handleCameraModal,
 
         {/* Front Bumper */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Front Bumper</InputLabel>
             <Select
+            required
               name="FrontBumper"
               value={formData.FrontBumper}
               onChange={handleChange}
@@ -275,9 +278,10 @@ const WindshieldAndLights = ({ handleCameraModal,
 
         {/* Rear Bumper */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Rear Bumper</InputLabel>
             <Select
+            required
               name="RearBumper"
               value={formData.RearBumper}
               onChange={handleChange}
@@ -329,9 +333,10 @@ const WindshieldAndLights = ({ handleCameraModal,
 
         {/* LHS Headlight */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>LHS Headlight</InputLabel>
             <Select
+            required
               name="LHSHeadlight"
               value={formData.LHSHeadlight}
               onChange={handleChange}
@@ -383,9 +388,10 @@ const WindshieldAndLights = ({ handleCameraModal,
 
         {/* RHS Headlight */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>RHS Headlight</InputLabel>
             <Select
+            required
               name="RHSHeadlight"
               value={formData.RHSHeadlight}
               onChange={handleChange}
@@ -437,9 +443,10 @@ const WindshieldAndLights = ({ handleCameraModal,
 
         {/* LHS Taillight */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>LHS Taillight</InputLabel>
             <Select
+            required
               name="LHSTaillight"
               value={formData.LHSTaillight}
               onChange={handleChange}
@@ -491,9 +498,10 @@ const WindshieldAndLights = ({ handleCameraModal,
 
         {/* RHS Taillight */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>RHS Taillight</InputLabel>
             <Select
+            required
               name="RHSTaillight"
               value={formData.RHSTaillight}
               onChange={handleChange}

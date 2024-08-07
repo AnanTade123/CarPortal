@@ -103,9 +103,10 @@ OtherComponent = ({  handleCameraModal,
       <Grid container spacing={3}>
         {/* Head Light Support */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Head Light Support</InputLabel>
             <Select
+            required
               name="HeadLightSupport"
               value={formData.HeadLightSupport}
               onChange={handleChange}
@@ -157,9 +158,10 @@ OtherComponent = ({  handleCameraModal,
 
         {/* Radiator Support */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Radiator Support</InputLabel>
             <Select
+            required
               name="RadiatorSupport"
               value={formData.RadiatorSupport}
               onChange={handleChange}
@@ -211,9 +213,10 @@ OtherComponent = ({  handleCameraModal,
 
         {/* Alloy Wheel */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Alloy Wheel</InputLabel>
             <Select
+            required
               name="AlloyWheel"
               value={formData.AlloyWheel}
               onChange={handleChange}

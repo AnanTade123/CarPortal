@@ -258,9 +258,10 @@ console.log(userRole)
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>LHS Front Tyre</InputLabel>
             <Select
+            required
               name="LHSFrontTyre"
               value={formData.LHSFrontTyre}
               onChange={handleChange}
@@ -309,9 +310,10 @@ console.log(userRole)
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>RHS Front Tyre</InputLabel>
             <Select
+            required
               name="RHSFrontTyre"
               value={formData.RHSFrontTyre}
               onChange={handleChange}
@@ -360,9 +362,10 @@ console.log(userRole)
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>LHS Rear Tyre</InputLabel>
             <Select
+            required
               name="LHSRearTyre"
               value={formData.LHSRearTyre}
               onChange={handleChange}
@@ -411,9 +414,10 @@ console.log(userRole)
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>RHS Rear Tyre</InputLabel>
             <Select
+            required
               name="RHSRearTyre"
               value={formData.RHSRearTyre}
               onChange={handleChange}
@@ -462,9 +466,10 @@ console.log(userRole)
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Spare Tyre</InputLabel>
             <Select
+            required
               name="SpareTyre"
               value={formData.SpareTyre}
               onChange={handleChange}
