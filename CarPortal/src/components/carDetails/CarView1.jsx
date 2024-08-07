@@ -79,16 +79,18 @@ const CarView1 = ({ carId }) => {
         )} */}
 
         {interior && (
-          <Carousel className="bg-white rounded-lg shadow-md   ">
+          <Carousel className="bg-white rounded-lg shadow-md absolute inset-0 blurred-bg" style="background-image: url('https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=600');">
             {data.object.length > 0 ? (
               data.object.map((item) => (
-                <img
-                  key={item.documentId}
-                  src={item.documentLink}
-                  alt={`Car Image ${item.documentId}`}
-                  onError={(e) => (e.currentTarget.src = fallbackImage)}
-                  className="object-contain w-full h-full"
-                />
+                // <div key={item.documentId} className="absolute inset-0 blurred-bg" style="background-image: url('https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                  <img
+                    key={item.documentId}
+                    src={item.documentLink}
+                    alt={`Car Image ${item.documentId}`}
+                    onError={(e) => (e.currentTarget.src = fallbackImage)}
+                    className="object-contain w-full h-full relative z-10 "
+                  />
+                // </div>
               ))
             ) : (
               <div className="text-center mt-2">
@@ -108,12 +110,20 @@ const CarView1 = ({ carId }) => {
           <Carousel className="bg-white rounded-lg shadow-md ">
             {data.object.length > 0 ? (
               data.object.map((item) => (
+                <div  key={item.documentId} className="relative overscroll-y-none">
                 <img
                   key={item.documentId}
                   src={item.documentLink}
                   alt={`Car Image ${item.documentId}`}
-                  className="object-contain w-full h-full"
+                  className="w-full h-[49vh] md:h-[75vh] relative blur-md bg-cover overflow-hidden"
                 />
+                <img
+                  key={item.documentId}
+                  src={item.documentLink}
+                  alt={`Car Image ${item.documentId}`}
+                  className="object-contain w-full h-full absolute top-0 md:top-3 px-3 "
+                />
+                </div>
               ))
             ) : (
               <div className="text-center mt-2">
