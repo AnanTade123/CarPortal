@@ -623,7 +623,7 @@ export default function BiddingEditCar() {
               </select>
             </div>
           </div> */}
-          <div className="flex">
+          <div className="md:flex">
             <div className="mt-5 ml-5">
               <input
                 label={"Music Feature"}

@@ -247,7 +247,7 @@ console.log(userRole)
                 <MenuItem value="Hard"> Hard</MenuItem>
               </Select>
             </FormControl>
-             <div className='flex'>  
+             <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -296,7 +296,7 @@ console.log(userRole)
                 <MenuItem value="Not Working">Not Working</MenuItem>
               </Select>
             </FormControl>
-            <div className='flex'>  
+            <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -345,7 +345,7 @@ console.log(userRole)
                 
               </Select>
             </FormControl>
-            <div className='flex'>  
+            <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
