@@ -12,7 +12,7 @@ const BiddingCarView1 = ({ beadingCarId }) => {
   const [tyres, setTyres] = useState(false);
   const [engines, setEngines] = useState(false);
 
-  const { data, isLoading, error } = useGetbeadingCarImageQuery(beadingCarId);
+  const { data, isLoading, error } = useGetbeadingCarImageQuery({beadingCarId});
 console.log(data)
   if (isLoading) return <div>Loading...</div>;
   if (error)
@@ -73,12 +73,20 @@ console.log(data)
           >
             {data.object.length > 0 ? (
               data.object.map((item) => (
-                <img
-                  key={item.documentId}
-                  src={item.documentLink}
-                  alt={`Car Image ${item.documentId}`}
-                  className="object-contain w-full h-full"
-                />
+                <div  key={item.documentId} className="relative overscroll-y-none">
+                  <img
+                    key={item.documentId}
+                    src={item.documentLink}
+                    alt={`Car Image ${item.documentId}`}
+                    className="w-full h-[49vh] md:h-[75vh] xl:h-[43vh] relative blur-md bg-cover overflow-hidden"
+                  />
+                  <img
+                    key={item.documentId}
+                    src={item.documentLink}
+                    alt={`Car Image ${item.documentId}`}
+                    className="object-contain w-full h-full absolute top-0 md:top-3 px-3"
+                  />
+                </div>
               ))
             ) : (
               <div className="text-center mt-2">
