@@ -32,7 +32,7 @@ export const biddingAPI = apiSlice.injectEndpoints({
     biddingCarById: builder.query({
       query: (carId) => ({
         url: `/BeadingCarController/getbyId/${carId}`,
-
+        transferResponse: console.log(carId),
         method: "GET",
       }),
       providesTags: ["BIDDING"],
