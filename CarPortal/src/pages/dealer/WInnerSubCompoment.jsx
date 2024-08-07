@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 
 import { useBiddingCarByIdQuery, useGetbeadingCarImageQuery } from '../../services/biddingAPI';
@@ -5,13 +6,13 @@ import { WinnerSectionCarDefault } from '../../ui/WinnerSectionCarDefault';
 
 export default function WInnerSubCompoment({ carId }) {
   
-  
-  const { data, isLoading: isLoadingCar } = useBiddingCarByIdQuery(carId);
-  
-  
-  const beadingCarId = data?.beadingCarId;
+  console.log(carId)
  
+  const {data} = useBiddingCarByIdQuery(carId)
   
+   const beadingCarId = data?.beadingCarId;
+ 
+   console.log(data)
   const { data: Image, isLoading: isLoadingImage } = useGetbeadingCarImageQuery(beadingCarId, {
     skip: !beadingCarId,
   });

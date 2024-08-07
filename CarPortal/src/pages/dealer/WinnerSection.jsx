@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import {
-  Card,
-  CardHeader,
-  Typography,
-  Button,
-  CardBody,
-  CardFooter,
-} from "@material-tailwind/react";
+// import {
+//   Card,
+//   CardHeader,
+//   Typography,
+//   Button,
+//   CardBody,
+//   CardFooter,
+// } from "@material-tailwind/react";
 import {  useAllDealerFinalBidQuery,useBiddingCarByIdQuery} from "../../services/biddingAPI";
  
 import TableComponent from "../../components/table/TableComponent";
@@ -30,11 +30,11 @@ const WinnerSection = () => {
   const UserID = jwtDecodes?.userId;
   const dealerId = jwtDecodes?.dealerId;
  
- 
+ console.log(UserID,dealerId)
  
 
   const {data:didData} = useAllDealerFinalBidQuery(UserID)
-  
+  console.log(didData)
  
   const [carIds, setCarIds] = useState([]);
   
@@ -62,6 +62,7 @@ const WinnerSection = () => {
         <WInnerSubCompoment key={index} carId={carId} />
       ))}
     </div>
+
     </>
   );
 };
