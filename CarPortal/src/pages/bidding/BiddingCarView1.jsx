@@ -78,7 +78,7 @@ console.log(data)
                     key={item.documentId}
                     src={item.documentLink}
                     alt={`Car Image ${item.documentId}`}
-                    className="w-full h-[49vh] md:h-[75vh] relative blur-md bg-cover overflow-hidden"
+                    className="w-full h-[49vh] md:h-[75vh] xl:h-[43vh] relative blur-md bg-cover overflow-hidden"
                   />
                   <img
                     key={item.documentId}
