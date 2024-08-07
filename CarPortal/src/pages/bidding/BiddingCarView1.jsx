@@ -12,7 +12,7 @@ const BiddingCarView1 = ({ beadingCarId }) => {
   const [tyres, setTyres] = useState(false);
   const [engines, setEngines] = useState(false);
 
-  const { data, isLoading, error } = useGetbeadingCarImageQuery(beadingCarId);
+  const { data, isLoading, error } = useGetbeadingCarImageQuery({beadingCarId});
 console.log(data)
   if (isLoading) return <div>Loading...</div>;
   if (error)
