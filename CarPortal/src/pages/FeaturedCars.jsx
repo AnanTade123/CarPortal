@@ -21,7 +21,7 @@ const FeaturedCars = ({ data, error }) => {
             {posts?.slice(0,4).map((items, index) => {
               return (
                 <div key={index}>
-                  <div className="flex">
+                  <div className="flex mb-5 md:mb-0">
                     <CardDefault2 data={items} />
                   </div>
                 </div>

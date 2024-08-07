@@ -75,11 +75,11 @@ const Card = ({ cardData }) => {
                             <h2 className="line-clamp-1 text-lg font-semibold text-gray-800" title="New York">{data?.year + " " + data?.brand + " " + data?.model}</h2>
                             <i className="fa fa-heart"></i>
                         </div>
-                        <div className="flex md:space-x-1 space-x-1 mt-3">
-                            <div className="p-2 text-[15px] font-medium bg-gray-100 rounded-md">{data?.kmDriven} km</div>
-                            <div className="p-2 text-[15px] font-medium bg-gray-100 rounded-md">{data?.ownerSerial} owner</div>
-                            <div className="p-2 text-[15px] font-medium bg-gray-100 rounded-md">{data?.fuelType}</div>
-                            <div className="p-2 text-[15px] font-medium bg-gray-100 rounded-md">{data?.registration}</div>
+                        <div className="flex md:space-x-2 space-x-2 mt-3 justify-center">
+                            <div className="p-2 text-[12px] font-medium bg-gray-100 rounded-md">{data?.kmDriven} km</div>
+                            <div className="p-2 text-[12px] font-medium bg-gray-100 rounded-md">{data?.ownerSerial} owner</div>
+                            <div className="p-2 text-[12px] font-medium bg-gray-100 rounded-md">{data?.fuelType}</div>
+                            <div className="p-2 text-[12px] font-medium bg-gray-100 rounded-md">{data?.registration}</div>
                             {/* <div className="p-2 text-xs font-semibold bg-gray-100 rounded-md">Engine</div> */}
                         </div>
                         <div className="mt-4 -ml-4 flex justify-between items-center">

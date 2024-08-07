@@ -129,7 +129,7 @@ const WindshieldAndLights = ({ handleCameraModal,
               {/* <MenuItem value="NotWorking">Not Working</MenuItem> */}
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -185,7 +185,7 @@ const WindshieldAndLights = ({ handleCameraModal,
               <MenuItem value="Replaced">Replaced</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -239,7 +239,7 @@ const WindshieldAndLights = ({ handleCameraModal,
               
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -293,7 +293,7 @@ const WindshieldAndLights = ({ handleCameraModal,
               <MenuItem value="NotWorking">Not Working</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -347,7 +347,7 @@ const WindshieldAndLights = ({ handleCameraModal,
               <MenuItem value="NotWorking">Not Working</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -401,7 +401,7 @@ const WindshieldAndLights = ({ handleCameraModal,
               <MenuItem value="NotWorking">Not Working</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -455,7 +455,7 @@ const WindshieldAndLights = ({ handleCameraModal,
               <MenuItem value="NotWorking">Not Working</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -509,7 +509,7 @@ const WindshieldAndLights = ({ handleCameraModal,
               <MenuItem value="NotWorking">Not Working</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
