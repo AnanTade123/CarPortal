@@ -81,7 +81,7 @@ const UploadImage4 = ({ onClose ,handleCaptureImage,selectfiled }) => {
   }, [cameraStream]);
  
   return (
-    <div className="flex flex-col items-center justify-center h-screen p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen -mt-4 -ml-8 min-w-[100vw] bg-white">
       
       {!previewMode && !confirmedImage ? (
         <div className="cursor-pointer flex flex-col items-center">

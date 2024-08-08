@@ -26,11 +26,11 @@ const BuyCar = () => {
   return (
     <>
     <div className="container mx-auto mt-12">
-      <div className="grid grid-cols-1 gap-2 md:grid-cols-4 lg:gap-12">
-        <div className="md:col-span-1 top-0">
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-5 lg:grid-cols-4 lg:gap-6">
+        <div className="md:col-span-2 lg:col-span-1 top-0">
           <FilterCars setUrlState={setUrlState} />
         </div>
-        <div className="md:col-span-3 no-scrollbar ">
+        <div className="md:col-span-3 lg:col-span-3 no-scrollbar ">
         {error?.status === 404 ? (
       <div>
         <p>No Data Available</p>

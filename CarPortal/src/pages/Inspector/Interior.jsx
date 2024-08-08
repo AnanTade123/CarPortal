@@ -35,10 +35,9 @@ const useStyles = makeStyles((theme) => ({
 const Interior = () => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
-  console.log(beadingCarId);
+ 
   const { data,refetch } = useGetInspectionReportQuery({ beadingCarId, docType: "Interior" });
-  console.log(data);
-  console.log(data);
+ 
 
   const [formData, setFormData] = useState({
     LeatherSeat: "",
@@ -63,9 +62,7 @@ const Interior = () => {
   const [selectedLable ,setSelectedLable] = useState("");
   const [lables, setLables] = useState("");
   const [selectfiled, setSelectfiled] = useState("")
-  console.log(selectfiled)
-  console.log(lables)
-
+ 
   const token = Cookies.get("token");
   let jwtDecodes;
   if (token) {
@@ -73,7 +70,7 @@ const Interior = () => {
   }
 
   const userRole = token ? jwtDecodes?.authorities[0] : null;
-console.log(userRole)
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -85,11 +82,10 @@ console.log(userRole)
     }
   };
 
-  console.log(selectfiled);
-  console.log(lables);
+  
 
   const handleFileChange = async (event, fieldName, imgPreview = "") => {
-    console.log(imgPreview);
+   
     let file;
     let imageData;
   if (!event?.target) {
@@ -108,9 +104,9 @@ console.log(userRole)
     const reader = new FileReader();
     reader.onload = async () => {
       imageData = reader.result;
-      console.log(imageData)
+      
           setFormData({ ...formData, ["FourPowerWindowss"]: imageData });
-  
+          if (lables) {
       const inspectionData = {
         documentType: "Inspection Report",
         beadingCarId: beadingCarId,
@@ -123,9 +119,11 @@ console.log(userRole)
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
         refetch()
-        console.log(res);
+        
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
+          setLables('');
+          setSelectfiled('');
         } else {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
@@ -133,12 +131,15 @@ console.log(userRole)
         console.error('Error uploading the file:', error);
         alert("Data not Uploaded");
       }
+    } else {
+      toast.error("Labels are required to submit the form", { autoClose: 2000 });
+    }
     };
     reader.readAsDataURL(file);
   };
   
   const handleSubmitWithoutImage = async () => {
-  
+    if (lables) {
     const formDataToSend1 = new FormData();
     formDataToSend1.append('beadingCarId', beadingCarId);
     formDataToSend1.append('doctype', "Interior");
@@ -149,9 +150,11 @@ console.log(userRole)
     try {
       const res = await addBiddingCarWithoutImage({formDataToSend1});
       refetch()
-      console.log(res);
+      
       if (res.data?.message === "success") {
         toast.success("Data Uploaded", { autoClose: 500 });
+        setLables('');
+          setSelectfiled('');
       } else {
         toast.error("Data Upload failed", { autoClose: 500 });
       }
@@ -159,6 +162,9 @@ console.log(userRole)
       
       toast.error("Data not Uploaded", { autoClose: 500 });
     }
+  } else {
+    toast.error("Labels are required to submit the form", { autoClose: 2000 });
+  }
   };
 
   // const handleCaptureImage = (imageUrl) => {
@@ -227,7 +233,7 @@ console.log(userRole)
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
         refetch()
-        console.log(res);
+        
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
         } else {
@@ -247,9 +253,10 @@ console.log(userRole)
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Leather Seat</InputLabel>
             <Select
+            required
               name="LeatherSeat"
               value={formData.LeatherSeat}
               onChange={handleChange}
@@ -294,9 +301,10 @@ console.log(userRole)
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Odometer</InputLabel>
             <Select
+            required
               name="Odometer"
               value={formData.Odometer}
               onChange={handleChange}
@@ -341,9 +349,10 @@ console.log(userRole)
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Cabin Floor</InputLabel>
             <Select
+            required
               name="CabinFloor"
               value={formData.CabinFloor}
               onChange={handleChange}
@@ -393,9 +402,10 @@ console.log(userRole)
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Dashboard</InputLabel>
             <Select
+            required
               name="Dashboard"
               value={formData.Dashboard}
               onChange={handleChange}

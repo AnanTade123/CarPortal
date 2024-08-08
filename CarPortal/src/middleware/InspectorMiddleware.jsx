@@ -13,11 +13,11 @@ const InspectorMiddleware = ({ allowedRoles }) => {
   let jwtDecodes;
   if (token) {
     jwtDecodes = jwtDecode(token);
-    console.log(jwtDecodes)
+    
   }
 
   const userRole = token ? jwtDecodes.authorities[0] : null;
-  console.log(userRole)
+  
   useEffect(() => {
     if (!allowedRoles.includes(userRole)) {
       return alert("You must be an Inspector to access this page.");

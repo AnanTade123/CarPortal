@@ -14,9 +14,9 @@ import { useParams } from "react-router-dom";
 
 export default function FinalReport() {
 const {beadingCarId} = useParams()
-console.log(beadingCarId)
+
   const {data : inspData} = useFinalInspectionQuery(beadingCarId);
-console.log(inspData)
+
   const [activeTab, setActiveTab] = React.useState("important documen");
   const data = [
     {

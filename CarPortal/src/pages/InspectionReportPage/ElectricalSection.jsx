@@ -17,9 +17,9 @@ const ElectricalSection = () => {
     
   });
   const { beadingCarId } = useParams();
-  console.log(beadingCarId);
+  
   const { data } = useGetInspectionReportQuery({ beadingCarId, docType: "Eletrical" });
-  console.log(data)
+  
   const [images, setImages] = useState({
     FourPowerWindowss: null,
     AirBagFeaturess: null,

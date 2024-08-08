@@ -442,6 +442,22 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         </Typography>
       </Link>
 
+      <Link to={"/premiumcars"}>
+          <Typography
+            as="li"
+            variant="small"
+            color="blue-gray"
+            className={`p-3 rounded-md font-normal ${
+              window.location.pathname === "/premiumcars"
+                ? "bg-indigo-200 text-white"
+                : ""
+            }`}
+            onClick={handleMenuItemClick}
+          >
+           Premium Cars
+          </Typography>
+        </Link>
+
       {userRole == "DEALER" ||
       userRole == "INSPECTOR" ||
       userRole == "SALESPERSON" ? null : (

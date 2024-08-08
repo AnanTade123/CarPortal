@@ -48,7 +48,7 @@ const FilterCars = ({ setUrlState }) => {
       model,
     });
   };
-  
+
   const [filterForm, setFilterForm] = useState({
     area: "",
     year: "",
@@ -144,12 +144,25 @@ const FilterCars = ({ setUrlState }) => {
     { transmission: "Automatic" },
     { transmission: "Manual" },
   ];
+
+  const handleSliderChange = (event, newValue) => {
+    const [min, max] = newValue;
+    if (max - min >= 500000) {
+      setValue(newValue);
+    } else {
+      if (min === value[0]) {
+        setValue([value[0], value[0] + 500000]);
+      } else {
+        setValue([value[1] - 500000, value[1]]);
+      }
+    }
+  };
   return (
     <div className="border-2 shadow-lg rounded-lg">
       <div className="flex justify-end mr-5 ">
         <button
           type="button"
-          className="md:hidden -mt-10 text-black font-bold flex hover:rounded-2xl hover:p-2 hover:shadow-2xl hover:border-2"
+          className="md:hidden -mt-10 text-black font-bold flex hover:rounded-2xl hover:shadow-2xl "
           onClick={() => setShowFilters(!showFilters)}
         >
           <span className="mt-1 mr-1">
@@ -180,16 +193,16 @@ const FilterCars = ({ setUrlState }) => {
               <div className="flex justify-center items-center">
                 <div style={{ width: "300px" }}></div>
               </div>
-              <div className="flex justify-between mx-3">
+              <div className="flex justify-evenly gap-3">
                 <div className="flex flex-col items-center">
                   <span className="bg-white text-black p-2 border-2 border-gray-300">
-                    ₹ {formattedAmountMin}
+                    ₹{formattedAmountMin}
                   </span>
                   <div className="text-black mt-1">Min</div>
                 </div>
                 <div className="flex flex-col items-center">
                   <span className="bg-white text-black p-2 border-2 border-gray-300">
-                    ₹ {formattedAmountMax}
+                    ₹{formattedAmountMax}
                   </span>
                   <div className="text-black mt-1">Max</div>
                 </div>
@@ -203,14 +216,12 @@ const FilterCars = ({ setUrlState }) => {
                     className="w-full"
                     color="black"
                     value={value}
-                    onChange={(e) => setValue(e.target.value)}
+                    onChange={handleSliderChange}
                     valueLabelDisplay="auto"
                     min={30000}
                     max={10000000}
                     step={25000}
-                    getAriaLabel={(index) =>
-                      index === 0 ? "Minimum price" : "Maximum price"
-                    }
+                    disableSwap
                   />
                 </div>
                 <div className="flex text-center font-bold font-[latto] text-black">
@@ -222,8 +233,10 @@ const FilterCars = ({ setUrlState }) => {
                 freeSolo
                 options={AreaData}
                 getOptionLabel={(option) => option.area}
-                sx={{ width: "Full", background: "White" }}
-                value={filterForm.area ? { area: filterForm.area } : null} // Bind to state
+                sx={{ width: "100%", background: "White" }}
+                value={
+                  filterForm.area ? { area: filterForm.area } : { area: "" }
+                }
                 onInputChange={(event, newInputValue) => {
                   setFilterForm((prevForm) => ({
                     ...prevForm,
@@ -245,7 +258,7 @@ const FilterCars = ({ setUrlState }) => {
                 options={AreaData}
                 getOptionLabel={(option) => option.year.toString()}
                 sx={{ width: "Full", background: "White" }}
-                value={filterForm.year ? { year: filterForm.year } : null} // Bind to state
+                value={filterForm.year ? { year: filterForm.year } : {year :""}} // Bind to state
                 onInputChange={(event, newInputValue) => {
                   setFilterForm((prevForm) => ({
                     ...prevForm,
@@ -294,7 +307,7 @@ const FilterCars = ({ setUrlState }) => {
                 getOptionLabel={(option) => option.fuelType}
                 sx={{ width: "Full", background: "White" }}
                 value={
-                  filterForm.fuelType ? { fuelType: filterForm.fuelType } : null
+                  filterForm.fuelType ? { fuelType: filterForm.fuelType } : {fuelType:""}
                 } // Bind to state
                 onInputChange={(event, newInputValue) => {
                   setFilterForm((prevForm) => ({
@@ -322,7 +335,7 @@ const FilterCars = ({ setUrlState }) => {
                 value={
                   filterForm.transmission
                     ? { transmission: filterForm.transmission }
-                    : null
+                    : {transmission:""}
                 } // Bind to state
                 onInputChange={(event, newInputValue) => {
                   setFilterForm((prevForm) => ({

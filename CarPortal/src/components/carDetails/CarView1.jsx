@@ -24,6 +24,16 @@ const CarView1 = ({ carId }) => {
   const { data, isLoading, error } = useGetCarImageByIdQuery({ carId });
   console.log(data);
 
+
+  if (!data) {
+    return null
+  }
+  const reorderedData = [
+    ...data.object.filter(item => item.documentType === 'coverImage'),
+    ...data.object.filter(item => item.documentType !== 'coverImage')
+  ];
+  console.log(reorderedData)
+
   if (isLoading) return <div>Loading...</div>;
   if (error)
     return (
@@ -80,8 +90,8 @@ const CarView1 = ({ carId }) => {
 
         {interior && (
           <Carousel className="bg-white rounded-lg shadow-md absolute inset-0 blurred-bg" style="background-image: url('https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=600');">
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
+            {reorderedData.length > 0 ? (
+              reorderedData.map((item) => (
                 // <div key={item.documentId} className="absolute inset-0 blurred-bg" style="background-image: url('https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=600');">
                   <img
                     key={item.documentId}
@@ -108,14 +118,14 @@ const CarView1 = ({ carId }) => {
 
         {exterior && (
           <Carousel className="bg-white rounded-lg shadow-md ">
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
+            {reorderedData.length > 0 ? (
+              reorderedData.map((item) => (
                 <div  key={item.documentId} className="relative overscroll-y-none">
                 <img
                   key={item.documentId}
                   src={item.documentLink}
                   alt={`Car Image ${item.documentId}`}
-                  className="w-full h-[49vh] md:h-[75vh] relative blur-md bg-cover overflow-hidden"
+                  className="w-full h-[27vh] md:h-[50vh] carousel-height relative blur-md bg-cover overflow-hidden"
                 />
                 <img
                   key={item.documentId}
@@ -141,8 +151,8 @@ const CarView1 = ({ carId }) => {
 
         {features && (
           <Carousel className="bg-white rounded-lg shadow-md ">
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
+            {reorderedData.length > 0 ? (
+              reorderedData.map((item) => (
                 <img
                   key={item.documentId}
                   src={item.documentLink}
@@ -166,8 +176,8 @@ const CarView1 = ({ carId }) => {
 
         {tyres && (
           <Carousel className="bg-white rounded-lg shadow-md">
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
+            {reorderedData.length > 0 ? (
+              reorderedData.map((item) => (
                 <img
                   key={item.documentId}
                   src={item.documentLink}
@@ -191,8 +201,8 @@ const CarView1 = ({ carId }) => {
 
         {engines && (
           <Carousel className="bg-white rounded-lg shadow-md  ">
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
+            {reorderedData.length > 0 ? (
+              reorderedData.map((item) => (
                 <img
                   key={item.documentId}
                   src={item.documentLink}

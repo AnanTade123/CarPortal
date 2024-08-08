@@ -19,10 +19,10 @@ const UserInfo = () => {
     jwtDecodes = jwtDecode(token);
   }
   const userProfileId = token ? jwtDecodes?.userProfileId : null;
-  console.log(userProfileId )
+  
   const { data } = useGetUserByIdQuery(userProfileId);
 
-  console.log(data);
+  
   if (!data) {
     return <div>
      <p>No Data Found</p>
@@ -31,10 +31,10 @@ const UserInfo = () => {
 
   return (
     <>
-      <div className="text-3xl font-bold mt-5 md:ml-16 md:mb-[-5rem]">
+      <div className="text-3xl font-bold mt-5 mb-4 md:ml-16 xl:mb-[-5rem]  md:mb-8">
        User Information
       </div>
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center   xl:h-screen ">
         <div className="w-full max-w-4xl flex flex-col md:flex-row shadow-xl">
           <div className="w-full md:w-1/2">
             <img

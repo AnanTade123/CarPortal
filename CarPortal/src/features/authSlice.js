@@ -17,7 +17,7 @@ export const authSlice = createSlice({
       state.error = null;
     },
     setToken: (state, action) => {
-      console.log(action.payload)
+     
       state.token = action.payload;
       Cookies.set("token", action.payload); // Save token to cookies
     },

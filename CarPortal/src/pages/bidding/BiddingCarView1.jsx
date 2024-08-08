@@ -14,6 +14,15 @@ const BiddingCarView1 = ({ beadingCarId }) => {
 
   const { data, isLoading, error } = useGetbeadingCarImageQuery({beadingCarId});
 console.log(data)
+if (!data) {
+  return null
+}
+const reorderedData = [
+  ...data.object.filter(item => item.doctype === 'coverImage'),
+  ...data.object.filter(item => item.doctype !== 'coverImage')
+];
+console.log(reorderedData)
+
   if (isLoading) return <div>Loading...</div>;
   if (error)
     return (
@@ -41,8 +50,8 @@ console.log(data)
             prevButtonOptions={{ style: { backgroundColor: '#000000' } }}
             nextButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
           >
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
+            {reorderedData.length > 0 ? (
+              reorderedData.map((item) => (
                 <img
                   key={item.documentId}
                   src={item.documentLink}
@@ -71,14 +80,22 @@ console.log(data)
             prevButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
             nextButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
           >
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
-                <img
-                  key={item.documentId}
-                  src={item.documentLink}
-                  alt={`Car Image ${item.documentId}`}
-                  className="object-contain w-full h-full"
-                />
+            {reorderedData.length > 0 ? (
+              reorderedData.map((item) => (
+                <div  key={item.documentId} className="relative overscroll-y-none">
+                  <img
+                    key={item.documentId}
+                    src={item.documentLink}
+                    alt={`Car Image ${item.documentId}`}
+                    className="w-full h-[27vh] md:h-[50vh] carousel-height relative blur-md bg-cover overflow-hidden"
+                  />
+                  <img
+                    key={item.documentId}
+                    src={item.documentLink}
+                    alt={`Car Image ${item.documentId}`}
+                    className="object-contain w-full h-full absolute top-0 md:top-3 px-3"
+                  />
+                </div>
               ))
             ) : (
               <div className="text-center mt-2">
@@ -101,8 +118,8 @@ console.log(data)
             prevButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
             nextButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
           >
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
+            {reorderedData.length > 0 ? (
+              reorderedData.map((item) => (
                 <img
                   key={item.documentId}
                   src={item.documentLink}
@@ -131,8 +148,8 @@ console.log(data)
             prevButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
             nextButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
           >
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
+            {reorderedData.length > 0 ? (
+              reorderedData.map((item) => (
                 <img
                   key={item.documentId}
                   src={item.documentLink}
@@ -161,8 +178,8 @@ console.log(data)
             prevButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
             nextButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
           >
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
+            {reorderedData.length > 0 ? (
+              reorderedData.map((item) => (
                 <img
                   key={item.documentId}
                   src={item.documentLink}

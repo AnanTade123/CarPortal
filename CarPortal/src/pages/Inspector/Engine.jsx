@@ -35,9 +35,9 @@ const useStyles = makeStyles((theme) => ({
 const Engine = () => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
-  console.log(beadingCarId);
+ 
   const { data ,refetch} = useGetInspectionReportQuery({ beadingCarId, docType: "Engine" });
-  console.log(data);
+ 
  
 
   const [formData, setFormData] = useState({
@@ -73,8 +73,7 @@ const Engine = () => {
   const [selectedLable ,setSelectedLable] = useState("");
   const [lables, setLables] = useState("");
   const [selectfiled, setSelectfiled] = useState("")
-  console.log(selectfiled)
-  console.log(lables)
+  
  
   const token = Cookies.get("token");
   let jwtDecodes;
@@ -131,11 +130,11 @@ const Engine = () => {
   }, [data]);
 
   const handleFileChange = async (event, fieldName, imgPreview = "") => {
-    console.log(imgPreview);
+   
     let file;
     let imageData;
   if (!event?.target) {
-      console.log("name");
+      
       file = event;
       imageData = file;
     } else {
@@ -150,9 +149,9 @@ const Engine = () => {
     const reader = new FileReader();
     reader.onload = async () => {
       imageData = reader.result;
-      console.log(imageData)
+      
           setFormData({ ...formData, ["FourPowerWindowss"]: imageData });
-  
+          if (lables) {
       const inspectionData = {
         documentType: "Inspection Report",
         beadingCarId: beadingCarId,
@@ -165,9 +164,11 @@ const Engine = () => {
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
         refetch()
-        console.log(res);
+       
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
+          setLables('');
+          setSelectfiled('');
         } else {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
@@ -175,12 +176,15 @@ const Engine = () => {
         console.error('Error uploading the file:', error);
         alert("Data not Uploaded");
       }
+    } else {
+      toast.error("Labels are required to submit the form", { autoClose: 2000 });
+    }
     };
     reader.readAsDataURL(file);
   };
   
   const handleSubmitWithoutImage = async () => {
-  
+    if (lables) {
     const formDataToSend1 = new FormData();
     formDataToSend1.append('beadingCarId', beadingCarId);
     formDataToSend1.append('doctype', "Engine");
@@ -191,11 +195,12 @@ const Engine = () => {
     try {
       const res = await addBiddingCarWithoutImage({formDataToSend1});
       refetch()
-      console.log(res);
+     
       if (res.data?.message === "success") {
         
         toast.success("Data Uploaded", { autoClose: 500 });
-        
+        setLables('');
+          setSelectfiled('');
       } else {
         toast.error("Data Upload failed", { autoClose: 500 });
       }
@@ -203,6 +208,9 @@ const Engine = () => {
       
       toast.error("Data not Uploaded", { autoClose: 500 });
     }
+  } else {
+    toast.error("Labels are required to submit the form", { autoClose: 2000 });
+  }
   };
 
   const handleCameraModal = (key) => {
@@ -223,8 +231,7 @@ const Engine = () => {
       setSelectfiled(value);
     }
   };
-  console.log(selectfiled)
-  console.log(lables)
+ 
 
   // const handleImageClick = (image) => {
   //   setSelectedImage(image);
@@ -257,7 +264,7 @@ const Engine = () => {
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
         refetch()
-        console.log(res);
+        
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
         } else {
@@ -277,9 +284,10 @@ const Engine = () => {
       
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Engine</InputLabel>
             <Select
+            required
               name="Engine"
               value={formData.Engine}
               onChange={handleChange}
@@ -329,9 +337,10 @@ const Engine = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Engine Mounting</InputLabel>
             <Select
+            required
               name="EngineMounting"
               value={formData.EngineMounting}
               onChange={handleChange}
@@ -377,9 +386,10 @@ const Engine = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Engine Sound</InputLabel>
             <Select
+            required
               name="EngineSound"
               value={formData.EngineSound}
               onChange={handleChange}
@@ -426,9 +436,10 @@ const Engine = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Exhaust Smoke</InputLabel>
             <Select
+            required
               name="Exhaustsmoke"
               value={formData.Exhaustsmoke}
               onChange={handleChange}
@@ -474,9 +485,10 @@ const Engine = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Gearbox</InputLabel>
             <Select
+            required
               name="Gearbox"
               value={formData.Gearbox}
               onChange={handleChange}
@@ -522,9 +534,10 @@ const Engine = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Engine Oil</InputLabel>
             <Select
+            required
               name="Engineoil"
               value={formData.Engineoil}
               onChange={handleChange}
@@ -569,9 +582,10 @@ const Engine = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Battery</InputLabel>
             <Select
+            required
               name="Battery"
               value={formData.Battery}
               onChange={handleChange}
@@ -618,9 +632,10 @@ const Engine = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Coolant</InputLabel>
             <Select
+            required
               name="Coolant"
               value={formData.Coolant}
               onChange={handleChange}
@@ -665,9 +680,10 @@ const Engine = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Clutch</InputLabel>
             <Select
+            required
               name="Clutch"
               value={formData.Clutch}
               onChange={handleChange}

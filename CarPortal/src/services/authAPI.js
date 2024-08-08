@@ -6,7 +6,7 @@ export const authApi = apiSlice.injectEndpoints({
       query: (formData) => ({
         url: "/jwt/login",
         method: "POST",
-        transformResponse:console.log(formData),
+       
         body: formData,
       }),
       invalidatesTags: ["User", "Dealer"],
@@ -15,7 +15,7 @@ export const authApi = apiSlice.injectEndpoints({
       query:(formData)=>({
         url:"/account/register",
         method:"POST",
-        transformResponse:console.log(formData),
+        
         body:formData
       }),
       invalidatesTags: ["User", "Dealer"],

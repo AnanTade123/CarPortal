@@ -12,7 +12,7 @@ import { useNavigate } from "react-router";
 
 const HeroSection = () => {
   // const [locationState, setLocation] = useState("");
-const navigate = useNavigate();
+  const navigate = useNavigate();
   // const [carBrandState, setCarBrand] = useState("");
   const submitHandler = (e) => {
     e.target.value;
@@ -96,8 +96,8 @@ const navigate = useNavigate();
       loop
     >
       <div className="flex justify-between overflow-hidden">
-        <div className="md:pl-28 p-4 h-[400px] md:h-[300px] bg-blue-100 w-full">
-          <p className="flex mb-1 justify-center items-center md:justify-start font-[latto] font-semibold text-2xl md:mt-8 md:text-4xl lg:text-4xl opacity-0 animate-slidein [--slidein-delay:300ms]">
+        <div className="lg:pl-28 md:pl-16 p-4 h-[400px] md:h-[300px] bg-blue-100 w-full">
+          <p className="flex mb-1 justify-center items-center md:justify-start font-[latto] font-semibold text-2xl md:mt-1 md:text-4xl lg:text-4xl opacity-0 animate-slidein [--slidein-delay:300ms]">
             Welcomes to CarTechIndia
           </p>
           <p className="flex justify-center mb-1 items-center md:justify-start text-xl md:mb-3 md:text-2xl lg:text-2xl font-[latto] animate-slidein [--slidein-delay:600ms] opacity-0 ">
@@ -118,7 +118,7 @@ const navigate = useNavigate();
             label="Location"
             placeholder="Search by location"
             name="location"
-	@@ -126,143 +49,40 @@ const HeroSection = () => {
+	       @@ -126,143 +49,40 @@ const HeroSection = () => {
             value={carBrandState}
             type="text"
           /> */}
@@ -151,7 +151,7 @@ const navigate = useNavigate();
           <img
             alt="car"
             src={carGroup}
-            className="w-[16rem] hidden md:w-[30rem] lg:w-[50rem] md:block"
+            className="w-[16rem] hidden md:mt-[5rem] lg:mt-0 md:w-[35rem] lg:w-[50rem] md:block"
           />
         </div>
       </div>
@@ -167,11 +167,11 @@ const navigate = useNavigate();
           className="h-[400px] w-full object-cover block lg:hidden absolute"
         />
         <div className="absolute grid h-full w-full">
-          <div className="w-full m-4 md:ml-16 md:w-2/4 absolute">
+          <div className="w-full mt-4 md:ml-14 md:w-3/4 lg:ml-16 lg:w-2/4">
             <Typography
               variant="h1"
               color="white"
-              className="mb-4 lg:w-3/4 mt-3 text-black font-[latto] mx-4 text-3xl md:text-4xl lg:text-4xl"
+              className="mb-4 lg:w-3/4 text-black font-[latto] px-7 md:px-2 text-3xl md:text-4xl lg:text-4xl"
             >
               The Best Cars For The Best Journey
             </Typography>
@@ -185,7 +185,7 @@ const navigate = useNavigate();
             </Typography> */}
             <Button
               onClick={submitHandler}
-              className="mt-2 mx-5 md:mt-20 flex items-center gap-2 animate-slidein [--slidein-delay:950ms] opacity-0"
+              className="mt-2 mx-7 md:mx-3 md:mt-5 lg:mt-12 flex items-center gap-2 animate-slidein [--slidein-delay:950ms] opacity-0"
             >
               Get Started{" "}
               <svg
@@ -218,11 +218,11 @@ const navigate = useNavigate();
           className="h-[400px] w-full object-cover block lg:hidden absolute"
         />
         <div className="absolute grid h-full w-full bg-black/50">
-          <div className="w-full m-4 md:ml-16 md:w-2/4 absolute">
+          <div className="w-full mt-4 md:ml-14 md:w-3/4 lg:ml-16 lg:w-2/4">
             <Typography
               variant="h1"
               color="white"
-              className="mb-4 lg:w-3/4 mt-3 text-white font-[latto] mx-4 text-3xl md:text-4xl lg:text-4xl"
+              className="mb-4 lg:w-3/4 text-white font-[latto] px-7 text-3xl md:text-4xl lg:text-4xl"
             >
               The Best Cars For The Best Journey
             </Typography>
@@ -236,7 +236,7 @@ const navigate = useNavigate();
             </Typography> */}
             <Button
               onClick={submitHandler}
-              className="mt-2 mx-5 md:mt-20 flex items-center gap-2 animate-slidein [--slidein-delay:950ms] opacity-0"
+              className="mt-2 mx-7 md:mt-5 md:mx-3 lg:mt-12 flex items-center gap-2 animate-slidein [--slidein-delay:950ms] opacity-0"
             >
               Get Started{" "}
               <svg

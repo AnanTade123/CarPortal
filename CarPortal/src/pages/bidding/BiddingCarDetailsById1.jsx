@@ -5,12 +5,15 @@
 // import CarView from "../../components/carDetails/CarView";
 // import PriceCard from "../../components/carDetails/PriceCard";
 import { useParams } from "react-router-dom";
-import { useGetbeadingCarImageQuery, useGetbeadingCarByIdQuery } from "../../services/biddingAPI";
+import {
+  useGetbeadingCarImageQuery,
+  useGetbeadingCarByIdQuery,
+} from "../../services/biddingAPI";
 // import { redirectToSignIn } from "../services/apiSlice";
 import { useNavigate } from "react-router-dom";
 import BiddingCarView from "./BiddingCarView";
 import BiddingPriceCard from "./BiddingPriceCard";
-import { Client } from '@stomp/stompjs';
+import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client/dist/sockjs";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
@@ -29,11 +32,10 @@ export default function BiddingCarDetailsById1() {
   }
 
   if (error?.status === 401) {
-
     navigate("/signin");
-    return null
+    return null;
   }
-  console.log(data);
+  
   const {
     buttonStart,
     abs,
@@ -59,7 +61,9 @@ export default function BiddingCarDetailsById1() {
     color,
     bodyType,
     dealerId,
-
+    insurancedate,
+    carInsuranceType,
+    insuranceType,
   } = data;
 
   const handleMessage = (msg, action) => {
@@ -82,6 +86,9 @@ export default function BiddingCarDetailsById1() {
           transmission={transmission}
           year={year}
           carInsurance={carInsurance}
+          insurancedate={insurancedate}
+          insuranceType={insuranceType}
+          carInsuranceType={carInsuranceType}
           kmDriven={kmDriven}
           acFeature={acFeature}
           musicFeature={musicFeature}
@@ -118,6 +125,5 @@ export default function BiddingCarDetailsById1() {
         />
       </div>
     </div>
-
-  )
+  );
 }

@@ -5,7 +5,7 @@ export const dealerAPI = apiSlice.injectEndpoints({
     getAllDealer: builder.query({
       query: (pageNo) => ({
         url: `/dealer/allDealers/${pageNo}`,
-        transferResponce: console.log(pageNo),
+        
         method: "GET",
       }),
       providesTags: (result) =>
@@ -32,7 +32,7 @@ export const dealerAPI = apiSlice.injectEndpoints({
     getDealer: builder.query({
       query: ({ id }) => ({
         url: `/dealer/${id}`,
-        transerResponse: console.log(id),
+        
       }),
       providesTags: ["Dealer", "user"],
     }),
@@ -50,7 +50,7 @@ export const dealerAPI = apiSlice.injectEndpoints({
     getAllDealerCompleteBooking: builder.query({
       query: ({ pageNo, id }) => ({
         url: `/confirmBooking/getAllBookingsByDealerId?pageNo=${pageNo}&dealerId=${id}`,
-        transerResponse: console.log(pageNo, id),
+        
       }),
       providesTags: ["DEALERBOOKING"],
     }),
