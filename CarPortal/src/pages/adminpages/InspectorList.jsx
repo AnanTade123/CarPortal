@@ -21,7 +21,7 @@ export default function InspectorList() {
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(7);
   const { data, isLoading, error } = useGetallInspectorQuery({ pageNo, pageSize });
-  console.log(data)
+  
   const navigate = useNavigate();
   if (error?.status === 401) {
     return navigate("/signin");
@@ -78,7 +78,7 @@ export default function InspectorList() {
       accessor: "status",
       Cell: (cell) => {
         const a = cell.row.values.status
-        console.log("Status",a);
+        
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
@@ -94,7 +94,7 @@ export default function InspectorList() {
       Header: "Actions",
       accessor: "Actions",
       Cell: (cell) => {
-        console.log(cell.row.values.userId)
+        
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">

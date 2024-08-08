@@ -5,7 +5,7 @@ export const salesAPI = apiSlice.injectEndpoints({
     getAllSeller: builder.query({
       query: ({pageNo,pageSize}) => ({
         url: `/salesPerson/GetAllInspProfiles?pageNo=${pageNo}&pageSize=${pageSize}`,
-        transferResponce: console.log(pageNo),
+        
         method: "GET",
       }),
       providesTags: (result) =>

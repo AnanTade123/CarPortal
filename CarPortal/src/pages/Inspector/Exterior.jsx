@@ -40,9 +40,9 @@ const useStyles = makeStyles((theme) => ({
 const Exterior = () => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
-  console.log(beadingCarId);
+  
   const { data,refetch } = useGetInspectionReportQuery({ beadingCarId, docType: "Exterior" });
-  console.log(data);
+  
   
 const [formData, setFormData] = useState({
     BonnetHood: [],
@@ -218,7 +218,7 @@ const [formData, setFormData] = useState({
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
         refetch()
-        console.log(res);
+        
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
           setLables('');
@@ -310,7 +310,7 @@ const [formData, setFormData] = useState({
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
         refetch()
-        console.log(res);
+       
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
         } else {

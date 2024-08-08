@@ -23,7 +23,7 @@ export const biddingAPI = apiSlice.injectEndpoints({
     biddingCarByDealerId: builder.query({
       query: (UserID) => ({
         url: `/BeadingCarController/getByUserId1/${UserID}`,
-        transferResponse: console.log(UserID),
+       
         method: "GET",
       }),
       providesTags: ["BIDDING"],
@@ -32,7 +32,7 @@ export const biddingAPI = apiSlice.injectEndpoints({
     biddingCarById: builder.query({
       query: (carId) => ({
         url: `/BeadingCarController/getbyId/${carId}`,
-        transferResponse: console.log(carId),
+       
         method: "GET",
       }),
       providesTags: ["BIDDING"],
@@ -105,7 +105,7 @@ export const biddingAPI = apiSlice.injectEndpoints({
       query: ({beadingCarId}) => ({
         url: `/uploadFileBidCar/getByBidCarID?beadingCarId=${beadingCarId}`,
         method: "GET",
-        transferResponse: console.log("Data to backend :- ", beadingCarId),
+       
       }),
       providesTags: ["BIDDING","SALESPERSON"],
     }),
@@ -121,7 +121,7 @@ export const biddingAPI = apiSlice.injectEndpoints({
     getbeadingGetById: builder.query({
       query:(beadingCarId) => ({
         url: `/BeadingCarController/getbyId/${beadingCarId}`,
-        transferResponse: console.log(beadingCarId),
+       
         method: "GET",
       }),
       providesTags: ["BIDDING"],

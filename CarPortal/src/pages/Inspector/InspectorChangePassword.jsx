@@ -23,7 +23,6 @@ if (token)
 
 const navigate = useNavigate()
 const InspectorProfileId = token ? jwtDecodes?.inspectorProfileId : null;
-console.log("InspectorProfileId",InspectorProfileId)
 
   const [showPassword, setShowPassword] = useState(false);
   const [formStateData, setFormData] = useState({
@@ -115,7 +114,7 @@ const [changePassword] = useInspChangePasswordMutation()
       try {
         
           const res = await changePassword({passChange,InspectorProfileId});
-          console.log(res)
+          
           
           if (res?.data.code === "Successful") {
             toast.success(`${res?.data.message}`)

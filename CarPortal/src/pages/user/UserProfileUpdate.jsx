@@ -12,10 +12,10 @@ import 'react-toastify/dist/ReactToastify.css';
 const   UserProfileUpdate = () => {
   const { userProfileId } = useParams();
  
-  console.log(userProfileId)
+ 
   const navigate = useNavigate();
   const { data, isLoading, isError, error } = useGetUserByIdQuery( userProfileId );
-  console.log(data)
+ 
    const [Userupdate] = useUserupdateMutation();
  
   const [inputField, setInputField] = React.useState({
@@ -67,7 +67,7 @@ const   UserProfileUpdate = () => {
     try {
       const res = await Userupdate({userupdate ,userProfileId }).unwrap();
      
-      console.log("Update Response:", res);
+      
       if (res.code === 'Successful') {
         toast.success("Changes successful", {
          // autoClose: 2000,

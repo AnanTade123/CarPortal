@@ -44,9 +44,9 @@ const useStyles = makeStyles((theme) => ({
 const Tyre = () => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
-  console.log(beadingCarId);
+  
   const { data,refetch } = useGetInspectionReportQuery({ beadingCarId, docType: "Exterior" });
-  console.log(data);
+  
 
 
   const [formData, setFormData] = useState({
@@ -80,7 +80,7 @@ const Tyre = () => {
   }
 
   const userRole = token ? jwtDecodes?.authorities[0] : null;
-console.log(userRole)
+
  
   useEffect(() => {
     // Pre-fill form data and uploaded images based on API data
@@ -119,7 +119,7 @@ console.log(userRole)
     let file;
     let imageData;
   if (!event?.target) {
-      console.log("name");
+     
       file = event;
       imageData = file;
     } else {
@@ -140,7 +140,7 @@ console.log(userRole)
     const reader = new FileReader();
     reader.onload = async () => {
       imageData = reader.result;
-      console.log(imageData)
+     
           setFormData({ ...formData, ["FourPowerWindowss"]: imageData });
           if (lables) {
       // const inspectionData = {
@@ -155,7 +155,7 @@ console.log(userRole)
       try {
         const res = await inspectionReportNew({  formDataToSend });
         refetch()
-        console.log(res);
+        
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
           setLables('');
@@ -186,7 +186,7 @@ console.log(userRole)
     try {
       const res = await addBiddingCarWithoutImage({formDataToSend1});
       refetch()
-      console.log(res);
+      
       if (res.data?.message === "success") {
         toast.success("Data Uploaded", { autoClose: 500 });
         setLables('');
@@ -237,7 +237,7 @@ console.log(userRole)
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
         refetch()
-        console.log(res);
+       
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
         } else {
