@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import {
   Button,
@@ -114,24 +115,27 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage })
           bidError?.data?.message ==="unsuccess" ? handleMessage(bidError?.data?.exception,"error") :handleMessage(bidError?.data,"error");
         handleOpen();
         }else{
-          const createdAt = {
-            bidCarId: 0,
-            beadingCarId: biddingcarid,
-            createdAt: bidding.createdAt,
-            basePrice: bidding.basePrice,
-            userId: userid,
-        };
-        // eslint-disable-next-line no-unused-vars
-        const {data , error} = await createBidding(createdAt);
-        console.log("checkkkkMAsg",error)
-        if(error){
-          handleMessage(error?.data?.exception,"error");
-          handleMessage(error?.message,"error");
-        }else{
           handleMessage("Car set for bid","success")
         }
         handleOpen();
-      }
+        
+        // else{
+        //   const createdAt = {
+        //     bidCarId: 0,
+        //     beadingCarId: biddingcarid,
+        //     createdAt: bidding.createdAt,
+        //     basePrice: bidding.basePrice,
+        //     userId: userid,
+        // };
+        // // eslint-disable-next-line no-unused-vars
+        // const {data , error} = await createBidding(createdAt);
+        // console.log("checkkkkMAsg",error)
+        // if(error){
+        //   handleMessage(error?.data?.exception,"error");
+        //   handleMessage(error?.message,"error");
+        // }
+        
+      // }
         
       }
        }

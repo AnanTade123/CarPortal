@@ -21,6 +21,8 @@ const BiddingCarView = ({
   year,
   carInsurance,
   carInsuranceType,
+  insurancedate,
+  insuranceType,
   kmDriven,
   beadingCarId,
   data,
@@ -55,6 +57,8 @@ const BiddingCarView = ({
         carInsurance={carInsurance}
         kmDriven={kmDriven}
         carInsuranceType={carInsuranceType}
+        insuranceType={insuranceType}
+        insurancedate={insurancedate}
       />
       {/* <BiddingInspectionReport /> */}
 

@@ -58,7 +58,7 @@ const navigate = useNavigate()
     if(res.data.status ==='success'){
       toast.success(" Sucessfully Edit");
       setTimeout(() => {
-        navigate(-1);
+        navigate("/signin");
       }, 1000);
     }
     } catch (error) {

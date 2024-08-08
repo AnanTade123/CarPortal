@@ -73,12 +73,20 @@ console.log(data)
           >
             {data.object.length > 0 ? (
               data.object.map((item) => (
-                <img
-                  key={item.documentId}
-                  src={item.documentLink}
-                  alt={`Car Image ${item.documentId}`}
-                  className="object-contain w-full h-full"
-                />
+                <div  key={item.documentId} className="relative overscroll-y-none">
+                  <img
+                    key={item.documentId}
+                    src={item.documentLink}
+                    alt={`Car Image ${item.documentId}`}
+                    className="w-full h-[27vh] md:h-[50vh] carousel-height relative blur-md bg-cover overflow-hidden"
+                  />
+                  <img
+                    key={item.documentId}
+                    src={item.documentLink}
+                    alt={`Car Image ${item.documentId}`}
+                    className="object-contain w-full h-full absolute top-0 md:top-3 px-3"
+                  />
+                </div>
               ))
             ) : (
               <div className="text-center mt-2">

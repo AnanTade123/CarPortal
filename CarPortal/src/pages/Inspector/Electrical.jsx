@@ -259,9 +259,10 @@ console.log(lables)
       <Grid container spacing={3}>
         {/* Four Power Windows */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Four Power Windows</InputLabel>
             <Select
+            required
               name="FourPowerWindows"
               value={formData.FourPowerWindows}
               onChange={handleChange}
@@ -307,9 +308,10 @@ console.log(lables)
 
         {/* Air Bag Features */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Air Bag Features</InputLabel>
             <Select
+            required
               name="AirBagFeatures"
               value={formData.AirBagFeatures}
               onChange={handleChange}
@@ -355,9 +357,10 @@ console.log(lables)
 
         {/* Music System */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Music System</InputLabel>
             <Select
+            required
               name="MusicSystem"
               value={formData.MusicSystem}
               onChange={handleChange}
@@ -403,9 +406,10 @@ console.log(lables)
 
         {/* Sunroof */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Sunroof</InputLabel>
             <Select
+            required
               name="Sunroof"
               value={formData.Sunroof}
               onChange={handleChange}
@@ -451,9 +455,10 @@ console.log(lables)
 
         {/* ABS */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>ABS</InputLabel>
             <Select
+            required
               name="ABS"
               value={formData.ABS}
               onChange={handleChange}
@@ -500,9 +505,10 @@ console.log(lables)
 
         {/* Interior Parking Sensor */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Interior Parking Sensor</InputLabel>
             <Select
+            required
               name="InteriorParkingSensor"
               value={formData.InteriorParkingSensor}
               onChange={handleChange}
@@ -548,9 +554,10 @@ console.log(lables)
 
         {/* Electrical Wiring */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Electrical Wiring</InputLabel>
             <Select
+            required
               name="Electricalwiring"
               value={formData.Electricalwiring}
               onChange={handleChange}

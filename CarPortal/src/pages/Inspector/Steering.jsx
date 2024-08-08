@@ -235,9 +235,10 @@ console.log(userRole)
         </Typography>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
+            <FormControl fullWidth required>
               <InputLabel>Steering</InputLabel>
               <Select
+              required
                 name="Steering"
                 value={formData.Steering}
                 onChange={handleChange}
@@ -283,9 +284,10 @@ console.log(userRole)
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
+            <FormControl fullWidth required>
               <InputLabel>Brake</InputLabel>
               <Select
+              required
                 name="Brake"
                 value={formData.Brake}
                 onChange={handleChange}
@@ -331,9 +333,10 @@ console.log(userRole)
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
+            <FormControl fullWidth required>
               <InputLabel>Suspension</InputLabel>
               <Select
+              required
                 name="Suspension"
                 value={formData.Suspension}
                 onChange={handleChange}
