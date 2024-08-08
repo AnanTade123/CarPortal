@@ -39,7 +39,7 @@ const AdminDealerInfo = () => {
 
   return (
     <>
-      <div className="text-3xl font-bold mt-5 md:ml-16 mb-24 md:mb-0">
+      <div className="text-3xl font-bold mt-5 md:ml-16 mb-32 md:mb-0">
         Profile Information
       </div>
       <div className="flex justify-center items-center h-screen">
