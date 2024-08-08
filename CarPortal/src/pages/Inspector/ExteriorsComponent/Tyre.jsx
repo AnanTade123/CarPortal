@@ -142,7 +142,7 @@ console.log(userRole)
       imageData = reader.result;
       console.log(imageData)
           setFormData({ ...formData, ["FourPowerWindowss"]: imageData });
-  
+          if (lables) {
       // const inspectionData = {
       //   documentType: "InspectionReport",
       //   beadingCarId: beadingCarId,
@@ -158,6 +158,8 @@ console.log(userRole)
         console.log(res);
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
+          setLables('');
+          setSelectfiled('');
         } else {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
@@ -165,12 +167,15 @@ console.log(userRole)
         console.error('Error uploading the file:', error);
         alert("Data not Uploaded");
       }
+    } else {
+      toast.error("Labels are required to submit the form", { autoClose: 2000 });
+    }
     };
     reader.readAsDataURL(file);
   };
   
   const handleSubmitWithoutImage = async () => {
-  
+    if (lables) {
     const formDataToSend1 = new FormData();
     formDataToSend1.append('beadingCarId', beadingCarId);
     formDataToSend1.append('doctype', "Exterior");
@@ -184,13 +189,18 @@ console.log(userRole)
       console.log(res);
       if (res.data?.message === "success") {
         toast.success("Data Uploaded", { autoClose: 500 });
+        setLables('');
+        setSelectfiled('');
       } else {
         toast.error("Data Upload failed", { autoClose: 500 });
       }
     } catch (error) {
-      console.error('Error uploading the data:', error);
+      // console.error('Error uploading the data:', error);
       alert("Data not Uploaded")
     }
+  } else {
+    toast.error("Labels are required to submit the form", { autoClose: 2000 });
+  }
   };
 
   const handleChange= (event) => {

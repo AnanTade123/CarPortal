@@ -183,6 +183,7 @@ const [formData, setFormData] = useState({
 
 
   const handleFileChange = async (event, fieldName, imgPreview = "") => {
+    
     console.log(imgPreview);
     let file;
     let imageData;
@@ -204,7 +205,7 @@ const [formData, setFormData] = useState({
       imageData = reader.result;
       console.log(imageData);
       setFormData({ ...formData, [fieldName]: imageData });
-  
+      if (lables) {
       const inspectionData = {
         documentType: "InspectionReport",
         beadingCarId: beadingCarId,
@@ -220,7 +221,8 @@ const [formData, setFormData] = useState({
         console.log(res);
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
-          
+          setLables('');
+          setSelectfiled(''); 
         } else {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
@@ -228,34 +230,43 @@ const [formData, setFormData] = useState({
         console.error('Error uploading the file:', error);
         toast.error("Data not Uploaded", { autoClose: 500 });
       }
+    } else {
+      toast.error("Labels are required to submit the form", { autoClose: 2000 });
+    }
     };
     reader.readAsDataURL(file);
   };
   
   
   const handleSubmitWithoutImage = async () => {
+    if (lables) {
+      const formDataToSend1 = new FormData();
+      formDataToSend1.append('beadingCarId', beadingCarId);
+      formDataToSend1.append('doctype', "Exterior");
+      formDataToSend1.append('subtype', lables);
+      formDataToSend1.append('comment', selectfiled);
+      formDataToSend1.append('documentType', "InspectionReport");
+      formDataToSend1.append('doc', "");
   
-    const formDataToSend1 = new FormData();
-    formDataToSend1.append('beadingCarId', beadingCarId);
-    formDataToSend1.append('doctype', "Exterior");
-    formDataToSend1.append('subtype', lables);
-    formDataToSend1.append('comment', selectfiled);
-    formDataToSend1.append('documentType', "InspectionReport");
-    formDataToSend1.append('doc', "");
-    try {
-      const res = await addBiddingCarWithoutImage({formDataToSend1});
-      refetch()
-      console.log(res?.data.message);
-      if (res?.data.message === "success") {
-        toast.success("Data Uploaded", { autoClose: 500 });
-      } else {
-        toast.error("Data Upload failed", { autoClose: 500 });
+      try {
+        const res = await addBiddingCarWithoutImage({ formDataToSend1 });
+        refetch();
+        console.log(res?.data.message);
+        if (res?.data.message === "success") {
+          toast.success("Data Uploaded", { autoClose: 500 });
+          setLables('');
+          setSelectfiled('');
+        } else {
+          toast.error("Data Upload failed", { autoClose: 500 });
+        }
+      } catch (error) {
+        toast.error("Data not Uploaded", { autoClose: 500 });
       }
-    } catch (error) {
-      
-      toast.error("Data not Uploaded", { autoClose: 500 });
+    } else {
+      toast.error("Labels are required to submit the form", { autoClose: 2000 });
     }
   };
+  
 
  
   const handleCameraModal = (key) => {
