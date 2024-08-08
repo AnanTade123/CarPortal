@@ -147,13 +147,13 @@ const FilterCars = ({ setUrlState }) => {
 
   const handleSliderChange = (event, newValue) => {
     const [min, max] = newValue;
-    if (max - min >= 2000000) {
+    if (max - min >= 500000) {
       setValue(newValue);
     } else {
       if (min === value[0]) {
-        setValue([value[0], value[0] + 2000000]);
+        setValue([value[0], value[0] + 500000]);
       } else {
-        setValue([value[1] - 2000000, value[1]]);
+        setValue([value[1] - 500000, value[1]]);
       }
     }
   };
@@ -162,7 +162,7 @@ const FilterCars = ({ setUrlState }) => {
       <div className="flex justify-end mr-5 ">
         <button
           type="button"
-          className="md:hidden -mt-10 text-black font-bold flex hover:rounded-2xl hover:p-2 hover:shadow-2xl "
+          className="md:hidden -mt-10 text-black font-bold flex hover:rounded-2xl hover:shadow-2xl "
           onClick={() => setShowFilters(!showFilters)}
         >
           <span className="mt-1 mr-1">
@@ -193,16 +193,16 @@ const FilterCars = ({ setUrlState }) => {
               <div className="flex justify-center items-center">
                 <div style={{ width: "300px" }}></div>
               </div>
-              <div className="flex justify-between mx-3">
+              <div className="flex justify-evenly gap-3">
                 <div className="flex flex-col items-center">
                   <span className="bg-white text-black p-2 border-2 border-gray-300">
-                    ₹ {formattedAmountMin}
+                    ₹{formattedAmountMin}
                   </span>
                   <div className="text-black mt-1">Min</div>
                 </div>
                 <div className="flex flex-col items-center">
                   <span className="bg-white text-black p-2 border-2 border-gray-300">
-                    ₹ {formattedAmountMax}
+                    ₹{formattedAmountMax}
                   </span>
                   <div className="text-black mt-1">Max</div>
                 </div>

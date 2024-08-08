@@ -35,7 +35,7 @@ export default function BiddingCarDetailsById1() {
     navigate("/signin");
     return null;
   }
-  console.log(data);
+  
   const {
     buttonStart,
     abs,
@@ -72,7 +72,7 @@ export default function BiddingCarDetailsById1() {
     } else {
       toast.success(msg);
     }
-  };
+  }
 
   return (
     <div className="grid grid-flow-row-dense md:grid-cols-3 gap-4 container mx-auto">

@@ -16,7 +16,7 @@ const EditCarForm = ({ initialData, brandDataId ,onSave}) => {
     initialData || { brand: "", model: "", variant: "" }
   );
   const [editBrandData] = useEditBrandDataMutation();
-  console.log("brandDataId", brandDataId);
+  
   useEffect(() => {
     if (initialData) {
       setInputField(initialData);

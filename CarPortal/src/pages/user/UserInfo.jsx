@@ -19,10 +19,10 @@ const UserInfo = () => {
     jwtDecodes = jwtDecode(token);
   }
   const userProfileId = token ? jwtDecodes?.userProfileId : null;
-  console.log(userProfileId )
+  
   const { data } = useGetUserByIdQuery(userProfileId);
 
-  console.log(data);
+  
   if (!data) {
     return <div>
      <p>No Data Found</p>
