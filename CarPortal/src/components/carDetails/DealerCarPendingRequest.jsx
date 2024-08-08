@@ -97,7 +97,7 @@ const DealerCarPendingRequest = ({ item ,refetch }) => {
 
         <div className="shadow-xl rounded-lg">
           <CardUi>
-            <div className="md:p-3 md:min-w-[36rem] md:w-[20rem] md:my-2 md:flex md:gap-2">
+            <div className="md:p-3 md:min-w-[38rem] md:w-[20rem] md:my-2 md:flex md:gap-2">
               <div className="md:w-1/2">
                 <CardHeader
                   floated={false}
@@ -111,7 +111,7 @@ const DealerCarPendingRequest = ({ item ,refetch }) => {
                 </CardHeader>
               </div>
               <div className="w-full">
-                <div className="flex justify-between m-3 md:m-0">
+                <div className="flex justify-between m-3 md:m-0 p-2">
                   <Chip
                     variant="outlined"
                     value={`${item?.date}`}
