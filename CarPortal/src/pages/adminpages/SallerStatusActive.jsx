@@ -46,7 +46,7 @@ export default function SellerStatusActive({ salesPersonId, status }) {
       console.log(res);
       // Update the dealerId state
 
-      console.log("Dealer status updated successfully!");
+     
       setOpen(false); // Close the dialog
 
     } catch (error) {

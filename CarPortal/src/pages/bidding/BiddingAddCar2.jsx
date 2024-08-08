@@ -63,7 +63,7 @@ export default function BiddingAddCar2() {
   const [variantOptions, setVariantOptions] = useState([]);
   const [showCalendar, setShowCalendar] = useState(false);
 
-  console.log("dealarList", dealarList);
+ 
   const { data: variantData } = useGetVariantsQuery(selectedBrand, {
     skip: !selectedBrand,
   });
@@ -124,7 +124,7 @@ export default function BiddingAddCar2() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData);
+   
     // Prepare the form data to send to the backend
     const data = {
       buttonStart: formData.buttonStart,
@@ -293,12 +293,12 @@ export default function BiddingAddCar2() {
       <ToastContainer />
       <div className="md:flex justify-center m-6 md:m-0">
         <div>
-          <form onSubmit={handleSubmit} className="w-full md:w-[50rem]">
+          <form onSubmit={handleSubmit} className="w-full">
             <div className="flex justify-center">
               <p className="text-3xl font-semibold m-4">Add Bidding Car</p>
             </div>
             {/* first part */}
-            <div className="md:flex gap-2">
+            <div className="md:flex gap-4">
               <div className="mt-5 w-full">
                 <Autocomplete
                   id="free-solo-demo"
@@ -375,7 +375,7 @@ export default function BiddingAddCar2() {
             </div>
 
             {/* second part */}
-            <div className="md:flex">
+            <div className="md:flex gap-4">
               <div className="mt-5 w-full">
                 <Autocomplete
                   id="free-solo-demo"
@@ -434,7 +434,7 @@ export default function BiddingAddCar2() {
                 </select>
               </div>
             </div>
-            <div className="md:flex">
+            <div className="md:flex gap-4">
               <div className="mt-5 w-full">
                 <Input
                   required
@@ -492,7 +492,7 @@ export default function BiddingAddCar2() {
             </div>
 
             {/* fourth part */}
-            <div className="md:flex">
+            <div className="md:flex gap-4">
               <div className="mt-5 w-full">
                 <select
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -550,7 +550,7 @@ export default function BiddingAddCar2() {
             </div>
 
             {/* fifth part */}
-            <div className="md:flex">
+            <div className="md:flex gap-4">
               <div className="mt-5 w-full">
                 <Inputs
                   required
@@ -620,7 +620,7 @@ export default function BiddingAddCar2() {
             </div>
 
             {/* sixth part */}
-            <div className="md:flex">
+            <div className="md:flex gap-4">
               <div className="mt-5 w-full">
                 <Input
                   required
@@ -662,7 +662,7 @@ export default function BiddingAddCar2() {
 
             {/* eight part */}
 
-            <div className="md:flex">
+            <div className="md:flex gap-4">
               <div className="mt-5 w-full">
                 <select
                   required

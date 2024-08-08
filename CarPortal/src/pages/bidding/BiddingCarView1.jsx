@@ -15,25 +15,37 @@ const BiddingCarView1 = ({ beadingCarId }) => {
 
   const { data, isLoading, error } = useGetbeadingCarImageQuery({beadingCarId});
 console.log(data)
-useEffect(() => {
-  if (data?.object) {
-    const urls = data.object.map((item) => item.documentLink);
 
+const fallbackImage = "..\\..\\cars\\no-image-available.png";
+const checkIfImage = (url) => {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(url); // Return the original URL if the image loads
+    img.onerror = () => resolve(fallbackImage); // Return the fallback image if the image fails to load
+    img.src = url;
+  });
+};
+
+useEffect(() => {
+  if (data?.object && Array.isArray(data.object)) {
+    // Reorder data to have 'coverImage' first
+    const reorderedData = [
+      ...data.object.filter(item => item.documentType === 'coverImage'),
+      ...data.object.filter(item => item.documentType !== 'coverImage')
+    ];
+
+    // Extract the URLs from the reordered data
+    const urls = reorderedData.map((item) => item.documentLink);
+
+    // Validate URLs and set image URLs
     Promise.all(urls.map(checkIfImage))
       .then((validatedURLs) => setImageURLs(validatedURLs));
+  } else {
+    setImageURLs([fallbackImage]); // Handle case when data.object is not valid
   }
 }, [data]);
 
-const fallbackImage = "..\\..\\cars\\no-image-available.png";
-  
-    const checkIfImage = (url) => {
-      return new Promise((resolve) => {
-        const img = new Image();
-        img.onload = () => resolve(url); // Return the original URL if the image loads
-        img.onerror = () => resolve(fallbackImage); // Return the fallback image if the image fails to load
-        img.src = url;
-      });
-    };
+
   
   if (isLoading) return <div>Loading...</div>;
   if (error)

@@ -25,14 +25,35 @@ const CarView1 = ({ carId }) => {
   const { data, isLoading, error } = useGetCarImageByIdQuery({ carId });
   console.log(data);
  
+  const checkIfImage = (url) => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(url); // Return the original URL if the image loads
+      img.onerror = () => resolve(fallbackImage); // Return the fallback image if the image fails to load
+      img.src = url;
+    });
+  };
+  const fallbackImage = "..\\..\\cars\\no-image-available.png";
   useEffect(() => {
-    if (data?.object) {
-      const urls = data.object.map((item) => item.documentLink);
+    if (data?.object && Array.isArray(data.object)) {
+      // Reorder data to have 'coverImage' first
+      const reorderedData = [
+        ...data.object.filter(item => item.documentType === 'coverImage'),
+        ...data.object.filter(item => item.documentType !== 'coverImage')
+      ];
 
+      // Extract the URLs from the reordered data
+      const urls = reorderedData.map((item) => item.documentLink);
+console.log(urls)
+      // Validate URLs and set image URLs
       Promise.all(urls.map(checkIfImage))
         .then((validatedURLs) => setImageURLs(validatedURLs));
+    } else {
+      setImageURLs([fallbackImage]); // Handle case when data.object is not valid
     }
   }, [data]);
+
+  console.log(imageURLs)
 
   if (isLoading) return <div>Loading...</div>;
   if (error)
@@ -49,21 +70,9 @@ const CarView1 = ({ carId }) => {
       </div>
     );
 
-   
+   console.log(imageURLs)
 
-    const fallbackImage = "..\\..\\cars\\no-image-available.png";
-  
-    const checkIfImage = (url) => {
-      return new Promise((resolve) => {
-        const img = new Image();
-        img.onload = () => resolve(url); // Return the original URL if the image loads
-        img.onerror = () => resolve(fallbackImage); // Return the fallback image if the image fails to load
-        img.src = url;
-      });
-    };
-  
     
-
   
   const ExteriorImages = data.object.filter(
     (item) => item.documentType === "Exterior"
@@ -159,8 +168,8 @@ const CarView1 = ({ carId }) => {
 
         {features && (
           <Carousel className="bg-white rounded-lg shadow-md ">
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
+            {imageURLs.length > 0 ? (
+              imageURLs.map((item) => (
                 <img
                   key={item.documentId}
                   src={item.documentLink}

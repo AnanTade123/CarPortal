@@ -35,7 +35,7 @@ export default function BiddingCarDetailsById1() {
     navigate("/signin");
     return null;
   }
-  console.log(data);
+  
   const {
     buttonStart,
     abs,

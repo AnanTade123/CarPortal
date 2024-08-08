@@ -68,11 +68,10 @@ export function CardDefault({ data, Carid }) {
   };
   const carid = data2.carId;
   const useid = data2.userId;
-  console.log(carid, useid);
-
+  
   const { data: favData ,refetch} = useCarFavoriteAddRemoveQuery({ carid, useid });
 
-  console.log(favData);
+  
   const [CarremoveFavorite] = useCarremoveFavoriteMutation();
 
   useEffect(() => {
@@ -90,7 +89,7 @@ export function CardDefault({ data, Carid }) {
       try {
         const res = await CarremoveFavorite(data3);
         refetch()
-        console.log(res);
+       
       } catch (error) {
         console.log(error);
       }
@@ -98,7 +97,7 @@ export function CardDefault({ data, Carid }) {
       try {
         const res = await favoriteCar(data2);
         refetch()
-        console.log(res);
+        
       } catch (error) {
         console.log(error);
       }

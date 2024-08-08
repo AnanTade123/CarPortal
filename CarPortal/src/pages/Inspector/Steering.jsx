@@ -35,9 +35,9 @@ const useStyles = makeStyles((theme) => ({
 const Steering = () => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
-  console.log(beadingCarId);
+  
   const { data ,refetch} = useGetInspectionReportQuery({ beadingCarId, docType: "Steering" });
-  console.log(data);
+ 
   const [formData, setFormData] = useState({
     Steering: '',
     Brake: '',
@@ -50,7 +50,7 @@ const Steering = () => {
   }
 
   const userRole = token ? jwtDecodes?.authorities[0] : null;
-console.log(userRole)
+
   const [uploadedImages, setUploadedImages] = useState({
     Steerings: null,
     Brakes: null,
@@ -76,11 +76,10 @@ console.log(userRole)
     }
   };
 
-  console.log(selectfiled)
-  console.log(lables)
+  
 
   const handleFileChange = async (event, fieldName, imgPreview = "") => {
-    console.log(imgPreview);
+    
     let file;
     let imageData;
   if (!event?.target) {
@@ -99,9 +98,9 @@ console.log(userRole)
     const reader = new FileReader();
     reader.onload = async () => {
       imageData = reader.result;
-      console.log(imageData)
+     
           setFormData({ ...formData, ["FourPowerWindowss"]: imageData });
- 
+          if (lables) {
       const inspectionData = {
         documentType: "Inspection Report",
         beadingCarId: beadingCarId,
@@ -114,9 +113,11 @@ console.log(userRole)
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
         refetch()
-        console.log(res);
+        
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
+          setLables('');
+          setSelectfiled('');
         } else {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
@@ -124,12 +125,15 @@ console.log(userRole)
         console.error('Error uploading the file:', error);
         alert("Data not Uploaded");
       }
+    } else {
+      toast.error("Labels are required to submit the form", { autoClose: 2000 });
+    }
     };
     reader.readAsDataURL(file);
   };
 
   const handleSubmitWithoutImage = async () => {
-
+    if (lables) {
     const formDataToSend1 = new FormData();
     formDataToSend1.append('beadingCarId', beadingCarId);
     formDataToSend1.append('doctype', "Steering");
@@ -140,9 +144,11 @@ console.log(userRole)
     try {
       const res = await addBiddingCarWithoutImage({formDataToSend1});
       refetch()
-      console.log(res);
+      
       if (res.data?.message === "success") {
         toast.success("Data Uploaded", { autoClose: 500 });
+        setLables('');
+          setSelectfiled('');
       } else {
         toast.error("Data Upload failed", { autoClose: 500 });
       }
@@ -150,6 +156,9 @@ console.log(userRole)
       
       toast.error("Data not Uploaded", { autoClose: 500 });
     }
+  } else {
+    toast.error("Labels are required to submit the form", { autoClose: 2000 });
+  }
   };
 
   useEffect(() => {
@@ -215,7 +224,7 @@ console.log(userRole)
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
         refetch()
-        console.log(res);
+        
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
         } else {

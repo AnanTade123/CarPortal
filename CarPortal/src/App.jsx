@@ -96,6 +96,9 @@ import SalesDealer from "./pages/sales/SalesDealer";
 import UserChangePassword from "./pages/user/UserChangePassword";
 import InspectorChangePassword from "./pages/Inspector/InspectorChangePassword";
 import SalerChangePassword from "./pages/sales/SalerChangePassword";
+import PremiumCars from "./components/home/PremiumCars";
+import InspectorEdit from "./pages/Inspector/InspectorEdit";
+import SalerEdit from "./pages/sales/SalerEdit";
 
 
 export default function App() {
@@ -112,6 +115,7 @@ export default function App() {
           <Route path="signup" element={<SimpleRegistrationForm />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/carlist" element={<BuyCar />} />
+          <Route path="/premiumcars" element={<PremiumCars/>} />
           <Route path="/wsConnction" element={<BiddingCar />} />
           <Route
             path="/carlist/cardetails/:carId"
@@ -138,6 +142,8 @@ export default function App() {
             }
           >
             <Route path="/admin" element={<Admin />} />
+
+           
 
             <Route path="/inspector" element={<InspectorList />} />
             <Route path="/admin/salesuser" element={<SalesList />} />
@@ -182,7 +188,7 @@ export default function App() {
             <Route path="/wallet" element={<Wallet />} />
             <Route
               path="/transactioncontroller"
-              element={<TransactionController />}
+              element={<TransactionController />}   
             />
             <Route path="/carlisting" element={<CarListing />} />
             <Route path="/admin/biddingcar" element={<BiddingDealerCars />} />
@@ -262,7 +268,7 @@ export default function App() {
             <Route path="/inspector/car/add" element={<BiddingAddCar2 />} />
             <Route
               path="/inspector/edit/:userid/:inspectorprofileid"
-              element={<AdminInspectorEdit />}
+              element={<InspectorEdit />}
             />
           </Route>
 
@@ -309,7 +315,7 @@ export default function App() {
             />
             <Route
               path="/seller/edit/:userid/:salesPersonId"
-              element={<AdminSalesEdit />}
+              element={<SalerEdit/>}
             />
             <Route
               path="/sale/dealer/edit/:userid/:id"

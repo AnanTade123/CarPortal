@@ -42,7 +42,7 @@ export function CarouselCustomArrows({ carId }) {
     return (
       <div className="text-center mt-5">
         <img
-          className="h-[14rem] w-[19rem] p-[20px] opacity-0"
+          className="h-[11rem] w-[19rem] p-[20px]  opacity-50"
           src={fallbackImage}
           alt="no image"
         />
