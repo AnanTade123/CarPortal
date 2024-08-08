@@ -96,6 +96,8 @@ import SalesDealer from "./pages/sales/SalesDealer";
 import UserChangePassword from "./pages/user/UserChangePassword";
 import InspectorChangePassword from "./pages/Inspector/InspectorChangePassword";
 import SalerChangePassword from "./pages/sales/SalerChangePassword";
+import InspectorEdit from "./pages/Inspector/InspectorEdit";
+import SalerEdit from "./pages/sales/SalerEdit";
 
 
 export default function App() {
@@ -182,7 +184,7 @@ export default function App() {
             <Route path="/wallet" element={<Wallet />} />
             <Route
               path="/transactioncontroller"
-              element={<TransactionController />}
+              element={<TransactionController />}   
             />
             <Route path="/carlisting" element={<CarListing />} />
             <Route path="/admin/biddingcar" element={<BiddingDealerCars />} />
@@ -262,7 +264,7 @@ export default function App() {
             <Route path="/inspector/car/add" element={<BiddingAddCar2 />} />
             <Route
               path="/inspector/edit/:userid/:inspectorprofileid"
-              element={<AdminInspectorEdit />}
+              element={<InspectorEdit />}
             />
           </Route>
 
@@ -309,7 +311,7 @@ export default function App() {
             />
             <Route
               path="/seller/edit/:userid/:salesPersonId"
-              element={<AdminSalesEdit />}
+              element={<SalerEdit/>}
             />
             <Route
               path="/sale/dealer/edit/:userid/:id"
