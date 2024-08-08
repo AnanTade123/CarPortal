@@ -247,9 +247,10 @@ console.log(userRole)
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Leather Seat</InputLabel>
             <Select
+            required
               name="LeatherSeat"
               value={formData.LeatherSeat}
               onChange={handleChange}
@@ -294,9 +295,10 @@ console.log(userRole)
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Odometer</InputLabel>
             <Select
+            required
               name="Odometer"
               value={formData.Odometer}
               onChange={handleChange}
@@ -341,9 +343,10 @@ console.log(userRole)
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Cabin Floor</InputLabel>
             <Select
+            required
               name="CabinFloor"
               value={formData.CabinFloor}
               onChange={handleChange}
@@ -393,9 +396,10 @@ console.log(userRole)
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Dashboard</InputLabel>
             <Select
+            required
               name="Dashboard"
               value={formData.Dashboard}
               onChange={handleChange}

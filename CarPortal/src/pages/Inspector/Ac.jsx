@@ -243,9 +243,10 @@ const handleSubmitWithoutImage = async () => {
       <Grid container spacing={3}>
     
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>AC Cooling</InputLabel>
             <Select
+            required
               name="ACCooling"
               value={formData.ACCooling}
               onChange={handleChange}
@@ -290,9 +291,10 @@ const handleSubmitWithoutImage = async () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Heater</InputLabel>
             <Select
+            required
               name="Heater"
               value={formData.Heater}
               onChange={handleChange}
@@ -337,9 +339,10 @@ const handleSubmitWithoutImage = async () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Climate Control AC</InputLabel>
             <Select
+            required
               name="ClimateControlAC"
               value={formData.ClimateControlAC}
               onChange={handleChange}
@@ -384,9 +387,10 @@ const handleSubmitWithoutImage = async () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Ac Vent</InputLabel>
             <Select
+            required
               name="AcVent"
               value={formData.AcVent}
               onChange={handleChange}

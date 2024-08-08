@@ -144,12 +144,25 @@ const FilterCars = ({ setUrlState }) => {
     { transmission: "Automatic" },
     { transmission: "Manual" },
   ];
+
+  const handleSliderChange = (event, newValue) => {
+    const [min, max] = newValue;
+    if (max - min >= 2000000) {
+      setValue(newValue);
+    } else {
+      if (min === value[0]) {
+        setValue([value[0], value[0] + 2000000]);
+      } else {
+        setValue([value[1] - 2000000, value[1]]);
+      }
+    }
+  };
   return (
     <div className="border-2 shadow-lg rounded-lg">
       <div className="flex justify-end mr-5 ">
         <button
           type="button"
-          className="md:hidden -mt-10 text-black font-bold flex hover:rounded-2xl hover:p-2 hover:shadow-2xl hover:border-2"
+          className="md:hidden -mt-10 text-black font-bold flex hover:rounded-2xl hover:p-2 hover:shadow-2xl "
           onClick={() => setShowFilters(!showFilters)}
         >
           <span className="mt-1 mr-1">
@@ -203,14 +216,12 @@ const FilterCars = ({ setUrlState }) => {
                     className="w-full"
                     color="black"
                     value={value}
-                    onChange={(e) => setValue(e.target.value)}
+                    onChange={handleSliderChange}
                     valueLabelDisplay="auto"
                     min={30000}
                     max={10000000}
                     step={25000}
-                    getAriaLabel={(index) =>
-                      index === 0 ? "Minimum price" : "Maximum price"
-                    }
+                    disableSwap
                   />
                 </div>
                 <div className="flex text-center font-bold font-[latto] text-black">

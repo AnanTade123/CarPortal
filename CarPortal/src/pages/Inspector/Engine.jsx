@@ -277,9 +277,10 @@ const Engine = () => {
       
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Engine</InputLabel>
             <Select
+            required
               name="Engine"
               value={formData.Engine}
               onChange={handleChange}
@@ -329,9 +330,10 @@ const Engine = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Engine Mounting</InputLabel>
             <Select
+            required
               name="EngineMounting"
               value={formData.EngineMounting}
               onChange={handleChange}
@@ -377,9 +379,10 @@ const Engine = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Engine Sound</InputLabel>
             <Select
+            required
               name="EngineSound"
               value={formData.EngineSound}
               onChange={handleChange}
@@ -426,9 +429,10 @@ const Engine = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Exhaust Smoke</InputLabel>
             <Select
+            required
               name="Exhaustsmoke"
               value={formData.Exhaustsmoke}
               onChange={handleChange}
@@ -474,9 +478,10 @@ const Engine = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Gearbox</InputLabel>
             <Select
+            required
               name="Gearbox"
               value={formData.Gearbox}
               onChange={handleChange}
@@ -522,9 +527,10 @@ const Engine = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Engine Oil</InputLabel>
             <Select
+            required
               name="Engineoil"
               value={formData.Engineoil}
               onChange={handleChange}
@@ -569,9 +575,10 @@ const Engine = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Battery</InputLabel>
             <Select
+            required
               name="Battery"
               value={formData.Battery}
               onChange={handleChange}
@@ -618,9 +625,10 @@ const Engine = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Coolant</InputLabel>
             <Select
+            required
               name="Coolant"
               value={formData.Coolant}
               onChange={handleChange}
@@ -665,9 +673,10 @@ const Engine = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Clutch</InputLabel>
             <Select
+            required
               name="Clutch"
               value={formData.Clutch}
               onChange={handleChange}
