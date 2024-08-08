@@ -79,6 +79,7 @@ useEffect(() => {
               className="object-contain w-full h-full opacity-50"
             />
           ))}
+          
         </Carousel>
       ) : (
         <div className="text-center mt-2">
