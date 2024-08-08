@@ -20,7 +20,7 @@ const AdminSalesInfo = () => {
   }
 
   const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
-  console.log("salesPersonId",salesPersonId)
+  
 
   const userRole = token ? jwtDecodes?.authorities[0] : null;
 

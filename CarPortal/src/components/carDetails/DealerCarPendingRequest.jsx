@@ -21,7 +21,7 @@ import { CarouselCustomArrows } from "../../ui/CarouselCustomArrows";
 const DealerCarPendingRequest = ({ item ,refetch }) => {
   const { id } = useParams();
 
-  console.log(item);
+  
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(!open);
@@ -35,7 +35,7 @@ const DealerCarPendingRequest = ({ item ,refetch }) => {
   }
 
   const UserID = jwtDecodes?.userId;
-  console.log("User ID", UserID);
+  
 
   const [ConfirmBooking] = useConfirmBookingMutation();
 

@@ -44,7 +44,7 @@ const BiddingCarView = ({
   }
 
   const userRole = token ? jwtDecodes?.authorities[0] : null;
-  console.log(userRole)
+  
   return (
     <div>
       <BiddingCarView1 beadingCarId={beadingCarId} data={data} />

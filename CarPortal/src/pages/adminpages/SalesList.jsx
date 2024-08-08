@@ -26,9 +26,9 @@ import SallerStatusActive from "./SallerStatusActive";
 export default function SalesList() {
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(7);
-  console.log(pageNo);
+ 
   const { data, isLoading, error } = useGetAllSellerQuery({pageNo, pageSize});
-  console.log(data);
+  
   const [deleteSeller] = useDeleteSellerMutation();
   const [open, setOpen] = useState(false);
   const [deleteid, setDeleteid] = useState();
@@ -50,7 +50,7 @@ export default function SalesList() {
 
   const deleteSellerHandler = async (id) => {
     const res = await deleteSeller(id);
-    console.log(res);
+   
   };
 
   const nextHandler = () => {
@@ -127,7 +127,7 @@ export default function SalesList() {
       Header: "Actions",
       accessor: "Actions",
       Cell: (cell) => {
-        console.log(cell.row.values.userId);
+        
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
@@ -202,7 +202,7 @@ export default function SalesList() {
   } else {
     sellerApiData = data?.list;
   }
-  console.log(sellerApiData);
+ 
   return (
     <>
       {error?.status === 404 ? (

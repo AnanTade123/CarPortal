@@ -35,9 +35,9 @@ const useStyles = makeStyles((theme) => ({
 const Engine = () => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
-  console.log(beadingCarId);
+ 
   const { data ,refetch} = useGetInspectionReportQuery({ beadingCarId, docType: "Engine" });
-  console.log(data);
+ 
  
 
   const [formData, setFormData] = useState({
@@ -73,8 +73,7 @@ const Engine = () => {
   const [selectedLable ,setSelectedLable] = useState("");
   const [lables, setLables] = useState("");
   const [selectfiled, setSelectfiled] = useState("")
-  console.log(selectfiled)
-  console.log(lables)
+  
  
   const token = Cookies.get("token");
   let jwtDecodes;
@@ -131,11 +130,11 @@ const Engine = () => {
   }, [data]);
 
   const handleFileChange = async (event, fieldName, imgPreview = "") => {
-    console.log(imgPreview);
+   
     let file;
     let imageData;
   if (!event?.target) {
-      console.log("name");
+      
       file = event;
       imageData = file;
     } else {
@@ -150,7 +149,7 @@ const Engine = () => {
     const reader = new FileReader();
     reader.onload = async () => {
       imageData = reader.result;
-      console.log(imageData)
+      
           setFormData({ ...formData, ["FourPowerWindowss"]: imageData });
   
       const inspectionData = {
@@ -165,7 +164,7 @@ const Engine = () => {
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
         refetch()
-        console.log(res);
+       
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
         } else {
@@ -191,7 +190,7 @@ const Engine = () => {
     try {
       const res = await addBiddingCarWithoutImage({formDataToSend1});
       refetch()
-      console.log(res);
+     
       if (res.data?.message === "success") {
         
         toast.success("Data Uploaded", { autoClose: 500 });
@@ -223,8 +222,7 @@ const Engine = () => {
       setSelectfiled(value);
     }
   };
-  console.log(selectfiled)
-  console.log(lables)
+ 
 
   // const handleImageClick = (image) => {
   //   setSelectedImage(image);
@@ -257,7 +255,7 @@ const Engine = () => {
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
         refetch()
-        console.log(res);
+        
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
         } else {

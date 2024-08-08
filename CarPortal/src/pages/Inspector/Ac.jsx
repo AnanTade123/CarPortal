@@ -36,9 +36,9 @@ const useStyles = makeStyles((theme) => ({
 const Ac = () => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
-  console.log(beadingCarId);
+  
   const { data,refetch } = useGetInspectionReportQuery({ beadingCarId, docType: "AC" });
-  console.log(data);
+ 
   const [formData, setFormData] = useState({
     ACCooling: [],
     Heater: [],
@@ -62,9 +62,7 @@ const Ac = () => {
   const [selectedLable ,setSelectedLable] = useState("");
   const [lables, setLables] = useState("");
   const [selectfiled, setSelectfiled] = useState("")
-  console.log(selectfiled)
-  console.log(lables)
-
+  
   const token = Cookies.get("token");
   let jwtDecodes;
   if (token) {
@@ -72,14 +70,13 @@ const Ac = () => {
   }
 
   const userRole = token ? jwtDecodes?.authorities[0] : null;
-console.log(userRole)
 
 const handleFileChange = async (event, fieldName, imgPreview = "") => {
-  console.log(imgPreview);
+  
   let file;
   let imageData;
 if (!event?.target) {
-    console.log("name");
+    
     file = event;
     imageData = file;
   } else {
@@ -94,7 +91,7 @@ if (!event?.target) {
   const reader = new FileReader();
   reader.onload = async () => {
     imageData = reader.result;
-    console.log(imageData)
+   
         setFormData({ ...formData, ["FourPowerWindowss"]: imageData });
 
     const inspectionData = {
@@ -109,7 +106,7 @@ if (!event?.target) {
     try {
       const res = await inspectionReport({ inspectionData, formDataToSend });
       refetch()
-      console.log(res);
+     
       if (res.data?.message === "success") {
         toast.success("Data Uploaded", { autoClose: 500 });
       } else {
@@ -135,7 +132,7 @@ const handleSubmitWithoutImage = async () => {
   try {
     const res = await addBiddingCarWithoutImage({formDataToSend1});
     refetch()
-    console.log(res);
+    
     if (res.data?.message === "success") {
       toast.success("Data Uploaded", { autoClose: 500 });
     } else {
@@ -218,7 +215,7 @@ const handleSubmitWithoutImage = async () => {
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
         refetch()
-        console.log(res);
+       
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
         } else {

@@ -7,7 +7,7 @@ export const brandAPI = apiSlice.injectEndpoints({
     getAllBrands: builder.query({
       query: ({ pageNo, pageSize }) => ({
         url: `./brands/getAll?pageNo=${pageNo}&pageSize=${pageSize}`,
-        transferResponce: console.log(pageNo),
+       
         method: "GET",
       }),
       providesTags: ["Admin"],
@@ -47,7 +47,7 @@ export const brandAPI = apiSlice.injectEndpoints({
       query: (carBrand) => ({
         url: `/brands/add`,
         method: "POST",
-        transferResponse: console.log(carBrand),
+        
         body: carBrand,
       }),
       invalidatesTags:["Admin"]
@@ -58,7 +58,7 @@ export const brandAPI = apiSlice.injectEndpoints({
       query: ({ inputField, id }) => ({
         url: `/brands/edit?id=${id}`,
         method: "PATCH",
-        transferResponse: console.log(id, inputField),
+       
         body: inputField,
       }),
       providesTags: ["Admin"],
@@ -69,7 +69,7 @@ export const brandAPI = apiSlice.injectEndpoints({
       query: (brandDataId) => ({
         url: `/brands/delete?id=${brandDataId}`,
         method: "DELETE",
-        transferResponse: console.log(brandDataId),
+        
       }),
       invalidatesTags: ["Admin"],
     }),

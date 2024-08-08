@@ -6,14 +6,14 @@ import { Link } from "react-router-dom";
 import { CarouselCustomArrows } from "../../ui/CarouselCustomArrows";
 
 const UserCardPendingRequest = ({ item }) => {
-  console.log(item);
+  
   const carid = item?.carId;
   return (
     <div className="w-96px items-center flex justify-center mx-8">
       <div className="shadow-xl rounded-lg">
         <CardUi>
-          <div className="md:min-w-[24rem] min-w-[20rem]">
-            <div className="flex w-full">
+          <div className="md:min-w-[20rem] lg:min-w-[26rem] min-w-[20rem]">
+            <div className="flex-col md:flex md:flex-row md:w-full">
               <div className="w-full p-4">
                 <CardHeader
                   floated={false}
@@ -28,12 +28,12 @@ const UserCardPendingRequest = ({ item }) => {
               </div>
               <div className="w-full flex justify-center">
                 <div className="flex flex-col justify-center">
-                  <div className="flex justify-between gap-5">
+                  <div className="flex justify-between gap-5 md:gap-1">
                     <div>
                       <Chip
                         variant="outlined"
                         value={`${item?.date}`}
-                        className="rounded-full font-[latto] md:text-sm text-xs"
+                        className="rounded-full font-[latto] -ml-2 md:text-sm text-xs"
                       ></Chip>
                     </div>
                     <div>

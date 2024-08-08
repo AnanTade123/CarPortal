@@ -27,7 +27,7 @@ import { AddDealerFormSales } from "../../components/admin/AddDealerFormSales";
 
 export default function SalesDealer() {
   const [pageNo, setPageNo] = useState(0);
-  console.log(pageNo);
+  
   
   
   const [deleteDealer] = useDeleteDealerMutation();
@@ -43,13 +43,13 @@ export default function SalesDealer() {
   }
 
    const userid = token ? jwtDecodes?.userId : null;
-   console.log("userid", userid);
+   
 const { data, isLoading, error } = useGetDealerbySalesQuery(userid);
-console.log(data);
+
 
 const userRole = token ? jwtDecodes?.authorities[0] : null;
 
-console.log("userRole", userRole);
+
   
 
 
@@ -70,7 +70,7 @@ console.log("userRole", userRole);
 
   const deleteDealerHandler = async (id) => {
     const res = await deleteDealer(id);
-    console.log(res);
+    
   };
   const nextHandler = () => {
     setPageNo((prevPageNo) => {

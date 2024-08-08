@@ -23,7 +23,7 @@ if (token)
 
 const navigate = useNavigate()
 const userProfileId = token ? jwtDecodes?.userProfileId:null
-console.log(userProfileId)
+
   const [showPassword, setShowPassword] = useState(false);
   const [formStateData, setFormData] = useState({
     oldPassword: "",
@@ -114,7 +114,7 @@ const [changePassword] = useChangePasswordMutation()
       try {
         
           const res = await changePassword({passChange,userProfileId});
-          console.log(res)
+          
           
           if (res?.data.code === "Successful") {
             toast.success(`${res?.data.message}`)
