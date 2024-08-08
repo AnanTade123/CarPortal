@@ -13,7 +13,7 @@ import { useInspectorupdateMutation, useInspectorByIdQuery } from "../../service
 
 
 export default function InspectorStatusDialogBox({ userId, inspectorProfileId, status }) {
-  console.log("status",status);
+  
   const [open, setOpen] = React.useState(false);
   const [isActive, setIsActive] = React.useState(status);
   const { data, isLoading, isError, error } = useInspectorByIdQuery({ userId });

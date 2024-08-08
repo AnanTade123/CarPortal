@@ -20,9 +20,9 @@ const SteeringSection = () => {
   });
 
   const { beadingCarId } = useParams();
-  console.log(beadingCarId);
+  
   const { data } = useGetInspectionReportQuery({ beadingCarId, docType: "Steering" });
-  console.log(data)
+ 
 
   useEffect(() => {
     // Pre-fill form data and uploaded images based on API data

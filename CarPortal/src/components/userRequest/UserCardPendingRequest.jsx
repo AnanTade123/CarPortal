@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { CarouselCustomArrows } from "../../ui/CarouselCustomArrows";
 
 const UserCardPendingRequest = ({ item }) => {
-  console.log(item);
+  
   const carid = item?.carId;
   return (
     <div className="w-96px items-center flex justify-center mx-8">

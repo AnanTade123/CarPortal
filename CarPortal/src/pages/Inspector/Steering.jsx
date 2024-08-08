@@ -35,9 +35,9 @@ const useStyles = makeStyles((theme) => ({
 const Steering = () => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
-  console.log(beadingCarId);
+  
   const { data ,refetch} = useGetInspectionReportQuery({ beadingCarId, docType: "Steering" });
-  console.log(data);
+ 
   const [formData, setFormData] = useState({
     Steering: '',
     Brake: '',
@@ -50,7 +50,7 @@ const Steering = () => {
   }
 
   const userRole = token ? jwtDecodes?.authorities[0] : null;
-console.log(userRole)
+
   const [uploadedImages, setUploadedImages] = useState({
     Steerings: null,
     Brakes: null,
@@ -76,11 +76,10 @@ console.log(userRole)
     }
   };
 
-  console.log(selectfiled)
-  console.log(lables)
+  
 
   const handleFileChange = async (event, fieldName, imgPreview = "") => {
-    console.log(imgPreview);
+    
     let file;
     let imageData;
   if (!event?.target) {
@@ -99,7 +98,7 @@ console.log(userRole)
     const reader = new FileReader();
     reader.onload = async () => {
       imageData = reader.result;
-      console.log(imageData)
+     
           setFormData({ ...formData, ["FourPowerWindowss"]: imageData });
  
       const inspectionData = {
@@ -114,7 +113,7 @@ console.log(userRole)
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
         refetch()
-        console.log(res);
+        
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
         } else {
@@ -140,7 +139,7 @@ console.log(userRole)
     try {
       const res = await addBiddingCarWithoutImage({formDataToSend1});
       refetch()
-      console.log(res);
+      
       if (res.data?.message === "success") {
         toast.success("Data Uploaded", { autoClose: 500 });
       } else {
@@ -215,7 +214,7 @@ console.log(userRole)
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
         refetch()
-        console.log(res);
+        
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
         } else {

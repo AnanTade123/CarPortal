@@ -35,9 +35,9 @@ const useStyles = makeStyles((theme) => ({
 const Electrical = () => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
-  console.log(beadingCarId);
+  
   const { data,refetch } = useGetInspectionReportQuery({ beadingCarId, docType: "Eletrical" });
-  console.log(data);
+  
   const [formData, setFormData] = useState({
     FourPowerWindows: "",
     AirBagFeatures: "",
@@ -64,7 +64,7 @@ const Electrical = () => {
   }
 
   const userRole = token ? jwtDecodes?.authorities[0] : null;
-console.log(userRole)
+
 
 const [addBiddingCarWithoutImage] = useAddBiddingCarWithoutImageMutation()
 const [openModal, setOpenModal] = useState(false);
@@ -83,7 +83,7 @@ const [selectfiled, setSelectfiled] = useState("")
       setSelectfiled(value);
     }
   };
-console.log(lables)
+
  
   const [inspectionReport] = useInspectionReportMutation();
 
@@ -92,7 +92,7 @@ console.log(lables)
     let file;
     let imageData;
   if (!event?.target) {
-      console.log("name");
+     
       file = event;
       imageData = file;
     } else {
@@ -107,7 +107,7 @@ console.log(lables)
     const reader = new FileReader();
     reader.onload = async () => {
       imageData = reader.result;
-      console.log(imageData)
+      
           setFormData({ ...formData, ["FourPowerWindowss"]: imageData });
  
       const inspectionData = {
@@ -122,7 +122,7 @@ console.log(lables)
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
         refetch()
-        console.log(res);
+       
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
         } else {
@@ -149,7 +149,7 @@ console.log(lables)
     try {
       const res = await addBiddingCarWithoutImage({formDataToSend1});
       refetch()
-      console.log(res);
+      
       if (res.data?.message === "success") {
         toast.success("Data Uploaded", { autoClose: 500 });
       } else {

@@ -13,7 +13,7 @@ const BiddingCarView1 = ({ beadingCarId }) => {
   const [engines, setEngines] = useState(false);
 
   const { data, isLoading, error } = useGetbeadingCarImageQuery({beadingCarId});
-console.log(data)
+
   if (isLoading) return <div>Loading...</div>;
   if (error)
     return (
