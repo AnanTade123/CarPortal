@@ -28,28 +28,28 @@ const WinnerSection = () => {
   const {data:didData} = useAllDealerFinalBidQuery(UserID)
   console.log(didData)
  
-  // const [carIds, setCarIds] = useState([]);
+  const [carIds, setCarIds] = useState([]);
   
 
-  // useEffect(() => {
-  //   if (didData?.finalBids) {
-  //     const carIdList = didData.finalBids.map(car => car?.beadingCarId);
-  //     setCarIds(carIdList);
-  //   }
-  // }, [didData]);
-
-  // if (carIds.length===0) {
-  //   return <div>
-  //     <p>No Data Available</p>
-  //   </div>
-  // }
-
-  const columns = [
-    {
-      Header : "",
-      accessaor : ""
+  useEffect(() => {
+    if (didData?.finalBids) {
+      const carIdList = didData.finalBids.map(car => car?.beadingCarId);
+      setCarIds(carIdList);
     }
-  ]
+  }, [didData]);
+
+  if (carIds.length===0) {
+    return <div>
+      <p>No Data Available</p>
+    </div>
+  }
+
+  // const columns = [
+  //   {
+  //     Header : "",
+  //     accessaor : ""
+  //   }
+  // ]
   return (
     <>
   
@@ -62,9 +62,9 @@ const WinnerSection = () => {
       ))}
     </div>
 
-<div>
+{/* <div>
   <TableComponent columns={columns} data={didData} />
-</div>
+</div> */}
     </>
   );
 };
