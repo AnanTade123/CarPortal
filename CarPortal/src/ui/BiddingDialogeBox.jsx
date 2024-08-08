@@ -98,6 +98,7 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage })
       const specificTime = dayjs(bidding.createdAt);
         const currentTime = dayjs();
         const diffInMinutes = specificTime.diff(currentTime, 'minute');
+        const formattedEndTime = dayjs(bidding.createdAt).utc().format('YYYY-MM-DDTHH:mm:ss[Z]');
         if(0 > diffInMinutes){
           flag = 1;
           setDurationMinutesError("Please select correct date/time");
@@ -107,10 +108,11 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage })
           beadingCarId: biddingcarid,
           userId: userid,
           basePrice: bidding.basePrice,
-          durationMinutes: diffInMinutes,
+          // durationMinutes: diffInMinutes,
+          endTime : formattedEndTime
         };
         const {  error : bidError  } = await startBiddingSetTime(setTimeData);
-        console.log("bidError",bidError )
+        // console.log("setTimeData",setTimeData )
         if(bidError || bidError?.data?.message ==="unsuccess"){
           bidError?.data?.message ==="unsuccess" ? handleMessage(bidError?.data?.exception,"error") :handleMessage(bidError?.data,"error");
         handleOpen();
