@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 // WebSocketConnection.jsx
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client/dist/sockjs';
 
@@ -14,7 +14,7 @@ export const WebSocketProvider = ({ children }) => {
   const [topThreeBidsAmount, setTopThreeBidsAmount] = useState([]);
   const [topThreeBidsAmountArray, setTopThreeBidsAmountArray] = useState([]);
   const [liveCars, setLiveCars] = useState([]);
-  const biddingData = [];
+  const subscriptions = useRef({});
 
   useEffect(() => {
     const socket = new SockJS('https://cffffftasting-production.up.railway.app/Aucbidding');
@@ -26,35 +26,43 @@ export const WebSocketProvider = ({ children }) => {
       onConnect: () => {
         console.log('Connected');
         setIsConnected(true);
-        stompClient.subscribe('/topic/bids', (message) => {
-          const bid = JSON.parse(message.body);
-          // Handle bid message
-        });
-        stompClient.subscribe('/topic/topThreeBids', (message) => {
-          const topBids = JSON.parse(message.body);
-          // console.log("MyDAtacheck");
-          setTopThreeBidsAmount(topBids);
-        });
-        stompClient.subscribe('/topic/liveCars', (message) => {
-          const cars = JSON.parse(message.body);
-          // console.log('Live cars received:', cars);
-          setLiveCars(cars);
-        });
-        stompClient.subscribe('/topic/topBids', (message) => {
-          const topBids = JSON.parse(message.body);
-          // console.log('Live cars received:', topBids);
-          setTopThreeBidsAmount(topBids);
-        });
+        setClient(stompClient);
+        
+        if (!subscriptions.current['/topic/bids']) {
+          subscriptions.current['/topic/bids'] = stompClient.subscribe('/topic/bids', (message) => {
+            const bid = JSON.parse(message.body);
+            // Handle bid message
+          });
+        }
+
+        if (!subscriptions.current['/topic/topThreeBids']) {
+          subscriptions.current['/topic/topThreeBids'] = stompClient.subscribe('/topic/topThreeBids', (message) => {
+            const topBids = JSON.parse(message.body);
+            setTopThreeBidsAmount(topBids);
+          });
+        }
+
+        if (!subscriptions.current['/topic/liveCars']) {
+          subscriptions.current['/topic/liveCars'] = stompClient.subscribe('/topic/liveCars', (message) => {
+            const cars = JSON.parse(message.body);
+            console.log('Live cars received:', cars);
+            setLiveCars((prevCars) => [...cars]);
+          });
+        }
+
         stompClient.publish({ destination: '/app/liveCars' });
       },
       onStompError: (frame) => {
         console.error('Broker reported error: ' + frame.headers['message']);
         console.error('Additional details: ' + frame.body);
       },
+      onDisconnect: () => {
+        console.log('Disconnected');
+        setIsConnected(false);
+      }
     });
 
     stompClient.activate();
-    setClient(stompClient);
 
     return () => {
       stompClient.deactivate();
@@ -82,49 +90,37 @@ export const WebSocketProvider = ({ children }) => {
         body: JSON.stringify(bidRequest),
       });
 
-      client.subscribe(`/topic/topThreeBids`, (message) => {
-        const topBids = JSON.parse(message.body);
-        const exists = biddingData.some(item => bidCarId == item.bidCarId);
-        if (!exists) {
-          biddingData.push(...topBids);
-        }
-        setTopThreeBidsAmount(topBids);
-        setTopThreeBidsAmountArray(biddingData);
-      }, { ack: 'client' });
+      if (!subscriptions.current[`/topic/topThreeBids_${bidCarId}`]) {
+        subscriptions.current[`/topic/topThreeBids_${bidCarId}`] = client.subscribe(`/topic/topThreeBids`, (message) => {
+          const topBids = JSON.parse(message.body);
+          // const exists = biddingData.some(item => bidCarId === item.bidCarId);
+          // if (!exists) {
+          //   biddingData.push(...topBids);
+          // }
+          setTopThreeBidsAmount(topBids);
+          // setTopThreeBidsAmountArray(biddingData);
+        }, { ack: 'client' });
+      }
     } else {
       console.log('Stomp client is not initialized.');
     }
   };
 
-  // const refreshTopThreeBids = (bidCarId) => {
-  //   if (client && bidCarId) {
-  //     client.publish({
-  //       destination: `/topBids/${bidCarId}`,
-  //     });
-  //     client.subscribe('/topic/topBids', (message) => {
-  //       const topBids = JSON.parse(message.body);
-  //       console.log('Live cars received:', topBids);
-  //       setTopThreeBidsAmount(topBids);
-  //     });
-  //   }
-  // };
+  const refreshTopThreeBids = (bidCarId) => {
+    console.log("topThreeBidsAmount",client)
 
-  function refreshTopThreeBids(bidCarId) {
-    // const bidCarId = document.getElementById('bidCarId').value;
     if (bidCarId && client) {
-        // if (bidCarId) {
-        //     client.unsubscribe(`/topic/topBids/${bidCarId}`);
-        // }
-        // bidCarId = bidCarId;
-
-        client.subscribe(`/topic/topBids/${bidCarId}`, function (message) {
-            const topBid = JSON.parse(message.body);
-            // updateTopBid(topBid);
+      // if (!subscriptions.current[`/topic/topBids_${bidCarId}`]) {
+        subscriptions.current[`/topic/topBids_${bidCarId}`] = client.subscribe(`/topBids/${bidCarId}`, (message) => {
+          const topBid = JSON.parse(message.body);
+          console.log("topThreeBidsAmount",topBid)
+          // updateTopBid(topBid);
         });
+      // }
 
-        client.send(`/app/topBids/${bidCarId}`, {}, {});
+      client.publish({destination :`/topic/topBids`}, {}, {});
     }
-}
+  };
 
   const placeBid = (userData) => {
     const bid = {
@@ -142,13 +138,13 @@ export const WebSocketProvider = ({ children }) => {
           body: JSON.stringify(bid),
         });
 
-        client.subscribe("/topic/bids", (message) => {
-          var response = JSON.parse(message.body);
-          if(response?.status){
-            console.log("bidcheck",response?.status)
-            resolve(response);
-          }
-        });
+          subscriptions.current["/topic/bids"] = client.subscribe("/topic/bids", (message) => {
+            var response = JSON.parse(message.body);
+            if(response?.status){
+              console.log("bidcheck", response?.status);
+              resolve(response);
+            }
+          });
       } else {
         console.error('Stomp client is not initialized.');
         reject('Stomp client is not initialized.');

@@ -24,7 +24,7 @@ export const salesAPI = apiSlice.injectEndpoints({
         transerResponse: console.log(userId),
         method:"GET"
       }),
-      providesTags: ["SALESPERSON"],
+      providesTags: ["SALESPERSON" ,"User"],
     }),
 
 
