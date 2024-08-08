@@ -71,7 +71,7 @@ const BiddingDealerCars = () => {
     if (status === "ALL") {
       setFilteredData(data);
     } else {
-      setFilteredData(data.filter((car) => car.carStatus === status));
+      setFilteredData(data.filter((car) => car?.carStatus === status));
     }
   };
 
