@@ -23,9 +23,9 @@ import { Link } from "react-router-dom";
 
 export default function Admin() {
   const [pageNo, setPageNo] = useState(0);
-  console.log(pageNo);
+  
   const { data, isLoading, error } = useGetAllDealerQuery(pageNo);
-console.log(data)
+
   const [deleteDealer] = useDeleteDealerMutation();
   const [open, setOpen] = useState(false);
   const [deleteid ,setDeleteid] = useState()
@@ -47,7 +47,7 @@ console.log(data)
 
   const deleteDealerHandler = async (id) => {
     const res = await deleteDealer(id);
-    console.log(res);
+   
   };
   const nextHandler = () => {
     setPageNo((prevPageNo) => {

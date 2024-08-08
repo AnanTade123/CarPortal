@@ -96,6 +96,7 @@ import SalesDealer from "./pages/sales/SalesDealer";
 import UserChangePassword from "./pages/user/UserChangePassword";
 import InspectorChangePassword from "./pages/Inspector/InspectorChangePassword";
 import SalerChangePassword from "./pages/sales/SalerChangePassword";
+import PremiumCars from "./components/home/PremiumCars";
 
 
 export default function App() {
@@ -112,6 +113,7 @@ export default function App() {
           <Route path="signup" element={<SimpleRegistrationForm />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/carlist" element={<BuyCar />} />
+          <Route path="/premiumcars" element={<PremiumCars/>} />
           <Route path="/wsConnction" element={<BiddingCar />} />
           <Route
             path="/carlist/cardetails/:carId"
@@ -138,6 +140,8 @@ export default function App() {
             }
           >
             <Route path="/admin" element={<Admin />} />
+
+           
 
             <Route path="/inspector" element={<InspectorList />} />
             <Route path="/admin/salesuser" element={<SalesList />} />

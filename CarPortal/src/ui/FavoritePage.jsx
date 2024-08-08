@@ -31,7 +31,7 @@ export function FavoritePage() {
     error,
     isLoading,
   } = useGetbyUserCarIdQuery({ UserId });
-  console.log("userCars", userCars?.list);
+ 
   if (isLoading) {
     return <p>Loading...</p>;
   }

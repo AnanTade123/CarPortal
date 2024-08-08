@@ -14,6 +14,15 @@ const BiddingCarView1 = ({ beadingCarId }) => {
 
   const { data, isLoading, error } = useGetbeadingCarImageQuery({beadingCarId});
 console.log(data)
+if (!data) {
+  return null
+}
+const reorderedData = [
+  ...data.object.filter(item => item.doctype === 'coverImage'),
+  ...data.object.filter(item => item.doctype !== 'coverImage')
+];
+console.log(reorderedData)
+
   if (isLoading) return <div>Loading...</div>;
   if (error)
     return (
@@ -41,8 +50,8 @@ console.log(data)
             prevButtonOptions={{ style: { backgroundColor: '#000000' } }}
             nextButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
           >
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
+            {reorderedData.length > 0 ? (
+              reorderedData.map((item) => (
                 <img
                   key={item.documentId}
                   src={item.documentLink}
@@ -71,8 +80,8 @@ console.log(data)
             prevButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
             nextButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
           >
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
+            {reorderedData.length > 0 ? (
+              reorderedData.map((item) => (
                 <div  key={item.documentId} className="relative overscroll-y-none">
                   <img
                     key={item.documentId}
@@ -109,8 +118,8 @@ console.log(data)
             prevButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
             nextButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
           >
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
+            {reorderedData.length > 0 ? (
+              reorderedData.map((item) => (
                 <img
                   key={item.documentId}
                   src={item.documentLink}
@@ -139,8 +148,8 @@ console.log(data)
             prevButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
             nextButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
           >
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
+            {reorderedData.length > 0 ? (
+              reorderedData.map((item) => (
                 <img
                   key={item.documentId}
                   src={item.documentLink}
@@ -169,8 +178,8 @@ console.log(data)
             prevButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
             nextButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
           >
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
+            {reorderedData.length > 0 ? (
+              reorderedData.map((item) => (
                 <img
                   key={item.documentId}
                   src={item.documentLink}

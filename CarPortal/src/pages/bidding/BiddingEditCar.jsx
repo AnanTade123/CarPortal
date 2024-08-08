@@ -48,7 +48,7 @@ import { ToastContainer, toast } from "react-toastify";
 export default function BiddingEditCar() {
 
   const { beadingCarId } = useParams();
-  console.log(beadingCarId)
+  
   const { data: Carid } = useBiddingCarByIdQuery(beadingCarId);
   const { data: brandData } = useGetOnlyBrandsQuery();
   const { data: dealarList } = useGetAllDealerListQuery();
@@ -63,7 +63,7 @@ export default function BiddingEditCar() {
   const { userId :userid } = JSON.parse(userInfo);
   const navigate = useNavigate();
 
-  console.log("data---", Carid);
+  
 
   const [formData, setFormData] = useState({
     //features
@@ -153,8 +153,7 @@ export default function BiddingEditCar() {
     }
   }, [Carid]);
 
-  console.log("formdata--", Carid)
-
+ 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -203,11 +202,11 @@ export default function BiddingEditCar() {
           navigate(`/bidding/${beadingCarId}/uploadimage`)
         }, 1000)
       }
-      console.log(res);
+      
     } catch (error) {
       console.log(error)
     }
-    console.log(data);
+   
 
   };
 

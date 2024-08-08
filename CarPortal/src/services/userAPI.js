@@ -17,7 +17,7 @@ export const UserAPI = apiSlice.injectEndpoints({
     Userupdate: builder.mutation({
       query: ({userProfileId ,userupdate})  => ({
         url: `user/edit/${userProfileId}`,
-        transerResponse:console.log("APi response" , userProfileId),
+       
         method: 'PUT',
         body:userupdate
       }),
@@ -30,7 +30,7 @@ export const UserAPI = apiSlice.injectEndpoints({
         url : `/user/changePassword/${userProfileId}`,
         method: "PUT",
         body : passChange,
-        transerResponse:console.log(userProfileId,passChange),
+       
        
       })
       

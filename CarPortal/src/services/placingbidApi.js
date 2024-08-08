@@ -6,7 +6,7 @@ export const placebidAPI = apiSlice.injectEndpoints({
         placebids : builder.mutation({
             query : (formdata) => ({
                 url : '/Bid/placeBid?bidCarId=26',
-                transferResponse: console.log(formdata),
+                
                 method :"POST",
                 body : formdata
             }),

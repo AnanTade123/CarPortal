@@ -13,7 +13,7 @@ const AdminSalesEdit = () => {
   const { userid, salesPersonId } = useParams();
   const userId = userid;
   const { data, isLoading, isError, error } = useSellerByIdQuery({ userId });
-  console.log(data);
+  
   const [salesupdate] = useSellerupdateMutation();
   const [inputField, setInputField] = React.useState({
     firstName: "",

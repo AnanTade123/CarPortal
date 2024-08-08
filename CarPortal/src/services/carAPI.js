@@ -125,7 +125,7 @@ export const carApi = apiSlice.injectEndpoints({
     getCarImageById: builder.query({
       query: ({ carId }) => ({
         url: `/uploadFile/getByCarID?carId=${carId} `,
-        transferResponse: console.log(carId),
+        
         method: "GET",
       }),
       providesTags: ["CAR"],

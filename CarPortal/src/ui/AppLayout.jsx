@@ -10,7 +10,7 @@ const AppLayout = () => {
         <nav className="sticky top-0 z-10">
           <StickyNavbar />
         </nav>
-        <main className="flex-grow  p-3">
+        <main className="flex-grow ">
           <Outlet />
         </main>
         <FooterF />

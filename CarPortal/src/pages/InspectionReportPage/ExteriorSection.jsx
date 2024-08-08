@@ -6,9 +6,9 @@ import { useGetInspectionReportQuery } from '../../services/inspectorapi';
 
 const ExteriorSection = () => {
   const { beadingCarId } = useParams();
-  console.log(beadingCarId);
+ 
   const { data } = useGetInspectionReportQuery({ beadingCarId, docType: "Exterior" });
-  console.log(data)
+  
 
   const [formData, setFormData] = React.useState({
     BonnetHood : "",

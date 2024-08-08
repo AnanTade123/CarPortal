@@ -12,7 +12,7 @@ export function CarouselCustomArrows({ carId }) {
       <div className="text-center mt-5">
         {" "}
         <img
-          className="h-[14rem] w-[19rem] p-[20px]  opacity-50"
+          className="h-[11rem] w-[19rem] p-[20px]  opacity-50"
           src="..\..\cars\no-image-available.png"
           alt="no image"
         />
@@ -29,7 +29,7 @@ export function CarouselCustomArrows({ carId }) {
               key={item.documentId}
               src={item.documentLink}
               alt={`Car Image ${item?.documentId}`}
-              className="rounded-lg h-[15rem] w-[19rem]"
+              className="rounded-lg h-[12rem] w-[19rem]"
             />
           ) : null
         )}

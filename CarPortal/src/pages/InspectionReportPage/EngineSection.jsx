@@ -29,9 +29,9 @@ const EngineSection = () => {
     Clutchs: null,
   });
   const { beadingCarId } = useParams();
-  console.log(beadingCarId);
+  
   const { data } = useGetInspectionReportQuery({ beadingCarId, docType: "Engine" });
-  console.log(data)
+  
 
   useEffect(() => {
     // Pre-fill form data and uploaded images based on API data
