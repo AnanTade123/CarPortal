@@ -3,7 +3,7 @@
 
 import {  useAllDealerFinalBidQuery,useBiddingCarByIdQuery} from "../../services/biddingAPI";
  
-import TableComponent from "../../components/table/TableComponent";
+//import TableComponent from "../../components/table/TableComponent";
 import { useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
