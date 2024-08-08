@@ -110,6 +110,7 @@ export default function BiddingAddCar2() {
     cVariant: "",
     insurancedate: "",
     carInsuranceType: "",
+    insuranceType: ""
   });
   const userInfo = localStorage.getItem("userInfo");
   const { userId: userid } = JSON.parse(userInfo);
@@ -183,6 +184,8 @@ export default function BiddingAddCar2() {
       date: formattedDate,
 
       dealerId: formData.dealerId,
+
+      insuranceType: formData.insuranceType,
 
       carInsuranceType: formData.carInsuranceType,
     };
