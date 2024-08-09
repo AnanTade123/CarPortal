@@ -159,7 +159,7 @@ console.log(urls)
           <img
             src={fallbackImage}
             alt="no image"
-            className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50 "
+            className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-0 "
           />
         </div>
       )}
@@ -238,7 +238,7 @@ console.log(urls)
           <img
             src={fallbackImage}
             alt="no image"
-            className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50 "
+            className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-0 "
           />
         </div>
       )}

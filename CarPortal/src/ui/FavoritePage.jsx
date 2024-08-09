@@ -1,21 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
+import {  useNavigate } from "react-router-dom";
 import {
-  Card,
-  CardBody,
-  CardHeader,
-  Typography,
-} from "@material-tailwind/react";
-import { CarouselCustomArrows } from "./CarouselCustomArrows";
-import { Link, useNavigate } from "react-router-dom";
-import { useFavorites } from "../ui/FavoriteContext";
-import {
-  useGetbySaveCarIdQuery,
   useGetbyUserCarIdQuery,
 } from "../services/carAPI";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
-import { useGetCarByIdQuery } from "../services/carAPI";
 import FavCard from "./FavCard";
 
 export function FavoritePage() {
@@ -30,6 +20,7 @@ export function FavoritePage() {
     data: userCars,
     error,
     isLoading,
+    refetch
   } = useGetbyUserCarIdQuery({ UserId });
  
   if (isLoading) {
@@ -39,6 +30,10 @@ export function FavoritePage() {
   if (error?.status === 401) {
     navigate("/signin");
     return null;
+  }
+
+  if (error && !isLoading && userCars) {
+    refetch();
   }
 
   return (
