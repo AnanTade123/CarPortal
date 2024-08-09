@@ -8,7 +8,7 @@ export function CarouselCustomArrows({ carId }) {
   const { data, isLoading, error } = useGetCarImageByIdQuery({ carId });
   console.log(data);
 
-  const fallbackImage = "..\\..\\cars\\no-image-available.png";
+  const fallbackImage = "..\\..\\cars\\no-image-available-update.png";
 
   const checkIfImage = (url) => {
     return new Promise((resolve) => {
