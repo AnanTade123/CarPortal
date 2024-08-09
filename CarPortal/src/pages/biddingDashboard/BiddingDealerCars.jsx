@@ -101,7 +101,7 @@ const BiddingDealerCars = () => {
       accessor: "price",
       disableSortBy: true,
     },
-    ...(userRole !== "ADMIN"
+    ...(userRole === "ADMIN" ||  userRole === "SALESPERSON"
       ? [
           {
             Header: "Inspection Report",
@@ -119,13 +119,13 @@ const BiddingDealerCars = () => {
                   </Button>
                 </Link>
               ) : cell.row.values.carStatus === "pending" ? (
-                <Link to={`/sale/carverify/${cell.row.values.beadingCarId}`}>
+                <Link to={userRole === "ADMIN" ?`/admin/carverify/${cell.row.values.beadingCarId}` : `/sale/carverify/${cell.row.values.beadingCarId}`}>
                   <Button variant="gradient" color="yellow">
                     Pending
                   </Button>
                 </Link>
               ) : (
-                <Link to={`/sale/inspection/report/${cell.row.values.beadingCarId}`}>
+                <Link to={userRole === "ADMIN" ?`/admin/inspection/report/${cell.row.values.beadingCarId}` :`/sale/inspection/report/${cell.row.values.beadingCarId}`}>
                   <Button variant="gradient" color="green">
                     Done
                   </Button>
@@ -142,9 +142,9 @@ const BiddingDealerCars = () => {
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
-              <Link to={`/biddinglist/cardetails/${cell.row.values.beadingCarId}`}>
+              <Link to={cell.row.values.beadingCarId === 122 ? `/biddinglist/cardetails/${cell.row.values.beadingCarId}/${cell.row.values.beadingCarId}` : `/biddinglist/cardetails/${cell.row.values.beadingCarId}`}>
                 <Button className="bg-[#045e4f]">
-                  {userRole === "DEALER" ? "Place Bidding" : "Set Bidding"}{" "}
+                  {userRole === "DEALER" ? "Place Bidding" : cell.row.values.beadingCarId === 122 ? "Update set Bidding" : "Set Bidding"}{" "}
                 </Button>
               </Link>
             </div>
