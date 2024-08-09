@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { UserPlusIcon } from "@heroicons/react/24/solid";
 import {
@@ -10,14 +11,15 @@ import {
 import CardUi from "../../ui/CardUi";
 import { useSignUpMutation } from "../../services/authAPI";
 import { ToastContainer, toast } from "react-toastify";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 export function AddSalesForm() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
   const [SignUp] = useSignUpMutation();
 
-  // Form state
-  const [formData, setFormData] = useState({
+  const initialValues = {
     email: "",
     password: "",
     mobileNo: "",
@@ -25,83 +27,40 @@ export function AddSalesForm() {
     lastName: "",
     address: "",
     profilePhotoId: "",
-    joiningdate:"",
+    joiningdate: "",
     city: "",
     roles: "SALESPERSON",
     documentId: "",
     area: "",
     status: true,
+  };
+
+  const validationSchema = Yup.object().shape({
+    firstName: Yup.string().required("First name is required"),
+    lastName: Yup.string().required("Last name is required"),
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    mobileNo: Yup.string()
+      .matches(/^\d{10}$/, "Invalid mobile number")
+      .required("Mobile number is required"),
+    password: Yup.string().required("Password is required"),
+    area: Yup.string().required("Area is required"),
+    city: Yup.string().required("City is required"),
+    address: Yup.string().required("Address is required"),
+    documentId: Yup.string().required("Aadhar No is required"),
   });
 
-  // Validation state
-  const [errors, setErrors] = useState({
-    email: "",
-    mobileNo: "",
-  });
-
-  // Handle input change
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  // Validate email
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  // Validate mobile number
-  const validateMobileNo = (mobileNo) => {
-    const mobileNoRegex = /^\d{10}$/; // Adjust the pattern according to your requirements
-    return mobileNoRegex.test(mobileNo);
-  };
-
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Validate form data
-    const emailError = validateEmail(formData.email)
-      ? ""
-      : "Invalid email address";
-    const mobileNoError = validateMobileNo(formData.mobileNo)
-      ? ""
-      : "Invalid mobile number";
-    setErrors({ email: emailError, mobileNo: mobileNoError });
-
-    // If there are validation errors, do not proceed
-    if (emailError || mobileNoError) {
-      return;
-    }
-
-    // Perform form submission logic here, e.g., send data to backend
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
-      const { data } = await SignUp(formData);
-      console.log(data);
+      const { data } = await SignUp(values);
       toast.success("Register Successfully");
+      resetForm();
+      setOpen(false);
     } catch (error) {
-      console.log(error);
+      console.log("Failed to register salesperson:", error);
     }
-    // Reset form after submission
-    setFormData({
-      email: "",
-      password: "",
-      mobileNo: "",
-      firstName: "",
-      lastName: "",
-      address: "",
-      joiningdate: "",
-      city: "",
-      documentId: "",
-      area: "",
-      status: false,
-    });
-    // Close the dialog
-    setOpen(false);
+    setSubmitting(false);
   };
 
   return (
@@ -121,91 +80,134 @@ export function AddSalesForm() {
             <Typography variant="h4" color="blue-gray">
               Add Seller
             </Typography>
-            <form
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
               onSubmit={handleSubmit}
-              className="space-y-3 md:w-full w-[220px]"
             >
-              <div className="flex md:flex-row flex-col gap-2 ">
-                <Input
-                  label="First Name"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  required
-                />
-                <Input
-                  label="Last Name"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <Input
-                label="Email"
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                error={errors.email}
-                required
-              />
-              {errors.email && (
-                <Typography color="red">{errors.email}</Typography>
-              )}
-              <Input
-                label="Mobile Number"
-                type="tel"
-                name="mobileNo"
-                value={formData.mobileNo}
-                onChange={handleChange}
-                error={errors.mobileNo}
-                required
-              />
-              {errors.mobileNo && (
-                <Typography color="red">{errors.mobileNo}</Typography>
-              )}
-              <Input
-                label="Password"
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-              <div className="flex gap-2 md:flex-row flex-col">
-                <Input
-                  label="Area"
-                  name="area"
-                  value={formData.area}
-                  onChange={handleChange}
-                  required
-                />
-                <Input
-                  label="City"
-                  name="city"
-                  value={formData.city}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <Input
-                label="Address"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                required
-              />
-              <Input
-                label="Aadhar No"
-                name="documentId"
-                value={formData.documentId}
-                onChange={handleChange}
-                required
-              />
+              {({ isSubmitting }) => (
+                <Form className="space-y-3 md:w-full w-[220px]">
+                  <div className="flex md:flex-row flex-col gap-2">
+                    <div className="flex flex-col">
+                      <Field
+                        name="firstName"
+                        className="border border-gray-400 rounded-md h-10 p-2"                       
+                        placeholder="First Name"
+                        
+                      />
+                      <ErrorMessage
+                        name="firstName"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <Field
+                        name="lastName"
+                        className="border border-gray-400 rounded-md h-10 p-2"                       
+                        placeholder="Last Name"
+                        
+                      />
+                      <ErrorMessage
+                        name="lastName"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col">
+                    <Field
+                      name="email"
+                      className="border border-gray-400 rounded-md h-10 p-2"                       
+                      placeholder="Email"
+                    />
+                    <ErrorMessage
+                      name="email"
+                      component="div"
+                      className="text-red-500 text-sm"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <Field
+                      name="mobileNo"
+                      placeholder="Mobile Number"
+                      className="border border-gray-400 rounded-md h-10 p-2"                       
+                    />
+                    <ErrorMessage
+                      name="mobileNo"
+                      component="div"
+                      className="text-red-500 text-sm"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <Field
+                      name="password"
+                      placeholder="Password"
+                      className="border border-gray-400 rounded-md h-10 p-2"                       
+                    />
+                    <ErrorMessage
+                      name="password"
+                      component="div"
+                      className="text-red-500 text-sm"
+                    />
+                  </div>
+                  <div className="flex gap-2 md:flex-row flex-col">
+                    <div className="flex flex-col">
+                      <Field
+                        name="area"
+                        placeholder="Area"
+                        className="border border-gray-400 rounded-md h-10 p-2"                       
+                        />
+                      <ErrorMessage
+                        name="area"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <Field
+                        name="city"
+                        placeholder="City"
+                        className="border border-gray-400 rounded-md h-10 p-2"                       
+                        />
+                      <ErrorMessage
+                        name="city"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col">
+                    <Field
+                      name="address"
+                      placeholder="Address"
+                      className="border border-gray-400 rounded-md h-10 p-2"                       
+                    />
+                    <ErrorMessage
+                      name="address"
+                      component="div"
+                      className="text-red-500 text-sm"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <Field
+                      name="documentId"
+                      placeholder="Aadhar No"
+                      className="border border-gray-400 rounded-md h-10 p-2"                       
 
-              <Button type="submit">Add</Button>
-            </form>
+                    />
+                    <ErrorMessage
+                      name="documentId"
+                      component="div"
+                      className="text-red-500 text-sm"
+                    />
+                  </div>
+                  <Button type="submit" disabled={isSubmitting}>
+                    Add
+                  </Button>
+                </Form>
+              )}
+            </Formik>
           </CardBody>
         </CardUi>
       </Dialog>

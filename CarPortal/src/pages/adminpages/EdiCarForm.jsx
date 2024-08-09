@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Button,
   Dialog,
@@ -7,46 +7,35 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-import Inputs from "../../forms/Inputs"; // Assuming this is a custom input component
 import { useEditBrandDataMutation } from "../../services/brandAPI";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
-const EditCarForm = ({ initialData, brandDataId ,onSave}) => {
+const EditCarForm = ({ initialData, brandDataId, onSave }) => {
   const [open, setOpen] = useState(false);
-  const [inputField, setInputField] = useState(
-    initialData || { brand: "", model: "", variant: "" }
-  );
   const [editBrandData] = useEditBrandDataMutation();
-  console.log("brandDataId", brandDataId);
-  useEffect(() => {
-    if (initialData) {
-      setInputField(initialData);
-    }
-  }, [initialData]);
 
   const handleOpen = () => setOpen(!open);
 
-  const onChangeFormhandler = (e) => {
-    const { name, value } = e.target;
-    setInputField((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const validationSchema = Yup.object().shape({
+    brand: Yup.string().required("Brand name is required"),
+    model: Yup.string().required("Model name is required"),
+    variant: Yup.string().required("Variant is required"),
+  });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(inputField);
-
+  const handleSubmit = async (values, { setSubmitting }) => {
     try {
       const res = await editBrandData({
         id: brandDataId,
-        inputField: inputField,
+        inputField: values,
       }).unwrap();
-      onSave(res)
+      onSave(res);
+      handleOpen();
     } catch (error) {
-      console.log(error);
+      console.error("Failed to edit brand data:", error);
+    } finally {
+      setSubmitting(false);
     }
-    handleOpen();
   };
 
   return (
@@ -56,42 +45,64 @@ const EditCarForm = ({ initialData, brandDataId ,onSave}) => {
       </Button>
       <Dialog open={open} handler={handleOpen}>
         <DialogHeader>Edit Car Details</DialogHeader>
-        <DialogBody className="flex flex-col gap-4">
-          <Inputs
-            label="Brand"
-            onChange={onChangeFormhandler}
-            value={inputField.brand}
-            name="brand"
-            type="text"
-          />
-          <Inputs
-            label="Model"
-            onChange={onChangeFormhandler}
-            value={inputField.variant}
-            name="variant"
-            type="text"
-          />
-          <Inputs
-            label="Variant"
-            onChange={onChangeFormhandler}
-            value={inputField.subVariant}
-            name="subVariant"
-            type="text"
-          />
-        </DialogBody>
-        <DialogFooter>
-          <Button
-            variant="text"
-            color="red"
-            onClick={handleOpen}
-            className="mr-1"
-          >
-            <span>Cancel</span>
-          </Button>
-          <Button variant="gradient" color="green" onClick={handleSubmit}>
-            <span>Save</span>
-          </Button>
-        </DialogFooter>
+        <Formik
+          initialValues={initialData || { brand: "", model: "", variant: "" }}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+          enableReinitialize
+        >
+          {({ isSubmitting }) => (
+            <Form>
+              <DialogBody className="flex flex-col gap-4">
+                <div className="flex flex-col">
+                  <label htmlFor="brand" className="text-black font-medium">Brand</label>
+                  <Field
+                    name="brand"
+                    placeholder="Brand"
+                    className="border border-gray-400 rounded-md h-10 p-2" 
+                  />
+                  <ErrorMessage name="brand" component="div" className="text-red-500" />
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="model" className="text-black font-medium">Model</label>
+                      <Field
+                      name="model"
+                      placeholder="Model"
+                      className="border border-gray-400 rounded-md h-10 p-2" 
+                  />
+                  <ErrorMessage name="model" component="div" className="text-red-500" />
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="variant" className="text-black font-medium">Variant</label>
+                      <Field
+                      name="variant"
+                      placeholder="Variant"
+                      className="border border-gray-400 rounded-md h-10 p-2" 
+                      />
+                  <ErrorMessage name="variant" component="div" className="text-red-500" />
+                </div>
+              </DialogBody>
+              <DialogFooter>
+                <Button
+                  variant="text"
+                  color="red"
+                  onClick={handleOpen}
+                  className="mr-1"
+                >
+                  <span>Cancel</span>
+                </Button>
+                <Button
+                  variant="gradient"
+                  color="green"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  <span>Save</span>
+                </Button>
+              </DialogFooter>
+            </Form>
+          )}
+        </Formik>
       </Dialog>
     </>
   );

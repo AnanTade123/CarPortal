@@ -158,8 +158,7 @@ export default function BiddingAddCar() {
       cVariant: '',
     });
   };
-  //End Brands and Model
-  // Model Change
+  
   const handleModelChange = (event) => {
     const model = event.target.value;
     setSelectedModel(model);

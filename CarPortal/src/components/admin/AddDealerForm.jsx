@@ -1,8 +1,16 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { UserPlusIcon } from "@heroicons/react/24/solid";
-import { Button, Dialog, CardBody, Typography, Input } from "@material-tailwind/react";
+import {
+  Button,
+  Dialog,
+  CardBody,
+  Typography,
+  Input,
+} from "@material-tailwind/react";
 import CardUi from "../../ui/CardUi";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import { useSignUpMutation } from "../../services/authAPI";
 
 export function AddDealerForm() {
@@ -10,95 +18,37 @@ export function AddDealerForm() {
   const handleOpen = () => setOpen(!open);
   const [SignUp] = useSignUpMutation();
 
-  // Form state
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    mobileNo: "",
-    firstName: "",
-    lastName: "",
-    address: "",
-    city: "",
-    roles: "DEALER",
-    document: 0,
-    shopName: "",
-    area: "",
-    status: false,
-    userType: "",
+  
+  const validationSchema = Yup.object().shape({
+    firstName: Yup.string().required("First name is required"),
+    lastName: Yup.string().required("Last name is required"),
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    mobileNo: Yup.string()
+      .matches(/^\d{10}$/, "Invalid mobile number")
+      .required("Mobile number is required"),
+    password: Yup.string().required("Password is required"),
+    area: Yup.string().required("Area is required"),
+    city: Yup.string().required("City is required"),
+    address: Yup.string().required("Address is required"),
+    shopName: Yup.string().required("Shop name is required"),
   });
 
-  // Validation state
-  const [errors, setErrors] = useState({
-    email: "",
-    mobileNo: ""
-  });
-
-  // Handle input change
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  // Validate email
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  // Validate mobile number
-  const validateMobileNo = (mobileNo) => {
-    const mobileNoRegex = /^\d{10}$/; // Adjust the pattern according to your requirements
-    return mobileNoRegex.test(mobileNo);
-  };
-
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Validate form data
-    const emailError = validateEmail(formData.email) ? "" : "Invalid email address";
-    const mobileNoError = validateMobileNo(formData.mobileNo) ? "" : "Invalid mobile number";
-    setErrors({ email: emailError, mobileNo: mobileNoError });
-
-    // If there are validation errors, do not proceed
-    if (emailError || mobileNoError) {
-      return;
-    }
-
-    // Perform form submission logic here, e.g., send data to backend
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
-      const { data ,error} = await SignUp(formData);
-      console.log(error);
-      if(error?.data?.code === "Unsuccessful"){
-        alert(error?.data?.message)
-      }else{
+      const { data, error } = await SignUp(values);
+      if (error?.data?.code === "Unsuccessful") {
+        alert(error?.data?.message);
+      } else {
         alert("Register Successfully");
-
+        resetForm();
+        handleOpen();
       }
     } catch (error) {
-      console.log(error);
+      console.log("Failed to register dealer:", error);
     }
-    // Reset form after submission
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      mobileNo: "",
-      password: "",
-      area: "",
-      city: "",
-      address: "",
-      shopName: "",
-      roles: "DEALER",
-      document: 0,
-      status: false,
-      userType: "",
-    });
-    // Close the dialog
-    setOpen(false);
+    setSubmitting(false);
   };
 
   return (
@@ -117,91 +67,163 @@ export function AddDealerForm() {
             <Typography variant="h4" color="blue-gray">
               Add Dealer
             </Typography>
-            <form onSubmit={handleSubmit} className="space-y-3 md:w-full w-[220px]">
-              <div className="flex md:flex-row flex-col gap-2 ">
-                <Input
-                  label="First Name"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  required
-                />
-                <Input
-                  label="Last Name"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <Input
-                label="Email"
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                // error={errors?.email}
-                required
-              />
-              {errors.email && (
-                <Typography color="red">{errors.email}</Typography>
+            <Formik
+              const initialValues = {{
+                email: "",
+                password: "",
+                mobileNo: "",
+                firstName: "",
+                lastName: "",
+                address: "",
+                city: "",
+                roles: "DEALER",
+                document: 0,
+                shopName: "",
+                area: "",
+                status: false,
+                userType: "",
+              }}
+            
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
+            >
+              {({ isSubmitting }) => (
+                <Form className="space-y-3 md:w-full w-[220px]">
+                  <div className="flex md:flex-row flex-col gap-2 ">
+                    <div className="flex flex-col">
+                      <label htmlFor="firstName" className=" text-gray-800 font-semibold">
+                        First Name
+                      </label>
+                      <Field
+                        name="firstName"
+                        placeholder="FirstName"
+                        className="border border-gray-400 rounded-md h-10 p-2"   
+                      />
+                      <ErrorMessage
+                        name="firstName"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                    <label htmlFor="lastName" className=" text-gray-800 font-semibold">
+                  Last Name
+                </label>
+                      <Field
+                        name="lastName"
+                        placeholder="LastName"
+                        className="border border-gray-400 rounded-md h-10 p-2"                         
+                      />
+                      <ErrorMessage
+                        name="lastName"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col">
+                  <label htmlFor="email" className=" text-gray-800 font-semibold">
+                  Email
+                </label>
+                    <Field name="email"  placeholder="Email" className="border border-gray-400 rounded-md h-10 p-2"   />
+                    <ErrorMessage
+                      name="email"
+                      component="div"
+                      className="text-red-500 text-sm"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                  <label htmlFor="lastmobileNoName" className=" text-gray-800 font-semibold">
+                 Mobile Number
+                </label>
+                    <Field
+                      name="mobileNo"  placeholder="Mobile Number" label="mobileNo"
+                      className="border border-gray-400 rounded-md h-10 p-2"                       
+                    />
+                    <ErrorMessage
+                      name="mobileNo"
+                      component="div"
+                      className="text-red-500 text-sm"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                  <label htmlFor="password"  className=" text-gray-800 font-semibold">
+                  Password
+                </label>
+                    <Field
+                      name="password"
+                      
+                      placeholder="Password"
+                      
+                      className="border border-gray-400 rounded-md h-10 p-2"/>
+                    <ErrorMessage
+                      name="password"
+                      component="div"
+                      className="text-red-500 text-sm"
+                    />
+                  </div>
+                  <div className="flex gap-2 md:flex-row flex-col">
+                    <div className="flex flex-col">
+                    <label htmlFor="area" className=" text-gray-800 font-semibold">
+                  Area
+                </label>
+                      <Field name="area" className="border border-gray-400 rounded-md h-10 p-2"  placeholder="Area"  />
+                      <ErrorMessage
+                        name="area"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                    <label htmlFor="city" className=" text-gray-800 font-semibold">
+                  City
+                </label>
+                      <Field name="city" className="border border-gray-400 rounded-md h-10 p-2"  placeholder="City"  />
+                      <ErrorMessage
+                        name="city"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col">
+                  <label htmlFor="address" className=" text-gray-800 font-semibold">
+                 Address
+                </label>
+                    <Field
+                      name="address"
+                      className="border border-gray-400 rounded-md h-10 p-2"                       
+                      placeholder="Address"
+                    />
+                    <ErrorMessage
+                      name="address"
+                      component="div"
+                      className="text-red-500 text-sm"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                  <label htmlFor="shopName" className=" text-gray-800 font-semibold">
+                  Shop Name                
+                  </label>
+                    <Field
+                      name="shopName"
+                      className="border border-gray-400 rounded-md h-10 p-2"                       
+                      placeholder="Shop Name"
+                    />
+                    <ErrorMessage
+                      name="shopName"
+                      component="div"
+                      className="text-red-500 text-sm"
+                    />
+                  </div>
+                  <Button type="submit" disabled={isSubmitting}>
+                    Add
+                  </Button>
+                </Form>
               )}
-              <Input
-                label="Mobile Number"
-                type="tel"
-                name="mobileNo"
-                value={formData.mobileNo}
-                onChange={handleChange}
-                // error={errors?.mobileNo}
-                required
-              />
-              {errors.mobileNo && (
-                <Typography color="red">{errors.mobileNo}</Typography>
-              )}
-              <Input
-                label="Password"
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-              <div className="flex gap-2 md:flex-row flex-col">
-                <Input
-                  label="Area"
-                  name="area"
-                  value={formData.area}
-                  onChange={handleChange}
-                  required
-                />
-                <Input
-                  label="City"
-                  name="city"
-                  value={formData.city}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <Input
-                label="Address"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                required
-              />
-              <Input
-                label="Shop Name"
-                name="shopName"
-                value={formData.shopName}
-                onChange={handleChange}
-                required
-              />
-              <Button type="submit">Add</Button>
-            </form>
+            </Formik>
           </CardBody>
-          
         </CardUi>
-        
       </Dialog>
     </>
   );
