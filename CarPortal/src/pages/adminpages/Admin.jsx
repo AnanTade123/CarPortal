@@ -53,10 +53,8 @@ export default function Admin() {
     setPageNo((prevPageNo) => {
       // Check if the error status is 404
       if (error?.status === 404) {
-        console.log("click");
         console.log(prevPageNo);
         // Display message or perform any action indicating that it's the last page
-        console.log("You are on the last page.");
         return prevPageNo; // Keep pageNo unchanged
       } else {
         // Increment pageNo

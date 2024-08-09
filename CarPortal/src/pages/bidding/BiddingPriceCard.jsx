@@ -162,7 +162,7 @@ const BiddingPriceCard = ({
               </div>
             </div>
           ) :
-          (userRole === "DEALER" && page !== "winnigPage") ?
+          (userRole === "DEALER" && page !== "winnigPage" && timerId !== "success") ?
           
           (<div>
           <p className="text-2xl font-semibold text-black">Start Bidding</p>

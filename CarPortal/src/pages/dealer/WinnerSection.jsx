@@ -13,8 +13,6 @@ import { useLazyGetDealerByUserIdQuery } from "../../services/dealerAPI";
 import { Link } from "react-router-dom";
 
 const WinnerSection = () => {
-  const { id } = useParams();
-
   const token = Cookies.get("token");
   let jwtDecodes;
   if (token) {
@@ -22,9 +20,10 @@ const WinnerSection = () => {
   }
 
   const UserID = jwtDecodes?.userId;
-  const dealerId = jwtDecodes?.dealerId;
 
-  const { data: didData } = useAllDealerFinalBidQuery(UserID);
+  const { data: didData , isLoading , error} = useAllDealerFinalBidQuery(UserID);
+  console.log("I have change ",error)
+
   let [trigger] = useLazyBiddingCarByIdQuery();
   let [triggerGetDealer] = useLazyGetDealerByUserIdQuery();
   const [liveCarsWinData, setLiveCarsWinData] = useState([]);
@@ -37,7 +36,6 @@ const WinnerSection = () => {
         for (let i = 0; i < didData.finalBids.length; i++) {
           const carId = didData.finalBids[i]?.beadingCarId;
           const id = didData.finalBids[i]?.sellerDealerId;
-          console.log("check my data", id)
           if (carId) {
             const { data: carData, error: carError } = await trigger(carId);
             if (carError) {
@@ -68,13 +66,7 @@ const WinnerSection = () => {
     fetchServiceProducts();
   }, [didData, trigger, triggerGetDealer]);
 
-  const handleAction = (id) => {
-    console.log("View action clicked for bidCarId:", id);
-  };
-
-  const handleAnotherAction = (id) => {
-    console.log("Delete action clicked for bidCarId:", id);
-  };
+ 
 
   const columns = [
     {
@@ -104,7 +96,7 @@ const WinnerSection = () => {
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
-              <Link to={`/biddinglist/cardetails/${cell.row.values.bidCarId}`}>
+              <Link to={`/biddinglist/cardetails/${cell.row.values.bidCarId}/success`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -128,15 +120,13 @@ const WinnerSection = () => {
     }
   ];
 
-  if (liveCarsWinData?.length === 0) {
+  if (error?.status === 404) {
     return (
-      <div>
-        <p>No Data Available</p>
+      <div className="p-5">
+        <p>No Available Data</p>
       </div>
     );
   }
-
-  console.log("Live Cars Win Data:", liveCarsWinData);
 
   return (
     <>
@@ -146,7 +136,8 @@ const WinnerSection = () => {
       <div>
         {liveCarsWinData && (
           <TableComponent columns={columns} data={liveCarsWinData} />
-        )}
+        )        
+        }
       </div>
     </>
   );
