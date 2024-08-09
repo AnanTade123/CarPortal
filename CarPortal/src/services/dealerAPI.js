@@ -119,6 +119,14 @@ export const dealerAPI = apiSlice.injectEndpoints({
         body: passChange,
       }),
     }),
+
+    getDealerByUserId: builder.query({
+      query: (id) => ({
+        url: `/dealer/win/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Dealer", "User"],
+    }),
   }),
 });
 
@@ -127,6 +135,7 @@ export const {
   useGetDealerbySalesQuery,
   useDeleteDealerMutation,
   useGetDealerQuery,
+  useLazyGetDealerQuery,
   useGetEditDealerMutation,
   useGetAllDealerCompleteBookingQuery,
   useGetAllDealerPendingBookingQuery,
@@ -135,5 +144,6 @@ export const {
   useGetAllDealerListQuery,
   useCancelStatusSetMutation,
   useGetUserQuery,
-  useChnagePasswordMutation
+  useChnagePasswordMutation,
+  useLazyGetDealerByUserIdQuery
 } = dealerAPI;
