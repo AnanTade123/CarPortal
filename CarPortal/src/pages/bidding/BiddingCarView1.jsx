@@ -16,7 +16,7 @@ const BiddingCarView1 = ({ beadingCarId }) => {
   const { data, isLoading, error } = useGetbeadingCarImageQuery({beadingCarId});
 console.log(data)
 
-const fallbackImage = "..\\..\\cars\\no-image-available.png";
+const fallbackImage = "..\\..\\cars\\no-image-available-update.png";
 const checkIfImage = (url) => {
   return new Promise((resolve) => {
     const img = new Image();
@@ -55,7 +55,7 @@ useEffect(() => {
         <div className="flex justify-center">
           <img
             className=" md:w-[12rem] w-[10rem] opacity-50 "
-            src="..\..\cars\no-image-available.png"
+            src="..\..\cars\no-image-available-update.png"
             alt="no image"
           />
         </div>

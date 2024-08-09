@@ -3,7 +3,7 @@ import { CardDefault } from "../../ui/CardDefault";
 // import CardUi from "../../ui/CardUi";
 import { useEffect, useState } from "react";
 
-const GridCarList = ({ data, error }) => {
+const GridCarList = ({ data, error,refetch }) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const GridCarList = ({ data, error }) => {
           return (
             <div key={index}>
               <div className="flex">
-                <CardDefault data={items} Carid={items.carId} />
+                <CardDefault data={items} Carid={items.carId} refetch={refetch} />
               </div>
             </div>
           );

@@ -287,303 +287,308 @@ export default function BiddingEditCar() {
 
   return (
     <>
-    <ToastContainer/>
-    <div className="md:flex justify-center m-6 md:m-0">
-      <div>
-        <form onSubmit={handleSubmit} className="w-full">
-          <div className="flex justify-center">
-            <p className="text-3xl font-semibold m-4">Edit Bidding Car</p>
-          </div>
-          <div className="md:flex gap-2">
-            <div className="mt-5 w-full">
-              <select
-                required
-                className="w-full border-2 border-gray-400 p-2 rounded-md"
-                value={formData?.brand}
-                onChange={handleBrandChange}
-              >
-                <option value="">Brands</option>
-                {brands.map((brand) => (
-                  <option key={brand} value={brand}>
-                    {brand}
-                  </option>
-                ))}
-              </select>
+      <ToastContainer />
+      <div className="md:flex justify-center m-6 md:m-0">
+        <div>
+          <form onSubmit={handleSubmit} className="w-full xl:w-[45rem]">
+            <div className="flex justify-center">
+              <p className="text-3xl font-semibold m-4">Edit Bidding Car</p>
             </div>
-
-            <div className="mt-5 w-full">
-              <select
-                required
-                className="w-full border-2 border-gray-400 p-2 rounded-md"
-                value={formData?.model}
-                onChange={handleModelChange}
-                disabled={!selectedBrand}
-              >
-                <option value="">Models</option>
-                {modelOptions.map((model, i) => (
-                  <option key={i} value={model}>
-                    {model}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-          <div className="md:flex">
-            <div className="mt-5 w-full">
-              <select
-                className="w-full border-2 border-gray-400 p-2 rounded-md"
-                name="cVariant"
-                value={formData?.cVariant}
-                onChange={handleVariantChange}
-                disabled={!modelOptions.length}
-                required
-              >
-                <option value="">Car Variant</option>
-                {variantOptions?.map((cVariant, i) => (
-                  <option key={i} value={cVariant}>
-                    {cVariant}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="mt-5 md:ml-2 w-full">
-              <select
-                required
-                className="w-full border-2 border-gray-400 p-2 rounded-md"
-                name="transmission"
-                value={formData?.transmission}
-                onChange={(event) => {
-                  setFormData({
-                    ...formData,
-                    transmission: event.target.value,
-                  });
-                }}
-              >
-                <option value="">Transmission</option>
-                <option>Automatic</option>
-                <option>Manual</option>
-              </select>
-            </div>
-          </div>
-          <div className="md:flex">
-            <div className="mt-5 w-full">
-              <Inputs
-              required
-                label="Price"
-                type="number"
-                name="price"
-                value={formData.price}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    price: event.target.value,
-                  })
-                }
-              />
-            </div>
-
-            <div className="mt-5 md:ml-2 w-full">
-              <select
-              required
-                className="w-full border-2 border-gray-400 p-2 rounded-md"
-                label={"year"}
-                type={"number"}
-                name={"year"}
-                value={formData?.year}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    year: event.target.value,
-                  })
-                }
-              >
-                <option>Year</option>
-                {[...Array(new Date().getFullYear() - 2004)].map((_, index) => {
-                  const year = 2005 + index;
-                  return (
-                    <option key={year} value={year}>
-                      {year}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-          </div>
-
-          <div className="md:flex">
-            <div className="mt-5 w-full">
-              <select
-              required
-                className="w-full border-2 border-gray-400 p-2 rounded-md"
-                label={"Color"}
-                type={"text"}
-                name={"color"}
-                value={formData.color}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    color: event.target.value,
-                  })
-                }
-              >
-                <option value="">Color</option>
-                {[
-                  "Red",
-                  "Blue",
-                  "Yellow",
-                  "Pink",
-                  "Purple",
-                  "White",
-                  "Black",
-                  "Orange",
-                  "Green",
-                  "Brown",
-                  "Gold",
-                  "Aqua",
-                ].map((color) => (
-                  <option key={color} value={color}>
-                    {color}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="mt-5 md:ml-2 w-full">
-              <select
-              required
-                className="w-full border-2 border-gray-400 p-2 rounded-md"
-                name="ownerSerial"
-                value={formData.ownerSerial}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    ownerSerial: event.target.value,
-                  })
-                }
-              >
-                <option value="">
-                  Select Owner Serial
-                </option>
-                {["1", "2", "3", "4", "5"].map((serial) => (
-                  <option key={serial} value={serial}>
-                    {serial}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-          <div className="md:flex gap-2">
-            <div className="mt-5 w-full">
-              <Inputs
-              required
-                label={"Area"}
-                type={"text"}
-                name={"area"}
-                value={formData.area}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    area: event.target.value,
-                  })
-                }
-              />
-            </div>
-            <div className="mt-5 w-full">
-              <select
-                required
-                className="w-full border-2 border-gray-400 p-2 rounded-md"
-                name="carInsurance"
-                value={formData.carInsurance}
-                onChange={handleChange}
-              >
-                <option value="">Car Insurance</option>
-                <option value="true">Yes</option>
-                <option value="false">No</option>
-              </select>
-              {showCalendar && (
-                <>
-                <div className="mt-3">
-                  <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="date"
-                  >
-                    Select Date
-                  </label>
-                  <input
-                    type="date"
-                    id="date"
-                    value={formData.insurancedate}
-                    onChange={handleDateChange}
-                    className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  />
-                </div>
-                <label
-                    className="block text-gray-700 text-sm font-bold mt-2"
-                    htmlFor="insurance"
-                  >
-                 Insurance Type
-                  </label>
+            <div className="md:flex gap-2">
+              <div className="mt-5 w-full">
                 <select
-                 required
-                 className="w-full border-2 border-gray-400 p-2 rounded-md"
-                 name="carInsurance"
-                 value={formData.carInsuranceType}
-                 onChange={handleChangeType}
-               >
-                 <option value=""> Insurance Type</option>
-                 <option value="Comprehensive">Comprehensive</option>
-                 <option value="Zero Dept">Zero Depreciation </option>
-                 <option value="Third Party">Third Party</option>
-               </select>
-                </>
-              )}
+                  required
+                  className="w-full border-2 border-gray-400 p-2 rounded-md"
+                  value={formData?.brand}
+                  onChange={handleBrandChange}
+                >
+                  <option value="">Brands</option>
+                  {brands.map((brand) => (
+                    <option key={brand} value={brand}>
+                      {brand}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="mt-5 w-full">
+                <select
+                  required
+                  className="w-full border-2 border-gray-400 p-2 rounded-md"
+                  value={formData?.model}
+                  onChange={handleModelChange}
+                  disabled={!selectedBrand}
+                >
+                  <option value="">Models</option>
+                  {modelOptions.map((model, i) => (
+                    <option key={i} value={model}>
+                      {model}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-          </div>
-          <div className="md:flex gap-2">
-            <div className="mt-5 w-full">
-              <Inputs
-              required
-                label={"Km Driven"}
-                type={"number"}
-                name={"kmDriven"}
-                value={formData.kmDriven}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    kmDriven: event.target.value,
-                  })
-                }
-              />
+            <div className="md:flex">
+              <div className="mt-5 w-full">
+                <select
+                  className="w-full border-2 border-gray-400 p-2 rounded-md"
+                  name="cVariant"
+                  value={formData?.cVariant}
+                  onChange={handleVariantChange}
+                  disabled={!modelOptions.length}
+                  required
+                >
+                  <option value="">Car Variant</option>
+                  {variantOptions?.map((cVariant, i) => (
+                    <option key={i} value={cVariant}>
+                      {cVariant}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="mt-5 md:ml-2 w-full">
+                <select
+                  required
+                  className="w-full border-2 border-gray-400 p-2 rounded-md"
+                  name="transmission"
+                  value={formData?.transmission}
+                  onChange={(event) => {
+                    setFormData({
+                      ...formData,
+                      transmission: event.target.value,
+                    });
+                  }}
+                >
+                  <option value="">Transmission</option>
+                  <option>Automatic</option>
+                  <option>Manual</option>
+                </select>
+              </div>
             </div>
-            <div className="mt-5 w-full">
-              <select
-              required
-                className="w-full border-2 border-gray-400 p-2 rounded-md"
-                label={"fuelType"}
-                type={"text"}
-                name={"fuelType"}
-                value={formData.fuelType}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    fuelType: event.target.value,
-                  })
-                }
-              >
-                <option value="">Fuel Type</option>
-                
-                {["Petrol", "Diesel", "CNG", "Electric", "Hybrid", "Petrol+CNG"].map(
-                  (fuel) => (
+            <div className="md:flex">
+              <div className="mt-5 w-full">
+                <Inputs
+                  required
+                  label="Price"
+                  type="number"
+                  name="price"
+                  value={formData.price}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      price: event.target.value,
+                    })
+                  }
+                />
+              </div>
+
+              <div className="mt-5 md:ml-2 w-full">
+                <select
+                  required
+                  className="w-full border-2 border-gray-400 p-2 rounded-md"
+                  label={"year"}
+                  type={"number"}
+                  name={"year"}
+                  value={formData?.year}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      year: event.target.value,
+                    })
+                  }
+                >
+                  <option>Year</option>
+                  {[...Array(new Date().getFullYear() - 2004)].map(
+                    (_, index) => {
+                      const year = 2005 + index;
+                      return (
+                        <option key={year} value={year}>
+                          {year}
+                        </option>
+                      );
+                    }
+                  )}
+                </select>
+              </div>
+            </div>
+
+            <div className="md:flex">
+              <div className="mt-5 w-full">
+                <select
+                  required
+                  className="w-full border-2 border-gray-400 p-2 rounded-md"
+                  label={"Color"}
+                  type={"text"}
+                  name={"color"}
+                  value={formData.color}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      color: event.target.value,
+                    })
+                  }
+                >
+                  <option value="">Color</option>
+                  {[
+                    "Red",
+                    "Blue",
+                    "Yellow",
+                    "Pink",
+                    "Purple",
+                    "White",
+                    "Black",
+                    "Orange",
+                    "Green",
+                    "Brown",
+                    "Gold",
+                    "Aqua",
+                  ].map((color) => (
+                    <option key={color} value={color}>
+                      {color}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="mt-5 md:ml-2 w-full">
+                <select
+                  required
+                  className="w-full border-2 border-gray-400 p-2 rounded-md"
+                  name="ownerSerial"
+                  value={formData.ownerSerial}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      ownerSerial: event.target.value,
+                    })
+                  }
+                >
+                  <option value="">Select Owner Serial</option>
+                  {["1", "2", "3", "4", "5"].map((serial) => (
+                    <option key={serial} value={serial}>
+                      {serial}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="md:flex gap-2">
+              <div className="mt-5 w-full">
+                <Inputs
+                  required
+                  label={"Area"}
+                  type={"text"}
+                  name={"area"}
+                  value={formData.area}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      area: event.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className="mt-5 w-full">
+                <select
+                  required
+                  className="w-full border-2 border-gray-400 p-2 rounded-md"
+                  name="carInsurance"
+                  value={formData.carInsurance}
+                  onChange={handleChange}
+                >
+                  <option value="">Car Insurance</option>
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+                </select>
+                {showCalendar && (
+                  <>
+                    <div className="mt-3">
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="date"
+                      >
+                        Select Date
+                      </label>
+                      <input
+                        type="date"
+                        id="date"
+                        value={formData.insurancedate}
+                        onChange={handleDateChange}
+                        className="w-full border-2 border-gray-400 p-2 rounded-md"
+                      />
+                    </div>
+                    <label
+                      className="block text-gray-700 text-sm font-bold mt-2"
+                      htmlFor="insurance"
+                    >
+                      Insurance Type
+                    </label>
+                    <select
+                      required
+                      className="w-full border-2 border-gray-400 p-2 rounded-md"
+                      name="carInsurance"
+                      value={formData.carInsuranceType}
+                      onChange={handleChangeType}
+                    >
+                      <option value=""> Insurance Type</option>
+                      <option value="Comprehensive">Comprehensive</option>
+                      <option value="Zero Dept">Zero Depreciation </option>
+                      <option value="Third Party">Third Party</option>
+                    </select>
+                  </>
+                )}
+              </div>
+            </div>
+            <div className="md:flex gap-2">
+              <div className="mt-5 w-full">
+                <Inputs
+                  required
+                  label={"Km Driven"}
+                  type={"number"}
+                  name={"kmDriven"}
+                  value={formData.kmDriven}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      kmDriven: event.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className="mt-5 w-full">
+                <select
+                  required
+                  className="w-full border-2 border-gray-400 p-2 rounded-md"
+                  label={"fuelType"}
+                  type={"text"}
+                  name={"fuelType"}
+                  value={formData.fuelType}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      fuelType: event.target.value,
+                    })
+                  }
+                >
+                  <option value="">Fuel Type</option>
+
+                  {[
+                    "Petrol",
+                    "Diesel",
+                    "CNG",
+                    "Electric",
+                    "Hybrid",
+                    "Petrol+CNG",
+                  ].map((fuel) => (
                     <option key={fuel} value={fuel}>
                       {fuel}
                     </option>
-                  )
-                )}
-              </select>
+                  ))}
+                </select>
+              </div>
             </div>
-          </div>
-          {/* <div className="md:flex">
+            {/* <div className="md:flex">
             <div className="mt-5 w-full">
               <select
                 className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -622,185 +627,187 @@ export default function BiddingEditCar() {
               </select>
             </div>
           </div> */}
-          <div className="md:flex">
-            <div className="mt-5 ml-5">
-              <input
-                label={"Music Feature"}
-                type={"checkbox"}
-                name={"musicFeature"}
-                // value={formData.musicFeature}
-                checked={formData.musicFeature}
+            <div className="md:flex">
+              <div className="mt-5 ml-5">
+                <input
+                  label={"Music Feature"}
+                  type={"checkbox"}
+                  name={"musicFeature"}
+                  // value={formData.musicFeature}
+                  checked={formData.musicFeature}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      musicFeature: event.target.checked,
+                    })
+                  }
+                />{" "}
+                Music
+              </div>
+
+              <div className="mt-5 ml-5">
+                <input
+                  label={"Power Window Feature"}
+                  type={"checkbox"}
+                  name={"powerWindowFeature"}
+                  // value={formData.powerWindowFeature}
+                  checked={formData.powerWindowFeature}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      powerWindowFeature: event.target.checked,
+                    })
+                  }
+                />{" "}
+                Power Windows
+              </div>
+
+              <div className="mt-5 ml-5">
+                <input
+                  label={"Ac Feature"}
+                  type={"checkbox"}
+                  name={"acFeature"}
+                  // value={formData.acFeature}
+                  checked={formData.acFeature}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      acFeature: event.target.checked,
+                    })
+                  }
+                />{" "}
+                Air Conditioning
+              </div>
+
+              <div className="mt-5 ml-5">
+                <input
+                  label={"Rear Parking Camera Feature"}
+                  type={"checkbox"}
+                  name={"rearParkingCameraFeature"}
+                  // value={formData.rearParkingCameraFeature}
+                  checked={formData.rearParkingCameraFeature}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      rearParkingCameraFeature: event.target.checked,
+                    })
+                  }
+                />{" "}
+                Rear Parking Camera
+              </div>
+            </div>
+            {/* tenth part */}
+            <div className="md:flex">
+              <div className="mt-5 ml-5">
+                <input
+                  label={"Button Start"}
+                  type={"checkbox"}
+                  name={"buttonStart"}
+                  // value={formData.musicFeature}
+                  checked={formData.buttonStart}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      buttonStart: event.target.checked,
+                    })
+                  }
+                />{" "}
+                Button Start
+              </div>
+
+              <div className="mt-5 ml-5">
+                <input
+                  label={"ABS"}
+                  type={"checkbox"}
+                  name={"abs"}
+                  // value={formData.powerWindowFeature}
+                  checked={formData.abs}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      abs: event.target.checked,
+                    })
+                  }
+                />{" "}
+                ABS
+              </div>
+
+              <div className="mt-5 ml-5">
+                <input
+                  label={"Sunroof"}
+                  type={"checkbox"}
+                  name={"sunroof"}
+                  // value={formData.acFeature}
+                  checked={formData.sunroof}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      sunroof: event.target.checked,
+                    })
+                  }
+                />{" "}
+                Sunroof
+              </div>
+
+              <div className="mt-5 ml-5">
+                <input
+                  label={"Child Safety Locks"}
+                  type={"checkbox"}
+                  name={"childSafetyLocks"}
+                  // value={formData.rearParkingCameraFeature}
+                  checked={formData.childSafetyLocks}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      childSafetyLocks: event.target.checked,
+                    })
+                  }
+                />{" "}
+                Child Safety Locks
+              </div>
+              <div className="mt-5 ml-5">
+                <input
+                  label={"AirBag"}
+                  type={"checkbox"}
+                  name={"airbag"}
+                  // value={formData.musicFeature}
+                  checked={formData.airbag}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      airbag: event.target.checked,
+                    })
+                  }
+                />{" "}
+                AirBag
+              </div>
+            </div>
+            <div className="mt-5 w-50">
+              <select
+                required
+                className="w-full border-2 border-gray-400 p-2 rounded-md"
+                label={"Select Dealer"}
+                name={"dealerId"}
+                value={formData.dealerId}
                 onChange={(event) =>
                   setFormData({
                     ...formData,
-                    musicFeature: event.target.checked,
+                    dealerId: event.target.value,
                   })
                 }
-              />{" "}
-              Music
+              >
+                <option value="">Select Dealar</option>
+                {dealarList?.list?.map((dealer) => (
+                  <option key={dealer.dealer_id} value={dealer.dealer_id}>
+                    {dealer.firstName + " " + dealer.lastName}
+                  </option>
+                ))}
+              </select>
             </div>
 
-            <div className="mt-5 ml-5">
-              <input
-                label={"Power Window Feature"}
-                type={"checkbox"}
-                name={"powerWindowFeature"}
-                // value={formData.powerWindowFeature}
-                checked={formData.powerWindowFeature}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    powerWindowFeature: event.target.checked,
-                  })
-                }
-              />{" "}
-              Power Windows
-            </div>
-
-            <div className="mt-5 ml-5">
-              <input
-                label={"Ac Feature"}
-                type={"checkbox"}
-                name={"acFeature"}
-                // value={formData.acFeature}
-                checked={formData.acFeature}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    acFeature: event.target.checked,
-                  })
-                }
-              />{" "}
-              Air Conditioning
-            </div>
-
-            <div className="mt-5 ml-5">
-              <input
-                label={"Rear Parking Camera Feature"}
-                type={"checkbox"}
-                name={"rearParkingCameraFeature"}
-                // value={formData.rearParkingCameraFeature}
-                checked={formData.rearParkingCameraFeature}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    rearParkingCameraFeature: event.target.checked,
-                  })
-                }
-              />{" "}
-              Rear Parking Camera
-            </div>
-          </div>
-          {/* tenth part */}
-          <div className="md:flex">
-            <div className="mt-5 ml-5">
-              <input
-                label={"Button Start"}
-                type={"checkbox"}
-                name={"buttonStart"}
-                // value={formData.musicFeature}
-                checked={formData.buttonStart}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    buttonStart: event.target.checked,
-                  })
-                }
-              />{" "}
-              Button Start
-            </div>
-
-            <div className="mt-5 ml-5">
-              <input
-                label={"ABS"}
-                type={"checkbox"}
-                name={"abs"}
-                // value={formData.powerWindowFeature}
-                checked={formData.abs}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    abs: event.target.checked,
-                  })
-                }
-              />{" "}
-              ABS
-            </div>
-
-            <div className="mt-5 ml-5">
-              <input
-                label={"Sunroof"}
-                type={"checkbox"}
-                name={"sunroof"}
-                // value={formData.acFeature}
-                checked={formData.sunroof}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    sunroof: event.target.checked,
-                  })
-                }
-              />{" "}
-              Sunroof
-            </div>
-
-            <div className="mt-5 ml-5">
-              <input
-                label={"Child Safety Locks"}
-                type={"checkbox"}
-                name={"childSafetyLocks"}
-                // value={formData.rearParkingCameraFeature}
-                checked={formData.childSafetyLocks}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    childSafetyLocks: event.target.checked,
-                  })
-                }
-              />{" "}
-              Child Safety Locks
-            </div>
-            <div className="mt-5 ml-5">
-              <input
-                label={"AirBag"}
-                type={"checkbox"}
-                name={"airbag"}
-                // value={formData.musicFeature}
-                checked={formData.airbag}
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    airbag: event.target.checked,
-                  })
-                }
-              />{" "}
-              AirBag
-            </div>
-          </div>
-          <div className="mt-5 w-50">
-            <select
-            required
-              className="w-full border-2 border-gray-400 p-2 rounded-md"
-              label={"Select Dealer"}
-              name={"dealerId"}
-              value={formData.dealerId}
-              onChange={(event) =>
-                setFormData({
-                  ...formData,
-                  dealerId: event.target.value,
-                })
-              }
-            >
-              <option value="">Select Dealar</option>
-              {dealarList?.list?.map((dealer) => (
-                <option key={dealer.dealer_id} value={dealer.dealer_id}>{dealer.firstName + " " + dealer.lastName}</option>
-              ))}
-            </select>
-          </div>
-          
-          <div className="mt-5 w-full">
+            <div className="mt-5 w-full">
               <Inputs
-              required
+                required
                 label={"Title"}
                 type={"text"}
                 name={"title"}
@@ -813,34 +820,32 @@ export default function BiddingEditCar() {
                 }
               />
             </div>
-          <div className="mt-5">
-            <Textarea
-            required
-              label="Description"
-              name="description"
-              value={formData.description}
-              onChange={(event) =>
-                setFormData({
-                  ...formData,
-                  description: event.target.value,
-                })
-              }
-            />
-          </div>
+            <div className="mt-5">
+              <Textarea
+                required
+                label="Description"
+                name="description"
+                value={formData.description}
+                onChange={(event) =>
+                  setFormData({
+                    ...formData,
+                    description: event.target.value,
+                  })
+                }
+              />
+            </div>
 
-          
-
-          <div className="mt-5 flex justify-center">
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-md"
-            >
-              Update Car
-            </button>
-          </div>
-        </form>
+            <div className="mt-5 flex justify-center">
+              <button
+                type="submit"
+                className="bg-blue-500 text-white px-4 py-2 rounded-md"
+              >
+                Update Car
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
     </>
   );
 }

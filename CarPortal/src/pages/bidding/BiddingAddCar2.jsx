@@ -293,7 +293,7 @@ export default function BiddingAddCar2() {
       <ToastContainer />
       <div className="md:flex justify-center m-6 md:m-0">
         <div>
-          <form onSubmit={handleSubmit} className="w-full">
+          <form onSubmit={handleSubmit} className="w-full xl:w-[45rem]">
             <div className="flex justify-center">
               <p className="text-3xl font-semibold m-4">Add Bidding Car</p>
             </div>
