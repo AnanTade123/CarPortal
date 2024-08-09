@@ -68,7 +68,7 @@ const   InspectorEdit = () => {
          // autoClose: 2000,
         });
         setTimeout(() => {
-          navigate("/signin");
+          navigate(-1);
         }, 1000);
       } else {
         toast.error("Failed to update inspector", {
