@@ -19,7 +19,7 @@ const Card = ({ cardData }) => {
     // eslint-disable-next-line no-unused-vars
     const [timeLeft, setTimeLeft] = useState('');
     const bidCarId = cardData?.bidCarId;
-    const [highestBid , setHighestBid] = useState(0);
+    const [highestBid , setHighestBid] = useState(cardData?.basePrice);
     // let highestBid = "";
     useEffect(() => {
         const updateTimer = () => {
