@@ -9,7 +9,7 @@ import {
   Input,
 } from "@material-tailwind/react";
 
-import { useCreateBiddingMutation ,useUpdateBiddingTimeMutation } from "../services/biddingAPI";
+import { useBiddingTimerIdQuery, useCreateBiddingMutation ,useUpdateBiddingTimeMutation } from "../services/biddingAPI";
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
@@ -44,7 +44,8 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage ,t
   const [createBidding] = useCreateBiddingMutation();
   const [startBiddingSetTime] = useStartBiddingSetTimeMutation();
   const [UpdateBiddingTime] = useUpdateBiddingTimeMutation();
-
+  const { data , error ,isLoading } = useBiddingTimerIdQuery(timerId)
+  console.log("timerDattaa" ,data);
   // const [startBiddingSetTime] = useStartBiddingSetTimeMutation();
 
   const handleOpen = () => setOpen(!open);
@@ -77,15 +78,15 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage ,t
    
   useEffect(() => {
     if(timerId !== undefined){
-      const dateTime = dayjs('2024-08-09 10:47:00.000000', 'YYYY-MM-DD HH:mm:ss.SSSSSS');
+      const dateTime = dayjs(data?.endTime, 'YYYY-MM-DD HH:mm:ss.SSSSSS');
       const formattedDateTime = dateTime.format('YYYY-MM-DD[T]HH:mm');
       const finalDateTime = dateTime.add(2, 'hour').add(48, 'minute').format('YYYY-MM-DD[T]HH:mm');
 
       setBidding({
-        beadingCarId: 112,
+        beadingCarId: data?.beadingCarId,
         createdAt: formattedDateTime,
-        userId: 1004,
-        basePrice: "7600",
+        userId: data?.userId,
+        basePrice: data?.basePrice,
       });
     }
   },[timerId])
@@ -130,7 +131,7 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage ,t
           endTime : formattedEndTime
         };
         const setTimeDataUpdate = {
-          biddingTimerId : 1,
+          biddingTimerId : data?.biddingTimerId,
           beadingCarId: biddingcarid,
           userId: userid,
           basePrice: bidding.basePrice,
