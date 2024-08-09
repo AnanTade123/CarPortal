@@ -13,7 +13,7 @@ export function CarModelsForm({ addCar }) {
 
   const [addCarBrands] = useAddCarBrandsMutation();
   const {data} = useGetOnlyBrandsQuery();
-  console.log(data);
+  
   
   const brands = data?.list.map(car=>car.brand)
   console.log(brands)
@@ -45,7 +45,7 @@ export function CarModelsForm({ addCar }) {
 
     try {
       const res = await addCarBrands(carBrand).unwrap();
-      console.log(res);
+      
       addCar({ 
         brandDataId: res.id, // assuming the response contains the id of the new car brand
         ...carBrand 

@@ -23,14 +23,14 @@ if (token)
 
 const navigate = useNavigate()
 const dealerId = token ? jwtDecodes?.dealerId:null
-console.log(dealerId)
+
   const [showPassword, setShowPassword] = useState(false);
   const [formStateData, setFormData] = useState({
     oldPassword: "",
     newPassword: "",
     confirmNewPassword: "",
   });
-console.log(formStateData)
+
   const [errors, setErrors] = useState({
     dealerId: "",
     oldPassword: "",

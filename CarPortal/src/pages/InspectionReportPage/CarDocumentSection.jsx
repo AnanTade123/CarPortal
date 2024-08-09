@@ -4,7 +4,7 @@ import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 
 const CarDocumentSection = ({ inspData }) => {
-  console.log(inspData);
+  
   // const [formData, setFormData] = React.useState({
   //   rcAvailability: "",
   //   mismatchInRC: "",

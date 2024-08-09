@@ -5,10 +5,10 @@ export const inspectorAPI = apiSlice.injectEndpoints({
     inspectorById: builder.query({
       query: ({userId}) => ({
         url: `ispProfile/getByUserId?userId=${userId}`,
-        transferResponse: console.log(userId),
+       
         method: "GET",
       }),
-      providesTags:["Inspector"]
+      providesTags:["Inspector" ,"User"]
   
        // You probably want providesTags here instead of invalidatesTags for queries
     }),
@@ -19,14 +19,14 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         method: "GET",
       }),
 
-      providesTags:["Inspector"]
+      providesTags:["Inspector","User"]
        // Same here
     }),
 
     inspectionReport : builder.mutation ({
       query : ({inspectionData,formDataToSend}) => ({
         url : `/uploadFileBidCar/add?documentType=${inspectionData.documentType}&beadingCarId=${inspectionData.beadingCarId}&doc=${inspectionData.doc}&doctype=${inspectionData.doctype}&subtype=${inspectionData.subtype}&comment=${inspectionData.comment}`,
-        transerResponse:console.log(inspectionData,formDataToSend),
+       
         method : "POST",
         body :formDataToSend
       }),
@@ -35,7 +35,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
     inspectionReportNew : builder.mutation ({
       query : ({formDataToSend}) => ({
         url : `/uploadFileBidCar/add`,
-        transerResponse:console.log(formDataToSend),
+       
         method : "POST",
         body :formDataToSend
       }),
@@ -45,7 +45,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
     getInspectionReport : builder.query ({
       query :({beadingCarId ,docType}) => ({
         url : `/uploadFileBidCar/getBidCarIdType?beadingCarId=${beadingCarId}&docType=${docType}`,
-        transerResponse:console.log("APi response",beadingCarId, docType),
+       
         method : "GET"
       }),
       invalidatesTags:["Inspector"],
@@ -54,7 +54,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
     inspectorupdate: builder.mutation({
       query: ({id,inspectordata}) => ({
         url: `/ispProfile/update?inspectorProfileId=${id}`,
-        transerResponse:console.log("APi response" , inspectordata,id),
+        
         method: 'PATCH',
         body:inspectordata
       }),
@@ -65,7 +65,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
       query : ({inspectionData}) => ({
         url:`/inspectionReport/add`,
         method : "POST",
-        transerResponse:console.log("APi response",inspectionData),
+       
        body : inspectionData 
       }),
       
@@ -75,7 +75,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
       query : ({formDataToSend1}) => ({
         url : `/uploadFileBidCar/addWithoutPhoto`,
         method : "POST",
-        transerResponse:console.log(formDataToSend1),
+        
         body : formDataToSend1
       })
     }),
@@ -84,7 +84,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
       query : (beadingCarId) => ({
         url : `/inspectionReport/getByBeadingCar?beadingCarId=${beadingCarId}`,
         method : "GET",
-        transerResponse:console.log(beadingCarId),
+        
       })
     }),
 
@@ -93,7 +93,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         url : `/ispProfile/ispChangePassword/${InspectorProfileId}`,
         method: "PUT",
         body : passChange,
-        transerResponse:console.log(InspectorProfileId,passChange),
+       
        
       })
       

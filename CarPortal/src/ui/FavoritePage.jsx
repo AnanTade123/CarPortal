@@ -1,21 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
+import {  useNavigate } from "react-router-dom";
 import {
-  Card,
-  CardBody,
-  CardHeader,
-  Typography,
-} from "@material-tailwind/react";
-import { CarouselCustomArrows } from "./CarouselCustomArrows";
-import { Link, useNavigate } from "react-router-dom";
-import { useFavorites } from "../ui/FavoriteContext";
-import {
-  useGetbySaveCarIdQuery,
   useGetbyUserCarIdQuery,
 } from "../services/carAPI";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
-import { useGetCarByIdQuery } from "../services/carAPI";
 import FavCard from "./FavCard";
 
 export function FavoritePage() {
@@ -30,8 +20,9 @@ export function FavoritePage() {
     data: userCars,
     error,
     isLoading,
+    refetch
   } = useGetbyUserCarIdQuery({ UserId });
-  console.log("userCars", userCars?.list);
+ 
   if (isLoading) {
     return <p>Loading...</p>;
   }
@@ -41,12 +32,14 @@ export function FavoritePage() {
     return null;
   }
 
+  if (error && !isLoading && userCars) {
+    refetch();
+  }
+
   return (
     <>
-      <div className="text-3xl font-bold mt-3 ml-16 mb-6">
-        Favorite Page
-      </div>
-      <div className="md:grid md:grid-cols-4 md:mx-20 gap-x-4 gap-y-4">
+      <div className="text-3xl font-bold mt-3 ml-16 mb-6">Favorite Page</div>
+      <div className="md:grid md:grid-cols-2 md:mx-10 lg:grid lg:grid-cols-4 lg:mx-20 gap-x-4 gap-y-4">
         {userCars?.list &&
           userCars?.list?.map((data, key) => (
             <FavCard favoriteCarData={data} key={key} />

@@ -104,7 +104,7 @@ const [formData, setFormData] = useState({
     
       toast.success("Data Uploaded");
       setTimeout(() => {
-        navigate("/inspector/car")
+        navigate(-1)
       },1000)
      
   } catch (error) {

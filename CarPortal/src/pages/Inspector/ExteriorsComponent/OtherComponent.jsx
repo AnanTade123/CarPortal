@@ -103,9 +103,10 @@ OtherComponent = ({  handleCameraModal,
       <Grid container spacing={3}>
         {/* Head Light Support */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Head Light Support</InputLabel>
             <Select
+            required
               name="HeadLightSupport"
               value={formData.HeadLightSupport}
               onChange={handleChange}
@@ -121,7 +122,7 @@ OtherComponent = ({  handleCameraModal,
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -157,9 +158,10 @@ OtherComponent = ({  handleCameraModal,
 
         {/* Radiator Support */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Radiator Support</InputLabel>
             <Select
+            required
               name="RadiatorSupport"
               value={formData.RadiatorSupport}
               onChange={handleChange}
@@ -175,7 +177,7 @@ OtherComponent = ({  handleCameraModal,
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -211,9 +213,10 @@ OtherComponent = ({  handleCameraModal,
 
         {/* Alloy Wheel */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Alloy Wheel</InputLabel>
             <Select
+            required
               name="AlloyWheel"
               value={formData.AlloyWheel}
               onChange={handleChange}
@@ -228,7 +231,7 @@ OtherComponent = ({  handleCameraModal,
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>

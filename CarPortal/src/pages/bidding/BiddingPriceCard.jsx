@@ -46,7 +46,7 @@ const BiddingPriceCard = ({
   }
   const userRole = jwtDecodes?.authorities[0];
   const UserId = token ? jwtDecodes?.userId : null;
-  const {page} = useParams()
+  const {page , timerId} = useParams()
 
   const {data} = useGetbeadingGetByIdQuery(beadingCarId);
   const { isConnected, getTopThreeBids,topThreeBidsAmount } = useWebSocket();
@@ -66,7 +66,7 @@ const BiddingPriceCard = ({
         <p className="uppercase font-[Merriweather] ml-2 md:ml-0">
           {data?.color} {data?.bodyType} & {data?.transmission}
         </p>
-        <div className="my-4 flex gap-2 flex-wrap lg:flex-nowrap overflow-x-auto scrollbar ml-2 md:ml-0">
+        <div className="my-4 flex gap-2 flex-wrap ml-2">
           <Chip
             variant="outlined"
             value={`${data?.kmDriven} KM`}
@@ -138,7 +138,7 @@ const BiddingPriceCard = ({
           </div>
         </div>
         <div className="flex justify-center items-center align-middle mb-3">
-          {userRole === "SALESPERSON" ? (
+          {userRole === "SALESPERSON" || userRole === "ADMIN"  ? (
             <div>
               <p className="text-2xl font-semibold text-black">Start Bidding</p>
               <div className="flex mt-5">
@@ -153,6 +153,7 @@ const BiddingPriceCard = ({
                     userid={UserId}
                     biddingcarid={data?.beadingCarId}
                     handleMessage={handleMessage}
+                    timerId={timerId}
                   />
                 </div>
                 <div className="ml-5">
@@ -161,7 +162,7 @@ const BiddingPriceCard = ({
               </div>
             </div>
           ) :
-          (userRole === "DEALER" && page !== "winnigPage") ?
+          (userRole === "DEALER" && page !== "winnigPage" && timerId !== "success") ?
           
           (<div>
           <p className="text-2xl font-semibold text-black">Start Bidding</p>

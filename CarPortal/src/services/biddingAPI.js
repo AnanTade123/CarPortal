@@ -23,7 +23,7 @@ export const biddingAPI = apiSlice.injectEndpoints({
     biddingCarByDealerId: builder.query({
       query: (UserID) => ({
         url: `/BeadingCarController/getByUserId1/${UserID}`,
-        transferResponse: console.log(UserID),
+       
         method: "GET",
       }),
       providesTags: ["BIDDING"],
@@ -32,7 +32,7 @@ export const biddingAPI = apiSlice.injectEndpoints({
     biddingCarById: builder.query({
       query: (carId) => ({
         url: `/BeadingCarController/getbyId/${carId}`,
-
+       
         method: "GET",
       }),
       providesTags: ["BIDDING"],
@@ -102,10 +102,10 @@ export const biddingAPI = apiSlice.injectEndpoints({
     }),
     
     getbeadingCarImage: builder.query({
-      query: (beadingCarId) => ({
+      query: ({beadingCarId}) => ({
         url: `/uploadFileBidCar/getByBidCarID?beadingCarId=${beadingCarId}`,
         method: "GET",
-        transferResponse: console.log("Data to backend :- ", beadingCarId),
+       
       }),
       providesTags: ["BIDDING","SALESPERSON"],
     }),
@@ -121,7 +121,7 @@ export const biddingAPI = apiSlice.injectEndpoints({
     getbeadingGetById: builder.query({
       query:(beadingCarId) => ({
         url: `/BeadingCarController/getbyId/${beadingCarId}`,
-        transferResponse: console.log(beadingCarId),
+       
         method: "GET",
       }),
       providesTags: ["BIDDING"],
@@ -181,6 +181,22 @@ export const biddingAPI = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["BIDDING"],
     }),
+    UpdateBiddingTime: builder.mutation({
+      query: (settime) => ({
+        url: `/Bidding/v1/UpdateBiddingTime`,
+        transferResponse: console.log("Data to backend :- ",settime),
+        method: "POST",
+        body : settime
+      }),
+      invalidatesTags: ["BIDDING"],
+    }),
+    biddingTimerId: builder.query({
+      query: (carId) => ({
+        url: `Bid/getTimer?biddingTimerId=${carId}`,
+        method: "GET",
+      }),
+      providesTags: ["BIDDING"],
+    }),
 
   }),
 });
@@ -188,6 +204,7 @@ export const biddingAPI = apiSlice.injectEndpoints({
 export const {useBiddingAllCardQuery,
   useAllDealerFinalBidQuery,
   useBiddingCarByIdQuery, 
+  useLazyBiddingCarByIdQuery,
   useBiddingcarUpdateMutation, 
   useBiddingRemoveMutation ,
   useBiddingCarRegisterMutation , 
@@ -204,5 +221,7 @@ export const {useBiddingAllCardQuery,
   useUpdateBidCarMutation,
   useGetCarIdTypeQuery,
   useGetBidCarIdQuery,
-  useBiddingCarImageRemoveMutation
+  useBiddingCarImageRemoveMutation,
+  useUpdateBiddingTimeMutation,
+  useBiddingTimerIdQuery
 } = biddingAPI;

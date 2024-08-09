@@ -36,9 +36,9 @@ const useStyles = makeStyles((theme) => ({
 const Ac = () => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
-  console.log(beadingCarId);
+  
   const { data,refetch } = useGetInspectionReportQuery({ beadingCarId, docType: "AC" });
-  console.log(data);
+ 
   const [formData, setFormData] = useState({
     ACCooling: [],
     Heater: [],
@@ -62,9 +62,7 @@ const Ac = () => {
   const [selectedLable ,setSelectedLable] = useState("");
   const [lables, setLables] = useState("");
   const [selectfiled, setSelectfiled] = useState("")
-  console.log(selectfiled)
-  console.log(lables)
-
+  
   const token = Cookies.get("token");
   let jwtDecodes;
   if (token) {
@@ -72,14 +70,13 @@ const Ac = () => {
   }
 
   const userRole = token ? jwtDecodes?.authorities[0] : null;
-console.log(userRole)
 
 const handleFileChange = async (event, fieldName, imgPreview = "") => {
-  console.log(imgPreview);
+  
   let file;
   let imageData;
 if (!event?.target) {
-    console.log("name");
+    
     file = event;
     imageData = file;
   } else {
@@ -94,9 +91,9 @@ if (!event?.target) {
   const reader = new FileReader();
   reader.onload = async () => {
     imageData = reader.result;
-    console.log(imageData)
+   
         setFormData({ ...formData, ["FourPowerWindowss"]: imageData });
-
+        if (lables) {
     const inspectionData = {
       documentType: "Inspection Report",
       beadingCarId: beadingCarId,
@@ -109,9 +106,11 @@ if (!event?.target) {
     try {
       const res = await inspectionReport({ inspectionData, formDataToSend });
       refetch()
-      console.log(res);
+     
       if (res.data?.message === "success") {
         toast.success("Data Uploaded", { autoClose: 500 });
+        setLables('');
+          setSelectfiled('');
       } else {
         toast.error("Data Upload failed", { autoClose: 500 });
       }
@@ -119,12 +118,15 @@ if (!event?.target) {
       console.error('Error uploading the file:', error);
       alert("Data not Uploaded");
     }
+  } else {
+    toast.error("Labels are required to submit the form", { autoClose: 2000 });
+  }
   };
   reader.readAsDataURL(file);
 };
 
 const handleSubmitWithoutImage = async () => {
-
+  if (lables) {
   const formDataToSend1 = new FormData();
   formDataToSend1.append('beadingCarId', beadingCarId);
   formDataToSend1.append('doctype', "AC");
@@ -135,9 +137,11 @@ const handleSubmitWithoutImage = async () => {
   try {
     const res = await addBiddingCarWithoutImage({formDataToSend1});
     refetch()
-    console.log(res);
+    
     if (res.data?.message === "success") {
       toast.success("Data Uploaded", { autoClose: 500 });
+      setLables('');
+          setSelectfiled('');
     } else {
       toast.error("Data Upload failed", { autoClose: 500 });
     }
@@ -145,6 +149,9 @@ const handleSubmitWithoutImage = async () => {
     
     toast.error("Data not Uploaded", { autoClose: 500 });
   }
+} else {
+  toast.error("Labels are required to submit the form", { autoClose: 2000 });
+}
 };
 
 // const handleCaptureImage = (imageUrl) => {
@@ -218,7 +225,7 @@ const handleSubmitWithoutImage = async () => {
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
         refetch()
-        console.log(res);
+       
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
         } else {
@@ -243,9 +250,10 @@ const handleSubmitWithoutImage = async () => {
       <Grid container spacing={3}>
     
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>AC Cooling</InputLabel>
             <Select
+            required
               name="ACCooling"
               value={formData.ACCooling}
               onChange={handleChange}
@@ -255,7 +263,7 @@ const handleSubmitWithoutImage = async () => {
               <MenuItem value="Long cranking due to weak Compression">Not Working</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -290,9 +298,10 @@ const handleSubmitWithoutImage = async () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Heater</InputLabel>
             <Select
+            required
               name="Heater"
               value={formData.Heater}
               onChange={handleChange}
@@ -302,7 +311,7 @@ const handleSubmitWithoutImage = async () => {
               <MenuItem value="Long cranking due to weak Compression">Not Working</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -337,9 +346,10 @@ const handleSubmitWithoutImage = async () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Climate Control AC</InputLabel>
             <Select
+            required
               name="ClimateControlAC"
               value={formData.ClimateControlAC}
               onChange={handleChange}
@@ -349,7 +359,7 @@ const handleSubmitWithoutImage = async () => {
               <MenuItem value="Long cranking due to weak Compression">Not Working</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -384,9 +394,10 @@ const handleSubmitWithoutImage = async () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Ac Vent</InputLabel>
             <Select
+            required
               name="AcVent"
               value={formData.AcVent}
               onChange={handleChange}
@@ -395,7 +406,7 @@ const handleSubmitWithoutImage = async () => {
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>

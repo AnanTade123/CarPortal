@@ -70,7 +70,7 @@ import {
         Header: "Status",
         accessor: "carStatus",
         Cell: (cell) => {
-          console.log(cell.row.values.carStatus);
+          
           return (
             <div>
               <div className="flex gap-2 justify-center items-center  ">
@@ -84,7 +84,7 @@ import {
         Header: "Set Time",
         accessor: "",
         Cell: (cell) => {
-          console.log(cell.row.values.carStatus);
+         
           return (
             <div>
               <div className="flex gap-2 justify-center items-center  ">
@@ -102,7 +102,7 @@ import {
         Header: "Start Bidiing",
         accessor: "",
         Cell: (cell) => {
-          console.log(cell.row.values.beadingCarId);
+          
           return (
             <div>
               <div className="flex gap-2 justify-center items-center  ">
@@ -136,7 +136,7 @@ import {
         accessor: "Edit",
         // eslint-disable-next-line no-unused-vars
         Cell: (cell) => {
-          console.log(cell.row.values.beadingCarId);
+          
           return (
             <div>
               <div className="flex gap-2 justify-center items-center  ">

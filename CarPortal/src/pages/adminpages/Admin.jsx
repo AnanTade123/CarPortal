@@ -23,9 +23,9 @@ import { Link } from "react-router-dom";
 
 export default function Admin() {
   const [pageNo, setPageNo] = useState(0);
-  console.log(pageNo);
+  
   const { data, isLoading, error } = useGetAllDealerQuery(pageNo);
-console.log(data)
+
   const [deleteDealer] = useDeleteDealerMutation();
   const [open, setOpen] = useState(false);
   const [deleteid ,setDeleteid] = useState()
@@ -47,16 +47,14 @@ console.log(data)
 
   const deleteDealerHandler = async (id) => {
     const res = await deleteDealer(id);
-    console.log(res);
+   
   };
   const nextHandler = () => {
     setPageNo((prevPageNo) => {
       // Check if the error status is 404
       if (error?.status === 404) {
-        console.log("click");
         console.log(prevPageNo);
         // Display message or perform any action indicating that it's the last page
-        console.log("You are on the last page.");
         return prevPageNo; // Keep pageNo unchanged
       } else {
         // Increment pageNo
@@ -222,16 +220,16 @@ console.log(data)
         </DialogFooter>
       </Dialog>
         <CardHeader floated={false} shadow={false} className="rounded-none">
-          <div className=" flex items-center justify-between gap-8">
+          <div className="flex flex-col sm:flex-row justify-between gap-4">
             <div>
-              <Typography variant="h5" color="blue-gray">
+              <Typography variant="h5" color="blue-gray" className="text-center lg:text-start">
                Dealer List
               </Typography>
-              <Typography color="gray" className="mt-1 font-normal">
+              <Typography color="gray" className="mt-1 font-normal text-center lg:text-start">
                 See information about all Dealers
               </Typography>
             </div>
-            <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+            <div className="flex shrink-0 flex-col gap-2 sm:flex-row items-center">
             <AddDealerForm />
             </div>
           </div>

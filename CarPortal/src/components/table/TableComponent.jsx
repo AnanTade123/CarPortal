@@ -22,6 +22,9 @@ const TableComponent = ({ columns, data }) => {
     {
       columns,
       data,
+      initialState: { 
+        hiddenColumns: ['biddingTimerId']  //use property option, in columns define id name "id"
+      },
     },
     useGlobalFilter,
     useSortBy,

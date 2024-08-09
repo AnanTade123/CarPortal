@@ -10,28 +10,31 @@ const LiveBid = () => {
   // if (isLoading) {
   //   return <span>Loading...</span>;
   // }
-  const { isConnected, getTopThreeBids,topThreeBidsAmountArray,topThreeBidsAmount,getLiveCars ,liveCars} = useWebSocket();
+  const { isConnected, getTopThreeBids,topThreeBidsAmountArray,topThreeBidsAmount,getLiveCars ,liveCars} = useWebSocket() || {} ;
   useEffect(() => {
-    const fetchLiveCars = () => {
-      if (isConnected) {
-        try {
-          getLiveCars();
-        } catch (error) {
-          console.error('Failed to fetch live cars:', error);
-        }
-      }
-    };
+    getLiveCars();
+  }, []);
+  // useEffect(() => {
+  //   const fetchLiveCars = () => {
+  //     if (isConnected) {
+  //       try {
+  //         getLiveCars();
+  //       } catch (error) {
+  //         console.error('Failed to fetch live cars:', error);
+  //       }
+  //     }
+  //   };
 
-    fetchLiveCars();
+  //   fetchLiveCars();
 
     // Optionally, set up an interval to fetch live cars continuously
-    const intervalId = setInterval(() => {
-      fetchLiveCars();
-    }, 1000); // Fetch every 5 seconds, adjust as needed
+    // const intervalId = setInterval(() => {
+    //   fetchLiveCars();
+    // }, 1000); // Fetch every 5 seconds, adjust as needed
 
     // Cleanup the interval on component unmount
-    return () => clearInterval(intervalId);
-  }, [isConnected, getLiveCars]);
+    // return () => clearInterval(intervalId);
+  // }, [isConnected, getLiveCars]);
 
     // const handleHighestBidAmount = useCallback(async (bidCarId) => {
     //   try {
@@ -44,6 +47,8 @@ const LiveBid = () => {
     //     console.error("Error fetching highest bid amount:", error);
     //   }
     // }, []);
+
+    console.log("MyLiveCars",liveCars);
   return (
     <div className="mx-4 mb-10 sm:mx-12">
       <h1 className="text-2xl font-bold text-center mb-8 sm:text-3xl">Bidding Car Live</h1>

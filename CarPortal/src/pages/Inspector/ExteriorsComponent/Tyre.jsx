@@ -44,9 +44,9 @@ const useStyles = makeStyles((theme) => ({
 const Tyre = () => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
-  console.log(beadingCarId);
+  
   const { data,refetch } = useGetInspectionReportQuery({ beadingCarId, docType: "Exterior" });
-  console.log(data);
+  
 
 
   const [formData, setFormData] = useState({
@@ -80,7 +80,7 @@ const Tyre = () => {
   }
 
   const userRole = token ? jwtDecodes?.authorities[0] : null;
-console.log(userRole)
+
  
   useEffect(() => {
     // Pre-fill form data and uploaded images based on API data
@@ -119,7 +119,7 @@ console.log(userRole)
     let file;
     let imageData;
   if (!event?.target) {
-      console.log("name");
+     
       file = event;
       imageData = file;
     } else {
@@ -140,9 +140,9 @@ console.log(userRole)
     const reader = new FileReader();
     reader.onload = async () => {
       imageData = reader.result;
-      console.log(imageData)
+     
           setFormData({ ...formData, ["FourPowerWindowss"]: imageData });
-  
+          if (lables) {
       // const inspectionData = {
       //   documentType: "InspectionReport",
       //   beadingCarId: beadingCarId,
@@ -155,9 +155,11 @@ console.log(userRole)
       try {
         const res = await inspectionReportNew({  formDataToSend });
         refetch()
-        console.log(res);
+        
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
+          setLables('');
+          setSelectfiled('');
         } else {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
@@ -165,12 +167,15 @@ console.log(userRole)
         console.error('Error uploading the file:', error);
         alert("Data not Uploaded");
       }
+    } else {
+      toast.error("Labels are required to submit the form", { autoClose: 2000 });
+    }
     };
     reader.readAsDataURL(file);
   };
   
   const handleSubmitWithoutImage = async () => {
-  
+    if (lables) {
     const formDataToSend1 = new FormData();
     formDataToSend1.append('beadingCarId', beadingCarId);
     formDataToSend1.append('doctype', "Exterior");
@@ -181,16 +186,21 @@ console.log(userRole)
     try {
       const res = await addBiddingCarWithoutImage({formDataToSend1});
       refetch()
-      console.log(res);
+      
       if (res.data?.message === "success") {
         toast.success("Data Uploaded", { autoClose: 500 });
+        setLables('');
+        setSelectfiled('');
       } else {
         toast.error("Data Upload failed", { autoClose: 500 });
       }
     } catch (error) {
-      console.error('Error uploading the data:', error);
+      // console.error('Error uploading the data:', error);
       alert("Data not Uploaded")
     }
+  } else {
+    toast.error("Labels are required to submit the form", { autoClose: 2000 });
+  }
   };
 
   const handleChange= (event) => {
@@ -227,7 +237,7 @@ console.log(userRole)
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
         refetch()
-        console.log(res);
+       
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
         } else {
@@ -258,9 +268,10 @@ console.log(userRole)
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>LHS Front Tyre</InputLabel>
             <Select
+            required
               name="LHSFrontTyre"
               value={formData.LHSFrontTyre}
               onChange={handleChange}
@@ -270,7 +281,7 @@ console.log(userRole)
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -309,9 +320,10 @@ console.log(userRole)
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>RHS Front Tyre</InputLabel>
             <Select
+            required
               name="RHSFrontTyre"
               value={formData.RHSFrontTyre}
               onChange={handleChange}
@@ -321,7 +333,7 @@ console.log(userRole)
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -360,9 +372,10 @@ console.log(userRole)
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>LHS Rear Tyre</InputLabel>
             <Select
+            required
               name="LHSRearTyre"
               value={formData.LHSRearTyre}
               onChange={handleChange}
@@ -372,7 +385,7 @@ console.log(userRole)
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -411,9 +424,10 @@ console.log(userRole)
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>RHS Rear Tyre</InputLabel>
             <Select
+            required
               name="RHSRearTyre"
               value={formData.RHSRearTyre}
               onChange={handleChange}
@@ -423,7 +437,7 @@ console.log(userRole)
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -462,9 +476,10 @@ console.log(userRole)
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Spare Tyre</InputLabel>
             <Select
+            required
               name="SpareTyre"
               value={formData.SpareTyre}
               onChange={handleChange}
@@ -474,7 +489,7 @@ console.log(userRole)
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>

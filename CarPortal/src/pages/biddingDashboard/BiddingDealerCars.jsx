@@ -34,7 +34,7 @@ const BiddingDealerCars = () => {
 
   
   const dataQuery = (userRole === "DEALER") 
-  ? useGetByDealerIdQuery( UserID ) 
+  ? useGetByDealerIdQuery( dealerId ) 
   : useBiddingAllCardQuery();
 
   const { data, isLoading, error } = dataQuery;
@@ -71,11 +71,16 @@ const BiddingDealerCars = () => {
     if (status === "ALL") {
       setFilteredData(data);
     } else {
-      setFilteredData(data.filter((car) => car.carStatus === status));
+      setFilteredData(data.filter((car) => car?.carStatus === status));
     }
   };
 
   const columns = [
+    {
+      accessor: 'biddingTimerId',
+      // show: true,
+      isVisible: true
+    },
     {
       Header: "ID",
       accessor: "beadingCarId",
@@ -101,7 +106,7 @@ const BiddingDealerCars = () => {
       accessor: "price",
       disableSortBy: true,
     },
-    ...(userRole !== "ADMIN"
+    ...(userRole === "ADMIN" ||  userRole === "SALESPERSON"
       ? [
           {
             Header: "Inspection Report",
@@ -119,13 +124,13 @@ const BiddingDealerCars = () => {
                   </Button>
                 </Link>
               ) : cell.row.values.carStatus === "pending" ? (
-                <Link to={`/sale/carverify/${cell.row.values.beadingCarId}`}>
+                <Link to={userRole === "ADMIN" ?`/admin/carverify/${cell.row.values.beadingCarId}` : `/sale/carverify/${cell.row.values.beadingCarId}`}>
                   <Button variant="gradient" color="yellow">
                     Pending
                   </Button>
                 </Link>
               ) : (
-                <Link to={`/sale/inspection/report/${cell.row.values.beadingCarId}`}>
+                <Link to={userRole === "ADMIN" ?`/admin/inspection/report/${cell.row.values.beadingCarId}` :`/sale/inspection/report/${cell.row.values.beadingCarId}`}>
                   <Button variant="gradient" color="green">
                     Done
                   </Button>
@@ -139,15 +144,31 @@ const BiddingDealerCars = () => {
       Header: "Action",
       accessor: "",
       Cell: (cell) => {
+        const { beadingCarId, biddingTimerId } = cell.row.values;
+        console.log("cell.row.values.biddingTimerId" ,biddingTimerId)
         return (
           <div>
-            <div className="flex gap-2 justify-center items-center  ">
-              <Link to={`/biddinglist/cardetails/${cell.row.values.beadingCarId}`}>
-                <Button className="bg-[#045e4f]">
-                  {userRole === "DEALER" ? "Place Bidding" : "Set Bidding"}{" "}
-                </Button>
-              </Link>
-            </div>
+           <div className="flex gap-2 justify-center items-center">
+  <Link
+    to={
+      cell.row.values.biddingTimerId 
+        ? `/biddinglist/cardetails/${cell.row.values.beadingCarId}/${cell.row.values.biddingTimerId}` 
+        : `/biddinglist/cardetails/${cell.row.values.beadingCarId}`
+    }
+  >
+    <Button className="bg-[#045e4f]">
+    {userRole === "DEALER" 
+    ? "Place Bidding" 
+    : (userRole === "ADMIN" || userRole === "SALESPERSON") 
+      ? (cell.row.values.biddingTimerId !== null
+        ? "Update Bid Time" 
+        : "Set Bid Time") 
+      : ""
+  }
+    </Button>
+  </Link>
+</div>
+
           </div>
         );
       },

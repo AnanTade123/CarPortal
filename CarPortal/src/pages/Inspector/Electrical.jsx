@@ -35,9 +35,9 @@ const useStyles = makeStyles((theme) => ({
 const Electrical = () => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
-  console.log(beadingCarId);
+  
   const { data,refetch } = useGetInspectionReportQuery({ beadingCarId, docType: "Eletrical" });
-  console.log(data);
+  
   const [formData, setFormData] = useState({
     FourPowerWindows: "",
     AirBagFeatures: "",
@@ -64,7 +64,7 @@ const Electrical = () => {
   }
 
   const userRole = token ? jwtDecodes?.authorities[0] : null;
-console.log(userRole)
+
 
 const [addBiddingCarWithoutImage] = useAddBiddingCarWithoutImageMutation()
 const [openModal, setOpenModal] = useState(false);
@@ -83,7 +83,7 @@ const [selectfiled, setSelectfiled] = useState("")
       setSelectfiled(value);
     }
   };
-console.log(lables)
+
  
   const [inspectionReport] = useInspectionReportMutation();
 
@@ -92,7 +92,7 @@ console.log(lables)
     let file;
     let imageData;
   if (!event?.target) {
-      console.log("name");
+     
       file = event;
       imageData = file;
     } else {
@@ -107,9 +107,9 @@ console.log(lables)
     const reader = new FileReader();
     reader.onload = async () => {
       imageData = reader.result;
-      console.log(imageData)
+      
           setFormData({ ...formData, ["FourPowerWindowss"]: imageData });
- 
+          if (lables) {
       const inspectionData = {
         documentType: "Inspection Report",
         beadingCarId: beadingCarId,
@@ -122,9 +122,11 @@ console.log(lables)
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
         refetch()
-        console.log(res);
+       
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
+          setLables('');
+          setSelectfiled('');
         } else {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
@@ -132,13 +134,16 @@ console.log(lables)
         console.error('Error uploading the file:', error);
         alert("Data not Uploaded");
       }
+    } else {
+      toast.error("Labels are required to submit the form", { autoClose: 2000 });
+    }
     };
     reader.readAsDataURL(file);
   };
 
 
   const handleSubmitWithoutImage = async () => {
-
+    if (lables) {
     const formDataToSend1 = new FormData();
     formDataToSend1.append('beadingCarId', beadingCarId);
     formDataToSend1.append('doctype', "Eletrical");
@@ -149,9 +154,11 @@ console.log(lables)
     try {
       const res = await addBiddingCarWithoutImage({formDataToSend1});
       refetch()
-      console.log(res);
+      
       if (res.data?.message === "success") {
         toast.success("Data Uploaded", { autoClose: 500 });
+        setLables('');
+          setSelectfiled('');
       } else {
         toast.error("Data Upload failed", { autoClose: 500 });
       }
@@ -159,6 +166,9 @@ console.log(lables)
       
       toast.error("Data not Uploaded", { autoClose: 500 });
     }
+  } else {
+    toast.error("Labels are required to submit the form", { autoClose: 2000 });
+  }
   };
 
   useEffect(() => {
@@ -259,9 +269,10 @@ console.log(lables)
       <Grid container spacing={3}>
         {/* Four Power Windows */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Four Power Windows</InputLabel>
             <Select
+            required
               name="FourPowerWindows"
               value={formData.FourPowerWindows}
               onChange={handleChange}
@@ -271,7 +282,7 @@ console.log(lables)
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -307,9 +318,10 @@ console.log(lables)
 
         {/* Air Bag Features */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Air Bag Features</InputLabel>
             <Select
+            required
               name="AirBagFeatures"
               value={formData.AirBagFeatures}
               onChange={handleChange}
@@ -319,7 +331,7 @@ console.log(lables)
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -355,9 +367,10 @@ console.log(lables)
 
         {/* Music System */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Music System</InputLabel>
             <Select
+            required
               name="MusicSystem"
               value={formData.MusicSystem}
               onChange={handleChange}
@@ -367,7 +380,7 @@ console.log(lables)
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -403,9 +416,10 @@ console.log(lables)
 
         {/* Sunroof */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Sunroof</InputLabel>
             <Select
+            required
               name="Sunroof"
               value={formData.Sunroof}
               onChange={handleChange}
@@ -415,7 +429,7 @@ console.log(lables)
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -451,9 +465,10 @@ console.log(lables)
 
         {/* ABS */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>ABS</InputLabel>
             <Select
+            required
               name="ABS"
               value={formData.ABS}
               onChange={handleChange}
@@ -464,7 +479,7 @@ console.log(lables)
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -500,9 +515,10 @@ console.log(lables)
 
         {/* Interior Parking Sensor */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Interior Parking Sensor</InputLabel>
             <Select
+            required
               name="InteriorParkingSensor"
               value={formData.InteriorParkingSensor}
               onChange={handleChange}
@@ -512,7 +528,7 @@ console.log(lables)
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -548,9 +564,10 @@ console.log(lables)
 
         {/* Electrical Wiring */}
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Electrical Wiring</InputLabel>
             <Select
+            required
               name="Electricalwiring"
               value={formData.Electricalwiring}
               onChange={handleChange}
@@ -560,7 +577,7 @@ console.log(lables)
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>

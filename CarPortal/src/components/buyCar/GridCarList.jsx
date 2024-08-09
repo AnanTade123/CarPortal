@@ -3,7 +3,7 @@ import { CardDefault } from "../../ui/CardDefault";
 // import CardUi from "../../ui/CardUi";
 import { useEffect, useState } from "react";
 
-const GridCarList = ({ data, error }) => {
+const GridCarList = ({ data, error,refetch }) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -17,17 +17,17 @@ const GridCarList = ({ data, error }) => {
   return (
     <>
       {/* <CardUi> */}
-        <div className="grid lg:grid-cols-3 lg:grid-rows-1 md:grid-cols-2 md:grid-rows-2 gap-5 justify-center">
-          {posts?.map((items, index) => {
-            return (
-              <div key={index}>
-                <div className="flex">
-                  <CardDefault data={items} Carid={items.carId} />
-                </div>
+      <div className="grid grid-cols-1 gap-y-6 md:grid-cols-1 md:gap-y-6 lg:grid-cols-3 lg:gap-x-4 lg:gap-y-4">
+        {posts?.map((items, index) => {
+          return (
+            <div key={index}>
+              <div className="flex">
+                <CardDefault data={items} Carid={items.carId} refetch={refetch} />
               </div>
-            );
-          })}
-        </div>
+            </div>
+          );
+        })}
+      </div>
       {/* </CardUi> */}
     </>
   );

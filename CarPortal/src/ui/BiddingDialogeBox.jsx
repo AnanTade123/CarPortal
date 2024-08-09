@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Dialog,
@@ -8,7 +9,7 @@ import {
   Input,
 } from "@material-tailwind/react";
 
-import { useCreateBiddingMutation } from "../services/biddingAPI";
+import { useBiddingTimerIdQuery, useCreateBiddingMutation ,useUpdateBiddingTimeMutation } from "../services/biddingAPI";
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
@@ -21,7 +22,8 @@ dayjs.extend(timezone);
 // const TIME_ZONE = 'Asia/Kolkata';
 
 // eslint-disable-next-line react/prop-types
-export default function BiddingDialogBox({ userid, biddingcarid,handleMessage }) {
+export default function BiddingDialogBox({ userid, biddingcarid,handleMessage ,timerId }) {
+ 
   const [open, setOpen] = useState(false);
   const [basePriceError, setBasePriceError] = useState("");
   const [durationMinutesError, setDurationMinutesError] = useState("");
@@ -41,7 +43,8 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage })
 
   const [createBidding] = useCreateBiddingMutation();
   const [startBiddingSetTime] = useStartBiddingSetTimeMutation();
-
+  const [UpdateBiddingTime] = useUpdateBiddingTimeMutation();
+  const { data , error ,isLoading } = useBiddingTimerIdQuery(timerId)
   // const [startBiddingSetTime] = useStartBiddingSetTimeMutation();
 
   const handleOpen = () => setOpen(!open);
@@ -54,6 +57,7 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage })
   // };
 
   const handleCreatedAtChange = (e) => {
+    // console.log("e.target.value",e.target.value)
     setBidding({
       ...bidding,
       createdAt: e.target.value,
@@ -70,6 +74,21 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage })
     });
   }
   };
+   
+  useEffect(() => {
+    if(timerId !== undefined){
+      const dateTime = dayjs(data?.endTime, 'YYYY-MM-DD HH:mm:ss.SSSSSS');
+      const formattedDateTime = dateTime.format('YYYY-MM-DD[T]HH:mm');
+      const finalDateTime = dateTime.add(2, 'hour').add(48, 'minute').format('YYYY-MM-DD[T]HH:mm');
+
+      setBidding({
+        beadingCarId: data?.beadingCarId,
+        createdAt: formattedDateTime,
+        userId: data?.userId,
+        basePrice: data?.basePrice,
+      });
+    }
+  },[timerId])
 
   // const handleDurationMinutesChange = (e) => {
   //   setSettime({
@@ -97,6 +116,7 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage })
       const specificTime = dayjs(bidding.createdAt);
         const currentTime = dayjs();
         const diffInMinutes = specificTime.diff(currentTime, 'minute');
+        const formattedEndTime = dayjs(bidding.createdAt).utc().format('YYYY-MM-DDTHH:mm:ss[Z]');
         if(0 > diffInMinutes){
           flag = 1;
           setDurationMinutesError("Please select correct date/time");
@@ -106,32 +126,35 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage })
           beadingCarId: biddingcarid,
           userId: userid,
           basePrice: bidding.basePrice,
-          durationMinutes: diffInMinutes,
+          // durationMinutes: diffInMinutes,
+          endTime : formattedEndTime
         };
-        const {  error : bidError  } = await startBiddingSetTime(setTimeData);
-        console.log("bidError",bidError )
+        const setTimeDataUpdate = {
+          biddingTimerId : data?.biddingTimerId,
+          beadingCarId: biddingcarid,
+          userId: userid,
+          basePrice: bidding.basePrice,
+          // durationMinutes: diffInMinutes,
+          endTime : formattedEndTime
+        };
+        
+        let bidError; 
+        if(timerId !== undefined){
+           ({ error : bidError } = await UpdateBiddingTime(setTimeDataUpdate));
+          
+        }else{
+           ({  error : bidError  } = await startBiddingSetTime(setTimeData));
+
+        }
         if(bidError || bidError?.data?.message ==="unsuccess"){
           bidError?.data?.message ==="unsuccess" ? handleMessage(bidError?.data?.exception,"error") :handleMessage(bidError?.data,"error");
         handleOpen();
         }else{
-          const createdAt = {
-            bidCarId: 0,
-            beadingCarId: biddingcarid,
-            createdAt: bidding.createdAt,
-            basePrice: bidding.basePrice,
-            userId: userid,
-        };
-        // eslint-disable-next-line no-unused-vars
-        const {data , error} = await createBidding(createdAt);
-        console.log("checkkkkMAsg",error)
-        if(error){
-          handleMessage(error?.data?.exception,"error");
-          handleMessage(error?.message,"error");
-        }else{
           handleMessage("Car set for bid","success")
         }
         handleOpen();
-      }
+        
+      
         
       }
        }
@@ -143,7 +166,8 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage })
   return (
     <>
       <Button onClick={handleOpen} variant="gradient" color="blue">
-        Set Bidding
+        {timerId !== undefined ? 'Update Set Bidding' : 'Set Bidding'}
+        {/* Set Bidding */}
       </Button>
       <Dialog
         open={open}
@@ -153,7 +177,7 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage })
           unmount: { scale: 0.9, y: -100 },
         }}
       >
-        <DialogHeader>Start Bidding.</DialogHeader>
+        <DialogHeader>{timerId ?"Update Bidding" : "Start Bidding"}</DialogHeader>
         <DialogBody>
           
           {/* <div className="mt-5">

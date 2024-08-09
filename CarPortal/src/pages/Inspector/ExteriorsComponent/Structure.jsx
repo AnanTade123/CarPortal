@@ -132,9 +132,10 @@ const Structure = ({ handleCameraModal,
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Cowl Top</InputLabel>
             <Select
+            required
               name="CowlTop"
               value={formData.CowlTop}
               onChange={handleChange}
@@ -149,7 +150,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -188,9 +189,10 @@ const Structure = ({ handleCameraModal,
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Boot Floor</InputLabel>
             <Select
+            required
               name="BootFloor"
               value={formData.BootFloor}
               onChange={handleChange}
@@ -205,7 +207,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -244,9 +246,10 @@ const Structure = ({ handleCameraModal,
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Right Apron LEG</InputLabel>
             <Select
+            required
               name="RightApronLEG"
               value={formData.RightApronLEG}
               onChange={handleChange}
@@ -262,7 +265,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Replaced">Replaced</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -301,9 +304,10 @@ const Structure = ({ handleCameraModal,
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Left Apron LEG</InputLabel>
             <Select
+            required
               name="LeftApronLEG"
               value={formData.LeftApronLEG}
               onChange={handleChange}
@@ -319,7 +323,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Replaced">Replaced</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -358,9 +362,10 @@ const Structure = ({ handleCameraModal,
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Right Apron</InputLabel>
             <Select
+            required
               name="RightApron"
               value={formData.RightApron}
               onChange={handleChange}
@@ -376,7 +381,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Replaced">Replaced</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -415,9 +420,10 @@ const Structure = ({ handleCameraModal,
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Left Apron</InputLabel>
             <Select
+            required
               name="LeftApron"
               value={formData.LeftApron}
               onChange={handleChange}
@@ -433,7 +439,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Replaced">Replaced</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -472,9 +478,10 @@ const Structure = ({ handleCameraModal,
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Left Pillar</InputLabel>
             <Select
+            required
               name="LeftPillar"
               value={formData.LeftPillar}
               onChange={handleChange}
@@ -490,7 +497,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Sealent Broken">Sealent Broken</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
@@ -529,9 +536,10 @@ const Structure = ({ handleCameraModal,
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth required>
             <InputLabel>Right Pillar</InputLabel>
             <Select
+            required
               name="RightPillar"
               value={formData.RightPillar}
               onChange={handleChange}
@@ -547,7 +555,7 @@ const Structure = ({ handleCameraModal,
               <MenuItem value="Sealent Broken">Sealent Broken</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex'>  
+          <div className='flex gap-5'>  
             <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
               Submit Without image
             </Button>
