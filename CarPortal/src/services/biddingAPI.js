@@ -190,14 +190,13 @@ export const biddingAPI = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["BIDDING"],
     }),
-    // biddingCarByIdNew: builder.query({
-    //   query: (carId) => ({
-    //     url: `/BeadingCarController/getbyId/${carId}`,
-       
-    //     method: "GET",
-    //   }),
-    //   providesTags: ["BIDDING"],
-    // }),
+    biddingTimerId: builder.query({
+      query: (carId) => ({
+        url: `Bid/getTimer?biddingTimerId=${carId}`,
+        method: "GET",
+      }),
+      providesTags: ["BIDDING"],
+    }),
 
   }),
 });
@@ -224,4 +223,5 @@ export const {useBiddingAllCardQuery,
   useGetBidCarIdQuery,
   useBiddingCarImageRemoveMutation,
   useUpdateBiddingTimeMutation,
+  useBiddingTimerIdQuery
 } = biddingAPI;
