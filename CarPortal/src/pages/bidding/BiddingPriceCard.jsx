@@ -138,7 +138,7 @@ const BiddingPriceCard = ({
           </div>
         </div>
         <div className="flex justify-center items-center align-middle mb-3">
-          {userRole === "SALESPERSON" ? (
+          { userRole === "ADMIN"  ? (
             <div>
               <p className="text-2xl font-semibold text-black">Start Bidding</p>
               <div className="flex mt-5">

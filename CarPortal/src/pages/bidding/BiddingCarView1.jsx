@@ -50,11 +50,11 @@ console.log(reorderedData)
             prevButtonOptions={{ style: { backgroundColor: '#000000' } }}
             nextButtonOptions={{ style: { backgroundColor: '#4a5568' } }}
           >
-            {reorderedData.length > 0 ? (
-              reorderedData.map((item) => (
+            {reorderedData?.length > 0 ? (
+              reorderedData?.map((item) => (
                 <img
-                  key={item.documentId}
-                  src={item.documentLink}
+                  key={item?.documentId}
+                  src={item?.documentLink}
                   alt={`Car Image ${item.documentId}`}
                   onError={(e) => (e.currentTarget.src = fallbackImage)}
                   className="object-contain w-full h-full"

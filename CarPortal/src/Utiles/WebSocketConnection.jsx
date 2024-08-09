@@ -49,6 +49,7 @@ export const WebSocketProvider = ({ children }) => {
             setLiveCars((prevCars) => [...cars]);
           });
         }
+        stompClient.publish({destination :`/topic/topBids`}, {}, {});
 
         stompClient.publish({ destination: '/app/liveCars' });
       },
@@ -107,19 +108,23 @@ export const WebSocketProvider = ({ children }) => {
   };
 
   const refreshTopThreeBids = (bidCarId) => {
-    console.log("topThreeBidsAmount",client)
+    console.log("topThreeBidsAmount",bidCarId)
 
+    return new Promise((resolve, reject) => {
     if (bidCarId && client) {
+      client.publish({destination :`/topic/topBids`}, {}, {});
+
       // if (!subscriptions.current[`/topic/topBids_${bidCarId}`]) {
         subscriptions.current[`/topic/topBids_${bidCarId}`] = client.subscribe(`/topBids/${bidCarId}`, (message) => {
           const topBid = JSON.parse(message.body);
-          console.log("topThreeBidsAmount",topBid)
+          setTopThreeBidsAmountArray(topBid);
+          console.log("topThreeBidsAmount",topBid);
+          resolve(topBid);
           // updateTopBid(topBid);
         });
       // }
-
-      client.publish({destination :`/topic/topBids`}, {}, {});
     }
+    })
   };
 
   const placeBid = (userData) => {
@@ -153,7 +158,7 @@ export const WebSocketProvider = ({ children }) => {
   };
 
   return (
-    <WebSocketContext.Provider value={{ isConnected, placeBid, getTopThreeBids, topThreeBidsAmount, topThreeBidsAmountArray, getLiveCars, liveCars, refreshTopThreeBids }}>
+    <WebSocketContext.Provider value={{ isConnected, placeBid, getTopThreeBids, topThreeBidsAmount, topThreeBidsAmountArray, getLiveCars, liveCars, refreshTopThreeBids,client ,subscriptions }}>
       {children}
     </WebSocketContext.Provider>
   );
