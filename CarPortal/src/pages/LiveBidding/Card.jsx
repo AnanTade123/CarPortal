@@ -19,7 +19,7 @@ const Card = ({ cardData }) => {
     // eslint-disable-next-line no-unused-vars
     const [timeLeft, setTimeLeft] = useState('');
     const bidCarId = cardData?.bidCarId;
-    const [highestBid , setHighestBid] = useState(0);
+    const [highestBid , setHighestBid] = useState(cardData?.basePrice);
     // let highestBid = "";
     useEffect(() => {
         const updateTimer = () => {
@@ -47,21 +47,50 @@ const Card = ({ cardData }) => {
         return () => clearInterval(timerId);
     }, [closeTime]);
 
-    const { isConnected,refreshTopThreeBids ,topThreeBidsAmount} = useWebSocket();
-    useEffect(() => {
-        const fetchTopThreeBids = async () => {
-            if (isConnected && bidCarId) {
-                try {
-                    await refreshTopThreeBids(bidCarId);
-                    console.log("topThreeBidsAmount",topThreeBidsAmount);
-                } catch (error) {
-              console.error('Failed to fetch top three bids:', error);
-            }
-          }
-        };
+    const { isConnected,topThreeBidsAmount,topThreeBidsAmountArray,client ,subscriptions} = useWebSocket();
+    // useEffect(() => {
+    //     const fetchTopThreeBids = async () => {
+    //         if (isConnected && bidCarId) {
+    //             try {
+    //               const value =   await refreshTopThreeBids(bidCarId);
+    //                 console.log("topThreeBidsAmount",topThreeBidsAmountArray);
+    //             } catch (error) {
+    //           console.error('Failed to fetch top three bids:', error);
+    //         }
+    //       }
+    //     };
 
-        fetchTopThreeBids();
-      }, [isConnected, bidCarId]);
+    //     fetchTopThreeBids();
+    //   }, [isConnected, bidCarId]);
+    useEffect(() => {
+        if(bidCarId){
+            refreshTopThreeBids(bidCarId);
+        }
+    },[bidCarId]);
+
+    const refreshTopThreeBids = (bidCarId) => {
+        console.log("topThreeBidsAmount",bidCarId)
+    
+        // return new Promise((resolve, reject) => {
+        if (bidCarId && client) {
+            
+            // if (!subscriptions.current[`/topic/topBids_${bidCarId}`]) {
+                client.subscribe(`/topic/topBids/${bidCarId}`, (message) => {
+                    const topBid = JSON.parse(message.body);
+                    //   setTopThreeBidsAmountArray(topBid);
+                    console.log("topThreeBidsAmount",topBid);
+                    setHighestBid(topBid?.amount);
+                    //   resolve(topBid);
+                    // updateTopBid(topBid);
+                });
+                client.publish({
+                    destination: `/app/topBids/${bidCarId}`,
+                    body: JSON.stringify({}),
+                });
+          // }
+        }
+        // })
+      };
 
     return (
         <div className="relative mx-auto w-full max-w-sm">
@@ -85,11 +114,7 @@ const Card = ({ cardData }) => {
                         <div className="mt-4 -ml-4 flex justify-between items-center">
                             <p className="text-primary mt-2 inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
                                 <span className="text-[16px] bg-indigo-300 p-3 text-white">Highest Bid ₹ 
-                                    {/* <HighestBidAmount bidId={cardData?.bidCarId} /> */}
-                                    {/* {highestBid[bidCarId] || "0"} */}
-                                    {/* {highestBidAmount()} */}
-                                    {topThreeBidsAmount && topThreeBidsAmount[0]?.amount}
-
+                                    {highestBid}                      
                                     </span>
                             </p>
                             <div className="text-center">

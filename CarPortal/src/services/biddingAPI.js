@@ -181,6 +181,15 @@ export const biddingAPI = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["BIDDING"],
     }),
+    UpdateBiddingTime: builder.mutation({
+      query: (settime) => ({
+        url: `/Bidding/v1/UpdateBiddingTime`,
+        transferResponse: console.log("Data to backend :- ",settime),
+        method: "POST",
+        body : settime
+      }),
+      invalidatesTags: ["BIDDING"],
+    }),
 
   }),
 });
@@ -204,5 +213,6 @@ export const {useBiddingAllCardQuery,
   useUpdateBidCarMutation,
   useGetCarIdTypeQuery,
   useGetBidCarIdQuery,
-  useBiddingCarImageRemoveMutation
+  useBiddingCarImageRemoveMutation,
+  useUpdateBiddingTimeMutation
 } = biddingAPI;

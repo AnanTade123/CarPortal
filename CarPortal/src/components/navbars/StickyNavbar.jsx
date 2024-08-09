@@ -418,13 +418,20 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
     </>
   ) : null;
 
+  
   React.useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
+    // if(location.pathname !== priv.location.pathname){
+    //   window.scrollTo(0, 0);
+    // }
   }, []);
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 p-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">

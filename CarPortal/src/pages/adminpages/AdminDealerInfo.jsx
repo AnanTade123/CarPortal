@@ -39,11 +39,11 @@ const AdminDealerInfo = () => {
 
   return (
     <>
-      <div className="text-3xl font-bold mt-5 mb-4 md:ml-16 xl:mb-[-1rem]  md:mb-8">
+      <div className="text-3xl font-bold mt-5 mb-4 ml-4 md:ml-16 xl:mb-[-1rem]  md:mb-8">
         Profile Information
       </div>
       <div className="flex justify-center items-center   xl:h-screen">
-        <div className="w-full max-w-4xl flex flex-col md:flex-row shadow-xl">
+        <div className="w-full max-w-4xl flex flex-col mx-2  md:flex-row shadow-xl">
           <div className="w-full md:w-1/2">
             <img
               src="https://www.shutterstock.com/image-photo/smiling-friendly-car-seller-suit-600nw-2105619599.jpg"
