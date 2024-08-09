@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Dialog,
@@ -9,7 +9,7 @@ import {
   Input,
 } from "@material-tailwind/react";
 
-import { useCreateBiddingMutation } from "../services/biddingAPI";
+import { useCreateBiddingMutation ,useUpdateBiddingTimeMutation } from "../services/biddingAPI";
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
@@ -22,7 +22,8 @@ dayjs.extend(timezone);
 // const TIME_ZONE = 'Asia/Kolkata';
 
 // eslint-disable-next-line react/prop-types
-export default function BiddingDialogBox({ userid, biddingcarid,handleMessage }) {
+export default function BiddingDialogBox({ userid, biddingcarid,handleMessage ,timerId }) {
+ 
   const [open, setOpen] = useState(false);
   const [basePriceError, setBasePriceError] = useState("");
   const [durationMinutesError, setDurationMinutesError] = useState("");
@@ -42,6 +43,7 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage })
 
   const [createBidding] = useCreateBiddingMutation();
   const [startBiddingSetTime] = useStartBiddingSetTimeMutation();
+  const [UpdateBiddingTime] = useUpdateBiddingTimeMutation();
 
   // const [startBiddingSetTime] = useStartBiddingSetTimeMutation();
 
@@ -55,6 +57,7 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage })
   // };
 
   const handleCreatedAtChange = (e) => {
+    // console.log("e.target.value",e.target.value)
     setBidding({
       ...bidding,
       createdAt: e.target.value,
@@ -71,6 +74,21 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage })
     });
   }
   };
+   
+  useEffect(() => {
+    if(timerId !== undefined){
+      const dateTime = dayjs('2024-08-09 10:47:00.000000', 'YYYY-MM-DD HH:mm:ss.SSSSSS');
+      const formattedDateTime = dateTime.format('YYYY-MM-DD[T]HH:mm');
+      const finalDateTime = dateTime.add(2, 'hour').add(48, 'minute').format('YYYY-MM-DD[T]HH:mm');
+
+      setBidding({
+        beadingCarId: 112,
+        createdAt: formattedDateTime,
+        userId: 1004,
+        basePrice: "7600",
+      });
+    }
+  },[timerId])
 
   // const handleDurationMinutesChange = (e) => {
   //   setSettime({
@@ -111,7 +129,23 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage })
           // durationMinutes: diffInMinutes,
           endTime : formattedEndTime
         };
-        const {  error : bidError  } = await startBiddingSetTime(setTimeData);
+        const setTimeDataUpdate = {
+          biddingTimerId : 1,
+          beadingCarId: biddingcarid,
+          userId: userid,
+          basePrice: bidding.basePrice,
+          // durationMinutes: diffInMinutes,
+          endTime : formattedEndTime
+        };
+        
+        let bidError; 
+        if(timerId !== undefined){
+           ({ error : bidError } = await UpdateBiddingTime(setTimeDataUpdate));
+          
+        }else{
+           ({  error : bidError  } = await startBiddingSetTime(setTimeData));
+
+        }
         // console.log("setTimeData",setTimeData )
         if(bidError || bidError?.data?.message ==="unsuccess"){
           bidError?.data?.message ==="unsuccess" ? handleMessage(bidError?.data?.exception,"error") :handleMessage(bidError?.data,"error");
@@ -149,7 +183,8 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage })
   return (
     <>
       <Button onClick={handleOpen} variant="gradient" color="blue">
-        Set Bidding
+        {timerId !== undefined ? 'Update Set Bidding' : 'Set Bidding'}
+        {/* Set Bidding */}
       </Button>
       <Dialog
         open={open}
@@ -159,7 +194,7 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage })
           unmount: { scale: 0.9, y: -100 },
         }}
       >
-        <DialogHeader>Start Bidding.</DialogHeader>
+        <DialogHeader>{timerId ?"Update Bidding" : "Start Bidding"}</DialogHeader>
         <DialogBody>
           
           {/* <div className="mt-5">
