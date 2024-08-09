@@ -49,7 +49,7 @@ function UnratedIcon() {
   );
 }
 
-export function CardDefault({ data, Carid }) {
+export function CardDefault({ data, Carid,refetch }) {
   const [favoriteCar] = useFavoriteCarMutation();
   const token = Cookies.get("token");
   let jwtDecodes;
@@ -69,7 +69,7 @@ export function CardDefault({ data, Carid }) {
   const carid = data2.carId;
   const useid = data2.userId;
   
-  const { data: favData ,refetch} = useCarFavoriteAddRemoveQuery({ carid, useid });
+  const { data: favData } = useCarFavoriteAddRemoveQuery({ carid, useid });
 
   
   const [CarremoveFavorite] = useCarremoveFavoriteMutation();

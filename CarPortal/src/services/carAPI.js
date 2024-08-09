@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Favorite } from "@material-ui/icons";
+
 import { apiSlice } from "./apiSlice";
 
 export const carApi = apiSlice.injectEndpoints({
@@ -31,7 +31,7 @@ export const carApi = apiSlice.injectEndpoints({
         
         method: "GET",
       }),
-      providesTags: ["CAR"],
+      invalidatesTags: ["CAR"],
 
     }),
 

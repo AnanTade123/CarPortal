@@ -19,7 +19,7 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         method: "GET",
       }),
 
-      providesTags:["Inspector"]
+      providesTags:["Inspector","User"]
        // Same here
     }),
 
