@@ -39,7 +39,7 @@ const AdminDealerInfo = () => {
 
   return (
     <>
-      <div className="text-3xl font-bold mt-5 mb-4 md:ml-16 xl:mb-[-1rem]  md:mb-8">
+      <div className="text-3xl font-bold mt-5 mb-4 md:ml-16 xl:mb-[-1rem]   md:mb-8">
         Profile Information
       </div>
       <div className="flex justify-center items-center   xl:h-screen">
@@ -48,7 +48,7 @@ const AdminDealerInfo = () => {
             <img
               src="https://www.shutterstock.com/image-photo/smiling-friendly-car-seller-suit-600nw-2105619599.jpg"
               alt="Dealer"
-              className="object-cover w-full h-full"
+              className="object-cover w-full h-full "
             />
           </div>
           <div className="w-full md:w-1/2 p-8 flex flex-col justify-between">
