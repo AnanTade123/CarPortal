@@ -47,7 +47,7 @@ const Card = ({ cardData }) => {
         return () => clearInterval(timerId);
     }, [closeTime]);
 
-    const { isConnected, getTopThreeBids,topThreeBidsAmountArray,refreshTopThreeBids ,topThreeBidsAmount} = useWebSocket();
+    const { isConnected,refreshTopThreeBids ,topThreeBidsAmount} = useWebSocket();
     useEffect(() => {
         const fetchTopThreeBids = async () => {
             if (isConnected && bidCarId) {
