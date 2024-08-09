@@ -88,13 +88,19 @@ const SalerEdit = () => {
       const res = await salesupdate({ id: salesPersonId, salesdata });
       console.log(res);
       if (res.data.status === "success") {
-        alert("Successfully Edited");
-        navigate("/signin");
+        if (salesdata.email !== data.response.email) {
+          // Redirect to the sign-in page if the email was changed
+          navigate("/signin");
+        } else {
+          // Navigate back to the previous page if any other field was changed
+          navigate(-1);
+        }
       }
     } catch (error) {
       console.log(error);
     }
   };
+
 
   if (isLoading) {
     return <div>Loading...</div>;

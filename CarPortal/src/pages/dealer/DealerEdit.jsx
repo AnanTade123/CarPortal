@@ -55,16 +55,23 @@ const navigate = useNavigate()
     try {
       const res = await getEditDealer({ id: userid, inputField });
       console.log(res);
-    if(res.data.status ==='success'){
-      toast.success(" Sucessfully Edit");
-      setTimeout(() => {
-        navigate("/signin");
-      }, 1000);
-    }
+      if (res.data.status === 'success') {
+        toast.success("Successfully Edited");
+        setTimeout(() => {
+          if (inputField.email !== dealerID.dealerDto.email) {
+            navigate("/signin"); // Redirect to sign-in page if email is changed
+          } else {
+            navigate(-1); // Navigate back to the previous page for other fields
+          }
+        }, 1000);
+      }
     } catch (error) {
       console.log(error);
+      toast.error("Failed to Edit");
     }
   };
+
+  
   useEffect(() => {
     if (dealerID) {
       const { dealerDto } = dealerID;

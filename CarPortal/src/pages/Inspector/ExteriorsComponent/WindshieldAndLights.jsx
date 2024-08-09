@@ -66,6 +66,14 @@ const WindshieldAndLights = ({ handleCameraModal,
           setFormData((prev) => ({ ...prev, Windshield: item.comment }));
           setUploadedImages((prev) => ({ ...prev, Windshields: item.documentLink }));
           break;
+          case "FrontWindshield":
+            setFormData((prev) => ({ ...prev, FrontWindshield: item.comment }));
+            setUploadedImages((prev) => ({ ...prev, FrontWindshield: item.documentLink }));
+            break;
+            case "RearWindshield":
+              setFormData((prev) => ({ ...prev, RearWindshield: item.comment }));
+              setUploadedImages((prev) => ({ ...prev, RearWindshield: item.documentLink }));
+              break;
         case "Light":
           setFormData((prev) => ({ ...prev, Light: item.comment }));
           setUploadedImages((prev) => ({ ...prev, Lights: item.documentLink }));
@@ -94,6 +102,15 @@ const WindshieldAndLights = ({ handleCameraModal,
           setFormData((prev) => ({ ...prev, RHSTaillight: item.comment }));
           setUploadedImages((prev) => ({ ...prev, RHSTaillights: item.documentLink }));
           break;
+          case "LHSORVM":
+            setFormData((prev) => ({ ...prev, LHSORVM: item.comment }));
+            setUploadedImages((prev) => ({ ...prev, LHSORVM: item.documentLink }));
+            break;
+            case "RHSORVM":
+              setFormData((prev) => ({ ...prev, RHSORVM: item.comment }));
+              setUploadedImages((prev) => ({ ...prev, RHSORVM: item.documentLink }));
+              break;
+           
         default:
           break;
       }
@@ -160,6 +177,115 @@ const WindshieldAndLights = ({ handleCameraModal,
               alt="Uploaded"
               style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
               onClick={() => handleImageClick(uploadedImages.Windshields)}
+            />
+          )}
+        </Grid> 
+{/* FrontWindshield */}
+<Grid item xs={12} sm={6}>
+          <FormControl fullWidth required>
+            <InputLabel>Front Windshield</InputLabel>
+            <Select
+            required
+              name="FrontWindshield"
+              value={formData.FrontWindshield}
+              onChange={handleChange}
+              color="Green"
+            
+            >
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Dented">Replaced</MenuItem>
+              {/* <MenuItem value="Scratched">Scratched</MenuItem>
+              <MenuItem value="Rusted">Rusted</MenuItem>
+              <MenuItem value="Repaired">Repaired</MenuItem> */}
+              <MenuItem value="Damaged">Damaged</MenuItem>
+              {/* <MenuItem value="NotWorking">Not Working</MenuItem> */}
+            </Select>
+          </FormControl>
+          <div className='flex gap-5'>  
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.FrontWindshield && (
+            <img
+              src={uploadedImages.FrontWindshield}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.FrontWindshield)}
+            />
+          )}
+        </Grid> 
+
+        {/* RearWindshield */}
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth required>
+            <InputLabel> Rear Windshield</InputLabel>
+            <Select
+            required
+              name="RearWindshield"
+              value={formData.RearWindshield}
+              onChange={handleChange}
+              color="Green"
+            
+            >
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Dented">Replaced</MenuItem>
+              {/* <MenuItem value="Scratched">Scratched</MenuItem>
+              <MenuItem value="Rusted">Rusted</MenuItem>
+              <MenuItem value="Repaired">Repaired</MenuItem> */}
+              <MenuItem value="Damaged">Damaged</MenuItem>
+              {/* <MenuItem value="NotWorking">Not Working</MenuItem> */}
+            </Select>
+          </FormControl>
+          <div className='flex gap-5'>  
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.RearWindshield && (
+            <img
+              src={uploadedImages.RearWindshield}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.RearWindshield)}
             />
           )}
         </Grid>
@@ -550,6 +676,122 @@ const WindshieldAndLights = ({ handleCameraModal,
             />
           )}
         </Grid>
+
+
+        
+
+        {/* RHSORVM */}
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth required>
+            <InputLabel>LHS ORVM</InputLabel>
+            <Select
+            required
+              name="LHSORVM"
+              value={formData.LHSORVM}
+              onChange={handleChange}
+              
+            >
+              {/* <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem> */}
+             
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="NotWorking">Not Working</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
+              <MenuItem value="Missing">Missing</MenuItem>
+              <MenuItem value="Cracked">Mirror Broken/Cracked</MenuItem>
+            </Select>
+
+          </FormControl>
+          <div className='flex gap-5'>  
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.LHSORVM && (
+            <img
+              src={uploadedImages.LHSORVM}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.LHSORVM)}
+            />
+          )}
+        </Grid>
+
+   {/* LHSORVM */}
+   <Grid item xs={12} sm={6}>
+          <FormControl fullWidth required>
+            <InputLabel>RHS ORVM</InputLabel>
+            <Select
+            required
+              name="RHSORVM"
+              value={formData.RHSORVM}
+              onChange={handleChange}
+              
+            >
+              {/* <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem> */}
+             
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="NotWorking">Not Working</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
+              <MenuItem value="Missing">Missing</MenuItem>
+              <MenuItem value="Cracked">Mirror Broken/Cracked</MenuItem>
+            </Select>
+
+          </FormControl>
+          <div className='flex gap-5'>  
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.RHSORVM && (
+            <img
+              src={uploadedImages.RHSORVM}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.RHSORVM)}
+            />
+          )}
+        </Grid>
+
       </Grid>
 
       {/* Modal for displaying clicked image */}
