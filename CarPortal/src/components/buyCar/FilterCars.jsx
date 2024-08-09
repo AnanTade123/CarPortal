@@ -100,7 +100,7 @@ const FilterCars = ({ setUrlState }) => {
       model: "",
       fuelType: "",
       transmission: "",
-      MinPrice: 1000000, // Reset MinPrice
+      MinPrice: 0, // Reset MinPrice
       MaxPrice: 7000000, // Reset MaxPrice
     });
   };
@@ -193,7 +193,7 @@ const FilterCars = ({ setUrlState }) => {
               <div className="flex justify-center items-center">
                 <div style={{ width: "300px" }}></div>
               </div>
-              <div className="flex justify-evenly gap-3">
+              <div className="flex justify-around">
                 <div className="flex flex-col items-center">
                   <span className="bg-white text-black p-2 border-2 border-gray-300">
                     ₹{formattedAmountMin}
