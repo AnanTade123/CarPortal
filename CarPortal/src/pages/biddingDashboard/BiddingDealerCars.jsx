@@ -77,6 +77,11 @@ const BiddingDealerCars = () => {
 
   const columns = [
     {
+      accessor: 'biddingTimerId',
+      // show: true,
+      isVisible: true
+    },
+    {
       Header: "ID",
       accessor: "beadingCarId",
     },
@@ -139,15 +144,31 @@ const BiddingDealerCars = () => {
       Header: "Action",
       accessor: "",
       Cell: (cell) => {
+        const { beadingCarId, biddingTimerId } = cell.row.values;
+        console.log("cell.row.values.biddingTimerId" ,biddingTimerId)
         return (
           <div>
-            <div className="flex gap-2 justify-center items-center  ">
-              <Link to={cell.row.values.beadingCarId === 122 ? `/biddinglist/cardetails/${cell.row.values.beadingCarId}/${cell.row.values.beadingCarId}` : `/biddinglist/cardetails/${cell.row.values.beadingCarId}`}>
-                <Button className="bg-[#045e4f]">
-                  {userRole === "DEALER" ? "Place Bidding" : cell.row.values.beadingCarId === 122 ? "Update set Bidding" : "Set Bidding"}{" "}
-                </Button>
-              </Link>
-            </div>
+           <div className="flex gap-2 justify-center items-center">
+  <Link
+    to={
+      cell.row.values.biddingTimerId 
+        ? `/biddinglist/cardetails/${cell.row.values.beadingCarId}/${cell.row.values.biddingTimerId}` 
+        : `/biddinglist/cardetails/${cell.row.values.beadingCarId}`
+    }
+  >
+    <Button className="bg-[#045e4f]">
+    {userRole === "DEALER" 
+    ? "Place Bidding" 
+    : (userRole === "ADMIN" || userRole === "SALESPERSON") 
+      ? (cell.row.values.biddingTimerId !== null
+        ? "Update Bid Time" 
+        : "Set Bid Time") 
+      : ""
+  }
+    </Button>
+  </Link>
+</div>
+
           </div>
         );
       },

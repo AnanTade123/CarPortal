@@ -20,7 +20,11 @@ const Card = ({ cardData }) => {
     const [timeLeft, setTimeLeft] = useState('');
     const bidCarId = cardData?.bidCarId;
     const [highestBid , setHighestBid] = useState(cardData?.basePrice);
+   
+   
     // let highestBid = "";
+    const { isConnected,topThreeBidsAmount,topThreeBidsAmountArray,client ,subscriptions ,getLiveCars} = useWebSocket();
+
     useEffect(() => {
         const updateTimer = () => {
             const now = dayjs();
@@ -28,6 +32,7 @@ const Card = ({ cardData }) => {
 
             if (closingTime.isBefore(now)) {
                 setTimeLeft('00:00:00');
+                getLiveCars();
                 return;
             }
 
@@ -47,7 +52,6 @@ const Card = ({ cardData }) => {
         return () => clearInterval(timerId);
     }, [closeTime]);
 
-    const { isConnected,topThreeBidsAmount,topThreeBidsAmountArray,client ,subscriptions} = useWebSocket();
     // useEffect(() => {
     //     const fetchTopThreeBids = async () => {
     //         if (isConnected && bidCarId) {
