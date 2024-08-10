@@ -33,30 +33,30 @@ const DealerContact = ({ dealer_id }) => {
           <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0 mt-4">
             <MdPerson />
             <p className="text-gray-600 flex-1">
-              Name: <span className="text-black font-semibold">{firstName} {lastName}</span>
+             <span   className="text-black font-semibold"> Name:</span> <span className='capitalize'>{firstName} {lastName}</span>
             </p>
           </div>
           <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0 mt-1">
             <FaLocationDot />
             <p className="text-gray-600 flex-1">
-              Address: <span className="text-black font-semibold">{address}, {city}</span>
+             <span  className="text-black font-semibold"> Address:</span> <span>{address}, {city}</span>
             </p>
           </div>
           <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0 mt-1">
             <MdEmail />
             <p className="text-gray-600 flex-1">
-              Email: <span className="text-black font-semibold">{email}</span>
+             <span  className="text-black font-semibold"> Email:</span> <span>{email}</span>
             </p>
           </div>
           <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0 mt-1">
             <IoLogoWhatsapp />
             <p className="text-gray-600 flex-1">
-              Phone: <span className="text-black font-semibold">{mobileNo}</span>
+             <span className="text-black font-semibold" > Phone:</span> <span >{mobileNo}</span>
             </p>
           </div>
         </div>
-      </CardUi>
-    </div>
+       </CardUi>
+     </div>
   );
 };
 
