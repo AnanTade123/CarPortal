@@ -212,7 +212,7 @@ const OrderDealer = () => {
     return <p>Loading.....</p>;
   }
   if (error) {
-    return <p>No Data Available</p>;
+    return <p className="ml-3">No Data Available</p>;
   }
   return (
     <>
