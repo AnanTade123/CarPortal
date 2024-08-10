@@ -19,8 +19,27 @@ export const authApi = apiSlice.injectEndpoints({
         body:formData
       }),
       invalidatesTags: ["User", "Dealer"],
-    })
+    }),
+    forgetPasswordEmail: builder.mutation({
+      query: (formData) => ({
+        url: "/cars/forgot-password?email",
+        method: "POST",
+       
+        body: formData,
+      }),
+      invalidatesTags: ["User", "Dealer"],
+    }),
+
+    resetPassword: builder.mutation({
+      query: ({emailData}) => ({
+        url: "/cars/update-password",
+        method: "POST",
+       
+        body: emailData,
+      }),
+      invalidatesTags: ["User", "Dealer"],
+    }),
   }),
 });
 
-export const { useSignInMutation,useSignUpMutation } = authApi;
+export const { useSignInMutation,useSignUpMutation,useForgetPasswordEmailMutation,useResetPasswordMutation } = authApi;
