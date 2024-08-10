@@ -260,6 +260,11 @@ const BiddingDealerCars = () => {
               <TableComponent columns={columns} data={paginatedData} />
             </CardBody>
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+                <Typography variant="small" color="blue-gray" className="font-normal">
+                  Page {pageNo + 1} 
+                </Typography>
+             
+              <div className="flex gap-2">
               <Button
                 variant="outlined"
                 color="blue-gray"
@@ -269,11 +274,6 @@ const BiddingDealerCars = () => {
               >
                 Previous
               </Button>
-              <div className="flex items-center gap-2">
-                <Typography variant="small" color="blue-gray" className="font-normal">
-                  Page {pageNo + 1} of {Math.ceil(filteredData?.length / itemsPerPage)}
-                </Typography>
-              </div>
               <Button
                 variant="outlined"
                 color="blue-gray"
@@ -283,6 +283,8 @@ const BiddingDealerCars = () => {
               >
                 Next
               </Button>
+              </div>
+             
             </CardFooter>
           </Card>
         )}
