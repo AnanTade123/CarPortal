@@ -93,7 +93,7 @@ export default function CarListing() {
       }
     },
     {
-      Header: "ID",
+      Header: "Id",
       accessor: "beadingCarId",
     },
     {
