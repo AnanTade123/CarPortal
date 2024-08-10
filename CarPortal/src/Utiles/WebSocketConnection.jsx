@@ -24,7 +24,6 @@ export const WebSocketProvider = ({ children }) => {
         console.log(str);
       },
       onConnect: () => {
-        console.log('Connected');
         setIsConnected(true);
         setClient(stompClient);
         
@@ -45,7 +44,6 @@ export const WebSocketProvider = ({ children }) => {
         if (!subscriptions.current['/topic/liveCars']) {
           subscriptions.current['/topic/liveCars'] = stompClient.subscribe('/topic/liveCars', (message) => {
             const cars = JSON.parse(message.body);
-            console.log('Live cars received:', cars);
             setLiveCars((prevCars) => [...cars]);
           });
         }
@@ -91,7 +89,7 @@ export const WebSocketProvider = ({ children }) => {
         body: JSON.stringify(bidRequest),
       });
 
-      if (!subscriptions.current[`/topic/topThreeBids_${bidCarId}`]) {
+      // if (!subscriptions.current[`/topic/topThreeBids_${bidCarId}`]) {
         subscriptions.current[`/topic/topThreeBids_${bidCarId}`] = client.subscribe(`/topic/topThreeBids`, (message) => {
           const topBids = JSON.parse(message.body);
           // const exists = biddingData.some(item => bidCarId === item.bidCarId);
@@ -101,28 +99,23 @@ export const WebSocketProvider = ({ children }) => {
           setTopThreeBidsAmount(topBids);
           // setTopThreeBidsAmountArray(biddingData);
         }, { ack: 'client' });
-      }
+      // }
     } else {
       console.log('Stomp client is not initialized.');
     }
   };
 
   const refreshTopThreeBids = (bidCarId) => {
-    console.log("topThreeBidsAmount",bidCarId)
 
     return new Promise((resolve, reject) => {
     if (bidCarId && client) {
       client.publish({destination :`/topic/topBids`}, {}, {});
 
-      // if (!subscriptions.current[`/topic/topBids_${bidCarId}`]) {
         subscriptions.current[`/topic/topBids_${bidCarId}`] = client.subscribe(`/topBids/${bidCarId}`, (message) => {
           const topBid = JSON.parse(message.body);
           setTopThreeBidsAmountArray(topBid);
-          console.log("topThreeBidsAmount",topBid);
           resolve(topBid);
-          // updateTopBid(topBid);
         });
-      // }
     }
     })
   };

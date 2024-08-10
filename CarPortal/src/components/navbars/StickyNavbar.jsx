@@ -23,7 +23,7 @@ import Profile from "../Profile/Profile";
 
 import { jwtDecode } from "jwt-decode";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import { NotificationDialog } from "./NotificationDialog";
+// import { NotificationDialog } from "./NotificationDialog";
 
 export function StickyNavbar() {
   const [openNav, setOpenNav] = useState(false);
@@ -236,7 +236,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         </Typography>
       </Link>
 
-      <NotificationDialog />
+      {/* <NotificationDialog /> */}
     </>
   ) : null;
 
@@ -258,7 +258,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         </Typography>
       </Link>
 
-      <NotificationDialog />
+      {/* <NotificationDialog /> */}
     </>
   ) : null;
 
@@ -281,7 +281,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
       </Link>
       <NavListMenu />
 
-      <NotificationDialog />
+      {/* <NotificationDialog /> */}
     </>
   ) : null;
 
@@ -355,7 +355,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         </Typography>
       </Link>
 
-      <NotificationDialog />
+      {/* <NotificationDialog /> */}
     </>
   ) : null;
 
@@ -414,7 +414,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         </Typography>
       </Link>
 
-      <NotificationDialog />
+      {/* <NotificationDialog /> */}
     </>
   ) : null;
 

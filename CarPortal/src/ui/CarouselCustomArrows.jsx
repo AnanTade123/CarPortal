@@ -6,7 +6,6 @@ import { useGetCarImageByIdQuery } from "../services/carAPI";
 export function CarouselCustomArrows({ carId }) {
   const [coverImageURL, setCoverImageURL] = useState(null);
   const { data, isLoading, error } = useGetCarImageByIdQuery({ carId });
-  console.log(data);
 
   const fallbackImage = "..\\..\\cars\\no-image-available-update.png";
 

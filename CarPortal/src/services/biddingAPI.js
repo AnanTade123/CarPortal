@@ -190,6 +190,13 @@ export const biddingAPI = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["BIDDING"],
     }),
+    biddingTimerId: builder.query({
+      query: (carId) => ({
+        url: `Bid/getTimer?biddingTimerId=${carId}`,
+        method: "GET",
+      }),
+      providesTags: ["BIDDING"],
+    }),
 
   }),
 });
@@ -197,6 +204,7 @@ export const biddingAPI = apiSlice.injectEndpoints({
 export const {useBiddingAllCardQuery,
   useAllDealerFinalBidQuery,
   useBiddingCarByIdQuery, 
+  useLazyBiddingCarByIdQuery,
   useBiddingcarUpdateMutation, 
   useBiddingRemoveMutation ,
   useBiddingCarRegisterMutation , 
@@ -214,5 +222,6 @@ export const {useBiddingAllCardQuery,
   useGetCarIdTypeQuery,
   useGetBidCarIdQuery,
   useBiddingCarImageRemoveMutation,
-  useUpdateBiddingTimeMutation
+  useUpdateBiddingTimeMutation,
+  useBiddingTimerIdQuery
 } = biddingAPI;

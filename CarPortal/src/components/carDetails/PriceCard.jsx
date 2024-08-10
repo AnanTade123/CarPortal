@@ -166,16 +166,18 @@ const PriceCard = ({
          
         </div>
       {/* </div> */}
-      {cookie && (
-  <DealerContact dealer_id={dealer_id}/>)}
+    
     
     </CardUi>
+    
 
     {/* </div> */}
 
 {/* <div> */}
 
 </div>
+{(cookie && userRole === "USER") ? (
+  <DealerContact dealer_id={dealer_id}/>) :  null}
 </>
   );
 };

@@ -21,7 +21,7 @@ useEffect(()=>{
                 </div>
                 <div className="flex items-center flex-col">
                     {/* <img src={PreferableIcon} alt="BM" className="h-20" /> */}
-                    <p className="mt-8 text-black text-6xl font-serif text-center">About CarTechIndia</p>
+                    <p className="mt-8 text-black text-4xl md:text-6xl lg:text-6xl font-serif text-center">About CarTechIndia</p>
 
                     <p className="mt-12 text-black text-3xl font-serif text-center">World-class Cars | Our Mission</p>
                     <p className="mt-12 text-black text-xl font-serif text-center">At CarTechIndia, our mission is to provide a seamless and trustworthy <br/> platform for buying and selling second-hand cars. <br/> We strive to make the car buying experience convenient, transparent, and enjoyable for every customer.</p>

@@ -3,7 +3,6 @@
 import { FaLocationDot } from "react-icons/fa6";
 import { useBiddingCarByIdQuery, useGetCarIdTypeQuery } from "../../services/biddingAPI";
 import { Link } from "react-router-dom";
-// import HighestBidAmount from "./HighestBidAmount";
 import dayjs from "dayjs";
 import duration from 'dayjs/plugin/duration';
 import { useEffect, useState } from "react";
@@ -20,7 +19,8 @@ const Card = ({ cardData }) => {
     const [timeLeft, setTimeLeft] = useState('');
     const bidCarId = cardData?.bidCarId;
     const [highestBid , setHighestBid] = useState(cardData?.basePrice);
-    // let highestBid = "";
+    const { client ,getLiveCars} = useWebSocket();
+
     useEffect(() => {
         const updateTimer = () => {
             const now = dayjs();
@@ -28,6 +28,7 @@ const Card = ({ cardData }) => {
 
             if (closingTime.isBefore(now)) {
                 setTimeLeft('00:00:00');
+                getLiveCars();
                 return;
             }
 
@@ -47,7 +48,6 @@ const Card = ({ cardData }) => {
         return () => clearInterval(timerId);
     }, [closeTime]);
 
-    const { isConnected,topThreeBidsAmount,topThreeBidsAmountArray,client ,subscriptions} = useWebSocket();
     // useEffect(() => {
     //     const fetchTopThreeBids = async () => {
     //         if (isConnected && bidCarId) {
@@ -92,6 +92,13 @@ const Card = ({ cardData }) => {
         // })
       };
 
+    const remainingMinutes = parseInt(timeLeft.split('m:')[0]);
+
+    // Determine the color based on the time left
+    const textColorClass = remainingMinutes <= 2 ? 'text-red-600' : 'text-green-800';
+    const text = remainingMinutes <= 2 ? 'Last Call' :'Timer' ;
+
+
     return (
         <div className="relative mx-auto w-full max-w-sm">
             <Link to={`/dealer/live/carDetails/${cardData?.bidCarId}/${cardData?.beadingCarId}`} className="relative inline-block w-full transform transition-transform duration-300 ease-in-out hover:-translate-y-2">
@@ -119,9 +126,9 @@ const Card = ({ cardData }) => {
                             </p>
                             <div className="text-center">
                                 <p className="text-primary inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
-                                    <span className="flex line-clamp-1 text-[12px] text-green-800">Timer</span>
+                                    <span className={`flex line-clamp-1 text-[16px] text-green-800 ${textColorClass}`}>{text}</span>
                                 </p>
-                                <p className="flex line-clamp-1 text-[12px] text-green-800">{timeLeft}</p>
+                                <p className={`flex line-clamp-1 text-[15px] text-green-800 ${textColorClass}`}>{timeLeft}</p>
                             </div>
                         </div>
                         <div className="mt-4">

@@ -30,6 +30,7 @@ const DealerContact = ({ dealer_id }) => {
       <CardUi>
         <div className="p-4">
           <h2 className="text-xl font-semibold text-gray-800">Dealer Contact</h2>
+<<<<<<< HEAD
           <div className="space-y-4 mt-4">
             <div className="flex items-start">
               <MdPerson className="mt-1" />
@@ -73,10 +74,35 @@ const DealerContact = ({ dealer_id }) => {
                 <p className="text-black font-semibold">{mobileNo}</p>
               </div>
             </div>
+=======
+          <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0 mt-4">
+            <MdPerson />
+            <p className="text-gray-600 flex-1">
+             <span   className="text-black font-semibold"> Name:</span> <span className='capitalize'>{firstName} {lastName}</span>
+            </p>
+          </div>
+          <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0 mt-1">
+            <FaLocationDot />
+            <p className="text-gray-600 flex-1">
+             <span  className="text-black font-semibold"> Address:</span> <span>{address}, {city}</span>
+            </p>
+          </div>
+          <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0 mt-1">
+            <MdEmail />
+            <p className="text-gray-600 flex-1">
+             <span  className="text-black font-semibold"> Email:</span> <span>{email}</span>
+            </p>
+          </div>
+          <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0 mt-1">
+            <IoLogoWhatsapp />
+            <p className="text-gray-600 flex-1">
+             <span className="text-black font-semibold" > Phone:</span> <span >{mobileNo}</span>
+            </p>
+>>>>>>> 2c7d5ebc1fee0dd9e53eff38ff7ec7b50fdd1960
           </div>
         </div>
-      </CardUi>
-    </div>
+       </CardUi>
+     </div>
   );
 };
 

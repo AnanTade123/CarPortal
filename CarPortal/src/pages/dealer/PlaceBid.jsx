@@ -82,16 +82,28 @@ export default function PlaceBid({
 
   return (
     <div>
-      <Button onClick={handleOpen} className="bg-[#045e4f]">
+     {/* Mobile Button */}
+     <div className="fixed bottom-5 left-4 right-4 z-50  md:hidden">
+      <Button
+        onClick={handleOpen}
+        className="bg-[#045e4f] w-full"
+      >
         Place Bid
       </Button>
+</div>
+
+      {/* Desktop Button */}
+      <Button onClick={handleOpen} className="bg-[#045e4f] hidden md:block">
+        Place Bid
+      </Button>
+
       <Dialog open={open} handler={handleOpen} className="max-w-full">
         <DialogHeader>Place Your Bid</DialogHeader>
         <DialogBody>
           {error && <p className="text-red-500">{error}</p>}
-          <div className="flex w-full max-w-[35rem] gap-4">
+          <div className="flex w-full max-w-[35rem] gap-2">
             <Button className="rounded" onClick={handleMinusAmount}>
-              Minus
+              -
             </Button>
             <Input
               type="text"
@@ -104,7 +116,7 @@ export default function PlaceBid({
               }}
             />
             <Button onClick={handlePlusAmount} className="rounded">
-              Plus
+              +
             </Button>
           </div>
         </DialogBody>

@@ -19,7 +19,7 @@ import InspectorStatusDialogBox from "./InspectorStatusDialogBox";
  
 export default function InspectorList() {
   const [pageNo, setPageNo] = useState(0);
-  const [pageSize, setPageSize] = useState(7);
+  const [pageSize, setPageSize] = useState(10);
   const { data, isLoading, error } = useGetallInspectorQuery({ pageNo, pageSize });
   
   const navigate = useNavigate();
@@ -41,21 +41,26 @@ export default function InspectorList() {
  
   const columns = [
     {
-      Header: "Serial No",
-      accessor: "inspectorProfileId",
+      Header: "Sr. No",
+      accessor: "serialNumber",
+      Cell: (cell) => {
+        const { pageSize } = cell.state; // Assuming you're using React Table's useTable hook
+        const serialNumber = pageNo * pageSize + cell.row.index + 1;
+        return serialNumber;
+      },
     },
     {
-      Header: "UserID",
+      Header: "User Code",
       accessor: "userId",
     },
     {
-      Header: "First Name",
-      accessor: "firstName",
+      Header: "Name",
+      accessor: (row) => `${row.firstName} ${row.lastName}`, // Combine firstName and lastName for sorting/filtering purposes
     },
-    {
-      Header: "Last Name ",
-      accessor: "lastName",
-    },
+    // {
+    //   Header: "Last Name ",
+    //   accessor: "lastName",
+    // },
     {
       Header: "Address",
       accessor: "address",
