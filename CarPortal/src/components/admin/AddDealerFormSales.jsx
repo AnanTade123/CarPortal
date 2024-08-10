@@ -140,7 +140,7 @@ export function AddDealerFormSales() {
             </Typography>
             <form
               onSubmit={handleSubmit}
-              className="space-y-3 md:w-full w-[220px]"
+              className="space-y-3 md:w-full"
             >
               <div className="flex md:flex-row flex-col gap-2 ">
                 <Input
