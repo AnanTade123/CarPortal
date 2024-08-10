@@ -53,10 +53,8 @@ export default function Admin() {
     setPageNo((prevPageNo) => {
       // Check if the error status is 404
       if (error?.status === 404) {
-        console.log("click");
         console.log(prevPageNo);
         // Display message or perform any action indicating that it's the last page
-        console.log("You are on the last page.");
         return prevPageNo; // Keep pageNo unchanged
       } else {
         // Increment pageNo
@@ -66,6 +64,15 @@ export default function Admin() {
   };
 
   const columns = [
+    {
+      Header: "Sr. No",
+      accessor: "serialNumber",
+      Cell: (cell) => {
+        const { pageSize } = cell.state; // Assuming you're using React Table's useTable hook
+        const serialNumber = pageNo * pageSize + cell.row.index + 1;
+        return serialNumber;
+      },
+    },
     {
       Header: "ID",
       accessor: "dealer_id",
@@ -89,7 +96,7 @@ export default function Admin() {
     },
 
     {
-      Header: "user id",
+      Header: "User Code",
       accessor: "userId",
       disableSortBy: true,
     },

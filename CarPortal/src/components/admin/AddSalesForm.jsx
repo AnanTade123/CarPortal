@@ -25,7 +25,7 @@ export function AddSalesForm() {
     lastName: "",
     address: "",
     profilePhotoId: "",
-    joiningdate:"",
+    joiningdate: "",
     city: "",
     roles: "SALESPERSON",
     documentId: "",
@@ -117,95 +117,97 @@ export function AddSalesForm() {
         className="bg-transparent shadow-none"
       >
         <CardUi>
-          <CardBody className="flex flex-col gap-4">
+          <CardBody className="flex flex-col gap-4 items-center">
             <Typography variant="h4" color="blue-gray">
               Add Seller
             </Typography>
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-3 md:w-full w-[220px]"
-            >
-              <div className="flex md:flex-row flex-col gap-2 ">
+            <div className="w-full overflow-y-auto style={{ maxHeight: '400px' }}">
+              <form
+                onSubmit={handleSubmit}
+                className="w-full space-y-3 md:w-full overflow-y-auto"
+              >
+                <div className="flex md:flex-row flex-col gap-2 ">
+                  <Input
+                    label="First Name"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    required
+                  />
+                  <Input
+                    label="Last Name"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
                 <Input
-                  label="First Name"
-                  name="firstName"
-                  value={formData.firstName}
+                  label="Email"
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  error={errors.email}
+                  required
+                />
+                {errors.email && (
+                  <Typography color="red">{errors.email}</Typography>
+                )}
+                <Input
+                  label="Mobile Number"
+                  type="tel"
+                  name="mobileNo"
+                  value={formData.mobileNo}
+                  onChange={handleChange}
+                  error={errors.mobileNo}
+                  required
+                />
+                {errors.mobileNo && (
+                  <Typography color="red">{errors.mobileNo}</Typography>
+                )}
+                <Input
+                  label="Password"
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+                <div className="flex gap-2 md:flex-row flex-col">
+                  <Input
+                    label="Area"
+                    name="area"
+                    value={formData.area}
+                    onChange={handleChange}
+                    required
+                  />
+                  <Input
+                    label="City"
+                    name="city"
+                    value={formData.city}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                <Input
+                  label="Address"
+                  name="address"
+                  value={formData.address}
                   onChange={handleChange}
                   required
                 />
                 <Input
-                  label="Last Name"
-                  name="lastName"
-                  value={formData.lastName}
+                  label="Aadhar No"
+                  name="documentId"
+                  value={formData.documentId}
                   onChange={handleChange}
                   required
                 />
-              </div>
-              <Input
-                label="Email"
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                error={errors.email}
-                required
-              />
-              {errors.email && (
-                <Typography color="red">{errors.email}</Typography>
-              )}
-              <Input
-                label="Mobile Number"
-                type="tel"
-                name="mobileNo"
-                value={formData.mobileNo}
-                onChange={handleChange}
-                error={errors.mobileNo}
-                required
-              />
-              {errors.mobileNo && (
-                <Typography color="red">{errors.mobileNo}</Typography>
-              )}
-              <Input
-                label="Password"
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-              <div className="flex gap-2 md:flex-row flex-col">
-                <Input
-                  label="Area"
-                  name="area"
-                  value={formData.area}
-                  onChange={handleChange}
-                  required
-                />
-                <Input
-                  label="City"
-                  name="city"
-                  value={formData.city}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <Input
-                label="Address"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                required
-              />
-              <Input
-                label="Aadhar No"
-                name="documentId"
-                value={formData.documentId}
-                onChange={handleChange}
-                required
-              />
 
-              <Button type="submit">Add</Button>
-            </form>
+                <Button type="submit">Add</Button>
+              </form>
+            </div>
           </CardBody>
         </CardUi>
       </Dialog>

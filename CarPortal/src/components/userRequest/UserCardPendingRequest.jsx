@@ -45,10 +45,10 @@ const UserCardPendingRequest = ({ item }) => {
                     </div>
                   </div>
                   <div className="text-sm md:text-lg mt-3 font-[latto] font-medium text-black">
-                    Car Price:₹{item?.price}
+                    <span className="font-bold">Car Price:</span> ₹{item?.price}
                   </div>
                   <div className=" mt-3 font-[latto] text-sm md:text-lg font-medium text-black">
-                    Asking Price:₹{item?.askingPrice}
+                    <span className="font-bold">Asking Price:</span> ₹{item?.askingPrice}
                   </div>
 
                   <Link to={`/carlist/cardetails/${item?.carId}`}>

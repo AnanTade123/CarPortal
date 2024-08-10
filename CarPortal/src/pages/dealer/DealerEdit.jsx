@@ -1,4 +1,3 @@
-
 import { useParams } from "react-router-dom";
 import {
   useGetDealerQuery,
@@ -9,22 +8,22 @@ import React from "react";
 import { useEffect } from "react";
 import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode"
+import {jwtDecode} from "jwt-decode";
 import Cookies from "js-cookie";
 import { toast, ToastContainer } from 'react-toastify';
 
 const DealerEdit = () => {
   const { id } = useParams();
-  const { data: dealerID } = useGetDealerQuery({id});
+  const { data: dealerID } = useGetDealerQuery({ id });
 
   const token = Cookies.get("token");
-  let jwtDecodes
-  if(token){
-     jwtDecodes = jwtDecode(token);
+  let jwtDecodes;
+  if (token) {
+    jwtDecodes = jwtDecode(token);
   }
-  
-  const userid = token ? jwtDecodes?.userId :null;
- 
+
+  const userid = token ? jwtDecodes?.userId : null;
+
   const [getEditDealer] = useGetEditDealerMutation(userid);
   const [inputField, setInputField] = React.useState({
     firstName: "",
@@ -37,7 +36,9 @@ const DealerEdit = () => {
     shopName: "",
     userid,
   });
-const navigate = useNavigate()
+
+  const navigate = useNavigate();
+
   const onChangeFormhandler = (e) => {
     const { name, value } = e.target;
     setInputField((preVal) => {
@@ -50,7 +51,27 @@ const navigate = useNavigate()
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    console.log(inputField);
+
+    // Check if any required field is empty
+    const requiredFields = [
+      "firstName",
+      "lastName",
+      "email",
+      "mobileNo",
+      "address",
+      "city",
+      "area",
+      "shopName",
+    ];
+
+    for (let field of requiredFields) {
+      if (!inputField[field]) {
+        toast.error(`Please fill out the ${field} field.`);
+        return; // Stop the submission if any field is empty
+      }
+    }
+
+    // console.log(inputField);
     
     try {
       const res = await getEditDealer({ id: userid, inputField });
@@ -88,15 +109,17 @@ const navigate = useNavigate()
       });
     }
   }, [dealerID, userid]);
+
   return (
     <div className="mx-auto container flex justify-center md:w-[50%] w-fit">
       <ToastContainer />
-      <forms className="w-full border border-gray-500 px-2 py-2 rounded-md mt-2 mb-2">
+      <form className="w-full border border-gray-500 px-2 py-2 rounded-md mt-2 mb-2" onSubmit={onSubmitHandler}>
         <div className="mt-5">
-          <p className="text-3xl font-semibold">Edit Dealer Details </p>
+          <p className="text-3xl font-semibold">Edit Dealer Details</p>
         </div>
         <div className="mt-5">
           <Inputs
+            required
             label={"First Name"}
             onChange={onChangeFormhandler}
             value={inputField.firstName}
@@ -107,6 +130,7 @@ const navigate = useNavigate()
         </div>
         <div className="mt-5">
           <Inputs
+            required
             label={"Last Name"}
             onChange={onChangeFormhandler}
             value={inputField.lastName}
@@ -117,6 +141,7 @@ const navigate = useNavigate()
         </div>
         <div className="mt-5">
           <Inputs
+            required
             label={"Email"}
             onChange={onChangeFormhandler}
             value={inputField.email}
@@ -127,7 +152,8 @@ const navigate = useNavigate()
         </div>
         <div className="mt-5">
           <Inputs
-            label={"MobileNo"}
+            required
+            label={"Mobile No"}
             onChange={onChangeFormhandler}
             value={inputField.mobileNo}
             defaultValue={dealerID?.dealerDto?.mobileNo || ""}
@@ -137,6 +163,7 @@ const navigate = useNavigate()
         </div>
         <div className="mt-5">
           <Inputs
+            required
             label={"Shop Name"}
             onChange={onChangeFormhandler}
             value={inputField.shopName}
@@ -147,6 +174,7 @@ const navigate = useNavigate()
         </div>
         <div className="mt-5">
           <Inputs
+            required
             label={"Address"}
             onChange={onChangeFormhandler}
             value={inputField.address}
@@ -157,6 +185,7 @@ const navigate = useNavigate()
         </div>
         <div className="mt-5">
           <Inputs
+            required
             label={"City"}
             onChange={onChangeFormhandler}
             value={inputField.city}
@@ -167,6 +196,7 @@ const navigate = useNavigate()
         </div>
         <div className="mt-5">
           <Inputs
+            required
             label={"Area"}
             onChange={onChangeFormhandler}
             value={inputField.area}
@@ -177,17 +207,15 @@ const navigate = useNavigate()
         </div>
         <div className="mt-5 ml-2">
           <Button
-            onClick={onSubmitHandler}
             type="submit"
             className="py-2 px-2 bg-indigo-600 text-white"
           >
             Submit
           </Button>
         </div>
-      </forms>
+      </form>
     </div>
   );
 };
 
 export default DealerEdit;
-

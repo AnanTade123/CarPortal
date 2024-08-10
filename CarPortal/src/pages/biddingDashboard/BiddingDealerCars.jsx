@@ -77,6 +77,15 @@ const BiddingDealerCars = () => {
 
   const columns = [
     {
+      Header: "Sr. No",
+      accessor: "serialNumber",
+      Cell: (cell) => {
+        const { pageSize } = cell.state; // Assuming you're using React Table's useTable hook
+        const serialNumber = pageNo * pageSize + cell.row.index + 1;
+        return serialNumber;
+      },
+    },
+    {
       accessor: 'biddingTimerId',
       // show: true,
       isVisible: true
@@ -158,7 +167,7 @@ const BiddingDealerCars = () => {
   >
     <Button className="bg-[#045e4f]">
     {userRole === "DEALER" 
-    ? "Place Bidding" 
+    ? "Place Bid" 
     : (userRole === "ADMIN" || userRole === "SALESPERSON") 
       ? (cell.row.values.biddingTimerId !== null
         ? "Update Bid Time" 
@@ -251,6 +260,11 @@ const BiddingDealerCars = () => {
               <TableComponent columns={columns} data={paginatedData} />
             </CardBody>
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+                <Typography variant="small" color="blue-gray" className="font-normal">
+                  Page {pageNo + 1} 
+                </Typography>
+             
+              <div className="flex gap-2">
               <Button
                 variant="outlined"
                 color="blue-gray"
@@ -260,11 +274,6 @@ const BiddingDealerCars = () => {
               >
                 Previous
               </Button>
-              <div className="flex items-center gap-2">
-                <Typography variant="small" color="blue-gray" className="font-normal">
-                  Page {pageNo + 1} of {Math.ceil(filteredData?.length / itemsPerPage)}
-                </Typography>
-              </div>
               <Button
                 variant="outlined"
                 color="blue-gray"
@@ -274,6 +283,8 @@ const BiddingDealerCars = () => {
               >
                 Next
               </Button>
+              </div>
+             
             </CardFooter>
           </Card>
         )}

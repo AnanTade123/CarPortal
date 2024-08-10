@@ -45,7 +45,6 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage ,t
   const [startBiddingSetTime] = useStartBiddingSetTimeMutation();
   const [UpdateBiddingTime] = useUpdateBiddingTimeMutation();
   const { data , error ,isLoading } = useBiddingTimerIdQuery(timerId)
-  console.log("timerDattaa" ,data);
   // const [startBiddingSetTime] = useStartBiddingSetTimeMutation();
 
   const handleOpen = () => setOpen(!open);
@@ -147,7 +146,6 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage ,t
            ({  error : bidError  } = await startBiddingSetTime(setTimeData));
 
         }
-        // console.log("setTimeData",setTimeData )
         if(bidError || bidError?.data?.message ==="unsuccess"){
           bidError?.data?.message ==="unsuccess" ? handleMessage(bidError?.data?.exception,"error") :handleMessage(bidError?.data,"error");
         handleOpen();
@@ -156,23 +154,7 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage ,t
         }
         handleOpen();
         
-        // else{
-        //   const createdAt = {
-        //     bidCarId: 0,
-        //     beadingCarId: biddingcarid,
-        //     createdAt: bidding.createdAt,
-        //     basePrice: bidding.basePrice,
-        //     userId: userid,
-        // };
-        // // eslint-disable-next-line no-unused-vars
-        // const {data , error} = await createBidding(createdAt);
-        // console.log("checkkkkMAsg",error)
-        // if(error){
-        //   handleMessage(error?.data?.exception,"error");
-        //   handleMessage(error?.message,"error");
-        // }
-        
-      // }
+      
         
       }
        }

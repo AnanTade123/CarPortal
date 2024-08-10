@@ -90,6 +90,15 @@ const userRole = token ? jwtDecodes?.authorities[0] : null;
 
   const columns = [
     {
+      Header: "Sr. No",
+      accessor: "serialNumber",
+      Cell: (cell) => {
+        const { pageSize } = cell.state; // Assuming you're using React Table's useTable hook
+        const serialNumber = pageNo * pageSize + cell.row.index + 1;
+        return serialNumber;
+      }
+    },
+    {
       Header: "ID",
       accessor: "dealer_id",
     },

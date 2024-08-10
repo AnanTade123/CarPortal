@@ -89,8 +89,8 @@ const DealerContact = ({ dealer_id }) => {
             </div>
           </div>
         </div>
-      </CardUi>
-    </div>
+       </CardUi>
+     </div>
   );
 };
 
