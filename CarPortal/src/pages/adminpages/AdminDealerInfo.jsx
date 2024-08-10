@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useGetDealerQuery } from "../../services/dealerAPI";
+import { useGetDealerQuery ,useGetDealerProfileQuery} from "../../services/dealerAPI";
 import { IoChevronBack } from "react-icons/io5";
 import { Button } from "@material-tailwind/react";
 import { jwtDecode } from "jwt-decode";
@@ -23,6 +23,8 @@ const AdminDealerInfo = () => {
   const userRole = token ? jwtDecodes?.authorities[0] : null;
 
   const { data, isLoading, isError, error } = useGetDealerQuery({ id });
+  const { data:profiledata   } = useGetDealerProfileQuery({ id });
+console.log(profiledata)
 
   const {
     dealerDto: {
@@ -44,11 +46,11 @@ const AdminDealerInfo = () => {
       </div>
       <div className="flex justify-center items-center   xl:h-screen">
         <div className="w-full max-w-4xl flex flex-col mx-2  md:flex-row shadow-xl">
-          <div className="w-full md:w-1/2">
+          <div className="w-full md:w-1/2 flex justify-center h-60 ">
             <img
-              src="https://www.shutterstock.com/image-photo/smiling-friendly-car-seller-suit-600nw-2105619599.jpg"
+              src="https://tamilnaducouncil.ac.in/wp-content/uploads/2020/04/dummy-avatar.jpg"
               alt="Dealer"
-              className="object-cover w-full h-full"
+              className="object-cover w-1/2 h-full  md:mt-8 lg:mt-8 "
             />
           </div>
           <div className="w-full md:w-1/2 p-8 flex flex-col justify-between">

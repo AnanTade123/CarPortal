@@ -1,23 +1,22 @@
 /* eslint-disable no-unused-vars */
 
 import { useParams } from "react-router-dom";
-import {useUserupdateMutation,   useGetUserByIdQuery } from "../../services/userAPI";
+import { useUserupdateMutation, useGetUserByIdQuery } from "../../services/userAPI";
 import Inputs from "../../forms/Inputs";
 import React, { useEffect } from "react";
 import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
- 
-const   UserProfileUpdate = () => {
+
+const UserProfileUpdate = () => {
   const { userProfileId } = useParams();
- 
- 
+
   const navigate = useNavigate();
-  const { data, isLoading, isError, error } = useGetUserByIdQuery( userProfileId );
- 
-   const [Userupdate] = useUserupdateMutation();
- 
+  const { data, isLoading, isError, error } = useGetUserByIdQuery(userProfileId);
+
+  const [Userupdate] = useUserupdateMutation();
+
   const [inputField, setInputField] = React.useState({
     address: "",
     city: "",
@@ -26,11 +25,11 @@ const   UserProfileUpdate = () => {
     email: "",
     mobileNo: ""
   });
- 
+
   useEffect(() => {
     if (data) {
       setInputField({
-        userProfileId: data.userProfileId || 0,
+        userProfileId: data.id || 0,
         address: data.address || "",
         city: data.city || "",
         firstName: data.firstName || "",
@@ -40,7 +39,7 @@ const   UserProfileUpdate = () => {
       });
     }
   }, [data]);
- 
+
   const onChangeFormhandler = (e) => {
     const { name, value } = e.target;
     setInputField((prevVal) => ({
@@ -48,12 +47,10 @@ const   UserProfileUpdate = () => {
       [name]: value,
     }));
   };
- 
+
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     const userupdate = {
-   
-     
       id: userProfileId,
       mobile_no: inputField.mobileNo,
       address: inputField.address,
@@ -61,20 +58,27 @@ const   UserProfileUpdate = () => {
       city: inputField.city,
       firstName: inputField.firstName,
       lastName: inputField.lastName,
-     
-      
     };
+
     try {
-      const res = await Userupdate({userupdate ,userProfileId }).unwrap();
-     
-      
+      const res = await Userupdate({ userupdate, userProfileId }).unwrap();
+
       if (res.code === 'Successful') {
         toast.success("Changes successful", {
-         // autoClose: 2000,
+          // autoClose: 2000,
         });
-        setTimeout(() => {
-          navigate('/signin');
-        }, 1000);
+
+        if (userupdate.email !== data.email) {
+          // If email is changed, redirect to sign-in page
+          setTimeout(() => {
+            navigate('/signin');
+          }, 1000);
+        } else {
+          // If other fields are changed, navigate back to the previous page
+          setTimeout(() => {
+            navigate(-1);
+          }, 1000);
+        }
       } else {
         toast.error("Failed to update User", {
           autoClose: 2000, // 2 seconds
@@ -87,15 +91,15 @@ const   UserProfileUpdate = () => {
       console.log("Error:", error);
     }
   };
- 
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
- 
+
   if (isError) {
     return <div>Error: {error.message}</div>;
   }
- 
+
   return (
     <div className="mx-auto container flex justify-center w-full md:w-[50%]">
       <form className="w-full border border-gray-500 px-2 py-2 rounded-md mt-2 mb-2" onSubmit={onSubmitHandler}>
@@ -175,7 +179,5 @@ const   UserProfileUpdate = () => {
     </div>
   );
 };
- 
+
 export default UserProfileUpdate;
- 
- 

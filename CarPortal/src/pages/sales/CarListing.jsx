@@ -93,7 +93,7 @@ export default function CarListing() {
       }
     },
     {
-      Header: "ID",
+      Header: "Id",
       accessor: "beadingCarId",
     },
     {
@@ -290,6 +290,14 @@ export default function CarListing() {
                 <TableComponent columns={columns} data={paginatedData} />
               </CardBody>
               <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+              <Typography
+                  variant="medium"
+                  color="blue-gray"
+                  className="font-normal"
+                >
+                  Page {pageNo + 1}
+                </Typography>
+                <div className="flex gap-2">
                 <Button
                   variant="outlined"
                   size="sm"
@@ -298,13 +306,7 @@ export default function CarListing() {
                 >
                   Previous
                 </Button>
-                <Typography
-                  variant="medium"
-                  color="blue-gray"
-                  className="font-normal"
-                >
-                  Page {pageNo + 1}
-                </Typography>
+              
                 <Button
                   variant="outlined"
                   size="sm"
@@ -313,6 +315,7 @@ export default function CarListing() {
                 >
                   Next
                 </Button>
+                </div>
               </CardFooter>
             </Card>
           </div>

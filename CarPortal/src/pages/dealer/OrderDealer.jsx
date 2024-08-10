@@ -31,13 +31,14 @@ const OrderDealer = () => {
       pageNo,
       id,
     });
- 
+
   const [cancelStatusSet] = useCancelStatusSetMutation();
+  
 
   const nextHandler = () => {
     setPageNo((prePageNo) => {
       if (error?.status === 404) {
-        console.log("You are on the last page.");
+        // console.log("You are on the last page.");
       } else {
         return prePageNo + 1;
       }
@@ -56,16 +57,15 @@ const OrderDealer = () => {
       toast.success(res?.data?.status);
       handleOpen(false);
       refetch();
-      
     } catch (error) {
-      console.log("Error :", error);
+      // console.log("Error :", error);
     }
   };
 
   if (error) {
     return (
       <div>
-        <p>No Data Available</p>
+        <p className="ml-3">No Data Available</p>
 
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography
@@ -116,22 +116,27 @@ const OrderDealer = () => {
               </CardHeader>
             </div>
             <div>
-              <p>
-                Date:<span className="text-lg font-semibold">{item?.date}</span>
+              <p className="text-lg">
+                <span className="font-[latto] text-black font-bold">Date:</span>{" "}
+                {item?.date}
               </p>
-              <p className="mt-2">
-                Price:
-                <span className="font-semibold text-lg">{item?.price}</span>
+              <p className="mt-2 text-lg">
+                <span className="font-[latto] text-black font-bold">
+                  Price:{" "}
+                </span>
+                {item?.price}
               </p>
               <div>
                 <div className="font-[latto] mt-2 text-lg font-bold text-black">
                   Contact Details of the User
                 </div>
-                <div className="font-[latto] mt-1 text-base font-medium text-black">
-                  User Name:{item?.firstName}
+                <div className="font-[latto] mt-1 text-lg font-medium text-black">
+                  <span className="font-bold text-lg">User Name: </span>
+                  {item?.firstName}
                 </div>
-                <div className="font-[latto] text-base font-medium text-black">
-                  Contact No: {item?.mobileNo}
+                <div className="font-[latto] text-lg font-medium text-black">
+                  <span className="font-bold text-lg">Contact No:</span>{" "}
+                  {item?.mobileNo}
                 </div>
               </div>
               <div className="flex gap-2 align-middle items-center">

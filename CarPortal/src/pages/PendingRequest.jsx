@@ -32,7 +32,7 @@ const PendingRequest = () => {
   if(error){
     return(
       <div>
-    <p>No Data Available</p>
+    <p className="ml-3">No Data Available</p>
 
     <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
     <Typography

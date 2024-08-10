@@ -30,29 +30,63 @@ const DealerContact = ({ dealer_id }) => {
       <CardUi>
         <div className="p-4">
           <h2 className="text-xl font-semibold text-gray-800">Dealer Contact</h2>
-          <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0 mt-4">
-            <MdPerson />
-            <p className="text-gray-600 flex-1">
-             <span   className="text-black font-semibold"> Name:</span> <span className='capitalize'>{firstName} {lastName}</span>
-            </p>
-          </div>
-          <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0 mt-1">
-            <FaLocationDot />
-            <p className="text-gray-600 flex-1">
-             <span  className="text-black font-semibold"> Address:</span> <span>{address}, {city}</span>
-            </p>
-          </div>
-          <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0 mt-1">
-            <MdEmail />
-            <p className="text-gray-600 flex-1">
-             <span  className="text-black font-semibold"> Email:</span> <span>{email}</span>
-            </p>
-          </div>
-          <div className="flex align-bottom items-baseline gap-3 ml-2 md:ml-0 mt-1">
-            <IoLogoWhatsapp />
-            <p className="text-gray-600 flex-1">
-             <span className="text-black font-semibold" > Phone:</span> <span >{mobileNo}</span>
-            </p>
+          <div className="space-y-4 mt-4">
+            
+            <div className="flex items-start md:flex-col lg:flex-row">
+            <div className='md:flex'> 
+              <div className='hidden sm:flex'>
+                <MdPerson className="w-5 h-5 text-gray-600 flex-shrink-0" />
+              </div>
+              <div className="ml-3">
+                <p className="text-black font-semibold font-[latto]">Name:</p>
+              </div>
+              </div>
+              <div className="flex-1 ml-7 md:ml-0">
+                <p className="text-gray-600 font-[latto] lg:ml-6">{firstName} {lastName}</p>
+              </div>
+            </div>
+
+            <div className="flex items-start md:flex-col lg:flex-row">
+            <div className='md:flex'> 
+              <div className='hidden sm:flex'>
+                <FaLocationDot className="w-5 h-5 text-gray-600 flex-shrink-0" />
+              </div>
+              <div className="ml-3">
+                <p className="text-black font-semibold font-[latto] ">Address:</p>
+              </div>
+              </div>
+              <div className="flex-1 ml-3 md:ml-0">
+                <p className="text-gray-600 font-[latto] lg:ml-2">{address}, {city}</p>
+              </div>
+            </div>
+
+            <div className="flex items-start md:flex-col lg:flex-row">
+           
+           <div className='md:flex'>   <div className='hidden sm:flex'>
+                <MdEmail className="w-5 h-5 text-gray-600 flex-shrink-0" />
+              </div>
+              <div className="ml-3">
+                <p className="text-black font-semibold font-[latto]">Email:</p>
+              </div>
+              </div>
+              <div className="flex-1 ml-5 md:ml-0">
+                <p className="text-gray-600 font-[latto] ml-2 lg:ml-5">{email}</p>
+              </div>
+            </div>
+
+            <div className="flex items-start md:flex-col lg:flex-row">
+             <div className='md:flex' >
+              <div className='hidden sm:flex '>
+                <IoLogoWhatsapp className="w-5 h-5 text-gray-600 flex-shrink-0" />
+              </div>
+              <div className="ml-3">
+                <p className="text-black font-semibold font-[latto]">Phone:</p>
+              </div>
+              </div>
+              <div className="flex-1 ml-5 md:ml-0">
+                <p className="text-gray-600 font-[latto] ml-1 lg:ml-4 ">{mobileNo}</p>
+              </div>
+            </div>
           </div>
         </div>
        </CardUi>

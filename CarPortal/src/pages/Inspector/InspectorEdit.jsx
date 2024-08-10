@@ -51,38 +51,45 @@ const   InspectorEdit = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     const inspectordata = {
-      inspectorProfileId: inputField.inspectorProfileId,
-      address: inputField.address,
-      city: inputField.city,
-      firstName: inputField.firstName,
-      lastName: inputField.lastName,
-      email: inputField.email,
-      mobileNo: inputField.mobileNo
+        inspectorProfileId: inputField.inspectorProfileId,
+        address: inputField.address,
+        city: inputField.city,
+        firstName: inputField.firstName,
+        lastName: inputField.lastName,
+        email: inputField.email,
+        mobileNo: inputField.mobileNo
+
+        
     };
     try {
-      const res = await inspectorupdate({ id: inspectorprofileid, inspectordata }).unwrap();
-     
-      console.log("Update Response:", res);
-      if (res.status === 'success') {
-        toast.success("Changes successful", {
-         // autoClose: 2000,
-        });
-        setTimeout(() => {
-          navigate(-1);
-        }, 1000);
-      } else {
-        toast.error("Failed to update inspector", {
-          autoClose: 2000, // 2 seconds
-        });
-      }
+        const res = await inspectorupdate({ id: inspectorprofileid, inspectordata }).unwrap();
+        
+        console.log("Update Response:", res);
+        if (res.status === 'success') {
+            toast.success("Changes successful", {
+             // autoClose: 2000,
+            });
+            setTimeout(() => {
+                if (inspectordata.email !== data.response.email) {
+                    navigate('/signin'); // Redirect to sign-in page if email is changed
+                } else {
+                    navigate(-1); // Navigate back to the previous page for other fields
+                }
+            }, 1000);
+        } else {
+            toast.error("Failed to update inspector", {
+                autoClose: 2000, // 2 seconds
+            });
+        }
     } catch (error) {
-      toast.error("Error updating inspector", {
-        autoClose: 2000, // 2 seconds
-      });
-      console.log("Error:", error);
+        toast.error("Error updating inspector", {
+            autoClose: 2000, // 2 seconds
+        });
+        console.log("Error:", error);
     }
-  };
- 
+};
+
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
