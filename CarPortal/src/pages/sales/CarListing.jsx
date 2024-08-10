@@ -84,7 +84,7 @@ export default function CarListing() {
 
   const columns = [
     {
-      Header: "ID",
+      Header: "Id",
       accessor: "beadingCarId",
     },
     {

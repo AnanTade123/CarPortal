@@ -231,7 +231,7 @@ const [formData, setFormData] = useState({
         toast.error("Data not Uploaded", { autoClose: 500 });
       }
     } else {
-      toast.error("Labels are required to submit the form", { autoClose: 2000 });
+      toast.error("Input is required", { autoClose: 2000 });
     }
     };
     reader.readAsDataURL(file);
@@ -263,7 +263,7 @@ const [formData, setFormData] = useState({
         toast.error("Data not Uploaded", { autoClose: 500 });
       }
     } else {
-      toast.error("Labels are required to submit the form", { autoClose: 2000 });
+      toast.error("Input is required", { autoClose: 2000 });
     }
   };
   

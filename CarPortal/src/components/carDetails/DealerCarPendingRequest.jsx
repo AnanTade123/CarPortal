@@ -18,10 +18,9 @@ import { toast, ToastContainer } from "react-toastify";
 import { useState } from "react";
 import { CarouselCustomArrows } from "../../ui/CarouselCustomArrows";
 
-const DealerCarPendingRequest = ({ item ,refetch }) => {
+const DealerCarPendingRequest = ({ item, refetch }) => {
   const { id } = useParams();
 
-  
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(!open);
@@ -35,7 +34,6 @@ const DealerCarPendingRequest = ({ item ,refetch }) => {
   }
 
   const UserID = jwtDecodes?.userId;
-  
 
   const [ConfirmBooking] = useConfirmBookingMutation();
 
@@ -57,7 +55,7 @@ const DealerCarPendingRequest = ({ item ,refetch }) => {
       setTimeout(() => {
         navigate(`/dealer/${id}/booking/confirm`);
       }, 1000);
-      console.log("Booking confirmed:", response);
+      // console.log("Booking confirmed:", response);
     } catch (error) {
       toast.error("Car not added");
       setOpen(!open);
@@ -127,21 +125,25 @@ const DealerCarPendingRequest = ({ item ,refetch }) => {
                   <div className="pl-4 mt-2 flex flex-col justify-center">
                     <div>
                       <div className="text-lg mt-1 font-[latto] font-medium text-black">
-                        Car Price: ₹{item?.price}
+                        <span className="font-bold font-[latto]">Car Price:</span> ₹
+                        {item?.price}
                       </div>
                       <div className="mt-1 font-[latto] text-lg font-medium text-black">
-                        Asking Price: ₹{item?.askingPrice}
+                        <span className="font-bold">Asking Price:</span> ₹
+                        {item?.askingPrice}
                       </div>
                     </div>
                     <div>
                       <div className="mt-1 font-[latto] text-lg font-bold text-black">
                         Contact Details of the User
                       </div>
-                      <div className="mt-1 font-[latto] text-base font-medium text-black">
-                        User Name: {item?.username}
+                      <div className="mt-1 font-[latto] text-lg font-medium text-black">
+                        <span className="font-bold">User Name:</span>{" "}
+                        {item?.username}
                       </div>
-                      <div className="mt-1 font-[latto] text-base font-medium text-black">
-                        Contact No: {item?.mobileNumber}
+                      <div className="mt-1 font-[latto] text-lg font-medium text-black">
+                        <span className="font-bold">Contact No:</span>{" "}
+                        {item?.mobileNumber}
                       </div>
                       <div className="flex gap-2 p-2 md:p-0 md:pt-2 ">
                         <div>
