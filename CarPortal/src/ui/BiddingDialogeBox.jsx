@@ -9,7 +9,7 @@ import {
   Input,
 } from "@material-tailwind/react";
 
-import { useCreateBiddingMutation ,useUpdateBiddingTimeMutation } from "../services/biddingAPI";
+import { useBiddingTimerIdQuery, useCreateBiddingMutation ,useUpdateBiddingTimeMutation } from "../services/biddingAPI";
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
@@ -44,7 +44,7 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage ,t
   const [createBidding] = useCreateBiddingMutation();
   const [startBiddingSetTime] = useStartBiddingSetTimeMutation();
   const [UpdateBiddingTime] = useUpdateBiddingTimeMutation();
-
+  const { data , error ,isLoading } = useBiddingTimerIdQuery(timerId)
   // const [startBiddingSetTime] = useStartBiddingSetTimeMutation();
 
   const handleOpen = () => setOpen(!open);
@@ -77,15 +77,15 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage ,t
    
   useEffect(() => {
     if(timerId !== undefined){
-      const dateTime = dayjs('2024-08-09 10:47:00.000000', 'YYYY-MM-DD HH:mm:ss.SSSSSS');
+      const dateTime = dayjs(data?.endTime, 'YYYY-MM-DD HH:mm:ss.SSSSSS');
       const formattedDateTime = dateTime.format('YYYY-MM-DD[T]HH:mm');
       const finalDateTime = dateTime.add(2, 'hour').add(48, 'minute').format('YYYY-MM-DD[T]HH:mm');
 
       setBidding({
-        beadingCarId: 112,
+        beadingCarId: data?.beadingCarId,
         createdAt: formattedDateTime,
-        userId: 1004,
-        basePrice: "7600",
+        userId: data?.userId,
+        basePrice: data?.basePrice,
       });
     }
   },[timerId])
@@ -130,7 +130,7 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage ,t
           endTime : formattedEndTime
         };
         const setTimeDataUpdate = {
-          biddingTimerId : 1,
+          biddingTimerId : data?.biddingTimerId,
           beadingCarId: biddingcarid,
           userId: userid,
           basePrice: bidding.basePrice,
@@ -146,7 +146,6 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage ,t
            ({  error : bidError  } = await startBiddingSetTime(setTimeData));
 
         }
-        // console.log("setTimeData",setTimeData )
         if(bidError || bidError?.data?.message ==="unsuccess"){
           bidError?.data?.message ==="unsuccess" ? handleMessage(bidError?.data?.exception,"error") :handleMessage(bidError?.data,"error");
         handleOpen();
@@ -155,23 +154,7 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage ,t
         }
         handleOpen();
         
-        // else{
-        //   const createdAt = {
-        //     bidCarId: 0,
-        //     beadingCarId: biddingcarid,
-        //     createdAt: bidding.createdAt,
-        //     basePrice: bidding.basePrice,
-        //     userId: userid,
-        // };
-        // // eslint-disable-next-line no-unused-vars
-        // const {data , error} = await createBidding(createdAt);
-        // console.log("checkkkkMAsg",error)
-        // if(error){
-        //   handleMessage(error?.data?.exception,"error");
-        //   handleMessage(error?.message,"error");
-        // }
-        
-      // }
+      
         
       }
        }

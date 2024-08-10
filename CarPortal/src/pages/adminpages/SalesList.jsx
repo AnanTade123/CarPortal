@@ -67,17 +67,21 @@ export default function SalesList() {
 
   const columns = [
     {
+      Header: "Sr. No",
+      accessor: "serialNumber",
+      Cell: (cell) => {
+        const { pageSize } = cell.state; // Assuming you're using React Table's useTable hook
+        const serialNumber = pageNo * pageSize + cell.row.index + 1;
+        return serialNumber;
+      },
+    },
+    {
       Header: "ID",
       accessor: "salesPersonId",
     },
     {
-      Header: "First Name",
-      accessor: "firstName",
-    },
-
-    {
-      Header: "Last Name ",
-      accessor: "lastName",
+      Header: "Name",
+      accessor: (row) => `${row.firstName} ${row.lastName}`, // Combine firstName and lastName for sorting/filtering purposes
     },
     {
       Header: "Location",

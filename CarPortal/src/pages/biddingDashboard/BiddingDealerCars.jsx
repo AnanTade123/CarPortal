@@ -77,6 +77,15 @@ const BiddingDealerCars = () => {
 
   const columns = [
     {
+      Header: "Sr. No",
+      accessor: "serialNumber",
+      Cell: (cell) => {
+        const { pageSize } = cell.state; // Assuming you're using React Table's useTable hook
+        const serialNumber = pageNo * pageSize + cell.row.index + 1;
+        return serialNumber;
+      },
+    },
+    {
       accessor: 'biddingTimerId',
       // show: true,
       isVisible: true
@@ -158,7 +167,7 @@ const BiddingDealerCars = () => {
   >
     <Button className="bg-[#045e4f]">
     {userRole === "DEALER" 
-    ? "Place Bidding" 
+    ? "Place Bid" 
     : (userRole === "ADMIN" || userRole === "SALESPERSON") 
       ? (cell.row.values.biddingTimerId !== null
         ? "Update Bid Time" 

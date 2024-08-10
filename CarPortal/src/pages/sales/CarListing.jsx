@@ -84,6 +84,15 @@ export default function CarListing() {
 
   const columns = [
     {
+      Header: "Sr. No",
+      accessor: "serialNumber",
+      Cell: (cell) => {
+        const { pageSize } = cell.state; // Assuming you're using React Table's useTable hook
+        const serialNumber = pageNo * pageSize + cell.row.index + 1;
+        return serialNumber;
+      }
+    },
+    {
       Header: "Id",
       accessor: "beadingCarId",
     },
@@ -272,7 +281,7 @@ export default function CarListing() {
                   </Button>
                 </DialogFooter>
               </Dialog>
-              <div className="flex ml-auto shrink-0 flex-col gap-2 sm:flex-row">
+              <div className="flex ml-auto shrink-0 flex-col px-5 gap-2 sm:flex-row">
                 <Link to={`/inspector/car/add`}>
                   <Button>Add Car</Button>
                 </Link>
