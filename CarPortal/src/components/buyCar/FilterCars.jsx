@@ -8,7 +8,12 @@ import {
   useGetOnlyBrandsQuery,
   useGetVariantsQuery,
 } from "../../services/brandAPI";
-import { Autocomplete, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  Checkbox,
+  FormControlLabel,
+  TextField,
+} from "@mui/material";
 
 // eslint-disable-next-line react/prop-types
 const FilterCars = ({ setUrlState }) => {
@@ -17,8 +22,15 @@ const FilterCars = ({ setUrlState }) => {
 
   const [selectedBrand, setSelectedBrand] = useState("");
   const [modelOptions, setModelOptions] = useState([]);
-  const [value, setValue] = useState([1000000, 7000000]);
   const [showFilters, setShowFilters] = useState(false);
+  const [value, setValue] = useState([0, 10000000]);
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [underTwoLakh, setUnderTwoLakh] = useState(false); // New state for the checkbox
+  const [twoLakhFiveLakh, setTwoLakhFiveLakh] = useState(false); // New state for the checkbox
+  const [fiveToEightLakh, setFiveToEightLakh] = useState(false); // New state for the checkbox  const [twoLakhFiveLakh, setTwoLakhFiveLakh] = useState(false); // New state for the checkbox
+  const [eightToTenLakh, setEightToTenLakh] = useState(false); // New state for the checkbox
+  const [aboveTenLakh, setAboveTenLakh] = useState(false); // New state for the checkbox
 
   const { data: variantData } = useGetVariantsQuery(selectedBrand, {
     skip: !selectedBrand,
@@ -82,7 +94,7 @@ const FilterCars = ({ setUrlState }) => {
   };
 
   const resetForm = () => {
-    setValue([1000000, 7000000]); // Reset slider values to default
+    setValue([0, 10000000]); // Reset slider values to default
     setSelectedBrand(""); // Reset brand selection
     setModelOptions([]); // Reset model options
     setFilterForm({
@@ -93,6 +105,12 @@ const FilterCars = ({ setUrlState }) => {
       fuelType: "", // Reset fuel type
       transmission: "", // Reset transmission
     });
+    setUnderTwoLakh(false); // Reset the checkbox
+    setTwoLakhFiveLakh(false);
+    setFiveToEightLakh(false);
+    setEightToTenLakh(false);
+    setAboveTenLakh(false);
+
     setUrlState({
       area: "",
       year: "",
@@ -101,7 +119,7 @@ const FilterCars = ({ setUrlState }) => {
       fuelType: "",
       transmission: "",
       MinPrice: 0, // Reset MinPrice
-      MaxPrice: 7000000, // Reset MaxPrice
+      MaxPrice: 10000000, // Reset MaxPrice
     });
   };
 
@@ -147,16 +165,103 @@ const FilterCars = ({ setUrlState }) => {
 
   const handleSliderChange = (event, newValue) => {
     const [min, max] = newValue;
-    if (max - min >= 500000) {
-      setValue(newValue);
-    } else {
-      if (min === value[0]) {
-        setValue([value[0], value[0] + 500000]);
-      } else {
-        setValue([value[1] - 500000, value[1]]);
-      }
+
+    if (
+      min !== null &&
+      max !== null &&
+      min >= 0 &&
+      max <= 10000000 &&
+      min <= max
+    ) {
+      setValue([min, max]);
+      setMinPrice(min.toString()); // Update the input fields
+      setMaxPrice(max.toString());
     }
   };
+
+  // Handle manual input for min price
+  const handleMinPriceChange = (e) => {
+    const min = parseInt(e.target.value.replace(/,/g, ""));
+    if (
+      !isNaN(min) &&
+      min >= 0 &&
+      (maxPrice === "" || min <= parseInt(maxPrice.replace(/,/g, "")))
+    ) {
+      setMinPrice(e.target.value);
+      setValue([min, value[1] !== null ? value[1] : 10000000]);
+    } else if (min > parseInt(maxPrice.replace(/,/g, ""))) {
+      setMinPrice(maxPrice);
+      setValue([
+        parseInt(maxPrice.replace(/,/g, "")),
+        parseInt(maxPrice.replace(/,/g, "")),
+      ]);
+    } else {
+      setMinPrice("");
+    }
+  };
+
+  // Handle manual input for max price
+  const handleMaxPriceChange = (e) => {
+    const max = parseInt(e.target.value.replace(/,/g, ""));
+    if (
+      !isNaN(max) &&
+      max <= 10000000 &&
+      (minPrice === "" || max >= parseInt(minPrice.replace(/,/g, "")))
+    ) {
+      setMaxPrice(e.target.value);
+      setValue([value[0] !== null ? value[0] : 0, max]);
+    } else if (max < parseInt(minPrice.replace(/,/g, ""))) {
+      setMaxPrice(minPrice);
+      setValue([
+        parseInt(minPrice.replace(/,/g, "")),
+        parseInt(minPrice.replace(/,/g, "")),
+      ]);
+    } else {
+      setMaxPrice("");
+    }
+  };
+
+  const handleCheckboxChange = () => {
+    setUnderTwoLakh(!underTwoLakh);
+    if (!underTwoLakh) {
+      setValue([0, 200000]); // Set the slider to under 2 Lakh if checkbox is checked
+    } else {
+      setValue([0, 10000000]); // Reset the slider when checkbox is unchecked
+    }
+  };
+  const handleCheckboxChange1 = () => {
+    setTwoLakhFiveLakh(!twoLakhFiveLakh);
+    if (!twoLakhFiveLakh) {
+      setValue([200000, 500000]); // Set the slider to under 2  - 5 Lakh if checkbox is checked
+    } else {
+      setValue([0, 10000000]); // Reset the slider when checkbox is unchecked
+    }
+  };
+  const handleCheckboxChange2 = () => {
+    setFiveToEightLakh(!fiveToEightLakh);
+    if (!fiveToEightLakh) {
+      setValue([500000, 800000]); // Set the slider to under 2  - 5 Lakh if checkbox is checked
+    } else {
+      setValue([0, 10000000]); // Reset the slider when checkbox is unchecked
+    }
+  };
+  const handleCheckboxChange3 = () => {
+    setEightToTenLakh(!eightToTenLakh);
+    if (!eightToTenLakh) {
+      setValue([800000, 1000000]); // Set the slider to under 2  - 5 Lakh if checkbox is checked
+    } else {
+      setValue([0, 10000000]); // Reset the slider when checkbox is unchecked
+    }
+  };
+  const handleCheckboxChange4 = () => {
+    setAboveTenLakh(!aboveTenLakh);
+    if (!aboveTenLakh) {
+      setValue([1000000, 10000000]); // Set the slider to under 2  - 5 Lakh if checkbox is checked
+    } else {
+      setValue([0, 10000000]); // Reset the slider when checkbox is unchecked
+    }
+  };
+
   return (
     <div className="border-2 shadow-lg rounded-lg">
       <div className="flex justify-end mr-5 ">
@@ -186,30 +291,31 @@ const FilterCars = ({ setUrlState }) => {
               <Typography
                 variant="h6"
                 color="blue-gray"
-                className="-mb-8 font-semibold"
+                className="-mb-8 font-bold text-black font-[latto] text-lg"
               >
                 Price Range
               </Typography>
+
               <div className="flex justify-center items-center">
                 <div style={{ width: "300px" }}></div>
               </div>
-              <div className="flex justify-around">
-                <div className="flex flex-col items-center">
-                  <span className="bg-white text-black p-2 border-2 border-gray-300">
-                    ₹{formattedAmountMin}
-                  </span>
-                  <div className="text-black mt-1">Min</div>
-                </div>
-                <div className="flex flex-col items-center">
-                  <span className="bg-white text-black p-2 border-2 border-gray-300">
-                    ₹{formattedAmountMax}
-                  </span>
-                  <div className="text-black mt-1">Max</div>
+              <div className="flex flex-col gap-3 justify-between">
+                <div className="flex justify-between">
+                  <div className="flex">
+                    <span className="text-black p-2 font-[latto]">
+                      ₹{formattedAmountMin}
+                    </span>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <span className="text-black p-2 font-[latto]">
+                      ₹{formattedAmountMax}
+                    </span>
+                  </div>
                 </div>
               </div>
               <div className="w-full flex items-center justify-center">
                 <div className="flex text-center font-bold font-[latto] text-black">
-                  30K
+                  ₹0
                 </div>
                 <div className="w-full flex items-center px-2 mx-1">
                   <Slider
@@ -218,16 +324,139 @@ const FilterCars = ({ setUrlState }) => {
                     value={value}
                     onChange={handleSliderChange}
                     valueLabelDisplay="auto"
-                    min={30000}
+                    min={0}
                     max={10000000}
-                    step={25000}
+                    step={50000}
                     disableSwap
                   />
                 </div>
                 <div className="flex text-center font-bold font-[latto] text-black">
-                  1Cr
+                  ₹1Cr
                 </div>
               </div>
+              <div className="font-[latto] font-bold text-lg text-black">
+                What is your price range?
+              </div>
+              <div className="flex justify-center">
+                <div className="flex flex-col items-start">
+                  <div className="flex justify-center">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={underTwoLakh}
+                          onChange={handleCheckboxChange}
+                          color="primary"
+                        />
+                      }
+                      label={
+                        <Typography
+                          style={{
+                            fontFamily: "latto",
+                            fontSize: "17px",
+                            fontWeight: "normal",
+                            color: "black",
+                          }}
+                        >
+                          Under ₹2 Lakh
+                        </Typography>
+                      }
+                    />
+                  </div>
+                  <div className="flex justify-center">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={twoLakhFiveLakh}
+                          onChange={handleCheckboxChange1}
+                          color="primary"
+                        />
+                      }
+                      label={
+                        <Typography
+                          style={{
+                            fontFamily: "latto",
+                            fontSize: "17px",
+                            fontWeight: "normal",
+                            color: "black",
+                          }}
+                        >
+                          ₹2 - ₹5 Lakh
+                        </Typography>
+                      }
+                    />
+                  </div>
+                  <div className="flex justify-center">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={fiveToEightLakh}
+                          onChange={handleCheckboxChange2}
+                          color="primary"
+                        />
+                      }
+                      label={
+                        <Typography
+                          style={{
+                            fontFamily: "latto",
+                            fontSize: "17px",
+                            fontWeight: "normal",
+                            color: "black",
+                          }}
+                        >
+                          ₹5 - ₹8 Lakh
+                        </Typography>
+                      }
+                    />
+                  </div>
+                  <div className="flex justify-center">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={eightToTenLakh}
+                          onChange={handleCheckboxChange3}
+                          color="primary"
+                        />
+                      }
+                      label={
+                        <Typography
+                          style={{
+                            fontFamily: "latto",
+                            fontSize: "17px",
+                            fontWeight: "normal",
+                            color: "black",
+                          }}
+                        >
+                          ₹8 - ₹10 Lakh
+                        </Typography>
+                      }
+                    />
+                  </div>
+                  <div className="flex justify-center">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={aboveTenLakh}
+                          onChange={handleCheckboxChange4}
+                          color="primary"
+                        />
+                      }
+                      label={
+                        <Typography
+                          style={{
+                            fontFamily: "latto",
+                            fontSize: "17px",
+                            fontWeight: "normal",
+                            color: "black",
+                          }}
+                        >
+                          Above ₹10 Lakh
+                        </Typography>
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+              <hr className="border-black border-1 w-full" />
               <Autocomplete
                 id="area-autocomplete"
                 freeSolo
@@ -258,7 +487,9 @@ const FilterCars = ({ setUrlState }) => {
                 options={AreaData}
                 getOptionLabel={(option) => option.year.toString()}
                 sx={{ width: "Full", background: "White" }}
-                value={filterForm.year ? { year: filterForm.year } : {year :""}} // Bind to state
+                value={
+                  filterForm.year ? { year: filterForm.year } : { year: "" }
+                } // Bind to state
                 onInputChange={(event, newInputValue) => {
                   setFilterForm((prevForm) => ({
                     ...prevForm,
@@ -307,7 +538,9 @@ const FilterCars = ({ setUrlState }) => {
                 getOptionLabel={(option) => option.fuelType}
                 sx={{ width: "Full", background: "White" }}
                 value={
-                  filterForm.fuelType ? { fuelType: filterForm.fuelType } : {fuelType:""}
+                  filterForm.fuelType
+                    ? { fuelType: filterForm.fuelType }
+                    : { fuelType: "" }
                 } // Bind to state
                 onInputChange={(event, newInputValue) => {
                   setFilterForm((prevForm) => ({
@@ -335,7 +568,7 @@ const FilterCars = ({ setUrlState }) => {
                 value={
                   filterForm.transmission
                     ? { transmission: filterForm.transmission }
-                    : {transmission:""}
+                    : { transmission: "" }
                 } // Bind to state
                 onInputChange={(event, newInputValue) => {
                   setFilterForm((prevForm) => ({
