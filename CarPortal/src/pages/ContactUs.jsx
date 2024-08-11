@@ -18,7 +18,7 @@ const ContactUs = () => {
   };
 
   const handleSend = () => {
-    console.log(formData);
+    // console.log(formData);
   };
 
   useEffect(()=>{

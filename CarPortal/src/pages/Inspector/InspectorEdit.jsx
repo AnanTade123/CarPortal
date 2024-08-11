@@ -13,7 +13,7 @@ const   InspectorEdit = () => {
   const userId = userid;
   const navigate = useNavigate();
   const { data, isLoading, isError, error } = useInspectorByIdQuery({ userId });
-  console.log(data)
+  // console.log(data)
   const [inspectorupdate] = useInspectorupdateMutation();
  
   const [inputField, setInputField] = React.useState({
@@ -62,7 +62,7 @@ const   InspectorEdit = () => {
     try {
       const res = await inspectorupdate({ id: inspectorprofileid, inspectordata }).unwrap();
      
-      console.log("Update Response:", res);
+      // console.log("Update Response:", res);
       if (res.status === 'success') {
         toast.success("Changes successful", {
          // autoClose: 2000,
@@ -79,7 +79,7 @@ const   InspectorEdit = () => {
       toast.error("Error updating inspector", {
         autoClose: 2000, // 2 seconds
       });
-      console.log("Error:", error);
+      // console.log("Error:", error);
     }
   };
  

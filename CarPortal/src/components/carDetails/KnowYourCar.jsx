@@ -27,18 +27,18 @@ const KnowYourCar = ({
   carInsuranceType,
   insuranceType,
 }) => {
-  console.log(
-    fuelType,
-    registration,
-    ownerSerial,
-    transmission,
-    year,
-    carInsurance,
-    kmDriven,
-    insurancedate,
-    carInsuranceType,
-    insuranceType
-  );
+  // console.log(
+  //   fuelType,
+  //   registration,
+  //   ownerSerial,
+  //   transmission,
+  //   year,
+  //   carInsurance,
+  //   kmDriven,
+  //   insurancedate,
+  //   carInsuranceType,
+  //   insuranceType
+  // );
   return (
     <>
       <p className="text-2xl text-black font-bold md:ml-12 my-3  font-[Merriweather]">

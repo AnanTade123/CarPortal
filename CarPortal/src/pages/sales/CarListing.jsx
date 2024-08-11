@@ -69,7 +69,7 @@ export default function CarListing() {
 
   const deleteDealerHandler = async (id) => {
     const res = await deleteDealer(id);
-    console.log(res);
+    // console.log(res);
   };
 
   const nextHandler = () => {
@@ -281,7 +281,7 @@ export default function CarListing() {
                   </Button>
                 </DialogFooter>
               </Dialog>
-              <div className="flex ml-auto shrink-0 flex-col px-5 gap-2 sm:flex-row">
+              <div className="flex justify-end mx-10 items-center align-middle">
                 <Link to={`/inspector/car/add`}>
                   <Button>Add Car</Button>
                 </Link>

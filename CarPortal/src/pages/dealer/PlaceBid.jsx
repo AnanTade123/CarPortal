@@ -60,7 +60,7 @@ export default function PlaceBid({
       }
       handleOpen();
     } catch (error) {
-      console.log("Error:", error);
+      // console.log("Error:", error);
     }
   };
 

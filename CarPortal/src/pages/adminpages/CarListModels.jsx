@@ -92,7 +92,7 @@ const CarListModels = () => {
       refetch();
       setOpen(false);
     } catch (error) {
-      console.error("Failed to delete the car brand:", error);
+      // console.error("Failed to delete the car brand:", error);
     }
   };
   const nextHandler = () => {

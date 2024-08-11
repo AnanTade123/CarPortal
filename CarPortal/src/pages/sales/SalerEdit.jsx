@@ -21,7 +21,7 @@ const SalerEdit = () => {
   const { userid } = useParams();
   const userId = userid;
   const { data, isLoading, isError, error } = useSellerByIdQuery({ userId });
-  console.log(data);
+  // console.log(data);
   const [salesupdate] = useSellerupdateMutation();
   const [inputField, setInputField] = React.useState({
     firstName: "",
@@ -86,13 +86,13 @@ const SalerEdit = () => {
     };
     try {
       const res = await salesupdate({ id: salesPersonId, salesdata });
-      console.log(res);
+      // console.log(res);
       if (res.data.status === "success") {
         alert("Successfully Edited");
         navigate("/signin");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

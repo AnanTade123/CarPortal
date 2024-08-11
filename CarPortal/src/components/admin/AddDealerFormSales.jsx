@@ -27,7 +27,7 @@ export function AddDealerFormSales() {
   }
 
   const userid = token ? jwtDecodes?.userId : null;
-  console.log("userid", userid);
+  // console.log("userid", userid);
 
 
 
@@ -100,7 +100,7 @@ export function AddDealerFormSales() {
       console.log(data);
       alert("Register Successfully");
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
     // Reset form after submission
     setFormData({

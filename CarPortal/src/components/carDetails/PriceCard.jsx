@@ -38,12 +38,12 @@ const PriceCard = ({
   const jwtDecodes = cookie ? jwtDecode(cookie) : null;
 
   const userRole = jwtDecodes?.authorities[0];
-  console.log(userRole);
-  console.log(userRole);
+  // console.log(userRole);
+  // console.log(userRole);
   const UserID = jwtDecodes?.userId;
   const { data } = useBiddingCarByDealerIdQuery(UserID);
-
-  console.log(data);
+data;
+  // console.log(data);
   return (
     <>
     <div className="border mx-auto shadow-xl w-full md:w-full">

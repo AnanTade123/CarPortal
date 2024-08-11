@@ -71,7 +71,7 @@ export function AddDealerForm() {
     // Perform form submission logic here, e.g., send data to backend
     try {
       const { data ,error} = await SignUp(formData);
-      console.log(error);
+      // console.log(error);
       if(error?.data?.code === "Unsuccessful"){
         alert(error?.data?.message)
       }else{
@@ -79,7 +79,7 @@ export function AddDealerForm() {
 
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
     // Reset form after submission
     setFormData({

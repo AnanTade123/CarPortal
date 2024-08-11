@@ -79,7 +79,7 @@ const   AdminInspectorEdit = () => {
       toast.error("Error updating inspector", {
         autoClose: 2000, // 2 seconds
       });
-      console.log("Error:", error);
+      // console.log("Error:", error);
     }
   };
  

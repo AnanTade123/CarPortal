@@ -154,7 +154,7 @@ const BiddingDealerCars = () => {
       accessor: "",
       Cell: (cell) => {
         const { beadingCarId, biddingTimerId } = cell.row.values;
-        console.log("cell.row.values.biddingTimerId" ,biddingTimerId)
+        // console.log("cell.row.values.biddingTimerId" ,biddingTimerId)
         return (
           <div>
            <div className="flex gap-2 justify-center items-center">

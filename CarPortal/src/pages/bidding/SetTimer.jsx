@@ -21,7 +21,8 @@ export default function SetTimer() {
       basePrice: parseFloat(formData.basePrice),
       durationMinutes: parseInt(formData.durationMinutes),
     };
-    console.log(dataObject);
+    dataObject;
+    // console.log(dataObject);
     setFormData({
       basePrice: "",
       durationMinutes: "",

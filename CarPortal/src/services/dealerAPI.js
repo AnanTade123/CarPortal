@@ -15,7 +15,7 @@ export const dealerAPI = apiSlice.injectEndpoints({
     getDealerbySales: builder.query({
       query: (userid) => ({
         url: `/dealer/getAllDealersBySalesPersonID?salesPersonID=${userid}`,
-        transferResponce: console.log(userid),
+        // transferResponce: console.log(userid),
         method: "GET",
       }),
         providesTags: ["Dealer", "user"],
@@ -41,7 +41,7 @@ export const dealerAPI = apiSlice.injectEndpoints({
       query: (userid) => ({
         url: `/dealer/updateDealer/${userid.id}`,
         method: "PUT",
-        transerResponse: console.log(userid.id),
+        // transerResponse: console.log(userid.id),
         body: userid.inputField,
       }),
       invalidatesTags: ["Dealer"],
@@ -58,7 +58,7 @@ export const dealerAPI = apiSlice.injectEndpoints({
     getAllDealerPendingBooking: builder.query({
       query: ({ id, pageNo }) => ({
         url: `/booking/getPendingBookingDetailsByDealerID?pageNo=${pageNo}&dealerId=${id}`,
-        transerResponse: console.log(pageNo, id),
+        // transerResponse: console.log(pageNo, id),
       }),
       providesTags: ["DEALERBOOKING"],
     }),
@@ -66,13 +66,13 @@ export const dealerAPI = apiSlice.injectEndpoints({
     addCarImages: builder.mutation({
       query: ({ formData, document, firstCarId, UserID }) => ({
         url: `/uploadFile/add?documentType=${document}&userId=${UserID}&carId=${firstCarId}`,
-        transerResponse: console.log(
-          "APi response",
-          formData,
-          firstCarId,
-          document,
-          UserID
-        ),
+        // transerResponse: console.log(
+        //   "APi response",
+        //   formData,
+        //   firstCarId,
+        //   document,
+        //   UserID
+        // ),
         method: "POST",
         body: formData,
       }),
@@ -82,7 +82,7 @@ export const dealerAPI = apiSlice.injectEndpoints({
     dealerStatus: builder.mutation({
       query: ({ dealer_id, status }) => ({
         url: `/dealer/statusUpdate?dealerId=${dealer_id}&status=${status}`,
-        transerResponse: console.log("APi response", dealer_id, status),
+        // transerResponse: console.log("APi response", dealer_id, status),
         method: "PATCH",
       }),
       invalidatesTags: ["Dealer"],
@@ -99,7 +99,7 @@ export const dealerAPI = apiSlice.injectEndpoints({
       query: (id, data) => ({
         url: `/confirmBooking/cancelStatusSet?id=${id}`,
         method: "PUT",
-        transerResponse: console.log(id),
+        // transerResponse: console.log(id),
         body: data,
       }),
       invalidatesTags: ["Dealer"],

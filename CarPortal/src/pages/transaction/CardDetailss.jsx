@@ -27,7 +27,8 @@ function CardDetailss() {
           accountId: formData.accountId,
          
         };
-        console.log(data)
+        data;
+        // console.log(data)
 }
  
 return(

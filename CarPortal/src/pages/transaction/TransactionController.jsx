@@ -28,7 +28,8 @@ export default function TransactionController() {
             lastUpdateTime: formData.lastUpdateTime,
           
         };
-        console.log(data);
+        data;
+        // console.log(data);
 }
 
 return(

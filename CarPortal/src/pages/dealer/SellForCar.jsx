@@ -102,7 +102,7 @@ const SellForCar = () => {
   }
 
   const handleFilterPendingCars= () => {
-    console.log("pendingData?.list",pendingData?.list)
+    // console.log("pendingData?.list",pendingData?.list)
     setList(pendingData?.list ?? [])
   }
 
@@ -115,10 +115,10 @@ const SellForCar = () => {
   }
 
   const deleteDealerHandler = async (carId) => {
-    console.log(id);
-    console.log(carId);
+    // console.log(id);
+    // console.log(carId);
     const res = await carRemove({ id, carId });
-    console.log(res);
+    // console.log(res);
   };
   useEffect(() => {
     if (data) {
@@ -141,10 +141,10 @@ const SellForCar = () => {
     setPageNo((prevPageNo) => {
       // Check if the error status is 404
       if (error?.status === 404) {
-        console.log("click");
-        console.log(prevPageNo);
+        // console.log("click");
+        // console.log(prevPageNo);
         // Display message or perform any action indicating that it's the last page
-        console.log("You are on the last page.");
+        // console.log("You are on the last page.");
         return prevPageNo; // Keep pageNo unchanged
       } else {
         // Increment pageNo
