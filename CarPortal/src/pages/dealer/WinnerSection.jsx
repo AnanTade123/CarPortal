@@ -23,7 +23,7 @@ const WinnerSection = () => {
 
   const { data: didData , isLoading , error} = useAllDealerFinalBidQuery(UserID);
   // console.log("I have change ",error)
-
+  const [pageNo , setPageNo] = useState(0);
   let [trigger] = useLazyBiddingCarByIdQuery();
   let [triggerGetDealer] = useLazyGetDealerByUserIdQuery();
   const [liveCarsWinData, setLiveCarsWinData] = useState([]);
