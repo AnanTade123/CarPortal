@@ -243,10 +243,10 @@ export default function SalesList() {
               <div className="flex flex-col sm:flex-row justify-between gap-4 items-center">
                 <div>
                   <Typography variant="h5" color="blue-gray" className="text-center lg:text-start">
-                    Sales List
+                    Sales Person List
                   </Typography>
                   <Typography color="gray" className="mt-1 font-normal">
-                    See Information About All Members
+                    See Information About All Sales Person
                   </Typography>
                 </div>
                 <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
