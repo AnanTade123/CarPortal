@@ -42,7 +42,7 @@ export function AddInspectorForm() {
     // Perform form submission logic here, e.g., send data to backend
     try {
       const { data } = await SignUp(formData);
-      console.log("inspector data",data);
+      // console.log("inspector data",data);
       if (data) {
         alert("Register Sucessfully");
       }else{
@@ -50,7 +50,7 @@ export function AddInspectorForm() {
       }
       
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
     // Reset form after submission
     setFormData({

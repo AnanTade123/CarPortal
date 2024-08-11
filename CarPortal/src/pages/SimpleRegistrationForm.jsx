@@ -118,12 +118,12 @@ export function SimpleRegistrationForm() {
 
     if (!hasError) {
       // Your form submission logic goes here
-      console.log("Form data submitted:", formStateData);
+      // console.log("Form data submitted:", formStateData);
     }
 
     try {
       const res = await SignUp(formStateData);
-      console.log("Response",res);
+      // console.log("Response",res);
       if (res.data.code === "Successful") {
         toast.success("Register Sucessfully");
         setTimeout(() => {
@@ -131,7 +131,7 @@ export function SimpleRegistrationForm() {
         }, 1000);
       }
     } catch (error) {
-      console.log("hello")
+      // console.log("hello")
         toast.error("Register UnSucessfully");
     }
   };

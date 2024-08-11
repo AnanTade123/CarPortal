@@ -40,7 +40,7 @@ export default function Features() {
     e.preventDefault();
   
     if (!firstCarId || !images.length) {
-      console.error('lastCarId or images is not defined');
+      // console.error('lastCarId or images is not defined');
       return;
     }
   
@@ -56,11 +56,12 @@ export default function Features() {
         firstCarId,
         UserID,
       }).unwrap();
-      console.log(response);
+      // console.log(response);
+      response;
       toast.success("Uploaded Successfully");
       setImages([]); // Clear images after successful upload
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       toast.error("Upload Failed");
     }
   };

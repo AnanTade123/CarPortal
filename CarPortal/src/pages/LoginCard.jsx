@@ -67,7 +67,7 @@ export function LoginCard() {
 
       // Handle successful sign-in, such as redirecting to a different page
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       // Handle sign-in error
     }
 

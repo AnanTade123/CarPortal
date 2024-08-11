@@ -18,12 +18,12 @@ const CarDetailsById = () => {
   const navigate = useNavigate();
   const { carId } = useParams();
   const [urlState, setUrlState] = useState();
-  console.log(urlState)
+  // console.log(urlState)
    // eslint-disable-next-line no-unused-vars
    const { data:data1, error1 } = useFilterCarQuery();
-   console.log(data1)
+  //  console.log(data1)
   const { data, isLoading, error } = useGetCarByIdQuery(carId);
-  console.log("error-----",error?.data?.message)
+  // console.log("error-----",error?.data?.message)
 const [bookingRequest] = useBookingRequestMutation();
 
   if (isLoading) {

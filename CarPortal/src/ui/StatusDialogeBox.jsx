@@ -21,16 +21,17 @@ export default function StatusDialogeBox({status , carId}) {
       const data = {
         carStatus: selectedOption,
       };
-      console.log(data);
+      // console.log(data);
   
       const res = await carUpdate({data,carId});
-      console.log(res);
+      // console.log(res);
+      res;
       // if(res?.data?.status === 'success'){
       //   navigate("/editimage", { state: { images: mult } });
       // }
       setOpen(!open);
     }catch(error){
-      console.log("Error :" ,error);
+      // console.log("Error :" ,error);
     }
   }
 

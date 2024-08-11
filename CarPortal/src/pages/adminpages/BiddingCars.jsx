@@ -120,7 +120,8 @@ import {
         Header: "Place Bid",
         accessor: "",
         Cell: (cell) => {
-          console.log(cell.row.values.carStatus);
+          cell;
+          // console.log(cell.row.values.carStatus);
           return (
             <div>
               <div className="flex gap-2 justify-center items-center  ">

@@ -53,7 +53,7 @@ export default function Admin() {
     setPageNo((prevPageNo) => {
       // Check if the error status is 404
       if (error?.status === 404) {
-        console.log(prevPageNo);
+        // console.log(prevPageNo);
         // Display message or perform any action indicating that it's the last page
         return prevPageNo; // Keep pageNo unchanged
       } else {
@@ -243,7 +243,7 @@ export default function Admin() {
             </div>
           </div>
         </CardHeader>
-        <CardBody className="overflow-scroll px-0">
+        <CardBody className="md:overflow-auto overflow-scroll px-1">
           <TableComponent columns={columns} data={dealerApiData} />
         </CardBody>
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">

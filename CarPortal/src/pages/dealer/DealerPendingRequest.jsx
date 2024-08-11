@@ -6,15 +6,15 @@ import { Card, CardBody, CardFooter, Button } from "@material-tailwind/react";
 export default function DealerPendingRequest() {
   const { CarId } = useParams();
 
-  console.log(CarId);
+  // console.log(CarId);
   
   const [currentpage, setCurrentPage] = useState(0);
   
   const totalPages = 8;
   const { data, error } = useGetPendingrequestQuery({CarId,currentpage});
-  console.log(totalPages);
-  console.log(error);
-  console.log(data);
+  // console.log(totalPages);
+  // console.log(error);
+  // console.log(data);
   const nextpage = () => {
     if (totalPages == 1) {
       return;

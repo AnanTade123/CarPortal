@@ -11,10 +11,14 @@ const TransactionByAccount = () => {
     const {id} = useParams()
     
     const {data,isLoading,isError,error} = useGetDealerQuery(id)
-    console.log(isLoading)
-    console.log(isError)
-    console.log(error)
-    console.log(data)
+    data;
+    isLoading;
+    isError;
+    error;
+    // console.log(isLoading)
+    // console.log(isError)
+    // console.log(error)
+    // console.log(data)
 
     // const {dealerDto:{transactionID,type,amount,closingbalance,status,lastupdateTime,accountID}={}} = data || {}
   return (

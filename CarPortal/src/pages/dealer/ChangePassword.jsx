@@ -125,7 +125,7 @@ const [chnagePassword] = useChnagePasswordMutation()
             toast.error(`${res?.error.data.message}`) 
           }
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
    
   };

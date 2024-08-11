@@ -50,11 +50,11 @@ const navigate = useNavigate()
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    console.log(inputField);
+    // console.log(inputField);
     
     try {
       const res = await getEditDealer({ id: userid, inputField });
-      console.log(res);
+      // console.log(res);
     if(res.data.status ==='success'){
       toast.success(" Sucessfully Edit");
       setTimeout(() => {
@@ -62,7 +62,7 @@ const navigate = useNavigate()
       }, 1000);
     }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
   useEffect(() => {

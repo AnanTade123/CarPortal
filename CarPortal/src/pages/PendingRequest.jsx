@@ -12,7 +12,7 @@ const PendingRequest = () => {
   const nextHandler = () => {
     setPageNo((prePageNo) => {
       if (error?.status === 404) {
-        console.log("You are on the last page.");
+        // console.log("You are on the last page.");
       }else{
         return prePageNo + 1;
       }

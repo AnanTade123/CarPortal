@@ -92,7 +92,7 @@ const CarListModels = () => {
       refetch();
       setOpen(false);
     } catch (error) {
-      console.error("Failed to delete the car brand:", error);
+      // console.error("Failed to delete the car brand:", error);
     }
   };
   const nextHandler = () => {
@@ -164,10 +164,10 @@ const CarListModels = () => {
           <div className="flex items-center justify-between gap-8">
             <div>
               <Typography variant="h5" color="blue-gray">
-                Car list
+                Car List
               </Typography>
               <Typography color="gray" className="mt-1 font-normal">
-                See information about all cars
+                See Information About All Cars
               </Typography>
             </div>
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
@@ -175,7 +175,7 @@ const CarListModels = () => {
             </div>
           </div>
         </CardHeader>
-        <CardBody className="overflow-scroll px-0">
+        <CardBody className="md:overflow-auto overflow-scroll px-1">
           <TableComponent columns={columns} data={carList} className="" />
         </CardBody>
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">

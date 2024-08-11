@@ -69,7 +69,7 @@ export default function CarListing() {
 
   const deleteDealerHandler = async (id) => {
     const res = await deleteDealer(id);
-    console.log(res);
+    // console.log(res);
   };
 
   const nextHandler = () => {

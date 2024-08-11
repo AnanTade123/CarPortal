@@ -50,19 +50,19 @@ export default function InspectorStatusDialogBox({ userId, inspectorProfileId, s
       status: StatusData ? true : false
     };
 
-    console.log("Inspectordata to be sent:", inspectordata);
+    // console.log("Inspectordata to be sent:", inspectordata);
 
     try {
-      console.log("Updating Inspector with ID:", inspectorProfileId, "to status:", isActive);
+      // console.log("Updating Inspector with ID:", inspectorProfileId, "to status:", isActive);
 
       const res = await InspctorStatus({ id: inspectorProfileId, inspectordata }).unwrap();
       setIsActive(StatusData);
 
-      console.log("API response:", res);
-      console.log("Inspector status updated successfully!");
+      // console.log("API response:", res);
+      // console.log("Inspector status updated successfully!");
       setOpen(false); 
     } catch (error) {
-      console.error("Error updating Inspector status:", error);
+      // console.error("Error updating Inspector status:", error);
     }
   };
 
