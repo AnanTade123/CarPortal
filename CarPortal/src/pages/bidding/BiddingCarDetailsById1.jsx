@@ -6,27 +6,30 @@
 // import PriceCard from "../../components/carDetails/PriceCard";
 import { useParams } from "react-router-dom";
 import {
-  useGetbeadingCarImageQuery,
   useGetbeadingCarByIdQuery,
+  useGetByBidCarIdQuery,
 } from "../../services/biddingAPI";
-// import { redirectToSignIn } from "../services/apiSlice";
 import { useNavigate } from "react-router-dom";
 import BiddingCarView from "./BiddingCarView";
 import BiddingPriceCard from "./BiddingPriceCard";
-import { Client } from "@stomp/stompjs";
-import SockJS from "sockjs-client/dist/sockjs";
-import { useEffect, useState } from "react";
+
+
+import {  useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { useWebSocket } from "../../Utiles/WebSocketConnection";
 
 export default function BiddingCarDetailsById1() {
   const navigate = useNavigate();
   const [bids, setBids] = useState([]);
   const [topThreeBids, setTopThreeBids] = useState([]);
-  const [client, setClient] = useState(null);
   const { beadingCarId, bidCarId } = useParams();
-  const [isConnected, setIsConnected] = useState(false); // New state variable
   const { data, isLoading, error } = useGetbeadingCarByIdQuery(beadingCarId);
+  const { data : timingData , isLoading : timeIsLoding , error: timeError , refetch } = useGetByBidCarIdQuery(beadingCarId) 
+  const closeTime = timingData?.object?.closingTime;
+
+  console.log("timingData",timingData?.object?.closingTime);
+
+ 
+
   if (isLoading) {
     return <p>Loading...</p>;
   }
@@ -74,6 +77,10 @@ export default function BiddingCarDetailsById1() {
     }
   }
 
+//  useEffect(()=>{
+
+//  })
+
   return (
     <div className="grid grid-flow-row-dense md:grid-cols-3 gap-4 container mx-auto">
       <div className="p-4 md:col-span-2 no-scrollbar">
@@ -105,23 +112,9 @@ export default function BiddingCarDetailsById1() {
         <BiddingPriceCard
           beadingCarId={beadingCarId}
           bidCarId={bidCarId}
-          // getTopThreeBids={getTopThreeBids}
-          topThreeBids={topThreeBids}
-          // placeBid={handlePlaceBid}
           handleMessage={handleMessage}
-          price={price}
-          brand={brand}
-          fuelType={fuelType}
-          kmDriven={kmDriven}
-          ownerSerial={ownerSerial}
-          year={year}
-          model={model}
-          registration={registration}
-          area={area}
-          city={city}
-          color={color}
-          bodyType={bodyType}
-          dealer_id={dealerId}
+          closeTime={closeTime}
+          refeachData = {refetch}
         />
       </div>
     </div>

@@ -121,18 +121,18 @@ export function LoginCard() {
                 </Typography>
               </Link>
             </div>
-            {/* <div className="flex">
-                <p>Forget Password ? </p>
-                <Link to="/changePassword">
+            <div className="flex justify-center">
+                <p className="text-sm ml-5">Forget Password ? </p>
+                <Link to="/forgetPassword">
                 <Typography
                   variant="small"
                   color="blue-gray"
                   className="ml-1 font-bold"
                 >
-                  Change Password
+                  Reset Password
                 </Typography>
               </Link>
-              </div> */}
+              </div>
           </CardFooter>
         </form>
       </Card>

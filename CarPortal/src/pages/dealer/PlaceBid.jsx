@@ -22,7 +22,8 @@ export default function PlaceBid({
   handleMessage,
   topThreeBids,
   bidCarId,
-  biddingAmount
+  biddingAmount,
+  refeachData
 }) {
   const [bidAmount, setBidAmount] = useState(biddingAmount + 2000);
   const [lastBidAmount, setLastBidAmount] = useState(biddingAmount + 2000);
@@ -54,6 +55,7 @@ export default function PlaceBid({
       if (message?.status === "error") {
         handleMessage(message?.message, "error");
       } else {
+        refeachData();
         handleMessage(message?.message, "success");
         getTopThreeBids(bidCarId); // Fetch top three bids after placing a bid
         setBidAmount(topThreeBidsAmount[0]?.amount)

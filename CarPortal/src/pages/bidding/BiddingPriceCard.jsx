@@ -4,40 +4,26 @@
 import Cookies from "js-cookie";
 import CardUi from "../../ui/CardUi";
 import { jwtDecode } from "jwt-decode";
-// import DialogBox from "../../ui/DialogBox";
-
 import { Chip } from "@material-tailwind/react";
 import { IoHome } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaFileAlt } from "react-icons/fa";
-import { IoLogoWhatsapp } from "react-icons/io";
-// import BiddingSetTime from "../../ui/BiddingSetTime";
 import BiddingDailogeBox from "../../ui/BiddingDialogeBox"
 import PlaceBid from "../../pages/dealer/PlaceBid";
 import {useGetbeadingGetByIdQuery} from "../../services/biddingAPI"
 import { Link, useParams } from "react-router-dom";
 import { useWebSocket } from "../../Utiles/WebSocketConnection";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import dayjs from "dayjs";
+import duration from 'dayjs/plugin/duration';
+dayjs.extend(duration);
+
 const BiddingPriceCard = ({
   beadingCarId,
   bidCarId,
-  // getTopThreeBids,
-  // topThreeBids,
-  // placeBid,
-  handleMessage
-  // price,
-  // brand,
-  // fuelType,
-  // kmDriven,
-  // ownerSerial,
-  // year,
-  // model,
-  // registration,
-  // city,
-  // area,
-  // color,
-  // bodyType,
-  // transmission,
+  handleMessage,
+  closeTime,
+  refeachData
 }) => {
   const token = Cookies.get("token");
   let jwtDecodes;
@@ -50,11 +36,45 @@ const BiddingPriceCard = ({
 
   const {data} = useGetbeadingGetByIdQuery(beadingCarId);
   const { isConnected, getTopThreeBids,topThreeBidsAmount } = useWebSocket();
+  const [timeLeft, setTimeLeft] = useState('');
+
   useEffect(() => {
     if (isConnected && bidCarId) {
       getTopThreeBids(bidCarId);
     }
   }, [isConnected ,bidCarId]);
+
+  useEffect(() => {
+    const updateTimer = () => {
+      const now = dayjs();
+      const closingTime = dayjs(closeTime);
+
+      if (closingTime.isBefore(now)) {
+          setTimeLeft('00:00:00');
+          return;
+      }
+
+      const diff = closingTime.diff(now);
+      const remainingDuration = dayjs.duration(diff);
+
+      // const hours = String(remainingDuration.hours()).padStart(2, '0');
+      const minutes = String(remainingDuration.minutes()).padStart(2, '0');
+      const seconds = String(remainingDuration.seconds()).padStart(2, '0');
+
+      setTimeLeft(`${minutes} m:${seconds} s`);
+  };
+
+  updateTimer(); // Update the timer immediately
+  const timerId = setInterval(updateTimer, 1000);
+
+  return () => clearInterval(timerId);
+  },[closeTime]);
+
+  const remainingMinutes = parseInt(timeLeft.split('m:')[0]);
+
+    // Determine the color based on the time left
+    const textColorClass = remainingMinutes < 2 ? 'text-red-600' : 'text-green-800';
+    const text = remainingMinutes < 2 ? 'Last Call' :'Timer' ;
  
   return (
     <div className="w-full md:w-full">
@@ -135,6 +155,9 @@ const BiddingPriceCard = ({
             <div className="uppercase text-gray-700 text-xs font-[latto]">
               Fixed Road Price
             </div>
+            <div className={`text-xl uppercase font-bold font-[latto] ${textColorClass}`}>
+              {timeLeft}
+            </div>
           </div>
         </div>
         <div className="flex justify-center items-center align-middle mb-3">
@@ -181,6 +204,7 @@ const BiddingPriceCard = ({
               <PlaceBid beadingCarId={beadingCarId} UserID={UserId} 
               bidCarId={bidCarId}
               biddingAmount={topThreeBidsAmount[0]?.amount || 0}
+              refeachData={refeachData}
               // getTopThreeBids={getTopThreeBids} 
               // topThreeBids={topThreeBids}
               handleMessage={handleMessage}

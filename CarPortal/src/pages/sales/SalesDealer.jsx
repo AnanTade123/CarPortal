@@ -263,7 +263,7 @@ const userRole = token ? jwtDecodes?.authorities[0] : null;
                     Dealer List
                   </Typography>
                   <Typography color="gray" className="mt-1 font-normal">
-                    See information about all members
+                    See Information About All Members
                   </Typography>
                 </div>
                 <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
@@ -271,7 +271,7 @@ const userRole = token ? jwtDecodes?.authorities[0] : null;
                 </div>
               </div>
             </CardHeader>
-            <CardBody className="overflow-scroll px-0">
+            <CardBody className="md:overflow-auto overflow-scroll px-1">
               <TableComponent columns={columns} data={dealerApiData} />
             </CardBody>
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">

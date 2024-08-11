@@ -51,38 +51,45 @@ const   InspectorEdit = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     const inspectordata = {
-      inspectorProfileId: inputField.inspectorProfileId,
-      address: inputField.address,
-      city: inputField.city,
-      firstName: inputField.firstName,
-      lastName: inputField.lastName,
-      email: inputField.email,
-      mobileNo: inputField.mobileNo
+        inspectorProfileId: inputField.inspectorProfileId,
+        address: inputField.address,
+        city: inputField.city,
+        firstName: inputField.firstName,
+        lastName: inputField.lastName,
+        email: inputField.email,
+        mobileNo: inputField.mobileNo
+
+        
     };
     try {
-      const res = await inspectorupdate({ id: inspectorprofileid, inspectordata }).unwrap();
-     
-      // console.log("Update Response:", res);
-      if (res.status === 'success') {
-        toast.success("Changes successful", {
-         // autoClose: 2000,
-        });
-        setTimeout(() => {
-          navigate(-1);
-        }, 1000);
-      } else {
-        toast.error("Failed to update inspector", {
-          autoClose: 2000, // 2 seconds
-        });
-      }
+        const res = await inspectorupdate({ id: inspectorprofileid, inspectordata }).unwrap();
+        
+        console.log("Update Response:", res);
+        if (res.status === 'success') {
+            toast.success("Changes successful", {
+             // autoClose: 2000,
+            });
+            setTimeout(() => {
+                if (inspectordata.email !== data.response.email) {
+                    navigate('/signin'); // Redirect to sign-in page if email is changed
+                } else {
+                    navigate(-1); // Navigate back to the previous page for other fields
+                }
+            }, 1000);
+        } else {
+            toast.error("Failed to update inspector", {
+                autoClose: 2000, // 2 seconds
+            });
+        }
     } catch (error) {
-      toast.error("Error updating inspector", {
-        autoClose: 2000, // 2 seconds
-      });
-      // console.log("Error:", error);
+        toast.error("Error updating inspector", {
+            autoClose: 2000, // 2 seconds
+        });
+        // console.log("Error:", error);
     }
-  };
- 
+};
+
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -92,10 +99,10 @@ const   InspectorEdit = () => {
   }
  
   return (
-    <div className="mx-auto container flex justify-center w-full md:w-[50%]">
+    <div className="mx-auto container px-4 sm:px-6 lg:px-8 flex justify-center w-full md:w-[50%] mt-10">
       <form className="w-full border border-gray-500 px-2 py-2 rounded-md mt-2 mb-2" onSubmit={onSubmitHandler}>
-        <div className="mt-5">
-          <p className="text-3xl font-semibold">Edit Inspector Details</p>
+        <div className="mt-3">
+          <p className="text-3xl font-semibold lg:mb-8 ">Edit Inspector Details</p>
         </div>
         <div className="mt-5">
           <Inputs

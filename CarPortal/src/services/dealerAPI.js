@@ -127,7 +127,17 @@ export const dealerAPI = apiSlice.injectEndpoints({
       }),
       providesTags: ["Dealer", "User"],
     }),
+
+    getDealerProfile: builder.query({
+      query: ({ userId }) => ({
+        url: `/ProfilePhoto/getbyuserid?${userId}`,
+        
+      }),
+      providesTags: ["Dealer", "user"],
+    }),
   }),
+
+
 });
 
 export const {
@@ -145,5 +155,6 @@ export const {
   useCancelStatusSetMutation,
   useGetUserQuery,
   useChnagePasswordMutation,
-  useLazyGetDealerByUserIdQuery
+  useLazyGetDealerByUserIdQuery,
+  useGetDealerProfileQuery
 } = dealerAPI;

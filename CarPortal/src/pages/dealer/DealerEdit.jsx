@@ -75,18 +75,24 @@ const DealerEdit = () => {
     
     try {
       const res = await getEditDealer({ id: userid, inputField });
-      // console.log(res);
+      console.log(res);
       if (res.data.status === 'success') {
         toast.success("Successfully Edited");
         setTimeout(() => {
-          navigate("/signin");
+          if (inputField.email !== dealerID.dealerDto.email) {
+            navigate("/signin"); // Redirect to sign-in page if email is changed
+          } else {
+            navigate(-1); // Navigate back to the previous page for other fields
+          }
         }, 1000);
       }
     } catch (error) {
-      // console.log(error);
+      console.log(error);
+      toast.error("Failed to Edit");
     }
   };
 
+  
   useEffect(() => {
     if (dealerID) {
       const { dealerDto } = dealerID;
@@ -105,10 +111,10 @@ const DealerEdit = () => {
   }, [dealerID, userid]);
 
   return (
-    <div className="mx-auto container flex justify-center md:w-[50%] w-fit">
+    <div className="mx-auto container px-4 sm:px-6 lg:px-8 flex justify-center md:w-[50%] w-full mt-10">
       <ToastContainer />
       <form className="w-full border border-gray-500 px-2 py-2 rounded-md mt-2 mb-2" onSubmit={onSubmitHandler}>
-        <div className="mt-5">
+        <div className="mt-3">
           <p className="text-3xl font-semibold">Edit Dealer Details</p>
         </div>
         <div className="mt-5">

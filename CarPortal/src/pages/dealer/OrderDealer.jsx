@@ -33,6 +33,7 @@ const OrderDealer = () => {
     });
 
   const [cancelStatusSet] = useCancelStatusSetMutation();
+  
 
   const nextHandler = () => {
     setPageNo((prePageNo) => {
@@ -64,7 +65,7 @@ const OrderDealer = () => {
   if (error) {
     return (
       <div>
-        <p>No Data Available</p>
+        <p className="ml-3">No Data Available</p>
 
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography
@@ -212,7 +213,7 @@ const OrderDealer = () => {
     return <p>Loading.....</p>;
   }
   if (error) {
-    return <p className="ml-3">No Data Available</p>;
+    return <p>No Data Available</p>;
   }
   return (
     <>

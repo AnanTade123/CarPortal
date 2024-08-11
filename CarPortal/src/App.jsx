@@ -99,6 +99,8 @@ import SalerChangePassword from "./pages/sales/SalerChangePassword";
 import PremiumCars from "./components/home/PremiumCars";
 import InspectorEdit from "./pages/Inspector/InspectorEdit";
 import SalerEdit from "./pages/sales/SalerEdit";
+import ForgetPassword from "./forms/ForgetPassword";
+import ResetPassword from "./forms/ResetPassword";
 
 
 export default function App() {
@@ -111,6 +113,8 @@ export default function App() {
         <Route path="/" element={<Home />} />
 
         <Route element={<AppLayout />}>
+        <Route path="/forgetPassword" element={<ForgetPassword />} />
+        <Route path="/reset-Password" element={<ResetPassword />} />
           <Route path="signin" element={<LoginCard />} />
           <Route path="signup" element={<SimpleRegistrationForm />} />
           <Route path="/changePassword" element={<ChangePassword />} />

@@ -76,6 +76,26 @@ OtherComponent = ({  handleCameraModal,
           setFormData((prev) => ({ ...prev, AlloyWheel: item.comment }));
           setUploadedImages((prev) => ({ ...prev, AlloyWheels: item.documentLink }));
           break;
+          case "CarPoolingon":
+            setFormData((prev) => ({ ...prev, CarPoolingon: item.comment }));
+            setUploadedImages((prev) => ({ ...prev, CarPoolingon: item.documentLink }));
+            break;
+            
+            case "LHSRunningBorder":
+              setFormData((prev) => ({ ...prev, LHSRunningBorder: item.comment }));
+              setUploadedImages((prev) => ({ ...prev, LHSRunningBorder: item.documentLink }));
+              break;
+
+              case "RHSRunningBorder":
+              setFormData((prev) => ({ ...prev, RHSRunningBorder: item.comment }));
+              setUploadedImages((prev) => ({ ...prev, RHSRunningBorder: item.documentLink }));
+              break;
+
+              case "UpperCrossMember":
+                setFormData((prev) => ({ ...prev, UpperCrossMember: item.comment }));
+                setUploadedImages((prev) => ({ ...prev, UpperCrossMember: item.documentLink }));
+                break;
+
         default:
           break;
       }
@@ -264,6 +284,221 @@ OtherComponent = ({  handleCameraModal,
             />
           )}
         </Grid>
+
+  {/* Car Pooling on */}
+  <Grid item xs={12} sm={6}>
+          <FormControl fullWidth required>
+            <InputLabel>CarPoolingon</InputLabel>
+            <Select
+            required
+              name="CarPoolingon"
+              value={formData.CarPoolingon}
+              onChange={handleChange}
+
+            >
+              <MenuItem value="OneSide">One Side </MenuItem>
+              <MenuItem value="NoPooling">No Pooling</MenuItem>
+          
+            </Select>
+          </FormControl>
+          <div className='flex gap-5'>  
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.CarPoolingon && (
+            <img
+              src={uploadedImages.CarPoolingon}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.CarPoolingon)}
+            />
+          )}
+        </Grid>
+
+        {/* LHSRunningBorder */}
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth required>
+            <InputLabel>LHS Running Border</InputLabel>
+            <Select
+            required
+              name="LHSRunningBorder"
+              value={formData.LHSRunningBorder}
+              onChange={handleChange}
+
+            >
+              <MenuItem value="OneSide"> Repainted  </MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem>
+              <MenuItem value="Scratched">Scratched </MenuItem>
+              <MenuItem value="Rusted">Rusted</MenuItem>
+              <MenuItem value="Repaired">Repaired</MenuItem>
+              <MenuItem value="Damaged">Damaged </MenuItem>
+              <MenuItem value="Broken">Broken</MenuItem>
+          
+            </Select>
+          </FormControl>
+          <div className='flex gap-5'>  
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.LHSRunningBorder && (
+            <img
+              src={uploadedImages.LHSRunningBorder}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.LHSRunningBorder)}
+            />
+          )}
+        </Grid>
+        {/* RHSRunningBorder */}
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth required>
+            <InputLabel>RHS Running Border</InputLabel>
+            <Select
+            required
+              name="RHSRunningBorder"
+              value={formData.RHSRunningBorder}
+              onChange={handleChange}
+
+            >
+              <MenuItem value="OneSide"> Repainted  </MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem>
+              <MenuItem value="Scratched">Scratched </MenuItem>
+              <MenuItem value="Rusted">Rusted</MenuItem>
+              <MenuItem value="Repaired">Repaired</MenuItem>
+              <MenuItem value="Damaged">Damaged </MenuItem>
+              <MenuItem value="Broken">Broken</MenuItem>
+          
+            </Select>
+          </FormControl>
+          <div className='flex gap-5'>  
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.RHSRunningBorder && (
+            <img
+              src={uploadedImages.RHSRunningBorder}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.RHSRunningBorder)}
+            />
+          )}
+        </Grid>
+
+         {/* UpperCrossMember */}
+         <Grid item xs={12} sm={6}>
+          <FormControl fullWidth required>
+            <InputLabel>Upper Cross Member</InputLabel>
+            <Select 
+            required
+              name="UpperCrossMember"
+              value={formData.UpperCrossMember}
+              onChange={handleChange}
+
+            >
+              <MenuItem value="OneSide"> Repainted  </MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem>
+              <MenuItem value="Scratched">Scratched </MenuItem>
+              <MenuItem value="Rusted">Rusted</MenuItem>
+              <MenuItem value="Repaired">Repaired</MenuItem>
+              <MenuItem value="Damaged">Damaged </MenuItem>
+              <MenuItem value="Broken">Broken</MenuItem>
+          
+            </Select>
+          </FormControl>
+          <div className='flex gap-5'>  
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.UpperCrossMember && (
+            <img
+              src={uploadedImages.UpperCrossMember}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              onClick={() => handleImageClick(uploadedImages.UpperCrossMember)}
+            />
+          )}
+        </Grid>
+
       </Grid>
 
       {/* Modal for displaying clicked image */}
