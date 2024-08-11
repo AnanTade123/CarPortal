@@ -407,8 +407,8 @@ const SellForCar = () => {
   // ];
   return (
     <>
-     <h1 className="mt-2 text-2xl ml-2 mb-5 font-bold">Car Listing</h1>
-     <div className="flex flex-wrap justify-center divide-x-4 mx-5 mb-8">
+    
+     <div className="flex flex-wrap justify-center divide-x-4 mx-5 mb-8 mt-8">
         <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-400 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer">
           <div className="text-4xl font-bold text-white">{totalCars}</div>
           <div className="mt-2 font-medium">Total Cars</div>
@@ -465,6 +465,12 @@ const SellForCar = () => {
             <CardHeader floated={false} shadow={false} className="rounded-none">
               <div className=" flex items-center justify-between gap-8">
                 <div>
+                <Typography variant="h5" color="blue-gray">
+                Car Listing
+                  </Typography>
+                <Typography color="gray" className="mt-1 font-normal">
+                    See Information About All Cars
+                  </Typography>
                   {/* <Typography variant="h3" className="p-2" color="blue-gray">
                     Cars list
                   </Typography> */}
@@ -472,7 +478,9 @@ const SellForCar = () => {
                     See information about all cars
                   </Typography> */}
                 </div>
+                
                 <div className="flex shrink-0 flex-col mb-2 gap-2 sm:flex-row">
+                
                   <Link to={`/dealer/${id}/addcar`}>
                     <Button>Add Car</Button>
                   </Link>

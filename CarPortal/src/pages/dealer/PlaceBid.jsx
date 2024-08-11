@@ -23,10 +23,11 @@ export default function PlaceBid({
   topThreeBids,
   bidCarId,
   biddingAmount,
-  refeachData
+  refeachData,
+  highestBid
 }) {
-  const [bidAmount, setBidAmount] = useState(biddingAmount + 2000);
-  const [lastBidAmount, setLastBidAmount] = useState(biddingAmount + 2000);
+  const [bidAmount, setBidAmount] = useState(highestBid + 2000);
+  const [lastBidAmount, setLastBidAmount] = useState(highestBid + 2000);
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -37,9 +38,9 @@ export default function PlaceBid({
   
 
   useEffect(()=>{
-    setBidAmount(biddingAmount + 2000);
-    setLastBidAmount(biddingAmount + 2000)
-  },[biddingAmount])
+    setBidAmount(highestBid + 2000);
+    setLastBidAmount(highestBid + 2000)
+  },[highestBid])
 
 
   const handlePlaceBid = async () => {
@@ -85,7 +86,7 @@ export default function PlaceBid({
   return (
     <div>
      {/* Mobile Button */}
-     <div className="fixed bottom-5 left-4 right-4 z-50  md:hidden">
+     <div className="fixed bottom-5 left-4 right-4 z-50 bg-white p-2 md:hidden">
       <Button
         onClick={handleOpen}
         className="bg-[#045e4f] w-full"
