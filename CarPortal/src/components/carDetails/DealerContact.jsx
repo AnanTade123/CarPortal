@@ -42,7 +42,7 @@ const DealerContact = ({ dealer_id }) => {
               </div>
               </div>
               <div className="flex-1 ml-7 md:ml-0">
-                <p className="text-gray-600 font-[latto] lg:ml-6">{firstName} {lastName}</p>
+                <p className="text-gray-600 font-[latto] lg:ml-6 md:ml-2">{firstName} {lastName}</p>
               </div>
             </div>
 
@@ -56,7 +56,7 @@ const DealerContact = ({ dealer_id }) => {
               </div>
               </div>
               <div className="flex-1 ml-3 md:ml-0">
-                <p className="text-gray-600 font-[latto] lg:ml-2">{address}, {city}</p>
+                <p className="text-gray-600 font-[latto] lg:ml-2 ml-2">{address}, {city}</p>
               </div>
             </div>
 
@@ -70,7 +70,7 @@ const DealerContact = ({ dealer_id }) => {
               </div>
               </div>
               <div className="flex-1 ml-5 md:ml-0">
-                <p className="text-gray-600 font-[latto] ml-2 lg:ml-5">{email}</p>
+                <p className="text-gray-600 font-[latto] ml-2 lg:ml-6">{email}</p>
               </div>
             </div>
 
@@ -84,7 +84,7 @@ const DealerContact = ({ dealer_id }) => {
               </div>
               </div>
               <div className="flex-1 ml-5 md:ml-0">
-                <p className="text-gray-600 font-[latto] ml-1 lg:ml-4 ">{mobileNo}</p>
+                <p className="text-gray-600 font-[latto] ml-1 lg:ml-5 md:ml-2 ">{mobileNo}</p>
               </div>
             </div>
           </div>
