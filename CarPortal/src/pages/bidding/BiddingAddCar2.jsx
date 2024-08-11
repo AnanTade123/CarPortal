@@ -189,12 +189,12 @@ export default function BiddingAddCar2() {
 
       carInsuranceType: formData.carInsuranceType,
     };
-    console.log(data);
+    // console.log(data);
     const res = await biddingCarRegister(data);
 
     const beadingCarId = res?.data?.object;
 
-    console.log(res);
+    // console.log(res);
     if (res?.data?.message === "success") {
       toast.success("Car Added Successfully");
       setTimeout(() => {
@@ -215,7 +215,7 @@ export default function BiddingAddCar2() {
 
   const handleBrandChange = (event, newValue) => {
     const brand = newValue;
-    console.log(brand);
+    // console.log(brand);
     setSelectedBrand(brand);
     setFormData({
       ...formData,
@@ -227,7 +227,7 @@ export default function BiddingAddCar2() {
 
   const handleModelChange = (event, newValue) => {
     const model = newValue;
-    console.log(model);
+    // console.log(model);
     setSelectedModel(model);
     setFormData({
       ...formData,
@@ -238,7 +238,7 @@ export default function BiddingAddCar2() {
 
   const handleVariantChange = (event, newValue) => {
     const cVariant = newValue;
-    console.log(cVariant);
+    // console.log(cVariant);
     setFormData({
       ...formData,
       cVariant,

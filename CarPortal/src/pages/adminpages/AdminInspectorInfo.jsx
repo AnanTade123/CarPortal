@@ -27,7 +27,8 @@ const AdminInspectorInfo = () => {
   const InspectorProfileId = token ? jwtDecodes?.inspectorProfileId : null;
   const userRole = token ? jwtDecodes?.authorities[0] : null;
   const DealerId = token ? jwtDecodes?.dealerId : null;
-console.log(DealerId)
+  DealerId;
+// console.log(DealerId)
   return (
     <>
       <div className="text-3xl font-bold mt-5 mb-4 ml-4 md:ml-12 xl:mb-[-5rem]  md:mb-8">

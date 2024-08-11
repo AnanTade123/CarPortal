@@ -36,19 +36,20 @@ export default function StatusDialogeBox2({ dealer_id, status }) {
   const handleConfirm = async () => {
     try {
       // Ensure dealerId is logged before calling mutation
-      console.log("Updating dealer with ID:", dealer_id, "to status:", isActive);
+      // console.log("Updating dealer with ID:", dealer_id, "to status:", isActive);
 
       // Call the mutation with the updated status
       const res = await dealerStatus({ dealer_id, status: isActive });
-      console.log(res);
+      // console.log(res);
+      res;
       // Update the dealerId state
 
-      console.log("Dealer status updated successfully!");
+      // console.log("Dealer status updated successfully!");
       setOpen(false); // Close the dialog
 
     } catch (error) {
       // Handle errors appropriately (e.g., display an error message)
-      console.error("Error updating dealer status:", error);
+      // console.error("Error updating dealer status:", error);
     }
   };
 

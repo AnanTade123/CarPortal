@@ -7,7 +7,8 @@ function AppLayout2() {
 
     // const location = useLocation()
     const token = Cookies.get('token')
-    console.log(token)
+    token;
+    // console.log(token)
 
     return (
         <div>

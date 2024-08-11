@@ -30,7 +30,7 @@ const InspectorProfileId = token ? jwtDecodes?.inspectorProfileId : null;
     newPassword: "",
     confirmNewPassword: "",
   });
-console.log(formStateData)
+// console.log(formStateData)
   const [errors, setErrors] = useState({
     userProfileId: "",
     oldPassword: "",
@@ -110,7 +110,7 @@ const [changePassword] = useInspChangePasswordMutation()
         newPassword : formStateData.newPassword,
         confirmPassword : formStateData.confirmNewPassword
     }
-  console.log(passChange)
+  // console.log(passChange)
       try {
         
           const res = await changePassword({passChange,InspectorProfileId});
@@ -125,7 +125,7 @@ const [changePassword] = useInspChangePasswordMutation()
             toast.error(`${res?.error.data.message}`) 
           }
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
    
   };

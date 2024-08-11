@@ -21,7 +21,7 @@ const SalerEdit = () => {
   const { userid } = useParams();
   const userId = userid;
   const { data, isLoading, isError, error } = useSellerByIdQuery({ userId });
-  console.log(data);
+  // console.log(data);
   const [salesupdate] = useSellerupdateMutation();
   const [inputField, setInputField] = React.useState({
     firstName: "",
@@ -86,7 +86,7 @@ const SalerEdit = () => {
     };
     try {
       const res = await salesupdate({ id: salesPersonId, salesdata });
-      console.log(res);
+      // console.log(res);
       if (res.data.status === "success") {
         if (salesdata.email !== data.response.email) {
           // Redirect to the sign-in page if the email was changed
@@ -97,7 +97,7 @@ const SalerEdit = () => {
         }
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -111,10 +111,10 @@ const SalerEdit = () => {
   }
 
   return (
-    <div className="mx-auto container flex justify-center w-full md:w-[50%] mt-5">
+    <div className="mx-auto container px-4 sm:px-6 lg:px-8 flex justify-center w-full md:w-[50%] mt-10">
       <form className="w-full border border-gray-500 px-2 py-2 rounded-md mt-2 mb-2" onSubmit={onSubmitHandler}>
         <div className="mt-5">
-          <p className="text-3xl font-semibold">Edit Sales Details</p>
+          <p className="text-3xl font-semibold">Edit Seller Profile</p>
         </div>
         <div className="mt-5">
           <Inputs

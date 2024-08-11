@@ -25,7 +25,7 @@ function UploadImages3() {
   const [images, setImages] = useState([]);
   const [uploadStatus, setUploadStatus] = useState({}); // Track upload status for each image
   const { beadingCarId } = useParams();
-  console.log(beadingCarId);
+  // console.log(beadingCarId);
 
   const token = Cookies.get("token");
   let jwtDecodes;
@@ -61,14 +61,14 @@ function UploadImages3() {
           inspectionData,
           formDataToSend,
         });
-        console.log(response);
+        // console.log(response);
         toast.success("Uploaded Successfully");
         setUploadStatus((prevStatus) => ({
           ...prevStatus,
           [file.name]: "success",
         }));
       } catch (error) {
-        console.log("Error uploading the file:", error);
+        // console.log("Error uploading the file:", error);
         toast.error("Upload Failed");
         setUploadStatus((prevStatus) => ({
           ...prevStatus,

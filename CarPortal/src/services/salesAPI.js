@@ -21,7 +21,7 @@ export const salesAPI = apiSlice.injectEndpoints({
     sellerById: builder.query({
       query: ({userId}) => ({
         url: `/salesPerson/getByUserId?userId=${userId}`,
-        transerResponse: console.log(userId),
+        // transerResponse: console.log(userId),
         method:"GET"
       }),
       providesTags: ["SALESPERSON" ,"User"],
@@ -32,7 +32,7 @@ export const salesAPI = apiSlice.injectEndpoints({
       query: ({id, salesdata}) => ({
         url: `/salesPerson/updateSPersonDetails?salesPersonId=${id}`,
         method: "PATCH",
-        transerResponse: console.log("API response",salesdata,id),
+        // transerResponse: console.log("API response",salesdata,id),
         body: salesdata,
       }),
       invalidatesTags: ["SALESPERSON"],
@@ -43,7 +43,7 @@ export const salesAPI = apiSlice.injectEndpoints({
         url : `/salesPerson/passwordChange/${salesPersonId}`,
         method: "PUT",
         body : passChange,
-        transerResponse:console.log(salesPersonId,passChange),
+        // transerResponse:console.log(salesPersonId,passChange),
        
       })
       

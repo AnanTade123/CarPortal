@@ -217,12 +217,12 @@ const [formData, setFormData] = useState({
 
 
   const handleFileChange = async (event, fieldName, imgPreview = "") => {
-    
-    console.log(imgPreview);
+    imgPreview;
+    // console.log(imgPreview);
     let file;
     let imageData;
     if (!event?.target) {
-      console.log("name");
+      // console.log("name");
       file = event;
       imageData = file;
     } else {
@@ -237,7 +237,7 @@ const [formData, setFormData] = useState({
     const reader = new FileReader();
     reader.onload = async () => {
       imageData = reader.result;
-      console.log(imageData);
+      // console.log(imageData);
       setFormData({ ...formData, [fieldName]: imageData });
       if (lables) {
       const inspectionData = {
@@ -261,7 +261,7 @@ const [formData, setFormData] = useState({
           toast.error("Data Upload failed", { autoClose: 500 });
         }
       } catch (error) {
-        console.error('Error uploading the file:', error);
+        // console.error('Error uploading the file:', error);
         toast.error("Data not Uploaded", { autoClose: 500 });
       }
     } else {
@@ -285,7 +285,7 @@ const [formData, setFormData] = useState({
       try {
         const res = await addBiddingCarWithoutImage({ formDataToSend1 });
         refetch();
-        console.log(res?.data.message);
+        // console.log(res?.data.message);
         if (res?.data.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
           setLables('');
@@ -351,7 +351,7 @@ const [formData, setFormData] = useState({
           toast.error("Data Upload failed", { autoClose: 500 });
         }
       } catch (error) {
-        console.error('Error uploading the file:', error);
+        // console.error('Error uploading the file:', error);
         toast.error("Data not Uploaded", { autoClose: 500 });
       }
     };

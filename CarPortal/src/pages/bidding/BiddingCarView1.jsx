@@ -14,7 +14,7 @@ const BiddingCarView1 = ({ beadingCarId }) => {
   const [imageURLs, setImageURLs] = useState([]);
 
   const { data, isLoading, error } = useGetbeadingCarImageQuery({beadingCarId});
-console.log(data)
+// console.log(data)
 
 const fallbackImage = "..\\..\\cars\\no-image-available-update.png";
 const checkIfImage = (url) => {

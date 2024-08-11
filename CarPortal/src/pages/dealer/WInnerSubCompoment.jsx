@@ -5,16 +5,16 @@ import { WinnerSectionCarDefault } from '../../ui/WinnerSectionCarDefault';
 
 export default function WInnerSubCompoment({ carId }) {
   
-  console.log(carId)
+  // console.log(carId)
   const { data, isLoading: isLoadingCar } = useBiddingCarByIdQuery(carId?.beadingCarId);
   
-  console.log(data)
+  // console.log(data)
   const beadingCarId = data?.beadingCarId;
  
-  console.log(beadingCarId)
+  // console.log(beadingCarId)
   const { data: Image, isLoading: isLoadingImage } = useGetbeadingCarImageQuery({beadingCarId});
   
-  console.log(Image)
+  // console.log(Image)
   if (isLoadingCar || (beadingCarId && isLoadingImage)) {
     return <div>Loading...</div>;
   }

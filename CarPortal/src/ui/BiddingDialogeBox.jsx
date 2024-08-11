@@ -159,7 +159,7 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage ,t
       }
        }
        catch (error) {
-        console.log("Error", error);
+        // console.log("Error", error);
       }
   };
 

@@ -17,10 +17,10 @@ const BiddingCar = () => {
     const stompClient = new Client({
       webSocketFactory: () => socket,
       debug: (str) => {
-        console.log(str);
+        // console.log(str);
       },
       onConnect: () => {
-        console.log('Connected');
+        // console.log('Connected');
         setIsConnected(true); // Update connection status
         stompClient.subscribe('/topic/bids', (message) => {
           const bid = JSON.parse(message.body);
@@ -63,7 +63,7 @@ const BiddingCar = () => {
         if (error) {
           console.error('Error placing bid:', error);
         } else {
-          console.log('Bid placed successfully:', response);
+          // console.log('Bid placed successfully:', response);
           getTopThreeBids(client);
         }
       });
@@ -86,7 +86,7 @@ const BiddingCar = () => {
     }
   };
 
-  console.log("topThreeBids", topThreeBids);
+  // console.log("topThreeBids", topThreeBids);
 
   return (
     <div className='p-5'>

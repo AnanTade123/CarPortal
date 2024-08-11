@@ -20,10 +20,10 @@ const CarView1 = ({ carId }) => {
   const [tyres, setTyres] = useState(false);
   const [engines, setEngines] = useState(false);
   const [imageURLs, setImageURLs] = useState([]);
-  console.log(exterior);
+  // console.log(exterior);
 
   const { data, isLoading, error } = useGetCarImageByIdQuery({ carId });
-  console.log(data);
+  // console.log(data);
  
   const checkIfImage = (url) => {
     return new Promise((resolve) => {
@@ -44,7 +44,7 @@ const CarView1 = ({ carId }) => {
 
       // Extract the URLs from the reordered data
       const urls = reorderedData.map((item) => item.documentLink);
-console.log(urls)
+// console.log(urls)
       // Validate URLs and set image URLs
       Promise.all(urls.map(checkIfImage))
         .then((validatedURLs) => setImageURLs(validatedURLs));
@@ -53,7 +53,7 @@ console.log(urls)
     }
   }, [data]);
 
-  console.log(imageURLs)
+  // console.log(imageURLs)
 
   if (isLoading) return <div>Loading...</div>;
   if (error)
@@ -70,7 +70,7 @@ console.log(urls)
       </div>
     );
 
-   console.log(imageURLs)
+  //  console.log(imageURLs)
 
     
   

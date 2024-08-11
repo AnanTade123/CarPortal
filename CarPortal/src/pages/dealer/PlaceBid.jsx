@@ -23,10 +23,11 @@ export default function PlaceBid({
   topThreeBids,
   bidCarId,
   biddingAmount,
-  refeachData
+  refeachData,
+  highestBid
 }) {
-  const [bidAmount, setBidAmount] = useState(biddingAmount + 2000);
-  const [lastBidAmount, setLastBidAmount] = useState(biddingAmount + 2000);
+  const [bidAmount, setBidAmount] = useState(highestBid + 2000);
+  const [lastBidAmount, setLastBidAmount] = useState(highestBid + 2000);
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -37,9 +38,9 @@ export default function PlaceBid({
   
 
   useEffect(()=>{
-    setBidAmount(biddingAmount + 2000);
-    setLastBidAmount(biddingAmount + 2000)
-  },[biddingAmount])
+    setBidAmount(highestBid + 2000);
+    setLastBidAmount(highestBid + 2000)
+  },[highestBid])
 
 
   const handlePlaceBid = async () => {
@@ -62,7 +63,7 @@ export default function PlaceBid({
       }
       handleOpen();
     } catch (error) {
-      console.log("Error:", error);
+      // console.log("Error:", error);
     }
   };
 

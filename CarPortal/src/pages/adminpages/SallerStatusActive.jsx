@@ -37,21 +37,20 @@ export default function SellerStatusActive({ salesPersonId, status }) {
   const handleConfirm = async () => {
     try {
       // Ensure dealerId is logged before calling mutation
-      console.log("Updating dealer with ID:", salesPersonId, "to status:", isActive);
+      // console.log("Updating dealer with ID:", salesPersonId, "to status:", isActive);
       const salesdata = {
-        status: isActive
+        status: isActive,
       };
       // Call the mutation with the updated status
-      const res = await salesupdate({ id:salesPersonId, salesdata });
-      console.log(res);
+      const res = await salesupdate({ id: salesPersonId, salesdata });
+      res;
+      // console.log(res);
       // Update the dealerId state
 
-     
       setOpen(false); // Close the dialog
-
     } catch (error) {
       // Handle errors appropriately (e.g., display an error message)
-      console.error("Error updating dealer status:", error);
+      // console.error("Error updating dealer status:", error);
     }
   };
 
@@ -74,10 +73,20 @@ export default function SellerStatusActive({ salesPersonId, status }) {
           </select>
         </DialogBody>
         <DialogFooter>
-          <Button variant="text" color="red" onClick={handleOpen} className="mr-1">
+          <Button
+            variant="text"
+            color="red"
+            onClick={handleOpen}
+            className="mr-1"
+          >
             <span>Cancel</span>
           </Button>
-          <Button variant="gradient" color="green" onClick={handleConfirm} disabled={isLoading}>
+          <Button
+            variant="gradient"
+            color="green"
+            onClick={handleConfirm}
+            disabled={isLoading}
+          >
             <span>Confirm</span>
           </Button>
           {error && <p className="text-red-500">Error: {error.message}</p>}

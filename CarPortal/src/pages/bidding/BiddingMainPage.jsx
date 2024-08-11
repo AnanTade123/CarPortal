@@ -6,7 +6,7 @@ import { useGetAllCarQuery } from "../../services/carAPI";
 const BiddingMainPage = () => {
     
   const { data, error, isLoading } = useGetAllCarQuery()
-  console.log(data)
+  // console.log(data)
 
   const navigate = useNavigate();
  
