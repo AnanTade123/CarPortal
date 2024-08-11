@@ -155,7 +155,12 @@ const BiddingPriceCard = ({
             <div className="uppercase text-gray-700 text-xs font-[latto]">
               Fixed Road Price
             </div>
+            <div className="fixed bottom-16 left-4 right-4 z-50 bg-white p-2  md:hidden">
             <div className={`text-xl uppercase font-bold font-[latto] ${textColorClass}`}>
+              {timeLeft}
+            </div>
+            </div>
+            <div className={`text-xl hidden md:block uppercase font-bold font-[latto] ${textColorClass}`}>
               {timeLeft}
             </div>
           </div>

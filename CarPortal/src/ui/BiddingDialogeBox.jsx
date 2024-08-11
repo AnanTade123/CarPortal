@@ -165,7 +165,13 @@ export default function BiddingDialogBox({ userid, biddingcarid,handleMessage ,t
 
   return (
     <>
-      <Button onClick={handleOpen} variant="gradient" color="blue">
+    <div className="fixed bottom-5 left-4 right-4 z-50 bg-white p-2 md:hidden">
+      <Button onClick={handleOpen} variant="gradient" color="blue" className="w-full">
+        {timerId !== undefined ? 'Update Set Bidding' : 'Set Bidding'}
+        {/* Set Bidding */}
+      </Button>
+      </div>
+      <Button onClick={handleOpen} variant="gradient" color="blue" className="hidden md:block">
         {timerId !== undefined ? 'Update Set Bidding' : 'Set Bidding'}
         {/* Set Bidding */}
       </Button>

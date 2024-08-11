@@ -85,7 +85,7 @@ export default function PlaceBid({
   return (
     <div>
      {/* Mobile Button */}
-     <div className="fixed bottom-5 left-4 right-4 z-50  md:hidden">
+     <div className="fixed bottom-5 left-4 right-4 z-50 bg-white p-2 md:hidden">
       <Button
         onClick={handleOpen}
         className="bg-[#045e4f] w-full"
