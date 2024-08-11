@@ -16,7 +16,8 @@ export function CarModelsForm({ addCar }) {
   
   
   const brands = data?.list.map(car=>car.brand)
-  console.log(brands)
+  brands;
+  // console.log(brands)
   // Form state
   const [formData, setFormData] = useState({
     brand: "",
@@ -51,7 +52,7 @@ export function CarModelsForm({ addCar }) {
         ...carBrand 
       });
     } catch (error) {
-      console.error('Failed to add the car brand:', error);
+      // console.error('Failed to add the car brand:', error);
     }
 
     setFormData({

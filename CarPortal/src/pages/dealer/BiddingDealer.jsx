@@ -38,7 +38,7 @@ const BiddingDealer = () => {
  
   // const { data, isLoading,error } = useBiddingCarByDealerIdQuery(UserID);
   const {data,isLoading , error} = useGetByDealerIdQuery(dealerId);
-  console.log(data)
+  // console.log(data)
   if (isLoading) {
     return <p>Loading..</p>;
   }
@@ -77,7 +77,7 @@ const BiddingDealer = () => {
       Header: "Status",
       accessor: "carStatus",
       Cell: (cell) => {
-        console.log(cell.row.values.carStatus);
+        // console.log(cell.row.values.carStatus);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
@@ -91,7 +91,7 @@ const BiddingDealer = () => {
       Header: "Set Time",
       accessor: "",
       Cell: (cell) => {
-        console.log(cell.row.values.carStatus);
+        // console.log(cell.row.values.carStatus);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
@@ -106,7 +106,7 @@ const BiddingDealer = () => {
       Header: "Start Bidiing",
       accessor: "",
       Cell: (cell) => {
-        console.log(cell.row.values.beadingCarId);
+        // console.log(cell.row.values.beadingCarId);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
@@ -121,7 +121,7 @@ const BiddingDealer = () => {
       Header: "Place Bid",
       accessor: "",
       Cell: (cell) => {
-        console.log(cell.row.values.carStatus);
+        // console.log(cell.row.values.carStatus);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
@@ -137,7 +137,7 @@ const BiddingDealer = () => {
       accessor: "Edit",
       // eslint-disable-next-line no-unused-vars
       Cell: (cell) => {
-         console.log(cell.row.values.beadingCarId);
+        //  console.log(cell.row.values.beadingCarId);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
@@ -210,14 +210,14 @@ const BiddingDealer = () => {
       },
     },
   ];
-console.log(columns);
+// console.log(columns);
   let dealerApiData;
   if (isLoading) {
     return <p>isLoading</p>;
   } else {
     dealerApiData = data;
   }
-  console.log(dealerApiData);
+  // console.log(dealerApiData);
   
   return (
     <>

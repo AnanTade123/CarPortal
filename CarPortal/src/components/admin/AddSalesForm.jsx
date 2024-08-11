@@ -84,7 +84,7 @@ export function AddSalesForm() {
       console.log(data);
       toast.success("Register Successfully");
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
     // Reset form after submission
     setFormData({

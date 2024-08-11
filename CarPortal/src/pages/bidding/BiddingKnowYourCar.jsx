@@ -27,18 +27,18 @@ const BiddingKnowYourCar = ({
   insuranceType,
   kmDriven,
 }) => {
-  console.log(
-    fuelType,
-    registration,
-    ownerSerial,
-    transmission,
-    year,
-    carInsurance,
-    carInsuranceType,
-    insurancedate,
-  insuranceType,
-    kmDriven
-  );
+  // console.log(
+  //   fuelType,
+  //   registration,
+  //   ownerSerial,
+  //   transmission,
+  //   year,
+  //   carInsurance,
+  //   carInsuranceType,
+  //   insurancedate,
+  // insuranceType,
+  //   kmDriven
+  // );
   return (
     <>
       <p className="text-2xl text-black font-bold my-6 md:ml-12 font-[Merriweather]">

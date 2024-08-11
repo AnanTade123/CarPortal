@@ -78,13 +78,13 @@ const AdminSalesEdit = () => {
     };
     try {
       const res = await salesupdate({ id: salesPersonId, salesdata });
-      console.log(res);
+      // console.log(res);
       if (res.data.status === "success") {
         alert("Successfully Edited");
         navigate(-1);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

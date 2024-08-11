@@ -34,10 +34,10 @@ function UploadImages2() {
 
   const UserID = jwtDecodes?.userId;
   const { data } = useDealerIdByCarQuery({ id, pageNo: 0, status: "Active" });
-  console.log(data);
+  // console.log(data);
   // const firstCarId = data?.list?.length > 0 ? data?.list[0].carId : null;
   const firstCarId = carId;
-  console.log(firstCarId);
+  // console.log(firstCarId);
 
   const [addCarImages] = useAddCarImagesMutation();
 
@@ -55,7 +55,7 @@ function UploadImages2() {
           });
           return compressedFile;
         } catch (error) {
-          console.error(error);
+          // console.error(error);
           toast.error("Image Compression Failed");
           return null;
         }
@@ -70,7 +70,7 @@ function UploadImages2() {
       const formData = new FormData();
       formData.append("image", file);
       formData.append("document", documentType);
-      console.log(file, documentType, 'Rishi');
+      // console.log(file, documentType, 'Rishi');
 
       try {
         const response = await addCarImages({
@@ -79,14 +79,14 @@ function UploadImages2() {
           firstCarId,
           UserID,
         }).unwrap();
-        console.log(response);
+        // console.log(response);
         toast.success("Uploaded Successfully");
         setUploadStatus((prevStatus) => ({
           ...prevStatus,
           [file.name]: "success",
         }));
       } catch (error) {
-        console.error(error);
+        // console.error(error);
         toast.error("Upload Failed");
         setUploadStatus((prevStatus) => ({
           ...prevStatus,

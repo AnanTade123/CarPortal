@@ -9,7 +9,7 @@ const FeaturedCars = ({ data, error }) => {
     if (data?.list && Array.isArray(data.list)) {
       setPosts(data.list);
     } else if (error) {
-      console.error("Data not Found");
+      // console.error("Data not Found");
     }
   }, [data, error]);
   return (

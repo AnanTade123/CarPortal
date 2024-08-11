@@ -12,17 +12,17 @@ export default function BiddingCarDetailsById() {
     const { beadingCarId } = useParams();
  
     const { data, isLoading, isError, error } = useBiddingCarByIdQuery(beadingCarId);
-    
+    isError;
   
     if (isLoading) {
       return <p>Loading...</p>;
     }
    
   //  console.log(carId);
-    console.log(isLoading);
-    console.log(isError);
-    console.log(error);
-    console.log(error);
+    // console.log(isLoading);
+    // console.log(isError);
+    // console.log(error);
+    // console.log(error);
     if (error?.status === 401) {
       
   

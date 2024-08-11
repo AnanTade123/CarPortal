@@ -33,10 +33,11 @@ const BiddingPriceCard = ({
   const userRole = jwtDecodes?.authorities[0];
   const UserId = token ? jwtDecodes?.userId : null;
   const {page , timerId} = useParams()
-
   const {data} = useGetbeadingGetByIdQuery(beadingCarId);
   const { isConnected, getTopThreeBids,topThreeBidsAmount } = useWebSocket();
   const [timeLeft, setTimeLeft] = useState('');
+  const { client ,getLiveCars} = useWebSocket();
+  const [highestBid , setHighestBid] = useState(0);
 
   useEffect(() => {
     if (isConnected && bidCarId) {
@@ -69,6 +70,27 @@ const BiddingPriceCard = ({
 
   return () => clearInterval(timerId);
   },[closeTime]);
+
+
+  useEffect(() => {
+    if(bidCarId){
+        refreshTopThreeBids(bidCarId);
+    }
+},[bidCarId]);
+
+const refreshTopThreeBids = (bidCarId) => {
+    if (bidCarId && client) {
+            client.subscribe(`/topic/topBids/${bidCarId}`, (message) => {
+                const topBid = JSON.parse(message.body);
+                setHighestBid(topBid?.amount);
+            });
+            client.publish({
+                destination: `/app/topBids/${bidCarId}`,
+                body: JSON.stringify({}),
+            });
+    }
+  };
+
 
   const remainingMinutes = parseInt(timeLeft.split('m:')[0]);
 
@@ -150,14 +172,24 @@ const BiddingPriceCard = ({
         <div className="flex justify-center align-middle items-center my-3">
           <div className="text-center">
             <div className="text-xl font-bold text-black font-[latto]">
-            Top Bidding Amount: {topThreeBidsAmount[0]?.amount || "-"}  ₹
+            Top Bidding Amount: {highestBid || "-"}  ₹
             </div>
             <div className="uppercase text-gray-700 text-xs font-[latto]">
               Fixed Road Price
             </div>
-            <div className={`text-xl uppercase font-bold font-[latto] ${textColorClass}`}>
-              {timeLeft}
-            </div>
+            {userRole === "DEALER" ? (
+              <div>
+              <div className="fixed bottom-16 left-4 right-4 z-50 bg-white p-2 md:hidden">
+               <div className={`text-xl uppercase font-bold font-[latto] ${textColorClass}`}>
+               {timeLeft}
+             </div>
+             </div>
+             <div className={`text-xl uppercase font-bold font-[latto] hidden md:block ${textColorClass}`}>
+               {timeLeft}
+             </div>
+             </div>
+            ) : null}
+           
           </div>
         </div>
         <div className="flex justify-center items-center align-middle mb-3">
@@ -208,6 +240,7 @@ const BiddingPriceCard = ({
               // getTopThreeBids={getTopThreeBids} 
               // topThreeBids={topThreeBids}
               handleMessage={handleMessage}
+              highestBid={highestBid}
               //  placeBid={placeBid}
                 />
             </div>

@@ -52,9 +52,9 @@ import { WinnerSectionImages } from "./WinnerSectionImages";
   }
   
   export function WinnerSectionCarDefault({ data ,beadingCarId,Image}) {
-    console.log(data)
-    console.log(beadingCarId)
-   console.log(Image)
+    // console.log(data)
+    // console.log(beadingCarId)
+  //  console.log(Image)
     return (
       <div className="flex justify-center mx-auto">
         <Card className="max-w-[19rem] overflow-hidden">

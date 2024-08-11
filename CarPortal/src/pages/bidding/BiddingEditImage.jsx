@@ -131,7 +131,7 @@ const BiddingEditImage = () => {
         }));
         refetch(); // Fetch updated images after a successful upload
       } catch (error) {
-        console.error("Error uploading the file:", error);
+        // console.error("Error uploading the file:", error);
         toast.error("Upload Failed");
         setUploadStatus((prevStatus) => ({
           ...prevStatus,
@@ -148,7 +148,7 @@ const BiddingEditImage = () => {
       setTrigger((prev) => prev + 1);
       refetch(); // Fetch updated images after a successful deletion
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       toast.error("Failed to Delete Image");
     }
   };

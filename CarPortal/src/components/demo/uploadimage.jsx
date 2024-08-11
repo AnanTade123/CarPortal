@@ -13,7 +13,7 @@ const ImageUploader = () => {
       setCameraStream(stream);
       setPreviewMode(true);
     } catch (err) {
-      console.error('Error accessing the camera:', err);
+      // console.error('Error accessing the camera:', err);
     }
   };
 
@@ -26,7 +26,7 @@ const ImageUploader = () => {
           setImage(URL.createObjectURL(blob));
           setPreviewMode(true);
         })
-        .catch(error => console.error('Error taking photo:', error));
+        .catch(error => error);
     }
   };
 

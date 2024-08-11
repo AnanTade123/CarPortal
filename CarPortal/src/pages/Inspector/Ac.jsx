@@ -115,7 +115,7 @@ if (!event?.target) {
         toast.error("Data Upload failed", { autoClose: 500 });
       }
     } catch (error) {
-      console.error('Error uploading the file:', error);
+      // console.error('Error uploading the file:', error);
       alert("Data not Uploaded");
     }
   } else {
@@ -232,7 +232,7 @@ const handleSubmitWithoutImage = async () => {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
       } catch (error) {
-        console.error('Error uploading the file:', error);
+        // console.error('Error uploading the file:', error);
         toast.error("Data not Uploaded", { autoClose: 500 });
       }
     };
