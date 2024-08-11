@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useNavigate } from "react-router-dom";
-import { DialogBody } from "@material-tailwind/react";
+import { CardHeader, DialogBody } from "@material-tailwind/react";
 import 'tailwindcss/tailwind.css';
 import {
   Card,
@@ -212,8 +212,8 @@ export default function CarListing() {
 
   return (
     <>
-      <h1 className="mt-2 text-xl ml-2 mb-5 font-bold">Car Listing</h1>
-      <div className="flex flex-wrap justify-center divide-x-4 mx-5 mb-8">
+      {/* <h1 className="mt-2 text-xl ml-2 mb-5 font-bold">Car Listing</h1> */}
+      <div className="flex flex-wrap justify-center divide-x-4 mx-5 mt-5">
         <div 
           onClick={() => handleFilterCars("ALL")}
           className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-[#FE9496]  rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer"
@@ -255,6 +255,7 @@ export default function CarListing() {
           <div>
             <p className="text-3xl font-semibold">No Data Available</p>
             <div className="flex ml-auto shrink-0 flex-col gap-2 sm:flex-row">
+              
                 <Link to={`/inspector/car/add`}>
                   <Button>Add Car</Button>
                 </Link>
@@ -281,11 +282,21 @@ export default function CarListing() {
                   </Button>
                 </DialogFooter>
               </Dialog>
-              <div className="flex ml-auto shrink-0 flex-col px-5 gap-2 sm:flex-row">
+              <CardHeader floated={false} shadow={false} className="rounded-none">
+              <div className=" flex items-center justify-between gap-8">
+                <div>
+                  <Typography variant="h5" color="blue-gray">
+                  Bidding Car List
+                  </Typography>
+                  <Typography color="gray" className="mt-1 font-normal">
+                  See Information About All Bidding Cars
+                  </Typography>
+                </div>
                 <Link to={`/inspector/car/add`}>
                   <Button>Add Car</Button>
                 </Link>
               </div>
+            </CardHeader>
               <CardBody className="overflow-scroll px-0">
                 <TableComponent columns={columns} data={paginatedData} />
               </CardBody>
