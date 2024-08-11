@@ -66,7 +66,7 @@ export default function StatusDialogeBox2({ dealer_id, status }) {
             value={isActive ? "true" : "false"}
             onChange={handleSelectChange}
           >
-            <option value="">Select</option>
+            <option value="" disabled>Select</option>
             <option value="true">ACTIVE</option>
             <option value="false">DISABLE</option>
           </select>
