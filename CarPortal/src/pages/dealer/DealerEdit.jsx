@@ -111,10 +111,10 @@ const DealerEdit = () => {
   }, [dealerID, userid]);
 
   return (
-    <div className="mx-auto container flex justify-center md:w-[50%] w-fit">
+    <div className="mx-auto container px-4 sm:px-6 lg:px-8 flex justify-center md:w-[50%] w-full mt-10">
       <ToastContainer />
       <form className="w-full border border-gray-500 px-2 py-2 rounded-md mt-2 mb-2" onSubmit={onSubmitHandler}>
-        <div className="mt-5">
+        <div className="mt-3">
           <p className="text-3xl font-semibold">Edit Dealer Details</p>
         </div>
         <div className="mt-5">
