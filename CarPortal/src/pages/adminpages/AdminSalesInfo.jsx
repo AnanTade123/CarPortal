@@ -19,13 +19,23 @@ const AdminSalesInfo = () => {
   const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
   const userRole = token ? jwtDecodes?.authorities[0] : null;
   const DealerId = token ? jwtDecodes?.dealerId : null;
-  console.log(DealerId);
+  DealerId;
+  // console.log(DealerId)
+  // console.log(DealerId);
 
-  const { data, isLoading, isError, error } = useSellerByIdQuery({ userId });
-  console.log(isLoading);
-  console.log(isError);
-  console.log(error);
-  console.log("data", data?.response.adddress);
+  const { data, isLoading, isError, error } = useSellerByIdQuery({userId});
+  isLoading;
+  isError;
+  error;
+  // console.log(isLoading);
+  // console.log(isError);
+  // console.log(error);
+  // console.log("data",data?.response.adddress);
+  // const { data, isLoading, isError, error } = useSellerByIdQuery({ userId });
+  // console.log(isLoading);
+  // console.log(isError);
+  // console.log(error);
+  // console.log("data", data?.response.adddress);
 
   const {
     response: {

@@ -12,7 +12,7 @@ const PendingRequest = () => {
   const nextHandler = () => {
     setPageNo((prePageNo) => {
       if (error?.status === 404) {
-        console.log("You are on the last page.");
+        // console.log("You are on the last page.");
       }else{
         return prePageNo + 1;
       }
@@ -32,9 +32,9 @@ const PendingRequest = () => {
   if(error){
     return(
       <div>
-    <p className="ml-3">No Data Available</p>
+    <p className="flex justify-center mt-2">No Data Available</p>
 
-    <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+    {/* <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
     <Typography
       variant="medium"
       color="blue-gray"
@@ -60,7 +60,7 @@ const PendingRequest = () => {
         Next
       </Button>
     </div>
-  </CardFooter>
+  </CardFooter> */}
   </div>
   )
 }

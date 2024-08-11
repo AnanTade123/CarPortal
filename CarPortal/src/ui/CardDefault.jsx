@@ -91,7 +91,7 @@ export function CardDefault({ data, Carid,refetch }) {
         refetch()
        
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     } else {
       try {
@@ -99,7 +99,7 @@ export function CardDefault({ data, Carid,refetch }) {
         refetch()
         
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     }
     setRated(!rated);

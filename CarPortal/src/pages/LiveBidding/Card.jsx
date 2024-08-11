@@ -69,7 +69,7 @@ const Card = ({ cardData }) => {
     },[bidCarId]);
 
     const refreshTopThreeBids = (bidCarId) => {
-        console.log("topThreeBidsAmount",bidCarId)
+        // console.log("topThreeBidsAmount",bidCarId)
     
         // return new Promise((resolve, reject) => {
         if (bidCarId && client) {
@@ -78,7 +78,7 @@ const Card = ({ cardData }) => {
                 client.subscribe(`/topic/topBids/${bidCarId}`, (message) => {
                     const topBid = JSON.parse(message.body);
                     //   setTopThreeBidsAmountArray(topBid);
-                    console.log("topThreeBidsAmount",topBid);
+                    // console.log("topThreeBidsAmount",topBid);
                     setHighestBid(topBid?.amount);
                     //   resolve(topBid);
                     // updateTopBid(topBid);

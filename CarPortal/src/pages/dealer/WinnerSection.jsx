@@ -22,8 +22,8 @@ const WinnerSection = () => {
   const UserID = jwtDecodes?.userId;
 
   const { data: didData , isLoading , error} = useAllDealerFinalBidQuery(UserID);
-  console.log("I have change ",error)
-
+  // console.log("I have change ",error)
+  const [pageNo , setPageNo] = useState(0);
   let [trigger] = useLazyBiddingCarByIdQuery();
   let [triggerGetDealer] = useLazyGetDealerByUserIdQuery();
   const [liveCarsWinData, setLiveCarsWinData] = useState([]);
@@ -39,13 +39,13 @@ const WinnerSection = () => {
           if (carId) {
             const { data: carData, error: carError } = await trigger(carId);
             if (carError) {
-              console.error("Error fetching car data:", carError);
+              // console.error("Error fetching car data:", carError);
               continue;
             }
 
             const { data: dealerName, error: dealerError } = await triggerGetDealer(id);
             if (dealerError) {
-              console.error("Error fetching dealer data:", dealerError);
+              // console.error("Error fetching dealer data:", dealerError);
               continue;
             }
 
@@ -101,7 +101,7 @@ const WinnerSection = () => {
     {
       Header: "Action",
       Cell: (cell) => {
-        console.log(cell.row.values.bidCarId)
+        // console.log(cell.row.values.bidCarId)
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">

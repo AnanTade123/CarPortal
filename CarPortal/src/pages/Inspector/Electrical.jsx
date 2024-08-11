@@ -88,7 +88,7 @@ const [selectfiled, setSelectfiled] = useState("")
   const [inspectionReport] = useInspectionReportMutation();
 
   const handleFileChange = async (event, fieldName, imgPreview = "") => {
-    console.log(imgPreview);
+    // console.log(imgPreview);
     let file;
     let imageData;
   if (!event?.target) {
@@ -131,11 +131,11 @@ const [selectfiled, setSelectfiled] = useState("")
           toast.error("Data Upload failed", { autoClose: 500 });
         }
       } catch (error) {
-        console.error('Error uploading the file:', error);
+        // console.error('Error uploading the file:', error);
         alert("Data not Uploaded");
       }
     } else {
-      toast.error("Labels are required to submit the form", { autoClose: 2000 });
+      toast.error("Input is required", { autoClose: 2000 });
     }
     };
     reader.readAsDataURL(file);
@@ -167,7 +167,7 @@ const [selectfiled, setSelectfiled] = useState("")
       toast.error("Data not Uploaded", { autoClose: 500 });
     }
   } else {
-    toast.error("Labels are required to submit the form", { autoClose: 2000 });
+    toast.error("Input is required", { autoClose: 2000 });
   }
   };
 
@@ -250,14 +250,14 @@ const [selectfiled, setSelectfiled] = useState("")
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
         refetch()
-        console.log(res);
+        // console.log(res);
         if (res.data?.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
         } else {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
       } catch (error) {
-        console.error('Error uploading the file:', error);
+        // console.error('Error uploading the file:', error);
         toast.error("Data not Uploaded", { autoClose: 500 });
       }
     };

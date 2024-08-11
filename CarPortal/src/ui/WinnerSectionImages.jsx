@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
 export function WinnerSectionImages({ ImageData }) {
-  console.log(ImageData);
+  // console.log(ImageData);
 
   
   const coverImage = ImageData.object.find(item => item.documentType === "coverImage");

@@ -8,54 +8,54 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import { useCarUpdateMutation } from "../services/carAPI";
- 
-export default function StatusDialogeBox({status , carId}) {
 
+export default function StatusDialogeBox({ status, carId }) {
   const [open, setOpen] = React.useState(false);
   const [carUpdate] = useCarUpdateMutation(carId);
-  const [selectedOption, setSelectedOption] = React.useState(status); 
- 
-  const handleOpen = () => setOpen(!open);
-  const handleSubmit = async () => {
-    try{
-      const data = {
-        carStatus: selectedOption,
-      };
-      console.log(data);
-  
-      const res = await carUpdate({data,carId});
-      console.log(res);
-      // if(res?.data?.status === 'success'){
-      //   navigate("/editimage", { state: { images: mult } });
-      // }
-      setOpen(!open);
-    }catch(error){
-      console.log("Error :" ,error);
-    }
-  }
+  const [selectedOption, setSelectedOption] = React.useState(status);
+  const [temporaryOption, setTemporaryOption] = React.useState(status);
 
-  const handleSelectChange = async (event) => {
-    setSelectedOption(event.target.value); 
+  const handleOpen = () => setOpen(!open);
+
+  const handleSubmit = async () => {
+    try {
+      const data = {
+        carStatus: temporaryOption,
+      };
+
+      const res = await carUpdate({ data, carId });
+      res;
+      // Handle the response as needed
+
+      setSelectedOption(temporaryOption);
+      setOpen(!open);
+    } catch (error) {
+      // Handle the error as needed
+    }
+  };
+
+  const handleSelectChange = (event) => {
+    setTemporaryOption(event.target.value);
   };
 
   const getButtonColor = () => {
-    switch(selectedOption) {
+    switch (selectedOption) {
       case "ACTIVE":
-        return "green"; 
+        return "green";
       case "DEACTIVATE":
-        return "red"; 
+        return "red";
       case "SOLD":
-          return "blue"; 
+        return "blue";
       case "PENDING":
-        return "amber"; 
+        return "amber";
       default:
-        return "red"; 
+        return "red";
     }
   };
 
   return (
     <>
-      <Button onClick={handleOpen}  color={getButtonColor()}>
+      <Button onClick={handleOpen} color={getButtonColor()}>
         {selectedOption}
       </Button>
       <Dialog open={open} handler={handleOpen}>
@@ -63,10 +63,12 @@ export default function StatusDialogeBox({status , carId}) {
         <DialogBody className="flex justify-center">
           <select
             className="border border-gray-400 p-4 rounded-md"
-            value={selectedOption} 
-            onChange={handleSelectChange} 
+            value={temporaryOption}
+            onChange={handleSelectChange}
           >
-            <option value="">Select</option>
+            <option value="" disabled>
+              Select
+            </option>
             <option value="ACTIVE">ACTIVE</option>
             <option value="DEACTIVATE">DEACTIVATE</option>
             <option value="PENDING">PENDING</option>

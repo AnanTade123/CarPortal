@@ -52,7 +52,7 @@ const cityOptions = {
 export default function AddDealerCar() {
   const { data: brandData } = useGetOnlyBrandsQuery();
   const brands = brandData?.list.map((item) => item.brand) || [];
-  console.log(brands);
+  // console.log(brands);
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [modelOptions, setModelOptions] = useState([]);
@@ -62,7 +62,7 @@ export default function AddDealerCar() {
   const { data: variantData } = useGetVariantsQuery(selectedBrand, {
     skip: !selectedBrand,
   });
-  console.log(variantData);
+  // console.log(variantData);
   const { data: subVariantData } = useGetSubVariantsQuery(
     { brand: selectedBrand, variant: selectedModel },
     {
@@ -109,7 +109,7 @@ export default function AddDealerCar() {
     carInsuranceType: "",
   });
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
   const navigate = useNavigate();
   const date = new Date(); // Create a new Date object with the current date
   const year = date.getFullYear(); // Get the year (e.g., 2024)
@@ -120,7 +120,7 @@ export default function AddDealerCar() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     // Prepare the form data to send to the backend
     const data = {
       buttonStart: formData.buttonStart,
@@ -182,9 +182,9 @@ export default function AddDealerCar() {
       date: formattedDate,
       carInsuranceType: formData.carInsuranceType,
     };
-    console.log(data);
+    // console.log(data);
     const res = await carRegister(data);
-    console.log(res);
+    // console.log(res);
     if (res?.data?.status === "success") {
       toast.success("Car Added");
       setTimeout(() => {
@@ -195,7 +195,7 @@ export default function AddDealerCar() {
 
   const handleBrandChange = (event, newValue) => {
     const brand = newValue;
-    console.log(brand);
+    // console.log(brand);
     setSelectedBrand(brand);
     setFormData({
       ...formData,
@@ -217,7 +217,7 @@ export default function AddDealerCar() {
 
   const handleVariantChange = (event, newValue) => {
     const cVariant = newValue;
-    console.log(cVariant);
+    // console.log(cVariant);
     setFormData({
       ...formData,
       cVariant,

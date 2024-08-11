@@ -111,7 +111,7 @@ const [changePassword] = useSellerChangePasswordMutation()
         newPassword : formStateData.newPassword,
         confirmPassword : formStateData.confirmNewPassword
     }
-  console.log(passChange)
+  // console.log(passChange)
       try {
         
           const res = await changePassword({passChange,salesPersonId});
@@ -126,7 +126,7 @@ const [changePassword] = useSellerChangePasswordMutation()
             toast.error(`${res?.error.data.message}`) 
           }
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
    
   };

@@ -13,8 +13,8 @@ import { toast, ToastContainer } from "react-toastify";
 export default function EditDealerCar() {
   const { id, carId } = useParams();
   const { data: Carid } = useGetCarByIdQuery(carId);
-  console.log("Carid data :- ", Carid);
-  console.log(id, carId);
+  // console.log("Carid data :- ", Carid);
+  // console.log(id, carId);
   const navigate = useNavigate();
   const [carUpdate] = useCarUpdateMutation(carId);
   const [formData, setFormData] = useState({
@@ -161,10 +161,10 @@ export default function EditDealerCar() {
 
       carInsuranceType: formData.carInsuranceType,
     };
-    console.log(data);
+    // console.log(data);
 
     const res = await carUpdate({ data, carId });
-    console.log(res);
+    // console.log(res);
     if (res?.data?.status === "success") {
       toast.success("Car Edited");
       setTimeout(() => {

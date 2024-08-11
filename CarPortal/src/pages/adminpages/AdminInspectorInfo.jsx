@@ -28,6 +28,8 @@ const AdminInspectorInfo = () => {
   const userRole = token ? jwtDecodes?.authorities[0] : null;
   // eslint-disable-next-line no-unused-vars
   const DealerId = token ? jwtDecodes?.dealerId : null;
+  DealerId;
+// console.log(DealerId)
 
   return (
     <>

@@ -7,9 +7,11 @@ import { Link } from "react-router-dom";
 // import Chip from "@material-tailwind/react";
 const UserConfirmBooking = () => {
   const { data, isLoading, error } = useGetAllUserConfirmQuery();
-  console.log(data?.bookingDto);
-  console.log(isLoading);
-  console.log(error);
+  isLoading;
+  error;
+  // console.log(data?.bookingDto);
+  // console.log(isLoading);
+  // console.log(error);
   return ( 
     <div className="space-y-4 mt-12">
     

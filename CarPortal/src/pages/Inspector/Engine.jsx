@@ -173,11 +173,11 @@ const Engine = () => {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
       } catch (error) {
-        console.error('Error uploading the file:', error);
+        // console.error('Error uploading the file:', error);
         alert("Data not Uploaded");
       }
     } else {
-      toast.error("Labels are required to submit the form", { autoClose: 2000 });
+      toast.error("Input is required", { autoClose: 2000 });
     }
     };
     reader.readAsDataURL(file);
@@ -209,7 +209,7 @@ const Engine = () => {
       toast.error("Data not Uploaded", { autoClose: 500 });
     }
   } else {
-    toast.error("Labels are required to submit the form", { autoClose: 2000 });
+    toast.error("Input is required", { autoClose: 2000 });
   }
   };
 
@@ -271,7 +271,7 @@ const Engine = () => {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
       } catch (error) {
-        console.error('Error uploading the file:', error);
+        // console.error('Error uploading the file:', error);
         toast.error("Data not Uploaded", { autoClose: 500 });
       }
     };

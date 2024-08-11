@@ -6,7 +6,7 @@ export const UserAPI = apiSlice.injectEndpoints({
     GetUserById: builder.query({
       query: (userProfileId) => ({
         url: `/user/getUser/${userProfileId}`,
-        transferResponse: console.log(userProfileId),
+        // transferResponse: console.log(userProfileId),
         method: "GET",
       }),
       providesTags:["User"]

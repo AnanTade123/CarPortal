@@ -27,7 +27,7 @@ export default function Interior() {
 
  // const lastCarId = data?.list?.length > 0 ? data?.list[data?.list.length - 1].carId : null;
  const firstCarId = data?.list?.length > 0 ? data?.list[0].carId : null;
-  console.log(firstCarId)
+  // console.log(firstCarId)
 
   const [addCarImages] = useAddCarImagesMutation();
 
@@ -40,7 +40,7 @@ export default function Interior() {
     e.preventDefault();
   
     if (!firstCarId || !images.length) {
-      console.error('lastCarId or images is not defined');
+      // console.error('lastCarId or images is not defined');
       return;
     }
   
@@ -56,11 +56,12 @@ export default function Interior() {
         firstCarId,
         UserID,
       }).unwrap();
-      console.log(response);
+      // console.log(response);
+      response;
       toast.success("Uploaded Successfully");
       setImages([]); // Clear images after successful upload
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       toast.error("Upload Failed");
     }
   };

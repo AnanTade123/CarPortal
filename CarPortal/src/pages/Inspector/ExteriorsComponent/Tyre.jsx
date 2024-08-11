@@ -115,7 +115,8 @@ const Tyre = () => {
 
   
   const handleFileChange = async (event, fieldName, imgPreview = "") => {
-    console.log(imgPreview);
+    imgPreview;
+    // console.log(imgPreview);
     let file;
     let imageData;
   if (!event?.target) {
@@ -164,11 +165,11 @@ const Tyre = () => {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
       } catch (error) {
-        console.error('Error uploading the file:', error);
+        // console.error('Error uploading the file:', error);
         alert("Data not Uploaded");
       }
     } else {
-      toast.error("Labels are required to submit the form", { autoClose: 2000 });
+      toast.error("Input is required", { autoClose: 2000 });
     }
     };
     reader.readAsDataURL(file);
@@ -199,7 +200,7 @@ const Tyre = () => {
       alert("Data not Uploaded")
     }
   } else {
-    toast.error("Labels are required to submit the form", { autoClose: 2000 });
+    toast.error("Input is required", { autoClose: 2000 });
   }
   };
 
@@ -244,7 +245,7 @@ const Tyre = () => {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
       } catch (error) {
-        console.error('Error uploading the file:', error);
+        // console.error('Error uploading the file:', error);
         toast.error("Data not Uploaded", { autoClose: 500 });
       }
     };
