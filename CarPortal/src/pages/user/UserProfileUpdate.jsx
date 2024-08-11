@@ -101,9 +101,9 @@ const UserProfileUpdate = () => {
   }
 
   return (
-    <div className="mx-auto container flex justify-center w-full md:w-[50%]">
+    <div className="mx-auto container flex justify-center w-full md:w-[50%] mt-10">
       <form className="w-full border border-gray-500 px-2 py-2 rounded-md mt-2 mb-2" onSubmit={onSubmitHandler}>
-        <div className="mt-5">
+        <div className="mt-3">
           <p className="text-3xl font-semibold">Edit User Details</p>
         </div>
         <div className="mt-5">
