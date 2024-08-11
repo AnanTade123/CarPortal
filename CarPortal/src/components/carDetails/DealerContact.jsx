@@ -56,7 +56,7 @@ const DealerContact = ({ dealer_id }) => {
               </div>
               </div>
               <div className="flex-1 ml-3 md:ml-0">
-                <p className="text-gray-600 font-[latto] lg:ml-2 ml-2">{address}, {city}</p>
+                <p className="text-gray-600 font-[latto] lg:ml-2 md:ml-2">{address}, {city}</p>
               </div>
             </div>
 
