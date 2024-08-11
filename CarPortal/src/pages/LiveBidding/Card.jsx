@@ -95,8 +95,8 @@ const Card = ({ cardData }) => {
     const remainingMinutes = parseInt(timeLeft.split('m:')[0]);
 
     // Determine the color based on the time left
-    const textColorClass = remainingMinutes <= 2 ? 'text-red-600' : 'text-green-800';
-    const text = remainingMinutes <= 2 ? 'Last Call' :'Timer' ;
+    const textColorClass = remainingMinutes < 2 ? 'text-red-600' : 'text-green-800';
+    const text = remainingMinutes < 2 ? 'Last Call' :'Timer' ;
 
 
     return (
@@ -119,7 +119,7 @@ const Card = ({ cardData }) => {
                             {/* <div className="p-2 text-xs font-semibold bg-gray-100 rounded-md">Engine</div> */}
                         </div>
                         <div className="mt-4 -ml-4 flex justify-between items-center">
-                            <p className="text-primary mt-2 inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
+                            <p className="text-primary  inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
                                 <span className="text-[16px] bg-indigo-300 p-3 text-white">Highest Bid ₹ 
                                     {highestBid}                      
                                     </span>
