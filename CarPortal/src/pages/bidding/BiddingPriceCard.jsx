@@ -178,8 +178,15 @@ const refreshTopThreeBids = (bidCarId) => {
               Fixed Road Price
             </div>
             {userRole === "DEALER" ? (
+              <div>
+              <div className="fixed bottom-16 left-4 right-4 z-50 bg-white p-2 md:hidden">
                <div className={`text-xl uppercase font-bold font-[latto] ${textColorClass}`}>
                {timeLeft}
+             </div>
+             </div>
+             <div className={`text-xl uppercase font-bold font-[latto] hidden md:block ${textColorClass}`}>
+               {timeLeft}
+             </div>
              </div>
             ) : null}
            
