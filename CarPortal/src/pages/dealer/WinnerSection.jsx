@@ -155,7 +155,7 @@ const WinnerSection = () => {
 
   if (error?.status === 404) {
     return (
-      <div className="p-5">
+      <div className="flex justify-center mt-2">
         <p>No Available Data</p>
       </div>
     );
