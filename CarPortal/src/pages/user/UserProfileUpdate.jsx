@@ -72,7 +72,7 @@ const UserProfileUpdate = () => {
           // If email is changed, redirect to sign-in page
           setTimeout(() => {
             navigate('/signin');
-          }, 1000);
+          }, 2000);
         } else {
           // If other fields are changed, navigate back to the previous page
           setTimeout(() => {

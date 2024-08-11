@@ -46,15 +46,15 @@ console.log(profiledata)
       </div>
       <div className="flex justify-center items-center   xl:h-screen">
         <div className="w-full max-w-4xl flex flex-col mx-2  md:flex-row shadow-xl">
-          <div className="w-full md:w-1/2 flex justify-center h-60 ">
+          <div className="w-full md:w-1/3 flex justify-center md:h-60 ">
             <img
               src="https://tamilnaducouncil.ac.in/wp-content/uploads/2020/04/dummy-avatar.jpg"
               alt="Dealer"
-              className="object-cover w-1/2 h-full  md:mt-8 lg:mt-8 "
+              className="object-cover w-1/2 h-2/3 md:h-full  md:mt-8 lg:mt-8 md:ml-2  md:w-full lg:w-3/4 "
             />
           </div>
-          <div className="w-full md:w-1/2 p-8 flex flex-col justify-between">
-            <div className="overflow-x-auto md:overflow-visible">
+          <div className="w-full md:w-2/3 p-8 flex flex-col justify-between">
+            <div className="overflow-x-auto lg:overflow-visible">
               <table className="table w-full border-collapse border border-gray-200">
                 <tbody>
                   <tr>
