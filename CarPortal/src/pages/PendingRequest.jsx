@@ -26,44 +26,16 @@ const PendingRequest = () => {
       </div>
     );
   });
+  if (!data) {
+    return <div className="flex justify-center mt-5">
+      <p className="text-4xl font-semibold">No Data Available</p>
+    </div>
+  }
+ 
   if (isLoading) {
     return <p>isLoading</p>;
   }
-  if(error){
-    return(
-      <div>
-    <p className="ml-3">No Data Available</p>
-
-    <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-    <Typography
-      variant="medium"
-      color="blue-gray"
-      className="font-normal"
-    >
-      Page {pageNo + 1}
-    </Typography>
-    <div className="flex gap-2">
-      <Button
-        variant="outlined"
-        size="sm"
-        disabled={pageNo <= 0}
-        onClick={() => setPageNo((a) => a - 1)}
-      >
-        Previous
-      </Button>
-      <Button
-        variant="outlined"
-        size="sm"
-        onClick={nextHandler}
-        disabled={data?.bookings?.length < 10}
-      >
-        Next
-      </Button>
-    </div>
-  </CardFooter>
-  </div>
-  )
-}
+ 
   return (
     <>
       <div className="grid grid-cols-1 md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 xl:grid xl:grid-cols-3 gap-2 md:auto-cols-auto md:auto-rows-auto">
@@ -71,7 +43,7 @@ const PendingRequest = () => {
       </div>
 
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-        <Typography variant="medium" color="blue-gray" className="font-normal">
+        <Typography  color="blue-gray" className="font-normal">
           Page {pageNo + 1}
         </Typography>
         <div className="flex gap-2">
@@ -87,7 +59,7 @@ const PendingRequest = () => {
             variant="outlined"
             size="sm"
             onClick={nextHandler}
-            disabled={data?.list?.length < 10}
+            disabled={data?.list.length < 10}
           >
             Next
           </Button>

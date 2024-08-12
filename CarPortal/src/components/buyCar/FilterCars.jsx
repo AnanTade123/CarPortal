@@ -23,7 +23,7 @@ const FilterCars = ({ setUrlState }) => {
   const [selectedBrand, setSelectedBrand] = useState("");
   const [modelOptions, setModelOptions] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
-  const [value, setValue] = useState([0, 10000000]);
+  const [value, setValue] = useState([0, 6000000]);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [underTwoLakh, setUnderTwoLakh] = useState(false); // New state for the checkbox
@@ -94,7 +94,7 @@ const FilterCars = ({ setUrlState }) => {
   };
 
   const resetForm = () => {
-    setValue([0, 10000000]); // Reset slider values to default
+    setValue([0, 6000000]); // Reset slider values to default
     setSelectedBrand(""); // Reset brand selection
     setModelOptions([]); // Reset model options
     setFilterForm({
@@ -119,7 +119,7 @@ const FilterCars = ({ setUrlState }) => {
       fuelType: "",
       transmission: "",
       MinPrice: 0, // Reset MinPrice
-      MaxPrice: 10000000, // Reset MaxPrice
+      MaxPrice: 6000000, // Reset MaxPrice
     });
   };
 
@@ -163,23 +163,37 @@ const FilterCars = ({ setUrlState }) => {
     { transmission: "Manual" },
   ];
 
-  const handleSliderChange = (event, newValue) => {
-    const [min, max] = newValue;
+ const handleSliderChange = (event, newValue) => {
+   let [min, max] = newValue;
 
-    if (
-      min !== null &&
-      max !== null &&
-      min >= 0 &&
-      max <= 10000000 &&
-      min <= max
-    ) {
-      setValue([min, max]);
-      setMinPrice(min.toString()); // Update the input fields
-      setMaxPrice(max.toString());
-    }
+   // Ensure the min slider value takes steps of 50000 until 1000000
+   if (min < 1000000) {
+     min = Math.floor(min / 50000) * 50000;
+   } else {
+     min = Math.floor(min / 500000) * 500000;
+   }
+
+   // Ensure the max slider value follows its logic
+   if (max < 1000000) {
+     max = Math.floor(max / 50000) * 50000;
+   } else {
+     max = Math.floor(max / 500000) * 500000;
+   }
+
+   // Apply constraints
+   if (min > max) {
+     min = max; // Ensure min does not exceed max
+   }
+
+   // Update state
+   setValue([min, max]);
+   setMinPrice(min.toString());
+   setMaxPrice(max.toString());
+ };
+  const calculateStep = (value) => {
+    return value < 7000000 ? 50000 : 500000;
   };
 
-  // Handle manual input for min price
   const handleMinPriceChange = (e) => {
     const min = parseInt(e.target.value.replace(/,/g, ""));
     if (
@@ -188,7 +202,7 @@ const FilterCars = ({ setUrlState }) => {
       (maxPrice === "" || min <= parseInt(maxPrice.replace(/,/g, "")))
     ) {
       setMinPrice(e.target.value);
-      setValue([min, value[1] !== null ? value[1] : 10000000]);
+      setValue([min, value[1] !== null ? value[1] : 6000000]);
     } else if (min > parseInt(maxPrice.replace(/,/g, ""))) {
       setMinPrice(maxPrice);
       setValue([
@@ -205,7 +219,7 @@ const FilterCars = ({ setUrlState }) => {
     const max = parseInt(e.target.value.replace(/,/g, ""));
     if (
       !isNaN(max) &&
-      max <= 10000000 &&
+      max <= 6000000 &&
       (minPrice === "" || max >= parseInt(minPrice.replace(/,/g, "")))
     ) {
       setMaxPrice(e.target.value);
@@ -220,45 +234,44 @@ const FilterCars = ({ setUrlState }) => {
       setMaxPrice("");
     }
   };
-
   const handleCheckboxChange = () => {
     setUnderTwoLakh(!underTwoLakh);
     if (!underTwoLakh) {
-      setValue([0, 200000]); // Set the slider to under 2 Lakh if checkbox is checked
+      setValue([0, 200001]); // Set the slider to under 2 Lakh if checkbox is checked
     } else {
-      setValue([0, 10000000]); // Reset the slider when checkbox is unchecked
+      setValue([0, 6000000]); // Reset the slider when checkbox is unchecked
     }
   };
   const handleCheckboxChange1 = () => {
     setTwoLakhFiveLakh(!twoLakhFiveLakh);
     if (!twoLakhFiveLakh) {
-      setValue([200000, 500000]); // Set the slider to under 2  - 5 Lakh if checkbox is checked
+      setValue([200000, 500001]); // Set the slider to under 2  - 5 Lakh if checkbox is checked
     } else {
-      setValue([0, 10000000]); // Reset the slider when checkbox is unchecked
+      setValue([0, 6000000]); // Reset the slider when checkbox is unchecked
     }
   };
   const handleCheckboxChange2 = () => {
     setFiveToEightLakh(!fiveToEightLakh);
     if (!fiveToEightLakh) {
-      setValue([500000, 800000]); // Set the slider to under 2  - 5 Lakh if checkbox is checked
+      setValue([500000, 800001]); // Set the slider to under 2  - 5 Lakh if checkbox is checked
     } else {
-      setValue([0, 10000000]); // Reset the slider when checkbox is unchecked
+      setValue([0, 6000000]); // Reset the slider when checkbox is unchecked
     }
   };
   const handleCheckboxChange3 = () => {
     setEightToTenLakh(!eightToTenLakh);
     if (!eightToTenLakh) {
-      setValue([800000, 1000000]); // Set the slider to under 2  - 5 Lakh if checkbox is checked
+      setValue([800000, 1000001]); // Set the slider to under 2  - 5 Lakh if checkbox is checked
     } else {
-      setValue([0, 10000000]); // Reset the slider when checkbox is unchecked
+      setValue([0, 6000000]); // Reset the slider when checkbox is unchecked
     }
   };
   const handleCheckboxChange4 = () => {
     setAboveTenLakh(!aboveTenLakh);
     if (!aboveTenLakh) {
-      setValue([1000000, 10000000]); // Set the slider to under 2  - 5 Lakh if checkbox is checked
+      setValue([1000000, 6000000]); // Set the slider to under 2  - 5 Lakh if checkbox is checked
     } else {
-      setValue([0, 10000000]); // Reset the slider when checkbox is unchecked
+      setValue([0, 6000000]); // Reset the slider when checkbox is unchecked
     }
   };
 
@@ -325,13 +338,13 @@ const FilterCars = ({ setUrlState }) => {
                     onChange={handleSliderChange}
                     valueLabelDisplay="auto"
                     min={0}
-                    max={10000000}
-                    step={50000}
+                    max={6000000}
+                    step={calculateStep(value[1])}
                     disableSwap
                   />
                 </div>
                 <div className="flex text-center font-bold font-[latto] text-black">
-                  ₹1Cr
+                  ₹60L
                 </div>
               </div>
               <div className="font-[latto] font-bold text-lg text-black">

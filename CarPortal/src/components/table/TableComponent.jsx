@@ -31,8 +31,8 @@ const TableComponent = ({ columns, data }) => {
     usePagination
   );
 
-  console.log("headerGroups",headerGroups);
-  console.log("headerGroups",page?.map((headerGroup, index) => (index)));
+  // console.log("headerGroups",headerGroups);
+  // console.log("headerGroups",page?.map((headerGroup, index) => (index)));
   // Memoize the header rendering
   const renderHeader = useMemo(() => {
     return headerGroups.map((headerGroup, index) => (

@@ -51,15 +51,9 @@ export default function BiddingCarDetailsById1() {
     kmDriven,
     ownerSerial,
     year,
-    model,
     registration,
-    area,
     transmission,
     carInsurance,
-    city,
-    color,
-    bodyType,
-    dealerId,
     insurancedate,
     carInsuranceType,
     insuranceType,
@@ -78,7 +72,7 @@ export default function BiddingCarDetailsById1() {
 //  })
 
   return (
-    <div className="grid grid-flow-row-dense md:grid-cols-3 gap-4 container mx-auto">
+    <div className="md:grid md:grid-flow-row-dense md:grid-cols-3 gap-4 container mx-auto">
       <div className="p-4 md:col-span-2 no-scrollbar">
         <ToastContainer />
         <BiddingCarView
@@ -104,7 +98,7 @@ export default function BiddingCarDetailsById1() {
           airbag={airbag}
         />
       </div>
-      <div className="md:col-span-1 sticky top-0">
+      <div className="col-span-1 md:w-auto sticky top-0">
         <BiddingPriceCard
           beadingCarId={beadingCarId}
           bidCarId={bidCarId}

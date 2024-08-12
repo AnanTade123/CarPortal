@@ -105,7 +105,7 @@ const getTopThreeBids = (bidCarId) => {
     const text = remainingMinutes < 2 ? 'Last Call' :'Timer' ;
  
   return (
-    <div className="w-full md:w-full">
+    <div className="w-full ">
     <CardUi>
       <div className="w-full md:w-full p-4">
         <p className="font-extrabold text-2xl text-black uppercase font-[latto] ml-2 md:ml-0">
@@ -184,8 +184,15 @@ const getTopThreeBids = (bidCarId) => {
               Fixed Road Price
             </div>
             {userRole === "DEALER" && timerId !== "success" ? (
+              <div>
+              <div className="fixed bottom-16 left-4 right-4 z-50 bg-white p-2 md:hidden">
                <div className={`text-xl uppercase font-bold font-[latto] ${textColorClass}`}>
                {timeLeft}
+             </div>
+             </div>
+             <div className={`text-xl uppercase font-bold font-[latto] hidden md:block ${textColorClass}`}>
+               {timeLeft}
+             </div>
              </div>
             ) : null}
            

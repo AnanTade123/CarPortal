@@ -10,10 +10,11 @@ import 'react-toastify/dist/ReactToastify.css';
  
 const   AdminInspectorEdit = () => {
   const { userid, inspectorprofileid } = useParams();
+ 
   const userId = userid;
   const navigate = useNavigate();
   const { data, isLoading, isError, error } = useInspectorByIdQuery({ userId });
-  
+ 
   const [inspectorupdate] = useInspectorupdateMutation();
  
   const [inputField, setInputField] = React.useState({

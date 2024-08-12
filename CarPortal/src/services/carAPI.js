@@ -31,7 +31,7 @@ export const carApi = apiSlice.injectEndpoints({
         
         method: "GET",
       }),
-      invalidatesTags: ["CAR"],
+      providesTags: ["CAR","Dealer"],
 
     }),
 
