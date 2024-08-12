@@ -24,7 +24,6 @@ const DealerContact = ({ dealer_id }) => {
   if (isLoading) {
     return <></>;
   }
-  
 
   return (
     <div className="w-[340px] md:w-full rounded-lg shadow-xl w mt-6">
