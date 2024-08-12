@@ -27,6 +27,7 @@ const WinnerSection = () => {
   let [trigger] = useLazyBiddingCarByIdQuery();
   let [triggerGetDealer] = useLazyGetDealerByUserIdQuery();
   const [liveCarsWinData, setLiveCarsWinData] = useState([]);
+  
 
   useEffect(() => {
     const fetchServiceProducts = async () => {
@@ -96,7 +97,7 @@ const WinnerSection = () => {
     },
     {
       Header: "Dealer Name",
-      accessor: "firstName"
+      accessor: (row) => `${row.firstName} ${row.lastName}`
     },
     {
       Header: "Action",
@@ -128,6 +129,10 @@ const WinnerSection = () => {
       },
     }
   ];
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   if (error?.status === 404) {
     return (

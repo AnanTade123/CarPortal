@@ -32,21 +32,21 @@ const BiddingDealerCars = () => {
   const [pageNo, setPageNo] = useState(0);
   const [filteredData, setFilteredData] = useState(null);
 
-  
-  const dataQuery = (userRole === "DEALER") 
-  ? useGetByDealerIdQuery( dealerId ) 
-  : useBiddingAllCardQuery();
+
+  const dataQuery = (userRole === "DEALER")
+    ? useGetByDealerIdQuery(dealerId)
+    : useBiddingAllCardQuery();
 
   const { data, isLoading, error } = dataQuery;
   const [totalCars, setTotalCars] = useState(data?.length || "-");
   const activeCarCount = data?.filter((car) => car.carStatus === "ACTIVE").length;
   const pendingCarCount = data?.filter((car) => car.carStatus === "pending").length;
   const soldCarCount = data?.filter((car) => car.carStatus === "sold").length;
-  
+
   const [activeCars, setActiveCars] = useState(activeCarCount || "-");
   const [pendingCars, setPendingCars] = useState(pendingCarCount || "-");
   const [soldCars, setSoldCars] = useState(soldCarCount || "-");
-  
+
 
   const itemsPerPage = 10;
   useEffect(() => {
@@ -110,78 +110,110 @@ const BiddingDealerCars = () => {
       Header: "Year",
       accessor: "year",
     },
-    {
-      Header: "Price",
-      accessor: "price",
-      disableSortBy: true,
-    },
-    ...(userRole === "ADMIN" ||  userRole === "SALESPERSON"
+    ...(userRole === "ADMIN" || userRole === "SALESPERSON"
       ? [
-          {
-            Header: "Inspection Report",
-            accessor: "carStatus",
-            Cell: (cell) => {
-              
-
-              return userRole === "DEALER" ? (
-                <Link
-                  to={`/dealer/finalreport/${cell.row.values.beadingCarId}`}
-                  className="button-link"
-                >
-                  <Button variant="gradient" color="blue">
-                    View Report
-                  </Button>
-                </Link>
-              ) : cell.row.values.carStatus === "pending" ? (
-                <Link to={userRole === "ADMIN" ?`/admin/carverify/${cell.row.values.beadingCarId}` : `/sale/carverify/${cell.row.values.beadingCarId}`}>
-                  <Button variant="gradient" color="yellow">
-                    Pending
-                  </Button>
-                </Link>
-              ) : (
-                <Link to={userRole === "ADMIN" ?`/admin/inspection/report/${cell.row.values.beadingCarId}` :`/sale/inspection/report/${cell.row.values.beadingCarId}`}>
-                  <Button variant="gradient" color="green">
-                    Done
-                  </Button>
-                </Link>
-              );
-            },
+        {
+          Header: "Inspection Report Status",
+          accessor: "carStatus",
+          Cell: (cell) => {
+            return userRole === "DEALER" ? (
+              <Link
+                to={`/dealer/finalreport/${cell.row.values.beadingCarId}`}
+                className="button-link"
+              >
+                <Button variant="gradient" color="blue">
+                  View Report
+                </Button>
+              </Link>
+            ) : cell.row.values.carStatus === "pending" ? (
+              <Link to={userRole === "ADMIN" ? `/admin/carverify/${cell.row.values.beadingCarId}` : `/sale/carverify/${cell.row.values.beadingCarId}`}>
+                <Button variant="gradient" color="yellow">
+                  Pending
+                </Button>
+              </Link>
+            ) : (
+              <>
+              <Link to={userRole === "ADMIN" ? `/admin/inspection/report/${cell.row.values.beadingCarId}` : `/sale/inspection/report/${cell.row.values.beadingCarId}`}>
+                <Button variant="gradient" color="blue">
+                  View
+                </Button>
+              </Link>&nbsp;
+              <Link to={userRole === "ADMIN" ? `/admin/carverify/${cell.row.values.beadingCarId}` : `/sale/carverify/${cell.row.values.beadingCarId}`}>
+              <Button variant="gradient" color="green">
+                Update
+              </Button>
+            </Link>
+            </>
+            );
           },
-        ]
+        },
+      ]
       : []),
+      ...(userRole === "ADMIN" || userRole === "SALESPERSON"
+        ? [
     {
       Header: "Action",
       accessor: "",
       Cell: (cell) => {
-        const { beadingCarId, biddingTimerId } = cell.row.values;
-        // console.log("cell.row.values.biddingTimerId" ,biddingTimerId)
         return (
           <div>
-           <div className="flex gap-2 justify-center items-center">
-  <Link
-    to={
-      cell.row.values.biddingTimerId 
-        ? `/biddinglist/cardetails/${cell.row.values.beadingCarId}/${cell.row.values.biddingTimerId}` 
-        : `/biddinglist/cardetails/${cell.row.values.beadingCarId}`
-    }
-  >
-    <Button className="bg-[#045e4f]">
-    {userRole === "DEALER" 
-    ? "Place Bid" 
-    : (userRole === "ADMIN" || userRole === "SALESPERSON") 
-      ? (cell.row.values.biddingTimerId !== null
-        ? "Update Bid Time" 
-        : "Set Bid Time") 
-      : ""
-  }
-    </Button>
-  </Link>
-</div>
+            <div className="flex gap-2 justify-center items-center">
+              <Link
+                to={
+                  cell.row.values.biddingTimerId
+                    ? `/biddinglist/cardetails/${cell.row.values.beadingCarId}/${cell.row.values.biddingTimerId}`
+                    : `/biddinglist/cardetails/${cell.row.values.beadingCarId}`
+                }
+              >
+                <Button className="bg-[#045e4f]">
+                  {userRole === "DEALER"
+                    ? "Place Bid"
+                    : (userRole === "ADMIN" || userRole === "SALESPERSON")
+                      ? (cell.row.values.biddingTimerId !== null
+                        ? "Update Bid Time"
+                        : "Set Bid Time")
+                      : ""
+                  }
+                </Button>
+              </Link>
+            </div>
 
           </div>
         );
       },
+    }, ] : []),
+    ...(userRole === "DEALER"
+      ? [
+  {
+    Header: "Action",
+    accessor: "",
+    Cell: (cell) => {
+      return (
+        <div>
+          <div className="flex gap-2 justify-center items-center">
+          <Link to={`/biddinglist/cardetails/${cell.row.values.beadingCarId}/success`}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6 cursor-pointer"
+                  color="blue"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
+                  />
+                </svg>
+              </Link>
+          </div>
+
+        </div>
+      );
     },
+  }, ] : []),
   ];
 
   const startIndex = pageNo * itemsPerPage;
@@ -260,31 +292,31 @@ const BiddingDealerCars = () => {
               <TableComponent columns={columns} data={paginatedData} />
             </CardBody>
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-                <Typography variant="small" color="blue-gray" className="font-normal">
-                  Page {pageNo + 1} 
-                </Typography>
-             
+              <Typography variant="small" color="blue-gray" className="font-normal">
+                Page {pageNo + 1}
+              </Typography>
+
               <div className="flex gap-2">
-              <Button
-                variant="outlined"
-                color="blue-gray"
-                size="sm"
-                onClick={() => setPageNo((prev) => Math.max(prev - 1, 0))}
-                disabled={pageNo === 0}
-              >
-                Previous
-              </Button>
-              <Button
-                variant="outlined"
-                color="blue-gray"
-                size="sm"
-                onClick={() => setPageNo((prev) => prev + 1)}
-                disabled={endIndex >= filteredData?.length}
-              >
-                Next
-              </Button>
+                <Button
+                  variant="outlined"
+                  color="blue-gray"
+                  size="sm"
+                  onClick={() => setPageNo((prev) => Math.max(prev - 1, 0))}
+                  disabled={pageNo === 0}
+                >
+                  Previous
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="blue-gray"
+                  size="sm"
+                  onClick={() => setPageNo((prev) => prev + 1)}
+                  disabled={endIndex >= filteredData?.length}
+                >
+                  Next
+                </Button>
               </div>
-             
+
             </CardFooter>
           </Card>
         )}

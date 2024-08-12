@@ -34,16 +34,12 @@ const BiddingPriceCard = ({
   const UserId = token ? jwtDecodes?.userId : null;
   const {page , timerId} = useParams()
   const {data} = useGetbeadingGetByIdQuery(beadingCarId);
-  const { isConnected, getTopThreeBids,topThreeBidsAmount } = useWebSocket();
+  const { isConnected, topThreeBidsAmount } = useWebSocket();
   const [timeLeft, setTimeLeft] = useState('');
   const { client ,getLiveCars} = useWebSocket();
   const [highestBid , setHighestBid] = useState(0);
+  
 
-  useEffect(() => {
-    if (isConnected && bidCarId) {
-      getTopThreeBids(bidCarId);
-    }
-  }, [isConnected ,bidCarId]);
 
   useEffect(() => {
     const updateTimer = () => {
@@ -73,23 +69,33 @@ const BiddingPriceCard = ({
 
 
   useEffect(() => {
-    if(bidCarId){
-        refreshTopThreeBids(bidCarId);
+    if(bidCarId && isConnected){
+      getTopThreeBids(bidCarId);
     }
-},[bidCarId]);
+},[bidCarId,isConnected])
 
-const refreshTopThreeBids = (bidCarId) => {
-    if (bidCarId && client) {
-            client.subscribe(`/topic/topBids/${bidCarId}`, (message) => {
-                const topBid = JSON.parse(message.body);
-                setHighestBid(topBid?.amount);
-            });
-            client.publish({
-                destination: `/app/topBids/${bidCarId}`,
-                body: JSON.stringify({}),
-            });
-    }
-  };
+
+
+const getTopThreeBids = (bidCarId) => {
+  if (client) {
+    const bidRequest = {
+      bidCarId: bidCarId,
+    };
+
+    client.publish({
+      destination: '/app/topThreeBids',
+      body: JSON.stringify(bidRequest),
+    });
+
+       client.subscribe(`/topic/topThreeBids`, (message) => {
+        const topBids = JSON.parse(message.body);
+        setHighestBid(topBids[0]?.amount);
+        
+      }, { ack: 'client' });
+  } else {
+    // console.log('Stomp client is not initialized.');
+  }
+};
 
 
   const remainingMinutes = parseInt(timeLeft.split('m:')[0]);
@@ -177,7 +183,7 @@ const refreshTopThreeBids = (bidCarId) => {
             <div className="uppercase text-gray-700 text-xs font-[latto]">
               Fixed Road Price
             </div>
-            {userRole === "DEALER" ? (
+            {userRole === "DEALER" && timerId !== "success" ? (
                <div className={`text-xl uppercase font-bold font-[latto] ${textColorClass}`}>
                {timeLeft}
              </div>
