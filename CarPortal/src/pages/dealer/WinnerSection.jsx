@@ -2,10 +2,16 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 
-import { useAllDealerFinalBidQuery, useLazyBiddingCarByIdQuery } from "../../services/biddingAPI";
-
+import {
+  useAllDealerFinalBidQuery,
+  useLazyBiddingCarByIdQuery,
+} from "../../services/biddingAPI";
+import {
+  CardFooter,
+  Typography,
+  Button,
+} from "@material-tailwind/react";
 import TableComponent from "../../components/table/TableComponent";
-import { useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
@@ -20,10 +26,16 @@ const WinnerSection = () => {
   }
 
   const UserID = jwtDecodes?.userId;
-
-  const { data: didData , isLoading , error} = useAllDealerFinalBidQuery(UserID);
+  const [pageNo, setPageNo] = useState(0);
+  const [pageSize, setPageSize] = useState(50);
+  const {
+    data: didData,
+    isLoading,
+    error,
+  } = useAllDealerFinalBidQuery({ UserID, pageNo, pageSize });
   // console.log("I have change ",error)
-  const [pageNo , setPageNo] = useState(0);
+  // console.log(didData);
+
   let [trigger] = useLazyBiddingCarByIdQuery();
   let [triggerGetDealer] = useLazyGetDealerByUserIdQuery();
   const [liveCarsWinData, setLiveCarsWinData] = useState([]);
@@ -43,7 +55,8 @@ const WinnerSection = () => {
               continue;
             }
 
-            const { data: dealerName, error: dealerError } = await triggerGetDealer(id);
+            const { data: dealerName, error: dealerError } =
+              await triggerGetDealer(id);
             if (dealerError) {
               // console.error("Error fetching dealer data:", dealerError);
               continue;
@@ -52,7 +65,7 @@ const WinnerSection = () => {
             const combinedData = {
               ...carData,
               ...dealerName,
-              ...didData.finalBids[i]
+              ...didData.finalBids[i],
             };
 
             liveCarsData.push(combinedData);
@@ -65,8 +78,17 @@ const WinnerSection = () => {
 
     fetchServiceProducts();
   }, [didData, trigger, triggerGetDealer]);
+  const nextHandler = () => {
+    if (!error) {
+      setPageNo((prevPageNo) => prevPageNo + 1);
+    }
+  };
 
- 
+  const prevHandler = () => {
+    if (pageNo > 0) {
+      setPageNo((prevPageNo) => prevPageNo - 1);
+    }
+  };
 
   const columns = [
     {
@@ -76,27 +98,27 @@ const WinnerSection = () => {
         const { pageSize } = cell.state; // Assuming you're using React Table's useTable hook
         const serialNumber = pageNo * pageSize + cell.row.index + 1;
         return serialNumber;
-      }
+      },
     },
-    {
-      Header: "Sr.No",
-      accessor: "bidCarId"
-    },
+    // {
+    //   Header: "Sr.No",
+    //   accessor: "bidCarId",
+    // },
     {
       Header: "Brand",
-      accessor: "brand"
+      accessor: "brand",
     },
     {
       Header: "Model",
-      accessor: "model"
+      accessor: "model",
     },
     {
       Header: "Price",
-      accessor: "price"
+      accessor: "price",
     },
     {
       Header: "Dealer Name",
-      accessor: "firstName"
+      accessor: "firstName",
     },
     {
       Header: "Action",
@@ -105,7 +127,9 @@ const WinnerSection = () => {
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
-              <Link to={`/biddinglist/cardetails/${cell.row.values.bidCarId}/success`}>
+              <Link
+                to={`/biddinglist/cardetails/${cell.row.values.bidCarId}/success`}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -126,12 +150,12 @@ const WinnerSection = () => {
           </div>
         );
       },
-    }
+    },
   ];
 
   if (error?.status === 404) {
     return (
-      <div className="p-5">
+      <div className="flex justify-center mt-2">
         <p>No Available Data</p>
       </div>
     );
@@ -145,12 +169,33 @@ const WinnerSection = () => {
       <div>
         {liveCarsWinData && (
           <TableComponent columns={columns} data={liveCarsWinData} />
-        )        
-        }
+        )}
       </div>
+      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+        <Typography variant="medium" color="blue-gray" className="font-normal">
+          Page {pageNo + 1}
+        </Typography>
+        <div className="flex gap-2">
+          <Button
+            variant="outlined"
+            size="sm"
+            disabled={pageNo <= 0}
+            onClick={prevHandler}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outlined"
+            size="sm"
+            onClick={nextHandler}
+            disabled={didData?.list?.length < pageSize}
+          >
+            Next
+          </Button>
+        </div>
+      </CardFooter>
     </>
   );
 };
 
 export default WinnerSection;
-
