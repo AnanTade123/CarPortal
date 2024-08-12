@@ -26,26 +26,28 @@ const AdminInspectorInfo = () => {
   
   const InspectorProfileId = token ? jwtDecodes?.inspectorProfileId : null;
   const userRole = token ? jwtDecodes?.authorities[0] : null;
+  // eslint-disable-next-line no-unused-vars
   const DealerId = token ? jwtDecodes?.dealerId : null;
   DealerId;
 // console.log(DealerId)
+
   return (
     <>
-      <div className="text-3xl font-bold mt-5 mb-4 ml-4 md:ml-12 xl:mb-[-5rem]  md:mb-8">
+      <div className="text-3xl font-bold mt-5 mb-4 ml-4 md:ml-12 xl:mb-[-5rem] md:mb-8">
         Profile Information
       </div>
-      <div className="flex justify-center items-center   xl:h-screen ">
+      <div className="flex justify-center items-center xl:h-screen ">
         <div className="w-full max-w-4xl flex flex-col mx-2 md:flex-row shadow-xl">
-          <div className="w-full md:w-1/2 flex justify-center lg:mt-8 md:mt-8">
+          <div className="w-full md:w-1/2 lg:w-1/3  md:h-2/3    flex justify-center   lg:mt-8 md:mt-8">
             <img
               src="https://tamilnaducouncil.ac.in/wp-content/uploads/2020/04/dummy-avatar.jpg"
               alt="Dealer"
-              className="object-cover w-1/2 h-2/3"
+              className="object-cover md:w-2/3 md:h-1/2  h-1/2 w-1/2  "
             />
           </div>
-          <div className="w-full md:w-1/2 p-8 flex flex-col justify-between">
-            <div className="overflow-x-auto md:overflow-visible">
-              <table className="table w-full border-collapse border border-gray-200  ">
+          <div className="w-full md:w-1/2 lg:w-2/3 p-8 flex flex-col justify-between">
+            <div className="overflow-x-auto lg:overflow-x-visible">
+              <table className="table w-full border-collapse border border-gray-200">
                 <tbody>
                   <tr>
                     <th className="px-4 py-2 border border-gray-200">
@@ -79,7 +81,9 @@ const AdminInspectorInfo = () => {
                   </tr>
                   <tr>
                     <th className="px-4 py-2 border border-gray-200">City</th>
-                    <td className="px-4 py-2 border border-gray-200">{city}</td>
+                    <td className="px-4 py-2 border border-gray-200">
+                      {city}
+                    </td>
                   </tr>
                   <tr>
                     <th className="px-4 py-2 border border-gray-200">
@@ -94,7 +98,7 @@ const AdminInspectorInfo = () => {
             </div>
             <div className="flex justify-center items-center mt-4 md:mt-0">
               <span className="flex items-center">
-                {userRole === 'Admin' ? (
+                {userRole === "Admin" ? (
                   <Button
                     size="md"
                     className="mt-2 ml-2 cursor-pointer flex items-center"
@@ -103,7 +107,7 @@ const AdminInspectorInfo = () => {
                     <IoChevronBack className="w-5 h-5" /> Back
                   </Button>
                 ) : null}
-                {userRole === 'INSPECTOR' ? (
+                {userRole === "INSPECTOR" ? (
                   <Link to={`/inspector/edit/${userId}/${InspectorProfileId}`}>
                     <Button
                       size="md"

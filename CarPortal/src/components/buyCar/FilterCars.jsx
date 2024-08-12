@@ -232,7 +232,7 @@ const FilterCars = ({ setUrlState }) => {
   const handleCheckboxChange1 = () => {
     setTwoLakhFiveLakh(!twoLakhFiveLakh);
     if (!twoLakhFiveLakh) {
-      setValue([200000, 500000]); // Set the slider to under 2  - 5 Lakh if checkbox is checked
+      setValue([199999, 500000]); // Set the slider to under 2  - 5 Lakh if checkbox is checked
     } else {
       setValue([0, 10000000]); // Reset the slider when checkbox is unchecked
     }
@@ -240,7 +240,7 @@ const FilterCars = ({ setUrlState }) => {
   const handleCheckboxChange2 = () => {
     setFiveToEightLakh(!fiveToEightLakh);
     if (!fiveToEightLakh) {
-      setValue([500000, 800000]); // Set the slider to under 2  - 5 Lakh if checkbox is checked
+      setValue([499999, 800000]); // Set the slider to under 2  - 5 Lakh if checkbox is checked
     } else {
       setValue([0, 10000000]); // Reset the slider when checkbox is unchecked
     }
@@ -248,7 +248,7 @@ const FilterCars = ({ setUrlState }) => {
   const handleCheckboxChange3 = () => {
     setEightToTenLakh(!eightToTenLakh);
     if (!eightToTenLakh) {
-      setValue([800000, 1000000]); // Set the slider to under 2  - 5 Lakh if checkbox is checked
+      setValue([799999, 1000000]); // Set the slider to under 2  - 5 Lakh if checkbox is checked
     } else {
       setValue([0, 10000000]); // Reset the slider when checkbox is unchecked
     }
@@ -256,7 +256,7 @@ const FilterCars = ({ setUrlState }) => {
   const handleCheckboxChange4 = () => {
     setAboveTenLakh(!aboveTenLakh);
     if (!aboveTenLakh) {
-      setValue([1000000, 10000000]); // Set the slider to under 2  - 5 Lakh if checkbox is checked
+      setValue([999999, 10000000]); // Set the slider to under 2  - 5 Lakh if checkbox is checked
     } else {
       setValue([0, 10000000]); // Reset the slider when checkbox is unchecked
     }
