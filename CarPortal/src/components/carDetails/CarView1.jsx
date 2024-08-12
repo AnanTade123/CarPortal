@@ -140,29 +140,39 @@ const CarView1 = ({ carId }) => {
           </Carousel>
         )}
 
-        {exterior && (
+{exterior && (
           <Carousel className="bg-white rounded-lg shadow-md ">
             {imageURLs.length > 0 ? (
-        
-          imageURLs.map((url, index) => (
-            <img
-              key={index}
-              src={url}
-              alt={`Car Image ${index}`}
-              className="object-contain w-full h-full"
-            />
-          ))
-      ) : (
-        <div className="text-center mt-2">
-          {" "}
-          Image not available
-          <img
-            src={fallbackImage}
-            alt="no image"
-            className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-0 "
-          />
-        </div>
-      )}
+              imageURLs.map((url, index) => (
+                <div
+                  key={index.documentId}
+                  className="relative overscroll-y-none"
+                >
+                  <img
+                    key={index.documentId}
+                    src={url}
+                    alt={`Car Image ${index.documentId}`}
+                    className="w-full h-[16rem] md:h-[29rem] md:bg-cover carousel-height relative blur-md bg-cover"
+                  />
+                  <img
+                    key={index}
+                    src={url}
+                    alt={`Car Image ${index}`}
+                    className="object-contain w-full h-full absolute top-0 md:top-3 px-3"
+                  />
+                </div>
+              ))
+            ) : (
+              <div className="text-center mt-2">
+                {" "}
+                Image not available
+                <img
+                  src={fallbackImage}
+                  alt="no image"
+                  className="object-contain h-full md:w-[12rem] w-[13rem] ml-12 md:ml-[9rem] mt-8 opacity-50 "
+                />
+              </div>
+            )}
           </Carousel>
         )}
 

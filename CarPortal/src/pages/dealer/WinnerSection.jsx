@@ -33,8 +33,7 @@ const WinnerSection = () => {
     isLoading,
     error,
   } = useAllDealerFinalBidQuery({ UserID, pageNo, pageSize });
-  // console.log("I have change ",error)
-  // console.log(didData);
+ 
 
   let [trigger] = useLazyBiddingCarByIdQuery();
   let [triggerGetDealer] = useLazyGetDealerByUserIdQuery();
@@ -76,6 +75,7 @@ const WinnerSection = () => {
       }
     };
 
+    
     fetchServiceProducts();
   }, [didData, trigger, triggerGetDealer]);
   const nextHandler = () => {
@@ -100,10 +100,6 @@ const WinnerSection = () => {
         return serialNumber;
       },
     },
-    // {
-    //   Header: "Sr.No",
-    //   accessor: "bidCarId",
-    // },
     {
       Header: "Brand",
       accessor: "brand",
@@ -123,7 +119,7 @@ const WinnerSection = () => {
     {
       Header: "Action",
       Cell: (cell) => {
-        // console.log(cell.row.values.bidCarId)
+        
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
@@ -188,7 +184,7 @@ const WinnerSection = () => {
             variant="outlined"
             size="sm"
             onClick={nextHandler}
-            disabled={didData?.list?.length < pageSize}
+            disabled={liveCarsWinData.length < pageSize}
           >
             Next
           </Button>

@@ -66,17 +66,17 @@ useEffect(() => {
 
   const ChooseCarColor = () => {
     return (
-      <div className="w-full h-[16rem] md:w-full md:h-[30rem]">
+      <div className=" h-[16rem] w-full md:h-[30rem] ">
         {interior && (
-          <Carousel className="bg-white rounded-lg shadow-md absolute inset-0 blurred-bg" style="background-image: url('https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=600');">
+          <Carousel className=" rounded-lg shadow-md absolute inset-0 blurred-bg" style="background-image: url('https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=600');">
              {imageURLs.length > 0 ? (
-        <Carousel className="bg-white rounded-lg shadow-md">
+        <Carousel className=" rounded-lg shadow-md">
           {imageURLs.map((url, index) => (
             <img
               key={index}
               src={url}
               alt={`Car Image ${index}`}
-              className="object-contain w-full h-full opacity-50"
+              className="object-contain md:w-full md:h-full opacity-50"
             />
           ))}
           
