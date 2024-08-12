@@ -26,7 +26,7 @@ const DealerContact = ({ dealer_id }) => {
   }
 
   return (
-    <div className="w-[340px] md:w-full rounded-lg shadow-xl w mt-6">
+    <div className="w-full md:w-full rounded-lg shadow-xl w mt-6">
       <CardUi>
         <div className="p-4 overflow ">
           <h2 className="text-xl font-semibold text-gray-800">Dealer Contact</h2>
@@ -60,7 +60,7 @@ const DealerContact = ({ dealer_id }) => {
               </div>
             </div>
 
-            <div className="flex items-start md:flex-col lg:flex-row">
+            <div className="flex items-start md:flex-col lg:flex-row max-w-px">
               <div className='md:flex'>   
                 <div className='hidden sm:flex'>
                   <MdEmail className="w-5 h-5 text-gray-600 flex-shrink-0" />
