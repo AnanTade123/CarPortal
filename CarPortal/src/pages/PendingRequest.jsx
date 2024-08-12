@@ -36,7 +36,7 @@ const PendingRequest = () => {
 
     <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
     <Typography
-      variant="medium"
+      
       color="blue-gray"
       className="font-normal"
     >
@@ -71,7 +71,7 @@ const PendingRequest = () => {
       </div>
 
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-        <Typography variant="medium" color="blue-gray" className="font-normal">
+        <Typography  color="blue-gray" className="font-normal">
           Page {pageNo + 1}
         </Typography>
         <div className="flex gap-2">

@@ -108,9 +108,10 @@ export function LoginCard() {
               Sign In
             </Button>
             <div className="flex items-center justify-center mt-4">
-              <Typography variant="small" className=" flex justify-center">
-                Do not have an account?{' '}
-              </Typography>
+            <Typography variant="small" className="flex justify-center">
+  Don&apos;t have an account?{' '}
+</Typography>
+
               <Link to="/signup">
                 <Typography
                   variant="small"
@@ -129,7 +130,7 @@ export function LoginCard() {
                   color="blue-gray"
                   className="ml-1 font-bold"
                 >
-                  Reset Password
+                  Forget Password
                 </Typography>
               </Link>
               </div>

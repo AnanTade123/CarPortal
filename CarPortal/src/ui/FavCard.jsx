@@ -38,7 +38,7 @@ function FavCard({favoriteCarData}) {
           <Typography variant="h5" color="blue-gray" className="mb-2">
             {car.brand} {car.model}
           </Typography>
-          <Typography variant="h7" color="blue-gray" className="mb-2">
+          <Typography variant="h6" color="blue-gray" className="mb-2">
             {car.title}
           </Typography>
           <p className="text-sm uppercase mb-3 flex flex-wrap gap-2">
