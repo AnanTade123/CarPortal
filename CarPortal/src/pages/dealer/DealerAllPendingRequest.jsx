@@ -38,9 +38,9 @@ const DealerAllPendingRequest = () => {
   if (error) {
     return (
       <div>
-        <p className="ml-3">No Data Available</p>
+        <p className="flex justify-center mt-2">No Data Available</p>
 
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+        {/* <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography
             variant="medium"
             color="blue-gray"
@@ -66,7 +66,7 @@ const DealerAllPendingRequest = () => {
               Next
             </Button>
           </div>
-        </CardFooter>
+        </CardFooter> */}
       </div>
     );
   }

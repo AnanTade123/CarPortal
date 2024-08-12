@@ -30,8 +30,8 @@ useEffect(() => {
   if (data?.object && Array.isArray(data.object)) {
     // Reorder data to have 'coverImage' first
     const reorderedData = [
-      ...data.object.filter(item => item.documentType === 'coverImage'),
-      ...data.object.filter(item => item.documentType !== 'coverImage')
+      ...data.object.filter(item => item.doctype === 'coverImage'),
+      ...data.object.filter(item => item.doctype !== 'coverImage')
     ];
 
     // Extract the URLs from the reordered data
