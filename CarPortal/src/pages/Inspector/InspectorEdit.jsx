@@ -14,6 +14,7 @@ const   InspectorEdit = () => {
   const navigate = useNavigate();
   const { data, isLoading, isError, error } = useInspectorByIdQuery({ userId });
   // console.log(data)
+  
   const [inspectorupdate] = useInspectorupdateMutation();
  
   const [inputField, setInputField] = React.useState({

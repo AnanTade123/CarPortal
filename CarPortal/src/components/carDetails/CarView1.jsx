@@ -109,25 +109,25 @@ const CarView1 = ({ carId }) => {
           </Carousel>
         )}
 
-        {exterior && (
+{exterior && (
           <Carousel className="bg-white rounded-lg shadow-md ">
-            {data.object.length > 0 ? (
-              data.object.map((item) => (
+            {imageURLs.length > 0 ? (
+              imageURLs.map((url, index) => (
                 <div
-                  key={item.documentId}
+                  key={index.documentId}
                   className="relative overscroll-y-none"
                 >
                   <img
-                    key={item.documentId}
-                    src={item.documentLink}
-                    alt={`Car Image ${item.documentId}`}
+                    key={index.documentId}
+                    src={url}
+                    alt={`Car Image ${index.documentId}`}
                     className="w-full h-[16rem] md:h-[29rem] md:bg-cover carousel-height relative blur-md bg-cover"
                   />
                   <img
-                    key={item.documentId}
-                    src={item.documentLink}
-                    alt={`Car Image ${item.documentId}`}
-                    className="object-contain w-full h-full absolute top-0 md:top-3 px-3 "
+                    key={index}
+                    src={url}
+                    alt={`Car Image ${index}`}
+                    className="object-contain w-full h-full absolute top-0 md:top-3 px-3"
                   />
                 </div>
               ))
