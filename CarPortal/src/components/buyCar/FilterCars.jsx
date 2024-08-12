@@ -163,27 +163,37 @@ const FilterCars = ({ setUrlState }) => {
     { transmission: "Manual" },
   ];
 
-  const handleSliderChange = (event, newValue) => {
-    const [min, max] = newValue;
+ const handleSliderChange = (event, newValue) => {
+   let [min, max] = newValue;
 
-    if (
-      min !== null &&
-      max !== null &&
-      min >= 0 &&
-      max <= 6000000 &&
-      min <= max
-    ) {
-      setValue([min, max]);
-      setMinPrice(min.toString()); // Update the input fields
-      setMaxPrice(max.toString());
-    }
-  };
+   // Ensure the min slider value takes steps of 50000 until 1000000
+   if (min < 1000000) {
+     min = Math.floor(min / 50000) * 50000;
+   } else {
+     min = Math.floor(min / 500000) * 500000;
+   }
 
+   // Ensure the max slider value follows its logic
+   if (max < 1000000) {
+     max = Math.floor(max / 50000) * 50000;
+   } else {
+     max = Math.floor(max / 500000) * 500000;
+   }
+
+   // Apply constraints
+   if (min > max) {
+     min = max; // Ensure min does not exceed max
+   }
+
+   // Update state
+   setValue([min, max]);
+   setMinPrice(min.toString());
+   setMaxPrice(max.toString());
+ };
   const calculateStep = (value) => {
-    return value < 1000000 ? 50000 : 500000;
+    return value < 7000000 ? 50000 : 500000;
   };
 
-  // Handle manual input for min price
   const handleMinPriceChange = (e) => {
     const min = parseInt(e.target.value.replace(/,/g, ""));
     if (
@@ -224,7 +234,6 @@ const FilterCars = ({ setUrlState }) => {
       setMaxPrice("");
     }
   };
-
   const handleCheckboxChange = () => {
     setUnderTwoLakh(!underTwoLakh);
     if (!underTwoLakh) {
