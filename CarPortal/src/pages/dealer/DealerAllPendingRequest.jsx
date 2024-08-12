@@ -40,7 +40,7 @@ const DealerAllPendingRequest = () => {
       <div>
         <p className="flex justify-center mt-2">No Data Available</p>
 
-        {/* <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography
             variant="medium"
             color="blue-gray"
@@ -61,12 +61,12 @@ const DealerAllPendingRequest = () => {
               variant="outlined"
               size="sm"
               onClick={nextHandler}
-              disabled={data?.list?.length < 10}
+              disabled={data?.list.length < 10}
             >
               Next
             </Button>
           </div>
-        </CardFooter> */}
+        </CardFooter>
       </div>
     );
   }
