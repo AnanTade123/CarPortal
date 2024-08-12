@@ -21,7 +21,7 @@ export default function InspectorList() {
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const { data, isLoading, error } = useGetallInspectorQuery({ pageNo, pageSize });
-  
+ 
   const navigate = useNavigate();
   if (error?.status === 401) {
     return navigate("/signin");
@@ -57,10 +57,6 @@ export default function InspectorList() {
       Header: "Name",
       accessor: (row) => `${row.firstName} ${row.lastName}`, // Combine firstName and lastName for sorting/filtering purposes
     },
-    // {
-    //   Header: "Last Name ",
-    //   accessor: "lastName",
-    // },
     {
       Header: "Address",
       accessor: "address",
@@ -73,7 +69,6 @@ export default function InspectorList() {
       Header: "City",
       accessor: "city",
     },
-    
     {
       Header: "Email",
       accessor: "email",
@@ -82,24 +77,24 @@ export default function InspectorList() {
       Header: "Status",
       accessor: "status",
       Cell: (cell) => {
-        const a = cell.row.values.status
-        
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
-              <InspectorStatusDialogBox  data={data} userId={cell.row.values.userId} inspectorProfileId={cell.row.values.inspectorProfileId} status={cell.row.values.status} />
-            
+              <InspectorStatusDialogBox
+                data={data}
+                userId={cell.row.values.userId}
+                inspectorProfileId={cell.row.original.inspectorProfileId} // Accessing inspectorProfileId here
+                status={cell.row.values.status}
+              />
             </div>
           </div>
         );
       },
     },
-    
     {
       Header: "Actions",
       accessor: "Actions",
       Cell: (cell) => {
-        
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
@@ -120,10 +115,7 @@ export default function InspectorList() {
                   />
                 </svg>
               </Link>
- 
- 
-              <Link to={`/admin/inspector/edit/${cell.row.values.userId}/${cell.row.values.inspectorProfileId}`}>
-             
+              <Link to={`/admin/inspector/edit/${cell.row.values.userId}/${cell.row.original.inspectorProfileId}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -146,6 +138,9 @@ export default function InspectorList() {
       },
     },
   ];
+  
+  // Use the data in the table without displaying the inspectorProfileId column.
+  
  
   let dealerApiData;
   if (isLoading) {
