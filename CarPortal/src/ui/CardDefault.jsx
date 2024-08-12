@@ -69,7 +69,7 @@ export function CardDefault({ data, Carid,refetch }) {
   const carid = data2.carId;
   const useid = data2.userId;
   
-  const { data: favData } = useCarFavoriteAddRemoveQuery({ carid, useid });
+  const { data: favData ,error} = useCarFavoriteAddRemoveQuery({ carid, useid });
 
   
   const [CarremoveFavorite] = useCarremoveFavoriteMutation();
@@ -88,10 +88,11 @@ export function CardDefault({ data, Carid,refetch }) {
       };
       try {
         const res = await CarremoveFavorite(data3);
+        console.log(res)
         refetch()
        
       } catch (error) {
-        // console.log(error);
+       return null
       }
     } else {
       try {
@@ -99,12 +100,12 @@ export function CardDefault({ data, Carid,refetch }) {
         refetch()
         
       } catch (error) {
-        // console.log(error);
+        return null
       }
     }
     setRated(!rated);
   };
- 
+
   return (
     <div className="flex justify-center mx-auto">
       <Card className="max-w-[19rem] overflow-hidden">
@@ -132,7 +133,7 @@ export function CardDefault({ data, Carid,refetch }) {
           <Typography variant="h5" color="blue-gray" className="mb-2">
             {data.brand} {data.model}
           </Typography>
-          <Typography variant="h7" color="blue-gray" className="mb-2">
+          <Typography variant="h6" color="blue-gray" className="mb-2">
             {data.title}
           </Typography>
           <p className="text-sm uppercase mb-3 flex-wrap gap-2">
