@@ -180,6 +180,16 @@ export default function InspectorList() {
                 <Typography color="gray" className="mt-1 font-normal ">
                   See Information About All Inspectors
                 </Typography>
+                <Typography className="hidden xl:block">
+        <div className="flex">
+      <Link to={"/"}>
+              <p className="hover:text-blue-900"> Home </p> 
+              </Link>
+               /
+              <p>Inspector</p>
+              
+              </div>
+      </Typography>
               </div>
               <div className="flex shrink-0 flex-col gap-2 sm:flex-row md:w-48 ">
                 <AddInspectorForm />

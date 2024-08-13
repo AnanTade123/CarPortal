@@ -24,6 +24,8 @@ import { toast, ToastContainer } from "react-toastify";
 const OrderDealer = () => {
   const { id } = useParams();
 
+  const emptyImage = "../../cars/emptyfolder.png";
+
   const [pageNo, setPageNo] = useState(0);
   const [revertId, setRevertId] = useState("");
 
@@ -67,7 +69,18 @@ const OrderDealer = () => {
       <div className="w-screen h-screen flex justify-center items-center p-8">
         <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
       </div>
-    );
+    );}
+  if (!data) {
+    return <div>
+      <div className="flex justify-center  mt-14">
+      <img
+          className="w-40"
+          src={emptyImage}
+          alt="no data"
+        />
+        </div>
+        <p className="flex justify-center mt-5 text-2xl md:text-3xl font-semibold">No Data Available</p>
+    </div>
   }
 
   const renderData = data?.bookings?.map((item, index) => {

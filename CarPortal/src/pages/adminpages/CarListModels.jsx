@@ -13,6 +13,7 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import { CarModelsForm } from "./CarModelsForm";
+import { Link} from "react-router-dom";
 import EditCarForm from "../adminpages/EdiCarForm";
 import {
   useGetAllBrandsQuery,
@@ -169,6 +170,16 @@ const CarListModels = () => {
               <Typography color="gray" className="mt-1 font-normal">
                 See Information About Car Variants
               </Typography>
+              <Typography className="hidden xl:block ">
+        <div className="flex">
+      <Link to={"/"}>
+              <p className="hover:text-blue-900"> Home </p> 
+              </Link>
+               /
+              <p>CarModels</p>
+              
+              </div>
+      </Typography>
             </div>
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
               <CarModelsForm addCar={addCar} />
