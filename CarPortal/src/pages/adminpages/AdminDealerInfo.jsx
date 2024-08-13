@@ -5,7 +5,7 @@ import { IoChevronBack } from "react-icons/io5";
 import { Button } from "@material-tailwind/react";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
-
+import { FiLoader } from 'react-icons/fi'; 
 const AdminDealerInfo = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -38,7 +38,13 @@ console.log(profiledata)
       address,
     } = {},
   } = data || {};
-
+  if (isLoading) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
+  }
   return (
     <>
       <div className="text-3xl font-bold mt-5 mb-4 ml-4 md:ml-16 xl:mb-[-1rem]  md:mb-8">

@@ -8,7 +8,7 @@ import {
   useSellerByIdQuery,
   useSellerupdateMutation,
 } from "../../services/salesAPI";
-
+import { FiLoader } from 'react-icons/fi'; 
 const AdminSalesEdit = () => {
   const { userid, salesPersonId } = useParams();
   const userId = userid;
@@ -89,7 +89,11 @@ const AdminSalesEdit = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
 
   if (isError) {

@@ -28,7 +28,7 @@ import BiddingAddCar from "./pages/bidding/BiddingAddCar";
 import BiddingEditCar from "./pages/bidding/BiddingEditCar";
 import SetTimer from "./pages/bidding/SetTimer";
 import AboutUs from "./pages/AboutUs";
-import ContactUs from "./pages/ContactUs";
+import ContactUs from "./components/home/ContactUs";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import CookiePolicy from "./pages/CookiePolicy";
 import AppLayout2 from "./ui/AppLayout2";
@@ -99,9 +99,9 @@ import SalerChangePassword from "./pages/sales/SalerChangePassword";
 import PremiumCars from "./components/home/PremiumCars";
 import InspectorEdit from "./pages/Inspector/InspectorEdit";
 import SalerEdit from "./pages/sales/SalerEdit";
-import ForgetPassword from "./forms/ForgetPassword";
-import ResetPassword from "./forms/ResetPassword";
-
+//PremiumCars
+import PremiumCarList from "./components/Premium/PremiumCarList";
+import CarImageCarousel from "./components/Premium/CarImageCarousel";
 export default function App() {
   return (
     <>
@@ -118,6 +118,8 @@ export default function App() {
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/carlist" element={<BuyCar />} />
           <Route path="/premiumcars" element={<PremiumCars />} />
+          <Route path="/PremiumCarList" element={<PremiumCarList/>}/>
+          <Route path="CarImageCarousel" element={<CarImageCarousel/>}/>
           <Route path="/wsConnction" element={<BiddingCar />} />
           <Route
             path="/carlist/cardetails/:carId"
