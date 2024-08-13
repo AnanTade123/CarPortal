@@ -5,6 +5,11 @@ import { IoChevronBack } from "react-icons/io5";
 import { Button } from "@material-tailwind/react";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import {
+  
+  Typography,
+
+} from "@material-tailwind/react";
 
 const AdminInspectorInfo = () => {
   const { userId } = useParams();
@@ -33,9 +38,36 @@ const AdminInspectorInfo = () => {
 
   return (
     <>
-      <div className="text-3xl font-bold mt-5 mb-4 ml-4 md:ml-12 xl:mb-[-5rem] md:mb-8">
+      <div className="text-3xl font-bold mt-5 mb-4 ml-4 md:ml-12 md:mb-8 xl:mb-[-1rem]">
         Profile Information
       </div>
+      {userRole === "ADMIN" ? (<Typography className=" xl:mt-5 ml-4 hidden xl:block xl:ml-12 xl:mb-[-5rem]">
+        <div className="flex">
+      <Link to={"/"}>
+              <p className="hover:text-blue-900"> Home </p> 
+              </Link>
+               /
+               
+              <Link to={"/inspector"}>
+              <p className="hover:text-blue-900">Inspector</p>
+              </Link>
+              /
+            
+              <p>Info</p>
+
+              </div>
+      </Typography>):(<Typography className=" xl:mt-5 ml-4 hidden xl:block xl:ml-12 xl:mb-[-5rem]">
+        <div className="flex">
+      <Link to={"/"}>
+              <p className="hover:text-blue-900"> Home </p> 
+             
+              </Link>
+              /
+            
+            <p>Info</p>
+               </div>
+                </Typography>)}
+      
       <div className="flex justify-center items-center xl:h-screen ">
         <div className="w-full max-w-4xl flex flex-col mx-2 md:flex-row shadow-xl">
           <div className="w-full md:w-1/2 lg:w-1/3  md:h-2/3    flex justify-center   lg:mt-8 md:mt-8">

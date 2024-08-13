@@ -8,6 +8,8 @@ const PendingRequest = () => {
   const {userid} = useParams()
   const [pageNo , setPageNo] = useState(0)
   
+  const emptyImage = "..\\..\\cars\\emptyfolder.png";
+
   const { data, isLoading, error } = useUserAllCarRequestQuery({pageNo,userid});
   const nextHandler = () => {
     setPageNo((prePageNo) => {
@@ -27,8 +29,17 @@ const PendingRequest = () => {
     );
   });
   if (!data) {
-    return <div className="flex justify-center mt-5">
-      <p className="text-4xl font-semibold">No Data Available</p>
+    return <div>
+      <div className="flex justify-center mt-14">
+      <img
+          className="w-40"
+          src={emptyImage}
+          alt="no data"
+        />
+                </div>
+                <p className="flex justify-center text-2xl md:text-3xl font-semibold">No Data Available</p>
+
+
     </div>
   }
  
@@ -38,7 +49,7 @@ const PendingRequest = () => {
  
   return (
     <>
-      <div className="grid grid-cols-1 md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 xl:grid xl:grid-cols-3 gap-2 md:auto-cols-auto md:auto-rows-auto">
+      <div className="grid grid-cols-1 mb-5 md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 xl:grid xl:grid-cols-3 gap-2 md:auto-cols-auto md:auto-rows-auto">
         {renderData}
       </div>
 

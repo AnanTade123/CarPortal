@@ -237,6 +237,16 @@ export default function Admin() {
               <Typography color="gray" className="mt-1 font-normal text-center lg:text-start">
                 See information about all Dealers
               </Typography>
+              <span className="mt-1 hidden xl:block">
+                <div className="flex">
+                <Link to={"/"}>
+              <p className="hover:text-blue-900"> Home</p> 
+              </Link>
+              /
+
+              <p>Dealers</p>
+              </div>
+              </span>
             </div>
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row items-center">
             <AddDealerForm />

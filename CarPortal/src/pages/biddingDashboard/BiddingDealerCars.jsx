@@ -190,6 +190,18 @@ const BiddingDealerCars = () => {
 
   return (
     <>
+       <Typography className="hidden xl:block lg:ml-4 lg:mt-2">
+        <div className="flex">
+      <Link to={"/"}>
+              <p className="hover:text-blue-900"> Home </p> 
+              </Link>
+               /
+             
+              <p >BiddingCar</p>
+          
+              
+              </div>
+      </Typography>
       {/* <h1 className="mt-2 text-xl ml-2 mb-5 font-bold">Car Listing</h1> */}
       <div className="flex flex-wrap justify-center divide-x-4 mx-5 mb-8 lg:mt-6 ">
         <div

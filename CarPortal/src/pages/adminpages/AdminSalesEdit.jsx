@@ -8,6 +8,8 @@ import {
   useSellerByIdQuery,
   useSellerupdateMutation,
 } from "../../services/salesAPI";
+import { Link} from "react-router-dom";
+import { Typography } from "@material-tailwind/react";
 
 const AdminSalesEdit = () => {
   const { userid, salesPersonId } = useParams();
@@ -97,6 +99,21 @@ const AdminSalesEdit = () => {
   }
 
   return (
+    <>
+     <Typography className=" lg:mt-5 ml-4  lg:ml-16 hidden xl:block">
+      <div className="flex">
+    <Link to={"/"}>
+            <p className="hover:text-blue-900"> Home </p> 
+            </Link>
+             /
+            <Link to={"/admin/salesuser"}>
+            <p className="hover:text-blue-900">Seller</p>
+            </Link>
+            /
+           
+            <p>Edit</p>
+            </div>
+    </Typography>
     <div className="mx-auto container px-4 sm:px-6 lg:px-8 flex justify-center w-full md:w-[50%] mt-10">
       <form className="w-full border border-gray-500 px-2 py-2 rounded-md mt-2 mb-2" onSubmit={onSubmitHandler}>
         <div className="mt-5">
@@ -182,6 +199,7 @@ const AdminSalesEdit = () => {
         </div>
       </form>
     </div>
+    </>
   );
 };
 
