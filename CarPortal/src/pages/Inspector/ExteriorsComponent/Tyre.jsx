@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 
 import{ useEffect, useRef, useState } from 'react';
 import {
@@ -41,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Tyre = () => {
+const Tyre = ({setCheckstep}) => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
   
@@ -204,6 +205,20 @@ const Tyre = () => {
   }
   };
 
+  if (
+    formData.LHSFrontTyre.length > 0 &&
+    formData.RHSFrontTyre.length > 0 &&
+    formData.LHSRearTyre.length > 0 &&
+    formData.RHSRearTyre.length > 0 &&
+    formData.SpareTyre.length > 0
+  ) {
+    setCheckstep(true);
+    console.log("All conditions met, setting checkstep to true");
+  } else {
+    setCheckstep(false);
+    console.log("One or more conditions not met, setting checkstep to false");
+  }
+  
   const handleChange= (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
