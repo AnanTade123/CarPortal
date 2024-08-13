@@ -22,6 +22,8 @@ import { MdPendingActions } from "react-icons/md";
 import StatusDialogeBox from "../../ui/StatusDialogeBox";
 //import AddDealerCar from "../../components/dealer/AddDealerCar";
 import { useCarUpdateMutation } from "../../services/carAPI";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
 
 const SellForCar = () => {
   const [pageNo, setPageNo] = useState(0);
@@ -56,6 +58,17 @@ const SellForCar = () => {
 
   const [carUpdate] = useCarUpdateMutation(deactivateId);
   const [selectedOption, setSelectedOption] = useState(status); 
+
+  const token = Cookies.get("token");
+ 
+  let jwtDecodes;
+ 
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
+ 
+ 
+  const userRole = token ? jwtDecodes?.authorities[0] : null;
  
   const handleOpenDeactivate = (carId) => {
     setOpenDeactivate(!openDeactivate);
@@ -434,11 +447,18 @@ const SellForCar = () => {
       {error?.status === 404 ? (
         <div>
           <p>No Data Available</p>
-          <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+
+
+
+          {userRole === "DEALER" ? (<div className="flex shrink-0 flex-col gap-2 sm:flex-row">
             <Link to={`/dealer/${id}/addcar`}>
               <Button>Add Car</Button>
             </Link>
-          </div>
+          </div>):(
+              <p className="hover:text-blue-900">Dealers </p>
+              )}
+
+          
         </div>
       ) : (
         <div>
@@ -479,12 +499,16 @@ const SellForCar = () => {
                   </Typography> */}
                 </div>
                 
-                <div className="flex shrink-0 flex-col mb-2 gap-2 sm:flex-row">
                 
-                  <Link to={`/dealer/${id}/addcar`}>
-                    <Button>Add Car</Button>
-                  </Link>
-                </div>
+                
+                {userRole === "DEALER" ? (<div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+            <Link to={`/dealer/${id}/addcar`}>
+              <Button>Add Car</Button>
+            </Link>
+          </div>):(
+              <p className="hover:text-blue-900"> </p>
+              )}
+                
               </div>
               {/* <div className="flex justify-center gap-10 mt-3">
                 <div className="flex flex-col items-center align-middle bg-blue-200 px-3 py-2 rounded-lg">
