@@ -20,7 +20,7 @@ import TableComponent from "../../components/table/TableComponent";
 import { useState } from "react";
 import { AddDealerForm } from "../../components/admin/AddDealerForm";
 import { Link } from "react-router-dom";
-
+import { FiLoader } from 'react-icons/fi'; 
 export default function Admin() {
   const [pageNo, setPageNo] = useState(0);
   
@@ -191,7 +191,11 @@ export default function Admin() {
 
   let dealerApiData;
   if (isLoading) {
-    return <p>isLoading</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   } else {
     dealerApiData = data?.list;
   }

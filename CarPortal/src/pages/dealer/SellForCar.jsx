@@ -22,7 +22,7 @@ import { MdPendingActions } from "react-icons/md";
 import StatusDialogeBox from "../../ui/StatusDialogeBox";
 //import AddDealerCar from "../../components/dealer/AddDealerCar";
 import { useCarUpdateMutation } from "../../services/carAPI";
-
+import { FiLoader } from 'react-icons/fi'; 
 const SellForCar = () => {
   const [pageNo, setPageNo] = useState(0);
   const { id } = useParams();
@@ -284,9 +284,11 @@ const SellForCar = () => {
 
   let dealerApiData;
   if (isLoading) {
-    return <div>
-<p>isLoading</p>
-    </div> ;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   } else {
     dealerApiData = data?.list;
   }

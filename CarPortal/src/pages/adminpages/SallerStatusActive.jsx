@@ -10,7 +10,7 @@ import {
 } from "@material-tailwind/react";
 // import { useDealerStatusMutation } from "../services/dealerAPI";
 import { useSellerupdateMutation } from "../../services/salesAPI";
-
+import { FiLoader } from 'react-icons/fi'; 
 export default function SellerStatusActive({ salesPersonId, status }) {
   const [open, setOpen] = React.useState(false);
 
@@ -33,7 +33,13 @@ export default function SellerStatusActive({ salesPersonId, status }) {
   const getStatusText = () => {
     return isActive ? "ACTIVE" : "DISABLE";
   };
-
+  if (isLoading) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
+  }
   const handleConfirm = async () => {
     try {
       // Ensure dealerId is logged before calling mutation

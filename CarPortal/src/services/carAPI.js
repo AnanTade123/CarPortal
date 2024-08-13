@@ -227,5 +227,5 @@ export const {
   useGetbySaveCarIdQuery,
   useGetbyUserCarIdQuery,
   useCarremoveFavoriteMutation,
-  useCarFavoriteAddRemoveQuery
+  useCarFavoriteAddRemoveQuery,
 } = carApi;

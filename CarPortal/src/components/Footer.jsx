@@ -24,7 +24,7 @@ export default function FooterF() {
             </Link>
           </li>
           <li>
-            <Link to={"/contactus"}>
+            <Link to={"/ContactUs"}>
               <Typography
                 color="blue-gray"
                 className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"

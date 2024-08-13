@@ -10,7 +10,7 @@ import Engine from "../Img_UI/Engine.webp";
 
 import { useGetCarImageByIdQuery } from "../../services/carAPI";
 import "../../../src/index.css";
-
+import { FiLoader } from 'react-icons/fi'; 
 // eslint-disable-next-line react/prop-types
 const CarView1 = ({ carId }) => {
   // const [img360, setImg360] = useState(true);
@@ -56,7 +56,13 @@ const CarView1 = ({ carId }) => {
 
   // console.log(imageURLs)
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
+  }
   if (error)
     return (
       <div className="font-[Merriweather] md:text-center text-center">

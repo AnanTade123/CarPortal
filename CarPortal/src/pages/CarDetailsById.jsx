@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { useFilterCarQuery, useGetCarByIdQuery } from "../services/carAPI";
 import { toast, ToastContainer } from 'react-toastify';
 import { useBookingRequestMutation } from "../services/carAPI";
-
+import { FiLoader } from 'react-icons/fi'; 
 
 
 // import { redirectToSignIn } from "../services/apiSlice";
@@ -26,9 +26,13 @@ const CarDetailsById = () => {
   // console.log("error-----",error?.data?.message)
 const [bookingRequest] = useBookingRequestMutation();
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
+if (isLoading) {
+  return (
+    <div className="w-screen h-screen flex justify-center items-center p-8">
+      <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+    </div>
+  );
+}
  
   if (error?.status === 401) {
 
