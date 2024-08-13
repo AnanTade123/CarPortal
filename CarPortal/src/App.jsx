@@ -119,7 +119,7 @@ export default function App() {
           <Route path="signup" element={<SimpleRegistrationForm />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/carlist" element={<BuyCar />} />
-          <Route path="/premiumcars" element={<PremiumCars/>} />
+          
           <Route path="/wsConnction" element={<BiddingCar />} />
           <Route
             path="/carlist/cardetails/:carId"
@@ -349,6 +349,7 @@ export default function App() {
           <Route path="/user/:userid/favorite" element={<FavoritePage/>} />
            <Route path="/user" element={<UserInfo/>} />
         </Route>
+        <Route path="/premiumcars" element={<PremiumCars/>} />
         <Route path="/user" element={<UserInfo/>} />
 <Route path="/DealerContact" element={<DealerContact/>}/>
         {/* <Route path="/trans" element={<CardDetailss/>}/> */}
