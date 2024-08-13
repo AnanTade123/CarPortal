@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Carousel } from "@material-tailwind/react";
 import { useGetbeadingCarImageQuery } from "../../services/biddingAPI";
-
+import { FiLoader } from 'react-icons/fi'; 
 // eslint-disable-next-line react/prop-types
 const BiddingCarView1 = ({ beadingCarId }) => {
   // const [img360, setImg360] = useState(true);
@@ -48,7 +48,13 @@ const BiddingCarView1 = ({ beadingCarId }) => {
     }
   }, [data]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
+  }
   if (error)
     return (
       <div className="font-[Merriweather] md:text-center text-center">
