@@ -23,7 +23,7 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { AddDealerFormSales } from "../../components/admin/AddDealerFormSales";
-
+import { FiLoader } from 'react-icons/fi'; 
 
 export default function SalesDealer() {
   const [pageNo, setPageNo] = useState(0);
@@ -218,7 +218,11 @@ const userRole = token ? jwtDecodes?.authorities[0] : null;
 
   let dealerApiData;
   if (isLoading) {
-    return <p>isLoading</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   } else {
     dealerApiData = data?.list;
   }

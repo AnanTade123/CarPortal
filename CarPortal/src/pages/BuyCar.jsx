@@ -5,11 +5,12 @@ import GridCarList from "../components/buyCar/GridCarList";
 import { useFilterCarQuery } from "../services/carAPI";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { FiLoader } from 'react-icons/fi'; 
 
 const BuyCar = () => {
   const [urlState, setUrllState] = useState(null);
  
-  const { data, error, refetch } = useFilterCarQuery(urlState);
+  const { data,isLoading, error, refetch } = useFilterCarQuery(urlState);
 
   const navigate = useNavigate();
 
@@ -17,7 +18,13 @@ const BuyCar = () => {
     Cookies.remove("token");
     navigate("/signin");
   }
-
+  if (isLoading) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
+  }
   return (
     <>
       <div className="container mx-auto mt-12">

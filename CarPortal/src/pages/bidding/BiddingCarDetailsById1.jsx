@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import BiddingCarView from "./BiddingCarView";
 import BiddingPriceCard from "./BiddingPriceCard";
 
-
+import { FiLoader } from 'react-icons/fi'; 
 import {  useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -26,12 +26,12 @@ export default function BiddingCarDetailsById1() {
   const { data : timingData , isLoading : timeIsLoding , error: timeError , refetch } = useGetByBidCarIdQuery(beadingCarId) 
   const closeTime = timingData?.object?.closingTime;
 
-  console.log("timingData",timingData?.object?.closingTime);
-
- 
-
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
 
   if (error?.status === 401) {

@@ -23,6 +23,8 @@ import { MdPendingActions } from "react-icons/md";
 import StatusDialogeBox from "../../ui/StatusDialogeBox";
 //import AddDealerCar from "../../components/dealer/AddDealerCar";
 import { useCarUpdateMutation } from "../../services/carAPI";
+import { FiLoader } from 'react-icons/fi'; import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
 
 const SellForCar = () => {
   const [pageNo, setPageNo] = useState(0);
@@ -58,6 +60,17 @@ const SellForCar = () => {
 
   const [carUpdate] = useCarUpdateMutation(deactivateId);
   const [selectedOption, setSelectedOption] = useState(status); 
+
+  const token = Cookies.get("token");
+ 
+  let jwtDecodes;
+ 
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
+ 
+ 
+  const userRole = token ? jwtDecodes?.authorities[0] : null;
  
   const handleOpenDeactivate = (carId) => {
     setOpenDeactivate(!openDeactivate);
@@ -299,17 +312,23 @@ const SellForCar = () => {
       },
     },
   ];
+  
     
 
   let dealerApiData;
   if (isLoading) {
-    return <p>isLoading</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   } else {
     dealerApiData = data?.list;
   }
 
  
   
+ 
   
   return (
     <>
@@ -511,11 +530,18 @@ const SellForCar = () => {
       {error?.status === 404 ? (
         <div>
           <p>No Data Available</p>
-          <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+
+
+
+          {userRole === "DEALER" ? (<div className="flex shrink-0 flex-col gap-2 sm:flex-row">
             <Link to={`/dealer/${id}/addcar`}>
               <Button>Add Car</Button>
             </Link>
-          </div>
+          </div>):(
+              <p className="hover:text-blue-900">Dealers </p>
+              )}
+
+          
         </div>
       ) : (
         <div>
@@ -548,20 +574,18 @@ const SellForCar = () => {
                 <Typography color="gray" className="mt-1 font-normal">
                     See Information About All Cars
                   </Typography>
-                  {/* <Typography variant="h3" className="p-2" color="blue-gray">
-                    Cars list
-                  </Typography> */}
-                  {/* <Typography color="gray" className="mt-1 font-normal">
-                    See information about all cars
-                  </Typography> */}
                 </div>
                 
-                <div className="flex shrink-0 flex-col mb-2 gap-2 sm:flex-row">
                 
-                  <Link to={`/dealer/${id}/addcar`}>
-                    <Button>Add Car</Button>
-                  </Link>
-                </div>
+                
+                {userRole === "DEALER" ? (<div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+            <Link to={`/dealer/${id}/addcar`}>
+              <Button>Add Car</Button>
+            </Link>
+          </div>):(
+              <p className="hover:text-blue-900"> </p>
+              )}
+                
               </div>
              
 
@@ -572,14 +596,13 @@ const SellForCar = () => {
             {error ? (
               <p className="text-center">car is not found</p>
             ) : (
-              <CardBody className=" px-0">
-                
-              </CardBody>
+              <div></div>
+             
             )}
 
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
               <Typography
-                variant="medium"
+                
                 color="blue-gray"
                 className="font-normal"
               >

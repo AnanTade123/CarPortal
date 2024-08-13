@@ -22,7 +22,7 @@ import {
 } from "../../services/salesAPI";
 import StatusDialogeBox from "../../ui/StatusDialogeBox";
 import SallerStatusActive from "./SallerStatusActive";
-
+import { FiLoader } from 'react-icons/fi'; 
 export default function SalesList() {
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(7);
@@ -202,7 +202,11 @@ export default function SalesList() {
 
   let sellerApiData;
   if (isLoading) {
-    return <p>isLoading</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   } else {
     sellerApiData = data?.list;
   }

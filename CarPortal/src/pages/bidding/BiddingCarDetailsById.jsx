@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useBiddingCarByIdQuery } from "../../services/biddingAPI";
 // import { redirectToSignIn } from "../services/apiSlice";
 import { useNavigate } from "react-router-dom";
-
+import { FiLoader } from 'react-icons/fi'; 
 export default function BiddingCarDetailsById() {
 
     const navigate = useNavigate();
@@ -15,7 +15,11 @@ export default function BiddingCarDetailsById() {
     isError;
   
     if (isLoading) {
-      return <p>Loading...</p>;
+      return (
+        <div className="w-screen h-screen flex justify-center items-center p-8">
+          <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+        </div>
+      );
     }
    
   //  console.log(carId);

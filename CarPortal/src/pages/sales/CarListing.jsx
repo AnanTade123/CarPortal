@@ -14,6 +14,7 @@ import {
   
   
 } from "@material-tailwind/react";
+import { FiLoader } from 'react-icons/fi'; 
 
 
 
@@ -231,7 +232,11 @@ export default function CarListing() {
   const paginatedData = filteredCars ? filteredCars.slice(startIndex, endIndex) : [];
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
 
   return (

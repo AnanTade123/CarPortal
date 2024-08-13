@@ -21,7 +21,6 @@ export const WebSocketProvider = ({ children }) => {
     const stompClient = new Client({
       webSocketFactory: () => socket,
       debug: (str) => {
-        // console.log(str);
       },
       onConnect: () => {
         setIsConnected(true);

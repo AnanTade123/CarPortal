@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import DealerCarPendingRequest from "../../components/carDetails/DealerCarPendingRequest";
 import { useState } from "react";
 import { Button, CardFooter, Typography } from "@material-tailwind/react";
-
+import { FiLoader } from 'react-icons/fi'; 
 const DealerAllPendingRequest = () => {
   const { id } = useParams();
   const [pageNo, setPageNo] = useState(0);
@@ -23,6 +23,13 @@ const DealerAllPendingRequest = () => {
       }
     });
   };
+  if (isLoading) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
+  }
 
   const renderData = data?.list.map((item, index) => {
     return (
@@ -32,44 +39,13 @@ const DealerAllPendingRequest = () => {
     );
   });
   if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
     return (
-      <div>
-        <p className="flex justify-center mt-2">No Data Available</p>
-
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-          <Typography
-            variant="medium"
-            color="blue-gray"
-            className="font-normal"
-          >
-            Page {pageNo + 1}
-          </Typography>
-          <div className="flex gap-2">
-            <Button
-              variant="outlined"
-              size="sm"
-              disabled={pageNo <= 0}
-              onClick={() => setPageNo((a) => a - 1)}
-            >
-              Previous
-            </Button>
-            <Button
-              variant="outlined"
-              size="sm"
-              onClick={nextHandler}
-              disabled={data?.list.length < 10}
-            >
-              Next
-            </Button>
-          </div>
-        </CardFooter>
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
       </div>
     );
   }
+
 
   return (
     <>
@@ -94,7 +70,7 @@ const DealerAllPendingRequest = () => {
             variant="outlined"
             size="sm"
             onClick={nextHandler}
-            disabled={data?.list?.length < 10}
+            disabled={data?.list.length < 10}
           >
             Next
           </Button>

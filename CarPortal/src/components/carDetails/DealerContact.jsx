@@ -6,7 +6,7 @@ import { IoLogoWhatsapp } from 'react-icons/io';
 import { MdEmail, MdPerson } from 'react-icons/md';
 import { useGetDealerQuery } from "../../services/dealerAPI";
 import CardUi from '../../ui/CardUi';
-
+import { FiLoader } from 'react-icons/fi'; 
 const DealerContact = ({ dealer_id }) => {
   const { data, isLoading, isError, error } = useGetDealerQuery({ id: dealer_id });
 
@@ -22,7 +22,11 @@ const DealerContact = ({ dealer_id }) => {
   } = data || {};
 
   if (isLoading) {
-    return <></>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
 
   return (
