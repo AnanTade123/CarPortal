@@ -3,6 +3,7 @@ import { useGetAllUserConfirmQuery } from "../services/carAPI";
 import CardUi from "../ui/CardUi";
 // import { Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import { FiLoader } from 'react-icons/fi'; 
 // import CardUi from "../ui/CardUi";
 // import Chip from "@material-tailwind/react";
 const UserConfirmBooking = () => {
@@ -12,6 +13,13 @@ const UserConfirmBooking = () => {
   // console.log(data?.bookingDto);
   // console.log(isLoading);
   // console.log(error);
+  if (isLoading) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
+  }
   return ( 
     <div className="space-y-4 mt-12">
     

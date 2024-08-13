@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useEffect, useRef, useState } from 'react';
 import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles } from '@material-ui/core';
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Interior = () => {
+const Interior = ({setCheckstep}) => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
  
@@ -202,7 +203,19 @@ const Interior = () => {
       }
     });
   }, [data]);
-
+  if (
+    formData.LeatherSeat.trim() !== '' &&
+    formData.Odometer.trim() !== '' &&
+    formData.CabinFloor.trim() !== '' &&
+    formData.Dashboard.trim() !== ''
+  ) {
+    setCheckstep(true);
+    
+  } else {
+    setCheckstep(false);
+    
+  }
+  
   // const handleImageClick = (image) => {
   //   setSelectedImage(image);
   //   setOpenModal(true);

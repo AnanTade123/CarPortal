@@ -17,7 +17,7 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useLazyGetDealerByUserIdQuery } from "../../services/dealerAPI";
 import { Link } from "react-router-dom";
-
+import { FiLoader } from 'react-icons/fi'; 
 const WinnerSection = () => {
   const token = Cookies.get("token");
   let jwtDecodes;
@@ -40,6 +40,7 @@ const WinnerSection = () => {
   let [trigger] = useLazyBiddingCarByIdQuery();
   let [triggerGetDealer] = useLazyGetDealerByUserIdQuery();
   const [liveCarsWinData, setLiveCarsWinData] = useState([]);
+  
 
   useEffect(() => {
     const fetchServiceProducts = async () => {
@@ -116,7 +117,7 @@ const WinnerSection = () => {
     },
     {
       Header: "Dealer Name",
-      accessor: "firstName",
+      accessor: (row) => `${row.firstName} ${row.lastName}`
     },
     {
       Header: "Action",
@@ -151,6 +152,13 @@ const WinnerSection = () => {
     },
   ];
 
+  if (isLoading) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
+  }
   if (error?.status === 404) {
     return (
       <div>

@@ -7,6 +7,7 @@ import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FiLoader } from 'react-icons/fi'; 
 import { Link} from "react-router-dom";
 import { Typography } from "@material-tailwind/react";
  
@@ -87,7 +88,11 @@ const   AdminInspectorEdit = () => {
   };
  
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
  
   if (isError) {

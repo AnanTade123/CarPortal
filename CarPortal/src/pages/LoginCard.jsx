@@ -123,14 +123,13 @@ export function LoginCard() {
               </Link>
             </div>
             <div className="flex justify-center">
-                <p className="text-sm ml-5">Forget Password ? </p>
                 <Link to="/forgetPassword">
                 <Typography
                   variant="small"
                   color="blue-gray"
                   className="ml-1 font-bold"
                 >
-                  Forget Password
+                  Forget Password ?
                 </Typography>
               </Link>
               </div>
