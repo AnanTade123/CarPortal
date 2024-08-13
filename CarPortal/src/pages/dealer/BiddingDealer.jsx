@@ -8,7 +8,7 @@ import {
   CardFooter,
 } from "@material-tailwind/react";
 import { useBiddingCarByDealerIdQuery, useGetByDealerIdQuery } from "../../services/biddingAPI";
-
+import { FiLoader } from 'react-icons/fi'; 
 import TableComponent from "../../components/table/TableComponent";
 import { Link,useParams } from "react-router-dom";
 import { MdPendingActions } from "react-icons/md";
@@ -40,7 +40,11 @@ const BiddingDealer = () => {
   const {data,isLoading , error} = useGetByDealerIdQuery(dealerId);
   // console.log(data)
   if (isLoading) {
-    return <p>Loading..</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
   // const userId = data[0].userId; // Access userId from the first object
   // console.log('User ID:', userId);
@@ -213,7 +217,11 @@ const BiddingDealer = () => {
 // console.log(columns);
   let dealerApiData;
   if (isLoading) {
-    return <p>isLoading</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   } else {
     dealerApiData = data;
   }

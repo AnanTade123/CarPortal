@@ -10,6 +10,7 @@ import {
   Tooltip,
  
 } from "@material-tailwind/react";
+import { FiLoader } from 'react-icons/fi'; 
 import { useEffect, useState } from "react";
 import {
   ChevronUpDownIcon,
@@ -69,7 +70,11 @@ export default function ListTable() {
   };
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
 
   return (

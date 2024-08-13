@@ -15,7 +15,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
-
+import { FiLoader } from 'react-icons/fi'; 
 const BiddingDealerCars = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -60,7 +60,11 @@ const BiddingDealerCars = () => {
   }, [data]);
 
   if (isLoading) {
-    return <p>Loading..</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
 
   // if (error?.status == 401) {

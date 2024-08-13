@@ -4,7 +4,7 @@ import { Button } from "@material-tailwind/react";
 import { useSellerByIdQuery } from "../../services/salesAPI";
 import Cookies from "js-cookie";
 import {jwtDecode} from "jwt-decode";
-
+import { FiLoader } from 'react-icons/fi'; 
 const AdminSalesInfo = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
@@ -48,7 +48,13 @@ const AdminSalesInfo = () => {
       address,
     } = {},
   } = data || {};
-
+  if (isLoading) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
+  }
   return (
     <>
       <div className="text-3xl font-bold mt-5 mb-8 ml-4 md:ml-12 xl:mb-[-2rem] md:mb-8">

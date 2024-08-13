@@ -1,6 +1,6 @@
 
 import { Carousel } from "@material-tailwind/react";
-
+import { Link } from 'react-router-dom';
 import pre4 from "/cars/pre4.jpg";
 import pre5 from "/cars/pre5.jpg";
 import pre6 from "/cars/pre6.jpg";
@@ -12,7 +12,7 @@ const PremiumCars = () => {
             <Carousel
                 className=" overflow-hidden"
                 autoplay
-                autoplayDelay={5000}
+                autoplayDelay={3000}
                 loop
             >
                <div className="relative overflow-hidden">
@@ -24,11 +24,16 @@ const PremiumCars = () => {
                             Premium Cars Collection...
                         </div>
                         <p className="text-white font-bold mb-5  text-xs lg:w-2/3 md:text-xl rounded">
-                    Car Is Where Early Adopters And Innovation Seekers Lively Imaginative Tech Before It Hits The Mainstream
-                    </p>
-                   
+                            Car Is Where Early Adopters And Innovation Seekers Lively Imaginative Tech Before It Hits The Mainstream
+                        </p>
+                    <Link to="/PremiumCarList">
+                        <button className="p-1 md:p-4 rounded-md bg-white">
+                            <h1 className="text-center text-xs md:text-sm font-semibold"> GO TO LISTING </h1>
+                        </button>
+                    </Link>
+                
                     </div>
-                    </div>
+                </div>
                   
                    
                 </div>

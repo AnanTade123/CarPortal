@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import DealerCarPendingRequest from "../../components/carDetails/DealerCarPendingRequest";
 import { useState } from "react";
 import { Button, CardFooter, Typography } from "@material-tailwind/react";
-
+import { FiLoader } from 'react-icons/fi'; 
 const DealerAllPendingRequest = () => {
   const { id } = useParams();
   const [pageNo, setPageNo] = useState(0);
@@ -23,10 +23,12 @@ const DealerAllPendingRequest = () => {
       }
     });
   };
-  if (!data) {
-    return <div className="flex justify-center mt-5">
-      <p className="text-4xl font-semibold">No Data Available</p>
-    </div>
+  if (isLoading) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
 
   const renderData = data?.list.map((item, index) => {
@@ -37,7 +39,11 @@ const DealerAllPendingRequest = () => {
     );
   });
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
 
 
