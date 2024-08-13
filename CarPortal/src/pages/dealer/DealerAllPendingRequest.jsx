@@ -30,7 +30,7 @@ const DealerAllPendingRequest = () => {
       <div className="w-screen h-screen flex justify-center items-center p-8">
         <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
       </div>
-    );
+    );}
   if (!data) {
     return <div> 
       <div className="flex justify-center mt-14">

@@ -276,6 +276,16 @@ export default function Admin() {
                   >
                     See information about all Dealers
                   </Typography>
+                  <span className="mt-1 hidden xl:block">
+                <div className="flex">
+                <Link to={"/"}>
+              <p className="hover:text-blue-900"> Home</p> 
+              </Link>
+              /
+
+              <p>Dealers</p>
+              </div>
+              </span>
                 </div>
                 <div className="flex shrink-0 flex-col gap-2 sm:flex-row items-center">
                   <AddDealerForm />
@@ -315,89 +325,7 @@ export default function Admin() {
           </Card>
         </div>
       )}
-           <p className="text-3xl font-semibold ">No Data Available</p>
-           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-           <></>
-           <AddDealerForm />
-            </div>
-            </div>
-            ):
-            ( <div>
-            <Card className="h-full w-full">
-      <Dialog open={open} handler={handleOpen}>
-      <DialogBody className="flex justify-center" >
-        <p className="font-semibold text-xl">Are you sure want to delete?</p> 
-        </DialogBody>
-        <DialogFooter className="flex justify-center">
-          <Button
-            variant="text"
-            color="red"
-            onClick={handleOpen}
-            className="mr-1"
-          >
-            <span>Cancel</span>
-          </Button>
-          <Button variant="gradient" color="green" onClick={handleOpen1}>
-            <span>Confirm</span>
-          </Button>
-        </DialogFooter>
-      </Dialog>
-        <CardHeader floated={false} shadow={false} className="rounded-none">
-          <div className="flex flex-col sm:flex-row justify-between gap-4">
-            <div>
-              <Typography variant="h5" color="blue-gray" className="text-center lg:text-start">
-               Dealer List
-              </Typography>
-              <Typography color="gray" className="mt-1 font-normal text-center lg:text-start">
-                See information about all Dealers
-              </Typography>
-              <span className="mt-1 hidden xl:block">
-                <div className="flex">
-                <Link to={"/"}>
-              <p className="hover:text-blue-900"> Home</p> 
-              </Link>
-              /
-
-              <p>Dealers</p>
-              </div>
-              </span>
-            </div>
-            <div className="flex shrink-0 flex-col gap-2 sm:flex-row items-center">
-            <AddDealerForm />
-            </div>
-          </div>
-        </CardHeader>
-        <CardBody className="md:overflow-auto overflow-scroll px-1">
-          <TableComponent columns={columns} data={dealerApiData} />
-        </CardBody>
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-          <Typography
-            variant="medium"
-            color="blue-gray"
-            className="font-normal"
-          >
-            Page {pageNo + 1}
-          </Typography>
-          <div className="flex gap-2">
-            <Button
-              variant="outlined"
-              size="sm"
-              disabled={pageNo <= 0}
-              onClick={() => setPageNo((a) => a - 1)}
-            >
-              Previous
-            </Button>
-            <Button
-              variant="outlined"
-              size="sm"
-              onClick={nextHandler}
-              disabled={data?.list?.length < 10}
-            >
-              Next
-            </Button>
-          </div>
-        </CardFooter>
-      </Card></div>)}
+           
      
     </>
   );
