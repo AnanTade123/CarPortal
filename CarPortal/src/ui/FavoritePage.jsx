@@ -7,7 +7,7 @@ import {
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import FavCard from "./FavCard";
-
+import { FiLoader } from 'react-icons/fi'; 
 export function FavoritePage() {
   const token = Cookies.get("token");
   const navigate = useNavigate();
@@ -24,7 +24,11 @@ export function FavoritePage() {
   } = useGetbyUserCarIdQuery({ UserId });
  
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
 
   if (error?.status === 401) {

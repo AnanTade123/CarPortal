@@ -16,6 +16,7 @@ import {
   DialogHeader,
   Typography,
 } from "@material-tailwind/react";
+import { FiLoader } from 'react-icons/fi'; 
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { CarouselCustomArrows } from "../../ui/CarouselCustomArrows";
@@ -26,7 +27,7 @@ const OrderDealer = () => {
   const [pageNo, setPageNo] = useState(0);
   const [revertId, setRevertId] = useState("");
 
-  const { data, error, isLoading, refetch } =
+  const { data,isLoading, error, refetch } =
     useGetAllDealerCompleteBookingQuery({
       pageNo,
       id,
@@ -61,14 +62,17 @@ const OrderDealer = () => {
       // console.log("Error :", error);
     }
   };
-  if (!data) {
-    return <div className="flex justify-center mt-5">
-      <p className="text-4xl font-semibold">No Data Available</p>
-    </div>
+  if (isLoading) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
 
   const renderData = data?.bookings?.map((item, index) => {
     const carid = item?.carId;
+   
     return (
       <div className="md:mx-10 mx-5 mt-3 mb-3" key={index}>
         <CardUi>
@@ -180,9 +184,12 @@ const OrderDealer = () => {
     );
   });
   if (isLoading) {
-    return <p>Loading.....</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
-
 
   return (
     <>
