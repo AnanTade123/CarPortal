@@ -26,10 +26,6 @@ export default function BiddingCarDetailsById1() {
   const { data : timingData , isLoading : timeIsLoding , error: timeError , refetch } = useGetByBidCarIdQuery(beadingCarId) 
   const closeTime = timingData?.object?.closingTime;
 
-  console.log("timingData",timingData?.object?.closingTime);
-
- 
-
   if (isLoading) {
     return <p>Loading...</p>;
   }

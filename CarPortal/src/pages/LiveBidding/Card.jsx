@@ -19,7 +19,7 @@ const Card = ({ cardData }) => {
     const [timeLeft, setTimeLeft] = useState('');
     const bidCarId = cardData?.bidCarId;
     const [highestBid , setHighestBid] = useState(cardData?.basePrice);
-    const { client ,getLiveCars} = useWebSocket();
+    const { client ,getLiveCars ,isConnected} = useWebSocket();
 
     useEffect(() => {
         const updateTimer = () => {
@@ -63,10 +63,10 @@ const Card = ({ cardData }) => {
     //     fetchTopThreeBids();
     //   }, [isConnected, bidCarId]);
     useEffect(() => {
-        if(bidCarId){
+        if(bidCarId && isConnected){
             refreshTopThreeBids(bidCarId);
         }
-    },[bidCarId]);
+    },[bidCarId,isConnected]);
 
     const refreshTopThreeBids = (bidCarId) => {
         // console.log("topThreeBidsAmount",bidCarId)
