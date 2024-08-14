@@ -923,8 +923,8 @@ const Structure = ({ handleCameraModal,
             <InputLabel>Right Pillar C </InputLabel>
             <Select
             required
-              name="RightPillar"
-              value={formData.RightPillar}
+              name="RightPillarC"
+              value={formData.RightPillarC}
               onChange={handleChange}
             >
               <MenuItem value="Ok">Ok</MenuItem>
