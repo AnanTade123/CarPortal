@@ -118,6 +118,10 @@ export default function CarListing() {
       }
     },
     {
+      Header: "Code",
+      accessor: "uniqueBeadingCarId",
+    },
+    {
       Header: "Id",
       accessor: "beadingCarId",
     },
