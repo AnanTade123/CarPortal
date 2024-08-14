@@ -81,19 +81,19 @@ const SellForCar = () => {
  
   // For calculating Percentage
   const PertotalCars = Math.ceil((totalCars/totalCars)*100)
-  console.log("active",PertotalCars)
+  // console.log("active",PertotalCars)
 
-  const perActive = Math.ceil((activeCars/totalCars)*100)
-  console.log("active",perActive)
+  const perActive = Math.floor((activeCars/totalCars)*100)
+  // console.log("active",perActive)
 
   const perPending = Math.ceil((pendingCars/totalCars)*100)
-  console.log("active",perPending)
+  // console.log("active",perPending)
 
-  const perSold = Math.ceil((sellCars/totalCars)*100)
-  console.log("active",perSold)
+  const perSold = Math.floor((sellCars/totalCars)*100)
+  //  console.log("active",perSold)
 
-  const perDeactive = Math.ceil((deactiveCars/totalCars)*100)
-  console.log("active",perDeactive)
+  const perDeactive = Math.floor((deactiveCars/totalCars)*100)
+  // console.log("active",perDeactive)
 
   const handleOpenAactivate = (carId) => {
     setOpenActivate(!openActivate);
@@ -333,42 +333,48 @@ const SellForCar = () => {
   return (
     <>
     
-     <div className="  justify-center   lg:grid lg:grid-cols-5  md:grid md:grid-cols-3 ">
+     <div className="  justify-center   lg:grid lg:grid-cols-5  md:grid md:grid-cols-3">
         <div className="p-5">
  
-          <Card className="w-full">
-        <CardBody className=" justify-center items-center">
-          <ApexCharts
-            options={{
-              chart: { type: 'radialBar', height: 200 },
-              plotOptions: {
-                radialBar: {
-                  hollow: { size: '70%' },
-                  dataLabels: { 
-                    name: {
-                      show: false // Hide the series name
-                    },
-                    value: {
-                      show: true // Ensure the percentage is shown
-                    }
-                  }
-                }
+        <Card className="w-full">
+  <CardBody className="justify-center items-center">
+    <ApexCharts
+      options={{
+        chart: { type: 'radialBar', height: 200 },
+        plotOptions: {
+          radialBar: {
+            hollow: { size: '40%' },
+            dataLabels: {
+              name: {
+                show: false, // Hide the series name
               },
-              labels: [], // Clear any additional labels if needed
-              tooltip: {
-                enabled: false // Keep the tooltip enabled if you want to show percentage on hover
-              }
-            }}
-            series={[PertotalCars]}
-            type="radialBar"
-            height={200}
-            
-          />
-          <Typography className="flex justify-center items-center">
-          Total Cars
+              value: {
+                fontSize: '16px', // Adjust font size if needed
+                color: '#000', // Set text color
+                offsetY:+7,
+                          show: true // Ensure the percentage is shown
+              },
+            },
+          },
+        },
+        colors: ['#007BFF'],
+        labels: [], // Clear any additional labels if needed
+        tooltip: {
+          enabled: false, // Disable tooltip if not needed
+        },
+      }}
+      series={[PertotalCars || 0]} // Default to 0% if PertotalCars is undefined or null
+      type="radialBar"
+      height={200}
+    />
+    <Typography className="flex justify-center items-center font-bold">
+      Total Cars
+    </Typography>
+    <Typography className="flex justify-center items-center font-bold">
+{totalCars}
 </Typography>
-         </CardBody>
-         </Card>
+  </CardBody>
+</Card>
         </div>
 
         <div onClick={handleFilterActiveCars} className="p-5">
@@ -381,29 +387,37 @@ const SellForCar = () => {
               chart: { type: 'radialBar', height: 200 },
               plotOptions: {
                 radialBar: {
-                  hollow: { size: '70%' },
+                  hollow: { size: '40%' },
                   dataLabels: { 
                     name: {
                       show: false // Hide the series name
                     },
                     value: {
+                      fontSize: '16px', // Adjust font size if needed
+            color: '#000', // Set text color
+            offsetY:+7,
                       show: true // Ensure the percentage is shown
                     }
                   }
                 }
+            
               },
+              colors: ['#28A745'],
               labels: [], // Clear any additional labels if needed
               tooltip: {
                 enabled: false // Keep the tooltip enabled if you want to show percentage on hover
               }
             }}
-            series={[perActive]}
+            series={[perActive || 0]}
             type="radialBar"
-            height={300}
+            height={200}
             
           />
-          <Typography className="flex justify-center items-center">
+          <Typography className="flex justify-center items-center font-bold">
            Active  Cars
+</Typography>
+<Typography className="flex justify-center items-center font-bold">
+{activeCars}
 </Typography>
          </CardBody>
          </Card>
@@ -422,29 +436,36 @@ const SellForCar = () => {
               chart: { type: 'radialBar', height: 200 },
               plotOptions: {
                 radialBar: {
-                  hollow: { size: '70%' },
+                  hollow: { size: '40%' },
                   dataLabels: { 
                     name: {
                       show: false // Hide the series name
                     },
                     value: {
-                      show: true // Ensure the percentage is shown
+                      fontSize: '16px', // Adjust font size if needed
+                      color: '#000', // Set text color
+                      offsetY:+7,
+                                show: true// Ensure the percentage is shown
                     }
                   }
                 }
               },
+              colors: ['#FFC107'],
               labels: [], // Clear any additional labels if needed
               tooltip: {
                 enabled: false // Keep the tooltip enabled if you want to show percentage on hover
               }
             }}
-            series={[perPending]}
+            series={[perPending || 0]}
             type="radialBar"
-            height={300}
+            height={200}
             
           />
-          <Typography className="flex justify-center items-center">
+          <Typography className="flex justify-center items-center font-bold">
            Pending  Cars
+</Typography>
+<Typography className="flex justify-center items-center font-bold">
+{pendingCars}
 </Typography>
          </CardBody>
          </Card>
@@ -462,29 +483,36 @@ const SellForCar = () => {
               chart: { type: 'radialBar', height: 200 },
               plotOptions: {
                 radialBar: {
-                  hollow: { size: '70%' },
+                  hollow: { size: '40%' },
                   dataLabels: { 
                     name: {
                       show: false // Hide the series name
                     },
                     value: {
-                      show: true // Ensure the percentage is shown
+                      fontSize: '16px', // Adjust font size if needed
+                      color: '#000', // Set text color
+                      offsetY:+7,
+                                show: true// Ensure the percentage is shown
                     }
                   }
                 }
               },
+              colors: ['#87CEEB'],
               labels: [], // Clear any additional labels if needed
               tooltip: {
                 enabled: false // Keep the tooltip enabled if you want to show percentage on hover
               }
             }}
-            series={[perSold]}
+            series={[perSold ||0]}
             type="radialBar"
-            height={300}
+            height={200}
             
           />
-          <Typography className="flex justify-center items-center">
+          <Typography className="flex justify-center items-center font-bold">
           Sold Cars 
+</Typography>
+<Typography className="flex justify-center items-center font-bold">
+{sellCars}
 </Typography>
          </CardBody>
          </Card>
@@ -499,29 +527,36 @@ const SellForCar = () => {
               chart: { type: 'radialBar', height: 200 },
               plotOptions: {
                 radialBar: {
-                  hollow: { size: '70%' },
+                  hollow: { size: '40%' },
                   dataLabels: { 
                     name: {
                       show: false // Hide the series name
                     },
                     value: {
+                      fontSize: '16px', // Adjust font size if needed
+            color: '#000', // Set text color
+            offsetY:+7,
                       show: true // Ensure the percentage is shown
                     }
                   }
                 }
               },
+              colors: ['#FF0000'],
               labels: [], // Clear any additional labels if needed
               tooltip: {
                 enabled: false // Keep the tooltip enabled if you want to show percentage on hover
               }
             }}
-            series={[perDeactive]}
+            series={[perDeactive ||0 ]}
             type="radialBar"
-            height={300}
+            height={200}
             
           />
-          <Typography className="flex justify-center items-center">
+          <Typography className="flex justify-center items-center font-bold">
           Deactive Cars
+</Typography>
+<Typography className="flex justify-center items-center font-bold">
+{deactiveCars}
 </Typography>
          </CardBody>
          </Card>
