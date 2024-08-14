@@ -120,6 +120,16 @@ const CarDocumentSection = ({ inspData }) => {
             </Typography>
           </Grid>
 
+          {/*NOC Sta */}
+          {/* <Grid item xs={12} sm={6}>
+            <Typography variant="body1">
+              NOC Status:{" "}
+              <span className="font-semibold">
+                {inspData?.object.NOCStatus}
+              </span>
+            </Typography>
+          </Grid> */}
+
           {/* Chassis Number Embossing */}
           <Grid item xs={12} sm={6}>
             <Typography variant="body1">

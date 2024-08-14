@@ -130,15 +130,13 @@ export default function Admin() {
 
     {
       Header: "Cars",
-      accessor: "Cars",
+      accessor: "totalCarCount", // This can remain as is, or adjust based on your needs
       Cell: (cell) => {
         return (
-          <div>
-            <div className="flex justify-center items-center  ">
-              <Link to={`/admin/dealer/${cell.row.values.dealer_id}`}>
-                <FaCar size={30} />
-              </Link>
-            </div>
+          <div className="flex justify-center items-center">
+            <Link to={`/admin/dealer/${cell.row.values.dealer_id}`}>
+              {cell.row.values.totalCarCount}
+            </Link>
           </div>
         );
       },
@@ -276,6 +274,16 @@ export default function Admin() {
                   >
                     See information about all Dealers
                   </Typography>
+                  <span className="mt-1 hidden xl:block">
+                <div className="flex">
+                <Link to={"/"}>
+              <p className="hover:text-blue-900"> Home</p> 
+              </Link>
+              /
+
+              <p>Dealers</p>
+              </div>
+              </span>
                 </div>
                 <div className="flex shrink-0 flex-col gap-2 sm:flex-row items-center">
                   <AddDealerForm />
@@ -315,6 +323,8 @@ export default function Admin() {
           </Card>
         </div>
       )}
+           
+     
     </>
   );
 }

@@ -252,6 +252,16 @@ export default function SalesList() {
                   <Typography color="gray" className="mt-1 font-normal">
                     See Information About All Sales Person
                   </Typography>
+                  <Typography className="hidden xl:block">
+        <div className="flex">
+      <Link to={"/"}>
+              <p className="hover:text-blue-900"> Home </p> 
+              </Link>
+               /
+              <p >Seller</p>
+              
+              </div>
+      </Typography>
                 </div>
                 <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
                   <AddSalesForm />
