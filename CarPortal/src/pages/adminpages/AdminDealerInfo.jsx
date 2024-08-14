@@ -51,7 +51,7 @@ console.log(profiledata)
       <div className="text-3xl font-bold mt-5 mb-4 ml-4 md:ml-16 xl:mb-[-1rem]  md:mb-8">
         Profile Information
       </div>
-      {userRole === "ADMIN" ? ( <Typography className=" lg:mt-5 ml-4 hidden md:mb-8 xl:block xl:mb-[-3rem] lg:ml-16 ">
+      {userRole === "ADMIN" || userRole === "SALESPERSON" ? ( <Typography className=" lg:mt-5 ml-4 hidden md:mb-8 xl:block xl:mb-[-3rem] lg:ml-16 ">
         <div className="flex">
       <Link to={"/"}>
               <p className="hover:text-blue-900"> Home </p> 
