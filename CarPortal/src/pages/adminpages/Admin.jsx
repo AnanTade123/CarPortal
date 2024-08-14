@@ -130,15 +130,13 @@ export default function Admin() {
 
     {
       Header: "Cars",
-      accessor: "Cars",
+      accessor: "totalCarCount", // This can remain as is, or adjust based on your needs
       Cell: (cell) => {
         return (
-          <div>
-            <div className="flex justify-center items-center  ">
-              <Link to={`/admin/dealer/${cell.row.values.dealer_id}`}>
-                <FaCar size={30} />
-              </Link>
-            </div>
+          <div className="flex justify-center items-center">
+            <Link to={`/admin/dealer/${cell.row.values.dealer_id}`}>
+              {cell.row.values.totalCarCount}
+            </Link>
           </div>
         );
       },
