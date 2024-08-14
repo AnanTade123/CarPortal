@@ -242,7 +242,7 @@ export default function CarListing() {
   return (
     <>
       {/* <h1 className="mt-2 text-xl ml-2 mb-5 font-bold">Car Listing</h1> */}
-      <div className="flex flex-wrap justify-center mx-5 mb-8 lg:mt-6 grid md:grid-cols-3 lg:grid-cols-5">
+      <div className=" flex flex-wrap justify-center mx-5 mb-8 lg:mt-6  lg:grid lg:grid-cols-5 md:grid md:grid-cols-3">
         <div 
           onClick={() => handleFilterCars("ALL")}
           className="p-5"
@@ -459,7 +459,7 @@ export default function CarListing() {
             height={200}
             
           />
-          <Typography className="flex justify-center items-center font-bold">
+          <Typography className="flex justify-center items-center font-bold  whitespace-nowrap" >
           Inspection Done Cars
 </Typography>
 <Typography className="flex justify-center items-center font-bold">

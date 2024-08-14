@@ -443,7 +443,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
           color="blue-gray"
           className={`p-3 rounded-md font-normal ${
             window.location.pathname === "/" ? "bg-indigo-200 text-white" : ""
-          } hover:bg-gray-200`}
+          } hover:bg-gray-200 `}
           onClick={handleMenuItemClick}
         >
           Home
