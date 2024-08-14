@@ -6,18 +6,14 @@ import {
   useAllDealerFinalBidQuery,
   useLazyBiddingCarByIdQuery,
 } from "../../services/biddingAPI";
-import {
-  CardFooter,
-  Typography,
-  Button,
-} from "@material-tailwind/react";
+import { CardFooter, Typography, Button } from "@material-tailwind/react";
 import TableComponent from "../../components/table/TableComponent";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useLazyGetDealerByUserIdQuery } from "../../services/dealerAPI";
 import { Link } from "react-router-dom";
-import { FiLoader } from 'react-icons/fi'; 
+import { FiLoader } from "react-icons/fi";
 const WinnerSection = () => {
   const token = Cookies.get("token");
   let jwtDecodes;
@@ -35,12 +31,10 @@ const WinnerSection = () => {
     isLoading,
     error,
   } = useAllDealerFinalBidQuery({ UserID, pageNo, pageSize });
- 
 
   let [trigger] = useLazyBiddingCarByIdQuery();
   let [triggerGetDealer] = useLazyGetDealerByUserIdQuery();
   const [liveCarsWinData, setLiveCarsWinData] = useState([]);
-  
 
   useEffect(() => {
     const fetchServiceProducts = async () => {
@@ -78,7 +72,6 @@ const WinnerSection = () => {
       }
     };
 
-    
     fetchServiceProducts();
   }, [didData, trigger, triggerGetDealer]);
   const nextHandler = () => {
@@ -92,6 +85,8 @@ const WinnerSection = () => {
       setPageNo((prevPageNo) => prevPageNo - 1);
     }
   };
+
+  console.log(liveCarsWinData);
 
   const columns = [
     {
@@ -117,17 +112,22 @@ const WinnerSection = () => {
     },
     {
       Header: "Dealer Name",
-      accessor: (row) => `${row.firstName} ${row.lastName}`
+      accessor: (row) => `${row.firstName} ${row.lastName}`,
+    },
+    {
+      Header: "Bid Car ID",
+      accessor: "beadingCarId", // Include it as an accessor
+      show: false, // Hide this column in the UI
     },
     {
       Header: "Action",
       Cell: (cell) => {
-        
+        console.log(cell.row.values);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
               <Link
-                to={`/biddinglist/cardetails/${cell.row.values.bidCarId}/success`}
+                to={`/biddinglist/cardetails/${cell.row.values.beadingCarId}/success`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -163,14 +163,12 @@ const WinnerSection = () => {
     return (
       <div>
         <div className="flex justify-center mt-14">
-      <img
-          className="w-40"
-          src={emptyImage}
-          alt="no data"
-        />
+          <img className="w-40" src={emptyImage} alt="no data" />
         </div>
-        <p className="flex justify-center text-2xl md:text-3xl font-semibold">No Data Available</p>
-        </div>
+        <p className="flex justify-center text-2xl md:text-3xl font-semibold">
+          No Data Available
+        </p>
+      </div>
     );
   }
 
