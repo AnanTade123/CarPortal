@@ -333,7 +333,7 @@ const SellForCar = () => {
   return (
     <>
     
-     <div className="  justify-center   lg:grid lg:grid-cols-5  md:grid md:grid-cols-3">
+     <div className="justify-center  lg:grid lg:grid-cols-5  md:grid md:grid-cols-3">
         <div className="p-5">
  
         <Card className="w-full">
@@ -573,7 +573,7 @@ const SellForCar = () => {
               <Button>Add Car</Button>
             </Link>
           </div>):(
-              <p className="hover:text-blue-900">Dealers </p>
+              <p className="hover:text-blue-900"> </p>
               )}
 
           

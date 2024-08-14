@@ -242,7 +242,7 @@ export default function CarListing() {
   return (
     <>
       {/* <h1 className="mt-2 text-xl ml-2 mb-5 font-bold">Car Listing</h1> */}
-      <div className="flex flex-wrap justify-center  lg:grid lg:grid-cols-5 md:grid md:grid-cols-3">
+      <div className=" flex flex-wrap justify-center mx-5 mb-8 lg:mt-6  lg:grid lg:grid-cols-5 md:grid md:grid-cols-3">
         <div 
           onClick={() => handleFilterCars("ALL")}
           className="p-5"
@@ -253,10 +253,10 @@ export default function CarListing() {
         <CardBody className=" justify-center items-center">
           <ApexCharts
             options={{
-              chart: { type: 'radialBar', height: 200 },
+              chart: { type: 'radialBar',  height: window.innerWidth < 640 ? 250 : 200,},
               plotOptions: {
                 radialBar: {
-                  hollow: { size: '40%' },
+                  hollow: {     size: window.innerWidth < 640 ? '50%' : '40%', },
                   dataLabels: { 
                     name: {
                       show: false // Hide the series name
@@ -265,7 +265,8 @@ export default function CarListing() {
                       show: true ,// Ensure the percentage is shown
                       fontSize: '16px', // Adjust font size if needed
             color: '#000', // Set text color
-            offsetY:+7
+            offsetY:+7,
+            
                     }
                   }
                 }
@@ -278,10 +279,10 @@ export default function CarListing() {
             }}
             series={[PertotalCars || 0 ]}
             type="radialBar"
-            height={200}
-            
+            height={window.innerWidth < 640 ? 250 : 200}
+           
           />
-          <Typography className="flex justify-center items-center font-bold">
+          <Typography className="flex justify-center items-center font-bold  ">
           Total Cars
 </Typography>
 <Typography className="flex justify-center items-center font-bold">
@@ -297,7 +298,7 @@ export default function CarListing() {
 {/* 
           <div className="text-4xl font-bold text-white">{`${activeCars}/${totalCars}`}</div>
           <div className="mt-2 font-medium">Active Cars</div> */}
-          <Card className="w-full">
+          <Card className="w-full ">
         <CardBody className=" justify-center items-center">
           <ApexCharts
             options={{
@@ -458,7 +459,7 @@ export default function CarListing() {
             height={200}
             
           />
-          <Typography className="flex justify-center items-center font-bold">
+          <Typography className="flex justify-center items-center font-bold  whitespace-nowrap" >
           Inspection Done Cars
 </Typography>
 <Typography className="flex justify-center items-center font-bold">
