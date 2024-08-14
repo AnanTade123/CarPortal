@@ -1,13 +1,13 @@
 import  { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
-
+ 
 const ContactUs = () => {
     const form = useRef();
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-
+ 
     const sendEmail = (e) => {
         e.preventDefault();
-
+ 
         emailjs.sendForm('service_g54e1qn', 'template_atq1r34', form.current, 'E-s2TiiRkbTEwB44F')
             .then(
                 (result) => {
@@ -15,14 +15,14 @@ const ContactUs = () => {
                     setShowSuccessMessage(true);
                     setTimeout(() => {
                         setShowSuccessMessage(false);
-                    }, 3000); 
+                    }, 3000);
                 },
                 (error) => {
                     console.log('FAILED...', error.text);
                 }
             );
     };
-
+ 
     return (
         <section className="bg-white-50 dark:bg-slate-800" id="contact">
             <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
@@ -60,7 +60,7 @@ const ContactUs = () => {
                                         <p className="text-gray-600 dark:text-slate-400">123 Car Avenue</p>
                                         <p className="text-gray-600 dark:text-slate-400">Pune, Maharashtra, 441122</p>
                                         <p className="text-gray-600 dark:text-slate-400">India</p>
-
+ 
                                     </div>
                                 </li>
                                 <li className="flex">
@@ -103,29 +103,29 @@ const ContactUs = () => {
                             </ul>
                         </div>
                         <div className="card h-fit max-w-6xl p-5 md:p-12 relative" id="form">
-                            <h2 className="mb-4 text-2xl font-bold dark:text-white">Ready to Get Started?</h2>
+                            <h2 className="mb-4 text-2xl font-bold dark:text-white">Let Us Contact You</h2>
                             <form ref={form} onSubmit={sendEmail}>
                                 <div className="mb-6 space-y-4">
                                     <div>
-                                        <label htmlFor="name" className="pb-1 text-xs uppercase tracking-wider"></label>
+                                        <label htmlFor="from_name" className="pb-1 text-xs uppercase tracking-wider"></label>
                                         <input
                                             type="text"
-                                            id="name"
-                                            autoComplete="given-name"
+                                            id="from_name"
+                                            autoComplete="from-name"
                                             placeholder="Your name"
                                             className="mb-2 w-full rounded-md border border-gray-400 py-2 pl-2 pr-4 shadow-md dark:text-black-300"
-                                            name="name"
+                                            name="from_name"
                                         />
                                     </div>
                                     <div>
-                                        <label htmlFor="email" className="pb-1 text-xs uppercase tracking-wider"></label>
+                                        <label htmlFor="email_id" className="pb-1 text-xs uppercase tracking-wider"></label>
                                         <input
                                             type="email"
-                                            id="email"
-                                            autoComplete="email"
+                                            id="email_id"
+                                            autoComplete="email_id"
                                             placeholder="Your email address"
                                             className="mb-2 w-full rounded-md border border-gray-400 py-2 pl-2 pr-4 shadow-md dark:text-black-300"
-                                            name="email"
+                                            name="email_id"
                                         />
                                     </div>
                                     <div>
@@ -173,5 +173,5 @@ const ContactUs = () => {
         </section>
     );
 };
-
+ 
 export default ContactUs;
