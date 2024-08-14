@@ -13,9 +13,12 @@ import {
   useFavoriteCarMutation,
   useCarremoveFavoriteMutation,
   useCarFavoriteAddRemoveQuery,
+  useGetbyUserCarIdQuery,
 } from "../services/carAPI";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import { useDispatch ,useSelector } from "react-redux";
+import { addFavoriteCar , removeFavoriteCar } from "../pages/favoritesSlice";
 
 function RatedIcon() {
   return (
@@ -49,7 +52,10 @@ function UnratedIcon() {
   );
 }
 
-export function CardDefault({ data, Carid, refetch }) {
+export function CardDefault({ data, Carid,refetch }) {
+  const dispatch = useDispatch();
+  const favoriteCars = useSelector(state => state.favorites.favoriteCars);
+
   const [favoriteCar] = useFavoriteCarMutation();
   const token = Cookies.get("token");
   let jwtDecodes;
@@ -59,7 +65,6 @@ export function CardDefault({ data, Carid, refetch }) {
   }
   const UserId = jwtDecodes?.userId;
   const userRole = token ? jwtDecodes?.authorities[0] : null;
-
   const [rated, setRated] = useState(true);
   const data2 = {
     carId: Carid,
@@ -67,21 +72,21 @@ export function CardDefault({ data, Carid, refetch }) {
   };
   const carid = data2.carId;
   const useid = data2.userId;
-
-  const { data: favData, error } = useCarFavoriteAddRemoveQuery({
-    carid,
-    useid,
-  });
-
+ 
+  const { data: favData ,error , refetch : refetchFavCarData } = useCarFavoriteAddRemoveQuery({ carid, useid });
+  // const { data: favData, error, refetch : refetchFavCarData } = useCarFavoriteAddRemoveQuery(
+  //   { carId: carid, useid },
+  //   { skip: !carid } // Skip the query until carId is selected
+  // );
   const [CarremoveFavorite] = useCarremoveFavoriteMutation();
 
-  useEffect(() => {
-    if (favData?.object.saveCarId) {
-      setRated(true);
-    } else {
-      setRated(false);
-    }
-  }, [favData]);
+  // useEffect(() => {
+  //   if (favData?.object?.saveCarId) {
+  //     setRated(true);
+  //   } else {
+  //     setRated(false);
+  //   }
+  // }, [favData]);
   const handleFavoriteClick = async () => {
     if (rated) {
       const data3 = {
@@ -105,6 +110,24 @@ export function CardDefault({ data, Carid, refetch }) {
     setRated(!rated);
   };
 
+  const handleFavoriteToggle = async () => {
+    const data2 = {
+      carId: Carid,
+      userId: UserId,
+    };
+    if (favoriteCars?.find(favCar => favCar.carId === data.carId)) {
+      dispatch(removeFavoriteCar(data));
+      const res = await CarremoveFavorite( {
+        saveCarId: favData?.object?.saveCarId,
+      });
+      refetchFavCarData();
+    } else {
+      const res = await favoriteCar(data2);
+      dispatch(addFavoriteCar(data2));
+      // refetchFavCarData()
+    }
+  };
+
   return (
     <div className="flex justify-center mx-auto">
       <Card className="max-w-[19rem] overflow-hidden">
@@ -121,9 +144,9 @@ export function CardDefault({ data, Carid, refetch }) {
         <CardBody>
           {userRole === "USER" ? (
             <div className="flex justify-end">
-              <div onClick={handleFavoriteClick} className="cursor-pointer">
+              <div onClick={handleFavoriteToggle} className="cursor-pointer">
                 <div className="-mb-6">
-                  {rated ? <RatedIcon /> : <UnratedIcon />}
+                {favoriteCars?.some(favCar => favCar.carId === data.carId) ? <RatedIcon/> : <UnratedIcon/>}
                 </div>
               </div>
             </div>
