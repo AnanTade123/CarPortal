@@ -573,7 +573,7 @@ const SellForCar = () => {
               <Button>Add Car</Button>
             </Link>
           </div>):(
-              <p className="hover:text-blue-900">Dealers </p>
+              <p className="hover:text-blue-900"> </p>
               )}
 
           

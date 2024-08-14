@@ -118,7 +118,10 @@ export default function App() {
           <Route path="signup" element={<SimpleRegistrationForm />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/carlist" element={<BuyCar />} />
-          
+          <Route path="/premiumcarlist" element={<PremiumCarList/>}/>
+          <Route path="/carimagecarousel" element={<CarImageCarousel/>}/>
+
+
           <Route path="/wsConnction" element={<BiddingCar />} />
           <Route
             path="/carlist/cardetails/:carId"
@@ -200,8 +203,6 @@ export default function App() {
             <Route path="/carlisting" element={<CarListing />} />
             <Route path="/admin/biddingcar" element={<BiddingDealerCars />} />
             <Route path="/carlisttable" element={<CarListTable />} />
-            <Route path="/premiumcarlist" element={<PremiumCarList/>}/>
-            <Route path="/carimagecarousel" element={<CarImageCarousel/>}/>
 
             <Route
               path="/admin/carverify/:beadingCarId"
