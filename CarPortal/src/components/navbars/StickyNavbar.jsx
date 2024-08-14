@@ -197,7 +197,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             window.location.pathname === "/admin"
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
           onClick={handleMenuItemClick}
         >
           Dealers
@@ -214,7 +214,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             window.location.pathname === "/inspector"
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
           onClick={handleMenuItemClick}
         >
           Inspectors
@@ -229,7 +229,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             window.location.pathname === "/admin/salesuser"
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
           onClick={handleMenuItemClick}
         >
           Seller
@@ -251,7 +251,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             window.location.pathname === `/inspector/car`
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
           onClick={handleMenuItemClick}
         >
           Cars
@@ -273,7 +273,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             window.location.pathname === "/sales/salesDealers"
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
           onClick={handleMenuItemClick}
         >
           Dealers
@@ -296,7 +296,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             window.location.pathname === "/carlist"
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
           onClick={handleMenuItemClick}
         >
           Buy Car
@@ -312,7 +312,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             window.location.pathname === "/dealer/live/cars"
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
           onClick={handleMenuItemClick}
         >
           Live Cars
@@ -331,7 +331,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             `/dealer/${jwtDecodes?.dealerId}/allpending`
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
           onClick={handleMenuItemClick}
         >
           Pending Request
@@ -348,7 +348,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             `/dealer/${jwtDecodes?.dealerId}/booking/confirm`
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
           onClick={handleMenuItemClick}
         >
           Confirm Booking
@@ -372,7 +372,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             window.location.pathname === "/pendinrequest"
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
         >
           All Request
         </Typography>
@@ -408,7 +408,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             `/dealer/${jwtDecodes?.userId}/booking/confirm`
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
         >
           Favorite
         </Typography>
@@ -443,7 +443,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
           color="blue-gray"
           className={`p-3 rounded-md font-normal ${
             window.location.pathname === "/" ? "bg-indigo-200 text-white" : ""
-          }`}
+          } hover:bg-gray-200 `}
           onClick={handleMenuItemClick}
         >
           Home
@@ -459,7 +459,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
               window.location.pathname === "/premiumcars"
                 ? "bg-indigo-200 text-white"
                 : ""
-            }`}
+            } hover:bg-gray-200`}
             onClick={handleMenuItemClick}
           >
            Premium Cars
@@ -478,7 +478,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
               window.location.pathname === "/carlist"
                 ? "bg-indigo-200 text-white"
                 : ""
-            }`}
+            }hover:bg-gray-200`}
             onClick={handleMenuItemClick}
           >
             Buy Car
