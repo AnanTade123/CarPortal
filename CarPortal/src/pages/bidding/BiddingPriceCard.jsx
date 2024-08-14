@@ -23,7 +23,8 @@ const BiddingPriceCard = ({
   bidCarId,
   handleMessage,
   closeTime,
-  refeachData
+  refeachData,
+  biddingTimerStatus
 }) => {
   const token = Cookies.get("token");
   let jwtDecodes;
@@ -199,7 +200,7 @@ const getTopThreeBids = (bidCarId) => {
           </div>
         </div>
         <div className="flex justify-center items-center align-middle mb-3">
-          {userRole === "SALESPERSON" || userRole === "ADMIN"  ? (
+          {((userRole === "SALESPERSON" || userRole === "ADMIN") && biddingTimerStatus !== "CLOSED"  ) ? (
             <div>
               <div className="flex">
                 <div>
@@ -214,6 +215,7 @@ const getTopThreeBids = (bidCarId) => {
                     biddingcarid={data?.beadingCarId}
                     handleMessage={handleMessage}
                     timerId={timerId}
+                    biddingTimerStatus={biddingTimerStatus}
                   />
                 </div>
                 <div className="ml-5">

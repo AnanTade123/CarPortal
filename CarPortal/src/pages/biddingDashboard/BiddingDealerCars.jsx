@@ -110,7 +110,12 @@ const BiddingDealerCars = () => {
     {
       accessor: 'biddingTimerId',
       // show: true,
-      isVisible: true
+      isVisible: false
+    },
+    {
+      accessor: 'biddingTimerStatus',
+      show: false,
+      // isVisible: false
     },
     {
       Header: "ID",
@@ -191,8 +196,8 @@ const BiddingDealerCars = () => {
                   {userRole === "DEALER"
                     ? "Place Bid"
                     : (userRole === "ADMIN" || userRole === "SALESPERSON")
-                      ? (cell.row.values.biddingTimerId !== null
-                        ? "Update Bid Time"
+                      ? (( cell.row.values.biddingTimerStatus === "PENDING") 
+                        ? "Update Bid Time" :cell.row.values.biddingTimerStatus === 'CLOSED' ? 'View Bid Car'
                         : "Set Bid Time")
                       : ""
                   }
@@ -244,6 +249,18 @@ const BiddingDealerCars = () => {
 
   return (
     <>
+     <CardHeader floated={false} shadow={false} className="rounded-none">
+              <div className="flex items-center justify-between gap-8">
+                <div>
+                  <Typography variant="h5" color="blue-gray">
+                    Bidding Car List
+                  </Typography>
+                  <Typography color="gray" className="mt-1 font-normal">
+                    See Information About All Bidding Cars
+                  </Typography>
+                </div>
+              </div>
+            </CardHeader>
        <Typography className="hidden xl:block lg:ml-4 lg:mt-2">
         <div className="flex">
       <Link to={"/"}>
@@ -511,18 +528,7 @@ const BiddingDealerCars = () => {
           </div>
         ) : (
           <Card className="h-full w-full">
-            <CardHeader floated={false} shadow={false} className="rounded-none">
-              <div className="flex items-center justify-between gap-8">
-                <div>
-                  <Typography variant="h5" color="blue-gray">
-                    Bidding Car List
-                  </Typography>
-                  <Typography color="gray" className="mt-1 font-normal">
-                    See Information About All Bidding Cars
-                  </Typography>
-                </div>
-              </div>
-            </CardHeader>
+           
             <CardBody className="md:overflow-auto overflow-scroll px-1">
               <TableComponent columns={columns} data={paginatedData} />
             </CardBody>

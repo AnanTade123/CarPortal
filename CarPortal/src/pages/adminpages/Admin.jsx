@@ -100,6 +100,20 @@ export default function Admin() {
       accessor: "userId",
       disableSortBy: true,
     },
+    
+    {
+      Header: "Cars",
+      accessor: "totalCarCount", // This can remain as is, or adjust based on your needs
+      Cell: (cell) => {
+        return (
+          <div className="flex justify-center items-center">
+            <Link to={`/admin/dealer/${cell.row.values.dealer_id}`}>
+              {cell.row.values.totalCarCount}
+            </Link>
+          </div>
+        );
+      },
+    },
     {
       Header: "Status",
       accessor: "status",
@@ -128,19 +142,6 @@ export default function Admin() {
     //My Changes
     //My Changes
 
-    {
-      Header: "Cars",
-      accessor: "totalCarCount", // This can remain as is, or adjust based on your needs
-      Cell: (cell) => {
-        return (
-          <div className="flex justify-center items-center">
-            <Link to={`/admin/dealer/${cell.row.values.dealer_id}`}>
-              {cell.row.values.totalCarCount}
-            </Link>
-          </div>
-        );
-      },
-    },
 
     {
       Header: "Actions",

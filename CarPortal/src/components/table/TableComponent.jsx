@@ -23,7 +23,7 @@ const TableComponent = ({ columns, data }) => {
       columns,
       data,
       initialState: { 
-        hiddenColumns: ['biddingTimerId' ,'dealer_id' ,'salesPersonId','brandDataId','beadingCarId','carId','userId','bidCarId']  //use property option, in columns define id name "id"
+        hiddenColumns: ['biddingTimerId' ,'dealer_id' ,'salesPersonId','brandDataId','beadingCarId','carId','userId','bidCarId','biddingTimerStatus']  //use property option, in columns define id name "id"
       },
     },
     useGlobalFilter,

@@ -211,6 +211,8 @@ export default function App() {
               path="/admin/inspection/report/:beadingCarId"
               element={<FinalReport />}
             />
+            <Route path="/admin/salesDealers/:salePersonId" element={<SalesDealer />} />
+
           </Route>
 
           <Route

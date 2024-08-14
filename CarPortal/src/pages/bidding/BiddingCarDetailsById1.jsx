@@ -61,6 +61,7 @@ export default function BiddingCarDetailsById1() {
     insurancedate,
     carInsuranceType,
     insuranceType,
+    biddingTimerStatus
   } = data;
 
   const handleMessage = (msg, action) => {
@@ -109,6 +110,7 @@ export default function BiddingCarDetailsById1() {
           handleMessage={handleMessage}
           closeTime={closeTime}
           refeachData = {refetch}
+          biddingTimerStatus={biddingTimerStatus}
         />
       </div>
     </div>

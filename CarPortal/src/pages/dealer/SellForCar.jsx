@@ -35,12 +35,12 @@ const SellForCar = () => {
   const pending = "PENDING";
   const sell = "SOLD";
   const deactive = "DEACTIVATE";
-  const total = "Total"
   const { data, isLoading, error } = useDealerIdByCarQuery({ id, pageNo ,status: active });
   const { data : pendingData, isLoading : pendingIsLoding, error : pendingerror } = useDealerIdByCarQuery({ id, pageNo ,status: pending });
   const { data : sellData, isLoading : sellIsLoding, error : sellerror } = useDealerIdByCarQuery({ id, pageNo ,status: sell });
   const { data : deactiveData, isLoading : deactiveIsLoding, error : deactiveerror } = useDealerIdByCarQuery({ id, pageNo ,status: deactive });
   // const { data, isLoading, error } = useDealerIdByCarQuery({ id, pageNo ,"ACTIVE" });
+  console.log("deactiveData",deactiveData)
 
   const activeCarsData = data?.list?.filter(car => car?.carStatus === "ACTIVE");
 
@@ -158,7 +158,7 @@ const SellForCar = () => {
       (pendingData?.list?.length ?? 0) + 
       (sellData?.list?.length ?? 0)+
       (deactiveData?.list?.length ?? 0);
-
+      // console.log(totalCars)
       setTotalCars(totalCars);
       setActiveCars(data?.list?.length || "-");
       setPendingCars(pendingData?.list?.length || "-");
