@@ -366,7 +366,8 @@ const SellForCar = () => {
 
   return (
     <>
-      <div className="  justify-center   lg:grid lg:grid-cols-5  md:grid md:grid-cols-3">
+    
+     <div className="justify-center  lg:grid lg:grid-cols-5  md:grid md:grid-cols-3">
         <div className="p-5">
           <Card className="w-full">
             <CardBody className="justify-center items-center">
@@ -601,15 +602,7 @@ const SellForCar = () => {
               )}
 
           
-          {userRole === "DEALER" ? (
-            <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-              <Link to={`/dealer/${id}/addcar`}>
-                <Button>Add Car</Button>
-              </Link>
-            </div>
-          ) : (
-            <p className="hover:text-blue-900">Dealers </p>
-          )}
+         
         </div>
       ) : (
         <div>
