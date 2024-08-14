@@ -16,7 +16,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AddInspectorForm } from "../AddInspectorForm";
 import InspectorStatusDialogBox from "./InspectorStatusDialogBox";
- 
+import { FiLoader } from 'react-icons/fi';  
 export default function InspectorList() {
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(10);
@@ -38,7 +38,13 @@ export default function InspectorList() {
       setPageNo((prevPageNo) => prevPageNo - 1);
     }
   };
- 
+  if (isLoading) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
+  }
   const columns = [
     {
       Header: "Sr. No",
@@ -144,7 +150,11 @@ export default function InspectorList() {
  
   let dealerApiData;
   if (isLoading) {
-    return <p>isLoading</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   } else {
     dealerApiData = data?.list;
   }
@@ -170,6 +180,16 @@ export default function InspectorList() {
                 <Typography color="gray" className="mt-1 font-normal ">
                   See Information About All Inspectors
                 </Typography>
+                <Typography className="hidden xl:block">
+        <div className="flex">
+      <Link to={"/"}>
+              <p className="hover:text-blue-900"> Home </p> 
+              </Link>
+               /
+              <p>Inspector</p>
+              
+              </div>
+      </Typography>
               </div>
               <div className="flex shrink-0 flex-col gap-2 sm:flex-row md:w-48 ">
                 <AddInspectorForm />

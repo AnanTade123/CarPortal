@@ -2,10 +2,10 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useGetDealerQuery ,useGetDealerProfileQuery} from "../../services/dealerAPI";
 import { IoChevronBack } from "react-icons/io5";
-import { Button } from "@material-tailwind/react";
+import { Button, Typography } from "@material-tailwind/react";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
-
+import { FiLoader } from 'react-icons/fi'; 
 const AdminDealerInfo = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -38,12 +38,49 @@ console.log(profiledata)
       address,
     } = {},
   } = data || {};
-
+  if (isLoading) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
+  }
   return (
     <>
+     
       <div className="text-3xl font-bold mt-5 mb-4 ml-4 md:ml-16 xl:mb-[-1rem]  md:mb-8">
         Profile Information
       </div>
+      {userRole === "ADMIN" || userRole === "SALESPERSON" ? ( <Typography className=" lg:mt-5 ml-4 hidden md:mb-8 xl:block xl:mb-[-3rem] lg:ml-16 ">
+        <div className="flex">
+      <Link to={"/"}>
+              <p className="hover:text-blue-900"> Home </p> 
+              </Link>
+               /
+               {userRole === "SALESPERSON" ? (<Link to={"/sales/salesDealers"}>
+              <p className="hover:text-blue-900">Dealers </p>
+              </Link>):(<Link to={"/admin"}>
+              <p className="hover:text-blue-900">Dealers </p>
+              </Link>)}
+              
+              /
+
+              <p>Info</p>
+
+              </div>
+      </Typography>) : ( <Typography className=" lg:mt-5 ml-4 hidden xl:block  xl:mb-[-3rem] lg:ml-16 ">
+        <div className="flex">
+      <Link to={"/"}>
+              <p className="hover:text-blue-900"> Home </p> 
+              </Link>
+               /
+
+              <p>Info</p>
+
+              </div>
+      </Typography>)}
+      
+     
       <div className="flex justify-center items-center   xl:h-screen">
         <div className="w-full max-w-4xl flex flex-col mx-2  md:flex-row shadow-xl">
           <div className="w-full md:w-1/3 flex justify-center md:h-60 ">

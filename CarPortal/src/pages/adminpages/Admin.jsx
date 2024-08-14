@@ -20,24 +20,25 @@ import TableComponent from "../../components/table/TableComponent";
 import { useState } from "react";
 import { AddDealerForm } from "../../components/admin/AddDealerForm";
 import { Link } from "react-router-dom";
+import { FiLoader } from 'react-icons/fi'; import { FaCar } from "react-icons/fa";
 
 export default function Admin() {
   const [pageNo, setPageNo] = useState(0);
-  
+
   const { data, isLoading, error } = useGetAllDealerQuery(pageNo);
 
   const [deleteDealer] = useDeleteDealerMutation();
   const [open, setOpen] = useState(false);
-  const [deleteid ,setDeleteid] = useState()
- 
+  const [deleteid, setDeleteid] = useState();
+
   const handleOpen = (id) => {
     setOpen(!open);
     setDeleteid(id);
   };
 
   const handleOpen1 = (id) => {
-    deleteDealerHandler(deleteid)
-    setOpen(!open)
+    deleteDealerHandler(deleteid);
+    setOpen(!open);
   };
 
   const navigate = useNavigate();
@@ -47,7 +48,6 @@ export default function Admin() {
 
   const deleteDealerHandler = async (id) => {
     const res = await deleteDealer(id);
-   
   };
   const nextHandler = () => {
     setPageNo((prevPageNo) => {
@@ -104,13 +104,39 @@ export default function Admin() {
       Header: "Status",
       accessor: "status",
       Cell: (cell) => {
-        const a = cell.row.values.status
-        
+        const a = cell.row.values.status;
+
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
-              <StatusDialogeBox2 dealer_id={cell.row.values.dealer_id} status={cell.row.values.status} />
+              <StatusDialogeBox2
+                dealer_id={cell.row.values.dealer_id}
+                status={cell.row.values.status}
+              />
             </div>
+          </div>
+        );
+      },
+    },
+
+    //My Changes
+    //My Changes
+    //My Changes
+    //My Changes
+    //My Changes
+    //My Changes
+    //My Changes
+    //My Changes
+
+    {
+      Header: "Cars",
+      accessor: "totalCarCount", // This can remain as is, or adjust based on your needs
+      Cell: (cell) => {
+        return (
+          <div className="flex justify-center items-center">
+            <Link to={`/admin/dealer/${cell.row.values.dealer_id}`}>
+              {cell.row.values.totalCarCount}
+            </Link>
           </div>
         );
       },
@@ -120,7 +146,6 @@ export default function Admin() {
       Header: "Actions",
       accessor: "Actions",
       Cell: (cell) => {
-        
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
@@ -191,92 +216,118 @@ export default function Admin() {
 
   let dealerApiData;
   if (isLoading) {
-    return <p>isLoading</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   } else {
     dealerApiData = data?.list;
   }
- 
+
   return (
     <>
-
-    {error?.status===404 ? (
+      {error?.status === 404 ? (
         <div>
-           <p className="text-3xl font-semibold ">No Data Available</p>
-           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-           <></>
-           <AddDealerForm />
-            </div>
-            </div>
-            ):
-            ( <div>
-            <Card className="h-full w-full">
-      <Dialog open={open} handler={handleOpen}>
-      <DialogBody className="flex justify-center" >
-        <p className="font-semibold text-xl">Are you sure want to delete?</p> 
-        </DialogBody>
-        <DialogFooter className="flex justify-center">
-          <Button
-            variant="text"
-            color="red"
-            onClick={handleOpen}
-            className="mr-1"
-          >
-            <span>Cancel</span>
-          </Button>
-          <Button variant="gradient" color="green" onClick={handleOpen1}>
-            <span>Confirm</span>
-          </Button>
-        </DialogFooter>
-      </Dialog>
-        <CardHeader floated={false} shadow={false} className="rounded-none">
-          <div className="flex flex-col sm:flex-row justify-between gap-4">
-            <div>
-              <Typography variant="h5" color="blue-gray" className="text-center lg:text-start">
-               Dealer List
-              </Typography>
-              <Typography color="gray" className="mt-1 font-normal text-center lg:text-start">
-                See information about all Dealers
-              </Typography>
-              
-            </div>
-            <div className="flex shrink-0 flex-col gap-2 sm:flex-row items-center">
+          <p className="text-3xl font-semibold ">No Data Available</p>
+          <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+            <></>
             <AddDealerForm />
-            </div>
           </div>
-        </CardHeader>
-        <CardBody className="md:overflow-auto overflow-scroll px-1">
-          <TableComponent columns={columns} data={dealerApiData} />
-        </CardBody>
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-          <Typography
-            variant="medium"
-            color="blue-gray"
-            className="font-normal"
-          >
-            Page {pageNo + 1}
-          </Typography>
-          <div className="flex gap-2">
-            <Button
-              variant="outlined"
-              size="sm"
-              disabled={pageNo <= 0}
-              onClick={() => setPageNo((a) => a - 1)}
-            >
-              Previous
-            </Button>
-            <Button
-              variant="outlined"
-              size="sm"
-              onClick={nextHandler}
-              disabled={data?.list?.length < 10}
-            >
-              Next
-            </Button>
-          </div>
-        </CardFooter>
-      </Card></div>)}
+        </div>
+      ) : (
+        <div>
+          <Card className="h-full w-full">
+            <Dialog open={open} handler={handleOpen}>
+              <DialogBody className="flex justify-center">
+                <p className="font-semibold text-xl">
+                  Are you sure want to delete?
+                </p>
+              </DialogBody>
+              <DialogFooter className="flex justify-center">
+                <Button
+                  variant="text"
+                  color="red"
+                  onClick={handleOpen}
+                  className="mr-1"
+                >
+                  <span>Cancel</span>
+                </Button>
+                <Button variant="gradient" color="green" onClick={handleOpen1}>
+                  <span>Confirm</span>
+                </Button>
+              </DialogFooter>
+            </Dialog>
+            <CardHeader floated={false} shadow={false} className="rounded-none">
+              <div className="flex flex-col sm:flex-row justify-between gap-4">
+                <div>
+                  <Typography
+                    variant="h5"
+                    color="blue-gray"
+                    className="text-center lg:text-start"
+                  >
+                    Dealer List
+                  </Typography>
+                  <Typography
+                    color="gray"
+                    className="mt-1 font-normal text-center lg:text-start"
+                  >
+                    See information about all Dealers
+                  </Typography>
+                  <span className="mt-1 hidden xl:block">
+                <div className="flex">
+                <Link to={"/"}>
+              <p className="hover:text-blue-900"> Home</p> 
+              </Link>
+              /
+
+              <p>Dealers</p>
+              </div>
+              </span>
+                </div>
+                <div className="flex shrink-0 flex-col gap-2 sm:flex-row items-center">
+                  <AddDealerForm />
+                </div>
+              </div>
+            </CardHeader>
+            <CardBody className="md:overflow-auto overflow-scroll px-1">
+              <TableComponent columns={columns} data={dealerApiData} />
+            </CardBody>
+            <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+              <Typography
+                variant="medium"
+                color="blue-gray"
+                className="font-normal"
+              >
+                Page {pageNo + 1}
+              </Typography>
+              <div className="flex gap-2">
+                <Button
+                  variant="outlined"
+                  size="sm"
+                  disabled={pageNo <= 0}
+                  onClick={() => setPageNo((a) => a - 1)}
+                >
+                  Previous
+                </Button>
+                <Button
+                  variant="outlined"
+                  size="sm"
+                  onClick={nextHandler}
+                  disabled={data?.list?.length < 10}
+                >
+                  Next
+                </Button>
+              </div>
+            </CardFooter>
+          </Card>
+        </div>
+      )}
+           
      
     </>
   );
 }
-{/* <AddDealerForm /> */}
+{
+  /* <AddDealerForm /> */
+}

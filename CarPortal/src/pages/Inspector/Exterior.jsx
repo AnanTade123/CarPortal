@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
 import WindshieldAndLights from "./ExteriorsComponent/WindshieldAndLights";
@@ -37,13 +38,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Exterior = () => {
+const Exterior = ({setCheckstep}) => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
   
   const { data,refetch } = useGetInspectionReportQuery({ beadingCarId, docType: "Exterior" });
   console.log(data)
-  
+
 const [formData, setFormData] = useState({
     BonnetHood: [],
     RightDoorFront: [],
@@ -147,6 +148,7 @@ const [formData, setFormData] = useState({
     RHSRunningBorder :null,
     UpperCrossMember:null,
   });
+  
   useEffect(() => {
     // Pre-fill form data and uploaded images based on API data
     data?.object.map((item) => {
@@ -317,6 +319,63 @@ const [formData, setFormData] = useState({
       setSelectfiled(value);
     }
   };
+  if (
+    formData.BonnetHood.length > 0 &&
+    formData.RightDoorFront.length > 0 &&
+    formData.LeftDoorFront.length > 0 &&
+    formData.RightFender.length > 0 &&
+    formData.LeftQuarterPanel.length > 0 &&
+    formData.RightQuarterPanel.length > 0 &&
+    formData.Roof.length > 0 &&
+    formData.DickyDoor.length > 0 &&
+    formData.LeftDoorRear.length > 0 &&
+    formData.RightDoorRear.length > 0 &&
+    formData.LHSFrontTyre.length > 0 &&
+    formData.RHSFrontTyre.length > 0 &&
+    formData.LHSRearTyre.length > 0 &&
+    formData.RHSRearTyre.length > 0 &&
+    formData.SpareTyre.length > 0 &&
+    formData.Windshield.length > 0 &&
+    formData.Light.length > 0 &&
+    formData.FrontBumper.length > 0 &&
+    formData.RearBumper.length > 0 &&
+    formData.LHSHeadlight.length > 0 &&
+    formData.RHSHeadlight.length > 0 &&
+    formData.LHSTaillight.length > 0 &&
+    formData.RHSTaillight.length > 0 &&
+    formData.HeadLightSupport.length > 0 &&
+    formData.RadiatorSupport.length > 0 &&
+    formData.AlloyWheel.length > 0 &&
+    formData.CowlTop.length > 0 &&
+    formData.BootFloor.length > 0 &&
+    formData.RightApronLEG.length > 0 &&
+    formData.LeftApronLEG.length > 0 &&
+    formData.RightApron.length > 0 &&
+    formData.LeftApron.length > 0 &&
+    formData.LeftPillar.length > 0 &&
+    formData.RightPillar.length > 0 &&
+    formData.RightPillarA.length > 0 &&
+    formData.RightPillarB.length > 0 &&
+    formData.RightPillarC.length > 0 &&
+    formData.LeftFender.length > 0 &&
+    formData.LeftPillarA.length > 0 &&
+    formData.LeftPillarB.length > 0 &&
+    formData.LeftPillarC.length > 0 &&
+    formData.FrontWindshield.length > 0 &&
+    formData.RearWindshield.length > 0 &&
+    formData.LHSORVM.length > 0 &&
+    formData.RHSORVM.length > 0 &&
+    formData.CarPoolingon.length > 0 &&
+    formData.LHSRunningBorder.length > 0 &&
+    formData.RHSRunningBorder.length > 0 &&
+    formData.UpperCrossMember.length > 0
+  ) {
+    setCheckstep(true);
+    
+  } else {
+    setCheckstep(false);
+    
+  }
 
   const fileInputRef = useRef(null);
 
@@ -356,7 +415,9 @@ const [formData, setFormData] = useState({
       }
     };
  
-
+    // if (!data) {
+    //   return <div><p>No Data Available</p></div>
+    // }
   return (
     <div className="p-4">
  
@@ -1037,7 +1098,7 @@ const [formData, setFormData] = useState({
       setSelectfiled={setSelectfiled}
       handleChange={handleChange}
     />
-<Tyre/>
+<Tyre setCheckstep={setCheckstep}/>
 <OtherComponent handleImageClick={handleImageClick}
       fileInputRef={fileInputRef}
        handleCameraModal={handleCameraModal} 

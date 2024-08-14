@@ -9,6 +9,7 @@ import { jwtDecode } from "jwt-decode";
 import { useDispatch, useSelector } from "react-redux";
 import { addFavoriteCar, removeFavoriteCar } from "./favoritesSlice";
 
+import { FiLoader } from 'react-icons/fi'; 
 
 const BuyCar = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const BuyCar = () => {
   const token = Cookies.get("token");
   const [urlState, setUrllState] = useState(null);
  
-  const { data, error, refetch } = useFilterCarQuery(urlState);
+  const { data,isLoading, error, refetch } = useFilterCarQuery(urlState);
   let jwtDecodes;
   if (token) {
     jwtDecodes = jwtDecode(token);
@@ -25,7 +26,7 @@ const BuyCar = () => {
   const {
     data: userCars,
     error :favError,
-    isLoading,
+    isLoading :favIsLoading,
     refetch : favrefetch
   } = useGetbyUserCarIdQuery({ UserId });
   // dispatch(addFavoriteCar(userCars));
@@ -44,7 +45,13 @@ const BuyCar = () => {
     Cookies.remove("token");
     navigate("/signin");
   }
-
+  if (isLoading) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
+  }
   return (
     <>
       <div className="container mx-auto mt-12">

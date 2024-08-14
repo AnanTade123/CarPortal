@@ -9,8 +9,7 @@ import { jwtDecode } from "jwt-decode";
 import FavCard from "./FavCard";
 import { addFavoriteCar } from "../pages/favoritesSlice";
 import { useDispatch, useSelector } from "react-redux";
-
-
+import { FiLoader } from 'react-icons/fi'; 
 export function FavoritePage() {
   const dispatch = useDispatch();
 
@@ -40,7 +39,11 @@ export function FavoritePage() {
   // }, [userCars, dispatch]);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
 
   if (error?.status === 401) {

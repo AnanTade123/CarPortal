@@ -94,19 +94,17 @@ export function CardDefault({ data, Carid,refetch }) {
       };
       try {
         const res = await CarremoveFavorite(data3);
-        console.log(res)
-        refetch()
-       
+        console.log(res);
+        refetch();
       } catch (error) {
-       return null
+        return null;
       }
     } else {
       try {
         const res = await favoriteCar(data2);
-        refetch()
-        
+        refetch();
       } catch (error) {
-        return null
+        return null;
       }
     }
     setRated(!rated);
@@ -154,9 +152,11 @@ export function CardDefault({ data, Carid,refetch }) {
             </div>
           ) : null}
           <Typography>{data.year}</Typography>
-          <Typography variant="h5" color="blue-gray" className="mb-2">
-            {data.brand} {data.model}
-          </Typography>
+          <Link to={`/carlist/cardetails/${data.carId}`}>
+            <Typography variant="h5" color="blue-gray" className="mb-2">
+              {data.brand} {data.model}
+            </Typography>
+          </Link>
           <Typography variant="h6" color="blue-gray" className="mb-2">
             {data.title}
           </Typography>

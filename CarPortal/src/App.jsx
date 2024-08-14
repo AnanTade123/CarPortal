@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Routes, Route, Router,  } from "react-router-dom";
+import { Routes, Route, Router } from "react-router-dom";
 import { FavoriteProvider } from "./ui/FavoriteContext";
 import Home from "./pages/Home";
 import AppLayout from "./ui/AppLayout";
@@ -15,7 +15,7 @@ import {
   onlyAdmin,
   onlyDealer,
   onlyInspector,
-  onlySeller
+  onlySeller,
 } from "./components/config/Roles";
 import AdminDealerInfo from "./pages/adminpages/AdminDealerInfo";
 import AdminDealerEdit from "./pages/adminpages/AdminDealerEdit";
@@ -28,7 +28,7 @@ import BiddingAddCar from "./pages/bidding/BiddingAddCar";
 import BiddingEditCar from "./pages/bidding/BiddingEditCar";
 import SetTimer from "./pages/bidding/SetTimer";
 import AboutUs from "./pages/AboutUs";
-import ContactUs from "./pages/ContactUs";
+import ContactUs from "./components/home/ContactUs";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import CookiePolicy from "./pages/CookiePolicy";
 import AppLayout2 from "./ui/AppLayout2";
@@ -59,6 +59,7 @@ import CarListing from "./pages/sales/CarListing";
 
 import CarListModels from "./pages/adminpages/CarListModels";
 import SellForCar from "./pages/dealer/SellForCar";
+
 import BiddingDealerCars from "./pages/biddingDashboard/BiddingDealerCars";
 import CarListTable from "./pages/biddingDashboard/CarListTable";
 import BiddingDealer from "./pages/dealer/BiddingDealer";
@@ -97,12 +98,12 @@ import SalerChangePassword from "./pages/sales/SalerChangePassword";
 import PremiumCars from "./components/home/PremiumCars";
 import InspectorEdit from "./pages/Inspector/InspectorEdit";
 import SalerEdit from "./pages/sales/SalerEdit";
+//PremiumCars
+import PremiumCarList from "./components/Premium/PremiumCarList";
+import CarImageCarousel from "./components/Premium/CarImageCarousel";
 import ForgetPassword from "./forms/ForgetPassword";
 import ResetPassword from "./forms/ResetPassword";
-
-
 export default function App() {
-
   return (
     <>
       <WebSocketConnection />
@@ -111,13 +112,13 @@ export default function App() {
         <Route path="/" element={<Home />} />
 
         <Route element={<AppLayout />}>
-        <Route path="/forgetPassword" element={<ForgetPassword />} />
-        <Route path="/reset-Password" element={<ResetPassword />} />
+          <Route path="/forgetPassword" element={<ForgetPassword />} />
+          <Route path="/reset-Password" element={<ResetPassword />} />
           <Route path="signin" element={<LoginCard />} />
           <Route path="signup" element={<SimpleRegistrationForm />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/carlist" element={<BuyCar />} />
-          <Route path="/premiumcars" element={<PremiumCars/>} />
+          
           <Route path="/wsConnction" element={<BiddingCar />} />
           <Route
             path="/carlist/cardetails/:carId"
@@ -127,7 +128,8 @@ export default function App() {
             path="/biddinglist/cardetails/:beadingCarId/:timerId"
             element={<BiddingCarDetailsById1 />}
           />
-           <Route
+
+          <Route
             path="/biddinglist/cardetails/:beadingCarId"
             element={<BiddingCarDetailsById1 />}
           />
@@ -141,15 +143,14 @@ export default function App() {
             path="/user/UserProfileUpdate/:userProfileId"
             element={<UserProfileUpdate />}
           />
-          <Route path="/user/ChangePassword" element={<UserChangePassword/>} />
+          <Route path="/user/ChangePassword" element={<UserChangePassword />} />
           <Route
             element={
               <AdminMiddleware allowedRoles={[...Object.values(onlyAdmin)]} />
             }
           >
             <Route path="/admin" element={<Admin />} />
-
-           
+            <Route path="/admin/dealer/:id" element={<SellForCar />} />
 
             <Route path="/inspector" element={<InspectorList />} />
             <Route path="/admin/salesuser" element={<SalesList />} />
@@ -185,7 +186,7 @@ export default function App() {
             />
             <Route
               path="/admin/inspector/edit/:userid/:inspectorprofileid"
-              element={<AdminInspectorEdit  />}
+              element={<AdminInspectorEdit />}
             />
             <Route
               path="/transactionbyaccount"
@@ -194,11 +195,14 @@ export default function App() {
             <Route path="/wallet" element={<Wallet />} />
             <Route
               path="/transactioncontroller"
-              element={<TransactionController />}   
+              element={<TransactionController />}
             />
             <Route path="/carlisting" element={<CarListing />} />
             <Route path="/admin/biddingcar" element={<BiddingDealerCars />} />
             <Route path="/carlisttable" element={<CarListTable />} />
+            <Route path="/premiumcarlist" element={<PremiumCarList/>}/>
+            <Route path="/carimagecarousel" element={<CarImageCarousel/>}/>
+
             <Route
               path="/admin/carverify/:beadingCarId"
               element={<CarVerify />}
@@ -221,11 +225,11 @@ export default function App() {
               element={<Uploadimages2 />}
             />
             <Route path="/dealer/:id/edit" element={<DealerEdit />} />
-            <Route path="/dealer/finalreport/:beadingCarId" element={<FinalReport />} />
             <Route
-              path="/dealer/info/:id"
-              element={<AdminDealerInfo />}
+              path="/dealer/finalreport/:beadingCarId"
+              element={<FinalReport />}
             />
+            <Route path="/dealer/info/:id" element={<AdminDealerInfo />} />
 
             <Route
               path="/dealer/live/carDetails/:bidCarId/:beadingCarId"
@@ -268,10 +272,19 @@ export default function App() {
               />
             }
           >
-            <Route path="/Inspector/ChangePassword" element={<InspectorChangePassword/>}/>
-         <Route path="/inspector/info/:userId" element={<AdminInspectorInfo />} />
+            <Route
+              path="/Inspector/ChangePassword"
+              element={<InspectorChangePassword />}
+            />
+            <Route
+              path="/inspector/info/:userId"
+              element={<AdminInspectorInfo />}
+            />
 
-            <Route path="/inspector/carverify/:beadingCarId" element={<CarVerify />} />
+            <Route
+              path="/inspector/carverify/:beadingCarId"
+              element={<CarVerify />}
+            />
             <Route
               path="/inspector/carverify/:beadingCarId"
               element={<CarVerify />}
@@ -316,7 +329,10 @@ export default function App() {
               />
             }
           >
-            <Route path="/Seller/ChangePassword" element={<SalerChangePassword/>}/>
+            <Route
+              path="/Seller/ChangePassword"
+              element={<SalerChangePassword />}
+            />
             <Route path="/sales/salesDealers" element={<SalesDealer />} />
             <Route path="/sales/biddingcar" element={<BiddingDealerCars />} />
             <Route
@@ -329,24 +345,19 @@ export default function App() {
             />
             <Route
               path="/seller/edit/:userid/:salesPersonId"
-              element={<SalerEdit/>}
+              element={<SalerEdit />}
             />
             <Route
               path="/sale/dealer/edit/:userid/:id"
               element={<AdminDealerEdit />}
             />
-            <Route
-              path="/seller/info/:userId"
-              element={<AdminSalesInfo />}
-            />
-            <Route
-              path="/sale/dealer/info/:id"
-              element={<AdminDealerInfo />}
-            />
+            <Route path="/seller/info/:userId" element={<AdminSalesInfo />} />
+            <Route path="/sale/dealer/info/:id" element={<AdminDealerInfo />} />
           </Route>
-          <Route path="/user/:userid/favorite" element={<FavoritePage/>} />
-           <Route path="/user" element={<UserInfo/>} />
+          <Route path="/user/:userid/favorite" element={<FavoritePage />} />
+          <Route path="/user" element={<UserInfo />} />
         </Route>
+        <Route path="/premiumcars" element={<PremiumCars/>} />
         <Route path="/user" element={<UserInfo/>} />
 <Route path="/DealerContact" element={<DealerContact/>}/>
         {/* <Route path="/trans" element={<CardDetailss/>}/> */}

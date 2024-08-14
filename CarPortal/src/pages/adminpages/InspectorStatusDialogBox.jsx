@@ -10,7 +10,7 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import { useInspectorupdateMutation, useInspectorByIdQuery } from "../../services/inspectorapi";
-
+import { FiLoader } from 'react-icons/fi'; 
 
 export default function InspectorStatusDialogBox({ userId, inspectorProfileId, status }) {
   
@@ -67,7 +67,11 @@ export default function InspectorStatusDialogBox({ userId, inspectorProfileId, s
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
 
   if (isError) {

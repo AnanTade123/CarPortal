@@ -17,13 +17,15 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useLazyGetDealerByUserIdQuery } from "../../services/dealerAPI";
 import { Link } from "react-router-dom";
-
+import { FiLoader } from 'react-icons/fi'; 
 const WinnerSection = () => {
   const token = Cookies.get("token");
   let jwtDecodes;
   if (token) {
     jwtDecodes = jwtDecode(token);
   }
+
+  const emptyImage = "..\\..\\cars\\emptyfolder.png";
 
   const UserID = jwtDecodes?.userId;
   const [pageNo, setPageNo] = useState(0);
@@ -151,14 +153,24 @@ const WinnerSection = () => {
   ];
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
-
   if (error?.status === 404) {
     return (
-      <div className="flex justify-center mt-2">
-        <p>No Available Data</p>
-      </div>
+      <div>
+        <div className="flex justify-center mt-14">
+      <img
+          className="w-40"
+          src={emptyImage}
+          alt="no data"
+        />
+        </div>
+        <p className="flex justify-center text-2xl md:text-3xl font-semibold">No Data Available</p>
+        </div>
     );
   }
 

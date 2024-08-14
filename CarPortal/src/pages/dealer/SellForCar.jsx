@@ -4,6 +4,7 @@ import { useDealerIdByCarQuery } from "../../services/carAPI";
 import { Tooltip } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 // eslint-disable-next-line no-unused-vars
+import ApexCharts from 'react-apexcharts';
 import TableComponent from "../../components/table/TableComponent";
 import {
   Card,
@@ -22,6 +23,8 @@ import { MdPendingActions } from "react-icons/md";
 import StatusDialogeBox from "../../ui/StatusDialogeBox";
 //import AddDealerCar from "../../components/dealer/AddDealerCar";
 import { useCarUpdateMutation } from "../../services/carAPI";
+import { FiLoader } from 'react-icons/fi'; import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
 
 const SellForCar = () => {
   const [pageNo, setPageNo] = useState(0);
@@ -32,6 +35,7 @@ const SellForCar = () => {
   const pending = "PENDING";
   const sell = "SOLD";
   const deactive = "DEACTIVATE";
+  const total = "Total"
   const { data, isLoading, error } = useDealerIdByCarQuery({ id, pageNo ,status: active });
   const { data : pendingData, isLoading : pendingIsLoding, error : pendingerror } = useDealerIdByCarQuery({ id, pageNo ,status: pending });
   const { data : sellData, isLoading : sellIsLoding, error : sellerror } = useDealerIdByCarQuery({ id, pageNo ,status: sell });
@@ -56,6 +60,17 @@ const SellForCar = () => {
 
   const [carUpdate] = useCarUpdateMutation(deactivateId);
   const [selectedOption, setSelectedOption] = useState(status); 
+
+  const token = Cookies.get("token");
+ 
+  let jwtDecodes;
+ 
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
+ 
+ 
+  const userRole = token ? jwtDecodes?.authorities[0] : null;
  
   const handleOpenDeactivate = (carId) => {
     setOpenDeactivate(!openDeactivate);
@@ -63,6 +78,22 @@ const SellForCar = () => {
     // setDeleteid(carId);
     // console.log('hsgjfsdjh', openDeactivate, deactivateId);
   };
+ 
+  // For calculating Percentage
+  const PertotalCars = Math.ceil((totalCars/totalCars)*100)
+  // console.log("active",PertotalCars)
+
+  const perActive = Math.floor((activeCars/totalCars)*100)
+  // console.log("active",perActive)
+
+  const perPending = Math.ceil((pendingCars/totalCars)*100)
+  // console.log("active",perPending)
+
+  const perSold = Math.floor((sellCars/totalCars)*100)
+  //  console.log("active",perSold)
+
+  const perDeactive = Math.floor((deactiveCars/totalCars)*100)
+  // console.log("active",perDeactive)
 
   const handleOpenAactivate = (carId) => {
     setOpenActivate(!openActivate);
@@ -153,6 +184,7 @@ const SellForCar = () => {
     });
   };
 
+  
   // eslint-disable-next-line no-unused-vars
   const columns = [
     {
@@ -280,165 +312,271 @@ const SellForCar = () => {
       },
     },
   ];
-    // const columns1 = [
-    //   {
-    //     Header: "ID",
-    //     accessor: "carId",
-    //   },
-    //   {
-    //     Header: "Brand",
-    //     accessor: "brand",
-    //   },
-
-    //   {
-    //     Header: "Model ",
-    //     accessor: "model",
-    //   },
-    //   {
-    //     Header: "Fuel Type",
-    //     accessor: "fuelType",
-    //   },
-    //   {
-    //     Header: "Year",
-    //     accessor: "year",
-    //   },
-
-    //   {
-    //     Header: "Price",
-    //     accessor: "price",
-    //     disableSortBy: true,
-    //   },
-    //   {
-    //     Header: "Edit",
-    //     accessor: "Edit",
-    //     Cell: (cell) => {
-    //       console.log(cell.row.values.carId);
-    //       return (
-    //         <div>
-    //           <div className="flex gap-2 justify-center items-center  ">
-    //             <Link to={`/car/${cell.row.values.carId}/pendinguser`}>
-    //               <div className="w- h-">
-    //                 <MdPendingActions color="#b09b12" className="h-6 w-6" />
-    //               </div>
-    //             </Link>
-    //             <Link to={`/carlist/cardetails/${cell.row.values.carId}`}>
-    //               <svg
-    //                 xmlns="http://www.w3.org/2000/svg"
-    //                 fill="none"
-    //                 viewBox="0 0 24 24"
-    //                 strokeWidth={1.5}
-    //                 stroke="currentColor"
-    //                 className="w-6 h-6 cursor-pointer"
-    //                 color="blue"
-    //               >
-    //                 <path
-    //                   strokeLinecap="round"
-    //                   strokeLinejoin="round"
-    //                   d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
-    //                 />
-    //               </svg>
-    //             </Link>
-
-    //             <Link to={`/dealer/${id}/car/edit/${cell.row.values.carId}`}>
-    //               <svg
-    //                 xmlns="http://www.w3.org/2000/svg"
-    //                 fill="none"
-    //                 viewBox="0 0 24 24"
-    //                 strokeWidth={1.5}
-    //                 stroke="currentColor"
-    //                 className="w-6 h-6 cursor-pointer"
-    //                 color="green"
-    //               >
-    //                 <path
-    //                   strokeLinecap="round"
-    //                   strokeLinejoin="round"
-    //                   d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-    //                 />
-    //               </svg>
-    //             </Link>
-    //             <div >
-    //               <Tooltip content="Delete">
-    //                 <svg
-    //                   xmlns="http://www.w3.org/2000/svg"
-    //                   fill="none"
-    //                   viewBox="0 0 24 24"
-    //                   strokeWidth={1.5}
-    //                   stroke="currentColor"
-    //                   className="w-6 h-6 cursor-pointer"
-    //                   color="red"
-    //                 >
-    //                   <path
-    //                     strokeLinecap="round"
-    //                     strokeLinejoin="round"
-    //                     d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-    //                   />
-    //                 </svg>
-    //               </Tooltip>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       );
-    //     },
-    //   },
-    // ];
+  
+    
 
   let dealerApiData;
   if (isLoading) {
-    return <p>isLoading</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   } else {
     dealerApiData = data?.list;
   }
 
  
   
-  // const data1 = [
-  //   {
-  //     label: "All Cars",
-  //     value: "html",
-  //     desc: <TableComponent columns={columns} data={dealerApiData} />,
-  //   },
-  //   {
-  //     label: "Sold Cars",
-  //     value: "react",
-  //     desc: <TableComponent columns={columns1} data={dealerApiData} />,
-  //     // desc: `Because it's about motivating the doers. Because I'm here
-  //     // to follow my dreams and inspire other people to follow their dreams, too.`,
-  //   },
-  // ];
+ 
+  
   return (
     <>
     
-     <div className="flex flex-wrap justify-center divide-x-4 mx-5 mb-8 mt-8">
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-400 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer">
-          <div className="text-4xl font-bold text-white">{totalCars}</div>
-          <div className="mt-2 font-medium">Total Cars</div>
+     <div className="  justify-center   lg:grid lg:grid-cols-5  md:grid md:grid-cols-3">
+        <div className="p-5">
+ 
+        <Card className="w-full">
+  <CardBody className="justify-center items-center">
+    <ApexCharts
+      options={{
+        chart: { type: 'radialBar', height: 200 },
+        plotOptions: {
+          radialBar: {
+            hollow: { size: '40%' },
+            dataLabels: {
+              name: {
+                show: false, // Hide the series name
+              },
+              value: {
+                fontSize: '16px', // Adjust font size if needed
+                color: '#000', // Set text color
+                offsetY:+7,
+                          show: true // Ensure the percentage is shown
+              },
+            },
+          },
+        },
+        colors: ['#007BFF'],
+        labels: [], // Clear any additional labels if needed
+        tooltip: {
+          enabled: false, // Disable tooltip if not needed
+        },
+      }}
+      series={[PertotalCars || 0]} // Default to 0% if PertotalCars is undefined or null
+      type="radialBar"
+      height={200}
+    />
+    <Typography className="flex justify-center items-center font-bold">
+      Total Cars
+    </Typography>
+    <Typography className="flex justify-center items-center font-bold">
+{totalCars}
+</Typography>
+  </CardBody>
+</Card>
         </div>
-        <div onClick={handleFilterActiveCars} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-green-500 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer">
-          <div className="text-4xl font-bold text-white">{activeCars}/{totalCars}</div>
-          <div className="mt-2 font-medium">Active Cars</div>
+
+        <div onClick={handleFilterActiveCars} className="p-5">
+          {/* <div className="text-4xl font-bold text-white">{activeCars}/{totalCars}</div>
+          <div className="mt-2 font-medium">Active Cars</div> */}
+          <Card className="w-full">
+        <CardBody className=" justify-center items-center">
+          <ApexCharts
+            options={{
+              chart: { type: 'radialBar', height: 200 },
+              plotOptions: {
+                radialBar: {
+                  hollow: { size: '40%' },
+                  dataLabels: { 
+                    name: {
+                      show: false // Hide the series name
+                    },
+                    value: {
+                      fontSize: '16px', // Adjust font size if needed
+            color: '#000', // Set text color
+            offsetY:+7,
+                      show: true // Ensure the percentage is shown
+                    }
+                  }
+                }
+            
+              },
+              colors: ['#28A745'],
+              labels: [], // Clear any additional labels if needed
+              tooltip: {
+                enabled: false // Keep the tooltip enabled if you want to show percentage on hover
+              }
+            }}
+            series={[perActive || 0]}
+            type="radialBar"
+            height={200}
+            
+          />
+          <Typography className="flex justify-center items-center font-bold">
+           Active  Cars
+</Typography>
+<Typography className="flex justify-center items-center font-bold">
+{activeCars}
+</Typography>
+         </CardBody>
+         </Card>
         </div>
-        <div onClick={handleFilterPendingCars} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-yellow-800 rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer">
-          <div className="text-4xl font-bold text-white">{pendingCars}/{totalCars}</div>
-          <div className="mt-2 font-medium">Pending Cars</div>
-        </div>
-        
-        <div onClick={handleFilterSellCars} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-500 rounded-2xl shadow-xl sm:mb-2 mb-5 sm:mr-5 cursor-pointer">
+
+
+
+        <div onClick={handleFilterPendingCars} className="p-5">
+          {/* <div className="text-4xl font-bold text-white">{pendingCars}/{totalCars}</div>
+          <div className="mt-2 font-medium">Pending Cars</div> */}
+      
+        <Card className="w-full">
+        <CardBody className=" justify-center items-center">
+          <ApexCharts
+            options={{
+              chart: { type: 'radialBar', height: 200 },
+              plotOptions: {
+                radialBar: {
+                  hollow: { size: '40%' },
+                  dataLabels: { 
+                    name: {
+                      show: false // Hide the series name
+                    },
+                    value: {
+                      fontSize: '16px', // Adjust font size if needed
+                      color: '#000', // Set text color
+                      offsetY:+7,
+                                show: true// Ensure the percentage is shown
+                    }
+                  }
+                }
+              },
+              colors: ['#FFC107'],
+              labels: [], // Clear any additional labels if needed
+              tooltip: {
+                enabled: false // Keep the tooltip enabled if you want to show percentage on hover
+              }
+            }}
+            series={[perPending || 0]}
+            type="radialBar"
+            height={200}
+            
+          />
+          <Typography className="flex justify-center items-center font-bold">
+           Pending  Cars
+</Typography>
+<Typography className="flex justify-center items-center font-bold">
+{pendingCars}
+</Typography>
+         </CardBody>
+         </Card>
+         </div>
+        {/* <div onClick={handleFilterSellCars} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-500 rounded-2xl shadow-xl sm:mb-2 mb-5 sm:mr-5 cursor-pointer">
           <div className="text-4xl font-bold text-white">{sellCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Sold Cars</div>
+        </div> */}
+        <div onClick={handleFilterSellCars} className="p-5">
+
+        <Card className="w-full">
+        <CardBody className=" justify-center items-center">
+          <ApexCharts
+            options={{
+              chart: { type: 'radialBar', height: 200 },
+              plotOptions: {
+                radialBar: {
+                  hollow: { size: '40%' },
+                  dataLabels: { 
+                    name: {
+                      show: false // Hide the series name
+                    },
+                    value: {
+                      fontSize: '16px', // Adjust font size if needed
+                      color: '#000', // Set text color
+                      offsetY:+7,
+                                show: true// Ensure the percentage is shown
+                    }
+                  }
+                }
+              },
+              colors: ['#87CEEB'],
+              labels: [], // Clear any additional labels if needed
+              tooltip: {
+                enabled: false // Keep the tooltip enabled if you want to show percentage on hover
+              }
+            }}
+            series={[perSold ||0]}
+            type="radialBar"
+            height={200}
+            
+          />
+          <Typography className="flex justify-center items-center font-bold">
+          Sold Cars 
+</Typography>
+<Typography className="flex justify-center items-center font-bold">
+{sellCars}
+</Typography>
+         </CardBody>
+         </Card>
         </div>
-        <div  onClick={handleFilterDeactiveCars} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-red-500 rounded-2xl shadow-xl  sm:mb-2 sm:mr-5 cursor-pointer">
-          <div className="text-4xl font-bold text-white">{deactiveCars}/{totalCars}</div>
-          <div className="mt-2 font-medium">Deactive Cars</div>
+        <div  onClick={handleFilterDeactiveCars} className="p-5">
+          {/* <div className="text-4xl font-bold text-white">{deactiveCars}/{totalCars}</div>
+          <div className="mt-2 font-medium">Deactive Cars</div> */}
+          <Card className="w-full">
+        <CardBody className=" justify-center items-center">
+          <ApexCharts
+            options={{
+              chart: { type: 'radialBar', height: 200 },
+              plotOptions: {
+                radialBar: {
+                  hollow: { size: '40%' },
+                  dataLabels: { 
+                    name: {
+                      show: false // Hide the series name
+                    },
+                    value: {
+                      fontSize: '16px', // Adjust font size if needed
+            color: '#000', // Set text color
+            offsetY:+7,
+                      show: true // Ensure the percentage is shown
+                    }
+                  }
+                }
+              },
+              colors: ['#FF0000'],
+              labels: [], // Clear any additional labels if needed
+              tooltip: {
+                enabled: false // Keep the tooltip enabled if you want to show percentage on hover
+              }
+            }}
+            series={[perDeactive ||0 ]}
+            type="radialBar"
+            height={200}
+            
+          />
+          <Typography className="flex justify-center items-center font-bold">
+          Deactive Cars
+</Typography>
+<Typography className="flex justify-center items-center font-bold">
+{deactiveCars}
+</Typography>
+         </CardBody>
+         </Card>
         </div>
       </div>
       {error?.status === 404 ? (
         <div>
           <p>No Data Available</p>
-          <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+
+
+
+          {userRole === "DEALER" ? (<div className="flex shrink-0 flex-col gap-2 sm:flex-row">
             <Link to={`/dealer/${id}/addcar`}>
               <Button>Add Car</Button>
             </Link>
-          </div>
+          </div>):(
+              <p className="hover:text-blue-900">Dealers </p>
+              )}
+
+          
         </div>
       ) : (
         <div>
@@ -471,33 +609,20 @@ const SellForCar = () => {
                 <Typography color="gray" className="mt-1 font-normal">
                     See Information About All Cars
                   </Typography>
-                  {/* <Typography variant="h3" className="p-2" color="blue-gray">
-                    Cars list
-                  </Typography> */}
-                  {/* <Typography color="gray" className="mt-1 font-normal">
-                    See information about all cars
-                  </Typography> */}
                 </div>
                 
-                <div className="flex shrink-0 flex-col mb-2 gap-2 sm:flex-row">
                 
-                  <Link to={`/dealer/${id}/addcar`}>
-                    <Button>Add Car</Button>
-                  </Link>
-                </div>
+                
+                {userRole === "DEALER" ? (<div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+            <Link to={`/dealer/${id}/addcar`}>
+              <Button>Add Car</Button>
+            </Link>
+          </div>):(
+              <p className="hover:text-blue-900"> </p>
+              )}
+                
               </div>
-              {/* <div className="flex justify-center gap-10 mt-3">
-                <div className="flex flex-col items-center align-middle bg-blue-200 px-3 py-2 rounded-lg">
-                  <div className="font-bold text-base text-black">All Cars</div>
-                  <div className="text-white font-bold">200</div>
-                </div>
-                <div className="flex flex-col items-center align-middle bg-blue-200 px-3 py-2 rounded-lg">
-                  <div className="font-bold text-base text-black">
-                    Sold Cars
-                  </div>
-                  <div className="text-white font-bold">96</div>
-                </div>
-              </div> */}
+             
 
               <div className="overflow-scroll px-0">
               <TableComponent columns={columns} data={list} />
@@ -506,35 +631,13 @@ const SellForCar = () => {
             {error ? (
               <p className="text-center">car is not found</p>
             ) : (
-              <CardBody className=" px-0">
-                {/* <Tabs value="html" className="w-full">
-                  <TabsHeader
-                    className="bg-transperant "
-                    indicatorProps={{
-                      className:
-                        "bg-indigo-200 shadow-none !text-black font-bold ",
-                    }}
-                  >
-                    {data1.map(({ label, value }) => (
-                      <Tab key={value} value={value}>
-                        {label}
-                      </Tab>
-                    ))}
-                  </TabsHeader>
-                  <TabsBody>
-                    {data1.map(({ value, desc }) => (
-                      <TabPanel key={value} value={value}>
-                        {desc}
-                      </TabPanel>
-                    ))}
-                  </TabsBody>
-                </Tabs> */}
-              </CardBody>
+              <div></div>
+             
             )}
 
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
               <Typography
-                variant="medium"
+                
                 color="blue-gray"
                 className="font-normal"
               >
