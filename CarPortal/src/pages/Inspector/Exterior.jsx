@@ -415,9 +415,9 @@ const [formData, setFormData] = useState({
       }
     };
  
-    if (!data) {
-      return <div><p>No Data Available</p></div>
-    }
+    // if (!data) {
+    //   return <div><p>No Data Available</p></div>
+    // }
   return (
     <div className="p-4">
  

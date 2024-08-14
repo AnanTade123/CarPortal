@@ -119,9 +119,7 @@ export default function App() {
           <Route path="signup" element={<SimpleRegistrationForm />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/carlist" element={<BuyCar />} />
-          <Route path="/premiumcars" element={<PremiumCars />} />
-          <Route path="/PremiumCarList" element={<PremiumCarList/>}/>
-          <Route path="CarImageCarousel" element={<CarImageCarousel/>}/>
+          
           <Route path="/wsConnction" element={<BiddingCar />} />
           <Route
             path="/carlist/cardetails/:carId"
@@ -203,6 +201,8 @@ export default function App() {
             <Route path="/carlisting" element={<CarListing />} />
             <Route path="/admin/biddingcar" element={<BiddingDealerCars />} />
             <Route path="/carlisttable" element={<CarListTable />} />
+            <Route path="/premiumcarlist" element={<PremiumCarList/>}/>
+            <Route path="/carimagecarousel" element={<CarImageCarousel/>}/>
 
             <Route
               path="/admin/carverify/:beadingCarId"
@@ -358,8 +358,9 @@ export default function App() {
           <Route path="/user/:userid/favorite" element={<FavoritePage />} />
           <Route path="/user" element={<UserInfo />} />
         </Route>
-        <Route path="/user" element={<UserInfo />} />
-        <Route path="/DealerContact" element={<DealerContact />} />
+        <Route path="/premiumcars" element={<PremiumCars/>} />
+        <Route path="/user" element={<UserInfo/>} />
+<Route path="/DealerContact" element={<DealerContact/>}/>
         {/* <Route path="/trans" element={<CardDetailss/>}/> */}
         <Route element={<AppLayout2 />}>
           <Route path="/aboutus" element={<AboutUs />} />

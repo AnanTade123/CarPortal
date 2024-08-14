@@ -49,7 +49,7 @@ function UnratedIcon() {
   );
 }
 
-export function CardDefault({ data, Carid,refetch }) {
+export function CardDefault({ data, Carid, refetch }) {
   const [favoriteCar] = useFavoriteCarMutation();
   const token = Cookies.get("token");
   let jwtDecodes;
@@ -59,7 +59,6 @@ export function CardDefault({ data, Carid,refetch }) {
   }
   const UserId = jwtDecodes?.userId;
   const userRole = token ? jwtDecodes?.authorities[0] : null;
-  
 
   const [rated, setRated] = useState(true);
   const data2 = {
@@ -68,10 +67,12 @@ export function CardDefault({ data, Carid,refetch }) {
   };
   const carid = data2.carId;
   const useid = data2.userId;
-  
-  const { data: favData ,error} = useCarFavoriteAddRemoveQuery({ carid, useid });
 
-  
+  const { data: favData, error } = useCarFavoriteAddRemoveQuery({
+    carid,
+    useid,
+  });
+
   const [CarremoveFavorite] = useCarremoveFavoriteMutation();
 
   useEffect(() => {
@@ -88,19 +89,17 @@ export function CardDefault({ data, Carid,refetch }) {
       };
       try {
         const res = await CarremoveFavorite(data3);
-        console.log(res)
-        refetch()
-       
+        console.log(res);
+        refetch();
       } catch (error) {
-       return null
+        return null;
       }
     } else {
       try {
         const res = await favoriteCar(data2);
-        refetch()
-        
+        refetch();
       } catch (error) {
-        return null
+        return null;
       }
     }
     setRated(!rated);
@@ -130,9 +129,11 @@ export function CardDefault({ data, Carid,refetch }) {
             </div>
           ) : null}
           <Typography>{data.year}</Typography>
-          <Typography variant="h5" color="blue-gray" className="mb-2">
-            {data.brand} {data.model}
-          </Typography>
+          <Link to={`/carlist/cardetails/${data.carId}`}>
+            <Typography variant="h5" color="blue-gray" className="mb-2">
+              {data.brand} {data.model}
+            </Typography>
+          </Link>
           <Typography variant="h6" color="blue-gray" className="mb-2">
             {data.title}
           </Typography>
