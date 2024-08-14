@@ -1,17 +1,44 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FilterCars from "../components/buyCar/FilterCars";
 import GridCarList from "../components/buyCar/GridCarList";
-import { useFilterCarQuery } from "../services/carAPI";
+import { useFilterCarQuery, useGetbyUserCarIdQuery } from "../services/carAPI";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+import { useDispatch, useSelector } from "react-redux";
+import { addFavoriteCar, removeFavoriteCar } from "./favoritesSlice";
+
 
 const BuyCar = () => {
+  const dispatch = useDispatch();
+  const favoriteCars = useSelector(state => state.favorites.favoriteCars);
+  const token = Cookies.get("token");
   const [urlState, setUrllState] = useState(null);
  
   const { data, error, refetch } = useFilterCarQuery(urlState);
-
+  let jwtDecodes;
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
+  const UserId = jwtDecodes?.userId;
+  const {
+    data: userCars,
+    error :favError,
+    isLoading,
+    refetch : favrefetch
+  } = useGetbyUserCarIdQuery({ UserId });
+  // dispatch(addFavoriteCar(userCars));
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userCars && favoriteCars.length === 0 && token) {
+        dispatch(addFavoriteCar(userCars?.list[0]));
+    }
+    // else{
+    //   dispatch();
+    // }
+  }, [userCars, dispatch]);
 
   if (error?.status === 401) {
     Cookies.remove("token");
@@ -31,7 +58,7 @@ const BuyCar = () => {
                 <p>No Data Available</p>
               </div>
             ) : ( 
-              <GridCarList data={data} error={error} refetch={refetch} />
+              <GridCarList data={data} error={error} refetch={refetch}   />
             )}
           </div>
         </div>

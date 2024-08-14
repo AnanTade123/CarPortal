@@ -237,6 +237,7 @@ export default function Admin() {
               <Typography color="gray" className="mt-1 font-normal text-center lg:text-start">
                 See information about all Dealers
               </Typography>
+              
             </div>
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row items-center">
             <AddDealerForm />

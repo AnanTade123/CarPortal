@@ -87,8 +87,6 @@ import DealerContact from "./components/carDetails/DealerContact";
 import WinnerSection from "./pages/dealer/WinnerSection";
 import { FavoritePage } from "./ui/FavoritePage";
 import { CardDefault } from "./ui/CardDefault";
-
-
 import WebSocketConnection from "./Utiles/WebSocketConnection";
 import UserProfileUpdate from "./pages/user/UserProfileUpdate";
 import UserInfo from "./pages/user/UserInfo";

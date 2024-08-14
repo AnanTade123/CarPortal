@@ -12,10 +12,12 @@ import { inspectorAPI } from '../services/inspectorapi';
 import { brandAPI } from '../services/brandAPI';
 import { salesAPI } from '../services/salesAPI';
 import { UserAPI } from '../services/userAPI';
+import favoritesSlice from '../pages/favoritesSlice';
 
 
 export const store = configureStore({
   reducer: {
+    favorites: favoritesSlice,
     auth: authSlice,
     [apiSlice.reducerPath]:apiSlice.reducer,
     [authApi.reducerPath]:authApi.reducer,
