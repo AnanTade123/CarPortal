@@ -333,7 +333,7 @@ const SellForCar = () => {
   return (
     <>
     
-     <div className="  justify-center   lg:grid lg:grid-cols-5  md:grid md:grid-cols-3">
+     <div className=" flex flex-wrap justify-center  lg:grid lg:grid-cols-5  md:grid md:grid-cols-3">
         <div className="p-5">
  
         <Card className="w-full">
