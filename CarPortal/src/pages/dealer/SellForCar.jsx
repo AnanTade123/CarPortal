@@ -590,6 +590,17 @@ const SellForCar = () => {
         <div>
           <p>No Data Available</p>
 
+
+
+          {userRole === "DEALER" ? (<div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+            <Link to={`/dealer/${id}/addcar`}>
+              <Button>Add Car</Button>
+            </Link>
+          </div>):(
+              <p className="hover:text-blue-900"> </p>
+              )}
+
+          
           {userRole === "DEALER" ? (
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
               <Link to={`/dealer/${id}/addcar`}>

@@ -108,6 +108,10 @@ const BiddingDealerCars = () => {
       },
     },
     {
+      Header: "Code",
+      accessor: "uniqueBeadingCarId",
+    },
+    {
       accessor: 'biddingTimerId',
       // show: true,
       isVisible: true
