@@ -201,6 +201,8 @@ export default function App() {
             <Route path="/carlisting" element={<CarListing />} />
             <Route path="/admin/biddingcar" element={<BiddingDealerCars />} />
             <Route path="/carlisttable" element={<CarListTable />} />
+            <Route path="/premiumcarlist" element={<PremiumCarList/>}/>
+            <Route path="/carimagecarousel" element={<CarImageCarousel/>}/>
 
             <Route
               path="/admin/carverify/:beadingCarId"

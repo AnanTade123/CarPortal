@@ -18,15 +18,15 @@ const PremiumCars = () => {
         autoplayDelay={5000}
         loop
       >
-        <div className="relative overflow-hidden md:h-[42rem] ">
+        <div className="relative overflow-hidden lg:h-[42rem] ">
           <img
             src={pre4}
             alt="Image 1"
-            className="object w-full md:h-full h-[200px] md:mt-0 mt-10  "
+            className="object w-full md:h-full h-[200px]  lg:mt-0 md:mt-5 mt-10  "
           />
           <div className="absolute grid inset-0 bg-black/40">
             <div className=" mt-2 md:mt-4 xl:mt-8 md:ml-10 mx-5 ">
-              <div className="text-white text-lg md:text-xl lg:text-4xl  mb-2  font-bold  rounded md:mt-[70px] mt-14 ">
+              <div className="text-white text-lg md:text-xl lg:text-4xl  mb-2  font-bold  rounded lg:mt-[70px] mt-14 ">
                 Premium Cars Collection...
               </div>
               <p className="text-white font-bold mb-5  text-xs lg:w-2/3 md:text-xl rounded">
@@ -41,15 +41,15 @@ const PremiumCars = () => {
           </div>
         </div>
 
-        <div className="relative md:h-[42rem] ">
+        <div className="relative lg:h-[42rem] ">
           <img
             src={pre5}
             alt="Image 1"
-            className="object-cover w-full md:h-full h-[200px] md:mt-0 mt-10 "
+            className="object-cover w-full md:h-full h-[200px] lg:mt-0 md:mt-5 mt-10 "
           />
           <div className="absolute grid inset-0 bg-black/40">
             <div className=" mt-2 md:mt-4 xl:mt-8 ml-10">
-              <div className="text-white  text-md md:text-xl lg:text-4xl mb-2 font-bold  rounded md:mt-[70px] mt-[12px]">
+              <div className="text-white  text-md md:text-xl lg:text-4xl mb-2 font-bold  rounded lg:mt-[70px] mt-[12px] md:mt-[35px]">
                 Redefining The Standards Of Luxury
               </div>
               {/* <p className="text-white font-bold mb-5 rounded">
@@ -59,15 +59,15 @@ const PremiumCars = () => {
           </div>
         </div>
 
-        <div className="relative md:h-[42rem] ">
+        <div className="relative lg:h-[42rem] ">
           <img
             src={pre6}
             alt="Image 1"
-            className="object-cover w-full md:h-full h-[200px] md:mt-0 mt-10"
+            className="object-cover w-full md:h-full h-[200px] lg:mt-0 md:mt-5 mt-10"
           />
           <div className="absolute grid inset-0 bg-black/30">
             <div className="mt-2 md:mt-4 xl:mt-8 ml-10">
-              <div className="text-white  text-md md:text-xl lg:text-4xl mb-5  font-bold  rounded md:mt-[70px] mt-4">
+              <div className="text-white  text-md md:text-xl lg:text-4xl mb-5  font-bold  rounded lg:mt-[70px] mt-4 md:mt-[30px]">
                 Drive the Dream. Live the Luxury
               </div>
               {/* <p className="text-white font-bold mb-5 rounded">
