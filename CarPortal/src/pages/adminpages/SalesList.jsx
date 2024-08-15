@@ -25,7 +25,7 @@ import SallerStatusActive from "./SallerStatusActive";
 import { FiLoader } from 'react-icons/fi'; 
 export default function SalesList() {
   const [pageNo, setPageNo] = useState(0);
-  const [pageSize, setPageSize] = useState(7);
+  const [pageSize, setPageSize] = useState(10);
  
   const { data, isLoading, error } = useGetAllSellerQuery({pageNo, pageSize});
   
@@ -110,11 +110,22 @@ export default function SalesList() {
       accessor: "email",
     },
     {
+      Header: "Dealers",
+      accessor: "totalAddedDealers",
+      Cell: (cell) => {
+        return (
+          <div>
+              <Link to={`/admin/salesDealers/${cell.row.values.userId}`}>
+               {cell.row.values.totalAddedDealers}
+              </Link>
+          </div>
+        );
+      },
+    },
+    {
       Header: "Status",
       accessor: "status",
       Cell: (cell) => {
-        const a = cell.row.values.status;
-
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">

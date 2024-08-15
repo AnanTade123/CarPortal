@@ -90,7 +90,7 @@ const HeroSection = () => {
     // </div>
 
     <Carousel
-      className="rounded-xl overflow-hidden"
+      className=" overflow-hidden"
       autoplay
       autoplayDelay={5000}
       loop

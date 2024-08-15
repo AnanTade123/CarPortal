@@ -61,6 +61,7 @@ console.log(data)
     insurancedate,
     carInsuranceType,
     insuranceType,
+    biddingTimerStatus
   } = data;
 
   const handleMessage = (msg, action) => {
@@ -109,6 +110,7 @@ console.log(data)
           handleMessage={handleMessage}
           closeTime={closeTime}
           refeachData = {refetch}
+          biddingTimerStatus={biddingTimerStatus}
         />
       </div>
     </div>

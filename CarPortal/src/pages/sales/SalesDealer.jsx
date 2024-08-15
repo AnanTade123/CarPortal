@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { DialogBody, Tooltip } from "@material-tailwind/react";
 import StatusDialogeBox2 from "../../ui/StatusDialogeBox2";
 import {
@@ -26,6 +26,7 @@ import { AddDealerFormSales } from "../../components/admin/AddDealerFormSales";
 import { FiLoader } from 'react-icons/fi'; 
 
 export default function SalesDealer() {
+  const {salePersonId} = useParams();
   const [pageNo, setPageNo] = useState(0);
   
   
@@ -42,9 +43,9 @@ export default function SalesDealer() {
     jwtDecodes = jwtDecode(token);
   }
 
-   const userid = token ? jwtDecodes?.userId : null;
-   
-const { data, isLoading, error } = useGetDealerbySalesQuery(userid);
+const userid = token ? jwtDecodes?.userId : null;
+
+const { data, isLoading, error } = useGetDealerbySalesQuery(salePersonId !== undefined ? salePersonId: userid);
 
 
 const userRole = token ? jwtDecodes?.authorities[0] : null;
@@ -264,7 +265,7 @@ const userRole = token ? jwtDecodes?.authorities[0] : null;
               <div className=" flex items-center justify-between gap-8">
                 <div>
                   <Typography variant="h5" color="blue-gray">
-                    Dealer List
+                    Dealer List <span className="text-gray-600">({data?.totalDealers})</span>
                   </Typography>
                   <Typography color="gray" className="mt-1 font-normal">
                   See Information about all Dealers
