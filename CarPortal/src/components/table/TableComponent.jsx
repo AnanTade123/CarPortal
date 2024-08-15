@@ -12,24 +12,7 @@ import {
 const TableComponent = ({ columns, data }) => {
   
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page,
-    prepareRow,
-  } = useTable(
-    {
-      columns,
-      data,
-      initialState: { 
-        hiddenColumns: ['biddingTimerId' ,'dealer_id' ,'salesPersonId','brandDataId','beadingCarId','carId','userId','bidCarId','biddingTimerStatus']  //use property option, in columns define id name "id"
-      },
-    },
-    useGlobalFilter,
-    useSortBy,
-    usePagination
-  );
+ 
   const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow } =
     useTable(
       {

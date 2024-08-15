@@ -36,6 +36,10 @@ const SellForCar = () => {
   const pending = "PENDING";
   const sell = "SOLD";
   const deactive = "DEACTIVATE";
+  
+ 
+  
+  
   const total = "Total";
   const { data, isLoading, error } = useDealerIdByCarQuery({
     id,
@@ -58,6 +62,7 @@ const SellForCar = () => {
     error: deactiveerror,
   } = useDealerIdByCarQuery({ id, pageNo, status: deactive });
   // const { data, isLoading, error } = useDealerIdByCarQuery({ id, pageNo ,"ACTIVE" });
+  console.log("deactiveData",deactiveData)
 
   const activeCarsData = data?.list?.filter(
     (car) => car?.carStatus === "ACTIVE"
@@ -172,11 +177,13 @@ const SellForCar = () => {
   };
   useEffect(() => {
     if (data) {
-      const totalCars =
-        (data?.list?.length ?? 0) +
-        (pendingData?.list?.length ?? 0) +
-        (sellData?.list?.length ?? 0) +
-        (deactiveData?.list?.length ?? 0);
+      const totalCars = 
+      (data?.list?.length ?? 0) + 
+      (pendingData?.list?.length ?? 0) + 
+      (sellData?.list?.length ?? 0)+
+      (deactiveData?.list?.length ?? 0);
+      // console.log(totalCars)
+      
 
       setTotalCars(totalCars);
       setActiveCars(data?.list?.length || "-");
