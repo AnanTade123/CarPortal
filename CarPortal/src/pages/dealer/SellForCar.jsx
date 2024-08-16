@@ -40,7 +40,7 @@ const SellForCar = () => {
   const { data : sellData, isLoading : sellIsLoding, error : sellerror } = useDealerIdByCarQuery({ id, pageNo ,status: sell });
   const { data : deactiveData, isLoading : deactiveIsLoding, error : deactiveerror } = useDealerIdByCarQuery({ id, pageNo ,status: deactive });
   // const { data, isLoading, error } = useDealerIdByCarQuery({ id, pageNo ,"ACTIVE" });
-  console.log("deactiveData",deactiveData)
+  // console.log("deactiveData",deactiveData)
 
   const activeCarsData = data?.list?.filter(car => car?.carStatus === "ACTIVE");
 
@@ -129,11 +129,10 @@ const SellForCar = () => {
   };
 
   const handleFilterActiveCars= () => {
-    setList(data?.list)
+    setList(data?.list ?? [])
   }
 
   const handleFilterPendingCars= () => {
-    // console.log("pendingData?.list",pendingData?.list)
     setList(pendingData?.list ?? [])
   }
 
@@ -142,32 +141,23 @@ const SellForCar = () => {
   }
   const handleFilterDeactiveCars = () => {
     setList(deactiveData?.list ?? [])
-
   }
 
   const deleteDealerHandler = async (carId) => {
-    // console.log(id);
-    // console.log(carId);
     const res = await carRemove({ id, carId });
-    // console.log(res);
   };
   useEffect(() => {
-    if (data) {
-      const totalCars = 
-      (data?.list?.length ?? 0) + 
-      (pendingData?.list?.length ?? 0) + 
-      (sellData?.list?.length ?? 0)+
-      (deactiveData?.list?.length ?? 0);
-      // console.log(totalCars)
+    if (data || pendingData || sellData || deactiveData) {
+      const totalCars = (data?.list?.length ?? 0) + (pendingData?.list?.length ?? 0) + (sellData?.list?.length ?? 0) + (deactiveData?.list?.length ?? 0);
       setTotalCars(totalCars);
       setActiveCars(data?.list?.length || "-");
       setPendingCars(pendingData?.list?.length || "-");
-      setInspectionDone(activeCarsData?.list?.length || "-");
-      setSellCars(sellData?.list?.length || "-");
+      setInspectionDone(activeCarsData?.length || "-");
+      setSellCars(sellData?.length || "-");
       setdeactiveCars(deactiveData?.list?.length || "-");
-      setList(data?.list)
+      setList(data?.list);
     }
-  }, [data ,pendingData , sellData,deactiveData]);
+  }, [data]);
   const nextHandler = () => {
     setPageNo((prevPageNo) => {
       // Check if the error status is 404
@@ -562,7 +552,7 @@ const SellForCar = () => {
          </Card>
         </div>
       </div>
-      {error?.status === 404 ? (
+      {error?.status === 404 && list?.length === 0 ? (
         <div>
           <p>No Data Available</p>
 
@@ -625,7 +615,9 @@ const SellForCar = () => {
              
 
               <div className="overflow-scroll px-0">
-              <TableComponent columns={columns} data={list} />
+             {
+              list && <TableComponent columns={columns} data={list} />
+             } 
               </div>
             </CardHeader>
             {error ? (

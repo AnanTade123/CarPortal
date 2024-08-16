@@ -28,9 +28,6 @@ import { FiLoader } from 'react-icons/fi';
 export default function SalesDealer() {
   const {salePersonId} = useParams();
   const [pageNo, setPageNo] = useState(0);
-  
-  
-  
   const [deleteDealer] = useDeleteDealerMutation();
   const [open, setOpen] = useState(false);
   const [deleteid, setDeleteid] = useState();
@@ -235,7 +232,8 @@ const userRole = token ? jwtDecodes?.authorities[0] : null;
           <p className="text-3xl font-semibold ">No Data Available</p>
           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
             <></>
-            <AddDealerFormSales />
+            {userRole !== "ADMIN" ? 
+            <AddDealerFormSales /> : null }
           </div>
         </div>
       ) : (
@@ -272,7 +270,8 @@ const userRole = token ? jwtDecodes?.authorities[0] : null;
                   </Typography>
                 </div>
                 <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-                  <AddDealerFormSales/>
+                {userRole !== "ADMIN" ? 
+            <AddDealerFormSales /> : null }
                 </div>
               </div>
             </CardHeader>

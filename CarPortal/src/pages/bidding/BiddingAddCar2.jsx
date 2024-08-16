@@ -443,7 +443,7 @@ export default function BiddingAddCar2() {
                   type="number"
                   name="price"
                   value={formData.price}
-                  max={9}
+                  // max={9}
                   onChange={(event) => {
                   const value = event.target.value;
                   if (value <= 99999999) { // Ensure the value doesn't exceed 9
