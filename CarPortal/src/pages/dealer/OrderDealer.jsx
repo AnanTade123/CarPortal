@@ -24,7 +24,7 @@ import { toast, ToastContainer } from "react-toastify";
 const OrderDealer = () => {
   const { id } = useParams();
 
-  const emptyImage = "../../cars/emptyfolder.png";
+  // const emptyImage = "../../cars/emptyfolder.png";
 
   const [pageNo, setPageNo] = useState(0);
   const [revertId, setRevertId] = useState("");
@@ -72,13 +72,13 @@ const OrderDealer = () => {
     );}
   if (!data) {
     return <div>
-      <div className="flex justify-center  mt-14">
+      {/* <div className="flex justify-center  mt-14">
       <img
           className="w-40"
           src={emptyImage}
           alt="no data"
         />
-        </div>
+        </div> */}
         <p className="flex justify-center mt-5 text-2xl md:text-3xl font-semibold">No Data Available</p>
     </div>
   }
