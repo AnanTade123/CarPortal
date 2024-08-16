@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import Inputs from "../../forms/Inputs";
-import { Textarea, Input } from "@material-tailwind/react";
+import { Textarea, Input, Button } from "@material-tailwind/react";
 // import { useCarRegisterMutation } from "../../services/carAPI";
 import { useNavigate, useParams } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
@@ -62,7 +62,7 @@ export default function BiddingAddCar2() {
   const [modelOptions, setModelOptions] = useState([]);
   const [variantOptions, setVariantOptions] = useState([]);
   const [showCalendar, setShowCalendar] = useState(false);
-
+  const [submitDisabled , setSubmitDisabled] =useState(false);
  
   const { data: variantData } = useGetVariantsQuery(selectedBrand, {
     skip: !selectedBrand,
@@ -124,7 +124,7 @@ export default function BiddingAddCar2() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-   
+    setSubmitDisabled(true);
     // Prepare the form data to send to the backend
     const data = {
       buttonStart: formData.buttonStart,
@@ -201,6 +201,7 @@ export default function BiddingAddCar2() {
         navigate(`/bidding/${beadingCarId}/update/image`);
       }, 2000);
     } else {
+      setSubmitDisabled(false);
       toast.error("Somthing is wrong");
     }
   };
@@ -931,14 +932,15 @@ export default function BiddingAddCar2() {
             </div>
             {/* twelth part */}
 
-            <button
+            <Button
               type="submit"
               className="p-3 mt-3 bg-indigo-400 rounded-md w-28 text-white"
               value="Add  Car"
+              disabled={submitDisabled}
             >
               {" "}
               Next
-            </button>
+            </Button>
           </form>
         </div>
       </div>
