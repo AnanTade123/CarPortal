@@ -29,27 +29,43 @@ import Cookies from "js-cookie";
 const SellForCar = () => {
   const [pageNo, setPageNo] = useState(0);
   const { id } = useParams();
-
+  
   const [carRemove] = useCarRemoveMutation();
   const active = "ACTIVE";
   const pending = "PENDING";
   const sell = "SOLD";
   const deactive = "DEACTIVATE";
-  const { data, isLoading, error } = useDealerIdByCarQuery({ id, pageNo ,status: active });
-  const { data : pendingData, isLoading : pendingIsLoding, error : pendingerror } = useDealerIdByCarQuery({ id, pageNo ,status: pending });
-  const { data : sellData, isLoading : sellIsLoding, error : sellerror } = useDealerIdByCarQuery({ id, pageNo ,status: sell });
-  const { data : deactiveData, isLoading : deactiveIsLoding, error : deactiveerror } = useDealerIdByCarQuery({ id, pageNo ,status: deactive });
+  const [selectedStatus, setSelectedStatus] = useState("ACTIVE");
+  
+  const { data: activeData = [], isLoading: isLoadingActive, error: errorActive, refetch: refetchActive } = useDealerIdByCarQuery({ id, pageNo, status: active });
+const { data: pendingData = [], isLoading: isLoadingPending, error: errorPending ,refetch : pendingRefeatch } = useDealerIdByCarQuery({ id, pageNo, status: pending });
+const { data: sellData = [], isLoading: isLoadingSell, error: errorSell ,refetch :sellRefeatch } = useDealerIdByCarQuery({ id, pageNo, status: sell });
+const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeactive, refetch: refetchDeactive } = useDealerIdByCarQuery({ id, pageNo, status: deactive });
+
+  // Example of using the data safely
+  const activeItems = errorActive?.status === 404 ? [] : activeData?.list || [];
+  const pendingItems = errorPending?.status === 404 ? [] : pendingData?.list || [];
+  const sellItems = errorSell?.status === 404 ? [] : sellData?.list || [];
+  const deactiveItems = errorDeactive?.status === 404 ? []: deactiveData?.list || [];
+  
+  const activeCount = activeItems?.length;
+  const pendingCount = pendingItems?.length;
+  const sellCount = sellItems?.length;
+  const deactiveCount = deactiveItems?.length;
+
+  // You can now use these variables safely in your component without worrying about undefined data
+  
   // const { data, isLoading, error } = useDealerIdByCarQuery({ id, pageNo ,"ACTIVE" });
   // console.log("deactiveData",deactiveData)
-
+  const data =[];
   const activeCarsData = data?.list?.filter(car => car?.carStatus === "ACTIVE");
 
-  const [totalCars, setTotalCars] = useState(data?.list?.length || "-");
-  const [activeCars, setActiveCars] = useState(data?.list?.length || "-");
-  const [pendingCars, setPendingCars] = useState(pendingData?.list?.length || "-");
-  const [inspectionDone, setInspectionDone] = useState(data?.length || "-");
-  const [sellCars, setSellCars] = useState(sellData?.length || "-");
-  const [deactiveCars, setdeactiveCars] = useState(deactiveData?.length || "-");
+  const [totalCars, setTotalCars] = useState(data?.list?.length || 0);
+  const [activeCars, setActiveCars] = useState(data?.list?.length || 0);
+  const [pendingCars, setPendingCars] = useState(pendingData?.list?.length || 0);
+  const [inspectionDone, setInspectionDone] = useState(data?.length || 0);
+  const [sellCars, setSellCars] = useState(sellData?.length || 0);
+  const [deactiveCars, setdeactiveCars] = useState(deactiveData?.length || 0);
 
   const [open, setOpen] = useState(false);
   const [openDeactivate, setOpenDeactivate] = useState(false);
@@ -59,7 +75,7 @@ const SellForCar = () => {
   const [list ,setList] = useState([]);
 
   const [carUpdate] = useCarUpdateMutation(deactivateId);
-  const [selectedOption, setSelectedOption] = useState(status); 
+  const [selectedOption, setSelectedOption] = useState(false); 
 
   const token = Cookies.get("token");
  
@@ -68,7 +84,55 @@ const SellForCar = () => {
   if (token) {
     jwtDecodes = jwtDecode(token);
   }
+
+  const handleFilterCars = (data) => {
+    console.log("Mydataaa---",data);
+    setList(data?.list ?? []);
+  }
+
+  const statusDataMap = {
+    active: data,
+    pending: pendingData,
+    sell: sellData,
+    deactive: deactiveData
+  };
+
+  const handleFilterByStatus = (status) => {
+    const data = statusDataMap[status];
+    handleFilterCars(data);
+  }
  
+  const renderTable = () => {
+    console.log("errorDeactive",errorDeactive);
+    switch (selectedStatus) {
+      case active:
+        return activeItems.length > 0 ? (
+          <TableComponent columns={columns} data={activeItems} />
+        ) : (
+          <p>No active cars available</p>
+        );
+      case pending:
+        return pendingItems.length > 0 ? (
+          <TableComponent columns={columns} data={pendingItems} />
+        ) : (
+          <p>No pending cars available</p>
+        );
+      case sell:
+        return sellItems.length > 0 ? (
+          <TableComponent columns={columns} data={sellItems} />
+        ) : (
+          <p>No sold cars available</p>
+        );
+      case deactive:
+        return deactiveItems.length > 0 ? (
+          <TableComponent columns={columns} data={deactiveItems} />
+        ) : (
+          <p>No deactivated cars available</p>
+        );
+      default:
+        return null;
+    }
+  };
  
   const userRole = token ? jwtDecodes?.authorities[0] : null;
  
@@ -83,8 +147,8 @@ const SellForCar = () => {
   const PertotalCars = Math.ceil((totalCars/totalCars)*100)
   // console.log("active",PertotalCars)
 
-  const perActive = Math.floor((activeCars/totalCars)*100)
-  // console.log("active",perActive)
+  const perActive =  data ?  Math.floor((activeCars/totalCars)*100) : 0
+  console.log("active",perActive)
 
   const perPending = Math.ceil((pendingCars/totalCars)*100)
   // console.log("active",perPending)
@@ -92,7 +156,7 @@ const SellForCar = () => {
   const perSold = Math.floor((sellCars/totalCars)*100)
   //  console.log("active",perSold)
 
-  const perDeactive = Math.floor((deactiveCars/totalCars)*100)
+  const perDeactive =deactiveData?  Math.floor((deactiveCars/totalCars)*100) : 0
   // console.log("active",perDeactive)
 
   const handleOpenAactivate = (carId) => {
@@ -128,44 +192,40 @@ const SellForCar = () => {
     setOpen(!open)
   };
 
-  const handleFilterActiveCars= () => {
-    setList(data?.list ?? [])
-  }
-
-  const handleFilterPendingCars= () => {
-    setList(pendingData?.list ?? [])
-  }
-
-  const handleFilterSellCars= () => {
-    setList(sellData?.list ?? [])
-  }
-  const handleFilterDeactiveCars = () => {
-    setList(deactiveData?.list ?? [])
-  }
 
   const deleteDealerHandler = async (carId) => {
     const res = await carRemove({ id, carId });
   };
   useEffect(() => {
     if (data || pendingData || sellData || deactiveData) {
-      const totalCars = (data?.list?.length ?? 0) + (pendingData?.list?.length ?? 0) + (sellData?.list?.length ?? 0) + (deactiveData?.list?.length ?? 0);
+      const totalCars = (activeCount ?? 0) + (pendingCount ?? 0) + (sellCount ?? 0) + (deactiveCount ?? 0);
       setTotalCars(totalCars);
-      setActiveCars(data?.list?.length || "-");
-      setPendingCars(pendingData?.list?.length || "-");
-      setInspectionDone(activeCarsData?.length || "-");
-      setSellCars(sellData?.length || "-");
-      setdeactiveCars(deactiveData?.list?.length || "-");
-      setList(data?.list);
+      setActiveCars(activeCount || "-");
+      setPendingCars(pendingCount || "-");
+      setInspectionDone(activeCount || "-");
+      setSellCars(sellCount || "-");
+      setdeactiveCars(deactiveCount || "-");
+      
     }
-  }, [data]);
+    if (data?.list?.length !== 0) {
+      setList(data?.list);
+    }else
+     if (pendingData?.list?.length !== 0) {
+      setList(pendingData?.list);
+    } else if (activeCarsData?.list?.length !== 0) {
+      setList(activeCarsData?.list);
+    } else if (deactiveData?.list?.length !== 0) {
+      setList(deactiveData.list);
+    } else {
+      // Optional: handle the case where none of the lists are available
+      setList([]);
+    }
+ 
+  }, [data,pendingData,sellData,deactiveData]);
   const nextHandler = () => {
     setPageNo((prevPageNo) => {
       // Check if the error status is 404
-      if (error?.status === 404) {
-        // console.log("click");
-        // console.log(prevPageNo);
-        // Display message or perform any action indicating that it's the last page
-        // console.log("You are on the last page.");
+      if (errorActive?.status === 404) {
         return prevPageNo; // Keep pageNo unchanged
       } else {
         // Increment pageNo
@@ -220,7 +280,7 @@ const SellForCar = () => {
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
-              <StatusDialogeBox status={cell.row.values.carStatus} carId={cell.row.values.carId}  />
+              <StatusDialogeBox status={cell.row.values.carStatus} carId={cell.row.values.carId} refetchActive={refetchActive} pendingRefeatch={pendingRefeatch} sellRefeatch={sellRefeatch} refetchDeactive={refetchDeactive} />
             </div>
           </div>
         );
@@ -304,22 +364,17 @@ const SellForCar = () => {
   ];
   
     
-
-  let dealerApiData;
-  if (isLoading) {
+let dealersCarData ;
+    if (isLoadingActive) {
     return (
       <div className="w-screen h-screen flex justify-center items-center p-8">
         <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
       </div>
     );
-  } else {
-    dealerApiData = data?.list;
+  } else{
+    dealersCarData = data?.list
   }
 
- 
-  
- 
-  
   return (
     <>
     
@@ -367,7 +422,7 @@ const SellForCar = () => {
 </Card>
         </div>
 
-        <div onClick={handleFilterActiveCars} className="p-5">
+        <div  onClick={() => setSelectedStatus(active)} className="p-5">
           {/* <div className="text-4xl font-bold text-white">{activeCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Active Cars</div> */}
           <Card className="w-full">
@@ -415,7 +470,7 @@ const SellForCar = () => {
 
 
 
-        <div onClick={handleFilterPendingCars} className="p-5">
+        <div onClick={() => setSelectedStatus(pending)} className="p-5">
           {/* <div className="text-4xl font-bold text-white">{pendingCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Pending Cars</div> */}
       
@@ -464,7 +519,7 @@ const SellForCar = () => {
           <div className="text-4xl font-bold text-white">{sellCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Sold Cars</div>
         </div> */}
-        <div onClick={handleFilterSellCars} className="p-5">
+        <div onClick={() => setSelectedStatus(sell)}className="p-5">
 
         <Card className="w-full">
         <CardBody className=" justify-center items-center">
@@ -507,7 +562,7 @@ const SellForCar = () => {
          </CardBody>
          </Card>
         </div>
-        <div  onClick={handleFilterDeactiveCars} className="p-5">
+        <div onClick={() => setSelectedStatus(deactive)} className="p-5">
           {/* <div className="text-4xl font-bold text-white">{deactiveCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Deactive Cars</div> */}
           <Card className="w-full">
@@ -552,7 +607,7 @@ const SellForCar = () => {
          </Card>
         </div>
       </div>
-      {error?.status === 404 && list?.length === 0 ? (
+      {errorActive?.status === 404 && list?.length === 0 ? (
         <div>
           <p>No Data Available</p>
 
@@ -615,12 +670,14 @@ const SellForCar = () => {
              
 
               <div className="overflow-scroll px-0">
-             {
-              list && <TableComponent columns={columns} data={list} />
-             } 
+              {isLoadingActive || isLoadingPending || isLoadingSell || isLoadingDeactive ? (
+          <p>Loading data...</p>
+        ) : (
+          renderTable()
+        )}
               </div>
             </CardHeader>
-            {error ? (
+            {errorActive ? (
               <p className="text-center">car is not found</p>
             ) : (
               <div></div>
