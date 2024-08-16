@@ -103,8 +103,19 @@ const [changePassword] = useInspChangePasswordMutation()
         confirmNewPassword: "Passwords do not match",
       }));
       hasError = true;
+      toast.error(`Passwords do not match`) 
+
     }
 
+    if (formStateData.oldPassword === formStateData.newPassword) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        newPassword: "New Password cannot be the same as Old Password",
+      }));
+      hasError = true;
+      toast.error(`New Password cannot be the same as Old Password`) 
+    }
+    if (hasError) return;
     const passChange = {
         oldPassword : formStateData.oldPassword,
         newPassword : formStateData.newPassword,
