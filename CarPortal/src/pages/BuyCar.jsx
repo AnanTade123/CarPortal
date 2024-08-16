@@ -16,6 +16,8 @@ const BuyCar = () => {
   const favoriteCars = useSelector(state => state.favorites.favoriteCars);
   const token = Cookies.get("token");
   const [urlState, setUrllState] = useState(null);
+
+  const emptyImage = "..\\..\\cars\\emptyfolder.png";
  
   const { data,isLoading, error, refetch } = useFilterCarQuery(urlState);
   let jwtDecodes;
@@ -52,6 +54,7 @@ const BuyCar = () => {
       </div>
     );
   }
+  
   return (
     <>
       <div className="container mx-auto mt-12">
@@ -61,8 +64,15 @@ const BuyCar = () => {
           </div>
           <div className="md:col-span-3 lg:col-span-3 no-scrollbar">
             {error?.status === 404 ? (
-              <div>
-                <p>No Data Available</p>
+              <div >
+                <div className="flex justify-center mt-14">
+      <img
+          className="w-40"
+          src={emptyImage}
+          alt="no data"
+        />
+        </div>
+                <p className="flex justify-center text-2xl md:text-3xl font-semibold">No Data Available</p>
               </div>
             ) : ( 
               <GridCarList data={data} error={error} refetch={refetch}   />

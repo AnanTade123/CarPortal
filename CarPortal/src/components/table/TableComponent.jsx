@@ -11,9 +11,7 @@ import {
 
 const TableComponent = ({ columns, data }) => {
   
-
- 
-  const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow } =
+const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow } =
     useTable(
       {
         columns,
