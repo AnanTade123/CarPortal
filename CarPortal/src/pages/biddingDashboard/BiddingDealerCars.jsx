@@ -42,7 +42,7 @@ const BiddingDealerCars = () => {
   const [totalCars, setTotalCars] = useState(data?.length || "-");
   const activeCarCount = data?.filter((car) => car.carStatus === "ACTIVE").length;
   const pendingCarCount = data?.filter((car) => car.carStatus === "pending").length;
-  const soldCarCount = data?.filter((car) => car.carStatus === "sold").length;
+  const soldCarCount = data?.filter((car) => car?.carStatus === "SOLD").length;
 
   const [activeCars, setActiveCars] = useState(activeCarCount || "-");
   const [pendingCars, setPendingCars] = useState(pendingCarCount || "-");
@@ -55,7 +55,7 @@ const BiddingDealerCars = () => {
       setTotalCars(data?.length);
       setActiveCars(data?.filter((car) => car.carStatus === "ACTIVE").length);
       setPendingCars(data?.filter((car) => car.carStatus === "pending").length);
-      setSoldCars(data?.filter((car) => car.carStatus === "sold").length);
+      setSoldCars(data?.filter((car) => car.carStatus === "SOLD").length);
       setFilteredData(data);
     }
   }, [data]);
@@ -106,6 +106,11 @@ const BiddingDealerCars = () => {
         const serialNumber = pageNo * pageSize + cell.row.index + 1;
         return serialNumber;
       },
+    },
+    {
+      Header : "Code",
+      accessor : "uniqueBeadingCarId",
+
     },
     {
       accessor: 'biddingTimerId',
@@ -472,7 +477,7 @@ const BiddingDealerCars = () => {
         </div>
         <div
           className="p-5"
-          onClick={() => handleCardClick("sold")}
+          onClick={() => handleCardClick("SOLD")}
         >
           {/* <div className="text-4xl font-bold text-white">
           

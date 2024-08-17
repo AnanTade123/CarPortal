@@ -106,15 +106,16 @@ import ResetPassword from "./forms/ResetPassword";
 export default function App() {
   return (
     <>
+
       <WebSocketConnection />
       <Routes>
+          <Route path="signin" element={<LoginCard />} />
         <Route path="/pendingrequest2" element={<PendingRequest2 />} />
         <Route path="/" element={<Home />} />
 
         <Route element={<AppLayout />}>
           <Route path="/forgetPassword" element={<ForgetPassword />} />
           <Route path="/reset-Password" element={<ResetPassword />} />
-          <Route path="signin" element={<LoginCard />} />
           <Route path="signup" element={<SimpleRegistrationForm />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/carlist" element={<BuyCar />} />

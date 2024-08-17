@@ -150,6 +150,10 @@ const ExteriorSection = () => {
           setFormData((prev) => ({ ...prev, LeftDoorRear: item.comment }));
            setUploadedImages((prev) => ({ ...prev, LeftDoorRears: item.documentLink }));
           break;
+          case "LeftFender":
+            setFormData((prev) => ({ ...prev, LeftFender: item.comment }));
+             setUploadedImages((prev) => ({ ...prev, LeftFenders: item.documentLink }));
+          break;
         case "RightDoorRear":
           setFormData((prev) => ({ ...prev, RightDoorRear: item.comment }));
            setUploadedImages((prev) => ({ ...prev, RightDoorRears: item.documentLink }));

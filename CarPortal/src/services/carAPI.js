@@ -184,7 +184,7 @@ export const carApi = apiSlice.injectEndpoints({
         
         method : 'GET'
       }),
-      providesTags : [ "CAR",],
+      providesTags : [ "CAR","User"],
     }),
 
     CarremoveFavorite: builder.mutation({
@@ -199,6 +199,15 @@ export const carApi = apiSlice.injectEndpoints({
     CarFavoriteAddRemove: builder.query({
       query: ({carid,useid}) => ({
         url: `/saveCar/getByCarAndUserId?userId=${useid}&carId=${carid}`,
+       
+        method:'GET'
+      }),
+      invalidatesTags: ["User"],
+    }),
+
+    CarCountByStatus: builder.query({
+      query: ({status,id}) => ({
+        url: `/car/count?carStatus=${status}&dealerId=${id}`,
        
         method:'GET'
       }),
@@ -228,4 +237,5 @@ export const {
   useGetbyUserCarIdQuery,
   useCarremoveFavoriteMutation,
   useCarFavoriteAddRemoveQuery,
+  useCarCountByStatusQuery
 } = carApi;

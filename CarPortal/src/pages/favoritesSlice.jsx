@@ -17,8 +17,9 @@ export const setFavoriteCars = (cars) => (
 export const fetchFavoriteCars = createAsyncThunk(
     'favorites/fetchFavoriteCars',
     async (UserId) => {
-        // console.log('fetchFavoriteCars called with UserId:', UserId);
-        const data = await useGetbyUserCarIdQuery({ UserId });
+        console.log('fetchFavoriteCars called with UserId:', UserId);
+        const { data ,error } = await useGetbyUserCarIdQuery({ UserId });
+        console.log("I check", data);
         // const normalized = normalize(response.data, [userEntity])
         // console.log('fetchFavoriteCars called with UserId:', data);
 
@@ -39,7 +40,7 @@ const favoritesSlice = createSlice({
   initialState: { favoriteCars: [], loading: 'idle',status: 'idle', },
   reducers: {
     addFavoriteCar: (state, action) => {
-        console.log("addFavoriteCar",action.payload)
+        // console.log("addFavoriteCar",action.payload)
       state.favoriteCars.push(action.payload);
     },
     removeFavoriteCar: (state, action) => {
@@ -53,7 +54,7 @@ const favoritesSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(fetchFavoriteCars.fulfilled, (state, action) => {
-        console.log('fetchFavoriteCars called with UserId:',action)
+        console.log('fetchFavoriteCars called with UserId:',action.payload)
         state.status = 'succeeded';
         state.favoriteCars.push(action.payload)
       })

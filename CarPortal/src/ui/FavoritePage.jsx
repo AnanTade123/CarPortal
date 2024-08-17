@@ -7,7 +7,7 @@ import {
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import FavCard from "./FavCard";
-import { addFavoriteCar } from "../pages/favoritesSlice";
+import { addFavoriteCar, fetchFavoriteCars } from "../pages/favoritesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { FiLoader } from 'react-icons/fi'; 
 export function FavoritePage() {
@@ -29,14 +29,12 @@ export function FavoritePage() {
     refetch
   } = useGetbyUserCarIdQuery({ UserId });
   // console.log("userCars",userCars)
-  // useEffect(() => {
-  //   if (userCars && favoriteCars?.length === 0 && token) {
-  //       dispatch(addFavoriteCar(userCars?.list[0]));
-  //   }
-  //   // else{
-  //   //   dispatch();
-  //   // }
-  // }, [userCars, dispatch]);
+  useEffect(() => {
+    if (UserId) {
+      dispatch(fetchFavoriteCars(UserId));
+    }
+  }, [dispatch]);
+  
 
   if (isLoading) {
     return (
