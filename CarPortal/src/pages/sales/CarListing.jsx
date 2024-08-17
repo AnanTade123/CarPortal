@@ -224,7 +224,7 @@ export default function CarListing() {
       setFilteredCars(activeCarsData);
     } else if (status === "pending") {
       setFilteredCars(pendingCarsData);
-    } else if (status === "sell") {
+    } else if (status === "SOLD") {
       setFilteredCars(sellCarsData);
     } else {
       setFilteredCars(data);
@@ -392,7 +392,7 @@ export default function CarListing() {
          </Card>
         </div>
         <div 
-          onClick={() => handleFilterCars("INSPECTION_DONE")}
+          onClick={() => handleFilterCars("ACTIVE")}
           className="p-5"
         >
           {/* <div className="text-4xl font-bold text-white">{`${inspectionDone}/${totalCars}`}</div>
@@ -475,7 +475,7 @@ export default function CarListing() {
          
         </div>
         <div 
-          onClick={() => handleFilterCars("sell")}
+          onClick={() => handleFilterCars("SOLD")}
           className="p-5"
         >
           {/* <div className="text-4xl font-bold text-white">{sellCars}</div>

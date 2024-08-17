@@ -74,17 +74,22 @@ const DealerEdit = () => {
     // console.log(inputField);
     
     try {
-      const res = await getEditDealer({ id: userid, inputField });
-      console.log(res);
-      if (res.data.status === 'success') {
-        toast.success("Successfully Edited");
-        setTimeout(() => {
-          if (inputField.email !== dealerID.dealerDto.email) {
-            navigate("/signin"); // Redirect to sign-in page if email is changed
-          } else {
-            navigate(-1); // Navigate back to the previous page for other fields
-          }
-        }, 1000);
+      const {data , error} = await getEditDealer({ id: userid, inputField });
+      console.log(data);
+      if(error?.status === 409){
+        toast.error(error?.data?.message)
+      }else{
+
+        if (data?.status === 'success') {
+          toast.success("Successfully Update!!!");
+          setTimeout(() => {
+            if (inputField.email !== dealerID.dealerDto.email) {
+              navigate("/signin"); // Redirect to sign-in page if email is changed
+            } else {
+              navigate(-1); // Navigate back to the previous page for other fields
+            }
+          }, 1000);
+        }
       }
     } catch (error) {
       console.log(error);

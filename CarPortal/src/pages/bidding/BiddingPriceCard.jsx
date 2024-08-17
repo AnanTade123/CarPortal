@@ -89,9 +89,8 @@ const getTopThreeBids = (bidCarId) => {
     });
 
        client.subscribe(`/topic/topThreeBids`, (message) => {
-        const topBids = JSON.parse(message.body);
+         const topBids = JSON.parse(message.body);
         setHighestBid(topBids[0]?.amount);
-        
       }, { ack: 'client' });
   } else {
     // console.log('Stomp client is not initialized.');

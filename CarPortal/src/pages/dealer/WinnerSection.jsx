@@ -36,6 +36,7 @@ const WinnerSection = () => {
     isLoading,
     error,
   } = useAllDealerFinalBidQuery({ UserID, pageNo, pageSize });
+  const [loading , setLoading] = useState(false);
 
   let [trigger] = useLazyBiddingCarByIdQuery();
   let [triggerGetDealer] = useLazyGetDealerByUserIdQuery();
@@ -74,6 +75,7 @@ const WinnerSection = () => {
         }
 
         setLiveCarsWinData(liveCarsData);
+        setLoading(true)
       }
     };
 
@@ -157,7 +159,7 @@ const WinnerSection = () => {
     },
   ];
 
-  if (isLoading) {
+  if (isLoading || !loading) {
     return (
       <div className="w-screen h-screen flex justify-center items-center p-8">
         <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />

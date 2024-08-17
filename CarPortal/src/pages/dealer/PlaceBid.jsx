@@ -35,7 +35,6 @@ export default function PlaceBid({
   };
   const [error, setError] = useState(null);
   const {  getTopThreeBids, topThreeBidsAmount, placeBid } = useWebSocket();
-  
 
   useEffect(()=>{
     setBidAmount(highestBid + 2000);
@@ -59,7 +58,6 @@ export default function PlaceBid({
         refeachData();
         handleMessage(message?.message, "success");
         getTopThreeBids(bidCarId); // Fetch top three bids after placing a bid
-        setBidAmount(topThreeBidsAmount[0]?.amount)
       }
       handleOpen();
     } catch (error) {

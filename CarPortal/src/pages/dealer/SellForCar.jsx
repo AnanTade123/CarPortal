@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import { useDealerIdByCarQuery } from "../../services/carAPI";
+import { useCarCountByStatusQuery, useDealerIdByCarQuery } from "../../services/carAPI";
 import { Tooltip } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 // eslint-disable-next-line no-unused-vars
@@ -38,6 +38,10 @@ const SellForCar = () => {
   const deactive = "DEACTIVATE";
   const [selectedStatus, setSelectedStatus] = useState("ACTIVE");
   
+  const {data : activeCounts , refetch : activeCountRefetch} = useCarCountByStatusQuery({status : active, id:id}) ;
+  const {data : pendingCounts , refetch : pendingCountRefetch} = useCarCountByStatusQuery({status : pending,id :id}) ;
+  const {data : deactivateCounts , refetch : deactiveCountRefetch} = useCarCountByStatusQuery({status : deactive,id :id}) ;
+  const {data : soldCounts , refetch : soldCountsRefetch} = useCarCountByStatusQuery({status : sell,id:id}) ;
   const { data: activeData = [], isLoading: isLoadingActive, error: errorActive, refetch: refetchActive } = useDealerIdByCarQuery({ id, pageNo, status: active });
 const { data: pendingData = [], isLoading: isLoadingPending, error: errorPending ,refetch : pendingRefeatch } = useDealerIdByCarQuery({ id, pageNo, status: pending });
 const { data: sellData = [], isLoading: isLoadingSell, error: errorSell ,refetch :sellRefeatch } = useDealerIdByCarQuery({ id, pageNo, status: sell });
@@ -49,24 +53,20 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
   const sellItems = errorSell?.status === 404 ? [] : sellData?.list || [];
   const deactiveItems = errorDeactive?.status === 404 ? []: deactiveData?.list || [];
   
-  const activeCount = activeItems?.length;
-  const pendingCount = pendingItems?.length;
-  const sellCount = sellItems?.length;
-  const deactiveCount = deactiveItems?.length;
+  const activeCount = activeCounts?.object;
+  const pendingCount = pendingCounts?.object;
+  const sellCount = soldCounts?.object;
+  const deactiveCount = deactivateCounts?.object;
 
-  // You can now use these variables safely in your component without worrying about undefined data
-  
-  // const { data, isLoading, error } = useDealerIdByCarQuery({ id, pageNo ,"ACTIVE" });
-  // console.log("deactiveData",deactiveData)
   const data =[];
   const activeCarsData = data?.list?.filter(car => car?.carStatus === "ACTIVE");
 
-  const [totalCars, setTotalCars] = useState(data?.list?.length || 0);
-  const [activeCars, setActiveCars] = useState(data?.list?.length || 0);
-  const [pendingCars, setPendingCars] = useState(pendingData?.list?.length || 0);
-  const [inspectionDone, setInspectionDone] = useState(data?.length || 0);
-  const [sellCars, setSellCars] = useState(sellData?.length || 0);
-  const [deactiveCars, setdeactiveCars] = useState(deactiveData?.length || 0);
+  const [totalCars, setTotalCars] = useState(activeCount || 0);
+  const [activeCars, setActiveCars] = useState(activeCount || 0);
+  const [pendingCars, setPendingCars] = useState(pendingCount || 0);
+  const [inspectionDone, setInspectionDone] = useState(activeCount || 0);
+  const [sellCars, setSellCars] = useState(sellCount || 0);
+  const [deactiveCars, setdeactiveCars] = useState(deactiveCount || 0);
 
   const [open, setOpen] = useState(false);
   const [openDeactivate, setOpenDeactivate] = useState(false);
@@ -87,7 +87,6 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
   }
 
   const handleFilterCars = (data) => {
-    console.log("Mydataaa---",data);
     setList(data?.list ?? []);
   }
 
@@ -104,7 +103,6 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
   }
  
   const renderTable = () => {
-    console.log("errorDeactive",errorDeactive);
     switch (selectedStatus) {
       case active:
         return activeItems.length > 0 ? (
@@ -140,8 +138,6 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
   const handleOpenDeactivate = (carId) => {
     setOpenDeactivate(!openDeactivate);
     setDeactivateId(carId);
-    // setDeleteid(carId);
-    // console.log('hsgjfsdjh', openDeactivate, deactivateId);
   };
 
   // For calculating Percentage
@@ -149,7 +145,6 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
   // console.log("active",PertotalCars)
 
   const perActive =  data ?  Math.floor((activeCars/totalCars)*100) : 0
-  console.log("active",perActive)
 
   const perPending = Math.ceil((pendingCars / totalCars) * 100);
   // console.log("active",perPending)
@@ -285,7 +280,7 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
-              <StatusDialogeBox status={cell.row.values.carStatus} carId={cell.row.values.carId} refetchActive={refetchActive} pendingRefeatch={pendingRefeatch} sellRefeatch={sellRefeatch} refetchDeactive={refetchDeactive} />
+              <StatusDialogeBox status={cell.row.values.carStatus} carId={cell.row.values.carId} refetchActive={refetchActive} pendingRefeatch={pendingRefeatch} sellRefeatch={sellRefeatch} refetchDeactive={refetchDeactive} activeCountRefetch={activeCountRefetch} pendingCountRefetch={pendingCountRefetch} soldCountsRefetch={soldCountsRefetch} deactiveCountRefetch={deactiveCountRefetch} />
             </div>
           </div>
         );
@@ -440,7 +435,7 @@ let dealersCarData ;
           </Card>
         </div>
 
-        <div  onClick={() => setSelectedStatus(active)} className="p-5">
+        <div  onClick={() => {setSelectedStatus(active);setPageNo(0);}} className="p-5">
           {/* <div className="text-4xl font-bold text-white">{activeCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Active Cars</div> */}
           <Card className="w-full">
@@ -486,7 +481,7 @@ let dealersCarData ;
 
 
 
-        <div onClick={() => setSelectedStatus(pending)} className="p-5">
+        <div onClick={() => {setSelectedStatus(pending);setPageNo(0);}} className="p-5">
           {/* <div className="text-4xl font-bold text-white">{pendingCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Pending Cars</div> */}
 
@@ -534,7 +529,7 @@ let dealersCarData ;
           <div className="text-4xl font-bold text-white">{sellCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Sold Cars</div>
         </div> */}
-        <div onClick={() => setSelectedStatus(sell)}className="p-5">
+        <div onClick={() =>{ setSelectedStatus(sell);setPageNo(0);}}className="p-5">
 
         <Card className="w-full">
         <CardBody className=" justify-center items-center">
@@ -577,7 +572,7 @@ let dealersCarData ;
          </CardBody>
          </Card>
         </div>
-        <div onClick={() => setSelectedStatus(deactive)} className="p-5">
+        <div onClick={() => {setSelectedStatus(deactive);setPageNo(0);}} className="p-5">
           {/* <div className="text-4xl font-bold text-white">{deactiveCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Deactive Cars</div> */}
           <Card className="w-full">
