@@ -36,7 +36,9 @@ const OrderDealer = () => {
     });
 
   const [cancelStatusSet] = useCancelStatusSetMutation();
-  
+  useEffect(()=>{
+    refetch();
+  },[id])
 
   const nextHandler = () => {
     setPageNo((prePageNo) => {
