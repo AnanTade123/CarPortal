@@ -42,7 +42,7 @@ export default function SalesDealer() {
 
 const userid = token ? jwtDecodes?.userId : null;
 
-const { data, isLoading, error } = useGetDealerbySalesQuery(salePersonId !== undefined ? salePersonId: userid);
+const { data, isLoading, error ,refetch } = useGetDealerbySalesQuery(salePersonId !== undefined ? salePersonId: userid);
 
 
 const userRole = token ? jwtDecodes?.authorities[0] : null;
@@ -233,7 +233,7 @@ const userRole = token ? jwtDecodes?.authorities[0] : null;
           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
             <></>
             {userRole !== "ADMIN" ? 
-            <AddDealerFormSales /> : null }
+            <AddDealerFormSales refetch={refetch} /> : null }
           </div>
         </div>
       ) : (
@@ -271,7 +271,7 @@ const userRole = token ? jwtDecodes?.authorities[0] : null;
                 </div>
                 <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
                 {userRole !== "ADMIN" ? 
-            <AddDealerFormSales /> : null }
+            <AddDealerFormSales refetch={refetch} /> : null }
                 </div>
               </div>
             </CardHeader>

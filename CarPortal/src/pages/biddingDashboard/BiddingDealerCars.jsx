@@ -140,7 +140,7 @@ const BiddingDealerCars = () => {
     ...(userRole === "ADMIN" || userRole === "SALESPERSON"
       ? [
         {
-          Header: "Inspection Report Status",
+          Header: "Update Inspection Form",
           accessor: "carStatus",
           Cell: (cell) => {
             return userRole === "DEALER" ? (
