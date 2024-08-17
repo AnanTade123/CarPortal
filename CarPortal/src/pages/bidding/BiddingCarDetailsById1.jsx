@@ -64,6 +64,8 @@ console.log(data)
     biddingTimerStatus
   } = data;
 
+  console.log(data);
+
   const handleMessage = (msg, action) => {
     if (action == "error") {
       toast.error(msg);

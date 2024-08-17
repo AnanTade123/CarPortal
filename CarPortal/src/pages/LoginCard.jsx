@@ -75,8 +75,30 @@ export function LoginCard() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <Card className="w-96">
+    <div>
+
+    <div className="flex justify-center items-center h-screen" 
+    style={{
+        backgroundImage: "url('../public/cars/pre5.jpg')",
+        backgroundSize: "100rem 45rem",
+        backgroundPosition: "center",
+       
+      }}>
+    
+   
+
+      <Card className="w-96 bg-white bg-opacity-70 backdrop-blur-0">
+
+      <div className="items-center mb-14 ">
+<Link to={"/"}>
+          <Typography className="flex cursor-pointer   font-bold text-3xl justify-center items-center 
+           ">
+            CarTechIndia
+          </Typography>
+        </Link>
+        </div>
+
+
       <ToastContainer autoClose={2000} />
         <CardHeader
           variant="gradient"
@@ -136,6 +158,7 @@ export function LoginCard() {
           </CardFooter>
         </form>
       </Card>
+    </div>
     </div>
   );
 }

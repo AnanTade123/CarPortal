@@ -116,7 +116,7 @@ const WinnerSection = () => {
       accessor: "model",
     },
     {
-      Header: "Price",
+      Header: "Top Bidding Amount ",
       accessor: "price",
     },
     {
