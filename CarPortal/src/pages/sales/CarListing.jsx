@@ -388,7 +388,7 @@ export default function CarListing() {
          </Card>
         </div>
         <div 
-          onClick={() => handleFilterCars("INSPECTION_DONE")}
+          onClick={() => handleFilterCars("ACTIVE")}
           className="p-5"
         >
           {/* <div className="text-4xl font-bold text-white">{`${inspectionDone}/${totalCars}`}</div>
