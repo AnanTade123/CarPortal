@@ -113,7 +113,7 @@ const BiddingCarView1 = ({ beadingCarId }) => {
                   {}
                   <img
                     key={url}
-                    src={url}
+                    src={fallbackImage !== url ? url : null}
                     alt={`Car Image ${url}`}
                     className="w-full h-[16rem] md:h-[29rem] md:bg-cover carousel-height relative blur-md bg-cover"
                   />
