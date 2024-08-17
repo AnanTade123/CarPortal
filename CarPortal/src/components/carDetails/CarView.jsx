@@ -45,7 +45,8 @@ const CarView = ({
       />
 
       {/* <InspectionReport/> */}
-
+      {
+           ( abs || childSafetyLocks || sunroof || airbag || buttonStart || acFeature || musicFeature || powerWindowFeature || rearParkingCameraFeature) ?
       <TopFeatures
         abs={abs}
         childSafetyLocks={childSafetyLocks}
@@ -57,6 +58,7 @@ const CarView = ({
         powerWindowFeature={powerWindowFeature}
         rearParkingCameraFeature={rearParkingCameraFeature}
       />
+      :null }
     </div>
   );
 };

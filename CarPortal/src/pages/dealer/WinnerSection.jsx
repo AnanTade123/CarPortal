@@ -6,7 +6,12 @@ import {
   useAllDealerFinalBidQuery,
   useLazyBiddingCarByIdQuery,
 } from "../../services/biddingAPI";
-import { CardFooter, Typography, Button } from "@material-tailwind/react";
+import {
+  CardFooter,
+  Typography,
+  Button,
+  CardHeader,
+} from "@material-tailwind/react";
 import TableComponent from "../../components/table/TableComponent";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
@@ -60,7 +65,7 @@ const WinnerSection = () => {
 
             const combinedData = {
               ...carData,
-              ...dealerName,
+              // ...dealerName,
               ...didData.finalBids[i],
             };
 
@@ -99,6 +104,10 @@ const WinnerSection = () => {
       },
     },
     {
+      Header : "Code",
+      accessor : "uniqueBeadingCarId"
+    },
+    {
       Header: "Brand",
       accessor: "brand",
     },
@@ -111,13 +120,9 @@ const WinnerSection = () => {
       accessor: "price",
     },
     {
-      Header: "Dealer Name",
-      accessor: (row) => `${row.firstName} ${row.lastName}`,
-    },
-    {
-      Header: "Bid Car ID",
-      accessor: "beadingCarId", // Include it as an accessor
-      show: false, // Hide this column in the UI
+      Header: "bidCarId",
+      accessor: "bidCarId",
+      isVisible :false
     },
     {
       Header: "Action",
@@ -174,8 +179,28 @@ const WinnerSection = () => {
 
   return (
     <>
-      <div className="flex w-full justify-center mb-10 mt-5">
-        <p className="text-3xl font-semibold">Winner Section</p>
+      <div className="flex w-full justify-left mb-10 mt-5">
+      <CardHeader floated={false} shadow={false} className="rounded-none">
+              <div className="flex flex-col sm:flex-row justify-between gap-4">
+                <div>
+                  <Typography
+                    variant="h5"
+                    color="blue-gray"
+                    className="text-center lg:text-start"
+                  >
+                    Winning Bidding Car List &nbsp;
+                    <span className="text-grey-400">({didData?.finalBids?.length})</span>
+                  </Typography>
+                  <Typography
+                    color="gray"
+                    className="mt-1 font-normal text-center lg:text-start"
+                  >
+                    See information about all winning bidding cars
+                  </Typography>
+                </div>
+               
+              </div>
+            </CardHeader>
       </div>
       <div>
         {liveCarsWinData && (

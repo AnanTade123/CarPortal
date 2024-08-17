@@ -28,9 +28,6 @@ import { FiLoader } from 'react-icons/fi';
 export default function SalesDealer() {
   const {salePersonId} = useParams();
   const [pageNo, setPageNo] = useState(0);
-  
-  
-  
   const [deleteDealer] = useDeleteDealerMutation();
   const [open, setOpen] = useState(false);
   const [deleteid, setDeleteid] = useState();
@@ -45,7 +42,7 @@ export default function SalesDealer() {
 
 const userid = token ? jwtDecodes?.userId : null;
 
-const { data, isLoading, error } = useGetDealerbySalesQuery(salePersonId !== undefined ? salePersonId: userid);
+const { data, isLoading, error ,refetch } = useGetDealerbySalesQuery(salePersonId !== undefined ? salePersonId: userid);
 
 
 const userRole = token ? jwtDecodes?.authorities[0] : null;
@@ -235,7 +232,8 @@ const userRole = token ? jwtDecodes?.authorities[0] : null;
           <p className="text-3xl font-semibold ">No Data Available</p>
           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
             <></>
-            <AddDealerFormSales />
+            {userRole !== "ADMIN" ? 
+            <AddDealerFormSales refetch={refetch} /> : null }
           </div>
         </div>
       ) : (
@@ -272,7 +270,8 @@ const userRole = token ? jwtDecodes?.authorities[0] : null;
                   </Typography>
                 </div>
                 <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-                  <AddDealerFormSales/>
+                {userRole !== "ADMIN" ? 
+            <AddDealerFormSales refetch={refetch} /> : null }
                 </div>
               </div>
             </CardHeader>

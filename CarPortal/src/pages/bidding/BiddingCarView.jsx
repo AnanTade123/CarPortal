@@ -63,18 +63,20 @@ const BiddingCarView = ({
       {/* <BiddingInspectionReport /> */}
 
       
-          
-      <TopFeatures
-      abs={abs}
-      childSafetyLocks={childSafetyLocks}
-      sunroof={sunroof}
-      airbag={airbag}
-      buttonStart={buttonStart}
-      acFeature={acFeature}
-      musicFeature={musicFeature}
-      powerWindowFeature={powerWindowFeature}
-      rearParkingCameraFeature={rearParkingCameraFeature}
-      />
+          {
+           ( abs || childSafetyLocks || sunroof || airbag || buttonStart || acFeature || musicFeature || powerWindowFeature || rearParkingCameraFeature) ?
+           <TopFeatures
+           abs={abs}
+           childSafetyLocks={childSafetyLocks}
+           sunroof={sunroof}
+           airbag={airbag}
+           buttonStart={buttonStart}
+           acFeature={acFeature}
+           musicFeature={musicFeature}
+           powerWindowFeature={powerWindowFeature}
+           rearParkingCameraFeature={rearParkingCameraFeature}
+           /> : null
+          }
     </div>
   );
 };

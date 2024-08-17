@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { UserPlusIcon } from "@heroicons/react/24/solid";
 import {
@@ -11,7 +12,8 @@ import CardUi from "../../ui/CardUi";
 import { useSignUpMutation } from "../../services/authAPI";
 import { ToastContainer, toast } from "react-toastify";
 
-export function AddSalesForm() {
+// eslint-disable-next-line react/prop-types
+export function AddSalesForm({refetch}) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
   const [SignUp] = useSignUpMutation();
@@ -80,11 +82,15 @@ export function AddSalesForm() {
 
     // Perform form submission logic here, e.g., send data to backend
     try {
-      const { data } = await SignUp(formData);
-      console.log(data);
-      toast.success("Register Successfully");
+      const { data ,error} = await SignUp(formData);
+      if(error?.status){
+        toast.error("Something is wrong");
+      }else{
+        toast.success("Register Successfully");
+        refetch();
+      }
     } catch (error) {
-      // console.log(error);
+      toast.error(error);
     }
     // Reset form after submission
     setFormData({

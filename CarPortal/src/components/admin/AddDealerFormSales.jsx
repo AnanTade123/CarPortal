@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { UserPlusIcon } from "@heroicons/react/24/solid";
 import {
@@ -11,9 +13,10 @@ import CardUi from "../../ui/CardUi";
 import { useSignUpMutation } from "../../services/authAPI";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import { toast ,ToastContainer } from "react-toastify";
 
 
-export function AddDealerFormSales() {
+export function AddDealerFormSales({refetch}) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
   const [SignUp] = useSignUpMutation();
@@ -79,51 +82,59 @@ export function AddDealerFormSales() {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     // Validate form data
-    const emailError = validateEmail(formData.email)
-      ? ""
-      : "Invalid email address";
-    const mobileNoError = validateMobileNo(formData.mobileNo)
-      ? ""
-      : "Invalid mobile number";
+    const emailError = validateEmail(formData.email) ? "" : "Invalid email address";
+    const mobileNoError = validateMobileNo(formData.mobileNo) ? "" : "Invalid mobile number";
+    
     setErrors({ email: emailError, mobileNo: mobileNoError });
-
+  
     // If there are validation errors, do not proceed
     if (emailError || mobileNoError) {
       return;
     }
-
-    // Perform form submission logic here, e.g., send data to backend
+  
     try {
-      const { data } = await SignUp(formData);
-      console.log(data);
-      alert("Register Successfully");
-    } catch (error) {
-      // console.log(error);
+      // Perform form submission logic here, e.g., send data to backend
+      const { data, error } = await SignUp(formData);
+
+      // If there's an error, show an error message
+      if (error) {
+        toast.error(error?.data?.message || "An error occurred");
+      } else {
+        toast.success(data?.message);
+      }
+      refetch();
+      // Reset form after successful submission
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        mobileNo: "",
+        password: "",
+        area: "",
+        city: "",
+        address: "",
+        shopName: "",
+        roles: "DEALER",
+        document: 0,
+        status: false,
+        userType: "",
+      });
+  
+      // Close the dialog
+      setOpen(false);
+  
+    } catch (err) {
+      console.error("Submission error:", err);
+      toast.error("Submission failed. Please try again later.");
     }
-    // Reset form after submission
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      mobileNo: "",
-      password: "",
-      area: "",
-      city: "",
-      address: "",
-      shopName: "",
-      roles: "DEALER",
-      document: 0,
-      status: false,
-      userType: "",
-    });
-    // Close the dialog
-    setOpen(false);
   };
+  
 
   return (
     <>
+    <ToastContainer />
       <Button onClick={handleOpen} className="flex gap-2">
         <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add Dealer
       </Button>

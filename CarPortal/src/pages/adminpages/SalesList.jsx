@@ -27,7 +27,7 @@ export default function SalesList() {
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(10);
  
-  const { data, isLoading, error } = useGetAllSellerQuery({pageNo, pageSize});
+  const { data, isLoading, error ,refetch } = useGetAllSellerQuery({pageNo, pageSize});
   
   const [deleteSeller] = useDeleteSellerMutation();
   const [open, setOpen] = useState(false);
@@ -228,7 +228,7 @@ export default function SalesList() {
         <div>
           <p className="text-3xl font-semibold ">No Data Available</p>
           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-            <AddSalesForm />
+            <AddSalesForm refetch={refetch} />
           </div>
         </div>
       ) : (
@@ -275,7 +275,7 @@ export default function SalesList() {
       </Typography>
                 </div>
                 <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-                  <AddSalesForm />
+                  <AddSalesForm refetch={refetch} />
                 </div>
               </div>
             </CardHeader>

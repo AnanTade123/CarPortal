@@ -9,7 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { useCarUpdateMutation } from "../services/carAPI";
 
-export default function StatusDialogeBox({ status, carId }) {
+export default function StatusDialogeBox({ status, carId ,refetchActive ,pendingRefeatch , sellRefeatch, refetchDeactive}) {
   const [open, setOpen] = React.useState(false);
   const [carUpdate] = useCarUpdateMutation(carId);
   const [selectedOption, setSelectedOption] = React.useState(status);
@@ -26,7 +26,10 @@ export default function StatusDialogeBox({ status, carId }) {
       const res = await carUpdate({ data, carId });
       res;
       // Handle the response as needed
-
+      refetchActive()
+      pendingRefeatch(); 
+      sellRefeatch();
+      refetchDeactive();
       setSelectedOption(temporaryOption);
       setOpen(!open);
     } catch (error) {
@@ -52,6 +55,7 @@ export default function StatusDialogeBox({ status, carId }) {
         return "red";
     }
   };
+ 
 
   return (
     <>
