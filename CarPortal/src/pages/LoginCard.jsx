@@ -79,10 +79,11 @@ export function LoginCard() {
 
     <div className="flex justify-center items-center h-screen" 
     style={{
-        backgroundImage: "url('../public/cars/pre5.jpg')",
-        backgroundSize: "100rem 45rem",
+        backgroundImage: "url('../public/new/bgn31.jpg')",
+        backgroundSize: "cover",
         backgroundPosition: "center",
-       
+        margin: "0px 0px 0px 0px",
+        height: "90vh"
       }}>
     
    
