@@ -276,7 +276,7 @@ const FilterCars = ({ setUrlState }) => {
   };
 
   return (
-    <div className="border-2 shadow-lg rounded-lg">
+    <div className="border-2 shadow-lg rounded-lg m-2">
       <div className="flex justify-end mr-5 ">
         <button
           type="button"
