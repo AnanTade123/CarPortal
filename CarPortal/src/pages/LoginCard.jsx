@@ -78,6 +78,7 @@ export function LoginCard() {
     <div>
 
     <div className="flex justify-center items-center h-screen" 
+    
     style={{
         backgroundImage: "url('../public/new/bgn6.jpg')",
         backgroundSize: "cover",
@@ -87,7 +88,7 @@ export function LoginCard() {
       }}>
     
    
-
+    <ToastContainer autoClose={2000} />
       <Card className="w-96 bg-white bg-opacity-70 backdrop-blur-0">
 
       <div className="items-center mb-14 ">
@@ -100,7 +101,7 @@ export function LoginCard() {
         </div>
 
 
-      <ToastContainer autoClose={2000} />
+      
         <CardHeader
           variant="gradient"
           color="gray"
