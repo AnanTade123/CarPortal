@@ -418,8 +418,8 @@ const BiddingDealerCars = () => {
             height={200}
             
           />
-          <Typography className="flex justify-center items-center font-bold">
-          Pending Cars
+          <Typography className="flex justify-center items-center font-bold whitespace-nowrap">
+          Inspection Pending Cars
 </Typography><Typography className="flex justify-center items-center font-bold">
 {pendingCars}
 </Typography>

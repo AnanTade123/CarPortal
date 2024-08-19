@@ -114,6 +114,7 @@ export default function App() {
 
         <Route element={<AppLayout />}>
           <Route path="/forgetPassword" element={<ForgetPassword />} />
+          <Route path="signin" element={<LoginCard />} />
           <Route path="/reset-Password" element={<ResetPassword />} />
           <Route path="signin" element={<LoginCard />} />
           <Route path="signup" element={<SimpleRegistrationForm />} />

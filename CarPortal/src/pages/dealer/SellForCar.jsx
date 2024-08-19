@@ -4,7 +4,7 @@ import { useCarCountByStatusQuery, useDealerIdByCarQuery } from "../../services/
 import { Tooltip } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 // eslint-disable-next-line no-unused-vars
-import ApexCharts from 'react-apexcharts';
+import ApexCharts from "react-apexcharts";
 import TableComponent from "../../components/table/TableComponent";
 import {
   Card,
@@ -15,7 +15,7 @@ import {
   CardFooter,
   Dialog,
   DialogFooter,
-  DialogBody
+  DialogBody,
 } from "@material-tailwind/react";
 import { Link, useParams } from "react-router-dom";
 import { useCarRemoveMutation } from "../../services/carAPI";
@@ -23,7 +23,8 @@ import { MdPendingActions } from "react-icons/md";
 import StatusDialogeBox from "../../ui/StatusDialogeBox";
 //import AddDealerCar from "../../components/dealer/AddDealerCar";
 import { useCarUpdateMutation } from "../../services/carAPI";
-import { FiLoader } from 'react-icons/fi'; import { jwtDecode } from "jwt-decode";
+import { FiLoader } from "react-icons/fi";
+import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 
 const SellForCar = () => {
@@ -70,17 +71,17 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
   const [open, setOpen] = useState(false);
   const [openDeactivate, setOpenDeactivate] = useState(false);
   const [openActivate, setOpenActivate] = useState(false);
-  const [deactivateId ,setDeactivateId] = useState();
-  const [deleteid ,setDeleteid] = useState();
-  const [list ,setList] = useState([]);
+  const [deactivateId, setDeactivateId] = useState();
+  const [deleteid, setDeleteid] = useState();
+  const [list, setList] = useState([]);
 
   const [carUpdate] = useCarUpdateMutation(deactivateId);
   const [selectedOption, setSelectedOption] = useState(false); 
 
   const token = Cookies.get("token");
- 
+
   let jwtDecodes;
- 
+
   if (token) {
     jwtDecodes = jwtDecode(token);
   }
@@ -133,22 +134,22 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
   };
  
   const userRole = token ? jwtDecodes?.authorities[0] : null;
- 
+
   const handleOpenDeactivate = (carId) => {
     setOpenDeactivate(!openDeactivate);
     setDeactivateId(carId);
   };
- 
+
   // For calculating Percentage
-  const PertotalCars = Math.ceil((totalCars/totalCars)*100)
+  const PertotalCars = Math.ceil((totalCars / totalCars) * 100);
   // console.log("active",PertotalCars)
 
   const perActive =  data ?  Math.floor((activeCars/totalCars)*100) : 0
 
-  const perPending = Math.ceil((pendingCars/totalCars)*100)
+  const perPending = Math.ceil((pendingCars / totalCars) * 100);
   // console.log("active",perPending)
 
-  const perSold = Math.floor((sellCars/totalCars)*100)
+  const perSold = Math.floor((sellCars / totalCars) * 100);
   //  console.log("active",perSold)
 
   const perDeactive =deactiveData?  Math.floor((deactiveCars/totalCars)*100) : 0
@@ -161,18 +162,18 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
 
   const deactivateStatus = async () => {
     const data = {
-      carStatus: 'DEACTIVATE',
+      carStatus: "DEACTIVATE",
     };
-    const res = await carUpdate({data, carId: deactivateId});
+    const res = await carUpdate({ data, carId: deactivateId });
     setSelectedOption("DEACTIVATE");
     setOpenDeactivate(!openDeactivate);
   };
 
   const activateCarStatus = async () => {
     const data = {
-      carStatus: 'ACTIVE',
+      carStatus: "ACTIVE",
     };
-    const res = await carUpdate({data, carId: deactivateId});
+    const res = await carUpdate({ data, carId: deactivateId });
     setSelectedOption("ACTIVE");
     setOpenActivate(!openActivate);
   };
@@ -183,8 +184,8 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
   };
 
   const handleOpen1 = (carId) => {
-    deleteDealerHandler(deleteid)
-    setOpen(!open)
+    deleteDealerHandler(deleteid);
+    setOpen(!open);
   };
 
 
@@ -229,22 +230,26 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
     });
   };
 
-  
   // eslint-disable-next-line no-unused-vars
   const columns = [
     {
-    Header: "Sr. No",
-    accessor: "serialNumber",
-    Cell: (cell) => {
-      const { pageSize } = cell.state; // Assuming you're using React Table's useTable hook
-      const serialNumber = pageNo * pageSize + cell.row.index + 1;
-      return serialNumber;
-    }
-  },
-  {
-    Header: "ID",
-    accessor: "carId",
-  },
+      Header: "Sr. No",
+      accessor: "serialNumber",
+      Cell: (cell) => {
+        const { pageSize } = cell.state; // Assuming you're using React Table's useTable hook
+        const serialNumber = pageNo * pageSize + cell.row.index + 1;
+        return serialNumber;
+      },
+    },
+    {
+      Header: "Code",
+      accessor: "mainCarId",
+    },
+
+    {
+      Header: "ID",
+      accessor: "carId",
+    },
 
     {
       Header: "Brand ",
@@ -349,8 +354,22 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
                 </Tooltip>
               </div>
 
-              { cell.row.values.carStatus == 'ACTIVE' && (<p onClick={() =>handleOpenDeactivate(cell.row.values.carId)} className="cursor-pointer">Deactivate</p>)}
-              { cell.row.values.carStatus == 'DEACTIVATE' && (<p onClick={() =>handleOpenAactivate(cell.row.values.carId)} className="cursor-pointer">Activate</p>)}
+              {cell.row.values.carStatus == "ACTIVE" && (
+                <p
+                  onClick={() => handleOpenDeactivate(cell.row.values.carId)}
+                  className="cursor-pointer"
+                >
+                  Deactivate
+                </p>
+              )}
+              {cell.row.values.carStatus == "DEACTIVATE" && (
+                <p
+                  onClick={() => handleOpenAactivate(cell.row.values.carId)}
+                  className="cursor-pointer"
+                >
+                  Activate
+                </p>
+              )}
             </div>
           </div>
         );
@@ -375,92 +394,89 @@ let dealersCarData ;
     
      <div className="justify-center  lg:grid lg:grid-cols-5  md:grid md:grid-cols-3">
         <div className="p-5">
- 
-        <Card className="w-full">
-  <CardBody className="justify-center items-center">
-    <ApexCharts
-      options={{
-        chart: { type: 'radialBar', height: 200 },
-        plotOptions: {
-          radialBar: {
-            hollow: { size: '40%' },
-            dataLabels: {
-              name: {
-                show: false, // Hide the series name
-              },
-              value: {
-                fontSize: '16px', // Adjust font size if needed
-                color: '#000', // Set text color
-                offsetY:+7,
-                          show: true // Ensure the percentage is shown
-              },
-            },
-          },
-        },
-        colors: ['#007BFF'],
-        labels: [], // Clear any additional labels if needed
-        tooltip: {
-          enabled: false, // Disable tooltip if not needed
-        },
-      }}
-      series={[PertotalCars || 0]} // Default to 0% if PertotalCars is undefined or null
-      type="radialBar"
-      height={200}
-    />
-    <Typography className="flex justify-center items-center font-bold">
-      Total Cars
-    </Typography>
-    <Typography className="flex justify-center items-center font-bold">
-{totalCars}
-</Typography>
-  </CardBody>
-</Card>
+          <Card className="w-full">
+            <CardBody className="justify-center items-center">
+              <ApexCharts
+                options={{
+                  chart: { type: "radialBar", height: 200 },
+                  plotOptions: {
+                    radialBar: {
+                      hollow: { size: "40%" },
+                      dataLabels: {
+                        name: {
+                          show: false, // Hide the series name
+                        },
+                        value: {
+                          fontSize: "16px", // Adjust font size if needed
+                          color: "#000", // Set text color
+                          offsetY: +7,
+                          show: true, // Ensure the percentage is shown
+                        },
+                      },
+                    },
+                  },
+                  colors: ["#007BFF"],
+                  labels: [], // Clear any additional labels if needed
+                  tooltip: {
+                    enabled: false, // Disable tooltip if not needed
+                  },
+                }}
+                series={[PertotalCars || 0]} // Default to 0% if PertotalCars is undefined or null
+                type="radialBar"
+                height={200}
+              />
+              <Typography className="flex justify-center items-center font-bold">
+                Total Cars
+              </Typography>
+              <Typography className="flex justify-center items-center font-bold">
+                {totalCars}
+              </Typography>
+            </CardBody>
+          </Card>
         </div>
 
         <div  onClick={() => {setSelectedStatus(active);setPageNo(0);}} className="p-5">
           {/* <div className="text-4xl font-bold text-white">{activeCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Active Cars</div> */}
           <Card className="w-full">
-        <CardBody className=" justify-center items-center">
-          <ApexCharts
-            options={{
-              chart: { type: 'radialBar', height: 200 },
-              plotOptions: {
-                radialBar: {
-                  hollow: { size: '40%' },
-                  dataLabels: { 
-                    name: {
-                      show: false // Hide the series name
+            <CardBody className=" justify-center items-center">
+              <ApexCharts
+                options={{
+                  chart: { type: "radialBar", height: 200 },
+                  plotOptions: {
+                    radialBar: {
+                      hollow: { size: "40%" },
+                      dataLabels: {
+                        name: {
+                          show: false, // Hide the series name
+                        },
+                        value: {
+                          fontSize: "16px", // Adjust font size if needed
+                          color: "#000", // Set text color
+                          offsetY: +7,
+                          show: true, // Ensure the percentage is shown
+                        },
+                      },
                     },
-                    value: {
-                      fontSize: '16px', // Adjust font size if needed
-            color: '#000', // Set text color
-            offsetY:+7,
-                      show: true // Ensure the percentage is shown
-                    }
-                  }
-                }
-            
-              },
-              colors: ['#28A745'],
-              labels: [], // Clear any additional labels if needed
-              tooltip: {
-                enabled: false // Keep the tooltip enabled if you want to show percentage on hover
-              }
-            }}
-            series={[perActive || 0]}
-            type="radialBar"
-            height={200}
-            
-          />
-          <Typography className="flex justify-center items-center font-bold">
-           Active  Cars
-</Typography>
-<Typography className="flex justify-center items-center font-bold">
-{activeCars}
-</Typography>
-         </CardBody>
-         </Card>
+                  },
+                  colors: ["#28A745"],
+                  labels: [], // Clear any additional labels if needed
+                  tooltip: {
+                    enabled: false, // Keep the tooltip enabled if you want to show percentage on hover
+                  },
+                }}
+                series={[perActive || 0]}
+                type="radialBar"
+                height={200}
+              />
+              <Typography className="flex justify-center items-center font-bold">
+                Active Cars
+              </Typography>
+              <Typography className="flex justify-center items-center font-bold">
+                {activeCars}
+              </Typography>
+            </CardBody>
+          </Card>
         </div>
 
 
@@ -468,48 +484,47 @@ let dealersCarData ;
         <div onClick={() => {setSelectedStatus(pending);setPageNo(0);}} className="p-5">
           {/* <div className="text-4xl font-bold text-white">{pendingCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Pending Cars</div> */}
-      
-        <Card className="w-full">
-        <CardBody className=" justify-center items-center">
-          <ApexCharts
-            options={{
-              chart: { type: 'radialBar', height: 200 },
-              plotOptions: {
-                radialBar: {
-                  hollow: { size: '40%' },
-                  dataLabels: { 
-                    name: {
-                      show: false // Hide the series name
+
+          <Card className="w-full">
+            <CardBody className=" justify-center items-center">
+              <ApexCharts
+                options={{
+                  chart: { type: "radialBar", height: 200 },
+                  plotOptions: {
+                    radialBar: {
+                      hollow: { size: "40%" },
+                      dataLabels: {
+                        name: {
+                          show: false, // Hide the series name
+                        },
+                        value: {
+                          fontSize: "16px", // Adjust font size if needed
+                          color: "#000", // Set text color
+                          offsetY: +7,
+                          show: true, // Ensure the percentage is shown
+                        },
+                      },
                     },
-                    value: {
-                      fontSize: '16px', // Adjust font size if needed
-                      color: '#000', // Set text color
-                      offsetY:+7,
-                                show: true// Ensure the percentage is shown
-                    }
-                  }
-                }
-              },
-              colors: ['#FFC107'],
-              labels: [], // Clear any additional labels if needed
-              tooltip: {
-                enabled: false // Keep the tooltip enabled if you want to show percentage on hover
-              }
-            }}
-            series={[perPending || 0]}
-            type="radialBar"
-            height={200}
-            
-          />
-          <Typography className="flex justify-center items-center font-bold">
-           Pending  Cars
-</Typography>
-<Typography className="flex justify-center items-center font-bold">
-{pendingCars}
-</Typography>
-         </CardBody>
-         </Card>
-         </div>
+                  },
+                  colors: ["#FFC107"],
+                  labels: [], // Clear any additional labels if needed
+                  tooltip: {
+                    enabled: false, // Keep the tooltip enabled if you want to show percentage on hover
+                  },
+                }}
+                series={[perPending || 0]}
+                type="radialBar"
+                height={200}
+              />
+              <Typography className="flex justify-center items-center font-bold">
+                Pending Cars
+              </Typography>
+              <Typography className="flex justify-center items-center font-bold">
+                {pendingCars}
+              </Typography>
+            </CardBody>
+          </Card>
+        </div>
         {/* <div onClick={handleFilterSellCars} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-500 rounded-2xl shadow-xl sm:mb-2 mb-5 sm:mr-5 cursor-pointer">
           <div className="text-4xl font-bold text-white">{sellCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Sold Cars</div>
@@ -561,45 +576,44 @@ let dealersCarData ;
           {/* <div className="text-4xl font-bold text-white">{deactiveCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Deactive Cars</div> */}
           <Card className="w-full">
-        <CardBody className=" justify-center items-center">
-          <ApexCharts
-            options={{
-              chart: { type: 'radialBar', height: 200 },
-              plotOptions: {
-                radialBar: {
-                  hollow: { size: '40%' },
-                  dataLabels: { 
-                    name: {
-                      show: false // Hide the series name
+            <CardBody className=" justify-center items-center">
+              <ApexCharts
+                options={{
+                  chart: { type: "radialBar", height: 200 },
+                  plotOptions: {
+                    radialBar: {
+                      hollow: { size: "40%" },
+                      dataLabels: {
+                        name: {
+                          show: false, // Hide the series name
+                        },
+                        value: {
+                          fontSize: "16px", // Adjust font size if needed
+                          color: "#000", // Set text color
+                          offsetY: +7,
+                          show: true, // Ensure the percentage is shown
+                        },
+                      },
                     },
-                    value: {
-                      fontSize: '16px', // Adjust font size if needed
-            color: '#000', // Set text color
-            offsetY:+7,
-                      show: true // Ensure the percentage is shown
-                    }
-                  }
-                }
-              },
-              colors: ['#FF0000'],
-              labels: [], // Clear any additional labels if needed
-              tooltip: {
-                enabled: false // Keep the tooltip enabled if you want to show percentage on hover
-              }
-            }}
-            series={[perDeactive ||0 ]}
-            type="radialBar"
-            height={200}
-            
-          />
-          <Typography className="flex justify-center items-center font-bold">
-          Deactive Cars
-</Typography>
-<Typography className="flex justify-center items-center font-bold">
-{deactiveCars}
-</Typography>
-         </CardBody>
-         </Card>
+                  },
+                  colors: ["#FF0000"],
+                  labels: [], // Clear any additional labels if needed
+                  tooltip: {
+                    enabled: false, // Keep the tooltip enabled if you want to show percentage on hover
+                  },
+                }}
+                series={[perDeactive || 0]}
+                type="radialBar"
+                height={200}
+              />
+              <Typography className="flex justify-center items-center font-bold">
+                Deactive Cars
+              </Typography>
+              <Typography className="flex justify-center items-center font-bold">
+                {deactiveCars}
+              </Typography>
+            </CardBody>
+          </Card>
         </div>
       </div>
       {errorActive?.status === 404 && list?.length === 0 ? (
@@ -617,52 +631,53 @@ let dealersCarData ;
               )}
 
           
+         
         </div>
       ) : (
         <div>
           {/* <p>Sell for car</p> */}
           <Card className="h-full w-full">
-          <Dialog open={open} handler={handleOpen}>
-      <DialogBody className="flex justify-center" >
-        <p className="font-semibold text-xl">Are you sure want to delete?</p> 
-        </DialogBody>
-        <DialogFooter className="flex justify-center">
-          <Button
-            variant="text"
-            color="red"
-            onClick={handleOpen}
-            className="mr-1"
-          >
-            <span>Cancel</span>
-          </Button>
-          <Button variant="gradient" color="green" onClick={handleOpen1}>
-            <span>Confirm</span>
-          </Button>
-        </DialogFooter>
-      </Dialog>
+            <Dialog open={open} handler={handleOpen}>
+              <DialogBody className="flex justify-center">
+                <p className="font-semibold text-xl">
+                  Are you sure want to delete?
+                </p>
+              </DialogBody>
+              <DialogFooter className="flex justify-center">
+                <Button
+                  variant="text"
+                  color="red"
+                  onClick={handleOpen}
+                  className="mr-1"
+                >
+                  <span>Cancel</span>
+                </Button>
+                <Button variant="gradient" color="green" onClick={handleOpen1}>
+                  <span>Confirm</span>
+                </Button>
+              </DialogFooter>
+            </Dialog>
             <CardHeader floated={false} shadow={false} className="rounded-none">
               <div className=" flex items-center justify-between gap-8">
                 <div>
-                <Typography variant="h5" color="blue-gray">
-                Car Listing
+                  <Typography variant="h5" color="blue-gray">
+                    Car Listing
                   </Typography>
-                <Typography color="gray" className="mt-1 font-normal">
+                  <Typography color="gray" className="mt-1 font-normal">
                     See Information About All Cars
                   </Typography>
                 </div>
-                
-                
-                
-                {userRole === "DEALER" ? (<div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-            <Link to={`/dealer/${id}/addcar`}>
-              <Button>Add Car</Button>
-            </Link>
-          </div>):(
-              <p className="hover:text-blue-900"> </p>
-              )}
-                
+
+                {userRole === "DEALER" ? (
+                  <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+                    <Link to={`/dealer/${id}/addcar`}>
+                      <Button>Add Car</Button>
+                    </Link>
+                  </div>
+                ) : (
+                  <p className="hover:text-blue-900"> </p>
+                )}
               </div>
-             
 
               <div className="overflow-scroll px-0">
               {isLoadingActive || isLoadingPending || isLoadingSell || isLoadingDeactive ? (
@@ -676,15 +691,10 @@ let dealersCarData ;
               <p className="text-center">car is not found</p>
             ) : (
               <div></div>
-             
             )}
 
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-              <Typography
-                
-                color="blue-gray"
-                className="font-normal"
-              >
+              <Typography color="blue-gray" className="font-normal">
                 Page {pageNo + 1}
               </Typography>
               <div className="flex gap-2">
@@ -731,25 +741,29 @@ let dealersCarData ;
       </div>
     </div>)}
 
-    { openActivate && (<div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm mx-auto">
-        <h2 className="text-lg font-semibold mb-4">Are you sure you want to Activate?</h2>
-        <div className="flex justify-end space-x-4">
-          <button
-            onClick={activateCarStatus}
-            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
-          >
-            Confirm
-          </button>
-          <button
-            onClick={handleOpenAactivate}
-            className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
-          >
-            Cancel
-          </button>
+      {openActivate && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm mx-auto">
+            <h2 className="text-lg font-semibold mb-4">
+              Are you sure you want to Activate?
+            </h2>
+            <div className="flex justify-end space-x-4">
+              <button
+                onClick={activateCarStatus}
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+              >
+                Confirm
+              </button>
+              <button
+                onClick={handleOpenAactivate}
+                className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>)}
+      )}
     </>
   );
 };

@@ -75,9 +75,33 @@ export function LoginCard() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <Card className="w-96">
-      <ToastContainer autoClose={2000} />
+    <div>
+
+    <div className="flex justify-center items-center h-screen" 
+    
+    style={{
+        backgroundImage: "url('../public/new/bgn6.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        margin: "0px 0px 0px 0px",
+        height: "90vh"
+      }}>
+    
+   
+    <ToastContainer autoClose={2000} />
+      <Card className="w-96 bg-white bg-opacity-70 backdrop-blur-0">
+
+      <div className="items-center mb-14 ">
+<Link to={"/"}>
+          <Typography className="flex cursor-pointer   font-bold text-3xl justify-center items-center 
+           ">
+            CarTechIndia
+          </Typography>
+        </Link>
+        </div>
+
+
+      
         <CardHeader
           variant="gradient"
           color="gray"
@@ -136,6 +160,7 @@ export function LoginCard() {
           </CardFooter>
         </form>
       </Card>
+    </div>
     </div>
   );
 }

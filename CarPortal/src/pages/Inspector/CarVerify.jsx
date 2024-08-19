@@ -75,14 +75,14 @@ export default function CarVerify() {
   };
 
   return (
-    <div className="w-full md:py-4 md:px-8 overflow-scroll md:mt-0 mt-5">
+    <div className="w-full md:py-4 md:px-8 overflow-scroll md:mt-0 mt-5 ">
       <Stepper
         activeStep={activeStep}
         isLastStep={(value) => setIsLastStep(value)}
         isFirstStep={(value) => setIsFirstStep(value)}
         activeClassName="ring-0 !bg-green-500 text-green-500"
         completedClassName="!bg-green-300 text-green-500"
-        className="bg-white"
+        className="bg-white "
       >
         {steps.map((step, index) => (
           <Step

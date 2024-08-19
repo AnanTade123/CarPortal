@@ -18,7 +18,7 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useLazyGetDealerByUserIdQuery } from "../../services/dealerAPI";
 import { Link } from "react-router-dom";
-import { FiLoader } from 'react-icons/fi'; 
+import { FiLoader } from "react-icons/fi";
 const WinnerSection = () => {
   const token = Cookies.get("token");
   let jwtDecodes;
@@ -41,7 +41,6 @@ const WinnerSection = () => {
   let [trigger] = useLazyBiddingCarByIdQuery();
   let [triggerGetDealer] = useLazyGetDealerByUserIdQuery();
   const [liveCarsWinData, setLiveCarsWinData] = useState([]);
-  
 
   useEffect(() => {
     const fetchServiceProducts = async () => {
@@ -80,7 +79,6 @@ const WinnerSection = () => {
       }
     };
 
-    
     fetchServiceProducts();
   }, [didData, trigger, triggerGetDealer]);
   const nextHandler = () => {
@@ -94,6 +92,8 @@ const WinnerSection = () => {
       setPageNo((prevPageNo) => prevPageNo - 1);
     }
   };
+
+  console.log(liveCarsWinData);
 
   const columns = [
     {
@@ -118,7 +118,7 @@ const WinnerSection = () => {
       accessor: "model",
     },
     {
-      Header: "Price",
+      Header: "Top Bidding Amount ",
       accessor: "price",
     },
     {
@@ -129,12 +129,12 @@ const WinnerSection = () => {
     {
       Header: "Action",
       Cell: (cell) => {
-        
+        console.log(cell.row.values);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
               <Link
-                to={`/biddinglist/cardetails/${cell.row.values.bidCarId}/success`}
+                to={`/biddinglist/cardetails/${cell.row.values.beadingCarId}/success`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -170,14 +170,12 @@ const WinnerSection = () => {
     return (
       <div>
         <div className="flex justify-center mt-14">
-      <img
-          className="w-40"
-          src={emptyImage}
-          alt="no data"
-        />
+          <img className="w-40" src={emptyImage} alt="no data" />
         </div>
-        <p className="flex justify-center text-2xl md:text-3xl font-semibold">No Data Available</p>
-        </div>
+        <p className="flex justify-center text-2xl md:text-3xl font-semibold">
+          No Data Available
+        </p>
+      </div>
     );
   }
 
