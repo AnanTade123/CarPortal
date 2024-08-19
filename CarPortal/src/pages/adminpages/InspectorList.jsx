@@ -21,7 +21,8 @@ export default function InspectorList() {
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const { data, isLoading, error } = useGetallInspectorQuery({ pageNo, pageSize });
- 
+  const emptyImage = "..\\..\\cars\\emptyfolder.png";
+
   const navigate = useNavigate();
   if (error?.status === 401) {
     return navigate("/signin");
@@ -164,10 +165,18 @@ export default function InspectorList() {
  
     {error?.status===404 ? (
         <div>
-          <p className="text-3xl font-semibold">No Data Available</p>
-          <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+           <div className="flex shrink-0 gap-2 sm:flex-row justify-end mr-5 mt-5">
             <AddInspectorForm />
           </div>
+           <div className="flex justify-center mt-10">
+           <img
+          className="w-40"
+          src={emptyImage}
+          alt="no data"
+        />
+         </div>
+          <p className="flex justify-center text-2xl md:text-3xl font-semibold">No Data Available</p>
+         
         </div>
       ) : (
         <Card className="h-full w-full">
