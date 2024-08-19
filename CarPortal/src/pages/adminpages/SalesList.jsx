@@ -26,7 +26,8 @@ import { FiLoader } from 'react-icons/fi';
 export default function SalesList() {
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(10);
- 
+  const emptyImage = "..\\..\\cars\\emptyfolder.png";
+
   const { data, isLoading, error ,refetch } = useGetAllSellerQuery({pageNo, pageSize});
   
   const [deleteSeller] = useDeleteSellerMutation();
@@ -226,10 +227,18 @@ export default function SalesList() {
     <>
       {error?.status === 404 ? (
         <div>
-          <p className="text-3xl font-semibold ">No Data Available</p>
-          <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+          <div className="flex shrink-0 gap-2 sm:flex-row justify-end mr-5 mt-5">
             <AddSalesForm refetch={refetch} />
           </div>
+           <div className="flex justify-center mt-10">
+           <img
+          className="w-40"
+          src={emptyImage}
+          alt="no data"
+        />
+         </div>
+          <p className="flex justify-center text-2xl md:text-3xl font-semibold">No Data Available</p>
+          
         </div>
       ) : (
         <div>
