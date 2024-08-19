@@ -32,13 +32,13 @@ const BiddingCarView1 = ({ beadingCarId }) => {
     if (data?.object && Array.isArray(data.object)) {
       // Reorder data to have 'coverImage' first
       const reorderedData = [
-        ...data.object.filter((item) => item.doctype === "coverImage"),
-        ...data.object.filter((item) => item.doctype !== "coverImage"),
+        ...data.object.filter((item) => item.doctype === "coverImage" && item.documentLink !== null),
+        ...data.object.filter((item) => item.doctype !== "coverImage" && item.documentLink !== null),
       ];
+      
 
       // Extract the URLs from the reordered data
       const urls = reorderedData.map((item) => item.documentLink);
-
       // Validate URLs and set image URLs
       Promise.all(urls.map(checkIfImage)).then((validatedURLs) =>
         setImageURLs(validatedURLs)
