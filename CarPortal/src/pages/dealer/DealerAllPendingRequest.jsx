@@ -2,7 +2,7 @@
 import { useGetAllDealerPendingBookingQuery } from "../../services/dealerAPI";
 import { useParams } from "react-router-dom";
 import DealerCarPendingRequest from "../../components/carDetails/DealerCarPendingRequest";
-import { useState } from "react";
+import {  useEffect, useState } from "react";
 import { Button, CardFooter, Typography } from "@material-tailwind/react";
 import { FiLoader } from 'react-icons/fi'; 
 const DealerAllPendingRequest = () => {
@@ -15,6 +15,9 @@ const DealerAllPendingRequest = () => {
     id,
     pageNo,
   });
+  useEffect(() => {
+    refetch();
+  }, [pageNo, refetch]);
 
   const nextHandler = () => {
     setPageNo((prePageNo) => {
@@ -31,7 +34,7 @@ const DealerAllPendingRequest = () => {
         <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
       </div>
     );}
-  if (!data) {
+  if (!data || error?.status === 404) {
     return <div> 
       <div className="flex justify-center mt-14">
       <img
@@ -62,6 +65,7 @@ const DealerAllPendingRequest = () => {
 
   return (
     <>
+      
       <div className="grid grid-cols-1 gap-y-4 lg:grid lg:grid-cols-2">
         {renderData}
       </div>
