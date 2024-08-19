@@ -24,6 +24,8 @@ import Profile from "../Profile/Profile";
 import { jwtDecode } from "jwt-decode";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 // import { NotificationDialog } from "./NotificationDialog";
+import ucdap2 from "/cars/ucdap2.png";
+
 
 export function StickyNavbar() {
   const [openNav, setOpenNav] = useState(false);
@@ -497,10 +499,10 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
     <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Link to={"/"}>
-        
-          <Typography className="mr-4 cursor-pointer py-1.5 font-bold text-2xl ">
+          {/* <Typography className="mr-4 cursor-pointer py-1.5 font-bold text-2xl ">
             CarTechIndia
-          </Typography>
+          </Typography> */}
+          <img src={ucdap2} alt="logo" className="md:w-56 w-[200px] md:h-[58px] h-[48px] -ml-4 "/>
         </Link>
 
         <div className="flex items-center gap-4">

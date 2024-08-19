@@ -148,7 +148,7 @@ function UploadImages2() {
                 </Tab>
               ))}
             </TabsHeader>
-            <TabsBody className="overflow-y-auto" style={{ maxHeight: "80vh" }}>
+            <TabsBody className="" style={{ maxHeight: "80vh" }}>
               {data1.map(({ value, images, showAddSection }) => (
                 <TabPanel key={value} value={value} className="grid grid-cols-1 gap-4">
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">

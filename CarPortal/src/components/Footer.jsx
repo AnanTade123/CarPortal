@@ -1,5 +1,7 @@
 import { Typography } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import ucdap2 from "/cars/ucdap2.png";
+
 
 export default function FooterF() {
   return (
@@ -9,8 +11,13 @@ export default function FooterF() {
 
         <Link to={"/"}>
           <div>
-            <p className="font-bold text-2xl">CarTechIndia</p>
+            {/* <p className="font-bold text-2xl">CarTechIndia</p> */}
+            <img src={ucdap2} className="md:w-56 w-[200px] md:h-[58px] h-[48px] -ml-4" alt="logo" />
+            <p className="font-bold text-xs -ml-4 mt-1">CarTech Associated with UCDAP</p>
           </div>
+        
+          
+          
         </Link>
         <ul className=" grid grid-cols-2 md:flex flex-wrap items-center gap-y-2 gap-x-8">
           <li>

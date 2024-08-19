@@ -26,6 +26,7 @@ export default function Admin() {
   const [pageNo, setPageNo] = useState(0);
 
   const { data, isLoading, error } = useGetAllDealerQuery(pageNo);
+  const emptyImage = "..\\..\\cars\\emptyfolder.png";
 
   const [deleteDealer] = useDeleteDealerMutation();
   const [open, setOpen] = useState(false);
@@ -219,11 +220,20 @@ export default function Admin() {
     <>
       {error?.status === 404 ? (
         <div>
-          <p className="text-3xl font-semibold ">No Data Available</p>
-          <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+          <div className="flex shrink-0 gap-2 sm:flex-row justify-end mr-5 mt-5">
             <></>
             <AddDealerForm />
           </div>
+          <div className="flex justify-center mt-10">
+           <img
+          className="w-40"
+          src={emptyImage}
+          alt="no data"
+        />
+         </div>
+          <p className="flex justify-center text-2xl md:text-3xl font-semibold">No Data Available</p>
+         
+          
         </div>
       ) : (
         <div>
