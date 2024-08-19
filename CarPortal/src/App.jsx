@@ -109,7 +109,6 @@ export default function App() {
 
       <WebSocketConnection />
       <Routes>
-         
         <Route path="/pendingrequest2" element={<PendingRequest2 />} />
         <Route path="/" element={<Home />} />
 
@@ -117,6 +116,7 @@ export default function App() {
           <Route path="/forgetPassword" element={<ForgetPassword />} />
           <Route path="signin" element={<LoginCard />} />
           <Route path="/reset-Password" element={<ResetPassword />} />
+          <Route path="signin" element={<LoginCard />} />
           <Route path="signup" element={<SimpleRegistrationForm />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/carlist" element={<BuyCar />} />
