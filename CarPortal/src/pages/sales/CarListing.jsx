@@ -42,7 +42,7 @@ export default function CarListing() {
   const { data, error, isLoading } = useBiddingCarByDealerIdQuery(UserId);
   const activeCarsData = data?.filter(car => car?.carStatus === "ACTIVE");
   const pendingCarsData = data?.filter(car => car?.carStatus === "pending");
-  const sellCarsData = data?.filter(car => car?.carStatus === "sell");
+  const sellCarsData = data?.filter(car => car?.carStatus === "SOLD");
 
   const [totalCars, setTotalCars] = useState(data?.length || "-");
   const [activeCars, setActiveCars] = useState(activeCarsData?.length || "-");
@@ -92,9 +92,9 @@ export default function CarListing() {
   };
    // For calculating Percentage
  const PertotalCars = Math.ceil((totalCars/totalCars)*100)
- console.log("active",PertotalCars)
+//  console.log("active",PertotalCars)
 
- const perActive = Math.ceil((activeCars/totalCars)*100)
+ const perActive = Math.ceil((activeCarsData/totalCars)*100)
 //  console.log("active",perActive)
 
  const perPending = Math.ceil((pendingCars/totalCars)*100)
@@ -103,7 +103,7 @@ export default function CarListing() {
  const perSold = Math.ceil((sellCars/totalCars)*100)
 //  console.log("active",perSold)
 
- const perInspection = Math.ceil((inspectionDone/totalCars)*100)
+ const perInspection = Math.ceil((activeCarsData/totalCars)*100)
 //  console.log("active",perInspection)
   
 
@@ -222,7 +222,7 @@ export default function CarListing() {
   const handleFilterCars = (status) => {
     if (status === "ACTIVE") {
       setFilteredCars(activeCarsData);
-    } else if (status === "pending") {
+    } else if (status === "PENDING") {
       setFilteredCars(pendingCarsData);
     } else if (status === "SOLD") {
       setFilteredCars(sellCarsData);
@@ -345,7 +345,7 @@ export default function CarListing() {
          </Card>
         </div>
         <div 
-          onClick={() => handleFilterCars("pending")}
+          onClick={() => handleFilterCars("PENDING")}
           className="p-5"
         >
           {/* <div className="text-4xl font-bold text-white">{`${pendingCars}/${totalCars}`}</div>

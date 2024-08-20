@@ -119,8 +119,8 @@ const BiddingDealerCars = () => {
     },
     {
       accessor: 'biddingTimerStatus',
-      show: false,
-      // isVisible: false
+      // show: true,
+      isVisible: false
     },
     {
       Header: "ID",
