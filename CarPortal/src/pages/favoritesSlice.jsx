@@ -1,10 +1,6 @@
-/* eslint-disable no-unused-vars */
-// src/features/favorites/favoritesSlice.js
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-// import  FavoritesCarList  from './FavoritesCarList';
 import Cookies from 'js-cookie';
-import {jwtDecode} from 'jwt-decode';
-import { useGetbyUserCarIdQuery } from '../services/carAPI';
+// import {jwtDecode} from 'jwt-decode';
 
 export const setFavoriteCars = (cars) => (
     {
@@ -14,17 +10,24 @@ export const setFavoriteCars = (cars) => (
 
 // Async thunk to fetch favorite cars
 // Inside fetchFavoriteCars thunk
+// favoritesSlice.js
 export const fetchFavoriteCars = createAsyncThunk(
-    'favorites/fetchFavoriteCars',
-    async (UserId) => {
-        console.log('fetchFavoriteCars called with UserId:', UserId);
-        const { data ,error } = await useGetbyUserCarIdQuery({ UserId });
-        console.log("I check", data);
-        // const normalized = normalize(response.data, [userEntity])
-        // console.log('fetchFavoriteCars called with UserId:', data);
+  'favorites/fetchFavoriteCars',
+  async (UserId) => {
+    const token = Cookies.get("token");
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    };
 
-        return data;
-    }
+    const response = await fetch(`https://cffffftasting-production.up.railway.app/saveCar/GetByUser?userId=${UserId}`, {
+      method: 'GET',
+      headers: headers
+    });
+
+    const data = await response.json();
+    return data?.list;
+  }
 );
 
   
@@ -37,10 +40,9 @@ export const fetchFavoriteCars = createAsyncThunk(
 
 const favoritesSlice = createSlice({
   name: 'favorites',
-  initialState: { favoriteCars: [], loading: 'idle',status: 'idle', },
+  initialState: initialState,
   reducers: {
     addFavoriteCar: (state, action) => {
-        // console.log("addFavoriteCar",action.payload)
       state.favoriteCars.push(action.payload);
     },
     removeFavoriteCar: (state, action) => {
@@ -50,16 +52,13 @@ const favoritesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchFavoriteCars.pending, (state) => {
-        console.log('fetchFavoriteCars called with UserId:',state)
         state.status = 'loading';
       })
       .addCase(fetchFavoriteCars.fulfilled, (state, action) => {
-        console.log('fetchFavoriteCars called with UserId:',action.payload)
         state.status = 'succeeded';
-        state.favoriteCars.push(action.payload)
+        state.favoriteCars = action.payload
       })
       .addCase(fetchFavoriteCars.rejected, (state, action) => {
-        console.log('fetchFavoriteCars called with UserId:',action)
         state.status = 'failed';
         state.error = action.error.message;
       });

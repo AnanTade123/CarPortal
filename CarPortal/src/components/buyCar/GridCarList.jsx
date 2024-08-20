@@ -16,7 +16,6 @@ const GridCarList = ({ data, error,refetch }) => {
 
   return (
     <>
-      {/* <CardUi> */}
       <div className="grid grid-cols-1 gap-y-6 md:grid-cols-1 md:gap-y-6 lg:grid-cols-3 lg:gap-x-4 lg:gap-y-4">
         {posts?.map((items, index) => {
           return (
@@ -28,7 +27,6 @@ const GridCarList = ({ data, error,refetch }) => {
           );
         })}
       </div>
-      {/* </CardUi> */}
     </>
   );
 };

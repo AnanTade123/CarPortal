@@ -29,11 +29,11 @@ export function FavoritePage() {
     refetch
   } = useGetbyUserCarIdQuery({ UserId });
   // console.log("userCars",userCars)
-  useEffect(() => {
-    if (UserId) {
-      dispatch(fetchFavoriteCars(UserId));
+   useEffect(() => {
+    if(UserId){
+      dispatch(fetchFavoriteCars(UserId)); // dispatch the thunk function itself
     }
-  }, [dispatch]);
+  }, [dispatch,UserId]);
   
 
   if (isLoading) {
