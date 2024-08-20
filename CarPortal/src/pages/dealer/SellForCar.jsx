@@ -294,7 +294,7 @@ const SellForCar = () => {
     },
 
     {
-      Header: "Edit",
+      Header: "Action",
       accessor: "Edit",
       Cell: (cell) => {
         return (
