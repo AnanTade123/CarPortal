@@ -55,7 +55,7 @@ export function FeaturedImageGallery() {
       
       <div className="mt-10  flex justify-center content-center">
         <img
-          className="h-auto w-1/2  rounded-lg  object-center md:h-[480px] "
+          className="h-auto lg:w-3/5 w-4/5  rounded-lg  object-center md:h-[480px] "
           src={active}
           alt=""
         />
@@ -66,7 +66,7 @@ export function FeaturedImageGallery() {
             <img
               onClick={() => setActive(imgelink)}
               src={imgelink}
-              className="h-16  cursor-pointer rounded-lg object-cover object-center"
+              className="lg:h-16 h-14 cursor-pointer rounded-lg object-cover object-center"
               alt="gallery-image"
             />
           </div>
