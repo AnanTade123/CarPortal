@@ -26,14 +26,14 @@ const PremiumCars = () => {
           />
           <div className="absolute grid inset-0 bg-black/40">
             <div className=" mt-2 md:mt-4 xl:mt-8 md:ml-10 mx-5 ">
-              <div className="text-white text-lg md:text-xl lg:text-4xl  mb-2  font-bold  rounded lg:mt-[70px] mt-14 ">
+              <div className="text-white text-lg md:text-xl lg:text-4xl  mb-2  font-bold  rounded xl:mt-[70px] lg:mt-[80px] mt-14 ">
                 Premium Cars Collection...
               </div>
               <p className="text-white font-bold mb-5  text-xs lg:w-2/3 md:text-xl rounded">
                             Car Is Where Early Adopters And Innovation Seekers Lively Imaginative Tech Before It Hits The Mainstream
                         </p>
                          <Link to="/PremiumCarList">
-                        <button className="p-1 md:p-4 rounded-md bg-white">
+                        <button className="p-1 md:p-3 rounded-md bg-white">
                             <h1 className="text-center text-xs md:text-sm font-semibold"> GO TO LISTING </h1>
                         </button>
                     </Link>
@@ -49,14 +49,14 @@ const PremiumCars = () => {
           />
           <div className="absolute grid inset-0 bg-black/40">
             <div className=" mt-2 md:mt-4 xl:mt-8 ml-10">
-              <div className="text-white  text-md md:text-xl lg:text-4xl mb-2 font-bold  rounded lg:mt-[70px] mt-[12px] md:mt-[35px]">
+              <div className="text-white  text-md md:text-xl lg:text-4xl mb-2 font-bold  rounded xl:mt-[70px] lg:mt-[80px] mt-[16px] md:mt-[35px]">
                 Redefining The Standards Of Luxury
               </div>
               {/* <p className="text-white font-bold mb-5 rounded">
               Quick Approval
                </p> */}
                 <Link to="/PremiumCarList">
-                        <button className="p-1 md:p-4 rounded-md bg-white">
+                        <button className="p-1 md:p-3 rounded-md bg-white">
                             <h1 className="text-center text-xs md:text-sm font-semibold"> GO TO LISTING </h1>
                         </button>
                     </Link>
@@ -72,11 +72,11 @@ const PremiumCars = () => {
           />
           <div className="absolute grid inset-0 bg-black/30">
             <div className="mt-2 md:mt-4 xl:mt-8 ml-10">
-              <div className="text-white  text-md md:text-xl lg:text-4xl mb-2  font-bold  rounded lg:mt-[70px] mt-4 md:mt-[30px]">
+              <div className="text-white  text-md md:text-xl lg:text-4xl mb-2  font-bold  rounded xl:mt-[70px] lg:mt-[80px] mt-4 md:mt-[30px]">
                 Drive the Dream. Live the Luxury
               </div>
               <Link to="/PremiumCarList">
-                        <button className="p-1 md:p-4 rounded-md bg-white">
+                        <button className="p-1 md:p-3 rounded-md bg-white">
                             <h1 className="text-center text-xs md:text-sm font-semibold"> GO TO LISTING </h1>
                         </button>
                     </Link>
