@@ -76,6 +76,8 @@ const WinnerSection = () => {
 
         setLiveCarsWinData(liveCarsData);
         setLoading(true)
+      }else{
+        setLoading(true)
       }
     };
 
@@ -92,8 +94,6 @@ const WinnerSection = () => {
       setPageNo((prevPageNo) => prevPageNo - 1);
     }
   };
-
-  console.log(liveCarsWinData);
 
   const columns = [
     {
