@@ -56,7 +56,7 @@ const PremiumCars = () => {
               Quick Approval
                </p> */}
                 <Link to="/PremiumCarList">
-                        <button className="p-1 md:p-3 rounded-md bg-white">
+                        <button className="p-1 md:p-3 ml-2 rounded-md bg-white">
                             <h1 className="text-center text-xs md:text-sm font-semibold"> GO TO LISTING </h1>
                         </button>
                     </Link>
@@ -76,7 +76,7 @@ const PremiumCars = () => {
                 Drive the Dream. Live the Luxury
               </div>
               <Link to="/PremiumCarList">
-                        <button className="p-1 md:p-3 rounded-md bg-white">
+                        <button className="p-1 md:p-3 rounded-md ml-2 bg-white">
                             <h1 className="text-center text-xs md:text-sm font-semibold"> GO TO LISTING </h1>
                         </button>
                     </Link>
