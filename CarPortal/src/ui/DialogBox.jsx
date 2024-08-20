@@ -13,14 +13,14 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router";
 // import { toast } from "react-toastify";
 export default function DialogBox({ price, dealer_id, carId ,handleBuyCar}) {
-  console.log(carId);
+  // console.log(carId);
   const navigate = useNavigate()
   const [bookingRequest] = useBookingRequestMutation();
   const [open, setOpen] = React.useState(false);
-  console.log(dealer_id);
+  // console.log(dealer_id);
   const [inputForm, setInoutForm] = useState("");
   const cookie = Cookies.get("token");
-  console.log(cookie)
+  // console.log(cookie)
   const handleOpen = () =>{
 if(cookie){
     setOpen(!open);
@@ -34,15 +34,15 @@ navigate('/signin')
   const year = date.getFullYear(); // Get the year (e.g., 2024)
   const month = String(date.getMonth() + 1).padStart(2, "0"); // Get the month (0-indexed, so add 1), pad with leading zero if needed
   const day = String(date.getDate()).padStart(2, "0"); // Get the day of the month, pad with leading zero if needed
-  console.log(price);
+  // console.log(price);
   const formattedDate = `${year}-${month}-${day}`;
-  console.log(formattedDate); // Concatenate the parts with hyphens
+  // console.log(formattedDate); // Concatenate the parts with hyphens
   const userId = localStorage.getItem("userInfo");
  
   const stringifyuserId =userId? JSON.parse(userId):null;
   const numUserId = Number(stringifyuserId?.userId);
   const numCarId =userId? Number(carId):null;
-  console.log(numUserId);
+  // console.log(numUserId);
 
   
   const submitHandler = async (e) => {
@@ -57,7 +57,7 @@ navigate('/signin')
       dealerId: dealer_id,
       userId: numUserId,
     };
-    console.log(formData)
+    // console.log(formData)
     
     const res = await bookingRequest(formData);
     // console.log(res);

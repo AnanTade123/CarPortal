@@ -21,7 +21,6 @@ export const WebSocketProvider = ({ children }) => {
     const stompClient = new Client({
       webSocketFactory: () => socket,
       debug: (str) => {
-        console.log(str);
       },
       onConnect: () => {
         setIsConnected(true);
@@ -52,11 +51,11 @@ export const WebSocketProvider = ({ children }) => {
         stompClient.publish({ destination: '/app/liveCars' });
       },
       onStompError: (frame) => {
-        console.error('Broker reported error: ' + frame.headers['message']);
-        console.error('Additional details: ' + frame.body);
+        // console.error('Broker reported error: ' + frame.headers['message']);
+        // console.error('Additional details: ' + frame.body);
       },
       onDisconnect: () => {
-        console.log('Disconnected');
+        // console.log('Disconnected');
         setIsConnected(false);
       }
     });
@@ -74,7 +73,7 @@ export const WebSocketProvider = ({ children }) => {
         destination: '/app/liveCars'
       });
     } else {
-      console.log('Stomp client is not initialized.');
+      // console.log('Stomp client is not initialized.');
     }
   }
 
@@ -101,7 +100,7 @@ export const WebSocketProvider = ({ children }) => {
         }, { ack: 'client' });
       // }
     } else {
-      console.log('Stomp client is not initialized.');
+      // console.log('Stomp client is not initialized.');
     }
   };
 
@@ -139,12 +138,12 @@ export const WebSocketProvider = ({ children }) => {
           subscriptions.current["/topic/bids"] = client.subscribe("/topic/bids", (message) => {
             var response = JSON.parse(message.body);
             if(response?.status){
-              console.log("bidcheck", response?.status);
+              // console.log("bidcheck", response?.status);
               resolve(response);
             }
           });
       } else {
-        console.error('Stomp client is not initialized.');
+        // console.error('Stomp client is not initialized.');
         reject('Stomp client is not initialized.');
       }
     });

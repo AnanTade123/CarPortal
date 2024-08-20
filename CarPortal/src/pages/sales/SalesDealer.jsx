@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { DialogBody, Tooltip } from "@material-tailwind/react";
 import StatusDialogeBox2 from "../../ui/StatusDialogeBox2";
 import {
@@ -23,13 +23,11 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { AddDealerFormSales } from "../../components/admin/AddDealerFormSales";
-
+import { FiLoader } from 'react-icons/fi'; 
 
 export default function SalesDealer() {
+  const {salePersonId} = useParams();
   const [pageNo, setPageNo] = useState(0);
-  
-  
-  
   const [deleteDealer] = useDeleteDealerMutation();
   const [open, setOpen] = useState(false);
   const [deleteid, setDeleteid] = useState();
@@ -42,9 +40,9 @@ export default function SalesDealer() {
     jwtDecodes = jwtDecode(token);
   }
 
-   const userid = token ? jwtDecodes?.userId : null;
-   
-const { data, isLoading, error } = useGetDealerbySalesQuery(userid);
+const userid = token ? jwtDecodes?.userId : null;
+
+const { data, isLoading, error ,refetch } = useGetDealerbySalesQuery(salePersonId !== undefined ? salePersonId: userid);
 
 
 const userRole = token ? jwtDecodes?.authorities[0] : null;
@@ -76,10 +74,10 @@ const userRole = token ? jwtDecodes?.authorities[0] : null;
     setPageNo((prevPageNo) => {
       // Check if the error status is 404
       if (error?.status === 404) {
-        console.log("click");
-        console.log(prevPageNo);
+        // console.log("click");
+        // console.log(prevPageNo);
         // Display message or perform any action indicating that it's the last page
-        console.log("You are on the last page.");
+        // console.log("You are on the last page.");
         return prevPageNo; // Keep pageNo unchanged
       } else {
         // Increment pageNo
@@ -89,6 +87,15 @@ const userRole = token ? jwtDecodes?.authorities[0] : null;
   };
 
   const columns = [
+    {
+      Header: "Sr. No",
+      accessor: "serialNumber",
+      Cell: (cell) => {
+        const { pageSize } = cell.state; // Assuming you're using React Table's useTable hook
+        const serialNumber = pageNo * pageSize + cell.row.index + 1;
+        return serialNumber;
+      }
+    },
     {
       Header: "ID",
       accessor: "dealer_id",
@@ -209,7 +216,11 @@ const userRole = token ? jwtDecodes?.authorities[0] : null;
 
   let dealerApiData;
   if (isLoading) {
-    return <p>isLoading</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   } else {
     dealerApiData = data?.list;
   }
@@ -221,7 +232,8 @@ const userRole = token ? jwtDecodes?.authorities[0] : null;
           <p className="text-3xl font-semibold ">No Data Available</p>
           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
             <></>
-            <AddDealerFormSales />
+            {userRole !== "ADMIN" ? 
+            <AddDealerFormSales refetch={refetch} /> : null }
           </div>
         </div>
       ) : (
@@ -251,18 +263,19 @@ const userRole = token ? jwtDecodes?.authorities[0] : null;
               <div className=" flex items-center justify-between gap-8">
                 <div>
                   <Typography variant="h5" color="blue-gray">
-                    Dealer List
+                    Dealer List <span className="text-gray-600">({data?.totalDealers})</span>
                   </Typography>
                   <Typography color="gray" className="mt-1 font-normal">
-                    See information about all members
+                  See Information about all Dealers
                   </Typography>
                 </div>
                 <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-                  <AddDealerFormSales/>
+                {userRole !== "ADMIN" ? 
+            <AddDealerFormSales refetch={refetch} /> : null }
                 </div>
               </div>
             </CardHeader>
-            <CardBody className="overflow-scroll px-0">
+            <CardBody className="md:overflow-auto overflow-scroll px-1">
               <TableComponent columns={columns} data={dealerApiData} />
             </CardBody>
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">

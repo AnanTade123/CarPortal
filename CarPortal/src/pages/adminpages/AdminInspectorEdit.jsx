@@ -7,13 +7,17 @@ import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FiLoader } from 'react-icons/fi'; 
+import { Link} from "react-router-dom";
+import { Typography } from "@material-tailwind/react";
  
 const   AdminInspectorEdit = () => {
   const { userid, inspectorprofileid } = useParams();
+ 
   const userId = userid;
   const navigate = useNavigate();
   const { data, isLoading, isError, error } = useInspectorByIdQuery({ userId });
-  
+ 
   const [inspectorupdate] = useInspectorupdateMutation();
  
   const [inputField, setInputField] = React.useState({
@@ -79,12 +83,16 @@ const   AdminInspectorEdit = () => {
       toast.error("Error updating inspector", {
         autoClose: 2000, // 2 seconds
       });
-      console.log("Error:", error);
+      // console.log("Error:", error);
     }
   };
  
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
  
   if (isError) {
@@ -92,9 +100,24 @@ const   AdminInspectorEdit = () => {
   }
  
   return (
-    <div className="mx-auto container flex justify-center w-full md:w-[50%]">
+    <>
+     <Typography className=" lg:mt-5 ml-4  lg:ml-16 hidden xl:block">
+      <div className="flex">
+    <Link to={"/"}>
+            <p className="hover:text-blue-900"> Home </p> 
+            </Link>
+             /
+            <Link to={"/inspector"}>
+            <p className="hover:text-blue-900">Inspector</p>
+            </Link>
+            /
+           
+            <p>Edit</p>
+            </div>
+    </Typography>
+    <div className="mx-auto container flex justify-center md:w-[50%] w-fit mt-10">
       <form className="w-full border border-gray-500 px-2 py-2 rounded-md mt-2 mb-2" onSubmit={onSubmitHandler}>
-        <div className="mt-5">
+        <div className="mt-3">
           <p className="text-3xl font-semibold">Edit Inspector Details</p>
         </div>
         <div className="mt-5">
@@ -168,6 +191,7 @@ const   AdminInspectorEdit = () => {
       </form>
       <ToastContainer />
     </div>
+    </>
   );
 };
  

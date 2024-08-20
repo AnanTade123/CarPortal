@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useEffect, useRef, useState } from 'react';
 import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles } from '@material-ui/core';
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Engine = () => {
+const Engine = ({setCheckstep}) => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
  
@@ -173,11 +174,11 @@ const Engine = () => {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
       } catch (error) {
-        console.error('Error uploading the file:', error);
+        // console.error('Error uploading the file:', error);
         alert("Data not Uploaded");
       }
     } else {
-      toast.error("Labels are required to submit the form", { autoClose: 2000 });
+      toast.error("Input is required", { autoClose: 2000 });
     }
     };
     reader.readAsDataURL(file);
@@ -209,7 +210,7 @@ const Engine = () => {
       toast.error("Data not Uploaded", { autoClose: 500 });
     }
   } else {
-    toast.error("Labels are required to submit the form", { autoClose: 2000 });
+    toast.error("Input is required", { autoClose: 2000 });
   }
   };
 
@@ -217,7 +218,24 @@ const Engine = () => {
     setCaptureModalOpen(true);
     setSelectedLable(key)
   }
-
+  if (
+    formData.Engine.length > 0 &&
+    formData.EngineMounting.length > 0 &&
+    formData.EngineSound.length > 0 &&
+    formData.Exhaustsmoke.length > 0 &&
+    formData.Gearbox.length > 0 &&
+    formData.Engineoil.length > 0 &&
+    formData.Battery.length > 0 &&
+    formData.Coolant.length > 0 &&
+    formData.Clutch.length > 0
+  ) {
+    setCheckstep(true);
+    console.log("working")
+  } else {
+    setCheckstep(false);
+   
+  }
+  
   // const handleCaptureImage = (imageUrl) => {
   //   setSelectedImage(imageUrl);
   //   setCaptureModalOpen(false); // Close the camera modal after capturing the image
@@ -271,7 +289,7 @@ const Engine = () => {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
       } catch (error) {
-        console.error('Error uploading the file:', error);
+        // console.error('Error uploading the file:', error);
         toast.error("Data not Uploaded", { autoClose: 500 });
       }
     };

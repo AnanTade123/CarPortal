@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { useFilterCarQuery, useGetCarByIdQuery } from "../services/carAPI";
 import { toast, ToastContainer } from 'react-toastify';
 import { useBookingRequestMutation } from "../services/carAPI";
-
+import { FiLoader } from 'react-icons/fi'; 
 
 
 // import { redirectToSignIn } from "../services/apiSlice";
@@ -18,17 +18,21 @@ const CarDetailsById = () => {
   const navigate = useNavigate();
   const { carId } = useParams();
   const [urlState, setUrlState] = useState();
-  console.log(urlState)
+  // console.log(urlState)
    // eslint-disable-next-line no-unused-vars
    const { data:data1, error1 } = useFilterCarQuery();
-   console.log(data1)
+  //  console.log(data1)
   const { data, isLoading, error } = useGetCarByIdQuery(carId);
-  console.log("error-----",error?.data?.message)
+  // console.log("error-----",error?.data?.message)
 const [bookingRequest] = useBookingRequestMutation();
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
+if (isLoading) {
+  return (
+    <div className="w-screen h-screen flex justify-center items-center p-8">
+      <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+    </div>
+  );
+}
  
   if (error?.status === 401) {
 

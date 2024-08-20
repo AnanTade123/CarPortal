@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useEffect, useRef, useState } from 'react';
 import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles } from '@material-ui/core';
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Steering = () => {
+const Steering = ({setCheckstep}) => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
   
@@ -76,14 +77,14 @@ const Steering = () => {
     }
   };
 
-  
+ 
 
   const handleFileChange = async (event, fieldName, imgPreview = "") => {
     
     let file;
     let imageData;
   if (!event?.target) {
-      console.log("name");
+      // console.log("name");
       file = event;
       imageData = file;
     } else {
@@ -109,7 +110,10 @@ const Steering = () => {
         subtype: lables,
         comment: selectfiled,
       };
- 
+     
+     
+      
+      
       try {
         const res = await inspectionReport({ inspectionData, formDataToSend });
         refetch()
@@ -122,11 +126,11 @@ const Steering = () => {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
       } catch (error) {
-        console.error('Error uploading the file:', error);
+        // console.error('Error uploading the file:', error);
         alert("Data not Uploaded");
       }
     } else {
-      toast.error("Labels are required to submit the form", { autoClose: 2000 });
+      toast.error("Input is required", { autoClose: 2000 });
     }
     };
     reader.readAsDataURL(file);
@@ -141,6 +145,8 @@ const Steering = () => {
     formDataToSend1.append('comment', selectfiled);
     formDataToSend1.append('documentType', "InspectionReport");
     formDataToSend1.append('doc', "");
+
+   
     try {
       const res = await addBiddingCarWithoutImage({formDataToSend1});
       refetch()
@@ -157,8 +163,10 @@ const Steering = () => {
       toast.error("Data not Uploaded", { autoClose: 500 });
     }
   } else {
-    toast.error("Labels are required to submit the form", { autoClose: 2000 });
+    toast.error("Input is required", { autoClose: 2000 });
   }
+
+  
   };
 
   useEffect(() => {
@@ -182,7 +190,12 @@ const Steering = () => {
       }
     });
   }, [data]);
-
+  if (formData.Brake !== '' && formData.Steering !== '' && formData.Suspension !== '') {
+    setCheckstep(true);
+    console.log("working");
+  }else{
+    setCheckstep(false)
+  }
   // const handleImageClick = (image) => {
   //   setSelectedImage(image);
   //   setOpenModal(true);
@@ -231,7 +244,7 @@ const Steering = () => {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
       } catch (error) {
-        console.error('Error uploading the file:', error);
+        // console.error('Error uploading the file:', error);
         toast.error("Data not Uploaded", { autoClose: 500 });
       }
     };

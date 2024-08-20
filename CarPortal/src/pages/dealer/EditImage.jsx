@@ -18,7 +18,7 @@ const EditImage = () => {
   const { data: imagess } = useGetCarImageByIdQuery({ carId, trigger }); // Pass trigger to re-fetch data
   const [deleteCarImageById] = useDeleteCarImageByIdMutation();
 
-  console.log(imagess);
+  // console.log(imagess);
   const [addCarImages] = useAddCarImagesMutation();
   const [uploadStatus, setUploadStatus] = useState({}); 
 
@@ -123,7 +123,7 @@ const EditImage = () => {
         }));
         setTrigger(prev => prev + 1); // Trigger re-fetch after successful upload
       } catch (error) {
-        console.error(error);
+        // console.error(error);
         toast.error("Upload Failed");
         setUploadStatus((prevStatus) => ({
           ...prevStatus,
@@ -134,10 +134,10 @@ const EditImage = () => {
   };
 
   const handleDeleteImage = async (categoryValue, index, imageId) => {
-    console.log(imageId)
+    // console.log(imageId)
     try {
     const res =  await deleteCarImageById({ id: imageId }).unwrap();
-    console.log(res)
+    // console.log(res)
       toast.success("Image Deleted Successfully");
 
       setData((prevData) => {
@@ -156,7 +156,7 @@ const EditImage = () => {
       });
       setTrigger(prev => prev + 1); // Trigger re-fetch after successful deletion
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       toast.error("Failed to Delete Image");
     }
   };

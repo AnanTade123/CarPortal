@@ -23,7 +23,9 @@ import Profile from "../Profile/Profile";
 
 import { jwtDecode } from "jwt-decode";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import { NotificationDialog } from "./NotificationDialog";
+// import { NotificationDialog } from "./NotificationDialog";
+import ucdap2 from "/cars/ucdap2.png";
+
 
 export function StickyNavbar() {
   const [openNav, setOpenNav] = useState(false);
@@ -197,7 +199,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             window.location.pathname === "/admin"
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
           onClick={handleMenuItemClick}
         >
           Dealers
@@ -214,7 +216,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             window.location.pathname === "/inspector"
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
           onClick={handleMenuItemClick}
         >
           Inspectors
@@ -229,14 +231,14 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             window.location.pathname === "/admin/salesuser"
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
           onClick={handleMenuItemClick}
         >
           Seller
         </Typography>
       </Link>
 
-      <NotificationDialog />
+      {/* <NotificationDialog /> */}
     </>
   ) : null;
 
@@ -251,14 +253,14 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             window.location.pathname === `/inspector/car`
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
           onClick={handleMenuItemClick}
         >
           Cars
         </Typography>
       </Link>
 
-      <NotificationDialog />
+      {/* <NotificationDialog /> */}
     </>
   ) : null;
 
@@ -273,7 +275,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             window.location.pathname === "/sales/salesDealers"
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
           onClick={handleMenuItemClick}
         >
           Dealers
@@ -281,7 +283,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
       </Link>
       <NavListMenu />
 
-      <NotificationDialog />
+      {/* <NotificationDialog /> */}
     </>
   ) : null;
 
@@ -296,7 +298,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             window.location.pathname === "/carlist"
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
           onClick={handleMenuItemClick}
         >
           Buy Car
@@ -312,7 +314,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             window.location.pathname === "/dealer/live/cars"
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
           onClick={handleMenuItemClick}
         >
           Live Cars
@@ -331,7 +333,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             `/dealer/${jwtDecodes?.dealerId}/allpending`
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
           onClick={handleMenuItemClick}
         >
           Pending Request
@@ -348,14 +350,14 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             `/dealer/${jwtDecodes?.dealerId}/booking/confirm`
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
           onClick={handleMenuItemClick}
         >
           Confirm Booking
         </Typography>
       </Link>
 
-      <NotificationDialog />
+      {/* <NotificationDialog /> */}
     </>
   ) : null;
 
@@ -372,7 +374,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             window.location.pathname === "/pendinrequest"
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
         >
           All Request
         </Typography>
@@ -408,13 +410,13 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             `/dealer/${jwtDecodes?.userId}/booking/confirm`
               ? "bg-indigo-200 text-white"
               : ""
-          }`}
+          }hover:bg-gray-200`}
         >
           Favorite
         </Typography>
       </Link>
 
-      <NotificationDialog />
+      {/* <NotificationDialog /> */}
     </>
   ) : null;
 
@@ -438,11 +440,12 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
       <Link to={"/"}>
         <Typography
           as="li"
+          
           variant="small"
           color="blue-gray"
           className={`p-3 rounded-md font-normal ${
             window.location.pathname === "/" ? "bg-indigo-200 text-white" : ""
-          }`}
+          } hover:bg-gray-200 `}
           onClick={handleMenuItemClick}
         >
           Home
@@ -458,7 +461,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
               window.location.pathname === "/premiumcars"
                 ? "bg-indigo-200 text-white"
                 : ""
-            }`}
+            } hover:bg-gray-200`}
             onClick={handleMenuItemClick}
           >
            Premium Cars
@@ -477,7 +480,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
               window.location.pathname === "/carlist"
                 ? "bg-indigo-200 text-white"
                 : ""
-            }`}
+            }hover:bg-gray-200`}
             onClick={handleMenuItemClick}
           >
             Buy Car
@@ -496,9 +499,10 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
     <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Link to={"/"}>
-          <Typography className="mr-4 cursor-pointer py-1.5 font-bold text-2xl">
+          {/* <Typography className="mr-4 cursor-pointer py-1.5 font-bold text-2xl ">
             CarTechIndia
-          </Typography>
+          </Typography> */}
+          <img src={ucdap2} alt="logo" className="md:w-56 w-[200px] md:h-[58px] h-[48px] -ml-4 "/>
         </Link>
 
         <div className="flex items-center gap-4">

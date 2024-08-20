@@ -8,6 +8,11 @@ import React, { useEffect } from "react";
 import { Button } from "@material-tailwind/react";
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
+import { Typography } from "@material-tailwind/react";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
+
 
 const AdminDealerEdit = () => {
   const { userid, id } = useParams();
@@ -25,6 +30,19 @@ const AdminDealerEdit = () => {
     shopName: "",
     userid,
   });
+
+  const token = Cookies.get("token");
+
+  let jwtDecodes;
+
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
+
+ 
+
+  const userRole = token ? jwtDecodes?.authorities[0] : null;
+
   const [errors, setErrors] = React.useState({});
   const navigate = useNavigate();
 
@@ -66,7 +84,7 @@ const AdminDealerEdit = () => {
         }, 1000);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -88,9 +106,28 @@ const AdminDealerEdit = () => {
   }, [dealerID, userid]);
 
   return (
-    <div className="mx-auto container flex justify-center w-full md:w-[50%]">
+    <>
+    <Typography className=" lg:mt-5 ml-4  lg:ml-16 hidden xl:block">
+      <div className="flex">
+    <Link to={"/"}>
+            <p className="hover:text-blue-900"> Home </p> 
+            </Link>
+             /
+             {userRole === "SALESPERSON" ? (<Link to={"/sales/salesDealers"}>
+              <p className="hover:text-blue-900">Dealers </p>
+              </Link>):(<Link to={"/admin"}>
+              <p className="hover:text-blue-900">Dealers </p>
+              </Link>)}
+            /
+      
+            <p>Edit</p>
+
+            </div>
+    </Typography>
+    <div className="mx-auto container px-4 sm:px-6 lg:px-8 flex justify-center w-full md:w-[50%] mt-10">
+    
       <form className="w-full border border-gray-500 px-2 py-2 rounded-md mt-2 mb-2" onSubmit={onSubmitHandler}>
-        <div className="mt-5">
+        <div className="mt-3">
           <p className="text-3xl font-semibold">Edit Dealer Details</p>
         </div>
         <ToastContainer />
@@ -207,6 +244,7 @@ const AdminDealerEdit = () => {
         </div>
       </form>
     </div>
+    </>
   );
 };
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
 import WindshieldAndLights from "./ExteriorsComponent/WindshieldAndLights";
@@ -37,13 +38,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Exterior = () => {
+const Exterior = ({setCheckstep}) => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
   
   const { data,refetch } = useGetInspectionReportQuery({ beadingCarId, docType: "Exterior" });
-  
-  
+  console.log(data)
+
 const [formData, setFormData] = useState({
     BonnetHood: [],
     RightDoorFront: [],
@@ -78,7 +79,22 @@ const [formData, setFormData] = useState({
     RightApron : [],
     LeftApron : [],
     LeftPillar : [],
-    RightPillar : []
+    RightPillar : [],
+    RightPillarA: [],
+    RightPillarB : [],
+    RightPillarC : [],
+    LeftFender : [],
+    LeftPillarA: [],
+    LeftPillarB: [],
+    LeftPillarC:[],
+    FrontWindshield:[],
+    RearWindshield:[],
+    LHSORVM :[],
+    RHSORVM :[],
+    CarPoolingon :[],
+    LHSRunningBorder:[],
+    RHSRunningBorder :[],
+    UpperCrossMember:[],
   });
 
  const [uploadedImages, setUploadedImages] = useState({
@@ -98,6 +114,8 @@ const [formData, setFormData] = useState({
     RHSRearTyres: null,
     SpareTyres: null,
     Windshields: null,
+    FrontWindshield:null,
+    RearWindshield:null,
     Lights: null,
     FrontBumpers: null,
     RearBumpers: null,
@@ -116,7 +134,21 @@ const [formData, setFormData] = useState({
     LeftAprons: null,
     LeftPillars: null,
     RightPillars: null,
+    RightPillarA: null,
+    RightPillarB: null,
+    RightPillarC: null,
+    LeftFender : null,
+    LeftPillarA: null,
+    LeftPillarB:null,
+    LeftPillarC:null,
+    LHSORVM:null,
+    RHSORVM:null,
+    CarPoolingon :null,
+    LHSRunningBorder:null,
+    RHSRunningBorder :null,
+    UpperCrossMember:null,
   });
+  
   useEffect(() => {
     // Pre-fill form data and uploaded images based on API data
     data?.object.map((item) => {
@@ -161,6 +193,10 @@ const [formData, setFormData] = useState({
           setFormData((prev) => ({ ...prev, RightDoorRear: item.comment }));
           setUploadedImages((prev) => ({ ...prev, RightDoorRears: item.documentLink }));
           break;
+          case "LeftFender":
+          setFormData((prev) => ({ ...prev, LeftFender: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, LeftFender: item.documentLink }));
+          break;
         default:
           break;
       }
@@ -183,12 +219,12 @@ const [formData, setFormData] = useState({
 
 
   const handleFileChange = async (event, fieldName, imgPreview = "") => {
-    
-    console.log(imgPreview);
+    imgPreview;
+    // console.log(imgPreview);
     let file;
     let imageData;
     if (!event?.target) {
-      console.log("name");
+      // console.log("name");
       file = event;
       imageData = file;
     } else {
@@ -203,7 +239,7 @@ const [formData, setFormData] = useState({
     const reader = new FileReader();
     reader.onload = async () => {
       imageData = reader.result;
-      console.log(imageData);
+      // console.log(imageData);
       setFormData({ ...formData, [fieldName]: imageData });
       if (lables) {
       const inspectionData = {
@@ -227,11 +263,11 @@ const [formData, setFormData] = useState({
           toast.error("Data Upload failed", { autoClose: 500 });
         }
       } catch (error) {
-        console.error('Error uploading the file:', error);
+        // console.error('Error uploading the file:', error);
         toast.error("Data not Uploaded", { autoClose: 500 });
       }
     } else {
-      toast.error("Labels are required to submit the form", { autoClose: 2000 });
+      toast.error("Input is required", { autoClose: 2000 });
     }
     };
     reader.readAsDataURL(file);
@@ -251,7 +287,7 @@ const [formData, setFormData] = useState({
       try {
         const res = await addBiddingCarWithoutImage({ formDataToSend1 });
         refetch();
-        console.log(res?.data.message);
+        // console.log(res?.data.message);
         if (res?.data.message === "success") {
           toast.success("Data Uploaded", { autoClose: 500 });
           setLables('');
@@ -263,7 +299,7 @@ const [formData, setFormData] = useState({
         toast.error("Data not Uploaded", { autoClose: 500 });
       }
     } else {
-      toast.error("Labels are required to submit the form", { autoClose: 2000 });
+      toast.error("Input is required", { autoClose: 2000 });
     }
   };
   
@@ -283,6 +319,63 @@ const [formData, setFormData] = useState({
       setSelectfiled(value);
     }
   };
+  if (
+    formData.BonnetHood.length > 0 &&
+    formData.RightDoorFront.length > 0 &&
+    formData.LeftDoorFront.length > 0 &&
+    formData.RightFender.length > 0 &&
+    formData.LeftQuarterPanel.length > 0 &&
+    formData.RightQuarterPanel.length > 0 &&
+    formData.Roof.length > 0 &&
+    formData.DickyDoor.length > 0 &&
+    formData.LeftDoorRear.length > 0 &&
+    formData.RightDoorRear.length > 0 &&
+    formData.LHSFrontTyre.length > 0 &&
+    formData.RHSFrontTyre.length > 0 &&
+    formData.LHSRearTyre.length > 0 &&
+    formData.RHSRearTyre.length > 0 &&
+    formData.SpareTyre.length > 0 &&
+    formData.Windshield.length > 0 &&
+    formData.Light.length > 0 &&
+    formData.FrontBumper.length > 0 &&
+    formData.RearBumper.length > 0 &&
+    formData.LHSHeadlight.length > 0 &&
+    formData.RHSHeadlight.length > 0 &&
+    formData.LHSTaillight.length > 0 &&
+    formData.RHSTaillight.length > 0 &&
+    formData.HeadLightSupport.length > 0 &&
+    formData.RadiatorSupport.length > 0 &&
+    formData.AlloyWheel.length > 0 &&
+    formData.CowlTop.length > 0 &&
+    formData.BootFloor.length > 0 &&
+    formData.RightApronLEG.length > 0 &&
+    formData.LeftApronLEG.length > 0 &&
+    formData.RightApron.length > 0 &&
+    formData.LeftApron.length > 0 &&
+    formData.LeftPillar.length > 0 &&
+    formData.RightPillar.length > 0 &&
+    formData.RightPillarA.length > 0 &&
+    formData.RightPillarB.length > 0 &&
+    formData.RightPillarC.length > 0 &&
+    formData.LeftFender.length > 0 &&
+    formData.LeftPillarA.length > 0 &&
+    formData.LeftPillarB.length > 0 &&
+    formData.LeftPillarC.length > 0 &&
+    formData.FrontWindshield.length > 0 &&
+    formData.RearWindshield.length > 0 &&
+    formData.LHSORVM.length > 0 &&
+    formData.RHSORVM.length > 0 &&
+    formData.CarPoolingon.length > 0 &&
+    formData.LHSRunningBorder.length > 0 &&
+    formData.RHSRunningBorder.length > 0 &&
+    formData.UpperCrossMember.length > 0
+  ) {
+    setCheckstep(true);
+    
+  } else {
+    setCheckstep(false);
+    
+  }
 
   const fileInputRef = useRef(null);
 
@@ -317,12 +410,14 @@ const [formData, setFormData] = useState({
           toast.error("Data Upload failed", { autoClose: 500 });
         }
       } catch (error) {
-        console.error('Error uploading the file:', error);
+        // console.error('Error uploading the file:', error);
         toast.error("Data not Uploaded", { autoClose: 500 });
       }
     };
  
-
+    // if (!data) {
+    //   return <div><p>No Data Available</p></div>
+    // }
   return (
     <div className="p-4">
  
@@ -905,6 +1000,64 @@ const [formData, setFormData] = useState({
             />
           )}
         </Grid>
+
+        {/* Left Fender */}
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth required>
+            <InputLabel>Left Fender</InputLabel>
+            <Select
+            required
+              name="LeftFender"
+              value={formData.LeftFender}
+              onChange={handleChange}
+            >
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem>
+              <MenuItem value="Scratched">Scratched</MenuItem>
+              <MenuItem value="Rusted">Rusted</MenuItem>
+              <MenuItem value="Repaired">Repaired</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
+              <MenuItem value="Faded">Faded</MenuItem>
+            </Select>
+          </FormControl>
+          <div className='flex gap-5'>  
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.LeftFender && (
+            <img
+              src={uploadedImages.LeftFender}
+              alt="Uploaded"
+              style={{
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => handleImageClick(uploadedImages.LeftFender)}
+            />
+          )}
+        </Grid>
       </Grid>
       
       {/* Modal for displaying clicked image */}
@@ -945,7 +1098,7 @@ const [formData, setFormData] = useState({
       setSelectfiled={setSelectfiled}
       handleChange={handleChange}
     />
-<Tyre/>
+<Tyre setCheckstep={setCheckstep}/>
 <OtherComponent handleImageClick={handleImageClick}
       fileInputRef={fileInputRef}
        handleCameraModal={handleCameraModal} 

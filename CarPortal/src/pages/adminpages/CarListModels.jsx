@@ -13,6 +13,7 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import { CarModelsForm } from "./CarModelsForm";
+import { Link} from "react-router-dom";
 import EditCarForm from "../adminpages/EdiCarForm";
 import {
   useGetAllBrandsQuery,
@@ -92,7 +93,7 @@ const CarListModels = () => {
       refetch();
       setOpen(false);
     } catch (error) {
-      console.error("Failed to delete the car brand:", error);
+      // console.error("Failed to delete the car brand:", error);
     }
   };
   const nextHandler = () => {
@@ -108,6 +109,15 @@ const CarListModels = () => {
   };
 
   const columns = [
+     {
+      Header: "Sr. No",
+      accessor: "serialNumber",
+      Cell: (cell) => {
+        const { pageSize } = cell.state; // Assuming you're using React Table's useTable hook
+        const serialNumber = pageNo * pageSize + cell.row.index + 1;
+        return serialNumber;
+      },
+    },
     {
       Header: "ID",
       accessor: "brandDataId",
@@ -155,18 +165,28 @@ const CarListModels = () => {
           <div className="flex items-center justify-between gap-8">
             <div>
               <Typography variant="h5" color="blue-gray">
-                Car list
+                Car Variants List
               </Typography>
               <Typography color="gray" className="mt-1 font-normal">
-                See information about all cars
+                See Information About Car Variants
               </Typography>
+              <Typography className="hidden xl:block ">
+        <div className="flex">
+      <Link to={"/"}>
+              <p className="hover:text-blue-900"> Home </p> 
+              </Link>
+               /
+              <p>CarModels</p>
+              
+              </div>
+      </Typography>
             </div>
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
               <CarModelsForm addCar={addCar} />
             </div>
           </div>
         </CardHeader>
-        <CardBody className="overflow-scroll px-0">
+        <CardBody className="md:overflow-auto overflow-scroll px-1">
           <TableComponent columns={columns} data={carList} className="" />
         </CardBody>
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">

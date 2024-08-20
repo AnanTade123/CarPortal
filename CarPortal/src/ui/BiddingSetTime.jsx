@@ -8,17 +8,19 @@ import {
   Input,
 } from "@material-tailwind/react";
 import Cookies from "js-cookie";
-import {jwtDecode} from "jwt-decode"; // Corrected the import
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
+import { jwtDecode } from "jwt-decode"; // Corrected the import
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 
-
-import { useCreateBiddingMutation, useStartBiddingSetTimeMutation } from "../services/biddingAPI";
+import {
+  useCreateBiddingMutation,
+  useStartBiddingSetTimeMutation,
+} from "../services/biddingAPI";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
-const TIME_ZONE = 'Asia/Kolkata';
+const TIME_ZONE = "Asia/Kolkata";
 
 // eslint-disable-next-line react/prop-types, no-unused-vars
 export default function BiddingSetTime({ userid, biddingcarid }) {
@@ -45,7 +47,7 @@ export default function BiddingSetTime({ userid, biddingcarid }) {
 
   const handleDurationMinutesChange = (e) => {
     const re = /^[0-9\b]+$/;
-    if (e.target.value === '' || re.test(e.target.value)) {
+    if (e.target.value === "" || re.test(e.target.value)) {
       setSettime({
         ...settime,
         durationMinutes: e.target.value,
@@ -55,7 +57,7 @@ export default function BiddingSetTime({ userid, biddingcarid }) {
 
   const handleBasePriceChange = (e) => {
     const re = /^[0-9\b]+$/;
-    if (e.target.value === '' || re.test(e.target.value)) {
+    if (e.target.value === "" || re.test(e.target.value)) {
       setSettime({
         ...settime,
         basePrice: e.target.value,
@@ -86,11 +88,12 @@ export default function BiddingSetTime({ userid, biddingcarid }) {
           durationMinutes: Number(settime.durationMinutes),
         };
         const res1 = await startBiddingSetTime(setTimeData);
-        console.log(res1);
+        res1;
+        // console.log(res1);
         const now = dayjs().tz(TIME_ZONE);
-        const newTime = now.add(Number(settime.durationMinutes), 'minutes');
-        const formattedTime = newTime.format('YYYY-MM-DDTHH:mm:ss');
-        console.log("formattedTime", formattedTime);
+        const newTime = now.add(Number(settime.durationMinutes), "minutes");
+        const formattedTime = newTime.format("YYYY-MM-DDTHH:mm:ss");
+        // console.log("formattedTime", formattedTime);
 
         const createdAt = {
           bidCarId: 0,
@@ -101,12 +104,12 @@ export default function BiddingSetTime({ userid, biddingcarid }) {
         };
 
         const resCreatedAt = await createBidding(createdAt);
-
-        console.log(resCreatedAt);
+        resCreatedAt;
+        // console.log(resCreatedAt);
         setOpen(!open);
       }
     } catch (error) {
-      console.log("Error", error);
+      // console.log("Error", error);
     }
   };
 

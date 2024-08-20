@@ -6,6 +6,8 @@ import {
   useGetAllDealerCompleteBookingQuery,
 } from "../../services/dealerAPI";
 import CardUi from "../../ui/CardUi";
+import emptyfolder from "/cars/emptyfolder.png";
+
 import {
   Button,
   CardFooter,
@@ -16,6 +18,7 @@ import {
   DialogHeader,
   Typography,
 } from "@material-tailwind/react";
+import { FiLoader } from 'react-icons/fi'; 
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { CarouselCustomArrows } from "../../ui/CarouselCustomArrows";
@@ -23,21 +26,25 @@ import { toast, ToastContainer } from "react-toastify";
 const OrderDealer = () => {
   const { id } = useParams();
 
+
   const [pageNo, setPageNo] = useState(0);
   const [revertId, setRevertId] = useState("");
 
-  const { data, error, isLoading, refetch } =
+  const { data,isLoading, error, refetch } =
     useGetAllDealerCompleteBookingQuery({
       pageNo,
       id,
     });
- 
+
   const [cancelStatusSet] = useCancelStatusSetMutation();
+  useEffect(()=>{
+    refetch();
+  },[id])
 
   const nextHandler = () => {
     setPageNo((prePageNo) => {
       if (error?.status === 404) {
-        console.log("You are on the last page.");
+        // console.log("You are on the last page.");
       } else {
         return prePageNo + 1;
       }
@@ -56,49 +63,32 @@ const OrderDealer = () => {
       toast.success(res?.data?.status);
       handleOpen(false);
       refetch();
-      
     } catch (error) {
-      console.log("Error :", error);
+      // console.log("Error :", error);
     }
   };
-
-  if (error) {
+  if (isLoading) {
     return (
-      <div>
-        <p>No Data Available</p>
-
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-          <Typography
-            variant="medium"
-            color="blue-gray"
-            className="font-normal"
-          >
-            Page {pageNo + 1}
-          </Typography>
-          <div className="flex gap-2">
-            <Button
-              variant="outlined"
-              size="sm"
-              disabled={pageNo <= 0}
-              onClick={() => setPageNo((a) => a - 1)}
-            >
-              Previous
-            </Button>
-            <Button
-              variant="outlined"
-              size="sm"
-              onClick={nextHandler}
-              disabled={data?.bookings?.length < 10}
-            >
-              Next
-            </Button>
-          </div>
-        </CardFooter>
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
       </div>
-    );
+    );}
+  if (!data) {
+    return <div>
+      <div className="flex justify-center  mt-14">
+      <img
+          className="w-40"
+          src={emptyfolder}
+          alt="no data"
+        />
+        </div>
+        <p className="flex justify-center text-2xl md:text-3xl font-semibold">No Data Available</p>
+    </div>
   }
+
   const renderData = data?.bookings?.map((item, index) => {
     const carid = item?.carId;
+   
     return (
       <div className="md:mx-10 mx-5 mt-3 mb-3" key={index}>
         <CardUi>
@@ -116,22 +106,27 @@ const OrderDealer = () => {
               </CardHeader>
             </div>
             <div>
-              <p>
-                Date:<span className="text-lg font-semibold">{item?.date}</span>
+              <p className="text-lg">
+                <span className="font-[latto] text-black font-bold">Date:</span>{" "}
+                {item?.date}
               </p>
-              <p className="mt-2">
-                Price:
-                <span className="font-semibold text-lg">{item?.price}</span>
+              <p className="mt-2 text-lg">
+                <span className="font-[latto] text-black font-bold">
+                  Price:{" "}
+                </span>
+                {item?.price}
               </p>
               <div>
                 <div className="font-[latto] mt-2 text-lg font-bold text-black">
                   Contact Details of the User
                 </div>
-                <div className="font-[latto] mt-1 text-base font-medium text-black">
-                  User Name:{item?.firstName}
+                <div className="font-[latto] mt-1 text-lg font-medium text-black">
+                  <span className="font-bold text-lg">User Name: </span>
+                  {item?.firstName}
                 </div>
-                <div className="font-[latto] text-base font-medium text-black">
-                  Contact No: {item?.mobileNo}
+                <div className="font-[latto] text-lg font-medium text-black">
+                  <span className="font-bold text-lg">Contact No:</span>{" "}
+                  {item?.mobileNo}
                 </div>
               </div>
               <div className="flex gap-2 align-middle items-center">
@@ -205,11 +200,13 @@ const OrderDealer = () => {
     );
   });
   if (isLoading) {
-    return <p>Loading.....</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
-  if (error) {
-    return <p>No Data Available</p>;
-  }
+
   return (
     <>
       <ToastContainer />
@@ -234,7 +231,7 @@ const OrderDealer = () => {
             variant="outlined"
             size="sm"
             onClick={nextHandler}
-            disabled={data?.list?.length < 10}
+            disabled={data?.bookings.length < 10}
           >
             Next
           </Button>

@@ -8,7 +8,7 @@ import {
   CardFooter,
 } from "@material-tailwind/react";
 import { useBiddingCarByDealerIdQuery, useGetByDealerIdQuery } from "../../services/biddingAPI";
-
+import { FiLoader } from 'react-icons/fi'; 
 import TableComponent from "../../components/table/TableComponent";
 import { Link,useParams } from "react-router-dom";
 import { MdPendingActions } from "react-icons/md";
@@ -38,9 +38,13 @@ const BiddingDealer = () => {
  
   // const { data, isLoading,error } = useBiddingCarByDealerIdQuery(UserID);
   const {data,isLoading , error} = useGetByDealerIdQuery(dealerId);
-  console.log(data)
+  // console.log(data)
   if (isLoading) {
-    return <p>Loading..</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
   // const userId = data[0].userId; // Access userId from the first object
   // console.log('User ID:', userId);
@@ -77,7 +81,7 @@ const BiddingDealer = () => {
       Header: "Status",
       accessor: "carStatus",
       Cell: (cell) => {
-        console.log(cell.row.values.carStatus);
+        // console.log(cell.row.values.carStatus);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
@@ -91,7 +95,7 @@ const BiddingDealer = () => {
       Header: "Set Time",
       accessor: "",
       Cell: (cell) => {
-        console.log(cell.row.values.carStatus);
+        // console.log(cell.row.values.carStatus);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
@@ -106,7 +110,7 @@ const BiddingDealer = () => {
       Header: "Start Bidiing",
       accessor: "",
       Cell: (cell) => {
-        console.log(cell.row.values.beadingCarId);
+        // console.log(cell.row.values.beadingCarId);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
@@ -121,7 +125,7 @@ const BiddingDealer = () => {
       Header: "Place Bid",
       accessor: "",
       Cell: (cell) => {
-        console.log(cell.row.values.carStatus);
+        // console.log(cell.row.values.carStatus);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
@@ -137,7 +141,7 @@ const BiddingDealer = () => {
       accessor: "Edit",
       // eslint-disable-next-line no-unused-vars
       Cell: (cell) => {
-         console.log(cell.row.values.beadingCarId);
+        //  console.log(cell.row.values.beadingCarId);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
@@ -210,14 +214,18 @@ const BiddingDealer = () => {
       },
     },
   ];
-console.log(columns);
+// console.log(columns);
   let dealerApiData;
   if (isLoading) {
-    return <p>isLoading</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   } else {
     dealerApiData = data;
   }
-  console.log(dealerApiData);
+  // console.log(dealerApiData);
   
   return (
     <>

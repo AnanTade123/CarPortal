@@ -11,26 +11,31 @@ import {
 
 const TableComponent = ({ columns, data }) => {
   
-
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page,
-    prepareRow,
-  } = useTable(
-    {
-      columns,
-      data,
-      initialState: { 
-        hiddenColumns: ['biddingTimerId']  //use property option, in columns define id name "id"
+const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow } =
+    useTable(
+      {
+        columns,
+        data,
+        initialState: {
+          hiddenColumns: [
+            "biddingTimerId",
+            "dealer_id",
+            "salesPersonId",
+            "brandDataId",
+            "beadingCarId",
+            "carId",
+            "userId",
+            "bidCarId",
+          ], //use property option, in columns define id name "id"
+        },
       },
-    },
-    useGlobalFilter,
-    useSortBy,
-    usePagination
-  );
+      useGlobalFilter,
+      useSortBy,
+      usePagination
+    );
 
+  // console.log("headerGroups",headerGroups);
+  // console.log("headerGroups",page?.map((headerGroup, index) => (index)));
   // Memoize the header rendering
   const renderHeader = useMemo(() => {
     return headerGroups.map((headerGroup, index) => (
@@ -42,11 +47,7 @@ const TableComponent = ({ columns, data }) => {
             className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
           >
             {column.render("Header")}
-            {column.isSorted
-              ? column.isSortedDesc
-                ? " 🔽"
-                : " 🔼"
-              : ""}
+            {column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""}
           </th>
         ))}
       </tr>
@@ -56,7 +57,6 @@ const TableComponent = ({ columns, data }) => {
   // Memoize the row rendering
   const renderRows = useMemo(() => {
     return page.map((row, index) => {
-      
       const isLast = data?.length - 1 === index;
       const classes = isLast ? "p-1" : "p-3 border-b border-blue-gray-50";
       prepareRow(row);
@@ -64,10 +64,7 @@ const TableComponent = ({ columns, data }) => {
         <tr {...row.getRowProps()} key={index}>
           {row.cells.map((cell, i) => (
             <td key={i} {...cell.getCellProps()} className={classes}>
-              <Typography
-                color="blue-gray"
-                className="font-normal text-lg"
-              >
+              <Typography color="blue-gray" className="font-normal text-lg">
                 {cell.render("Cell")}
               </Typography>
             </td>

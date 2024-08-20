@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useEffect, useRef, useState } from 'react';
 import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles } from '@material-ui/core';
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Interior = () => {
+const Interior = ({setCheckstep}) => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
  
@@ -89,7 +90,7 @@ const Interior = () => {
     let file;
     let imageData;
   if (!event?.target) {
-      console.log("name");
+      // console.log("name");
       file = event;
       imageData = file;
     } else {
@@ -128,11 +129,11 @@ const Interior = () => {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
       } catch (error) {
-        console.error('Error uploading the file:', error);
+        // console.error('Error uploading the file:', error);
         alert("Data not Uploaded");
       }
     } else {
-      toast.error("Labels are required to submit the form", { autoClose: 2000 });
+      toast.error("Input is required", { autoClose: 2000 });
     }
     };
     reader.readAsDataURL(file);
@@ -163,7 +164,7 @@ const Interior = () => {
       toast.error("Data not Uploaded", { autoClose: 500 });
     }
   } else {
-    toast.error("Labels are required to submit the form", { autoClose: 2000 });
+    toast.error("Input is required", { autoClose: 2000 });
   }
   };
 
@@ -202,7 +203,19 @@ const Interior = () => {
       }
     });
   }, [data]);
-
+  if (
+    formData.LeatherSeat.trim() !== '' &&
+    formData.Odometer.trim() !== '' &&
+    formData.CabinFloor.trim() !== '' &&
+    formData.Dashboard.trim() !== ''
+  ) {
+    setCheckstep(true);
+    
+  } else {
+    setCheckstep(false);
+    
+  }
+  
   // const handleImageClick = (image) => {
   //   setSelectedImage(image);
   //   setOpenModal(true);
@@ -240,7 +253,7 @@ const Interior = () => {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
       } catch (error) {
-        console.error('Error uploading the file:', error);
+        // console.error('Error uploading the file:', error);
         toast.error("Data not Uploaded", { autoClose: 500 });
       }
     };

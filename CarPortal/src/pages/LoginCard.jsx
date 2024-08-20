@@ -67,7 +67,7 @@ export function LoginCard() {
 
       // Handle successful sign-in, such as redirecting to a different page
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       // Handle sign-in error
     }
 
@@ -75,9 +75,34 @@ export function LoginCard() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <Card className="w-96">
-      <ToastContainer autoClose={2000} />
+    <div>
+
+    <div className="flex justify-center items-center h-screen" 
+    
+    // style={{
+    //     backgroundImage: "url('../public/new/bgn6.jpg')",
+    //     backgroundSize: "cover",
+    //     backgroundPosition: "center",
+    //     margin: "0px 0px 0px 0px",
+    //     height: "90vh"
+    //   }}
+      >
+    
+   
+    <ToastContainer autoClose={2000} />
+      <Card className="w-96 bg-white shadow-xl border ">
+
+      <div className="items-center mb-12 ">
+<Link to={"/"}>
+          <Typography className="flex cursor-pointer mt-2  font-bold text-3xl justify-center items-center 
+           ">
+            CarTechIndia
+          </Typography>
+        </Link>
+        </div>
+
+
+      
         <CardHeader
           variant="gradient"
           color="gray"
@@ -108,9 +133,10 @@ export function LoginCard() {
               Sign In
             </Button>
             <div className="flex items-center justify-center mt-4">
-              <Typography variant="small" className=" flex justify-center">
-                Do not have an account?{' '}
-              </Typography>
+            <Typography variant="small" className="flex justify-center">
+  Don&apos;t have an account?{' '}
+</Typography>
+
               <Link to="/signup">
                 <Typography
                   variant="small"
@@ -121,21 +147,21 @@ export function LoginCard() {
                 </Typography>
               </Link>
             </div>
-            {/* <div className="flex">
-                <p>Forget Password ? </p>
-                <Link to="/changePassword">
+            <div className="flex justify-center">
+                <Link to="/forgetPassword">
                 <Typography
                   variant="small"
                   color="blue-gray"
                   className="ml-1 font-bold"
                 >
-                  Change Password
+                  Forget Password ?
                 </Typography>
               </Link>
-              </div> */}
+              </div>
           </CardFooter>
         </form>
       </Card>
+    </div>
     </div>
   );
 }

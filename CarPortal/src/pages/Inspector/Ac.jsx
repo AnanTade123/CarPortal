@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useEffect, useRef, useState } from 'react';
 import { MenuItem, FormControl, Select, InputLabel, Grid, Typography, Button, Modal, makeStyles, SnackbarContent } from '@material-ui/core';
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Ac = () => {
+const Ac = ({setCheckstep}) => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
   
@@ -115,11 +116,11 @@ if (!event?.target) {
         toast.error("Data Upload failed", { autoClose: 500 });
       }
     } catch (error) {
-      console.error('Error uploading the file:', error);
+      // console.error('Error uploading the file:', error);
       alert("Data not Uploaded");
     }
   } else {
-    toast.error("Labels are required to submit the form", { autoClose: 2000 });
+    toast.error("Input is required", { autoClose: 2000 });
   }
   };
   reader.readAsDataURL(file);
@@ -150,7 +151,7 @@ const handleSubmitWithoutImage = async () => {
     toast.error("Data not Uploaded", { autoClose: 500 });
   }
 } else {
-  toast.error("Labels are required to submit the form", { autoClose: 2000 });
+  toast.error("Input is required", { autoClose: 2000 });
 }
 };
 
@@ -184,6 +185,19 @@ const handleSubmitWithoutImage = async () => {
       }
     });
   }, [data]);
+  
+  if (
+    formData.ACCooling.length > 0 &&
+    formData.AcVent.length > 0 &&
+    formData.ClimateControlAC.length > 0 &&
+    formData.Heater.length > 0
+  ) {
+    setCheckstep(true);
+    console.log("working");
+  } else {
+    setCheckstep(false);
+  }
+  
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
@@ -193,7 +207,7 @@ const handleSubmitWithoutImage = async () => {
       setSelectfiled(value);
     }
   };
-
+  
   // const handleImageClick = (image) => {
   //   setSelectedImage(image);
   //   setOpenModal(true);
@@ -232,7 +246,7 @@ const handleSubmitWithoutImage = async () => {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
       } catch (error) {
-        console.error('Error uploading the file:', error);
+        // console.error('Error uploading the file:', error);
         toast.error("Data not Uploaded", { autoClose: 500 });
       }
     };

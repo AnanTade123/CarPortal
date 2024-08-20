@@ -35,7 +35,7 @@ const EditCarForm = ({ initialData, brandDataId ,onSave}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(inputField);
+    // console.log(inputField);
 
     try {
       const res = await editBrandData({
@@ -44,7 +44,7 @@ const EditCarForm = ({ initialData, brandDataId ,onSave}) => {
       }).unwrap();
       onSave(res)
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
     handleOpen();
   };

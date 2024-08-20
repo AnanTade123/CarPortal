@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { Input, Button, Checkbox, Typography } from "@material-tailwind/react";
 import { useCountries } from "use-react-countries";
@@ -118,20 +119,21 @@ export function SimpleRegistrationForm() {
 
     if (!hasError) {
       // Your form submission logic goes here
-      console.log("Form data submitted:", formStateData);
+      // console.log("Form data submitted:", formStateData);
     }
 
     try {
-      const res = await SignUp(formStateData);
-      console.log("Response",res);
-      if (res.data.code === "Successful") {
-        toast.success("Register Sucessfully");
+      const {data , error} = await SignUp(formStateData);
+      if(error?.status === 400){
+        toast.error(error?.data?.message);
+      }
+      else{
+        toast.success(data?.message);
         setTimeout(() => {
           navigate("/signin");
         }, 1000);
       }
     } catch (error) {
-      console.log("hello")
         toast.error("Register UnSucessfully");
     }
   };

@@ -22,7 +22,8 @@ export default function Wallet() {
           openingBalance: formData.openingBalance,
           
         };
-        console.log(data);
+        data;
+        // console.log(data);
 }
 
 return(

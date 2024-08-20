@@ -10,64 +10,50 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import { useInspectorupdateMutation, useInspectorByIdQuery } from "../../services/inspectorapi";
-
+import { FiLoader } from 'react-icons/fi'; 
 
 export default function InspectorStatusDialogBox({ userId, inspectorProfileId, status }) {
   
-  const [open, setOpen] = React.useState(false);
-  const [isActive, setIsActive] = React.useState(status);
+  const [open, setOpen] = useState(false);
+  const [isActive, setIsActive] = useState(status);
   const { data, isLoading, isError, error } = useInspectorByIdQuery({ userId });
   const [StatusData ,setStatusData] = useState(status);
-  
-
-  // useEffect(() => {
-  //   if (data && data.response) {
-  //     setIsActive(status);
-  //   }
-  // }, [data]);
-
   const [InspctorStatus, { isLoading: isUpdating, error: updateError }] = useInspectorupdateMutation();
-
   const handleOpen = () => setOpen(!open);
-
   const handleSelectChange = (event) => {
     const newIsActive = event.target.value === "true";
-    setStatusData(newIsActive);
+    setIsActive(newIsActive);
   };
 
   const getButtonColor = () => {
-    return isActive ? "green" : "red";
+    return StatusData ? "green" : "red";
   };
 
   const getStatusText = () => {
-    return isActive ? "Active" : "Disabled";
+    return StatusData ? "Active" : "Disabled";
   };
 
   const handleConfirm = async (e) => {
     e.preventDefault();
 
     const inspectordata = {
-      status: StatusData ? true : false
+      status: isActive ? true : false
     };
-
-    console.log("Inspectordata to be sent:", inspectordata);
-
     try {
-      console.log("Updating Inspector with ID:", inspectorProfileId, "to status:", isActive);
-
       const res = await InspctorStatus({ id: inspectorProfileId, inspectordata }).unwrap();
-      setIsActive(StatusData);
-
-      console.log("API response:", res);
-      console.log("Inspector status updated successfully!");
+      setStatusData(StatusData);
       setOpen(false); 
     } catch (error) {
-      console.error("Error updating Inspector status:", error);
+      // console.error("Error updating Inspector status:", error);
     }
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
 
   if (isError) {

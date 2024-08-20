@@ -4,7 +4,7 @@ import { useWebSocket } from '../../Utiles/WebSocketConnection';
 
 // eslint-disable-next-line react/prop-types
 const HighestBidAmount = ({bidId}) => {
-  console.log("BidId----",bidId)
+  // console.log("BidId----",bidId)
  const { isConnected, getTopThreeBids,topThreeBidsAmount } = useWebSocket();
 useEffect(() => {
   if (isConnected && bidId) {

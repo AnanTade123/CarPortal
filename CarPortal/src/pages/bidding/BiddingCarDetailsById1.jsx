@@ -6,29 +6,32 @@
 // import PriceCard from "../../components/carDetails/PriceCard";
 import { useParams } from "react-router-dom";
 import {
-  useGetbeadingCarImageQuery,
   useGetbeadingCarByIdQuery,
+  useGetByBidCarIdQuery,
 } from "../../services/biddingAPI";
-// import { redirectToSignIn } from "../services/apiSlice";
 import { useNavigate } from "react-router-dom";
 import BiddingCarView from "./BiddingCarView";
 import BiddingPriceCard from "./BiddingPriceCard";
-import { Client } from "@stomp/stompjs";
-import SockJS from "sockjs-client/dist/sockjs";
-import { useEffect, useState } from "react";
+
+import { FiLoader } from 'react-icons/fi'; 
+import {  useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { useWebSocket } from "../../Utiles/WebSocketConnection";
 
 export default function BiddingCarDetailsById1() {
   const navigate = useNavigate();
   const [bids, setBids] = useState([]);
   const [topThreeBids, setTopThreeBids] = useState([]);
-  const [client, setClient] = useState(null);
   const { beadingCarId, bidCarId } = useParams();
-  const [isConnected, setIsConnected] = useState(false); // New state variable
   const { data, isLoading, error } = useGetbeadingCarByIdQuery(beadingCarId);
+  const { data : timingData , isLoading : timeIsLoding , error: timeError , refetch } = useGetByBidCarIdQuery(beadingCarId) 
+  const closeTime = timingData?.object?.closingTime;
+console.log(data)
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
 
   if (error?.status === 401) {
@@ -52,19 +55,16 @@ export default function BiddingCarDetailsById1() {
     kmDriven,
     ownerSerial,
     year,
-    model,
     registration,
-    area,
     transmission,
     carInsurance,
-    city,
-    color,
-    bodyType,
-    dealerId,
     insurancedate,
     carInsuranceType,
     insuranceType,
+    biddingTimerStatus
   } = data;
+
+  console.log(data);
 
   const handleMessage = (msg, action) => {
     if (action == "error") {
@@ -74,8 +74,12 @@ export default function BiddingCarDetailsById1() {
     }
   }
 
+//  useEffect(()=>{
+
+//  })
+
   return (
-    <div className="grid grid-flow-row-dense md:grid-cols-3 gap-4 container mx-auto">
+    <div className="md:grid md:grid-flow-row-dense md:grid-cols-3 gap-4 container mx-auto">
       <div className="p-4 md:col-span-2 no-scrollbar">
         <ToastContainer />
         <BiddingCarView
@@ -101,27 +105,14 @@ export default function BiddingCarDetailsById1() {
           airbag={airbag}
         />
       </div>
-      <div className="md:col-span-1 sticky top-0">
+      <div className="col-span-1 md:w-auto sticky top-0">
         <BiddingPriceCard
           beadingCarId={beadingCarId}
           bidCarId={bidCarId}
-          // getTopThreeBids={getTopThreeBids}
-          topThreeBids={topThreeBids}
-          // placeBid={handlePlaceBid}
           handleMessage={handleMessage}
-          price={price}
-          brand={brand}
-          fuelType={fuelType}
-          kmDriven={kmDriven}
-          ownerSerial={ownerSerial}
-          year={year}
-          model={model}
-          registration={registration}
-          area={area}
-          city={city}
-          color={color}
-          bodyType={bodyType}
-          dealer_id={dealerId}
+          closeTime={closeTime}
+          refeachData = {refetch}
+          biddingTimerStatus={biddingTimerStatus}
         />
       </div>
     </div>

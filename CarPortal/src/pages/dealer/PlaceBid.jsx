@@ -22,10 +22,12 @@ export default function PlaceBid({
   handleMessage,
   topThreeBids,
   bidCarId,
-  biddingAmount
+  biddingAmount,
+  refeachData,
+  highestBid
 }) {
-  const [bidAmount, setBidAmount] = useState(biddingAmount + 2000);
-  const [lastBidAmount, setLastBidAmount] = useState(biddingAmount + 2000);
+  const [bidAmount, setBidAmount] = useState(highestBid + 2000);
+  const [lastBidAmount, setLastBidAmount] = useState(highestBid + 2000);
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -33,12 +35,11 @@ export default function PlaceBid({
   };
   const [error, setError] = useState(null);
   const {  getTopThreeBids, topThreeBidsAmount, placeBid } = useWebSocket();
-  
 
   useEffect(()=>{
-    setBidAmount(biddingAmount + 2000);
-    setLastBidAmount(biddingAmount + 2000)
-  },[biddingAmount])
+    setBidAmount(highestBid + 2000);
+    setLastBidAmount(highestBid + 2000)
+  },[highestBid])
 
 
   const handlePlaceBid = async () => {
@@ -54,13 +55,13 @@ export default function PlaceBid({
       if (message?.status === "error") {
         handleMessage(message?.message, "error");
       } else {
+        refeachData();
         handleMessage(message?.message, "success");
         getTopThreeBids(bidCarId); // Fetch top three bids after placing a bid
-        setBidAmount(topThreeBidsAmount[0]?.amount)
       }
       handleOpen();
     } catch (error) {
-      console.log("Error:", error);
+      // console.log("Error:", error);
     }
   };
 
@@ -83,7 +84,7 @@ export default function PlaceBid({
   return (
     <div>
      {/* Mobile Button */}
-     <div className="fixed bottom-5 left-4 right-4 z-50  md:hidden">
+     <div className="fixed bottom-5 left-4 right-4 z-50 bg-white p-2 md:hidden">
       <Button
         onClick={handleOpen}
         className="bg-[#045e4f] w-full"

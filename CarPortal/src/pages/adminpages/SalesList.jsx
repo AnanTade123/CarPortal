@@ -22,12 +22,13 @@ import {
 } from "../../services/salesAPI";
 import StatusDialogeBox from "../../ui/StatusDialogeBox";
 import SallerStatusActive from "./SallerStatusActive";
-
+import { FiLoader } from 'react-icons/fi'; 
 export default function SalesList() {
   const [pageNo, setPageNo] = useState(0);
-  const [pageSize, setPageSize] = useState(7);
- 
-  const { data, isLoading, error } = useGetAllSellerQuery({pageNo, pageSize});
+  const [pageSize, setPageSize] = useState(10);
+  const emptyImage = "..\\..\\cars\\emptyfolder.png";
+
+  const { data, isLoading, error ,refetch } = useGetAllSellerQuery({pageNo, pageSize});
   
   const [deleteSeller] = useDeleteSellerMutation();
   const [open, setOpen] = useState(false);
@@ -67,17 +68,21 @@ export default function SalesList() {
 
   const columns = [
     {
+      Header: "Sr. No",
+      accessor: "serialNumber",
+      Cell: (cell) => {
+        const { pageSize } = cell.state; // Assuming you're using React Table's useTable hook
+        const serialNumber = pageNo * pageSize + cell.row.index + 1;
+        return serialNumber;
+      },
+    },
+    {
       Header: "ID",
       accessor: "salesPersonId",
     },
     {
-      Header: "First Name",
-      accessor: "firstName",
-    },
-
-    {
-      Header: "Last Name ",
-      accessor: "lastName",
+      Header: "Name",
+      accessor: (row) => `${row.firstName} ${row.lastName}`, // Combine firstName and lastName for sorting/filtering purposes
     },
     {
       Header: "Location",
@@ -106,11 +111,22 @@ export default function SalesList() {
       accessor: "email",
     },
     {
+      Header: "Dealers",
+      accessor: "totalAddedDealers",
+      Cell: (cell) => {
+        return (
+          <div>
+              <Link to={`/admin/salesDealers/${cell.row.values.userId}`}>
+               {cell.row.values.totalAddedDealers}
+              </Link>
+          </div>
+        );
+      },
+    },
+    {
       Header: "Status",
       accessor: "status",
       Cell: (cell) => {
-        const a = cell.row.values.status;
-
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
@@ -198,7 +214,11 @@ export default function SalesList() {
 
   let sellerApiData;
   if (isLoading) {
-    return <p>isLoading</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   } else {
     sellerApiData = data?.list;
   }
@@ -207,10 +227,18 @@ export default function SalesList() {
     <>
       {error?.status === 404 ? (
         <div>
-          <p className="text-3xl font-semibold ">No Data Available</p>
-          <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-            <AddSalesForm />
+          <div className="flex shrink-0 gap-2 sm:flex-row justify-end mr-5 mt-5">
+            <AddSalesForm refetch={refetch} />
           </div>
+           <div className="flex justify-center mt-10">
+           <img
+          className="w-40"
+          src={emptyImage}
+          alt="no data"
+        />
+         </div>
+          <p className="flex justify-center text-2xl md:text-3xl font-semibold">No Data Available</p>
+          
         </div>
       ) : (
         <div>
@@ -239,18 +267,28 @@ export default function SalesList() {
               <div className="flex flex-col sm:flex-row justify-between gap-4 items-center">
                 <div>
                   <Typography variant="h5" color="blue-gray" className="text-center lg:text-start">
-                    Sales List
+                    Sales Person List
                   </Typography>
                   <Typography color="gray" className="mt-1 font-normal">
-                    See information about all members
+                    See Information About All Sales Person
                   </Typography>
+                  <Typography className="hidden xl:block">
+        <div className="flex">
+      <Link to={"/"}>
+              <p className="hover:text-blue-900"> Home </p> 
+              </Link>
+               /
+              <p >Seller</p>
+              
+              </div>
+      </Typography>
                 </div>
                 <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-                  <AddSalesForm />
+                  <AddSalesForm refetch={refetch} />
                 </div>
               </div>
             </CardHeader>
-            <CardBody className="overflow-scroll px-0">
+            <CardBody className="md:overflow-auto overflow-scroll px-1">
               <TableComponent columns={columns} data={sellerApiData} />
             </CardBody>
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">

@@ -3,7 +3,6 @@
 import { FaLocationDot } from "react-icons/fa6";
 import { useBiddingCarByIdQuery, useGetCarIdTypeQuery } from "../../services/biddingAPI";
 import { Link } from "react-router-dom";
-// import HighestBidAmount from "./HighestBidAmount";
 import dayjs from "dayjs";
 import duration from 'dayjs/plugin/duration';
 import { useEffect, useState } from "react";
@@ -20,10 +19,7 @@ const Card = ({ cardData }) => {
     const [timeLeft, setTimeLeft] = useState('');
     const bidCarId = cardData?.bidCarId;
     const [highestBid , setHighestBid] = useState(cardData?.basePrice);
-   
-   
-    // let highestBid = "";
-    const { isConnected,topThreeBidsAmount,topThreeBidsAmountArray,client ,subscriptions ,getLiveCars} = useWebSocket();
+    const { client ,getLiveCars ,isConnected} = useWebSocket();
 
     useEffect(() => {
         const updateTimer = () => {
@@ -67,13 +63,13 @@ const Card = ({ cardData }) => {
     //     fetchTopThreeBids();
     //   }, [isConnected, bidCarId]);
     useEffect(() => {
-        if(bidCarId){
+        if(bidCarId && isConnected){
             refreshTopThreeBids(bidCarId);
         }
-    },[bidCarId]);
+    },[bidCarId,isConnected]);
 
     const refreshTopThreeBids = (bidCarId) => {
-        console.log("topThreeBidsAmount",bidCarId)
+        // console.log("topThreeBidsAmount",bidCarId)
     
         // return new Promise((resolve, reject) => {
         if (bidCarId && client) {
@@ -82,7 +78,7 @@ const Card = ({ cardData }) => {
                 client.subscribe(`/topic/topBids/${bidCarId}`, (message) => {
                     const topBid = JSON.parse(message.body);
                     //   setTopThreeBidsAmountArray(topBid);
-                    console.log("topThreeBidsAmount",topBid);
+                    // console.log("topThreeBidsAmount",topBid);
                     setHighestBid(topBid?.amount);
                     //   resolve(topBid);
                     // updateTopBid(topBid);
@@ -95,6 +91,13 @@ const Card = ({ cardData }) => {
         }
         // })
       };
+
+    const remainingMinutes = parseInt(timeLeft.split('m:')[0]);
+
+    // Determine the color based on the time left
+    const textColorClass = remainingMinutes < 2 ? 'text-red-600' : 'text-green-800';
+    const text = remainingMinutes < 2 ? 'Last Call' :'Timer' ;
+
 
     return (
         <div className="relative mx-auto w-full max-w-sm">
@@ -116,16 +119,16 @@ const Card = ({ cardData }) => {
                             {/* <div className="p-2 text-xs font-semibold bg-gray-100 rounded-md">Engine</div> */}
                         </div>
                         <div className="mt-4 -ml-4 flex justify-between items-center">
-                            <p className="text-primary mt-2 inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
+                            <p className="text-primary  inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
                                 <span className="text-[16px] bg-indigo-300 p-3 text-white">Highest Bid ₹ 
                                     {highestBid}                      
                                     </span>
                             </p>
                             <div className="text-center">
                                 <p className="text-primary inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
-                                    <span className="flex line-clamp-1 text-[12px] text-green-800">Timer</span>
+                                    <span className={`flex line-clamp-1 text-[16px] text-green-800 ${textColorClass}`}>{text}</span>
                                 </p>
-                                <p className="flex line-clamp-1 text-[12px] text-green-800">{timeLeft}</p>
+                                <p className={`flex line-clamp-1 text-[15px] text-green-800 ${textColorClass}`}>{timeLeft}</p>
                             </div>
                         </div>
                         <div className="mt-4">

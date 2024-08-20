@@ -37,7 +37,7 @@ const TopFeatures = ({
 
   return (
     <>
-      <div className="text-2xl text-black font-bold my-6 ml-12 font-[Merriweather]">
+      <div className="text-2xl text-black font-bold mt-6 mb-3 md:ml-12 font-[Merriweather]">
         Top Features
       </div>
       <div className="border shadow-xl rounded-lg">

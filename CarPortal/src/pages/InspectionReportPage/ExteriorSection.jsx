@@ -29,6 +29,8 @@ const ExteriorSection = () => {
     RHSRearTyre: "",
     SpareTyre: "",
     Windshield: "",
+    FrontWindshield: "",
+    RearWindshield: "",
     Light: "",
     FrontBumper: "",
     RearBumper: "",
@@ -40,6 +42,24 @@ const ExteriorSection = () => {
     RadiatorSupport: "",
     AlloyWheel: "",
     
+    CowlTop: "",
+    BootFloor: "",
+    RightApronLEG: "",
+    LeftApronLEG: "",
+    RightApron:"",
+    LeftApron: "",
+    LeftPillar: "",
+    LeftPillarA: "",
+    LeftPillarB: "",
+    LeftPillarC: "",
+    RightPillar: "",
+    RightPillarA: "",
+    RightPillarB: "",
+    RightPillarC: "",
+
+
+
+
 
   });
 
@@ -60,6 +80,8 @@ const ExteriorSection = () => {
     RHSRearTyres: null,
     SpareTyres: null,
     Windshields: null,
+    FrontWindshields: null,
+    RearWindshields: null,
     Lights: null,
     FrontBumpers: null,
     RearBumpers: null,
@@ -70,6 +92,7 @@ const ExteriorSection = () => {
     HeadLightSupports: null,
     RadiatorSupports: null,
     AlloyWheels: null,
+
     CowlTops : null,
     BootFloors: null,
     RightApronLEGs: null,
@@ -77,8 +100,15 @@ const ExteriorSection = () => {
     RightAprons: null,
     LeftAprons: null,
     LeftPillars: null,
+    LeftPillarAs: null,
+    LeftPillarBs: null,
+    LeftPillarCs: null,
     RightPillars: null,
+    RightPillarAs: null,
+    RightPillarBs: null,
+    RightPillarCs: null,
   });
+  console.log(data);
 
   useEffect(() => {
     // Pre-fill form data and uploaded images based on API data
@@ -120,6 +150,10 @@ const ExteriorSection = () => {
           setFormData((prev) => ({ ...prev, LeftDoorRear: item.comment }));
            setUploadedImages((prev) => ({ ...prev, LeftDoorRears: item.documentLink }));
           break;
+          case "LeftFender":
+            setFormData((prev) => ({ ...prev, LeftFender: item.comment }));
+             setUploadedImages((prev) => ({ ...prev, LeftFenders: item.documentLink }));
+          break;
         case "RightDoorRear":
           setFormData((prev) => ({ ...prev, RightDoorRear: item.comment }));
            setUploadedImages((prev) => ({ ...prev, RightDoorRears: item.documentLink }));
@@ -147,6 +181,14 @@ const ExteriorSection = () => {
             case "Windshield":
               setFormData((prev) => ({ ...prev, Windshield: item.comment }));
               setUploadedImages((prev) => ({ ...prev, Windshields: item.documentLink }));
+              break;
+              case "FrontWindshield":
+              setFormData((prev) => ({ ...prev, FrontWindshield: item.comment }));
+              setUploadedImages((prev) => ({ ...prev, FrontWindshields: item.documentLink }));
+              break;
+              case "RearWindshield":
+              setFormData((prev) => ({ ...prev, RearWindshield: item.comment }));
+              setUploadedImages((prev) => ({ ...prev, RearWindshields: item.documentLink }));
               break;
             case "Light":
               setFormData((prev) => ({ ...prev, Light: item.comment }));
@@ -188,6 +230,64 @@ const ExteriorSection = () => {
                 setFormData((prev) => ({ ...prev, AlloyWheel: item.comment }));
                 setUploadedImages((prev) => ({ ...prev, AlloyWheels: item.documentLink }));
                 break;
+
+                case "CowlTop":
+                setFormData((prev) => ({ ...prev, CowlTop: item.comment }));
+                setUploadedImages((prev) => ({ ...prev, CowlTops: item.documentLink }));
+                break;
+                case "BootFloor":
+                setFormData((prev) => ({ ...prev, BootFloor: item.comment }));
+                setUploadedImages((prev) => ({ ...prev, BootFloors: item.documentLink }));
+                break;
+                case "RightApronLEG":
+                setFormData((prev) => ({ ...prev, RightApronLEG: item.comment }));
+                setUploadedImages((prev) => ({ ...prev, RightApronLEGs: item.documentLink }));
+                break;
+                case "LeftApronLEG":
+                setFormData((prev) => ({ ...prev, LeftApronLEG: item.comment }));
+                setUploadedImages((prev) => ({ ...prev, LeftApronLEGs: item.documentLink }));
+                break;
+                case "RightApron":
+                setFormData((prev) => ({ ...prev, RightApron: item.comment }));
+                setUploadedImages((prev) => ({ ...prev, RightAprons: item.documentLink }));
+                break;
+                case "LeftApron":
+                setFormData((prev) => ({ ...prev, LeftApron: item.comment }));
+                setUploadedImages((prev) => ({ ...prev, LeftAprons: item.documentLink }));
+                break;
+                case "LeftPillar":
+                setFormData((prev) => ({ ...prev, LeftPillar: item.comment }));
+                setUploadedImages((prev) => ({ ...prev, LeftPillars: item.documentLink }));
+                break;
+                case "LeftPillarA":
+                setFormData((prev) => ({ ...prev, LeftPillarA: item.comment }));
+                setUploadedImages((prev) => ({ ...prev, LeftPillarAs: item.documentLink }));
+                break;
+                case "LeftPillarB":
+                setFormData((prev) => ({ ...prev, LeftPillarB: item.comment }));
+                setUploadedImages((prev) => ({ ...prev, LeftPillarBs: item.documentLink }));
+                break;
+                case "LeftPillarC":
+                setFormData((prev) => ({ ...prev, LeftPillarC: item.comment }));
+                setUploadedImages((prev) => ({ ...prev, LeftPillarCs: item.documentLink }));
+                break;
+                case "RightPillar":
+                setFormData((prev) => ({ ...prev, RightPillar: item.comment }));
+                setUploadedImages((prev) => ({ ...prev, RightPillars: item.documentLink }));
+                break;
+                case "RightPillarA":
+                setFormData((prev) => ({ ...prev, RightPillarA: item.comment }));
+                setUploadedImages((prev) => ({ ...prev, RightPillarAs: item.documentLink }));
+                break;
+                case "RightPillarB":
+                setFormData((prev) => ({ ...prev, RightPillarB: item.comment }));
+                setUploadedImages((prev) => ({ ...prev, RightPillarBs: item.documentLink }));
+                break;
+                case "RightPillarC":
+                setFormData((prev) => ({ ...prev, RightPillarC: item.comment }));
+                setUploadedImages((prev) => ({ ...prev, RightPillarCs: item.documentLink }));
+                break;
+
         default:
           break;
       }
@@ -488,6 +588,28 @@ const ExteriorSection = () => {
             />
           )}</Grid>
 
+<Grid item xs={12} sm={6}>
+          <Typography variant="body1">Front Windshield : {formData.FrontWindshield}</Typography>
+          {uploadedImages.FrontWindshields && (
+            <img
+              src={uploadedImages.FrontWindshields}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              
+            />
+          )}</Grid>
+
+<Grid item xs={12} sm={6}>
+          <Typography variant="body1">Rear Windshield : {formData.RearWindshield}</Typography>
+          {uploadedImages.RearWindshields && (
+            <img
+              src={uploadedImages.RearWindshields}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              
+            />
+          )}</Grid>
+
 
         {/* Mismatch in RC */}
         <Grid item xs={12} sm={6}>
@@ -503,7 +625,7 @@ const ExteriorSection = () => {
 
         {/* RTO NOC Issued */}
         <Grid item xs={12} sm={6}>
-
+        <Typography variant="body1">Front Bumper : {formData.FrontBumper}</Typography>
         {uploadedImages.FrontBumpers && (
             <img
               src={uploadedImages.FrontBumpers}
@@ -617,6 +739,160 @@ const ExteriorSection = () => {
           )}</Grid>
 
         
+
+      </Grid>
+      </div>
+
+      {/* Structure */}
+      <Typography variant="h5" className='text-black font-bold pb-4 pt-5 '>
+      <span className='bg-indigo-200 rounded-md p-1 m-1 px-3 '>Structure</span>
+      </Typography>
+      <div className=' bg-white border-2 rounded-md shadow-md p-7 -mt-2'>
+      <Grid container spacing={5}>
+       
+      <Grid item xs={12} sm={6}>
+          <Typography variant="body1">Cowl Top : {formData.CowlTop}</Typography>
+          {uploadedImages.CowlTops && (
+            <img
+              src={uploadedImages.CowlTops}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+            
+            />
+          )}</Grid>
+
+
+        {/* Mismatch in RC */}
+        <Grid item xs={12} sm={6}>
+        <Typography variant="body1">Boot Floor : {formData.BootFloor}</Typography>
+        {uploadedImages.BootFloors && (
+            <img
+              src={uploadedImages.BootFloors}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+            />
+          )}</Grid>
+
+        {/* RTO NOC Issued */}
+        <Grid item xs={12} sm={6}>
+        <Typography variant="body1">Right Apron LEG : {formData.RightApronLEG}</Typography>
+        {uploadedImages.RightApronLEGs && (
+            <img
+              src={uploadedImages.RightApronLEGs}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+            />
+          )}</Grid>
+
+<Grid item xs={12} sm={6}>
+        <Typography variant="body1">Left Apron LEG : {formData.LeftApronLEG}</Typography>
+        {uploadedImages.LeftApronLEGs && (
+            <img
+              src={uploadedImages.LeftApronLEGs}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+            />
+          )}</Grid>
+
+<Grid item xs={12} sm={6}>
+        <Typography variant="body1">Right Apron : {formData.RightApron}</Typography>
+        {uploadedImages.RightAprons && (
+            <img
+              src={uploadedImages.RightAprons}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+            />
+          )}</Grid>
+
+<Grid item xs={12} sm={6}>
+        <Typography variant="body1">Left Apron : {formData.LeftApron}</Typography>
+        {uploadedImages.LeftAprons && (
+            <img
+              src={uploadedImages.LeftAprons}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+            />
+          )}</Grid>
+
+<Grid item xs={12} sm={6}>
+        <Typography variant="body1">Left Pillar : {formData.LeftPillar}</Typography>
+        {uploadedImages.LeftPillars && (
+            <img
+              src={uploadedImages.LeftPillars}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+            />
+          )}</Grid>
+
+<Grid item xs={12} sm={6}>
+        <Typography variant="body1">Left Pillar A : {formData.LeftPillarA}</Typography>
+        {uploadedImages.LeftPillarAs && (
+            <img
+              src={uploadedImages.LeftPillarAs}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+            />
+          )}</Grid>
+
+<Grid item xs={12} sm={6}>
+        <Typography variant="body1">Left Pillar B : {formData.LeftPillarB}</Typography>
+        {uploadedImages.LeftPillarBs && (
+            <img
+              src={uploadedImages.LeftPillarBs}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+            />
+          )}</Grid>
+
+<Grid item xs={12} sm={6}>
+        <Typography variant="body1">Left Pillar C : {formData.LeftPillarC}</Typography>
+        {uploadedImages.LeftPillarCs && (
+            <img
+              src={uploadedImages.LeftPillarCs}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+            />
+          )}</Grid>
+
+<Grid item xs={12} sm={6}>
+        <Typography variant="body1">Right Pillar : {formData.RightPillar}</Typography>
+        {uploadedImages.RightPillars && (
+            <img
+              src={uploadedImages.RightPillars}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+            />
+          )}</Grid>
+
+<Grid item xs={12} sm={6}>
+        <Typography variant="body1">Right Pillar A : {formData.RightPillarA }</Typography>
+        {uploadedImages.RightPillarAs && (
+            <img
+              src={uploadedImages.RightPillarAs}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+            />
+          )}</Grid>
+
+<Grid item xs={12} sm={6}>
+        <Typography variant="body1">Right Pillar B : {formData.RightPillarB}</Typography>
+        {uploadedImages.RightPillarBs && (
+            <img
+              src={uploadedImages.RightPillarBs}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+            />
+          )}</Grid>
+
+<Grid item xs={12} sm={6}>
+        <Typography variant="body1">Right Pillar C : {formData.RightPillarC}</Typography>
+        {uploadedImages.RightPillarCs && (
+            <img
+              src={uploadedImages.RightPillarCs}
+              alt="Uploaded"
+              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+            />
+          )}</Grid>
 
       </Grid>
       </div>

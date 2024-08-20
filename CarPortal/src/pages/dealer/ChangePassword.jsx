@@ -102,6 +102,7 @@ const [chnagePassword] = useChnagePasswordMutation()
         ...prevErrors,
         confirmNewPassword: "Passwords do not match",
       }));
+      toast.error(`Passwords do not match`)
       hasError = true;
     }
 
@@ -113,19 +114,17 @@ const [chnagePassword] = useChnagePasswordMutation()
   
       try {
         
-          const res = await chnagePassword({passChange,dealerId});
-          
-          
-          if (res?.data.status === "success") {
-            toast.success(`${res?.data.message}`)
+          const {data ,error} = await chnagePassword({passChange,dealerId});
+          if (data?.status === "success") {
+            toast.success(`${data?.message}`)
             setTimeout(() =>{
               navigate("/")
             },1000)
           }else{
-            toast.error(`${res?.error.data.message}`) 
+            toast.error(error?.data?.message) 
           }
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
    
   };

@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { useGetCarImageByIdQuery } from "../services/carAPI";
-
+import { FiLoader } from 'react-icons/fi'; 
 // eslint-disable-next-line react/prop-types
 export function CarouselCustomArrows({ carId }) {
   const [coverImageURL, setCoverImageURL] = useState(null);
   const { data, isLoading, error } = useGetCarImageByIdQuery({ carId });
-  console.log(data);
 
   const fallbackImage = "..\\..\\cars\\no-image-available-update.png";
 
@@ -36,7 +35,13 @@ export function CarouselCustomArrows({ carId }) {
     }
   }, [data]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
+  }
 
   if (data?.message === "unsuccess")
     return (

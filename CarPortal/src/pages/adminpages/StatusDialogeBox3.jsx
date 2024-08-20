@@ -21,7 +21,7 @@ export default function StatusDialogeBox3({ initialStatus, carId, onStatusChange
       status: selectedOption,
     };
 
-    console.log("Updated Car:", updatedCar);
+    // console.log("Updated Car:", updatedCar);
 
     // Call the callback function to update the status in the parent component
     if (onStatusChange) {

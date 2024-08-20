@@ -19,12 +19,12 @@ import TableComponent from "../../components/table/TableComponent";
 import { useState } from "react";
 import { AddDealerForm } from "../../components/admin/AddDealerForm";
 // import { Link } from "react-router-dom";
- 
+import { FiLoader } from 'react-icons/fi'; 
 export default function CarListTable() {
     const [pageNo, setPageNo] = useState(0);
-  console.log(pageNo);
+  // console.log(pageNo);
   const { data, isLoading, error } = useGetAllDealerQuery(pageNo);
-console.log(data)
+// console.log(data)
   const [deleteDealer] = useDeleteDealerMutation();
   const [open, setOpen] = useState(false);
   const [deleteid ,setDeleteid] = useState()
@@ -46,16 +46,17 @@ console.log(data)
  
   const deleteDealerHandler = async (id) => {
     const res = await deleteDealer(id);
-    console.log(res);
+    res;
+    // console.log(res);
   };
   const nextHandler = () => {
     setPageNo((prevPageNo) => {
       // Check if the error status is 404
       if (error?.status === 404) {
-        console.log("click");
-        console.log(prevPageNo);
+        // console.log("click");
+        // console.log(prevPageNo);
         // Display message or perform any action indicating that it's the last page
-        console.log("You are on the last page.");
+        // console.log("You are on the last page.");
         return prevPageNo; // Keep pageNo unchanged
       } else {
         // Increment pageNo
@@ -112,7 +113,8 @@ console.log(data)
       Header: "Actions",
       accessor: "Actions",
       Cell: (cell) => {
-        console.log(cell.row.values.dealer_id);
+        cell;
+        // console.log(cell.row.values.dealer_id);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
@@ -163,11 +165,15 @@ console.log(data)
  
   let dealerApiData;
   if (isLoading) {
-    return <p>isLoading</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   } else {
     dealerApiData = data?.list;
   }
- console.log(dealerApiData)
+//  console.log(dealerApiData)
   return (
     <>
     {/* <h1 className="mt-2 text-xl text-center">Car List</h1>

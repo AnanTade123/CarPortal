@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useNavigate } from "react-router-dom";
-import { DialogBody } from "@material-tailwind/react";
+import { CardHeader, DialogBody } from "@material-tailwind/react";
 import 'tailwindcss/tailwind.css';
 import {
   Card,
@@ -11,7 +11,15 @@ import {
   CardFooter,
   Dialog,
   DialogFooter,
+  
+  
 } from "@material-tailwind/react";
+import { FiLoader } from 'react-icons/fi'; 
+
+
+
+
+
 import {
   useDeleteDealerMutation,
 } from "../../services/dealerAPI";
@@ -20,6 +28,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useBiddingCarByDealerIdQuery } from "../../services/biddingAPI";
 import Cookies from "js-cookie";
+import ApexCharts from 'react-apexcharts';
 import { jwtDecode } from "jwt-decode";
 
 export default function CarListing() {
@@ -69,7 +78,7 @@ export default function CarListing() {
 
   const deleteDealerHandler = async (id) => {
     const res = await deleteDealer(id);
-    console.log(res);
+    // console.log(res);
   };
 
   const nextHandler = () => {
@@ -81,10 +90,39 @@ export default function CarListing() {
       }
     });
   };
+   // For calculating Percentage
+ const PertotalCars = Math.ceil((totalCars/totalCars)*100)
+ console.log("active",PertotalCars)
+
+ const perActive = Math.ceil((activeCars/totalCars)*100)
+//  console.log("active",perActive)
+
+ const perPending = Math.ceil((pendingCars/totalCars)*100)
+//  console.log("active",perPending)
+
+ const perSold = Math.ceil((sellCars/totalCars)*100)
+//  console.log("active",perSold)
+
+ const perInspection = Math.ceil((inspectionDone/totalCars)*100)
+//  console.log("active",perInspection)
+  
 
   const columns = [
     {
-      Header: "ID",
+      Header: "Sr. No",
+      accessor: "serialNumber",
+      Cell: (cell) => {
+        const { pageSize } = cell.state; // Assuming you're using React Table's useTable hook
+        const serialNumber = pageNo * pageSize + cell.row.index + 1;
+        return serialNumber;
+      }
+    },
+    {
+      Header: "Code",
+      accessor: "uniqueBeadingCarId",
+    },
+    {
+      Header: "Id",
       accessor: "beadingCarId",
     },
     {
@@ -186,7 +224,7 @@ export default function CarListing() {
       setFilteredCars(activeCarsData);
     } else if (status === "pending") {
       setFilteredCars(pendingCarsData);
-    } else if (status === "sell") {
+    } else if (status === "SOLD") {
       setFilteredCars(sellCarsData);
     } else {
       setFilteredCars(data);
@@ -198,47 +236,290 @@ export default function CarListing() {
   const paginatedData = filteredCars ? filteredCars.slice(startIndex, endIndex) : [];
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   }
 
   return (
     <>
-      <h1 className="mt-2 text-xl ml-2 mb-5 font-bold">Car Listing</h1>
-      <div className="flex flex-wrap justify-center divide-x-4 mx-5 mb-8">
+      {/* <h1 className="mt-2 text-xl ml-2 mb-5 font-bold">Car Listing</h1> */}
+      <div className=" flex flex-wrap justify-center mx-5 mb-8 lg:mt-6  lg:grid lg:grid-cols-5 md:grid md:grid-cols-3">
         <div 
           onClick={() => handleFilterCars("ALL")}
-          className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-[#FE9496]  rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer"
+          className="p-5"
         >
-          <div className="text-4xl font-bold text-white">{totalCars}</div>
-          <div className="mt-2 font-medium">Total Cars</div>
+          {/* <div className="text-4xl font-bold text-white">{totalCars}</div>
+          <div className="mt-2 font-medium">Total Cars</div> */}
+          <Card className="w-full">
+        <CardBody className=" justify-center items-center">
+          <ApexCharts
+            options={{
+              chart: { type: 'radialBar',  height: window.innerWidth < 640 ? 250 : 200,},
+              plotOptions: {
+                radialBar: {
+                  hollow: {     size: window.innerWidth < 640 ? '50%' : '40%', },
+                  dataLabels: { 
+                    name: {
+                      show: false // Hide the series name
+                    },
+                    value: {
+                      show: true ,// Ensure the percentage is shown
+                      fontSize: '16px', // Adjust font size if needed
+            color: '#000', // Set text color
+            offsetY:+7,
+            
+                    }
+                  }
+                }
+              },
+              colors: ['#007BFF'],
+              labels: [], // Clear any additional labels if needed
+              tooltip: {
+                enabled: false // Keep the tooltip enabled if you want to show percentage on hover
+              }
+            }}
+            series={[PertotalCars || 0 ]}
+            type="radialBar"
+            height={window.innerWidth < 640 ? 250 : 200}
+           
+          />
+          <Typography className="flex justify-center items-center font-bold  ">
+          Total Cars
+</Typography>
+<Typography className="flex justify-center items-center font-bold">
+{totalCars}
+</Typography>
+         </CardBody>
+         </Card>
         </div>
         <div 
           onClick={() => handleFilterCars("ACTIVE")}
-          className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-[#4BCBEB] rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer"
+          className="p-5"
         >
+{/* 
           <div className="text-4xl font-bold text-white">{`${activeCars}/${totalCars}`}</div>
-          <div className="mt-2 font-medium">Active Cars</div>
+          <div className="mt-2 font-medium">Active Cars</div> */}
+          <Card className="w-full ">
+        <CardBody className=" justify-center items-center">
+          <ApexCharts
+            options={{
+              chart: { type: 'radialBar', height: 200 },
+              plotOptions: {
+                radialBar: {
+                  hollow: { size: '40%' },
+                  dataLabels: { 
+                    name: {
+                      show: false // Hide the series name
+                    },
+                    value: {
+                      fontSize: '16px', // Adjust font size if needed
+                      color: '#000', // Set text color
+                      offsetY:+7,
+                      show: true // Ensure the percentage is shown
+                    }
+                  }
+                }
+              },
+              colors: ['#28A745'],
+              labels: [], // Clear any additional labels if needed
+              tooltip: {
+                enabled: false // Keep the tooltip enabled if you want to show percentage on hover
+              }
+            }}
+            series={[perActive || 0]}
+            type="radialBar"
+            height={200}
+            
+          />
+          <Typography className="flex justify-center items-center font-bold">
+          Active Cars
+</Typography>
+
+<Typography className="flex justify-center items-center font-bold">
+{activeCars}
+</Typography>
+         </CardBody>
+         </Card>
         </div>
         <div 
           onClick={() => handleFilterCars("pending")}
-          className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-[#9E58FF] rounded-2xl shadow-xl mb-5 sm:mb-2 sm:mr-5 cursor-pointer"
+          className="p-5"
         >
-          <div className="text-4xl font-bold text-white">{`${pendingCars}/${totalCars}`}</div>
-          <div className="mt-2 font-medium">Pending Cars</div>
+          {/* <div className="text-4xl font-bold text-white">{`${pendingCars}/${totalCars}`}</div>
+          <div className="mt-2 font-medium">Pending Cars</div> */}
+          <Card className="w-full">
+        <CardBody className=" justify-center items-center">
+          <ApexCharts
+            options={{
+              chart: { type: 'radialBar', height: 200 },
+              plotOptions: {
+                radialBar: {
+                  hollow: { size: '40%' },
+                  dataLabels: { 
+                    name: {
+                      show: false // Hide the series name
+                    },
+                    value: {
+                      show: true ,// Ensure the percentage is shown
+                      fontSize: '16px', // Adjust font size if needed
+            color: '#000', // Set text color
+            offsetY:+7// Center the text vertically
+                    }
+                  }
+                }
+              },
+              colors: ['#FFC107'],
+              labels: [], // Clear any additional labels if needed
+              tooltip: {
+                enabled: false // Keep the tooltip enabled if you want to show percentage on hover
+              }
+            }}
+            series={[perPending || 0 ]}
+            type="radialBar"
+            height={200}
+            
+          />
+          <Typography className="flex justify-center items-center font-bold">
+          Pending Cars
+</Typography>
+<Typography className="flex justify-center items-center font-bold">
+{pendingCars}
+</Typography>
+         </CardBody>
+         </Card>
         </div>
         <div 
-          onClick={() => handleFilterCars("INSPECTION_DONE")}
-          className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-[#1DC9B7] rounded-2xl shadow-xl sm:mb-2 mb-5 sm:mr-5 cursor-pointer"
+          onClick={() => handleFilterCars("ACTIVE")}
+          className="p-5"
         >
-          <div className="text-4xl font-bold text-white">{`${inspectionDone}/${totalCars}`}</div>
-          <div className="mt-2 font-medium">Inspection Done Cars</div>
+          {/* <div className="text-4xl font-bold text-white">{`${inspectionDone}/${totalCars}`}</div>
+          <div className="mt-2 font-medium">Inspection Done Cars</div> */}
+          {/* <Card className="w-full">
+        <CardBody className=" justify-center items-center">
+          <ApexCharts
+            options={{
+              chart: { type: 'radialBar', height: 200 },
+              plotOptions: {
+                radialBar: {
+                  hollow: { size: '70%' },
+                  dataLabels: { 
+                    name: {
+                      show: false // Hide the series name
+                    },
+                    value: {
+                      show: true // Ensure the percentage is shown
+                    }
+                  }
+                }
+              },
+              labels: [], // Clear any additional labels if needed
+              tooltip: {
+                enabled: false // Keep the tooltip enabled if you want to show percentage on hover
+              }
+            }}
+            series={[perInspection]}
+            type="radialBar"
+            height={200}
+            
+          />
+          <Typography className="flex justify-center items-center font-bold text-base">
+          Inspection Done Cars
+</Typography>
+         </CardBody>
+         </Card> */}
+
+<Card className="w-full">
+        <CardBody className=" justify-center items-center">
+          <ApexCharts
+            options={{
+              chart: { type: 'radialBar', height: 200 },
+              plotOptions: {
+                radialBar: {
+                  hollow: { size: '40%' },
+                  dataLabels: { 
+                    name: {
+                      show: false // Hide the series name
+                    },
+                    value: {
+                      show: true, // Ensure the percentage is shown
+                      fontSize: '16px', // Adjust font size if needed
+            color: '#000', // Set text color
+            offsetY:+7
+                    }
+                  }
+                }
+       
+              },   colors: ['#28A745'],
+              labels: [], // Clear any additional labels if needed
+              tooltip: {
+                enabled: false // Keep the tooltip enabled if you want to show percentage on hover
+              }
+            }}
+            series={[perInspection || 0 ]}
+            type="radialBar"
+            height={200}
+            
+          />
+          <Typography className="flex justify-center items-center font-bold  whitespace-nowrap" >
+          Inspection Done Cars
+</Typography>
+<Typography className="flex justify-center items-center font-bold">
+{inspectionDone}
+</Typography>
+         </CardBody>
+         </Card>
+
+         
         </div>
         <div 
-          onClick={() => handleFilterCars("sell")}
-          className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-green-500 rounded-2xl shadow-xl  sm:mb-2 sm:mr-5 cursor-pointer"
+          onClick={() => handleFilterCars("SOLD")}
+          className="p-5"
         >
-          <div className="text-4xl font-bold text-white">{sellCars}</div>
-          <div className="mt-2 font-medium">Sell Cars</div>
+          {/* <div className="text-4xl font-bold text-white">{sellCars}</div>
+          <div className="mt-2 font-medium">Sell Cars</div> */}
+          <Card className="w-full">
+        <CardBody className=" justify-center items-center">
+          <ApexCharts
+            options={{
+              chart: { type: 'radialBar', height: 200 },
+              plotOptions: {
+                radialBar: {
+                  hollow: { size: '40%' },
+                  dataLabels: { 
+                    name: {
+                      show: false // Hide the series name
+                    },
+                    value: {
+                      fontSize: '16px', // Adjust font size if needed
+            color: '#000', // Set text color
+            offsetY:+7,
+                      show: true // Ensure the percentage is shown
+                    }
+                  }
+                }
+              },
+              colors: ['#87CEEB'],
+              labels: [], // Clear any additional labels if needed
+              tooltip: {
+                enabled: false // Keep the tooltip enabled if you want to show percentage on hover
+              }
+            }}
+            series={[perSold || 0 ]}
+            type="radialBar"
+            height={200}
+            
+          />
+          <Typography className="flex justify-center items-center font-bold">
+         Sold Cars
+</Typography>
+<Typography className="flex justify-center items-center font-bold">
+{sellCars}
+</Typography>
+         </CardBody>
+         </Card>
         </div>
       </div>
       <div className="mt-8">
@@ -246,8 +527,9 @@ export default function CarListing() {
           <div>
             <p className="text-3xl font-semibold">No Data Available</p>
             <div className="flex ml-auto shrink-0 flex-col gap-2 sm:flex-row">
+              
                 <Link to={`/inspector/car/add`}>
-                  <Button>Add Car</Button>
+                  <Button>Add Bid Car</Button>
                 </Link>
               </div>
           </div>
@@ -272,15 +554,33 @@ export default function CarListing() {
                   </Button>
                 </DialogFooter>
               </Dialog>
-              <div className="flex ml-auto shrink-0 flex-col gap-2 sm:flex-row">
+              <CardHeader floated={false} shadow={false} className="rounded-none">
+              <div className=" flex items-center justify-between gap-8">
+                <div>
+                  <Typography variant="h5" color="blue-gray">
+                  Bidding Car List
+                  </Typography>
+                  <Typography color="gray" className="mt-1 font-normal">
+                  See Information About All Bidding Cars
+                  </Typography>
+                </div>
                 <Link to={`/inspector/car/add`}>
-                  <Button>Add Car</Button>
+                  <Button>Add Bid Car</Button>
                 </Link>
               </div>
+            </CardHeader>
               <CardBody className="overflow-scroll px-0">
                 <TableComponent columns={columns} data={paginatedData} />
               </CardBody>
               <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+              <Typography
+                  variant="medium"
+                  color="blue-gray"
+                  className="font-normal"
+                >
+                  Page {pageNo + 1}
+                </Typography>
+                <div className="flex gap-2">
                 <Button
                   variant="outlined"
                   size="sm"
@@ -289,13 +589,7 @@ export default function CarListing() {
                 >
                   Previous
                 </Button>
-                <Typography
-                  variant="medium"
-                  color="blue-gray"
-                  className="font-normal"
-                >
-                  Page {pageNo + 1}
-                </Typography>
+              
                 <Button
                   variant="outlined"
                   size="sm"
@@ -304,6 +598,7 @@ export default function CarListing() {
                 >
                   Next
                 </Button>
+                </div>
               </CardFooter>
             </Card>
           </div>

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import Inputs from "../../forms/Inputs";
-import { Textarea, Input } from "@material-tailwind/react";
+import { Textarea, Input, Button } from "@material-tailwind/react";
 // import { useCarRegisterMutation } from "../../services/carAPI";
 import { useNavigate, useParams } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
@@ -62,7 +62,7 @@ export default function BiddingAddCar2() {
   const [modelOptions, setModelOptions] = useState([]);
   const [variantOptions, setVariantOptions] = useState([]);
   const [showCalendar, setShowCalendar] = useState(false);
-
+  const [submitDisabled , setSubmitDisabled] =useState(false);
  
   const { data: variantData } = useGetVariantsQuery(selectedBrand, {
     skip: !selectedBrand,
@@ -124,7 +124,7 @@ export default function BiddingAddCar2() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-   
+    setSubmitDisabled(true);
     // Prepare the form data to send to the backend
     const data = {
       buttonStart: formData.buttonStart,
@@ -189,18 +189,19 @@ export default function BiddingAddCar2() {
 
       carInsuranceType: formData.carInsuranceType,
     };
-    console.log(data);
+    // console.log(data);
     const res = await biddingCarRegister(data);
 
     const beadingCarId = res?.data?.object;
 
-    console.log(res);
+    // console.log(res);
     if (res?.data?.message === "success") {
       toast.success("Car Added Successfully");
       setTimeout(() => {
         navigate(`/bidding/${beadingCarId}/update/image`);
       }, 2000);
     } else {
+      setSubmitDisabled(false);
       toast.error("Somthing is wrong");
     }
   };
@@ -215,7 +216,7 @@ export default function BiddingAddCar2() {
 
   const handleBrandChange = (event, newValue) => {
     const brand = newValue;
-    console.log(brand);
+    // console.log(brand);
     setSelectedBrand(brand);
     setFormData({
       ...formData,
@@ -227,7 +228,7 @@ export default function BiddingAddCar2() {
 
   const handleModelChange = (event, newValue) => {
     const model = newValue;
-    console.log(model);
+    // console.log(model);
     setSelectedModel(model);
     setFormData({
       ...formData,
@@ -238,7 +239,7 @@ export default function BiddingAddCar2() {
 
   const handleVariantChange = (event, newValue) => {
     const cVariant = newValue;
-    console.log(cVariant);
+    // console.log(cVariant);
     setFormData({
       ...formData,
       cVariant,
@@ -442,12 +443,17 @@ export default function BiddingAddCar2() {
                   type="number"
                   name="price"
                   value={formData.price}
-                  onChange={(event) =>
+                  // max={9}
+                  onChange={(event) => {
+                  const value = event.target.value;
+                  if (value <= 99999999) { // Ensure the value doesn't exceed 9
                     setFormData({
                       ...formData,
-                      price: event.target.value,
-                    })
+                      price: value,
+                    });
                   }
+                }}
+                   
                 />
               </div>
 
@@ -926,14 +932,15 @@ export default function BiddingAddCar2() {
             </div>
             {/* twelth part */}
 
-            <button
+            <Button
               type="submit"
               className="p-3 mt-3 bg-indigo-400 rounded-md w-28 text-white"
               value="Add  Car"
+              disabled={submitDisabled}
             >
               {" "}
               Next
-            </button>
+            </Button>
           </form>
         </div>
       </div>

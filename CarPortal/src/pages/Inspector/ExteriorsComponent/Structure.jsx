@@ -103,10 +103,34 @@ const Structure = ({ handleCameraModal,
           setFormData((prev) => ({ ...prev, LeftPillar: item.comment }));
           setUploadedImages((prev) => ({ ...prev, LeftPillars: item.documentLink }));
           break;
+          case "LeftPillarA":
+            setFormData((prev) => ({ ...prev, LeftPillarA: item.comment }));
+            setUploadedImages((prev) => ({ ...prev, LeftPillarA: item.documentLink }));
+            break;
+            case "LeftPillarB":
+            setFormData((prev) => ({ ...prev, LeftPillarB: item.comment }));
+            setUploadedImages((prev) => ({ ...prev, LeftPillarB: item.documentLink }));
+            break;
+            case "LeftPillarC":
+            setFormData((prev) => ({ ...prev, LeftPillarC: item.comment }));
+            setUploadedImages((prev) => ({ ...prev, LeftPillarC: item.documentLink }));
+            break;
         case "RightPillar":
           setFormData((prev) => ({ ...prev, RightPillar: item.comment }));
           setUploadedImages((prev) => ({ ...prev, RightPillars: item.documentLink }));
           break;
+          case "RightPillarA":
+            setFormData((prev) => ({ ...prev, RightPillarA: item.comment }));
+            setUploadedImages((prev) => ({ ...prev, RightPillarA: item.documentLink }));
+            break;
+             case "RightPillarB":
+          setFormData((prev) => ({ ...prev, RightPillarB: item.comment }));
+          setUploadedImages((prev) => ({ ...prev, RightPillarB: item.documentLink }));
+          break;
+          case "RightPillarC":
+            setFormData((prev) => ({ ...prev, RightPillarC: item.comment }));
+            setUploadedImages((prev) => ({ ...prev, RightPillarC: item.documentLink }));
+            break;
         default:
           break;
       }
@@ -477,6 +501,7 @@ const Structure = ({ handleCameraModal,
           )}
         </Grid>
 
+        {/* Left Pillar */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth required>
             <InputLabel>Left Pillar</InputLabel>
@@ -534,7 +559,187 @@ const Structure = ({ handleCameraModal,
             />
           )}
         </Grid>
+{/*  
+        Left Pillar A */}
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth required>
+            <InputLabel>Left Pillar A</InputLabel>
+            <Select
+            required
+              name="LeftPillarA"
+              value={formData.LeftPillarA}
+              onChange={handleChange}
+            >
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem>
+              <MenuItem value="Scratched">Scratched</MenuItem>
+              <MenuItem value="Rusted">Rusted</MenuItem>
+              <MenuItem value="Repaired">Repaired</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
+              <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Sealent Broken">Sealent Broken</MenuItem>
+            </Select>
+          </FormControl>
+          <div className='flex gap-5'>  
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.LeftPillarA && (
+            <img
+              src={uploadedImages.LeftPillarA}
+              alt="Uploaded"
+              style={{
+                maxWidth: '20%',
+                marginTop: '10px',
+                cursor: 'pointer',
+              }}
+              onClick={() => handleImageClick(uploadedImages.LeftPillarA)}
+            />
+          )}
+        </Grid> 
 
+{/*  
+        Left Pillar B */}
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth required>
+            <InputLabel>Left Pillar B</InputLabel>
+            <Select
+            required
+              name="LeftPillarB"
+              value={formData.LeftPillarB}
+              onChange={handleChange}
+            >
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem>
+              <MenuItem value="Scratched">Scratched</MenuItem>
+              <MenuItem value="Rusted">Rusted</MenuItem>
+              <MenuItem value="Repaired">Repaired</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
+              <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Sealent Broken">Sealent Broken</MenuItem>
+            </Select>
+          </FormControl>
+          <div className='flex gap-5'>  
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.LeftPillarB && (
+            <img
+              src={uploadedImages.LeftPillarB}
+              alt="Uploaded"
+              style={{
+                maxWidth: '20%',
+                marginTop: '10px',
+                cursor: 'pointer',
+              }}
+              onClick={() => handleImageClick(uploadedImages.LeftPillarB)}
+            />
+          )}
+        </Grid>
+        
+{/*  
+        Left Pillar c */}
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth required>
+            <InputLabel>Left Pillar C</InputLabel>
+            <Select
+            required
+              name="LeftPillarC"
+              value={formData.LeftPillarC}
+              onChange={handleChange}
+            >
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem>
+              <MenuItem value="Scratched">Scratched</MenuItem>
+              <MenuItem value="Rusted">Rusted</MenuItem>
+              <MenuItem value="Repaired">Repaired</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
+              <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Sealent Broken">Sealent Broken</MenuItem>
+            </Select>
+          </FormControl>
+          <div className='flex gap-5'>  
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.LeftPillarC && (
+            <img
+              src={uploadedImages.LeftPillarC}
+              alt="Uploaded"
+              style={{
+                maxWidth: '20%',
+                marginTop: '10px',
+                cursor: 'pointer',
+              }}
+              onClick={() => handleImageClick(uploadedImages.LeftPillarC)}
+            />
+          )}
+        </Grid>
+
+  {/* Right pillar  */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth required>
             <InputLabel>Right Pillar</InputLabel>
@@ -542,6 +747,184 @@ const Structure = ({ handleCameraModal,
             required
               name="RightPillar"
               value={formData.RightPillar}
+              onChange={handleChange}
+            >
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem>
+              <MenuItem value="Scratched">Scratched</MenuItem>
+              <MenuItem value="Rusted">Rusted</MenuItem>
+              <MenuItem value="Repaired">Repaired</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
+              <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Sealent Broken">Sealent Broken</MenuItem>
+            </Select>
+          </FormControl>
+          <div className='flex gap-5'>  
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.RightPillars && (
+            <img
+              src={uploadedImages.RightPillars}
+              alt="Uploaded"
+              style={{
+                maxWidth: '20%',
+                marginTop: '10px',
+                cursor: 'pointer',
+              }}
+              onClick={() => handleImageClick(uploadedImages.RightPillars)}
+            />
+          )}
+        </Grid>
+{/* 
+        Right Pillar A */}
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth required>
+            <InputLabel>Right Pillar A</InputLabel>
+            <Select
+            required
+              name="RightPillarA"
+              value={formData.RightPillarA}
+              onChange={handleChange}
+            >
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem>
+              <MenuItem value="Scratched">Scratched</MenuItem>
+              <MenuItem value="Rusted">Rusted</MenuItem>
+              <MenuItem value="Repaired">Repaired</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
+              <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Sealent Broken">Sealent Broken</MenuItem>
+            </Select>
+          </FormControl>
+          <div className='flex gap-5'>  
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.RightPillarA && (
+            <img
+              src={uploadedImages.RightPillarA}
+              alt="Uploaded"
+              style={{
+                maxWidth: '20%',
+                marginTop: '10px',
+                cursor: 'pointer',
+              }}
+              onClick={() => handleImageClick(uploadedImages.RightPillarA)}
+            />
+          )}
+        </Grid>
+        {/* 
+        Right Pillar B */}
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth required>
+            <InputLabel>Right Pillar B </InputLabel>
+            <Select
+            required
+              name="RightPillarB"
+              value={formData.RightPillarB}
+              onChange={handleChange}
+            >
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem>
+              <MenuItem value="Scratched">Scratched</MenuItem>
+              <MenuItem value="Rusted">Rusted</MenuItem>
+              <MenuItem value="Repaired">Repaired</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
+              <MenuItem value="Faded">Faded</MenuItem>
+              <MenuItem value="Sealent Broken">Sealent Broken</MenuItem>
+            </Select>
+          </FormControl>
+          <div className='flex gap-5'>  
+            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+              Submit Without image
+            </Button>
+            {userRole === "INSPECTOR" ? (
+              <div className='mt-3 ml-5'>
+             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
+            Open Camera
+            </Button>
+          </div>
+          ): (
+            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleImageClick}
+            />
+            <CloudUploadIcon />
+            <span className="ml-2">Upload Image</span>
+          </label>
+          )}
+          </div>
+          {uploadedImages.RightPillarB && (
+            <img
+              src={uploadedImages.RightPillarB}
+              alt="Uploaded"
+              style={{
+                maxWidth: '20%',
+                marginTop: '10px',
+                cursor: 'pointer',
+              }}
+              onClick={() => handleImageClick(uploadedImages.RightPillarB)}
+            />
+          )}
+        </Grid>
+
+        {/* 
+        Right Pillar C */}
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth required>
+            <InputLabel>Right Pillar C </InputLabel>
+            <Select
+            required
+              name="RightPillarC"
+              value={formData.RightPillarC}
               onChange={handleChange}
             >
               <MenuItem value="Ok">Ok</MenuItem>

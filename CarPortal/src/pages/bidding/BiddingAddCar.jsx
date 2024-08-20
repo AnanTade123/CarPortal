@@ -22,7 +22,7 @@ export default function BiddingAddCar() {
   const [variantOptions, setVariantOptions] = useState([]);
   const [showCalendar, setShowCalendar] = useState(false);
 
-  console.log("dealarList",dealarList);
+  // console.log("dealarList",dealarList);
   const { data: variantData } = useGetVariantsQuery(selectedBrand, {
     skip: !selectedBrand,
   });
@@ -77,7 +77,7 @@ export default function BiddingAddCar() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     // Prepare the form data to send to the backend
     const data = {
       acFeature: formData.acFeature,
@@ -129,7 +129,7 @@ export default function BiddingAddCar() {
       date: formattedDate,
       dealerId: formData.dealerId
     };
-    console.log(data);
+    // console.log(data);
     const res = await biddingCarRegister(data);
 
     // Assuming the object is a string in the format "BeadingCarId:18"

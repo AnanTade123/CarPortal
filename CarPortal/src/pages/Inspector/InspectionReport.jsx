@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const ImportantDocuments = ({inspData}) => {
 const navigate = useNavigate()
-
+ console.log(inspData)
 const token = Cookies.get("token");
 let jwtDecodes;
 if (token) {
@@ -36,7 +36,8 @@ const [formData, setFormData] = useState({
   rto: "",
   fitnessUpto: "",
   cngLpgFitmentInRC: "",
-  LoanStatus: ""
+  LoanStatus: "",
+  NOCStatus:""
 });
 
   useEffect(() => {
@@ -57,7 +58,8 @@ const [formData, setFormData] = useState({
         rto: inspData.object.rto,
         fitnessUpto: inspData.object.fitnessUpto ? inspData.object.fitnessUpto.split('T')[0] : '',
         cngLpgFitmentInRC: inspData.object.cnglpgfitmentInRC,
-        LoanStatus: inspData.object.loanStatus
+        LoanStatus: inspData.object.loanStatus,
+        NOCStatus: inspData.object.NOCStatus
       });
     }
   }, [inspData]);
@@ -76,7 +78,7 @@ const [formData, setFormData] = useState({
   e.preventDefault()
   if (validateForm()) {
     // Handle form submission
-    console.log('Form submitted successfully:', formData);
+    // console.log('Form submitted successfully:', formData);
   }
      const inspectionData = {
        userId: Number(UserId),
@@ -96,11 +98,13 @@ const [formData, setFormData] = useState({
       registrationDate: formData.registrationDate,
       rto: formData.rto,
       fitnessUpto:formData.fitnessUpto,
-      cnglpgfitmentInRC:formData.cngLpgFitmentInRC 
+      cnglpgfitmentInRC:formData.cngLpgFitmentInRC ,
+      NOCStatus:formData.NOCStatus 
      }
   try {
     const res = finalInspectionReport({inspectionData})
-    console.log(res)
+    res;
+    // console.log(res)
     
       toast.success("Data Uploaded");
       setTimeout(() => {
@@ -108,7 +112,7 @@ const [formData, setFormData] = useState({
       },1000)
      
   } catch (error) {
-    console.log(error)
+    // console.log(error)
   }
   }
   const [errors, setErrors] = useState({});
@@ -181,6 +185,21 @@ const [formData, setFormData] = useState({
             {errors.rtoNocIssued && <FormHelperText>{errors.rtoNocIssued}</FormHelperText>}
           </FormControl>
         </Grid>
+  {/* NOC Issued */}
+        {/* <Grid item xs={12} sm={6}>
+          <FormControl fullWidth required error={!!errors.NOCStatus}>
+            <InputLabel> NOC Issued</InputLabel>
+            <Select
+              name="NOCStatus"
+              value={formData.NOCStatus}
+              onChange={handleChange}
+            >
+              <MenuItem value="Available">Available</MenuItem>
+              <MenuItem value="NA">N/A</MenuItem>
+            </Select>
+            {errors.NOCStatus && <FormHelperText>{errors.NOCStatus}</FormHelperText>}
+          </FormControl>
+        </Grid> */}
 
         {/* Insurance Type */}
         <Grid item xs={12} sm={6}>

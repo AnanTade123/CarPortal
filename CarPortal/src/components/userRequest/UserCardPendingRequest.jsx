@@ -1,13 +1,24 @@
 /* eslint-disable react/prop-types */
-
 import { Button, CardHeader, Chip } from "@material-tailwind/react";
 import CardUi from "../../ui/CardUi";
 import { Link } from "react-router-dom";
 import { CarouselCustomArrows } from "../../ui/CarouselCustomArrows";
 
 const UserCardPendingRequest = ({ item }) => {
-  
   const carid = item?.carId;
+
+  // Function to format date as "11 Aug 2024"
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.toLocaleString('en-GB', { month: 'short' }); // Use 'short' for abbreviated month
+    const year = date.getFullYear();
+
+    return `${day} ${month} ${year}`;
+  };
+
   return (
     <div className="w-96px items-center flex justify-center mx-8">
       <div className="shadow-xl rounded-lg">
@@ -22,7 +33,7 @@ const UserCardPendingRequest = ({ item }) => {
                   className="m-0 rounded-none"
                 >
                   <Link to={`/carlist/cardetails/${carid}`}>
-                    <CarouselCustomArrows carId={carid}/>
+                    <CarouselCustomArrows carId={carid} />
                   </Link>
                 </CardHeader>
               </div>
@@ -31,24 +42,25 @@ const UserCardPendingRequest = ({ item }) => {
                   <div className="flex justify-between gap-5 md:gap-1">
                     <div>
                       <Chip
+                      
                         variant="outlined"
-                        value={`${item?.date}`}
-                        className="rounded-full font-[latto] -ml-2 md:text-sm text-xs"
-                      ></Chip>
+                        value={formatDate(item?.date)}
+                        className="rounded-md font-[latto] -ml-2 md:text-sm text-xs  md:h-8  h-7 "
+                      />
                     </div>
                     <div>
                       <Chip
                         color="amber"
                         value={`${item?.status}`}
-                        className="font-[latto] md:text-sm text-xs"
-                      ></Chip>
+                        className="font-[latto] md:text-sm text-xs md:mr-2  "
+                      />
                     </div>
                   </div>
                   <div className="text-sm md:text-lg mt-3 font-[latto] font-medium text-black">
-                    Car Price:₹{item?.price}
+                    <span className="font-bold">Car Price:</span> ₹{item?.price}
                   </div>
-                  <div className=" mt-3 font-[latto] text-sm md:text-lg font-medium text-black">
-                    Asking Price:₹{item?.askingPrice}
+                  <div className="mt-3 font-[latto] text-sm md:text-lg font-medium text-black">
+                    <span className="font-bold">Asking Price:</span> ₹{item?.askingPrice}
                   </div>
 
                   <Link to={`/carlist/cardetails/${item?.carId}`}>

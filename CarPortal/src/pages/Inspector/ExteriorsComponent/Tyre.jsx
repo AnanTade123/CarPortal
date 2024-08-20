@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 
 import{ useEffect, useRef, useState } from 'react';
 import {
@@ -41,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Tyre = () => {
+const Tyre = ({setCheckstep}) => {
   const classes = useStyles();
   const { beadingCarId } = useParams();
   
@@ -115,7 +116,8 @@ const Tyre = () => {
 
   
   const handleFileChange = async (event, fieldName, imgPreview = "") => {
-    console.log(imgPreview);
+    imgPreview;
+    // console.log(imgPreview);
     let file;
     let imageData;
   if (!event?.target) {
@@ -164,11 +166,11 @@ const Tyre = () => {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
       } catch (error) {
-        console.error('Error uploading the file:', error);
+        // console.error('Error uploading the file:', error);
         alert("Data not Uploaded");
       }
     } else {
-      toast.error("Labels are required to submit the form", { autoClose: 2000 });
+      toast.error("Input is required", { autoClose: 2000 });
     }
     };
     reader.readAsDataURL(file);
@@ -199,10 +201,24 @@ const Tyre = () => {
       alert("Data not Uploaded")
     }
   } else {
-    toast.error("Labels are required to submit the form", { autoClose: 2000 });
+    toast.error("Input is required", { autoClose: 2000 });
   }
   };
 
+  if (
+    formData.LHSFrontTyre.length > 0 &&
+    formData.RHSFrontTyre.length > 0 &&
+    formData.LHSRearTyre.length > 0 &&
+    formData.RHSRearTyre.length > 0 &&
+    formData.SpareTyre.length > 0
+  ) {
+    setCheckstep(true);
+    console.log("All conditions met, setting checkstep to true");
+  } else {
+    setCheckstep(false);
+    console.log("One or more conditions not met, setting checkstep to false");
+  }
+  
   const handleChange= (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
@@ -244,7 +260,7 @@ const Tyre = () => {
           toast.error("Data Upload failed", { autoClose: 500 });
         }
       } catch (error) {
-        console.error('Error uploading the file:', error);
+        // console.error('Error uploading the file:', error);
         toast.error("Data not Uploaded", { autoClose: 500 });
       }
     };

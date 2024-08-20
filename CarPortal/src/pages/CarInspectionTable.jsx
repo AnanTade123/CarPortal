@@ -16,10 +16,10 @@ import TableComponent from "../components/table/TableComponent";
 import { useState } from "react";
 //import { AddDealerForm } from "../../components/admin/AddDealerForm";
 import { Link } from "react-router-dom";
-
+import { FiLoader } from 'react-icons/fi'; 
 const CarInspectionTable = () => {
   const [pageNo, setPageNo] = useState(0);
-  console.log(pageNo);
+  // console.log(pageNo);
   const { data, isLoading, error } = useGetAllDealerQuery(pageNo);
 
   const [deleteDealer] = useDeleteDealerMutation();
@@ -28,19 +28,20 @@ const CarInspectionTable = () => {
   if (error?.status === 401) {
     return navigate("/signin");
   }
-  console.log(pageNo);
+  // console.log(pageNo);
   const deleteDealerHandler = async (id) => {
     const res = await deleteDealer(id);
-    console.log(res);
+    res;
+    // console.log(res);
   };
   const nextHandler = () => {
     setPageNo((prevPageNo) => {
       // Check if the error status is 404
       if (error?.status === 404) {
-        console.log("click");
-        console.log(prevPageNo);
+        // console.log("click");
+        // console.log(prevPageNo);
         // Display message or perform any action indicating that it's the last page
-        console.log("You are on the last page.");
+        // console.log("You are on the last page.");
         return prevPageNo; // Keep pageNo unchanged
       } else {
         // Increment pageNo
@@ -73,7 +74,7 @@ const CarInspectionTable = () => {
       Header: "Edit",
       accessor: "Edit",
       Cell: (cell) => {
-        console.log(cell.row.values.dealer_id);
+        // console.log(cell.row.values.dealer_id);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center  ">
@@ -144,11 +145,15 @@ const CarInspectionTable = () => {
 
   let dealerApiData;
   if (isLoading) {
-    return <p>isLoading</p>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
   } else {
     dealerApiData = data?.list;
   }
-  console.log(dealerApiData);
+  // console.log(dealerApiData);
 
   return (
     <>

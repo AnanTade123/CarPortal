@@ -1,12 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React, { createContext, useState } from "react";
-import {
-  Tabs,
-  TabsHeader,
-  TabsBody,
-  Tab,
-  TabPanel,
-} from "@material-tailwind/react";
+import React from "react";
+import { Stepper, Step, Button } from "@material-tailwind/react";
 import InspectionReport from "./InspectionReport";
 import Exterior from "./Exterior";
 import Interior from "./Interior";
@@ -21,79 +15,106 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function CarVerify() {
   const { beadingCarId } = useParams();
+  const [checkstep, setCheckstep] = React.useState(false);
   const { data: inspData } = useFinalInspectionQuery(beadingCarId);
-  const [activeTab, setActiveTab] = useState("Exterior");
-  
-  const data = [
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [isLastStep, setIsLastStep] = React.useState(false);
+  const [isFirstStep, setIsFirstStep] = React.useState(true);
+
+  const steps = [
     {
       label: "Exterior",
-      value: "Exterior",
-      desc: <Exterior />,
+      component: <Exterior setCheckstep={setCheckstep} />,
     },
     {
       label: "Interior",
-      value: "interior",
-      desc: <Interior />,
+      component: <Interior setCheckstep={setCheckstep} />,
     },
     {
-      label: " Engine",
-      value: "engine",
-      desc: <Engine />,
+      label: "Engine",
+      component: <Engine setCheckstep={setCheckstep} />,
     },
     {
       label: "AC",
-      value: "ac",
-      desc: <AC />,
+      component: <AC setCheckstep={setCheckstep} />,
     },
     {
       label: "Electricals",
-      value: "electricals",
-      desc: <Electrical />,
+      component: <Electrical setCheckstep={setCheckstep} />,
     },
     {
       label: "Steering",
-      value: "steering",
-      desc: <Steering />,
+      component: <Steering setCheckstep={setCheckstep} />,
     },
     {
       label: "Inspection Report",
-      value: "report",
-      desc: <InspectionReport inspData={inspData} />,
+      component: <InspectionReport inspData={inspData} />,
     },
   ];
 
+  const handleNext = () => {
+    // Only move to the next step if checkstep is true
+    if (checkstep && activeStep < steps.length - 1) {
+      setActiveStep((cur) => cur + 1);
+      setIsFirstStep(false);
+      setCheckstep(false); // Reset checkstep for the next step
+      if (activeStep + 1 === steps.length - 1) {
+        setIsLastStep(true);
+      }
+    }
+  };
+
+  const handlePrev = () => {
+    if (activeStep > 0) {
+      setActiveStep((cur) => cur - 1);
+      setIsLastStep(false);
+      if (activeStep - 1 === 0) {
+        setIsFirstStep(true);
+      }
+    }
+  };
+
   return (
-   
-      <div className="mt-5">
-        <Tabs value={activeTab}>
-          <TabsHeader
-            className="rounded-none border-b border-blue-gray-50 overflow-x-auto md:overflow-x-visible p-2"
-            indicatorProps={{
-              className:
-                "bg-transparent border-b-2 border-indigo-900 shadow-none rounded-none",
+    <div className="w-full md:py-4 md:px-8 overflow-scroll md:mt-0 mt-5 px-2 sticky">
+      <Stepper
+        activeStep={activeStep}
+        isLastStep={(value) => setIsLastStep(value)}
+        isFirstStep={(value) => setIsFirstStep(value)}
+        activeClassName="ring-0 !bg-green-500 text-green-500"
+        completedClassName="!bg-green-300 text-green-500"
+        className="bg-white "
+      >
+        {steps.map((step, index) => (
+          <Step
+            key={index}
+            onClick={() => {
+              // Allow navigation only if checkstep is true
+              if (checkstep) {
+                setActiveStep(index);
+              }
             }}
+            className={`cursor-pointer ${index <= activeStep ? 'text-green-500' : 'text-gray-500'}`}
           >
-            {data.map(({ label, value }) => (
-              <Tab
-                key={value}
-                value={value}
-                onClick={() => setActiveTab(value)}
-                className={activeTab === value ? "text-gray-900 text-xl" : ""}
-              >
-                {label}
-              </Tab>
-            ))}
-          </TabsHeader>
-          <TabsBody>
-            {data.map(({ value, desc }) => (
-              <TabPanel key={value} value={value}>
-                {desc}
-              </TabPanel>
-            ))}
-          </TabsBody>
-        </Tabs>
-        <ToastContainer />
+            {index + 1}
+          </Step>
+        ))}
+      </Stepper>
+      <div className="mt-16">
+        {steps[activeStep].component}
       </div>
-   
+      <div className="mt-16 flex md:justify-between p-4">
+        <div>
+          <Button onClick={handlePrev} disabled={isFirstStep}>
+            Prev
+          </Button>
+        </div>
+        <div className="md:ml-0 ml-auto">
+          <Button onClick={handleNext} disabled={!checkstep}>
+            Next
+          </Button>
+        </div>
+      </div>
+      <ToastContainer />
+    </div>
   );
 }
