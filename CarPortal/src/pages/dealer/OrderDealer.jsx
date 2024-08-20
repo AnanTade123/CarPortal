@@ -92,7 +92,7 @@ const OrderDealer = () => {
     return (
       <div className="md:mx-10 mx-5 mt-3 mb-3" key={index}>
         <CardUi>
-          <div className="p-2 md:w-full md:px-5 md:py-3 md:flex md:gap-3">
+          <div className="p-2 md:w-full md:px-5 md:py-3 md:flex md:gap-8">
             <div className="md:w-1/3">
               <CardHeader
                 floated={false}
@@ -106,7 +106,7 @@ const OrderDealer = () => {
               </CardHeader>
             </div>
             <div>
-              <p className="text-lg">
+              <p className="mt-4 md:mt-0 text-lg">
                 <span className="font-[latto] text-black font-bold">Date:</span>{" "}
                 {item?.date}
               </p>

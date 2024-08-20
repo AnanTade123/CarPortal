@@ -48,10 +48,19 @@ const AdminDealerEdit = () => {
 
   const onChangeFormhandler = (e) => {
     const { name, value } = e.target;
+    if (name === "mobileNo") {
+      if (/^\d{0,10}$/.test(value)) {
+        setInputField((preVal) => ({
+          ...preVal,
+          [name]: value,
+        }));
+      }
+    }else{
     setInputField((preVal) => ({
       ...preVal,
       [name]: value,
     }));
+  }
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]: !value ? `${name} is required` : "",
@@ -174,7 +183,7 @@ const AdminDealerEdit = () => {
             onChange={onChangeFormhandler}
             value={inputField.mobileNo}
             defaultValue={dealerID?.dealerDto?.mobileNo || ""}
-            type={"number"}
+            type={"text"}
             name={"mobileNo"}
             error={errors.mobileNo}
           />

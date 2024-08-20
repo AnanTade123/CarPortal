@@ -77,7 +77,7 @@ export function LoginCard() {
   return (
     <div>
 
-    <div className="flex justify-center items-center h-screen" 
+    <div className="flex justify-center items-center h-screen mx-2" 
     
     // style={{
     //     backgroundImage: "url('../public/new/bgn6.jpg')",
@@ -94,10 +94,10 @@ export function LoginCard() {
 
       <div className="items-center mb-12 ">
 <Link to={"/"}>
-          <Typography className="flex cursor-pointer mt-2  font-bold text-3xl justify-center items-center 
+          {/* <Typography className="flex cursor-pointer mt-2  font-bold text-3xl justify-center items-center 
            ">
             CarTechIndia
-          </Typography>
+          </Typography> */}
         </Link>
         </div>
 

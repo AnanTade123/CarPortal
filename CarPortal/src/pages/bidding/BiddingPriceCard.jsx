@@ -105,7 +105,7 @@ const getTopThreeBids = (bidCarId) => {
     const text = remainingMinutes < 2 ? 'Last Call' :'Timer' ;
  
   return (
-    <div className="w-full ">
+    <div className="w-full px-4 md:px-0 md:mt-4">
     <CardUi>
       <div className="w-full md:w-full p-4">
         <p className="font-extrabold text-2xl text-black uppercase font-[latto] ml-2 md:ml-0">

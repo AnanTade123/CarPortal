@@ -1,24 +1,40 @@
 import { Typography } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import ucdap2 from "/cars/ucdap2.png";
-
+import cartechlogo2 from "/cars/cartechlogo2.png";
 
 export default function FooterF() {
   return (
     <footer className="w-full bg-white p-8">
-      <div className="flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 bg-white text-center md:justify-between">
+      <div className="flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 bg-white text-center lg:justify-between">
         {/* <img src="https://docs.material-tailwind.com/img/logo-ct-dark.png" alt="logo-ct" className="w-10" /> */}
 
         <Link to={"/"}>
-          <div>
-            {/* <p className="font-bold text-2xl">CarTechIndia</p> */}
-            <img src={ucdap2} className="md:w-56 w-[200px] md:h-[58px] h-[48px] -ml-4" alt="logo" />
-            <p className="font-bold text-xs -ml-4 mt-1">CarTech Associated with UCDAP</p>
+          <div className="flex gap-3">
+            <div>
+              {/* <p className="font-bold text-2xl">CarTechIndia</p> */}
+              <img
+                src={cartechlogo2}
+                alt="logo"
+                className="w-[56px] lg:w-[60px] lg:h-[58px]"
+              />
+            </div>
+
+            <div>
+              {" "}
+              <img
+                src={ucdap2}
+                className="md:w-56 w-[200px] md:h-[58px] h-[48px] -ml-4"
+                alt="logo"
+              />
+            </div>
           </div>
-        
-          
-          
+
+          <p className="font-bold text-sm -ml-4 mt-1">
+            CarTech Associated with UCDAP
+          </p>
         </Link>
+
         <ul className=" grid grid-cols-2 md:flex flex-wrap items-center gap-y-2 gap-x-8">
           <li>
             <Link to="/aboutus">

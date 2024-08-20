@@ -371,15 +371,19 @@ export default function BiddingEditCar() {
                 <Inputs
                   required
                   label="Price"
-                  type="number"
+                  type="text"
                   name="price"
                   value={formData.price}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      price: event.target.value,
-                    })
-                  }
+                  onChange={(event) => {
+                    // Ensure only numbers are accepted
+                    const value = event.target.value;
+                    if (/^[0-9]*$/.test(value)) {
+                      setFormData({
+                        ...formData,
+                        price: value,
+                      });
+                    }
+                  }}
                 />
               </div>
 
@@ -545,15 +549,19 @@ export default function BiddingEditCar() {
                 <Inputs
                   required
                   label={"Km Driven"}
-                  type={"number"}
+                  type={"text"}
                   name={"kmDriven"}
                   value={formData.kmDriven}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      kmDriven: event.target.value,
-                    })
-                  }
+                  onChange={(event) => {
+                    // Ensure only numbers are accepted
+                    const value = event.target.value;
+                    if (/^[0-9]*$/.test(value)) {
+                      setFormData({
+                        ...formData,
+                        kmDriven: value,
+                      });
+                    }
+                  }}
                 />
               </div>
               <div className="mt-5 w-full">
