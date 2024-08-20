@@ -79,21 +79,22 @@ export function LoginCard() {
 
     <div className="flex justify-center items-center h-screen" 
     
-    style={{
-        backgroundImage: "url('../public/new/bgn6.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        margin: "0px 0px 0px 0px",
-        height: "90vh"
-      }}>
+    // style={{
+    //     backgroundImage: "url('../public/new/bgn6.jpg')",
+    //     backgroundSize: "cover",
+    //     backgroundPosition: "center",
+    //     margin: "0px 0px 0px 0px",
+    //     height: "90vh"
+    //   }}
+      >
     
    
     <ToastContainer autoClose={2000} />
-      <Card className="w-96 bg-white bg-opacity-70 backdrop-blur-0">
+      <Card className="w-96 bg-white shadow-xl border ">
 
-      <div className="items-center mb-14 ">
+      <div className="items-center mb-12 ">
 <Link to={"/"}>
-          <Typography className="flex cursor-pointer   font-bold text-3xl justify-center items-center 
+          <Typography className="flex cursor-pointer mt-2  font-bold text-3xl justify-center items-center 
            ">
             CarTechIndia
           </Typography>
