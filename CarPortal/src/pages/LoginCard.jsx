@@ -94,10 +94,10 @@ export function LoginCard() {
 
       <div className="items-center mb-12 ">
 <Link to={"/"}>
-          <Typography className="flex cursor-pointer mt-2  font-bold text-3xl justify-center items-center 
+          {/* <Typography className="flex cursor-pointer mt-2  font-bold text-3xl justify-center items-center 
            ">
             CarTechIndia
-          </Typography>
+          </Typography> */}
         </Link>
         </div>
 
