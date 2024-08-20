@@ -43,9 +43,9 @@ const SellForCar = () => {
   const {data : deactivateCounts , refetch : deactiveCountRefetch} = useCarCountByStatusQuery({status : deactive,id :id}) ;
   const {data : soldCounts , refetch : soldCountsRefetch} = useCarCountByStatusQuery({status : sell,id:id}) ;
   const { data: activeData = [], isLoading: isLoadingActive, error: errorActive, refetch: refetchActive } = useDealerIdByCarQuery({ id, pageNo, status: active });
-const { data: pendingData = [], isLoading: isLoadingPending, error: errorPending ,refetch : pendingRefeatch } = useDealerIdByCarQuery({ id, pageNo, status: pending });
-const { data: sellData = [], isLoading: isLoadingSell, error: errorSell ,refetch :sellRefeatch } = useDealerIdByCarQuery({ id, pageNo, status: sell });
-const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeactive, refetch: refetchDeactive } = useDealerIdByCarQuery({ id, pageNo, status: deactive });
+  const { data: pendingData = [], isLoading: isLoadingPending, error: errorPending ,refetch : pendingRefeatch } = useDealerIdByCarQuery({ id, pageNo, status: pending });
+  const { data: sellData = [], isLoading: isLoadingSell, error: errorSell ,refetch :sellRefeatch } = useDealerIdByCarQuery({ id, pageNo, status: sell });
+  const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeactive, refetch: refetchDeactive } = useDealerIdByCarQuery({ id, pageNo, status: deactive });
 
   // Example of using the data safely
   const activeItems = errorActive?.status === 404 ? [] : activeData?.list || [];
@@ -85,6 +85,7 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
   if (token) {
     jwtDecodes = jwtDecode(token);
   }
+
 
   const handleFilterCars = (data) => {
     setList(data?.list ?? []);
@@ -139,21 +140,11 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
     setOpenDeactivate(!openDeactivate);
     setDeactivateId(carId);
   };
-
-  // For calculating Percentage
   const PertotalCars = Math.ceil((totalCars / totalCars) * 100);
-  // console.log("active",PertotalCars)
-
   const perActive =  data ?  Math.floor((activeCars/totalCars)*100) : 0
-
   const perPending = Math.ceil((pendingCars / totalCars) * 100);
-  // console.log("active",perPending)
-
   const perSold = Math.floor((sellCars / totalCars) * 100);
-  //  console.log("active",perSold)
-
   const perDeactive =deactiveData?  Math.floor((deactiveCars/totalCars)*100) : 0
-  // console.log("active",perDeactive)
 
   const handleOpenAactivate = (carId) => {
     setOpenActivate(!openActivate);
@@ -166,6 +157,14 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
     };
     const res = await carUpdate({ data, carId: deactivateId });
     setSelectedOption("DEACTIVATE");
+    refetchActive()
+    pendingRefeatch(); 
+    sellRefeatch();
+    refetchDeactive();
+    activeCountRefetch();
+    pendingCountRefetch();
+    soldCountsRefetch();
+    deactiveCountRefetch();
     setOpenDeactivate(!openDeactivate);
   };
 
@@ -175,6 +174,14 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
     };
     const res = await carUpdate({ data, carId: deactivateId });
     setSelectedOption("ACTIVE");
+    refetchActive()
+    pendingRefeatch(); 
+    sellRefeatch();
+    refetchDeactive();
+    activeCountRefetch();
+    pendingCountRefetch();
+    soldCountsRefetch();
+    deactiveCountRefetch();
     setOpenActivate(!openActivate);
   };
 
@@ -288,7 +295,7 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
     },
 
     {
-      Header: "Edit",
+      Header: "Action",
       accessor: "Edit",
       Cell: (cell) => {
         return (
@@ -316,7 +323,8 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
                   />
                 </svg>
               </Link>
-
+                {userRole !== "ADMIN" ? 
+                
               <Link to={`/dealer/${id}/car/edit/${cell.row.values.carId}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -333,8 +341,9 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
                     d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
                   />
                 </svg>
-              </Link>
-              <div onClick={() => handleOpen(cell.row.values.carId)}>
+              </Link> : null
+              }
+              {/* <div onClick={() => handleOpen(cell.row.values.carId)}>
                 <Tooltip content="Delete">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -352,7 +361,7 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
                     />
                   </svg>
                 </Tooltip>
-              </div>
+              </div> */}
 
               {cell.row.values.carStatus == "ACTIVE" && (
                 <p
