@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {  useNavigate } from "react-router-dom";
 import {
   useGetbyUserCarIdQuery,
@@ -7,15 +7,14 @@ import {
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import FavCard from "./FavCard";
-import { addFavoriteCar, fetchFavoriteCars } from "../pages/favoritesSlice";
+import {  fetchFavoriteCars } from "../pages/favoritesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { FiLoader } from 'react-icons/fi'; 
 export function FavoritePage() {
   const dispatch = useDispatch();
-
   const favoriteCars = useSelector(state => state.favorites.favoriteCars);
-  console.log("favoriteCars",favoriteCars);
   const token = Cookies.get("token");
+  const [loader , setLoader] = useState(true);
   const navigate = useNavigate();
   let jwtDecodes;
   if (token) {
@@ -28,15 +27,15 @@ export function FavoritePage() {
     isLoading,
     refetch
   } = useGetbyUserCarIdQuery({ UserId });
-  // console.log("userCars",userCars)
-  useEffect(() => {
-    if (UserId) {
-      dispatch(fetchFavoriteCars(UserId));
+   useEffect(() => {
+    if(UserId){
+      dispatch(fetchFavoriteCars(UserId)); // dispatch the thunk function itself
+      setLoader(false);
     }
-  }, [dispatch]);
+  }, [dispatch,UserId]);
   
 
-  if (isLoading) {
+  if (loader) {
     return (
       <div className="w-screen h-screen flex justify-center items-center p-8">
         <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
@@ -49,9 +48,9 @@ export function FavoritePage() {
     return null;
   }
 
-  if (error && !isLoading && userCars) {
-    refetch();
-  }
+  // if (error && !isLoading && userCars) {
+  //   refetch();
+  // }
 
   return (
     <>

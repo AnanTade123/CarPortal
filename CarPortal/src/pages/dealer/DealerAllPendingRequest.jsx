@@ -66,7 +66,7 @@ const DealerAllPendingRequest = () => {
   return (
     <>
       
-      <div className="grid grid-cols-1 gap-y-4 lg:grid lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-y-4 lg:grid lg:grid-cols-1 md:grid md:grid-cols-1 xl:grid xl:grid-cols-2 mx-2 md:mx-0">
         {renderData}
       </div>
 

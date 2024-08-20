@@ -36,7 +36,7 @@ const WinnerSection = () => {
     isLoading,
     error,
   } = useAllDealerFinalBidQuery({ UserID, pageNo, pageSize });
-  const [loading , setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   let [trigger] = useLazyBiddingCarByIdQuery();
   let [triggerGetDealer] = useLazyGetDealerByUserIdQuery();
@@ -75,9 +75,9 @@ const WinnerSection = () => {
         }
 
         setLiveCarsWinData(liveCarsData);
-        setLoading(true)
-      }else{
-        setLoading(true)
+        setLoading(true);
+      } else {
+        setLoading(true);
       }
     };
 
@@ -106,8 +106,8 @@ const WinnerSection = () => {
       },
     },
     {
-      Header : "Code",
-      accessor : "uniqueBeadingCarId"
+      Header: "Code",
+      accessor: "uniqueBeadingCarId",
     },
     {
       Header: "Brand",
@@ -124,12 +124,16 @@ const WinnerSection = () => {
     {
       Header: "bidCarId",
       accessor: "bidCarId",
-      isVisible :false
+      show: true,
+    },
+    {
+      Header: "biddingCarId",
+      accessor: "beadingCarId",
+      show: true,
     },
     {
       Header: "Action",
       Cell: (cell) => {
-        console.log(cell.row.values);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">
@@ -182,29 +186,30 @@ const WinnerSection = () => {
   return (
     <>
       <div className="flex w-full justify-left mb-10 mt-5">
-      <CardHeader floated={false} shadow={false} className="rounded-none">
-              <div className="flex flex-col sm:flex-row justify-between gap-4">
-                <div>
-                  <Typography
-                    variant="h5"
-                    color="blue-gray"
-                    className="text-center lg:text-start"
-                  >
-                    Winning Bidding Car List &nbsp;
-                    <span className="text-grey-400">({didData?.finalBids?.length})</span>
-                  </Typography>
-                  <Typography
-                    color="gray"
-                    className="mt-1 font-normal text-center lg:text-start"
-                  >
-                    See information about all winning bidding cars
-                  </Typography>
-                </div>
-               
-              </div>
-            </CardHeader>
+        <CardHeader floated={false} shadow={false} className="rounded-none">
+          <div className="flex flex-col sm:flex-row justify-between gap-4">
+            <div>
+              <Typography
+                variant="h5"
+                color="blue-gray"
+                className="text-center lg:text-start"
+              >
+                Winning Bidding Car List &nbsp;
+                <span className="text-grey-400">
+                  ({didData?.finalBids?.length})
+                </span>
+              </Typography>
+              <Typography
+                color="gray"
+                className="mt-1 font-normal text-center lg:text-start"
+              >
+                See information about all winning bidding cars
+              </Typography>
+            </div>
+          </div>
+        </CardHeader>
       </div>
-      <div>
+      <div className="md:overflow-auto overflow-scroll">
         {liveCarsWinData && (
           <TableComponent columns={columns} data={liveCarsWinData} />
         )}
