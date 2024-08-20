@@ -55,6 +55,11 @@ const PremiumCars = () => {
               {/* <p className="text-white font-bold mb-5 rounded">
               Quick Approval
                </p> */}
+                <Link to="/PremiumCarList">
+                        <button className="p-1 md:p-4 rounded-md bg-white">
+                            <h1 className="text-center text-xs md:text-sm font-semibold"> GO TO LISTING </h1>
+                        </button>
+                    </Link>
             </div>
           </div>
         </div>
@@ -67,9 +72,14 @@ const PremiumCars = () => {
           />
           <div className="absolute grid inset-0 bg-black/30">
             <div className="mt-2 md:mt-4 xl:mt-8 ml-10">
-              <div className="text-white  text-md md:text-xl lg:text-4xl mb-5  font-bold  rounded lg:mt-[70px] mt-4 md:mt-[30px]">
+              <div className="text-white  text-md md:text-xl lg:text-4xl mb-2  font-bold  rounded lg:mt-[70px] mt-4 md:mt-[30px]">
                 Drive the Dream. Live the Luxury
               </div>
+              <Link to="/PremiumCarList">
+                        <button className="p-1 md:p-4 rounded-md bg-white">
+                            <h1 className="text-center text-xs md:text-sm font-semibold"> GO TO LISTING </h1>
+                        </button>
+                    </Link>
               {/* <p className="text-white font-bold mb-5 rounded">
                Car Is Where Early Adopters And Innovation Seekers Lively Imaginative Tech Before It Hits The Mainstream
                </p> */}
