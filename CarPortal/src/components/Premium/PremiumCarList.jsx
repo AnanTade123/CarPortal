@@ -212,14 +212,13 @@ const PremiumCarList = () => {
   
     return (
       <div className="container mx-auto p-4">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">Total {cars.length} Results Found</h2>
-          <div className="flex space-x-4">
-            <button className="btn-filter">Filters</button>
+        <div className="flex justify-between  items-center mb-6">
+          <h2 className="text-lg lg:text-2xl font-bold text-wrap">Total {cars.length} Results Found</h2>
+          <div className="flex space-x-2">
+            <button className="btn-filter  text-sm lg:text-xl font-bold">Filters</button>
             <div className="relative">
-              <select className="form-select">
-                <option value="price">Sort by: Price</option>
-                {/* Add other sorting options here */}
+              <select className="form-select text-sm lg:text-xl">
+                <option  value="price">Sort by: Price</option>
               </select>
             </div>
           </div>
