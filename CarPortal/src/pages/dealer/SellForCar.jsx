@@ -43,9 +43,9 @@ const SellForCar = () => {
   const {data : deactivateCounts , refetch : deactiveCountRefetch} = useCarCountByStatusQuery({status : deactive,id :id}) ;
   const {data : soldCounts , refetch : soldCountsRefetch} = useCarCountByStatusQuery({status : sell,id:id}) ;
   const { data: activeData = [], isLoading: isLoadingActive, error: errorActive, refetch: refetchActive } = useDealerIdByCarQuery({ id, pageNo, status: active });
-const { data: pendingData = [], isLoading: isLoadingPending, error: errorPending ,refetch : pendingRefeatch } = useDealerIdByCarQuery({ id, pageNo, status: pending });
-const { data: sellData = [], isLoading: isLoadingSell, error: errorSell ,refetch :sellRefeatch } = useDealerIdByCarQuery({ id, pageNo, status: sell });
-const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeactive, refetch: refetchDeactive } = useDealerIdByCarQuery({ id, pageNo, status: deactive });
+  const { data: pendingData = [], isLoading: isLoadingPending, error: errorPending ,refetch : pendingRefeatch } = useDealerIdByCarQuery({ id, pageNo, status: pending });
+  const { data: sellData = [], isLoading: isLoadingSell, error: errorSell ,refetch :sellRefeatch } = useDealerIdByCarQuery({ id, pageNo, status: sell });
+  const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeactive, refetch: refetchDeactive } = useDealerIdByCarQuery({ id, pageNo, status: deactive });
 
   // Example of using the data safely
   const activeItems = errorActive?.status === 404 ? [] : activeData?.list || [];
@@ -139,21 +139,11 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
     setOpenDeactivate(!openDeactivate);
     setDeactivateId(carId);
   };
-
-  // For calculating Percentage
   const PertotalCars = Math.ceil((totalCars / totalCars) * 100);
-  // console.log("active",PertotalCars)
-
   const perActive =  data ?  Math.floor((activeCars/totalCars)*100) : 0
-
   const perPending = Math.ceil((pendingCars / totalCars) * 100);
-  // console.log("active",perPending)
-
   const perSold = Math.floor((sellCars / totalCars) * 100);
-  //  console.log("active",perSold)
-
   const perDeactive =deactiveData?  Math.floor((deactiveCars/totalCars)*100) : 0
-  // console.log("active",perDeactive)
 
   const handleOpenAactivate = (carId) => {
     setOpenActivate(!openActivate);
@@ -166,6 +156,14 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
     };
     const res = await carUpdate({ data, carId: deactivateId });
     setSelectedOption("DEACTIVATE");
+    refetchActive()
+    pendingRefeatch(); 
+    sellRefeatch();
+    refetchDeactive();
+    activeCountRefetch();
+    pendingCountRefetch();
+    soldCountsRefetch();
+    deactiveCountRefetch();
     setOpenDeactivate(!openDeactivate);
   };
 
@@ -175,6 +173,14 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
     };
     const res = await carUpdate({ data, carId: deactivateId });
     setSelectedOption("ACTIVE");
+    refetchActive()
+    pendingRefeatch(); 
+    sellRefeatch();
+    refetchDeactive();
+    activeCountRefetch();
+    pendingCountRefetch();
+    soldCountsRefetch();
+    deactiveCountRefetch();
     setOpenActivate(!openActivate);
   };
 
@@ -288,7 +294,7 @@ const { data: deactiveData = [], isLoading: isLoadingDeactive, error: errorDeact
     },
 
     {
-      Header: "Edit",
+      Header: "Action",
       accessor: "Edit",
       Cell: (cell) => {
         return (
