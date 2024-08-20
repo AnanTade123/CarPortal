@@ -166,7 +166,7 @@ const BiddingDealerCars = () => {
             ) : (
               <>
               <Link to={userRole === "ADMIN" ? `/admin/inspection/report/${cell.row.values.beadingCarId}` : `/sale/inspection/report/${cell.row.values.beadingCarId}`}>
-                <Button variant="gradient" color="blue">
+                <Button variant="gradient" color="blue" className="mb-2 lg:mb-0">
                   View
                 </Button>
               </Link>&nbsp;
