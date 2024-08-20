@@ -77,7 +77,7 @@ export function LoginCard() {
   return (
     <div>
 
-    <div className="flex justify-center items-center h-screen" 
+    <div className="flex justify-center items-center h-screen mx-2" 
     
     // style={{
     //     backgroundImage: "url('../public/new/bgn6.jpg')",
