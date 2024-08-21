@@ -3,7 +3,7 @@ import { Card, CardBody, CardHeader, Typography } from "@material-tailwind/react
 import { CarouselCustomArrows } from "./CarouselCustomArrows";
 import { Link, useNavigate } from "react-router-dom";
 import { useGetCarByIdQuery } from "../services/carAPI";
-import { FiLoader } from 'react-icons/fi'; 
+// import { FiLoader } from 'react-icons/fi'; 
 function FavCard({favoriteCarData}) {
   const navigate = useNavigate();
   const { carId } = favoriteCarData;
@@ -11,9 +11,11 @@ function FavCard({favoriteCarData}) {
   
   if (isLoading) {
     return (
-      <div className="w-screen h-screen flex justify-center items-center p-8">
-        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
-      </div>
+      <>
+      {/* // <div className="w-screen h-screen flex justify-center items-center p-8">
+      //   <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      // </div> */}
+      </>
     );
   }
 
