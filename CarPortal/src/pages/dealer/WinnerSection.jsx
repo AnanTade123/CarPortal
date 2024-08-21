@@ -124,12 +124,16 @@ const WinnerSection = () => {
     {
       Header: "bidCarId",
       accessor: "bidCarId",
-      isVisible: false,
+      show: true,
+    },
+    {
+      Header: "biddingCarId",
+      accessor: "beadingCarId",
+      show: true,
     },
     {
       Header: "Action",
       Cell: (cell) => {
-        console.log(cell.row.values);
         return (
           <div>
             <div className="flex gap-2 justify-center items-center">

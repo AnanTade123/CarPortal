@@ -75,7 +75,7 @@ export default function CarVerify() {
   };
 
   return (
-    <div className="w-full md:py-4 md:px-8 overflow-scroll md:mt-0 mt-5 px-2 sticky">
+    <div className="w-full md:py-4 md:px-8 overflow-scroll md:mt-0 mt-5 px-2">
       <Stepper
         activeStep={activeStep}
         isLastStep={(value) => setIsLastStep(value)}
