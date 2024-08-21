@@ -67,7 +67,16 @@ const BiddingPriceCard = ({
 
   return () => clearInterval(timerId);
   },[closeTime]);
+  
+  useEffect(() => {
+    const remainingMinutes = parseInt(timeLeft.split('m:')[0]);
 
+    if (remainingMinutes < 2) {
+      const intervalId = setInterval(refeachData, 1000); // Call refeachData every 5 seconds
+
+      return () => clearInterval(intervalId); // Clear interval on cleanup
+    }
+  }, [timeLeft]);
 
   useEffect(() => {
     if(bidCarId && isConnected){
