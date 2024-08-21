@@ -175,7 +175,7 @@ export function CardDefault({ data, Carid,refetch }) {
             ₹ {data.price}
           </Typography>
           <Link to={`/carlist/cardetails/${data.carId}`}>
-            <button className="mt-2 mb-4 p-[7px] bg-indigo-500 rounded-lg text-white">
+            <button className="mt-2 mb-4 p-[7px] bg-indigo-500 rounded-lg      text-white">
               View Car
             </button>
           </Link>

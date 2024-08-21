@@ -1,4 +1,16 @@
 import { Link } from 'react-router-dom';
+import lexus from '../../assets/lexus.jpg';
+import mclaren from '../../assets/mclaren.jpeg';
+import mercedes from '../../assets/mercedes.jpg';
+import porsche from '../../assets/porsche.jpg';
+import lrover from '../../assets/lrover.jpg';
+import kia from '../../assets/kia.jpeg';
+import jaguar from '../../assets/jaguar.jpeg';
+import bmw from '../../assets/bmw.jpeg';
+import audi from '../../assets/audi.jpeg';
+import bmw1 from '../../assets/bmw1.png';
+import volkswagon from '../../assets/volkswagon.jpg';
+import ducati from '../../assets/ducati.jpg';
 
 const PremiumCarList = () => {
     const cars = [
@@ -11,7 +23,7 @@ const PremiumCarList = () => {
         kms: 38000,
         fuelType: 'HYBRID',
         state: 'TELANGANA',
-        image: 'src/assets/lexus.jpg', 
+        image: lexus, 
         booked: false,
       },
       {
@@ -23,7 +35,7 @@ const PremiumCarList = () => {
         kms: 1400,
         fuelType: 'PETROL',
         state: 'MAHARASHTRA',
-        image: 'src/assets/mclaren.jpeg', 
+        image: mclaren, 
         booked: true,
       },
       {
@@ -35,7 +47,7 @@ const PremiumCarList = () => {
         kms: 28400,
         fuelType: 'PETROL',
         state: 'TELANGANA',
-        image: 'src/assets/mercedes.jpg', 
+        image: mercedes, 
         booked: true,
       },
       {
@@ -47,7 +59,7 @@ const PremiumCarList = () => {
           kms: 28400,
           fuelType: 'PETROL',
           state: 'TELANGANA',
-          image: 'src/assets/lexus.jpg', 
+          image: lexus, 
           booked: false,
         }, {
           id: 5,
@@ -58,7 +70,7 @@ const PremiumCarList = () => {
           kms: 28400,
           fuelType: 'PETROL',
           state: 'TELANGANA',
-          image: 'src/assets/porsche.jpg', 
+          image: porsche, 
           booked: false,
         }, {
           id: 6,
@@ -69,7 +81,7 @@ const PremiumCarList = () => {
           kms: 28400,
           fuelType: 'PETROL',
           state: 'TELANGANA',
-          image: 'src/assets/lrover.jpg', 
+          image: lrover, 
           booked: false,
         }, {
           id: 7,
@@ -80,7 +92,7 @@ const PremiumCarList = () => {
           kms: 28400,
           fuelType: 'PETROL',
           state: 'TELANGANA',
-          image: 'src/assets/kia.jpeg', 
+          image: kia, 
           booked: true,
         }, {
           id: 8,
@@ -91,7 +103,7 @@ const PremiumCarList = () => {
           kms: 28400,
           fuelType: 'PETROL',
           state: 'TELANGANA',
-          image: 'src/assets/jaguar.jpeg', 
+          image: jaguar, 
           booked: false,
         }, {
           id: 9,
@@ -102,7 +114,7 @@ const PremiumCarList = () => {
           kms: 28400,
           fuelType: 'PETROL',
           state: 'TELANGANA',
-          image: 'src/assets/bmw.jpeg', 
+          image: bmw, 
           booked: false,
         },
         {
@@ -114,7 +126,7 @@ const PremiumCarList = () => {
           kms: 28400,
           fuelType: 'PETROL',
           state: 'TELANGANA',
-          image: 'src/assets/audi.jpeg', 
+          image: audi, 
           booked: false,
         }, {
           id: 11,
@@ -125,7 +137,7 @@ const PremiumCarList = () => {
           kms: 28400,
           fuelType: 'PETROL',
           state: 'TELANGANA',
-          image: 'src/assets/bmw1.png', 
+          image: bmw1, 
           booked: true,
         },  {
           id: 12,
@@ -136,7 +148,7 @@ const PremiumCarList = () => {
           kms: 28400,
           fuelType: 'PETROL',
           state: 'TELANGANA',
-          image: 'src/assets/porsche.jpg', 
+          image: porsche, 
           booked: false,
         },
         {
@@ -148,7 +160,7 @@ const PremiumCarList = () => {
           kms: 28400,
           fuelType: 'PETROL',
           state: 'TELANGANA',
-          image: 'src/assets/kia.jpeg', 
+          image: kia, 
           booked: true,
         },
         {
@@ -160,7 +172,7 @@ const PremiumCarList = () => {
           kms: 28400,
           fuelType: 'PETROL',
           state: 'TELANGANA',
-          image: 'src/assets/ducati.jpg', 
+          image: ducati, 
           booked: false,
         },{
           id: 15,
@@ -171,11 +183,11 @@ const PremiumCarList = () => {
           kms: 28400,
           fuelType: 'PETROL',
           state: 'TELANGANA',
-          image: 'src/assets/lexus.jpg', 
+          image: lexus, 
           booked: false,
         },
         {
-          id: 8,
+          id: 16,
           price: '₹76,00,000',
           name: '2022 JAQUAR',
           emi: '₹1,30,682.91',
@@ -183,10 +195,10 @@ const PremiumCarList = () => {
           kms: 28400,
           fuelType: 'PETROL',
           state: 'TELANGANA',
-          image: 'src/assets/jaguar.jpeg', 
+          image: jaguar, 
           booked: false,
         },  {
-          id: 8,
+          id: 17,
           price: '₹76,00,000',
           name: '2015 VOLKSWAGON',
           emi: '₹1,30,682.91',
@@ -194,7 +206,7 @@ const PremiumCarList = () => {
           kms: 28400,
           fuelType: 'PETROL',
           state: 'TELANGANA',
-          image: 'src/assets/volkswagon.jpg', 
+          image: volkswagon, 
           booked: false,
         },  {
           id: 18,
@@ -205,7 +217,7 @@ const PremiumCarList = () => {
           kms: 38000,
           fuelType: 'HYBRID',
           state: 'TELANGANA',
-          image: 'src/assets/lexus.jpg', 
+          image: lexus, 
           booked: false,
         },
     ];
