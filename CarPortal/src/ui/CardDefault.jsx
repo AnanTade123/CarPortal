@@ -55,6 +55,7 @@ function UnratedIcon() {
 export function CardDefault({ data, Carid,refetch }) {
   const dispatch = useDispatch();
   const favoriteCars = useSelector(state => state.favorites.favoriteCars);
+  console.log(favoriteCars)
 
   const [favoriteCar] = useFavoriteCarMutation();
   const token = Cookies.get("token");
@@ -74,19 +75,9 @@ export function CardDefault({ data, Carid,refetch }) {
   const useid = data2.userId;
  
   const { data: favData ,error , refetch : refetchFavCarData } = useCarFavoriteAddRemoveQuery({ carid, useid });
-  // const { data: favData, error, refetch : refetchFavCarData } = useCarFavoriteAddRemoveQuery(
-  //   { carId: carid, useid },
-  //   { skip: !carid } // Skip the query until carId is selected
-  // );
+  
   const [CarremoveFavorite] = useCarremoveFavoriteMutation();
 
-  // useEffect(() => {
-  //   if (favData?.object?.saveCarId) {
-  //     setRated(true);
-  //   } else {
-  //     setRated(false);
-  //   }
-  // }, [favData]);
   const handleFavoriteClick = async () => {
     if (rated) {
       const data3 = {
