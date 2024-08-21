@@ -1,50 +1,61 @@
 import React from "react";
 import CarSummary from "./CarSummary";
 import Accordions from "./Accordions";
+import img6 from "../../../public/CarsImages/6.jpeg";
+import img2 from "../../../public/CarsImages/2.jpeg";
+import img3 from "../../../public/CarsImages/3.jpeg";
+import img4 from "../../../public/CarsImages/4.jpeg";
+import img5 from "../../../public/CarsImages/5.jpeg";
+import img7 from "../../../public/CarsImages/7.jpeg";
+import img8 from "../../../public/CarsImages/8.jpeg";
+import img9 from "../../../public/CarsImages/9.jpeg";
+import img1 from "../../../public/CarsImages/1.jpeg";
+
 export function FeaturedImageGallery() {
   const data = [
     {
       imgelink:
-        "public/CarsImages/6.jpeg",
+        img6,
     },
     {
       imgelink:
-        "public/CarsImages/2.jpeg",
+      img2 , 
+
     },
     {
       imgelink:
-      "public/CarsImages/3.jpeg",
+      img3,
     },
     {
       imgelink:
-      "public/CarsImages/4.jpeg",
+      img4,
     },
     {
       imgelink:
-      "public/CarsImages/5.jpeg",
+      img5,
     },
     {
       imgelink:
-      "public/CarsImages/6.jpeg",
+      img6,
     }, {
       imgelink:
-      "public/CarsImages/7.jpeg",
+      img7,
     }, {
       imgelink:
-      "public/CarsImages/8.jpeg",
+      img8,
     }, {
       imgelink:
-      "public/CarsImages/9.jpeg",
+      img9,
     },
     {
       imgelink:
-      "public/CarsImages/9.jpeg",
+      img2,
     },
 
   ];
  
   const [active, setActive] = React.useState(
-    "public/CarsImages/1.jpeg",
+    img1,
   );
  
   return (
