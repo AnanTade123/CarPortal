@@ -121,7 +121,8 @@ export function CardDefault({ data, Carid,refetch }) {
 
   return (
     <div className="flex justify-center mx-auto">
-      <Card className="max-w-[19rem] overflow-hidden">
+      <Card className="max-w-[19rem] overflow-hidden hover:border hover:border-3 hover:shadow-2xl hover:scale-105">
+       
         <CardHeader
           floated={false}
           shadow={false}
@@ -133,6 +134,7 @@ export function CardDefault({ data, Carid,refetch }) {
           </Link>
         </CardHeader>
         <CardBody>
+        <Link to={`/carlist/cardetails/${data.carId}`}>
           {userRole === "USER" ? (
             <div className="flex justify-end">
               <div onClick={handleFavoriteToggle} className="cursor-pointer">
@@ -165,13 +167,14 @@ export function CardDefault({ data, Carid,refetch }) {
           <Typography variant="h6" className="font-bold text-black text-xl">
             ₹ {data.price}
           </Typography>
-          <Link to={`/carlist/cardetails/${data.carId}`}>
+          {/* <Link to={`/carlist/cardetails/${data.carId}`}>
             <button className="mt-2 mb-4 p-[7px] bg-indigo-500 rounded-lg      text-white">
               View Car
             </button>
-          </Link>
+          </Link> */}
           <hr />
           <p className="text-sm">Free Test Drive Today at {data.area}</p>
+          </Link>
         </CardBody>
       </Card>
     </div>
