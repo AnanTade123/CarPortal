@@ -412,7 +412,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
               : ""
           }hover:bg-gray-200`}
         >
-          Favorite
+          Favourite
         </Typography>
       </Link>
 
