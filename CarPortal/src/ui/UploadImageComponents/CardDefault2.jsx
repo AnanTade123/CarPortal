@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Button, Card, CardBody, Typography } from "@material-tailwind/react";
+import {  Card, CardBody, Typography } from "@material-tailwind/react";
 import { CarouselCustomArrows } from "../CarouselCustomArrows";
 import { Link } from "react-router-dom";
 
@@ -8,13 +8,14 @@ export function CardDefault2({ data }) {
   const carid = data?.carId;
   
   return (
-    <Card className="mt-1 w-96 md:m-0 items-center max-w-[20rem] overflow-hidden">
+    <Card className="mt-1 w-96 md:m-0 items-center max-w-[20rem] overflow-hidden hover:border hover:border-3 hover:shadow-2xl hover:scale-100">
       <div className="">
       <Link to={`/carlist/cardetails/${carid}`}>
         <CarouselCustomArrows carId={carid} />
         </Link>
       </div>
       <CardBody className="mb-5">
+      <Link to={`/carlist/cardetails/${data.carId}`}>
         <Typography>{data.year}</Typography>
         <Typography variant="h5" color="blue-gray" className="mb-2">
           {data.brand} {data.model}
@@ -27,12 +28,13 @@ export function CardDefault2({ data }) {
         </p>
         <Typography variant="h6" className="mt-2 font-bold text-xl text-black">₹ {data.price}</Typography>
 
-        <Link to={`/carlist/cardetails/${data.carId}`}>
+        {/* <Link to={`/carlist/cardetails/${data.carId}`}>
           {" "}
           <Button className="mt-2 mb-4 p-[8px] bg-indigo-500 rounded-lg text-white">View Car</Button>
-        </Link>
+        </Link> */}
         <hr />
         <p className="text-sm">Free Test Drive Today at {data.area}</p>
+        </Link>
       </CardBody>
     
     </Card>
