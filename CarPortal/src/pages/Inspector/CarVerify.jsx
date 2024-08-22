@@ -88,9 +88,10 @@ export default function CarVerify() {
           <Step
             key={index}
             onClick={() => {
-              // Allow navigation only if checkstep is true
-              if (checkstep) {
+              // Only allow moving to the clicked step if it's the immediate next step
+              if (index === activeStep + 1 && checkstep) {
                 setActiveStep(index);
+                setCheckstep(false); // Reset checkstep after moving to the next step
               }
             }}
             className={`cursor-pointer ${index <= activeStep ? 'text-green-500' : 'text-gray-500'}`}
