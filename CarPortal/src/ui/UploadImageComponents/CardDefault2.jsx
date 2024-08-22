@@ -2,13 +2,19 @@
 import {  Card, CardBody, Typography } from "@material-tailwind/react";
 import { CarouselCustomArrows } from "../CarouselCustomArrows";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export function CardDefault2({ data }) {
+  const [isHovered, setIsHovered] = useState(false);
  
   const carid = data?.carId;
+
+  const combinedText = `${data.brand} ${data.model}`;
+  const truncatedText = combinedText.length > 25 ? combinedText.substring(0, 22 ) + '...' : combinedText;
+
   
   return (
-    <Card className="mt-1 w-96 md:m-0 items-center max-w-[20rem] overflow-hidden hover:border hover:border-3 hover:shadow-2xl hover:scale-100">
+    <Card className="mt-1 md:m-0 items-center  hover:border hover:border-3 hover:shadow-2xl hover:scale-100">
       <div className="">
       <Link to={`/carlist/cardetails/${carid}`}>
         <CarouselCustomArrows carId={carid} />
@@ -17,8 +23,9 @@ export function CardDefault2({ data }) {
       <CardBody className="mb-5">
       <Link to={`/carlist/cardetails/${data.carId}`}>
         <Typography>{data.year}</Typography>
-        <Typography variant="h5" color="blue-gray" className="mb-2">
-          {data.brand} {data.model}
+        <Typography variant="h5" color="blue-gray" className="mb-2"  onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}>
+          {isHovered ? data.brand +" "+ data.model : truncatedText}
         </Typography>
         <p className="text-xs font-medium uppercase flex-wrap ">
           <span className="bg-gray-200 p-[5px] mr-2 rounded-sm text-black">{data.kmDriven} KM</span>
