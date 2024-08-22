@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { apiSlice } from "./apiSlice";
 
 export const inspectorAPI = apiSlice.injectEndpoints({
@@ -93,10 +94,16 @@ export const inspectorAPI = apiSlice.injectEndpoints({
         url : `/ispProfile/ispChangePassword/${InspectorProfileId}`,
         method: "PUT",
         body : passChange,
-       
-       
       })
       
+    }),
+
+    uploadFiledBidCar : builder.mutation({
+      query : ({passChange,InspectorProfileId}) => ({
+        url : `/uploadFileBidCar/update?doc=djendjewnd&doctype=dnjndjewndjew&subtype=jdnwjdnwejd&comment=djendjewndj&bidDocumentId=12`,
+        method: "PATCH",
+        body : passChange,
+      })
     }),
 
     // inspectorStatus: builder.mutation({
@@ -121,5 +128,6 @@ export const { useInspectorByIdQuery ,
   useFinalInspectionReportMutation,
 useAddBiddingCarWithoutImageMutation,
 useFinalInspectionQuery,
-useInspChangePasswordMutation
+useInspChangePasswordMutation,
+useUploadFiledBidCarMutation
  } = inspectorAPI;
