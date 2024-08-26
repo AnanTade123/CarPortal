@@ -41,7 +41,7 @@ const WinnerSection = () => {
   let [trigger] = useLazyBiddingCarByIdQuery();
   let [triggerGetDealer] = useLazyGetDealerByUserIdQuery();
   const [liveCarsWinData, setLiveCarsWinData] = useState([]);
-
+console.log(didData)
   useEffect(() => {
     const fetchServiceProducts = async () => {
       if (didData) {
@@ -138,7 +138,7 @@ const WinnerSection = () => {
           <div>
             <div className="flex gap-2 justify-center items-center">
               <Link
-                to={`/biddinglist/cardetails/${cell.row.values.beadingCarId}/success`}
+                to={`/biddinglist/cardetails/${cell.row.values.beadingCarId}/success/${cell.row.values.bidCarId}`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
