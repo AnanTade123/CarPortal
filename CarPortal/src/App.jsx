@@ -130,7 +130,7 @@ export default function App() {
             element={<CarDetailsById />}
           />
           <Route
-            path="/biddinglist/cardetails/:beadingCarId/:timerId"
+            path="/biddinglist/cardetails/:beadingCarId/:timerId/:bidCarId"
             element={<BiddingCarDetailsById1 />}
           />
 
