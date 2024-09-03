@@ -143,7 +143,7 @@ export default function BiddingEditCar() {
       area: formData.area,
       bodyType: formData.bodyType,
       brand: formData.brand,
-      cVariant: formData.cVariant,
+      variant: formData.cVariant,
       carInsurance: formData.carInsurance,
       // carStatus: "ACTIVE",
       city: formData.city,
