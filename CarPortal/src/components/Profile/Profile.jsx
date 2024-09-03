@@ -15,21 +15,97 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { GrUser } from "react-icons/gr";
 import { GrUserSettings } from "react-icons/gr";
 import { IoMdLogOut } from "react-icons/io";
+import { useState, useEffect, useRef } from "react";
+import {
+  useAddProfileImagesMutation,
+  useGetProfileImageByIdQuery,
+  useDeleteProfileImageByIdMutation,
+} from "../../services/profilePhotoAPI";
+
+const Profile = ({
+  dealer_id,
+  userrole,
+  userId,
+  inspectorProfileId,
+  salesPersonId,
+  userProfileId,
+}) => {
 
 
+   const [selectedFile, setSelectedFile] = useState(null); // State to manage selected file
+   const [uploadedImageUrl, setUploadedImageUrl] = useState(""); // State to store uploaded image URL
+   const fileInputRef = useRef(null);
 
-const Profile = ({dealer_id,userrole,userId,inspectorProfileId,salesPersonId,userProfileId}) => {
 
+  const userLocal = JSON.parse(localStorage.getItem("userInfo"));
 
-  const userLocal =JSON.parse(localStorage.getItem('userInfo')) 
-  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
     dispatch(logout()); // Dispatch the logout action
-    
+
     navigate("/signin");
   };
+
+  // API hooks
+  const [addProfileImages, { isLoading: isAddingImage }] =
+    useAddProfileImagesMutation({ userId });
+  const { data: profileImageData, refetch: refetchProfileImage } =
+    useGetProfileImageByIdQuery({ userId }); // Adjusted to use userId directly
+  const [deleteProfileImage, { isLoading: isDeletingImage }] =
+    useDeleteProfileImageByIdMutation();
+
+  // Update uploadedImageUrl when profileImageData changes
+  useEffect(() => {
+    if (profileImageData?.object?.documentLink) {
+      console.log(
+        "Setting uploaded image URL:",
+        profileImageData.object.documentLink
+      ); // Debugging
+      setUploadedImageUrl(profileImageData.object.documentLink);
+    }
+  }, [profileImageData]);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      handleAddImage(file); // Directly add the image after selecting it
+    }
+  };
+
+  const handleAddImage = async (file) => {
+    const imageToUpload = file || selectedFile;
+    if (!imageToUpload) {
+      console.error("No file selected");
+      fileInputRef.current.click(); // Trigger click event on file input
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", imageToUpload);
+
+    try {
+      const response = await addProfileImages({ formData, userId }).unwrap();
+      console.log("Image uploaded successfully", response);
+      refetchProfileImage();
+      setSelectedFile(null);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
+
+  const handleDeleteImage = async () => {
+    try {
+      const response = await deleteProfileImage({ userId }).unwrap();
+      console.log("Image deleted successfully", response);
+      setUploadedImageUrl("");
+      refetchProfileImage();
+    } catch (error) {
+      console.error("Error deleting image:", error);
+    }
+  };
+
   return (
     <div>
       <Menu>
@@ -38,7 +114,10 @@ const Profile = ({dealer_id,userrole,userId,inspectorProfileId,salesPersonId,use
             variant="circular"
             alt="tania andrew"
             className="cursor-pointer"
-            src="https://tamilnaducouncil.ac.in/wp-content/uploads/2020/04/dummy-avatar.jpg"
+            src={
+              uploadedImageUrl ||
+              "https://tamilnaducouncil.ac.in/wp-content/uploads/2020/04/dummy-avatar.jpg"
+            }
           />
         </MenuHandler>
 
@@ -64,21 +143,18 @@ const Profile = ({dealer_id,userrole,userId,inspectorProfileId,salesPersonId,use
             </Typography>
           </MenuItem> */}
 
-
-{userrole === 'ADMIN' ? (
+          {userrole === "ADMIN" ? (
             <div>
+              <MenuItem className="flex items-center gap-2">
+                <GrUser className="text-xl -ml-[2px]" />
+                <Typography variant="small" className="font-medium capitalize ">
+                  <span className="text-l">
+                    Hi {userLocal?.firstname ? userLocal?.firstname : "Admin"}
+                  </span>
+                </Typography>
+              </MenuItem>
 
-<MenuItem className="flex items-center gap-2">
-            
-            
-            <GrUser className="text-xl -ml-[2px]" />
-          <Typography variant="small" className="font-medium capitalize ">
-     <span className="text-l">Hi     {userLocal?.firstname ? userLocal?.firstname : "Admin"}</span>  
-          </Typography>
-        </MenuItem>
-
-
-{/* 
+              {/* 
 <MenuItem className="flex items-center gap-2">
            
  
@@ -89,11 +165,8 @@ const Profile = ({dealer_id,userrole,userId,inspectorProfileId,salesPersonId,use
       
         </MenuItem>
           </MenuItem> */}
-          
-     
 
-    
-    {/* <MenuItem className="flex items-center gap-2">
+              {/* <MenuItem className="flex items-center gap-2">
     <RiLockPasswordLine className="text-xl" />
     <Link to="/changePassword">
     
@@ -106,37 +179,30 @@ const Profile = ({dealer_id,userrole,userId,inspectorProfileId,salesPersonId,use
     </Typography>
   </Link>
   </MenuItem> */}
-  </div>
-  ) : null}
+            </div>
+          ) : null}
 
-          {userrole === 'DEALER' ? (
+          {userrole === "DEALER" ? (
             <div>
+              <MenuItem className="flex items-center gap-2">
+                <GrUser className="text-xl -ml-[2px]" />
+                <Typography variant="small" className="font-medium capitalize ">
+                  <span className="text-l">
+                    Hi {userLocal?.firstname ? userLocal?.firstname : "Admin"}
+                  </span>
+                </Typography>
+              </MenuItem>
 
-<MenuItem className="flex items-center gap-2">
-            
-            
-            <GrUser className="text-xl -ml-[2px]" />
-          <Typography variant="small" className="font-medium capitalize ">
-     <span className="text-l">Hi     {userLocal?.firstname ? userLocal?.firstname : "Admin"}</span>  
-          </Typography>
-        </MenuItem>
+              <Link to={`/dealer/info/${dealer_id}`}>
+                <MenuItem className="flex items-center gap-2">
+                  <MenuItem className="flex items-center gap-2">
+                    <GrUserSettings className="text-xl -ml-3" />
+                    <span className="text-l"> Profile</span>
+                  </MenuItem>
+                </MenuItem>
+              </Link>
 
-<Link to={`/dealer/info/${dealer_id}`}> 
-
-<MenuItem className="flex items-center gap-2">
-           
- 
-            <MenuItem className="flex items-center gap-2">
-          
-            <GrUserSettings className="text-xl -ml-3" />
-            <span className="text-l" > Profile</span>
-      
-        </MenuItem>
-          </MenuItem>
-          
-          </Link>
-
-    {/* <Link to={`/dealer/${dealer_id}/edit`}>
+              {/* <Link to={`/dealer/${dealer_id}/edit`}>
 
 
     
@@ -163,142 +229,106 @@ const Profile = ({dealer_id,userrole,userId,inspectorProfileId,salesPersonId,use
       </MenuItem>
     </Link> */}
 
-    
-    <MenuItem className="flex items-center gap-2">
-    <RiLockPasswordLine className="text-xl" />
-    <Link to="/changePassword">
-    
-    <Typography
-      variant="small"
-      
-      className="font-medium"
-    >
-      Change Password
-    </Typography>
-  </Link>
-  </MenuItem>
-  </div>
-  ) : null}
+              <MenuItem className="flex items-center gap-2">
+                <RiLockPasswordLine className="text-xl" />
+                <Link to="/changePassword">
+                  <Typography variant="small" className="font-medium">
+                    Change Password
+                  </Typography>
+                </Link>
+              </MenuItem>
+            </div>
+          ) : null}
 
-{userrole === 'INSPECTOR' ? (
+          {userrole === "INSPECTOR" ? (
             <div>
               <MenuItem className="flex items-center gap-2">
-            
-            
-              <GrUser className="text-xl -ml-[2px]" />
-            <Typography variant="small" className="font-medium capitalize ">
-       <span className="text-l">Hi     {userLocal?.firstname ? userLocal?.firstname : "Admin"}</span>  
-            </Typography>
-          </MenuItem>
-<Link to={`/inspector/info/${userId}` }>
-<MenuItem className="flex items-center gap-2">
-           
- 
-            <MenuItem className="flex items-center gap-2">
-          
-            <GrUserSettings className="text-xl -ml-3" />
-            <span className="text-l" > Profile</span>
-      
-        </MenuItem>
-          </MenuItem>
-          </Link>
-  
+                <GrUser className="text-xl -ml-[2px]" />
+                <Typography variant="small" className="font-medium capitalize ">
+                  <span className="text-l">
+                    Hi {userLocal?.firstname ? userLocal?.firstname : "Admin"}
+                  </span>
+                </Typography>
+              </MenuItem>
+              <Link to={`/inspector/info/${userId}`}>
+                <MenuItem className="flex items-center gap-2">
+                  <MenuItem className="flex items-center gap-2">
+                    <GrUserSettings className="text-xl -ml-3" />
+                    <span className="text-l"> Profile</span>
+                  </MenuItem>
+                </MenuItem>
+              </Link>
 
-    
-    <MenuItem className="flex items-center gap-2">
-    <RiLockPasswordLine className="text-xl" />
-    
-    <Link to={`/Inspector/ChangePassword`}>
-    <Typography
-      variant="small"
-      
-      className="font-medium"
-    >
-      Change Password
-    </Typography>
-  </Link>
-  </MenuItem>
-  </div>
-  ) : null}
+              <MenuItem className="flex items-center gap-2">
+                <RiLockPasswordLine className="text-xl" />
 
-{userrole === 'SALESPERSON' ? (
+                <Link to={`/Inspector/ChangePassword`}>
+                  <Typography variant="small" className="font-medium">
+                    Change Password
+                  </Typography>
+                </Link>
+              </MenuItem>
+            </div>
+          ) : null}
+
+          {userrole === "SALESPERSON" ? (
             <div>
-         <MenuItem className="flex items-center gap-2">
-           
-            
-         <GrUser className="text-xl -ml-[1px]" />
-            <Typography variant="small" className="font-medium capitalize ">
-       <span className="text-l">Hi     {userLocal?.firstname ? userLocal?.firstname : "Admin"}</span>  
-            </Typography>
-          </MenuItem>  
+              <MenuItem className="flex items-center gap-2">
+                <GrUser className="text-xl -ml-[1px]" />
+                <Typography variant="small" className="font-medium capitalize ">
+                  <span className="text-l">
+                    Hi {userLocal?.firstname ? userLocal?.firstname : "Admin"}
+                  </span>
+                </Typography>
+              </MenuItem>
 
+              <Link to={`seller/info/${userId}`}>
+                <MenuItem className="flex items-center gap-2">
+                  <GrUserSettings className="text-xl ml-[2px]" />
+                  <span className="text-l"> Profile</span>
+                </MenuItem>
+              </Link>
 
-   <Link to={`seller/info/${userId}`}>
-   
-  <MenuItem className="flex items-center gap-2">
-          
-  <GrUserSettings className="text-xl ml-[2px]" />
-  <span className="text-l" > Profile</span>
-            
-          </MenuItem>
-          </Link>
-    
+              <MenuItem className="flex items-center gap-2">
+                <RiLockPasswordLine className="text-xl" />
+                <Link to="/Seller/ChangePassword">
+                  <Typography variant="small" className="font-medium">
+                    Change Password
+                  </Typography>
+                </Link>
+              </MenuItem>
+            </div>
+          ) : null}
 
-    
-    <MenuItem className="flex items-center gap-2">
-    <RiLockPasswordLine className="text-xl" />
-    <Link to="/Seller/ChangePassword">
-    
-    <Typography
-      variant="small"
-      
-      className="font-medium"
-    >
-      Change Password
-    </Typography>
-  </Link>
-  </MenuItem>
-  </div>
-  ) : null}
-
-{userrole === 'USER' ? (
+          {userrole === "USER" ? (
             <div>
-  <MenuItem className="flex items-center gap-2">
-           
-            
-<GrUser className="text-xl -ml-[2px]" />
-            <Typography variant="small" className="font-medium capitalize ">
-       <span className="text-l">Hi     {userLocal?.firstname ? userLocal?.firstname : "Admin"}</span>  
-            </Typography>
-          </MenuItem>  
+              <MenuItem className="flex items-center gap-2">
+                <GrUser className="text-xl -ml-[2px]" />
+                <Typography variant="small" className="font-medium capitalize ">
+                  <span className="text-l">
+                    Hi {userLocal?.firstname ? userLocal?.firstname : "Admin"}
+                  </span>
+                </Typography>
+              </MenuItem>
 
-               <Link to={`/user`}>
-               <MenuItem className="flex items-center gap-2">
-          
-          <GrUserSettings className="text-xl" />
-                     <span className="text-l" > Profile</span>
-       
-        </MenuItem>
-          </Link>
-   
+              <Link to={`/user`}>
+                <MenuItem className="flex items-center gap-2">
+                  <GrUserSettings className="text-xl" />
+                  <span className="text-l"> Profile</span>
+                </MenuItem>
+              </Link>
 
-    
-    <MenuItem className="flex items-center gap-2">
-    <RiLockPasswordLine className="text-xl -ml-[1px]" />
-   
-    <Link to="/user/ChangePassword">
-     
-    <Typography
-      variant="small"
-      
-      className="font-medium"
-    >
-      Change Password
-    </Typography>
-  </Link>
-  </MenuItem>
-  </div>
-  ) : null}
+              <MenuItem className="flex items-center gap-2">
+                <RiLockPasswordLine className="text-xl -ml-[1px]" />
+
+                <Link to="/user/ChangePassword">
+                  <Typography variant="small" className="font-medium">
+                    Change Password
+                  </Typography>
+                </Link>
+              </MenuItem>
+            </div>
+          ) : null}
           <hr className="my-2 border-blue-gray-50" />
           <MenuItem className="flex items-center gap-2 " onClick={handleLogout}>
             <svg
