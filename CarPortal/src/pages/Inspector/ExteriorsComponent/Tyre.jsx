@@ -270,6 +270,12 @@ const Tyre = ({setCheckstep}) => {
     setSelectedLable(key)
   }
 
+  const handleReset = (fieldName) => {
+    setFormData((prev) => ({ ...prev, [fieldName]: "" })); // Reset form field value
+    setUploadedImages((prev) => ({ ...prev, [fieldName + "s"]: null })); // Reset corresponding uploaded image
+    setLables(""); // Clear labels
+    setSelectfiled(""); // Clear selected field
+  };
   // const handleImageClick = (image) => {
   //   setSelectedImage(image);
   //   setOpenModal(true);
@@ -277,9 +283,8 @@ const Tyre = ({setCheckstep}) => {
 
   
   return (
-    <div className='p-4'>
-      
-      <Typography variant="h4" className='text-black font-bold pb-5 pt-16'>
+    <div className="p-4">
+      <Typography variant="h4" className="text-black font-bold pb-5 pt-16">
         Tyres
       </Typography>
       <Grid container spacing={3}>
@@ -287,7 +292,7 @@ const Tyre = ({setCheckstep}) => {
           <FormControl fullWidth required>
             <InputLabel>LHS Front Tyre</InputLabel>
             <Select
-            required
+              required
               name="LHSFrontTyre"
               value={formData.LHSFrontTyre}
               onChange={handleChange}
@@ -297,38 +302,62 @@ const Tyre = ({setCheckstep}) => {
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("LHSFrontTyre")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.LHSFrontTyres && (
             <img
               src={uploadedImages.LHSFrontTyres}
               alt="Uploaded"
               style={{
-                maxWidth: '20%',
-                marginTop: '10px',
-                cursor: 'pointer',
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
               }}
               onClick={() => handleImageClick(uploadedImages.LHSFrontTyres)}
             />
@@ -339,7 +368,7 @@ const Tyre = ({setCheckstep}) => {
           <FormControl fullWidth required>
             <InputLabel>RHS Front Tyre</InputLabel>
             <Select
-            required
+              required
               name="RHSFrontTyre"
               value={formData.RHSFrontTyre}
               onChange={handleChange}
@@ -349,38 +378,62 @@ const Tyre = ({setCheckstep}) => {
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("RHSFrontTyre")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.RHSFrontTyres && (
             <img
               src={uploadedImages.RHSFrontTyres}
               alt="Uploaded"
               style={{
-                maxWidth: '20%',
-                marginTop: '10px',
-                cursor: 'pointer',
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
               }}
               onClick={() => handleImageClick(uploadedImages.RHSFrontTyres)}
             />
@@ -391,7 +444,7 @@ const Tyre = ({setCheckstep}) => {
           <FormControl fullWidth required>
             <InputLabel>LHS Rear Tyre</InputLabel>
             <Select
-            required
+              required
               name="LHSRearTyre"
               value={formData.LHSRearTyre}
               onChange={handleChange}
@@ -401,38 +454,62 @@ const Tyre = ({setCheckstep}) => {
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("LHSRearTyre")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.LHSRearTyres && (
             <img
               src={uploadedImages.LHSRearTyres}
               alt="Uploaded"
               style={{
-                maxWidth: '20%',
-                marginTop: '10px',
-                cursor: 'pointer',
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
               }}
               onClick={() => handleImageClick(uploadedImages.LHSRearTyres)}
             />
@@ -443,7 +520,7 @@ const Tyre = ({setCheckstep}) => {
           <FormControl fullWidth required>
             <InputLabel>RHS Rear Tyre</InputLabel>
             <Select
-            required
+              required
               name="RHSRearTyre"
               value={formData.RHSRearTyre}
               onChange={handleChange}
@@ -453,38 +530,62 @@ const Tyre = ({setCheckstep}) => {
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("RHSRearTyre")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.RHSRearTyres && (
             <img
               src={uploadedImages.RHSRearTyres}
               alt="Uploaded"
               style={{
-                maxWidth: '20%',
-                marginTop: '10px',
-                cursor: 'pointer',
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
               }}
               onClick={() => handleImageClick(uploadedImages.RHSRearTyres)}
             />
@@ -495,7 +596,7 @@ const Tyre = ({setCheckstep}) => {
           <FormControl fullWidth required>
             <InputLabel>Spare Tyre</InputLabel>
             <Select
-            required
+              required
               name="SpareTyre"
               value={formData.SpareTyre}
               onChange={handleChange}
@@ -505,38 +606,62 @@ const Tyre = ({setCheckstep}) => {
               <MenuItem value="Damaged">Damaged</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("SpareTyre")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.SpareTyres && (
             <img
               src={uploadedImages.SpareTyres}
               alt="Uploaded"
               style={{
-                maxWidth: '20%',
-                marginTop: '10px',
-                cursor: 'pointer',
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
               }}
               onClick={() => handleImageClick(uploadedImages.SpareTyres)}
             />
@@ -555,15 +680,11 @@ const Tyre = ({setCheckstep}) => {
             isOpen={captureModalOpen}
             onClose={() => setCaptureModalOpen(false)}
             onCapture={handleCaptureImage}
-            handleCaptureImage = {handleFileChange}
-            selectfiled = {selectedLable}
+            handleCaptureImage={handleFileChange}
+            selectfiled={selectedLable}
           />
         </div>
- 
-       
       </Modal>
-
-      
     </div>
   );
 };

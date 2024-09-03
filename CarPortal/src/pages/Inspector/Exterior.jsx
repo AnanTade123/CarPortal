@@ -414,140 +414,194 @@ const [formData, setFormData] = useState({
         toast.error("Data not Uploaded", { autoClose: 500 });
       }
     };
+
+     const handleReset = (fieldName) => {
+       setFormData((prev) => ({ ...prev, [fieldName]: "" })); // Reset form field value
+       setUploadedImages((prev) => ({ ...prev, [fieldName + "s"]: null })); // Reset corresponding uploaded image
+       setLables(""); // Clear labels
+       setSelectfiled(""); // Clear selected field
+     };
  
     // if (!data) {
     //   return <div><p>No Data Available</p></div>
     // }
   return (
     <div className="p-4">
- 
       <Typography variant="h4" className="text-black font-bold pb-5">
         Exterior Panel
       </Typography>
-      
+
       <Grid container spacing={3}>
         {/* Bonnet Hood */}
         <Grid item xs={12} sm={6}>
-        <FormControl fullWidth required>
-          <InputLabel>Bonnet / Hood</InputLabel>
-          <Select
-            required
-            name="BonnetHood"
-            value={formData.BonnetHood}
-            onChange={handleChange}
-          >
-            <MenuItem value="Ok">Ok</MenuItem>
-            <MenuItem value="Repainted">Repainted</MenuItem>
-            <MenuItem value="Dented">Dented</MenuItem>
-            <MenuItem value="Scratched">Scratched</MenuItem>
-            <MenuItem value="Rusted">Rusted</MenuItem>
-            <MenuItem value="Repaired">Repaired</MenuItem>
-            <MenuItem value="Damaged">Damaged</MenuItem>
-            <MenuItem value="Faded">Faded</MenuItem>
-          </Select>
-        </FormControl>
-        <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small"  variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <FormControl fullWidth required>
+            <InputLabel>Bonnet / Hood</InputLabel>
+            <Select
+              required
+              name="BonnetHood"
+              value={formData.BonnetHood}
+              onChange={handleChange}
+            >
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem>
+              <MenuItem value="Scratched">Scratched</MenuItem>
+              <MenuItem value="Rusted">Rusted</MenuItem>
+              <MenuItem value="Repaired">Repaired</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
+              <MenuItem value="Faded">Faded</MenuItem>
+            </Select>
+          </FormControl>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("BonnetHood")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
           </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
+          {uploadedImages.BonnetHoods && (
+            <img
+              src={uploadedImages.BonnetHoods}
+              alt="Uploaded"
+              style={{
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => handleImageClick(uploadedImages.BonnetHoods)}
             />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
           )}
-          </div>
-        {uploadedImages.BonnetHoods && (
-          <img
-            src={uploadedImages.BonnetHoods}
-            alt="Uploaded"
-            style={{
-              maxWidth: "20%",
-              marginTop: "10px",
-              cursor: "pointer",
-            }}
-            onClick={() => handleImageClick(uploadedImages.BonnetHoods)}
-          />
-        )}
-      </Grid>
+        </Grid>
 
-      {/* Right Door Front */}
-      <Grid item xs={12} sm={6}>
-        <FormControl fullWidth required>
-          <InputLabel>Right Door Front</InputLabel>
-          <Select
-          required
-            name="RightDoorFront"
-            value={formData.RightDoorFront}
-            onChange={handleChange}
-          >
-            <MenuItem value="Ok">Ok</MenuItem>
-            <MenuItem value="Repainted">Repainted</MenuItem>
-            <MenuItem value="Dented">Dented</MenuItem>
-            <MenuItem value="Scratched">Scratched</MenuItem>
-            <MenuItem value="Rusted">Rusted</MenuItem>
-            <MenuItem value="Repaired">Repaired</MenuItem>
-            <MenuItem value="Damaged">Damaged</MenuItem>
-            <MenuItem value="Faded">Faded</MenuItem>
-          </Select>
-        </FormControl>
-        <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+        {/* Right Door Front */}
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth required>
+            <InputLabel>Right Door Front</InputLabel>
+            <Select
+              required
+              name="RightDoorFront"
+              value={formData.RightDoorFront}
+              onChange={handleChange}
+            >
+              <MenuItem value="Ok">Ok</MenuItem>
+              <MenuItem value="Repainted">Repainted</MenuItem>
+              <MenuItem value="Dented">Dented</MenuItem>
+              <MenuItem value="Scratched">Scratched</MenuItem>
+              <MenuItem value="Rusted">Rusted</MenuItem>
+              <MenuItem value="Repaired">Repaired</MenuItem>
+              <MenuItem value="Damaged">Damaged</MenuItem>
+              <MenuItem value="Faded">Faded</MenuItem>
+            </Select>
+          </FormControl>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("RightDoorFront")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
           </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
+          {uploadedImages.RightDoorFronts && (
+            <img
+              src={uploadedImages.RightDoorFronts}
+              alt="Uploaded"
+              style={{
+                maxWidth: "20%",
+                marginTop: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => handleImageClick(uploadedImages.RightDoorFronts)}
             />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
           )}
-          </div>
-        {uploadedImages.RightDoorFronts && (
-          <img
-            src={uploadedImages.RightDoorFronts}
-            alt="Uploaded"
-            style={{
-              maxWidth: "20%",
-              marginTop: "10px",
-              cursor: "pointer",
-            }}
-            onClick={() => handleImageClick(uploadedImages.RightDoorFronts)}
-          />
-        )}
-      </Grid>
+        </Grid>
 
         {/* Left Door Front */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth required>
             <InputLabel>Left Door Front</InputLabel>
             <Select
-            required
+              required
               name="LeftDoorFront"
               value={formData.LeftDoorFront}
               onChange={handleChange}
@@ -562,29 +616,53 @@ const [formData, setFormData] = useState({
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("LeftDoorFront")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.LeftDoorFronts && (
             <img
@@ -605,7 +683,7 @@ const [formData, setFormData] = useState({
           <FormControl fullWidth required>
             <InputLabel>Right Fender</InputLabel>
             <Select
-            required
+              required
               name="RightFender"
               value={formData.RightFender}
               onChange={handleChange}
@@ -620,29 +698,53 @@ const [formData, setFormData] = useState({
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("RightFender")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.RightFenders && (
             <img
@@ -663,7 +765,7 @@ const [formData, setFormData] = useState({
           <FormControl fullWidth required>
             <InputLabel>Left Quarter Panel</InputLabel>
             <Select
-            required
+              required
               name="LeftQuarterPanel"
               value={formData.LeftQuarterPanel}
               onChange={handleChange}
@@ -678,29 +780,53 @@ const [formData, setFormData] = useState({
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("LeftQuarterPanel")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.LeftQuarterPanels && (
             <img
@@ -721,7 +847,7 @@ const [formData, setFormData] = useState({
           <FormControl fullWidth required>
             <InputLabel>Right Quarter Panel</InputLabel>
             <Select
-            required
+              required
               name="RightQuarterPanel"
               value={formData.RightQuarterPanel}
               onChange={handleChange}
@@ -736,29 +862,53 @@ const [formData, setFormData] = useState({
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("RightQuarterPanel")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.RightQuarterPanels && (
             <img
@@ -769,7 +919,9 @@ const [formData, setFormData] = useState({
                 marginTop: "10px",
                 cursor: "pointer",
               }}
-              onClick={() => handleImageClick(uploadedImages.RightQuarterPanels)}
+              onClick={() =>
+                handleImageClick(uploadedImages.RightQuarterPanels)
+              }
             />
           )}
         </Grid>
@@ -778,8 +930,13 @@ const [formData, setFormData] = useState({
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth required>
             <InputLabel>Roof</InputLabel>
-            <Select name="Roof" required value={formData.Roof} onChange={handleChange}>
-            <MenuItem value="Ok">Ok</MenuItem>
+            <Select
+              name="Roof"
+              required
+              value={formData.Roof}
+              onChange={handleChange}
+            >
+              <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Repainted">Repainted</MenuItem>
               <MenuItem value="Dented">Dented</MenuItem>
               <MenuItem value="Scratched">Scratched</MenuItem>
@@ -789,29 +946,53 @@ const [formData, setFormData] = useState({
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("Roof")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.Roofs && (
             <img
@@ -832,7 +1013,7 @@ const [formData, setFormData] = useState({
           <FormControl fullWidth required>
             <InputLabel>Dicky Door</InputLabel>
             <Select
-            required
+              required
               name="DickyDoor"
               value={formData.DickyDoor}
               onChange={handleChange}
@@ -847,29 +1028,53 @@ const [formData, setFormData] = useState({
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("DickyDoor")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.DickyDoors && (
             <img
@@ -890,7 +1095,7 @@ const [formData, setFormData] = useState({
           <FormControl fullWidth required>
             <InputLabel>Left Door Rear</InputLabel>
             <Select
-            required
+              required
               name="LeftDoorRear"
               value={formData.LeftDoorRear}
               onChange={handleChange}
@@ -905,29 +1110,53 @@ const [formData, setFormData] = useState({
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("LeftDoorRear")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.LeftDoorRears && (
             <img
@@ -948,7 +1177,7 @@ const [formData, setFormData] = useState({
           <FormControl fullWidth required>
             <InputLabel>Right Door Rear</InputLabel>
             <Select
-            required
+              required
               name="RightDoorRear"
               value={formData.RightDoorRear}
               onChange={handleChange}
@@ -963,29 +1192,53 @@ const [formData, setFormData] = useState({
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("RightDoorRear")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.RightDoorRears && (
             <img
@@ -1006,7 +1259,7 @@ const [formData, setFormData] = useState({
           <FormControl fullWidth required>
             <InputLabel>Left Fender</InputLabel>
             <Select
-            required
+              required
               name="LeftFender"
               value={formData.LeftFender}
               onChange={handleChange}
@@ -1021,29 +1274,53 @@ const [formData, setFormData] = useState({
               <MenuItem value="Faded">Faded</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("LeftFender")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.LeftFender && (
             <img
@@ -1059,7 +1336,7 @@ const [formData, setFormData] = useState({
           )}
         </Grid>
       </Grid>
-      
+
       {/* Modal for displaying clicked image */}
       <Modal
         open={captureModalOpen}
@@ -1071,79 +1348,78 @@ const [formData, setFormData] = useState({
             isOpen={captureModalOpen}
             onClose={() => setCaptureModalOpen(false)}
             onCapture={handleCaptureImage}
-            handleCaptureImage = {handleFileChange}
-            selectfiled = {selectedLable}
+            handleCaptureImage={handleFileChange}
+            selectfiled={selectedLable}
           />
         </div>
- 
-   
       </Modal>
 
-      <WindshieldAndLights 
-      handleImageClick={handleImageClick}
-      fileInputRef={fileInputRef}
-      handleCameraModal={handleCameraModal} 
-      userRole={userRole} 
-      handleCaptureImage={handleCaptureImage} 
-      handleSubmitWithoutImage={handleSubmitWithoutImage} 
-      data={data} 
-      formData={formData} 
-      setFormData={setFormData} 
-      handleFileChange={handleFileChange} 
-      uploadedImages={uploadedImages} 
-      setUploadedImages={setUploadedImages}
-      captureModalOpen={captureModalOpen}
-      setCaptureModalOpen={setCaptureModalOpen}
-      selectedLable={selectedLable}
-      setSelectfiled={setSelectfiled}
-      handleChange={handleChange}
-    />
-<Tyre setCheckstep={setCheckstep}/>
-<OtherComponent handleImageClick={handleImageClick}
-      fileInputRef={fileInputRef}
-       handleCameraModal={handleCameraModal} 
-      userRole={userRole} 
-      handleCaptureImage={handleCaptureImage} 
-      handleSubmitWithoutImage={handleSubmitWithoutImage} 
-      data={data} 
-      formData={formData} 
-      setFormData={setFormData} 
-      handleFileChange={handleFileChange} 
-      uploadedImages={uploadedImages} 
-      setUploadedImages={setUploadedImages}
-      captureModalOpen={captureModalOpen}
-      setCaptureModalOpen={setCaptureModalOpen}
-      selectedLable={selectedLable}
-      setSelectfiled={setSelectfiled}
-      handleChange={handleChange}/>
+      <WindshieldAndLights
+        handleImageClick={handleImageClick}
+        fileInputRef={fileInputRef}
+        handleCameraModal={handleCameraModal}
+        userRole={userRole}
+        handleCaptureImage={handleCaptureImage}
+        handleSubmitWithoutImage={handleSubmitWithoutImage}
+        data={data}
+        formData={formData}
+        setFormData={setFormData}
+        handleFileChange={handleFileChange}
+        uploadedImages={uploadedImages}
+        setUploadedImages={setUploadedImages}
+        captureModalOpen={captureModalOpen}
+        setCaptureModalOpen={setCaptureModalOpen}
+        selectedLable={selectedLable}
+        setSelectfiled={setSelectfiled}
+        handleChange={handleChange}
+      />
+      <Tyre setCheckstep={setCheckstep} />
+      <OtherComponent
+        handleImageClick={handleImageClick}
+        fileInputRef={fileInputRef}
+        handleCameraModal={handleCameraModal}
+        userRole={userRole}
+        handleCaptureImage={handleCaptureImage}
+        handleSubmitWithoutImage={handleSubmitWithoutImage}
+        data={data}
+        formData={formData}
+        setFormData={setFormData}
+        handleFileChange={handleFileChange}
+        uploadedImages={uploadedImages}
+        setUploadedImages={setUploadedImages}
+        captureModalOpen={captureModalOpen}
+        setCaptureModalOpen={setCaptureModalOpen}
+        selectedLable={selectedLable}
+        setSelectfiled={setSelectfiled}
+        handleChange={handleChange}
+      />
 
-<Structure 
-handleImageClick={handleImageClick}
-fileInputRef={fileInputRef}
- handleCameraModal={handleCameraModal} 
-      userRole={userRole} 
-      handleCaptureImage={handleCaptureImage} 
-      handleSubmitWithoutImage={handleSubmitWithoutImage} 
-      data={data} 
-      formData={formData} 
-      setFormData={setFormData} 
-      handleFileChange={handleFileChange} 
-      uploadedImages={uploadedImages} 
-      setUploadedImages={setUploadedImages}
-      captureModalOpen={captureModalOpen}
-      setCaptureModalOpen={setCaptureModalOpen}
-      selectedLable={selectedLable}
-      setSelectfiled={setSelectfiled}
-      handleChange={handleChange}/>
+      <Structure
+        handleImageClick={handleImageClick}
+        fileInputRef={fileInputRef}
+        handleCameraModal={handleCameraModal}
+        userRole={userRole}
+        handleCaptureImage={handleCaptureImage}
+        handleSubmitWithoutImage={handleSubmitWithoutImage}
+        data={data}
+        formData={formData}
+        setFormData={setFormData}
+        handleFileChange={handleFileChange}
+        uploadedImages={uploadedImages}
+        setUploadedImages={setUploadedImages}
+        captureModalOpen={captureModalOpen}
+        setCaptureModalOpen={setCaptureModalOpen}
+        selectedLable={selectedLable}
+        setSelectfiled={setSelectfiled}
+        handleChange={handleChange}
+      />
 
-
-{/* <div className="flex justify-end mt-10 px-8">
+      {/* <div className="flex justify-end mt-10 px-8">
         
         <Button variant="contained" color="success">
           Next
         </Button> 
       </div> */}
-      
     </div>
   );
 };

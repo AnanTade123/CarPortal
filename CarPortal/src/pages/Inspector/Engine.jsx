@@ -294,61 +294,98 @@ const Engine = ({setCheckstep}) => {
       }
     };
 
+    const handleReset = (fieldName) => {
+      setFormData((prev) => ({ ...prev, [fieldName]: "" })); // Reset form field value
+      setUploadedImages((prev) => ({ ...prev, [fieldName + "s"]: null })); // Reset corresponding uploaded image
+      setLables(""); // Clear labels
+      setSelectfiled(""); // Clear selected field
+    };
+
   return (
-    <div className='p-4'>
-      <Typography variant="h4" className='text-black font-bold pb-5'>
+    <div className="p-4">
+      <Typography variant="h4" className="text-black font-bold pb-5">
         Engine
       </Typography>
-      
+
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth required>
             <InputLabel>Engine</InputLabel>
             <Select
-            required
+              required
               name="Engine"
               value={formData.Engine}
               onChange={handleChange}
             >
               <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Misfiring">Misfiring</MenuItem>
-              <MenuItem value="Long cranking due to weak Compression">Long cranking due to weak Compression</MenuItem>
-              <MenuItem value="Permissible blow- by on idle">Permissible blow- by on idle</MenuItem>
-              <MenuItem value="Fuel leakage from injector">Fuel leakage from injector</MenuItem>
+              <MenuItem value="Long cranking due to weak Compression">
+                Long cranking due to weak Compression
+              </MenuItem>
+              <MenuItem value="Permissible blow- by on idle">
+                Permissible blow- by on idle
+              </MenuItem>
+              <MenuItem value="Fuel leakage from injector">
+                Fuel leakage from injector
+              </MenuItem>
               <MenuItem value="MIL light glowing">MIL light glowing</MenuItem>
               <MenuItem value="RPM Fluctuating">RPM Fluctuating</MenuItem>
               <MenuItem value="Over Heating">Over Heating</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success"  style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("Engine")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.Engines && (
             <img
               src={uploadedImages.Engines}
               alt="Uploaded"
-              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              style={{ maxWidth: "20%", marginTop: "10px", cursor: "pointer" }}
               onClick={() => handleImageClick(uploadedImages.Engines)}
             />
           )}
@@ -358,7 +395,7 @@ const Engine = ({setCheckstep}) => {
           <FormControl fullWidth required>
             <InputLabel>Engine Mounting</InputLabel>
             <Select
-            required
+              required
               name="EngineMounting"
               value={formData.EngineMounting}
               onChange={handleChange}
@@ -369,35 +406,59 @@ const Engine = ({setCheckstep}) => {
               <MenuItem value="Excess Vibration">Excess Vibration</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("EngineMounting")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.EngineMountings && (
             <img
               src={uploadedImages.EngineMountings}
               alt="Uploaded"
-              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              style={{ maxWidth: "20%", marginTop: "10px", cursor: "pointer" }}
               onClick={() => handleImageClick(uploadedImages.EngineMountings)}
             />
           )}
@@ -407,7 +468,7 @@ const Engine = ({setCheckstep}) => {
           <FormControl fullWidth required>
             <InputLabel>Engine Sound</InputLabel>
             <Select
-            required
+              required
               name="EngineSound"
               value={formData.EngineSound}
               onChange={handleChange}
@@ -419,35 +480,59 @@ const Engine = ({setCheckstep}) => {
               <MenuItem value="No Blow-by">No Blow-by</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("EngineSound")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.EngineSounds && (
             <img
               src={uploadedImages.EngineSounds}
               alt="Uploaded"
-              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              style={{ maxWidth: "20%", marginTop: "10px", cursor: "pointer" }}
               onClick={() => handleImageClick(uploadedImages.EngineSounds)}
             />
           )}
@@ -457,7 +542,7 @@ const Engine = ({setCheckstep}) => {
           <FormControl fullWidth required>
             <InputLabel>Exhaust Smoke</InputLabel>
             <Select
-            required
+              required
               name="Exhaustsmoke"
               value={formData.Exhaustsmoke}
               onChange={handleChange}
@@ -465,38 +550,64 @@ const Engine = ({setCheckstep}) => {
               <MenuItem value="Ok">Ok</MenuItem>
               <MenuItem value="Black">Black</MenuItem>
               <MenuItem value="Blue">Blue</MenuItem>
-              <MenuItem value="Silencer assembly Damaged and Create Noise">Silencer assembly Damaged and Create Noise</MenuItem>
+              <MenuItem value="Silencer assembly Damaged and Create Noise">
+                Silencer assembly Damaged and Create Noise
+              </MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("Exhaustsmoke")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.Exhaustsmokes && (
             <img
               src={uploadedImages.Exhaustsmokes}
               alt="Uploaded"
-              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              style={{ maxWidth: "20%", marginTop: "10px", cursor: "pointer" }}
               onClick={() => handleImageClick(uploadedImages.Exhaustsmokes)}
             />
           )}
@@ -506,7 +617,7 @@ const Engine = ({setCheckstep}) => {
           <FormControl fullWidth required>
             <InputLabel>Gearbox</InputLabel>
             <Select
-            required
+              required
               name="Gearbox"
               value={formData.Gearbox}
               onChange={handleChange}
@@ -517,35 +628,59 @@ const Engine = ({setCheckstep}) => {
               <MenuItem value="Shifting-Hard">Shifting-Hard</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("Gearbox")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.Gearboxs && (
             <img
               src={uploadedImages.Gearboxs}
               alt="Uploaded"
-              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              style={{ maxWidth: "20%", marginTop: "10px", cursor: "pointer" }}
               onClick={() => handleImageClick(uploadedImages.Gearboxs)}
             />
           )}
@@ -555,7 +690,7 @@ const Engine = ({setCheckstep}) => {
           <FormControl fullWidth required>
             <InputLabel>Engine Oil</InputLabel>
             <Select
-            required
+              required
               name="Engineoil"
               value={formData.Engineoil}
               onChange={handleChange}
@@ -565,35 +700,59 @@ const Engine = ({setCheckstep}) => {
               <MenuItem value="Deteriorated">Deteriorated</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("Engineoil")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.Engineoils && (
             <img
               src={uploadedImages.Engineoils}
               alt="Uploaded"
-              style={{ maxWidth: '20%', marginsTop: '10px', cursor: 'pointer' }}
+              style={{ maxWidth: "20%", marginsTop: "10px", cursor: "pointer" }}
               onClick={() => handleImageClick(uploadedImages.Engineoils)}
             />
           )}
@@ -603,7 +762,7 @@ const Engine = ({setCheckstep}) => {
           <FormControl fullWidth required>
             <InputLabel>Battery</InputLabel>
             <Select
-            required
+              required
               name="Battery"
               value={formData.Battery}
               onChange={handleChange}
@@ -615,35 +774,59 @@ const Engine = ({setCheckstep}) => {
               <MenuItem value="Acid leakage">Acid leakage</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("Battery")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.Batterys && (
             <img
               src={uploadedImages.Batterys}
               alt="Uploaded"
-              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              style={{ maxWidth: "20%", marginTop: "10px", cursor: "pointer" }}
               onClick={() => handleImageClick(uploadedImages.Batterys)}
             />
           )}
@@ -653,7 +836,7 @@ const Engine = ({setCheckstep}) => {
           <FormControl fullWidth required>
             <InputLabel>Coolant</InputLabel>
             <Select
-            required
+              required
               name="Coolant"
               value={formData.Coolant}
               onChange={handleChange}
@@ -663,35 +846,59 @@ const Engine = ({setCheckstep}) => {
               <MenuItem value="Deteriorated">Deteriorated</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("Coolant")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.Coolants && (
             <img
               src={uploadedImages.Coolants}
               alt="Uploaded"
-              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              style={{ maxWidth: "20%", marginTop: "10px", cursor: "pointer" }}
               onClick={() => handleImageClick(uploadedImages.Coolants)}
             />
           )}
@@ -701,7 +908,7 @@ const Engine = ({setCheckstep}) => {
           <FormControl fullWidth required>
             <InputLabel>Clutch</InputLabel>
             <Select
-            required
+              required
               name="Clutch"
               value={formData.Clutch}
               onChange={handleChange}
@@ -712,40 +919,63 @@ const Engine = ({setCheckstep}) => {
               <MenuItem value="Spongy">Spongy</MenuItem>
             </Select>
           </FormControl>
-          <div className='flex gap-5'>  
-            <Button onClick={handleSubmitWithoutImage} size="small" variant="contained" color="success" style={{ marginTop: '10px' }}>
+          <div className="flex gap-5">
+            <Button
+              onClick={handleSubmitWithoutImage}
+              size="small"
+              variant="contained"
+              color="success"
+              style={{ marginTop: "10px" }}
+            >
               Submit Without image
             </Button>
             {userRole === "INSPECTOR" ? (
-              <div className='mt-3 ml-5'>
-             <Button onClick={() => handleCameraModal("ABSs") } size="small" variant="contained" color="success">
-            Open Camera
+              <div className="mt-3 ml-5">
+                <Button
+                  onClick={() => handleCameraModal("ABSs")}
+                  size="small"
+                  variant="contained"
+                  color="success"
+                >
+                  Open Camera
+                </Button>
+              </div>
+            ) : (
+              <label
+                htmlFor="upload-MusicSystems"
+                onClick={handleCaptureImage}
+                className="cursor-pointer flex items-center"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageClick}
+                />
+                <CloudUploadIcon />
+                <span className="ml-2">Upload Image</span>
+              </label>
+            )}
+            <Button
+              onClick={() => handleReset("Clutch")}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "10px" }}
+            >
+              Reset
             </Button>
-          </div>
-          ): (
-            <label htmlFor="upload-MusicSystems" onClick={handleCaptureImage} className="cursor-pointer flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageClick}
-            />
-            <CloudUploadIcon />
-            <span className="ml-2">Upload Image</span>
-          </label>
-          )}
           </div>
           {uploadedImages.Clutchs && (
             <img
               src={uploadedImages.Clutchs}
               alt="Uploaded"
-              style={{ maxWidth: '20%', marginTop: '10px', cursor: 'pointer' }}
+              style={{ maxWidth: "20%", marginTop: "10px", cursor: "pointer" }}
               onClick={() => handleImageClick(uploadedImages.Clutchs)}
             />
           )}
         </Grid>
-
       </Grid>
 
       {/* Modal for displaying clicked image */}
@@ -759,12 +989,10 @@ const Engine = ({setCheckstep}) => {
             isOpen={captureModalOpen}
             onClose={() => setCaptureModalOpen(false)}
             onCapture={handleCaptureImage}
-            handleCaptureImage = {handleFileChange}
-            selectfiled = {selectedLable}
+            handleCaptureImage={handleFileChange}
+            selectfiled={selectedLable}
           />
         </div>
- 
-        
       </Modal>
 
       {/* <div className="flex justify-between mt-10 px-8">
@@ -775,7 +1003,6 @@ const Engine = ({setCheckstep}) => {
           Next
         </Button>
       </div> */}
-      
     </div>
   );
 };
