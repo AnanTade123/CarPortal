@@ -11,7 +11,7 @@ import { FiLoader } from 'react-icons/fi';
 
 // import { redirectToSignIn } from "../services/apiSlice";
 import { useNavigate } from "react-router-dom";
-import GridCarList from "../components/buyCar/GridCarList";
+import GridCarList from "../components/buyCar/GridCarList"
 import { useState } from "react";
 
 const CarDetailsById = () => {

@@ -54,7 +54,7 @@ export function FavoritePage() {
 
   return (
     <>
-      <div className="text-3xl font-bold mt-3 ml-16 mb-6">Favorite Page</div>
+      <div className="text-3xl font-bold mt-3 ml-16 mb-6">Favourite Page</div>
       <div className="md:grid md:grid-cols-2 md:mx-10 lg:grid lg:grid-cols-4 lg:mx-20 gap-x-4 gap-y-4">
         {favoriteCars &&
           favoriteCars?.map((data, key) => (

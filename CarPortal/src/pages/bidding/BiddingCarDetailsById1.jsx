@@ -25,7 +25,6 @@ export default function BiddingCarDetailsById1() {
   const { data, isLoading, error } = useGetbeadingCarByIdQuery(beadingCarId);
   const { data : timingData , isLoading : timeIsLoding , error: timeError , refetch } = useGetByBidCarIdQuery(beadingCarId) 
   const closeTime = timingData?.object?.closingTime;
-console.log(data)
   if (isLoading) {
     return (
       <div className="w-screen h-screen flex justify-center items-center p-8">
@@ -63,8 +62,6 @@ console.log(data)
     insuranceType,
     biddingTimerStatus
   } = data;
-
-  console.log(data);
 
   const handleMessage = (msg, action) => {
     if (action == "error") {

@@ -67,7 +67,16 @@ const BiddingPriceCard = ({
 
   return () => clearInterval(timerId);
   },[closeTime]);
+  
+  useEffect(() => {
+    const remainingMinutes = parseInt(timeLeft.split('m:')[0]);
 
+    if (remainingMinutes < 2) {
+      const intervalId = setInterval(refeachData, 1000); // Call refeachData every 5 seconds
+
+      return () => clearInterval(intervalId); // Clear interval on cleanup
+    }
+  }, [timeLeft]);
 
   useEffect(() => {
     if(bidCarId && isConnected){
@@ -178,7 +187,7 @@ const getTopThreeBids = (bidCarId) => {
         <div className="flex justify-center align-middle items-center my-3">
           <div className="text-center">
             <div className="text-xl font-bold text-black font-[latto]">
-            Top Bidding Amount: {highestBid || "-"}  ₹
+             Amount: {highestBid || "-"}  ₹
             </div>
             <div className="uppercase text-gray-700 text-xs font-[latto]">
               Fixed Road Price

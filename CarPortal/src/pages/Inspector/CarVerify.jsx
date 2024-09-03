@@ -20,6 +20,7 @@ export default function CarVerify() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [isLastStep, setIsLastStep] = React.useState(false);
   const [isFirstStep, setIsFirstStep] = React.useState(true);
+  
 
   const steps = [
     {
@@ -75,7 +76,7 @@ export default function CarVerify() {
   };
 
   return (
-    <div className="w-full md:py-4 md:px-8 overflow-scroll md:mt-0 mt-5 px-2 sticky">
+    <div className="w-full md:py-4 md:px-8 overflow-scroll md:mt-0 mt-5 px-2">
       <Stepper
         activeStep={activeStep}
         isLastStep={(value) => setIsLastStep(value)}
@@ -88,9 +89,10 @@ export default function CarVerify() {
           <Step
             key={index}
             onClick={() => {
-              // Allow navigation only if checkstep is true
-              if (checkstep) {
+              // Only allow moving to the clicked step if it's the immediate next step
+              if (index === activeStep + 1 && checkstep) {
                 setActiveStep(index);
+                setCheckstep(false); // Reset checkstep after moving to the next step
               }
             }}
             className={`cursor-pointer ${index <= activeStep ? 'text-green-500' : 'text-gray-500'}`}

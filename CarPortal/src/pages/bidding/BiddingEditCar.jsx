@@ -1,69 +1,44 @@
-
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 // import React from "react";
 import Inputs from "../../forms/Inputs";
 import { Textarea } from "@material-tailwind/react";
-import { useBiddingCarByIdQuery, useBiddingcarUpdateMutation } from "../../services/biddingAPI"
-import {  useNavigate, useParams } from "react-router-dom";
-import { useGetOnlyBrandsQuery, useGetVariantsQuery, useGetSubVariantsQuery } from "../../services/brandAPI";
+import {
+  useBiddingCarByIdQuery,
+  useBiddingcarUpdateMutation,
+} from "../../services/biddingAPI";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  useGetOnlyBrandsQuery,
+  useGetVariantsQuery,
+  useGetSubVariantsQuery,
+} from "../../services/brandAPI";
 import { useGetAllDealerListQuery } from "../../services/dealerAPI";
 import { ToastContainer, toast } from "react-toastify";
-// import {  Input } from "@material-tailwind/react";
-
-// const cityOptions = {
-//   Pune: ["MH-12"],
-//   PimpriChichwad: ["MH-14"],
-//   Mumbai: ["MH-01", "MH-02", "MH-03", "MH-47"],
-//   Amravati: ["MH-27"],
-//   Yavatmal: ["MH-29"],
-//   Chandrapur: ["MH-34"],
-//   Kolhapur: ["MH-09"],
-//   Solapur: ["MH-13", "MH-45"],
-//   Nanded: ["MH-26"],
-//   Latur: ["MH-24"],
-//   Satara: ["MH-11"],
-//   Sangli: ["MH-10"],
-//   Nashik: ["MH-15", "MH-51"],
-//   Beed: ["MH-32"],
-//   Jalna: ["MH-21"],
-//   Nagpur: ["MH-31", "MH-49  "],
-//   Gondia: ["MH-35"],
-//   Gadchiroli: ["MH-33"],
-//   Bhandara: ["MH-36"],
-//   Washim: ["MH-37"],
-//   Jalgaon: ["MH-19"],
-//   Akola: ["MH-30"],
-//   Buldhana: ["MH-28"],
-//   Dhule: ["MH-18"],
-//   Nandurbar: ["MH-39"],
-//   Thane: ["MH-04", "MH-05", "MH-48"],
-//   Raigad: ["MH-06"],
-//   Ratnagiri: ["MH-08"],
-//   Sindhudurg: ["MH-07"],
-//   Ahmednagar: ["MH-16"],
-//   Dharashiv: ["MH-25"],
-//   SambhajiNagar: ["MH-20"],
-// };
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
 
 export default function BiddingEditCar() {
-
   const { beadingCarId } = useParams();
-  
+
   const { data: Carid } = useBiddingCarByIdQuery(beadingCarId);
+  console.log(Carid);
   const { data: brandData } = useGetOnlyBrandsQuery();
+  console.log(brandData);
   const { data: dealarList } = useGetAllDealerListQuery();
   const brands = brandData?.list.map((item) => item.brand) || [];
+  const brandss = Carid ? [Carid.brand] : [];
+  // const brandss = Carid ? Carid.map((car) => car.brand) : [];
+  console.log(brandss);
 
-  const [selectedModel, setSelectedModel] = useState('');
-  const [selectedBrand, setSelectedBrand] = useState(''); //Two field Brands and Model
+  const [selectedModel, setSelectedModel] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState(""); //Two field Brands and Model
   const [modelOptions, setModelOptions] = useState([]);
   const [variantOptions, setVariantOptions] = useState([]);
   const [showCalendar, setShowCalendar] = useState(false);
   const userInfo = localStorage.getItem("userInfo");
-  const { userId :userid } = JSON.parse(userInfo);
+  const { userId: userid } = JSON.parse(userInfo);
   const navigate = useNavigate();
-
-  
 
   const [formData, setFormData] = useState({
     //features
@@ -72,10 +47,10 @@ export default function BiddingEditCar() {
     powerWindowFeature: Carid?.powerWindowFeature,
     rearParkingCameraFeature: Carid?.rearParkingCameraFeature,
     buttonStart: Carid?.buttonStart,
-        abs: Carid?.abs,
-        sunroof: Carid?.sunroof,
-        airbag: Carid?.airbag,
-        childSafetyLocks: Carid?.childSafetyLocks,
+    abs: Carid?.abs,
+    sunroof: Carid?.sunroof,
+    airbag: Carid?.airbag,
+    childSafetyLocks: Carid?.childSafetyLocks,
     // fields
     brand: Carid?.brand,
     bodyType: Carid?.model,
@@ -97,10 +72,9 @@ export default function BiddingEditCar() {
     // noOfWheels: "",
     ownerSerial: Carid?.ownerSerial,
     tyre: "",
-    userId:userid,
+    userId: userid,
     dealerId: Carid?.dealerId,
     carInsuranceType: Carid?.carInsuranceType,
-
   });
   const { data: variantData } = useGetVariantsQuery(selectedBrand, {
     skip: !selectedBrand,
@@ -128,7 +102,8 @@ export default function BiddingEditCar() {
         city: Carid?.city || "",
         fuelType: Carid?.fuelType || "",
         kmDriven: Carid?.kmDriven || "",
-        carInsurance: Carid?.carInsurance !== undefined ? Carid.carInsurance : "",
+        carInsurance:
+          Carid?.carInsurance !== undefined ? Carid.carInsurance : "",
         registration: Carid?.registration || "",
         description: Carid?.description || "",
         area: Carid?.area || "",
@@ -145,7 +120,7 @@ export default function BiddingEditCar() {
         abs: Carid?.abs || "",
         sunroof: Carid?.sunroof || "",
         airbag: Carid?.airbag || "",
-        childSafetyLocks: Carid?.childSafetyLocks || ""
+        childSafetyLocks: Carid?.childSafetyLocks || "",
       });
       setSelectedModel(Carid?.model);
       setSelectedBrand(Carid?.brand);
@@ -153,7 +128,6 @@ export default function BiddingEditCar() {
     }
   }, [Carid]);
 
- 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -169,7 +143,7 @@ export default function BiddingEditCar() {
       area: formData.area,
       bodyType: formData.bodyType,
       brand: formData.brand,
-      cVariant: formData.cVariant,
+      variant: formData.cVariant,
       carInsurance: formData.carInsurance,
       // carStatus: "ACTIVE",
       city: formData.city,
@@ -190,34 +164,22 @@ export default function BiddingEditCar() {
       year: formData.year,
       dealerId: formData.dealerId,
       date: "2023-07-19",
-      beadingCarId : beadingCarId,
-      carInsuranceType:formData.carInsuranceType
+      beadingCarId: beadingCarId,
+      carInsuranceType: formData.carInsuranceType,
     };
 
     try {
       const res = await biddingcarUpdate({ data, beadingCarId });
-      if(res?.data?.status === "success"){
-        toast.success("Car edit successfully")
+      if (res?.data?.status === "success") {
+        toast.success("Car edit successfully");
         setTimeout(() => {
-          navigate(`/bidding/${beadingCarId}/uploadimage`)
-        }, 1000)
+          navigate(`/bidding/${beadingCarId}/uploadimage`);
+        }, 1000);
       }
-      
     } catch (error) {
       // console.log(error)
     }
-   
-
   };
-
-  // const handleCityChange = (event) => {
-  //   const selectedCity = event.target.value;
-  //   setFormData({
-  //     ...formData,
-  //     city: selectedCity,
-  //     registration: "", // Reset registration when city changes
-  //   });
-  // };
 
   const handleChangeType = (event) => {
     const value = event.target.value;
@@ -225,7 +187,7 @@ export default function BiddingEditCar() {
       ...prevFormData,
       carInsuranceType: value,
     }));
-  }
+  };
 
   const handleChange = (event) => {
     const value = event.target.value === "true";
@@ -242,32 +204,31 @@ export default function BiddingEditCar() {
       insurancedate: value,
     }));
   };
-  const handleBrandChange = (event) => {
-    const brand = event.target.value;
-    setSelectedBrand(brand);
+  const handleBrandChange = (event, value) => {
+    setSelectedBrand(value);
+    setSelectedModel("");
+    setVariantOptions([]);
     setFormData({
       ...formData,
-      brand,
-      model: '',
-      cVariant: '',
+      brand: value,
+      model: "",
+      cVariant: "",
     });
   };
 
-  const handleModelChange = (event) => {
-    const model = event.target.value;
-    setSelectedModel(model);
+  const handleModelChange = (event, value) => {
+    setSelectedModel(value);
     setFormData({
       ...formData,
-      model,
-      cVariant: '',
+      model: value,
+      cVariant: "",
     });
   };
 
-  const handleVariantChange = (event) => {
-    const cVariant = event.target.value;
+  const handleVariantChange = (event, value) => {
     setFormData({
       ...formData,
-      cVariant,
+      cVariant: value,
     });
   };
 
@@ -280,7 +241,9 @@ export default function BiddingEditCar() {
 
   useEffect(() => {
     if (subVariantData) {
-      const variants = [...new Set (subVariantData.list.map((item) => item.subVariant))];
+      const variants = [
+        ...new Set(subVariantData.list.map((item) => item.subVariant)),
+      ];
       setVariantOptions(variants);
     }
   }, [subVariantData]);
@@ -296,55 +259,118 @@ export default function BiddingEditCar() {
             </div>
             <div className="md:flex gap-2">
               <div className="mt-5 w-full">
-                <select
-                  required
-                  className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  value={formData?.brand}
-                  onChange={handleBrandChange}
-                >
-                  <option value="">Brands</option>
-                  {brands.map((brand) => (
-                    <option key={brand} value={brand}>
-                      {brand}
-                    </option>
-                  ))}
-                </select>
+                <Autocomplete
+                  id="free-solo-demo"
+                  freeSolo
+                  options={brands}
+                  value={formData?.brand || ""}
+                  getOptionLabel={(option) => option}
+                  sx={{ width: "full" }}
+                  onChange={(event, newValue) =>
+                    handleBrandChange(event, newValue)
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      required
+                      sx={{
+                        "& .MuiInputBase-root": {
+                          height: "40px",
+                          padding: "0 14px",
+                          paddingBottom: "8px",
+                          top: 0,
+                        },
+                        "& .MuiInputBase-input": {
+                          height: "100%",
+                          padding: "0",
+                        },
+                      }}
+                      {...params}
+                      label="Brands"
+                      InputLabelProps={{
+                        style: {
+                          fontSize: "0.75rem",
+                        },
+                      }}
+                    />
+                  )}
+                />
               </div>
 
               <div className="mt-5 w-full">
-                <select
-                  required
-                  className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  value={formData?.model}
-                  onChange={handleModelChange}
-                  disabled={!selectedBrand}
-                >
-                  <option value="">Models</option>
-                  {modelOptions.map((model, i) => (
-                    <option key={i} value={model}>
-                      {model}
-                    </option>
-                  ))}
-                </select>
+                <Autocomplete
+                  id="model-autocomplete"
+                  freeSolo
+                  options={modelOptions}
+                  value={formData?.model || ""}
+                  onChange={(event, newValue) =>
+                    handleModelChange(event, newValue)
+                  }
+                  getOptionLabel={(option) => option}
+                  sx={{ width: "full" }}
+                  renderInput={(params) => (
+                    <TextField
+                      required
+                      sx={{
+                        "& .MuiInputBase-root": {
+                          height: "40px",
+                          padding: "0 14px",
+                          paddingBottom: "8px",
+                          top: 0,
+                        },
+                        "& .MuiInputBase-input": {
+                          height: "100%",
+                          padding: "0",
+                        },
+                      }}
+                      {...params}
+                      label="Models"
+                      InputLabelProps={{
+                        style: {
+                          fontSize: "0.75rem",
+                        },
+                      }}
+                    />
+                  )}
+                />
               </div>
             </div>
             <div className="md:flex">
               <div className="mt-5 w-full">
-                <select
-                  className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  name="cVariant"
-                  value={formData?.cVariant}
-                  onChange={handleVariantChange}
-                  disabled={!modelOptions.length}
-                  required
-                >
-                  <option value="">Car Variant</option>
-                  {variantOptions?.map((cVariant, i) => (
-                    <option key={i} value={cVariant}>
-                      {cVariant}
-                    </option>
-                  ))}
-                </select>
+                <Autocomplete
+                  id="variant-autocomplete"
+                  freeSolo
+                  options={variantOptions}
+                  value={formData?.cVariant || ""}
+                  onChange={(event, newValue) =>
+                    handleVariantChange(event, newValue)
+                  }
+                  getOptionLabel={(option) => option}
+                  sx={{ width: "full" }}
+                  renderInput={(params) => (
+                    <TextField
+                      required
+                      sx={{
+                        "& .MuiInputBase-root": {
+                          height: "40px",
+                          padding: "0 14px",
+                          paddingBottom: "8px",
+                          top: 0,
+                        },
+                        "& .MuiInputBase-input": {
+                          height: "100%",
+                          padding: "0",
+                        },
+                      }}
+                      {...params}
+                      label="Car Variant"
+                      InputLabelProps={{
+                        style: {
+                          fontSize: "0.75rem",
+                        },
+                      }}
+                    />
+                  )}
+                />
               </div>
 
               <div className="mt-5 md:ml-2 w-full">
@@ -596,45 +622,6 @@ export default function BiddingEditCar() {
                 </select>
               </div>
             </div>
-            {/* <div className="md:flex">
-            <div className="mt-5 w-full">
-              <select
-                className="w-full border-2 border-gray-400 p-2 rounded-md"
-                label="City"
-                name="city"
-                value={formData.city}
-                onChange={handleCityChange}
-              >
-                <option value="">Select City</option>
-                {Object.keys(cityOptions).map((city) => (
-                  <option key={city} value={city}>
-                    {city}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="mt-5 ml-2 w-full">
-              <select
-                className="w-full border-2 border-gray-400 p-2 rounded-md"
-                label="Registration"
-                name="registration"
-                value={formData.registration}
-                onChange={(event) =>
-                  setFormData({ ...formData, registration: event.target.value })
-                }
-                disabled={!formData.city}
-              >
-                <option value="">Select Registration</option>
-                {formData.city &&
-                  cityOptions[formData.city]?.map((reg) => (
-                    <option key={reg} value={reg}>
-                      {reg}
-                    </option>
-                  ))}
-              </select>
-            </div>
-          </div> */}
             <div className="md:flex">
               <div className="mt-5 ml-5">
                 <input

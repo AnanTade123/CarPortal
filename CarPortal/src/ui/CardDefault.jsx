@@ -13,12 +13,11 @@ import {
   useFavoriteCarMutation,
   useCarremoveFavoriteMutation,
   useCarFavoriteAddRemoveQuery,
-  useGetbyUserCarIdQuery,
 } from "../services/carAPI";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
-import { useDispatch ,useSelector } from "react-redux";
-import { addFavoriteCar , removeFavoriteCar } from "../pages/favoritesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addFavoriteCar, removeFavoriteCar } from "../pages/favoritesSlice";
 
 function RatedIcon() {
   return (
@@ -52,10 +51,10 @@ function UnratedIcon() {
   );
 }
 
-export function CardDefault({ data, Carid,refetch }) {
+export function CardDefault({ data, Carid, refetch }) {
   const dispatch = useDispatch();
   const favoriteCars = useSelector(state => state.favorites.favoriteCars);
-  console.log(favoriteCars)
+  const [isHovered, setIsHovered] = useState(false);
 
   const [favoriteCar] = useFavoriteCarMutation();
   const token = Cookies.get("token");
@@ -66,40 +65,17 @@ export function CardDefault({ data, Carid,refetch }) {
   }
   const UserId = jwtDecodes?.userId;
   const userRole = token ? jwtDecodes?.authorities[0] : null;
-  const [rated, setRated] = useState(true);
   const data2 = {
     carId: Carid,
     userId: UserId,
   };
   const carid = data2.carId;
   const useid = data2.userId;
- 
-  const { data: favData ,error , refetch : refetchFavCarData } = useCarFavoriteAddRemoveQuery({ carid, useid });
-  
+
+  const { data: favData, error, refetch: refetchFavCarData } = useCarFavoriteAddRemoveQuery({ carid, useid });
+
   const [CarremoveFavorite] = useCarremoveFavoriteMutation();
 
-  const handleFavoriteClick = async () => {
-    if (rated) {
-      const data3 = {
-        saveCarId: favData.object.saveCarId,
-      };
-      try {
-        const res = await CarremoveFavorite(data3);
-        console.log(res);
-        refetch();
-      } catch (error) {
-        return null;
-      }
-    } else {
-      try {
-        const res = await favoriteCar(data2);
-        refetch();
-      } catch (error) {
-        return null;
-      }
-    }
-    setRated(!rated);
-  };
 
   const handleFavoriteToggle = async () => {
     const data2 = {
@@ -108,7 +84,7 @@ export function CardDefault({ data, Carid,refetch }) {
     };
     if (favoriteCars?.find(favCar => favCar.carId === data.carId)) {
       dispatch(removeFavoriteCar(data));
-      const res = await CarremoveFavorite( {
+      const res = await CarremoveFavorite({
         saveCarId: favData?.object?.saveCarId,
       });
       refetchFavCarData();
@@ -119,9 +95,12 @@ export function CardDefault({ data, Carid,refetch }) {
     }
   };
 
+  const combinedText = `${data.brand} ${data.model}`;
+  const truncatedText = combinedText.length > 25 ? combinedText.substring(0, 22 ) + '...' : combinedText;
   return (
     <div className="flex justify-center mx-auto">
-      <Card className="max-w-[19rem] overflow-hidden">
+      <Card className="max-w-[19rem] overflow-hidden hover:border hover:border-3 hover:shadow-2xl hover:scale-105">
+
         <CardHeader
           floated={false}
           shadow={false}
@@ -133,45 +112,49 @@ export function CardDefault({ data, Carid,refetch }) {
           </Link>
         </CardHeader>
         <CardBody>
-          {userRole === "USER" ? (
-            <div className="flex justify-end">
-              <div onClick={handleFavoriteToggle} className="cursor-pointer">
-                <div className="-mb-6">
-                {favoriteCars?.some(favCar => favCar.carId === data.carId) ? <RatedIcon/> : <UnratedIcon/>}
+          <Link to={`/carlist/cardetails/${data.carId}`}>
+            {userRole === "USER" ? (
+              <div className="flex justify-end">
+                <div onClick={handleFavoriteToggle} className="cursor-pointer">
+                  <div className="-mb-6">
+                    {favoriteCars?.some(favCar => favCar.carId === data.carId) ? <RatedIcon /> : <UnratedIcon />}
+                  </div>
                 </div>
               </div>
-            </div>
-          ) : null}
-          <Typography>{data.year}</Typography>
-          <Link to={`/carlist/cardetails/${data.carId}`}>
-            <Typography variant="h5" color="blue-gray" className="mb-2">
-              {data.brand} {data.model}
+            ) : null}
+            <Typography>{data.year}</Typography>
+            <Link to={`/carlist/cardetails/${data.carId}`}>
+            <Typography variant="h5" color="blue-gray" className="mb-2" onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}>
+              {isHovered ? data.brand +" "+ data.model : truncatedText}
+              {/* {`${data.brand} ${data.model}`.length > 25 ? `${data.brand} ${data.model}`.substring(0, 22) + '...' : `${data.brand} ${data.model}`} */}
             </Typography>
-          </Link>
-          <Typography variant="h6" color="blue-gray" className="mb-2">
-            {data.title}
-          </Typography>
-          <p className="text-sm uppercase mb-3 flex-wrap gap-2">
-            <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black text-xs">
-              {data.kmDriven}KM
-            </span>
-            <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black text-xs">
-              {data.fuelType}
-            </span>
-            <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black text-xs">
-              {data.transmission}
-            </span>
-          </p>
-          <Typography variant="h6" className="font-bold text-black text-xl">
-            ₹ {data.price}
-          </Typography>
-          <Link to={`/carlist/cardetails/${data.carId}`}>
-            <button className="mt-2 mb-4 p-[7px] bg-indigo-500 rounded-lg text-white">
+            </Link>
+            <Typography variant="h6" color="blue-gray" className="mb-2">
+              {data.title}
+            </Typography>
+            <p className="text-sm uppercase mb-3 flex-wrap gap-2">
+              <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black text-xs">
+                {data.kmDriven}KM
+              </span>
+              <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black text-xs">
+                {data.fuelType}
+              </span>
+              <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black text-xs">
+                {data.transmission}
+              </span>
+            </p>
+            <Typography variant="h6" className="font-bold text-black text-xl">
+              ₹ {data.price}
+            </Typography>
+            {/* <Link to={`/carlist/cardetails/${data.carId}`}>
+            <button className="mt-2 mb-4 p-[7px] bg-indigo-500 rounded-lg      text-white">
               View Car
             </button>
+          </Link> */}
+            <hr />
+            <p className="text-sm">Free Test Drive Today at {data.area}</p>
           </Link>
-          <hr />
-          <p className="text-sm">Free Test Drive Today at {data.area}</p>
         </CardBody>
       </Card>
     </div>

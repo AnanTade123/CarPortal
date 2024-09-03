@@ -529,7 +529,8 @@ const BiddingDealerCars = () => {
       <div>
         {error?.status === 404 ? (
           <div>
-            <p className="text-3xl font-semibold mx-4">{error?.data?.message}</p>
+            {/* <p className="text-3xl font-semibold mx-4">{error?.data?.message}</p> */}
+            <p className="text-2xl font-semibold mx-4">No Data Available</p>
           </div>
         ) : (
           <Card className="h-full w-full">
