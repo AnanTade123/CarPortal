@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
+ 
 import { useState } from "react";
 import { UserPlusIcon } from "@heroicons/react/24/solid";
 import {
@@ -135,7 +135,7 @@ export function AddDealerFormSales({refetch}) {
   return (
     <>
     <ToastContainer />
-      <Button onClick={handleOpen} className="flex gap-2">
+      <Button onClick={handleOpen} color="indigo" className="flex gap-2">
         <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add Dealer
       </Button>
       <Dialog
@@ -231,7 +231,7 @@ export function AddDealerFormSales({refetch}) {
                 onChange={handleChange}
                 required
               />
-              <Button type="submit">Add</Button>
+              <Button color="indigo" type="submit">Add</Button>
             </form>
           </CardBody>
         </CardUi>

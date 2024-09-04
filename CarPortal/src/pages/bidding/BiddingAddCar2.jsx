@@ -934,7 +934,7 @@ export default function BiddingAddCar2() {
 
             <Button
               type="submit"
-              className="p-3 mt-3 bg-indigo-400 rounded-md w-28 text-white"
+              className="p-3 mt-3 bg-indigo-400 rounded-md w-28 text-white mb-3"
               value="Add  Car"
               disabled={submitDisabled}
             >

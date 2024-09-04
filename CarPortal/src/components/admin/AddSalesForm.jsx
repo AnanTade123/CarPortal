@@ -113,7 +113,7 @@ export function AddSalesForm({refetch}) {
   return (
     <>
       <ToastContainer />
-      <Button onClick={handleOpen} className="flex gap-2">
+      <Button color="indigo" onClick={handleOpen} className="flex gap-2">
         <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add Seller
       </Button>
       <Dialog
@@ -211,7 +211,7 @@ export function AddSalesForm({refetch}) {
                   required
                 />
 
-                <Button type="submit">Add</Button>
+                <Button color="indigo" type="submit">Add</Button>
               </form>
             </div>
           </CardBody>
