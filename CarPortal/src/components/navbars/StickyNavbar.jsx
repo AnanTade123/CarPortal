@@ -365,13 +365,13 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
 
   const userDashboard = userRole?.includes("USER") ? (
     <>
-    <Link to={`/sellform`}>
+    <Link to={`/sellcarform`}>
         <Typography
           as="li"
           variant="small"
           color="white"
           className={`p-3 rounded-md font-normal ${
-            window.location.pathname === "/sellform"
+            window.location.pathname === "/sellcarform"
               ? "bg-[#5e67c7] text-white"
               : ""
           }hover:bg-indigo-400`}

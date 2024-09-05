@@ -103,6 +103,7 @@ import PremiumCarList from "./components/Premium/PremiumCarList";
 import CarImageCarousel from "./components/Premium/CarImageCarousel";
 import ForgetPassword from "./forms/ForgetPassword";
 import ResetPassword from "./forms/ResetPassword";
+import SellCarForm from "./pages/user/SellCarForm";
 export default function App() {
   return (
     <>
@@ -360,6 +361,8 @@ export default function App() {
             <Route path="/sale/dealer/info/:id" element={<AdminDealerInfo />} />
           </Route>
           <Route path="/user/:userid/favorite" element={<FavoritePage />} />
+          <Route path="/sellcarform" element={<SellCarForm/>} />
+
           <Route path="/user" element={<UserInfo />} />
         </Route>
         <Route path="/premiumcars" element={<PremiumCars/>} />
