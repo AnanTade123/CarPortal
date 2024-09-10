@@ -103,6 +103,7 @@ import PremiumCarList from "./components/Premium/PremiumCarList";
 import CarImageCarousel from "./components/Premium/CarImageCarousel";
 import ForgetPassword from "./forms/ForgetPassword";
 import ResetPassword from "./forms/ResetPassword";
+import AdminUserReq from "./pages/adminpages/AdminUserReq";
 export default function App() {
   return (
     <>
@@ -154,6 +155,8 @@ export default function App() {
               <AdminMiddleware allowedRoles={[...Object.values(onlyAdmin)]} />
             }
           >
+                        <Route path="/Admin/UserRequest" element={<AdminUserReq />} />
+
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/dealer/:id" element={<SellForCar />} />
 
@@ -277,6 +280,7 @@ export default function App() {
               />
             }
           >
+            
             <Route
               path="/Inspector/ChangePassword"
               element={<InspectorChangePassword />}
@@ -334,6 +338,7 @@ export default function App() {
               />
             }
           >
+            <Route path="/Seller/UserRequest" element={<AdminUserReq />} />
             <Route
               path="/Seller/ChangePassword"
               element={<SalerChangePassword />}

@@ -89,6 +89,10 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         {
           title: "Car Models",
           link: "/carlistmodel",
+        },
+        {
+          title: "User Request",
+          link: "/Admin/UserRequest",
         }
       );
     }
@@ -259,7 +263,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
           Cars
         </Typography>
       </Link>
-
+     
       {/* <NotificationDialog /> */}
     </>
   ) : null;
@@ -279,6 +283,21 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
           onClick={handleMenuItemClick}
         >
           Dealers
+        </Typography>
+      </Link>
+      <Link to={`/Seller/UserRequest`}>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === `/Seller/UserRequest`
+              ? "bg-indigo-200 text-white"
+              : ""
+          }hover:bg-gray-200`}
+          onClick={handleMenuItemClick}
+        >
+         User Cars
         </Typography>
       </Link>
       <NavListMenu />

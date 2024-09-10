@@ -24,6 +24,16 @@ export const UserAPI = apiSlice.injectEndpoints({
       invalidatesTags:["User"],
     }),
 
+    GetUserRequestData: builder.query({
+      query: ({page ,size}) => ({
+        url: `userFormController/all?page=${page}&size=${size}`,
+        // transferResponse: console.log(userProfileId),
+        method: "GET",
+      }),
+      providesTags:["User"]
+  
+       // You probably want providesTags here instead of invalidatesTags for queries
+    }),
 
     changePassword : builder.mutation({
       query : ({passChange,userProfileId}) => ({
@@ -37,9 +47,14 @@ export const UserAPI = apiSlice.injectEndpoints({
     }),
     invalidatesTags:["User"],
   }),
+  
+  
+  
 });
 
 export const { useGetUserByIdQuery ,
 useUserupdateMutation,
-useChangePasswordMutation
+useChangePasswordMutation,
+useGetUserRequestDataQuery
+,
  } = UserAPI;
