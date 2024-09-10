@@ -5,8 +5,8 @@ import cartechlogo2 from "/cars/cartechlogo2.png";
 
 export default function FooterF() {
   return (
-    <footer className="w-full bg-white p-8">
-      <div className="flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 bg-white text-center lg:justify-between">
+    <footer className="w-full p-8 bg-[#8a90d4]">
+      <div className="flex flex-row flex-wrap items-center justify-center bg-[#8a90d4] gap-y-6 gap-x-12  text-center lg:justify-between">
         {/* <img src="https://docs.material-tailwind.com/img/logo-ct-dark.png" alt="logo-ct" className="w-10" /> */}
 
         <Link to={"/"}>
@@ -39,7 +39,7 @@ export default function FooterF() {
           <li>
             <Link to="/aboutus">
               <Typography
-                color="blue-gray"
+                color="white"
                 className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
               >
                 About Us
@@ -49,7 +49,7 @@ export default function FooterF() {
           <li>
             <Link to={"/ContactUs"}>
               <Typography
-                color="blue-gray"
+                color="white"
                 className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
               >
                 Contact Us
@@ -59,7 +59,7 @@ export default function FooterF() {
           <li>
             <Link to={"privacypolicy"}>
               <Typography
-                color="blue-gray"
+                color="white"
                 className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
               >
                 Privacy Policy
@@ -69,7 +69,7 @@ export default function FooterF() {
           <li>
             <Link to={"cookiepolicy"}>
               <Typography
-                color="blue-gray"
+                color="white"
                 className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
               >
                 Cookie Policy
@@ -78,8 +78,8 @@ export default function FooterF() {
           </li>
         </ul>
       </div>
-      <hr className="my-8 border-blue-gray-50" />
-      <div className="flex gap-4 text-blue-gray-900 justify-center items-center align-middle">
+      <hr className="my-8 border-black" />
+      <div className="flex gap-4 text-white justify-center items-center align-middle">
         <Typography
           as="a"
           href="https://www.facebook.com/"

@@ -113,12 +113,12 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
     }
     const renderItems = navListMenuItems.map(({ title, link }, key) => (
       <Link to={link} key={key}>
-        <MenuItem className="flex items-center gap-3 rounded-lg">
+        <MenuItem className="flex items-center gap-3 rounded-lg hover:bg-[#2d3483]">
           <div>
             <Typography
               variant="h6"
               color="blue-gray"
-              className="flex items-center text-sm font-normal"
+              className="flex items-center text-sm font-normal text-white"
             >
               {title}
             </Typography>
@@ -139,7 +139,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
           <MenuHandler>
             <Typography as="div" variant="small" className="font-medium">
               <ListItem
-                className={`flex items-center gap-2 p-3 font-medium text-gray-900`}
+                className={`flex items-center gap-2 p-3 font-medium text-white hover:bg-indigo-400`}
                 selected={isMenuOpen || isMobileMenuOpen}
                 onClick={() => setIsMobileMenuOpen((cur) => !cur)}
               >
@@ -159,7 +159,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
               </ListItem>
             </Typography>
           </MenuHandler>
-          <MenuList className="hidden max-w-screen-xl rounded-xl lg:block">
+          <MenuList className="hidden max-w-screen-xl rounded-xl lg:block bg-[#626deb] border-none">
             <ul className="grid grid-cols-1 gap-y-2 outline-none outline-0">
               {renderItems}
             </ul>
@@ -198,12 +198,12 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         <Typography
           as="li"
           variant="small"
-          color="blue-gray"
+          color="white"
           className={`p-3 rounded-md font-normal ${
             window.location.pathname === "/admin"
-              ? "bg-indigo-200 text-white"
+              ? "bg-[#5e67c7] text-white"
               : ""
-          }hover:bg-gray-200`}
+          }hover:bg-indigo-400`}
           onClick={handleMenuItemClick}
         >
           Dealers
@@ -215,12 +215,12 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         <Typography
           as="li"
           variant="small"
-          color="blue-gray"
+          color="white"
           className={`p-3 rounded-md font-normal ${
             window.location.pathname === "/inspector"
-              ? "bg-indigo-200 text-white"
+              ? "bg-[#5e67c7] text-white"
               : ""
-          }hover:bg-gray-200`}
+          }hover:bg-indigo-400`}
           onClick={handleMenuItemClick}
         >
           Inspectors
@@ -230,12 +230,12 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         <Typography
           as="li"
           variant="small"
-          color="blue-gray"
+          color="white"
           className={`p-3 rounded-md font-normal ${
             window.location.pathname === "/admin/salesuser"
-              ? "bg-indigo-200 text-white"
+              ? "bg-[#5e67c7] text-white"
               : ""
-          }hover:bg-gray-200`}
+          }hover:bg-indigo-400`}
           onClick={handleMenuItemClick}
         >
           Seller
@@ -252,12 +252,12 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         <Typography
           as="li"
           variant="small"
-          color="blue-gray"
+          color="white"
           className={`p-3 rounded-md font-normal ${
             window.location.pathname === `/inspector/car`
-              ? "bg-indigo-200 text-white"
+              ? "bg-[#5e67c7] text-white"
               : ""
-          }hover:bg-gray-200`}
+          }hover:bg-indigo-400`}
           onClick={handleMenuItemClick}
         >
           Cars
@@ -274,12 +274,12 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         <Typography
           as="li"
           variant="small"
-          color="blue-gray"
+          color="white"
           className={`p-3 rounded-md font-normal ${
             window.location.pathname === "/sales/salesDealers"
-              ? "bg-indigo-200 text-white"
+              ? "bg-[#5e67c7] text-white"
               : ""
-          }hover:bg-gray-200`}
+          }hover:bg-indigo-400`}
           onClick={handleMenuItemClick}
         >
           Dealers
@@ -289,12 +289,12 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         <Typography
           as="li"
           variant="small"
-          color="blue-gray"
+          color="white"
           className={`p-3 rounded-md font-normal ${
             window.location.pathname === `/Seller/UserRequest`
               ? "bg-indigo-200 text-white"
               : ""
-          }hover:bg-gray-200`}
+          }hover:bg-indigo-400`}
           onClick={handleMenuItemClick}
         >
          User Cars
@@ -312,12 +312,12 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         <Typography
           as="li"
           variant="small"
-          color="blue-gray"
+          color="white"
           className={`p-3 rounded-md font-normal ${
             window.location.pathname === "/carlist"
-              ? "bg-indigo-200 text-white"
+              ? "bg-[#5e67c7] text-white"
               : ""
-          }hover:bg-gray-200`}
+          }hover:bg-indigo-400`}
           onClick={handleMenuItemClick}
         >
           Buy Car
@@ -328,12 +328,12 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         <Typography
           as="li"
           variant="small"
-          color="blue-gray"
+          color="white"
           className={`p-3 rounded-md font-normal ${
             window.location.pathname === "/dealer/live/cars"
-              ? "bg-indigo-200 text-white"
+              ? "bg-[#5e67c7] text-white"
               : ""
-          }hover:bg-gray-200`}
+          }hover:bg-indigo-400`}
           onClick={handleMenuItemClick}
         >
           Live Cars
@@ -346,13 +346,13 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         <Typography
           as="li"
           variant="small"
-          color="blue-gray"
+          color="white"
           className={`p-3 rounded-md font-normal ${
             window.location.pathname ===
             `/dealer/${jwtDecodes?.dealerId}/allpending`
-              ? "bg-indigo-200 text-white"
+              ? "bg-[#5e67c7] text-white"
               : ""
-          }hover:bg-gray-200`}
+          }hover:bg-indigo-400`}
           onClick={handleMenuItemClick}
         >
           Pending Request
@@ -363,13 +363,13 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         <Typography
           as="li"
           variant="small"
-          color="blue-gray"
+          color="white"
           className={`p-3 rounded-md font-normal ${
             window.location.pathname ===
             `/dealer/${jwtDecodes?.dealerId}/booking/confirm`
-              ? "bg-indigo-200 text-white"
+              ? "bg-[#5e67c7] text-white"
               : ""
-          }hover:bg-gray-200`}
+          }hover:bg-indigo-400`}
           onClick={handleMenuItemClick}
         >
           Confirm Booking
@@ -384,16 +384,31 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
 
   const userDashboard = userRole?.includes("USER") ? (
     <>
+    <Link to={`/sellcarlist`}>
+        <Typography
+          as="li"
+          variant="small"
+          color="white"
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === "/sellcarlist"
+              ? "bg-[#5e67c7] text-white"
+              : ""
+          }hover:bg-indigo-400`}
+        >
+          Sell Car
+        </Typography>
+      </Link>
+
       <Link to={`/pendinrequest/${jwtDecodes?.userId}`}>
         <Typography
           as="li"
           variant="small"
-          color="blue-gray"
+          color="white"
           className={`p-3 rounded-md font-normal ${
             window.location.pathname === "/pendinrequest"
-              ? "bg-indigo-200 text-white"
+              ? "bg-[#5e67c7] text-white"
               : ""
-          }hover:bg-gray-200`}
+          }hover:bg-indigo-400`}
         >
           All Request
         </Typography>
@@ -423,13 +438,13 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         <Typography
           as="li"
           variant="small"
-          color="blue-gray"
+          color="white"
           className={`p-3 rounded-md font-normal ${
             window.location.pathname ===
             `/dealer/${jwtDecodes?.userId}/booking/confirm`
-              ? "bg-indigo-200 text-white"
+              ? "bg-[#5e67c7] text-white"
               : ""
-          }hover:bg-gray-200`}
+          }hover:bg-indigo-400`}
         >
           Favourite
         </Typography>
@@ -461,10 +476,10 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
           as="li"
           
           variant="small"
-          color="blue-gray"
+          color="white"
           className={`p-3 rounded-md font-normal ${
-            window.location.pathname === "/" ? "bg-indigo-200 text-white" : ""
-          } hover:bg-gray-200 `}
+            window.location.pathname === "/" ? "bg-[#5e67c7] text-white" : ""
+          } hover:bg-indigo-400 `}
           onClick={handleMenuItemClick}
         >
           Home
@@ -475,12 +490,12 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
           <Typography
             as="li"
             variant="small"
-            color="blue-gray"
+            color="white"
             className={`p-3 rounded-md font-normal ${
               window.location.pathname === "/premiumcars"
-                ? "bg-indigo-200 text-white"
+                ? "bg-[#5e67c7] text-white"
                 : ""
-            } hover:bg-gray-200`}
+            } hover:bg-indigo-400 `}
             onClick={handleMenuItemClick}
           >
            Premium Cars
@@ -494,12 +509,12 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
           <Typography
             as="li"
             variant="small"
-            color="blue-gray"
+            color="white"
             className={`p-3 rounded-md font-normal ${
               window.location.pathname === "/carlist"
-                ? "bg-indigo-200 text-white"
+                ? "bg-[#5e67c7] text-white"
                 : ""
-            }hover:bg-gray-200`}
+            }hover:bg-indigo-400 `}
             onClick={handleMenuItemClick}
           >
             Buy Car
@@ -515,7 +530,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
   );
 
   return (
-    <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
+    <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 bg-[#8a90d4] border-none">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Link to={"/"}>
           {/* <Typography className="mr-4 cursor-pointer py-1.5 font-bold text-2xl ">
@@ -546,7 +561,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
                   <Button
                     variant="text"
                     size="sm"
-                    className="hidden lg:inline-block"
+                    className="hidden lg:inline-block text-white"
                   >
                     <span>Sign In</span>
                   </Button>
@@ -556,7 +571,8 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
                   <Button
                     variant="gradient"
                     size="sm"
-                    className="hidden lg:inline-block"
+                    color="indigo"
+                    className="hidden lg:inline-block bg-indigo-400"
                   >
                     <span>Sign Up</span>
                   </Button>
@@ -616,7 +632,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
           </Link>
 
           <Link to="/signup">
-            <Button fullWidth variant="gradient" size="sm" className="">
+            <Button fullWidth  color="indigo" variant="gradient" size="sm" className="">
               <span>Sign up</span>
             </Button>
           </Link>
