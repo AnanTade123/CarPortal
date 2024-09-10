@@ -4,14 +4,17 @@ import {
   Button,
   CardBody,
   Typography,
+  Dialog,
   Input,
   Select,
   Option,
 } from "@material-tailwind/react";
+import CardUi from "../../ui/CardUi";
+
 import { useParams } from "react-router";
-import {
-    useUserSellFormMutation
-} from "../../services/userAPI";
+import { useUserSellFormMutation } from "../../services/userAPI";
+import { ToastContainer, toast } from "react-toastify";
+import { UserPlusIcon } from "@heroicons/react/24/solid";
 
 import {
   useGetOnlyBrandsQuery,
@@ -21,10 +24,9 @@ import {
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
-
-
 export default function SellCarForm() {
-    const [userRegister] = useUserSellFormMutation();
+
+  const [UserSellForm] = useUserSellFormMutation();
 
   // Form state
   const [formData, setFormData] = useState({
@@ -32,6 +34,7 @@ export default function SellCarForm() {
     brand: "",
     model: "",
     variant: "",
+    mobileNo: "",
     regNo: "",
     address1: "",
     address2: "",
@@ -39,8 +42,9 @@ export default function SellCarForm() {
     rc: "",
     date: "",
     datetime: "",
-  
+    status:true,
   });
+
 
   const { data: brandData } = useGetOnlyBrandsQuery();
   const brands = brandData?.list.map((item) => item.brand) || [];
@@ -61,7 +65,7 @@ export default function SellCarForm() {
     }
   );
 
-  //   const [pinCodeError, setPinCodeError] = useState("");
+
 
   //   const timeSlots = [
   //     "09:00 AM - 10:00 AM",
@@ -75,15 +79,20 @@ export default function SellCarForm() {
   //     "05:00 PM - 06:00 PM",
   //   ];
 
+  const [errors, setErrors] = useState({
+    mobileNo: "",
+     pinCode: "",
+  });
+
   // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
+
   const handleBrandChange = (event, newValue) => {
     const brand = newValue;
     // console.log(brand);
@@ -130,24 +139,46 @@ export default function SellCarForm() {
     }
   }, [subVariantData]);
 
+  // Validate mobile number
+  const validateMobileNo = (mobileNo) => {
+    const mobileNoRegex = /^\d{10}$/;
+    return mobileNoRegex.test(mobileNo);
+  };
+
+    // Validate pin code
+  const validatePinCode = (pinCode) => {
+    const pinCodeRegex = /^\d{6}$/;
+    return pinCodeRegex.test(pinCode);
+  };
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-        const res = await userRegister(formData);
-        // console.log(error);
-        if(res?.data?.code === "success"){
-          alert("Request Submited")
-        }else{
-          alert("Something is wrong");
-  
-        }
-      } catch (error) {
-              // console.log(error);
-
-      }
+     const mobileNoError = validateMobileNo(formData.mobileNo)
+      ? ""
+      : "Invalid mobile number";
+    const pinCodeError = validatePinCode(formData.pinCode)
+      ? ""
+      : "Invalid pin code (must be 6 digits)";
     
+    setErrors({ mobileNo: mobileNoError, pinCode: pinCodeError });
+
+    if (mobileNoError || pinCodeError) {
+      return; 
+    }
+
+    try {
+      const res = await UserSellForm(formData);
+      console.log(res);
+      if (res?.data?.status === "success") {
+        toast.success("Request Submited");
+      } else {
+        toast.error("Something is wrong");
+      }
+    } catch (error) {
+       console.log(error);
+    }
 
     // Reset form after submission
     setFormData({
@@ -155,6 +186,7 @@ export default function SellCarForm() {
       brand: "",
       model: "",
       variant: "",
+      mobileNo: "",
       regNo: "",
       address1: "",
       address2: "",
@@ -162,25 +194,30 @@ export default function SellCarForm() {
       rc: "",
       date: "",
       datetime: "",
+      status:false,
     });
+    // setOpen(false);
   };
 
   return (
     <>
-      <div>
-        <CardBody className="flex flex-col gap-4">
+     <ToastContainer />
+    
+      <div className="md:flex justify-center m-6 md:m-0">
+        <div className="flex flex-col gap-2 items-center">
           <Typography
             variant="h4"
             color="blue-gray"
-            className="flex justify-center"
+            className="flex justify-center mt-2"
           >
             Sell Car
           </Typography>
-          <div className="flex justify-center">
+          <div className="w-full overflow-y-auto style={{ maxHeight: '400px' }}">
             <form
               onSubmit={handleSubmit}
-              className="space-y-3 md:w-[50%] w-full"
+              className="w-full md:w-[45rem]"
             >
+                <div className="gap-2 mt-1">
               <Input
                 label="Car Owner Name"
                 name="carOwnerName"
@@ -188,8 +225,9 @@ export default function SellCarForm() {
                 onChange={handleChange}
                 required
               />
+              </div>
               <div className="md:flex gap-2">
-                <div className="w-full">
+                <div className="w-full mt-3">
                   <Autocomplete
                     id="free-solo-demo"
                     freeSolo
@@ -224,7 +262,7 @@ export default function SellCarForm() {
                     )}
                   />
                 </div>
-                <div className="w-full">
+                <div className="w-full mt-3">
                   <Autocomplete
                     id="free-solo-demo"
                     freeSolo
@@ -261,8 +299,8 @@ export default function SellCarForm() {
                 </div>
               </div>
 
-              <div className="md:flex gap-2">
-                <div className="w-full">
+              <div className="md:flex gap-2 mt-3">
+                <div className="w-full ">
                   <Autocomplete
                     id="free-solo-demo"
                     freeSolo
@@ -306,6 +344,35 @@ export default function SellCarForm() {
                   required
                 />
               </div>
+              <div className="w-full mt-3">
+              <Input
+                label="Mobile Number"
+                type="tel"
+                name="mobileNo"
+                value={formData.mobileNo}
+                onChange={handleChange}
+                error={errors.mobileNo}
+                required
+              />
+              {errors.mobileNo && (
+                <Typography color="red">{errors.mobileNo}</Typography>
+              )}
+</div>
+<div className="w-full mt-3">
+              <Input
+                label="Pincode"
+                name="pinCode"
+                value={formData.pinCode}
+                onChange={handleChange}
+               error={errors.pinCode}
+                required
+              />
+              {errors.pinCode && (
+                <Typography color="red">{errors.pinCode}</Typography>
+              )}
+              </div>
+
+              <div className="w-full mt-3">
               <Input
                 label="Address Line 1"
                 name="address1"
@@ -313,22 +380,17 @@ export default function SellCarForm() {
                 onChange={handleChange}
                 required
               />
-
+                            </div>
+                            <div className="w-full mt-3">
               <Input
                 label="Address Line 2"
                 name="address2"
                 value={formData.address2}
                 onChange={handleChange}
               />
+                                          </div>
 
-              <Input
-                label="Pincode"
-                name="pinCode"
-                value={formData.pinCode}
-                onChange={handleChange}
-                required
-
-              />
+                                          <div className="w-full mt-3">
 
               <Select
                 label="RC"
@@ -340,7 +402,19 @@ export default function SellCarForm() {
                 <Option value="Yes">Yes</Option>
                 <Option value="No">No</Option>
               </Select>
+              </div>
 
+              <div className="w-full mt-3">
+
+<Input
+  label="Inspection Time"
+  name="datetime"
+  value={formData.datetime}
+  onChange={handleChange}
+  type="datetime-local"
+/>
+</div>
+              {/* <div className="w-full mt-2">
               <Input
                 label="Date"
                 type="date"
@@ -349,6 +423,7 @@ export default function SellCarForm() {
                 onChange={handleChange}
                 required
               />
+              </div> */}
 
               {/* <Input
                 label="Time"
@@ -372,21 +447,13 @@ export default function SellCarForm() {
                   </Option>
                 ))}
               </Select> */}
-
-              <Input
-                label="Inspection Time"
-                name="datetime"
-                value={formData.datetime}
-                onChange={handleChange}
-                type="datetime-local"
-              />
-
-              <Button color="indigo" type="submit">
+                                         
+              <Button color="indigo" type="submit" className="mt-2 mb-2">
                 Submit
               </Button>
             </form>
           </div>
-        </CardBody>
+        </div>
       </div>
     </>
   );

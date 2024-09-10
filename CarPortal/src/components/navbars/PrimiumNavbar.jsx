@@ -365,6 +365,21 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
 
   const userDashboard = userRole?.includes("USER") ? (
     <>
+     <Link to={`/sellcarlist`}>
+        <Typography
+          as="li"
+          variant="small"
+          color="white"
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === "/sellcarlist"
+              ? "bg-[#5e67c7] text-white"
+              : ""
+          }hover:bg-indigo-400`}
+        >
+          Sell Car
+        </Typography>
+      </Link>
+      
       <Link to={`/pendinrequest/${jwtDecodes?.userId}`}>
         <Typography
           as="li"

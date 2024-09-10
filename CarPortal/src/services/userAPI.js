@@ -34,6 +34,17 @@ export const UserAPI = apiSlice.injectEndpoints({
       providesTags:["User"]
     }),
 
+    UserSellFormUpdate: builder.mutation({
+      query: ({userFormId ,userformupdate})  => ({
+        url: ` /userFormController/update/${userFormId}`,
+       
+        method: 'PUT',
+        body:userformupdate
+      }),
+      invalidatesTags:["User"],
+    }),
+
+
     changePassword : builder.mutation({
       query : ({passChange,userProfileId}) => ({
         url : `/user/changePassword/${userProfileId}`,
@@ -51,6 +62,7 @@ export const UserAPI = apiSlice.injectEndpoints({
 export const { useGetUserByIdQuery ,
 useUserupdateMutation,
 useUserSellFormMutation,
+useUserSellFormUpdate,
 useChangePasswordMutation,
 
  } = UserAPI;
