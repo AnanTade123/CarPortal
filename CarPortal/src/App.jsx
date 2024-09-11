@@ -103,6 +103,9 @@ import PremiumCarList from "./components/Premium/PremiumCarList";
 import CarImageCarousel from "./components/Premium/CarImageCarousel";
 import ForgetPassword from "./forms/ForgetPassword";
 import ResetPassword from "./forms/ResetPassword";
+import SellCarForm from "./pages/user/SellCarForm";
+import EditSellForm from "./pages/user/EditSellForm";
+import SellCarList from "./pages/user/SellCarList";
 import SellForCarPremium from "./pages/dealer/SellForCarPremium";
 import AddPremiumCarForm from "./pages/dealer/AddPremiumCarForm";
 import EditPremiumCar from "./pages/dealer/EditPremiumCar";
@@ -385,6 +388,12 @@ export default function App() {
             <Route path="/sale/dealer/info/:id" element={<AdminDealerInfo />} />
           </Route>
           <Route path="/user/:userid/favorite" element={<FavoritePage />} />
+          <Route path="/sellcarlist" element={<SellCarList/>} />
+          <Route path="/sellcarform" element={<SellCarForm/>} />
+
+          <Route path="/editsellform" element={<EditSellForm/>} />
+
+
           <Route path="/user" element={<UserInfo />} />
         </Route>
         <Route path="/premiumcars" element={<PremiumCars />} />

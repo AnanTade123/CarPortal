@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { UserPlusIcon } from "@heroicons/react/24/solid";
 import { Button, Dialog, CardBody, Typography } from "@material-tailwind/react";
@@ -70,7 +71,7 @@ export function AddInspectorForm() {
 
   return (
     <>
-      <Button onClick={handleOpen} className="flex gap-2">
+      <Button onClick={handleOpen} color="indigo" className="flex gap-2">
         <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add Inspector
       </Button>
       <Dialog
@@ -140,7 +141,7 @@ export function AddInspectorForm() {
                 required
               />
 
-              <Button type="submit">Add</Button>
+              <Button color="indigo" type="submit">Add</Button>
             </form>
           </CardBody>
           </div>

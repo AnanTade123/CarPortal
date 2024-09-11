@@ -333,7 +333,17 @@ const FilterCars = ({ setUrlState }) => {
                 <div className="w-full flex items-center px-2 mx-1">
                   <Slider
                     className="w-full"
-                    color="black"
+                    sx={{
+                      '& .MuiSlider-thumb': {
+                        color: '#6366F1', 
+                      },
+                      '& .MuiSlider-track': {
+                        color: '#6366F1',
+                      },
+                      '& .MuiSlider-rail': {
+                        color: '#E5E7EB',
+                      },
+                    }}
                     value={value}
                     onChange={handleSliderChange}
                     valueLabelDisplay="auto"

@@ -71,7 +71,7 @@ navigate('/signin')
   };
   return (
     <>
-      <Button onClick={handleOpen} variant="gradient">
+      <Button color="indigo" onClick={handleOpen} variant="gradient">
         Buy Car
       </Button>
       <Dialog open={open} handler={handleOpen} size="xs">

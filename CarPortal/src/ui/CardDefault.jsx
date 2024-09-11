@@ -99,7 +99,7 @@ export function CardDefault({ data, Carid, refetch }) {
   const truncatedText = combinedText.length > 25 ? combinedText.substring(0, 22 ) + '...' : combinedText;
   return (
     <div className="flex justify-center mx-auto">
-      <Card className="max-w-[19rem] overflow-hidden hover:border hover:border-3 hover:shadow-2xl hover:scale-105">
+      <Card className="max-w-[19rem] overflow-hidden hover:border hover:border-3 hover:shadow-2xl hover:scale-105 border-indigo-200 border">
 
         <CardHeader
           floated={false}

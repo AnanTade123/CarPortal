@@ -830,7 +830,7 @@ export default function BiddingEditCar() {
               />
             </div>
 
-            <div className="mt-5 flex justify-center">
+            <div className="mt-5 flex justify-center mb-3">
               <button
                 type="submit"
                 className="bg-blue-500 text-white px-4 py-2 rounded-md"
