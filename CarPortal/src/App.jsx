@@ -110,8 +110,6 @@ import SellForCarPremium from "./pages/dealer/SellForCarPremium";
 import AddPremiumCarForm from "./pages/dealer/AddPremiumCarForm";
 import EditPremiumCar from "./pages/dealer/EditPremiumCar";
 import BuyPremiumCar from "./pages/BuyPremiumCar";
-import PremiumCarAllPendingRequest from "./pages/dealer/PremiumCarAllPendingRequest";
-import OrderDealerPremium from "./pages/dealer/OrderDealerPremium";
 export default function App() {
   return (
     <>
@@ -273,16 +271,8 @@ export default function App() {
               element={<OrderDealer />}
             />
             <Route
-              path="/dealer/premium/:id/booking/confirm"
-              element={<OrderDealerPremium />}
-            />
-            <Route
               path="/dealer/:id/allpending"
               element={<DealerAllPendingRequest />}
-            />
-            <Route
-              path="/dealer/premium/:id/allpending"
-              element={<PremiumCarAllPendingRequest />}
             />
             <Route path="/dealer/biddingcar" element={<BiddingDealerCars />} />
             <Route

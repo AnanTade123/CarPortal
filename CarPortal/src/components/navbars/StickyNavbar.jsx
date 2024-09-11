@@ -301,21 +301,7 @@ export function StickyNavbar() {
         </Typography>
       </Link>
 
-      <Link to={"/buypremiumcars"}>
-        <Typography
-          as="li"
-          variant="small"
-          color="blue-gray"
-          className={`p-3 rounded-md font-normal ${
-            window.location.pathname === "/buypremiumcars"
-              ? "bg-indigo-200 text-white"
-              : ""
-          }hover:bg-gray-200`}
-          onClick={handleMenuItemClick}
-        >
-          Buy Premium Car
-        </Typography>
-      </Link>
+      
 
       <Link to={"/buypremiumcars"}>
         <Typography
@@ -493,21 +479,20 @@ export function StickyNavbar() {
       </Link>
 
       <Link to={"/premiumcars"}>
-          <Typography
-            as="li"
-            variant="small"
-            color="white"
-            className={`p-3 rounded-md font-normal ${
-              window.location.pathname === "/premiumcars"
-                ? "bg-[#5e67c7] text-white"
-                : ""
-            } hover:bg-indigo-400 `}
-            onClick={handleMenuItemClick}
-          >
-           Premium Cars
-          </Typography>
-        </Link>
-        
+        <Typography
+          as="li"
+          variant="small"
+          color="white"
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === "/premiumcars"
+              ? "bg-[#5e67c7] text-white"
+              : ""
+          } hover:bg-indigo-400 `}
+          onClick={handleMenuItemClick}
+        >
+          Premium Cars
+        </Typography>
+      </Link>
 
       {userRole == "DEALER" ||
       userRole == "INSPECTOR" ||
@@ -532,12 +517,12 @@ export function StickyNavbar() {
             <Typography
               as="li"
               variant="small"
-              color="blue-gray"
+              color="white"
               className={`p-3 rounded-md font-normal ${
-                window.location.pathname === "/buypremiumcars"
-                  ? "bg-indigo-200 text-white"
+                window.location.pathname === "/dealer/live/cars"
+                  ? "bg-[#5e67c7] text-white"
                   : ""
-              }hover:bg-gray-200`}
+              }hover:bg-indigo-400`}
               onClick={handleMenuItemClick}
             >
               Buy Premium Car
