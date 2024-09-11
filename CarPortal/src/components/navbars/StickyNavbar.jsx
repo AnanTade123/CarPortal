@@ -26,7 +26,6 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 // import { NotificationDialog } from "./NotificationDialog";
 import cartechlogo2 from "/cars/cartechlogo2.png";
 
-
 export function StickyNavbar() {
   const [openNav, setOpenNav] = useState(false);
 
@@ -38,11 +37,7 @@ export function StickyNavbar() {
     jwtDecodes = jwtDecode(token);
   }
 
- 
-
   const userRole = token ? jwtDecodes?.authorities[0] : null;
-
-
 
   // eslint-disable-next-line no-unused-vars
 
@@ -50,16 +45,15 @@ export function StickyNavbar() {
   // const userid = token ? jwtDecodes?.userId : null;
   const InspectorProfileId = token ? jwtDecodes?.inspectorProfileId : null;
 
-
-const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
+  const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
 
   const UserId = token ? jwtDecodes?.userId : null;
- const userProfileId = token  ? jwtDecodes?.userProfileId : null;
- 
+  const userProfileId = token ? jwtDecodes?.userProfileId : null;
+
   const location = useLocation();
- 
+
   const handleMenuItemClick = () => {
-    setOpenNav(false)
+    setOpenNav(false);
   };
 
   const active = location.pathname === `/dealer/${jwtDecodes?.dealerId}`;
@@ -94,18 +88,20 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
     }
 
     if (userRole === "DEALER") {
-      navListMenuItems.unshift({
-        title: "Cars",
-        link: `/dealer/${jwtDecodes?.dealerId}`,
-        
-      },
-      {
-        title: "Winner Section",
-        link: `/dealer/winnersection`,
-        
-      },
-      
-    );
+      navListMenuItems.unshift(
+        {
+          title: "Cars",
+          link: `/dealer/${jwtDecodes?.dealerId}`,
+        },
+        {
+          title: "Premium Cars",
+          link: `/dealer/premium/${jwtDecodes?.dealerId}`,
+        },
+        {
+          title: "Winner Section",
+          link: `/dealer/winnersection`,
+        }
+      );
     }
     const renderItems = navListMenuItems.map(({ title, link }, key) => (
       <Link to={link} key={key}>
@@ -305,6 +301,22 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         </Typography>
       </Link>
 
+      <Link to={"/buypremiumcars"}>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === "/buypremiumcars"
+              ? "bg-indigo-200 text-white"
+              : ""
+          }hover:bg-gray-200`}
+          onClick={handleMenuItemClick}
+        >
+          Buy Premium Car
+        </Typography>
+      </Link>
+
       <Link to={"/dealer/live/cars"}>
         <Typography
           as="li"
@@ -340,7 +352,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         </Typography>
       </Link>
 
-      <Link to={`/dealer/${jwtDecodes?.dealerId}/booking/confirm`} >
+      <Link to={`/dealer/${jwtDecodes?.dealerId}/booking/confirm`}>
         <Typography
           as="li"
           variant="small"
@@ -361,8 +373,6 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
     </>
   ) : null;
 
-
-
   const userDashboard = userRole?.includes("USER") ? (
     <>
       <Link to={`/pendinrequest/${jwtDecodes?.userId}`}>
@@ -374,7 +384,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
             window.location.pathname === "/pendinrequest"
               ? "bg-indigo-200 text-white"
               : ""
-          }hover:bg-gray-200`}
+          } hover:bg-gray-200`}
         >
           All Request
         </Typography>
@@ -400,7 +410,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
 
       </Link> */}
 
-<Link to={`/user/${jwtDecodes?.userId}/favorite`}>
+      <Link to={`/user/${jwtDecodes?.userId}/favorite`}>
         <Typography
           as="li"
           variant="small"
@@ -420,7 +430,6 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
     </>
   ) : null;
 
-  
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -440,7 +449,6 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
       <Link to={"/"}>
         <Typography
           as="li"
-          
           variant="small"
           color="blue-gray"
           className={`p-3 rounded-md font-normal ${
@@ -453,39 +461,56 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
       </Link>
 
       <Link to={"/premiumcars"}>
-          <Typography
-            as="li"
-            variant="small"
-            color="blue-gray"
-            className={`p-3 rounded-md font-normal ${
-              window.location.pathname === "/premiumcars"
-                ? "bg-indigo-200 text-white"
-                : ""
-            } hover:bg-gray-200`}
-            onClick={handleMenuItemClick}
-          >
-           Premium Cars
-          </Typography>
-        </Link>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === "/premiumcars"
+              ? "bg-indigo-200 text-white"
+              : ""
+          } hover:bg-gray-200`}
+          onClick={handleMenuItemClick}
+        >
+          Premium Cars
+        </Typography>
+      </Link>
 
       {userRole == "DEALER" ||
       userRole == "INSPECTOR" ||
       userRole == "SALESPERSON" ? null : (
-        <Link to={"/carlist"}>
-          <Typography
-            as="li"
-            variant="small"
-            color="blue-gray"
-            className={`p-3 rounded-md font-normal ${
-              window.location.pathname === "/carlist"
-                ? "bg-indigo-200 text-white"
-                : ""
-            }hover:bg-gray-200`}
-            onClick={handleMenuItemClick}
-          >
-            Buy Car
-          </Typography>
-        </Link>
+        <>
+          <Link to={"/carlist"}>
+            <Typography
+              as="li"
+              variant="small"
+              color="blue-gray"
+              className={`p-3 rounded-md font-normal ${
+                window.location.pathname === "/carlist"
+                  ? "bg-indigo-200 text-white"
+                  : ""
+              }hover:bg-gray-200`}
+              onClick={handleMenuItemClick}
+            >
+              Buy Car
+            </Typography>
+          </Link>
+          <Link to={"/buypremiumcars"}>
+            <Typography
+              as="li"
+              variant="small"
+              color="blue-gray"
+              className={`p-3 rounded-md font-normal ${
+                window.location.pathname === "/buypremiumcars"
+                  ? "bg-indigo-200 text-white"
+                  : ""
+              }hover:bg-gray-200`}
+              onClick={handleMenuItemClick}
+            >
+              Buy Premium Car
+            </Typography>
+          </Link>
+        </>
       )}
       {adminDashboard}
       {dealerDashboard}
@@ -502,7 +527,11 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
           {/* <Typography className="mr-4 cursor-pointer py-1.5 font-bold text-2xl ">
             CarTechIndia
           </Typography> */}
-          <img src={cartechlogo2} alt="logo" className="w-12 lg:w-[70px] lg:h-[64px] "/>
+          <img
+            src={cartechlogo2}
+            alt="logo"
+            className="w-12 lg:w-[70px] lg:h-[64px] "
+          />
         </Link>
 
         <div className="flex items-center gap-4">
@@ -510,16 +539,13 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
 
           <div className="flex items-center gap-x-1">
             {token ? (
-              
               <Profile
                 userId={UserId}
                 dealer_id={DealerId}
                 userrole={userRole}
                 inspectorProfileId={InspectorProfileId}
                 salesPersonId={salesPersonId}
-                userProfileId ={userProfileId}
-
-
+                userProfileId={userProfileId}
               />
             ) : (
               <>
@@ -589,19 +615,20 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
       <Collapse open={openNav}>
         {navList}
         {token ? null : (
-        <div className="flex items-center gap-x-1">
-          <Link to="/signin">
-            <Button fullWidth variant="text" size="sm" className="">
-              <span>Sign In</span>
-            </Button>
-          </Link>
+          <div className="flex items-center gap-x-1">
+            <Link to="/signin">
+              <Button fullWidth variant="text" size="sm" className="">
+                <span>Sign In</span>
+              </Button>
+            </Link>
 
-          <Link to="/signup">
-            <Button fullWidth variant="gradient" size="sm" className="">
-              <span>Sign up</span>
-            </Button>
-          </Link>
-        </div> )}
+            <Link to="/signup">
+              <Button fullWidth variant="gradient" size="sm" className="">
+                <span>Sign up</span>
+              </Button>
+            </Link>
+          </div>
+        )}
       </Collapse>
     </Navbar>
   );

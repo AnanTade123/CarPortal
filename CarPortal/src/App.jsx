@@ -103,10 +103,15 @@ import PremiumCarList from "./components/Premium/PremiumCarList";
 import CarImageCarousel from "./components/Premium/CarImageCarousel";
 import ForgetPassword from "./forms/ForgetPassword";
 import ResetPassword from "./forms/ResetPassword";
+import SellForCarPremium from "./pages/dealer/SellForCarPremium";
+import AddPremiumCarForm from "./pages/dealer/AddPremiumCarForm";
+import EditPremiumCar from "./pages/dealer/EditPremiumCar";
+import BuyPremiumCar from "./pages/BuyPremiumCar";
+import PremiumCarAllPendingRequest from "./pages/dealer/PremiumCarAllPendingRequest";
+import OrderDealerPremium from "./pages/dealer/OrderDealerPremium";
 export default function App() {
   return (
     <>
-
       <WebSocketConnection />
       <Routes>
         <Route path="/pendingrequest2" element={<PendingRequest2 />} />
@@ -120,9 +125,9 @@ export default function App() {
           <Route path="signup" element={<SimpleRegistrationForm />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/carlist" element={<BuyCar />} />
-          <Route path="/premiumcarlist" element={<PremiumCarList/>}/>
-          <Route path="/carimagecarousel" element={<CarImageCarousel/>}/>
-
+          <Route path="/premiumcarlist" element={<PremiumCarList />} />
+          <Route path="/buypremiumcars" element={<BuyPremiumCar />} />
+          <Route path="/carimagecarousel" element={<CarImageCarousel />} />
 
           <Route path="/wsConnction" element={<BiddingCar />} />
           <Route
@@ -214,8 +219,10 @@ export default function App() {
               path="/admin/inspection/report/:beadingCarId"
               element={<FinalReport />}
             />
-            <Route path="/admin/salesDealers/:salePersonId" element={<SalesDealer />} />
-
+            <Route
+              path="/admin/salesDealers/:salePersonId"
+              element={<SalesDealer />}
+            />
           </Route>
 
           <Route
@@ -224,7 +231,13 @@ export default function App() {
             }
           >
             <Route path="/dealer/:id" element={<SellForCar />} />
+            <Route path="/dealer/premium/:id" element={<SellForCarPremium />} />
             <Route path="/dealer/:id/addcar" element={<AddDealerCar2 />} />
+            <Route
+              path="/dealer/premium/:id/addcar"
+              element={<AddPremiumCarForm />}
+            />
+
             <Route
               path="/dealer/:id/uploadimage/:carId"
               element={<Uploadimages2 />}
@@ -245,6 +258,10 @@ export default function App() {
               element={<EditDealerCar />}
             />
             <Route
+              path="/dealer/premium/:id/car/edit/:carId"
+              element={<EditPremiumCar />}
+            />
+            <Route
               path="/dealer/:carId/:id/editimage"
               element={<EditImage />}
             />
@@ -253,8 +270,16 @@ export default function App() {
               element={<OrderDealer />}
             />
             <Route
+              path="/dealer/premium/:id/booking/confirm"
+              element={<OrderDealerPremium />}
+            />
+            <Route
               path="/dealer/:id/allpending"
               element={<DealerAllPendingRequest />}
+            />
+            <Route
+              path="/dealer/premium/:id/allpending"
+              element={<PremiumCarAllPendingRequest />}
             />
             <Route path="/dealer/biddingcar" element={<BiddingDealerCars />} />
             <Route
@@ -362,9 +387,9 @@ export default function App() {
           <Route path="/user/:userid/favorite" element={<FavoritePage />} />
           <Route path="/user" element={<UserInfo />} />
         </Route>
-        <Route path="/premiumcars" element={<PremiumCars/>} />
-        <Route path="/user" element={<UserInfo/>} />
-<Route path="/DealerContact" element={<DealerContact/>}/>
+        <Route path="/premiumcars" element={<PremiumCars />} />
+        <Route path="/user" element={<UserInfo />} />
+        <Route path="/DealerContact" element={<DealerContact />} />
         {/* <Route path="/trans" element={<CardDetailss/>}/> */}
         <Route element={<AppLayout2 />}>
           <Route path="/aboutus" element={<AboutUs />} />
