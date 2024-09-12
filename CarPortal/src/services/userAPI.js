@@ -46,13 +46,34 @@ export const UserAPI = apiSlice.injectEndpoints({
 
     GetUserRequestData: builder.query({
       query: ({page ,size}) => ({
-        url: `userFormController/all?page=${page}&size=${size}`,
+        url: `/userFormController/all?page=${page}&size=${size}`,
         // transferResponse: console.log(userProfileId),
         method: "GET",
       }),
       providesTags:["User"]
   
        // You probably want providesTags here instead of invalidatesTags for queries
+    }),
+
+    GetUserRequestDataById: builder.query({
+      query: (userFormId) => ({
+        url: `userFormController/getById?userFormId=${userFormId}`,
+        // transferResponse: console.log(userProfileId),
+        method: "GET",
+      }),
+      providesTags:["User"]
+  
+       // You probably want providesTags here instead of invalidatesTags for queries
+    }),
+    
+    UserSaleReqFormEdit: builder.mutation({
+      query: ({updatedData,userFormId}) => ({
+        url: `userFormController/update?userFormId=${userFormId}`,
+        transerResponse: console.log("dataaaa",updatedData,userFormId),
+        method: "PUT",
+        body: updatedData,
+      }),
+      invalidatesTags: ["User"],
     }),
 
     changePassword : builder.mutation({
@@ -79,6 +100,9 @@ useUserSellFormUpdate,
 
 
 useChangePasswordMutation,
-useGetUserRequestDataQuery
-,
+useGetUserRequestDataQuery,
+useGetUserRequestDataByIdQuery,
+useUserSaleReqFormEditMutation
+
+
  } = UserAPI;

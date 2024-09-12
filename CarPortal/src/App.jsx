@@ -107,6 +107,7 @@ import SellCarForm from "./pages/user/SellCarForm";
 import EditSellForm from "./pages/user/EditSellForm";
 import SellCarList from "./pages/user/SellCarList";
 import AdminUserReq from "./pages/adminpages/AdminUserReq";
+import SalerUserSaleReqEdit from "./pages/sales/SalerUserSaleReqEdit";
 export default function App() {
   return (
     <>
@@ -341,6 +342,7 @@ export default function App() {
               />
             }
           >
+              <Route path="/Seller/UserRequest/Edit/:userFormId" element={<SalerUserSaleReqEdit />} />
             <Route path="/Seller/UserRequest" element={<AdminUserReq />} />
             <Route
               path="/Seller/ChangePassword"
