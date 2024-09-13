@@ -17,6 +17,7 @@ const   AdminInspectorEdit = () => {
   const userId = userid;
   const navigate = useNavigate();
   const { data, isLoading, isError, error } = useInspectorByIdQuery({ userId });
+  console.log("inspector" ,data)
  
   const [inspectorupdate] = useInspectorupdateMutation();
  

@@ -111,6 +111,8 @@ import AddPremiumCarForm from "./pages/dealer/AddPremiumCarForm";
 import EditPremiumCar from "./pages/dealer/EditPremiumCar";
 import BuyPremiumCar from "./pages/BuyPremiumCar";
 import CarList from "./pages/b2b/CarList";
+import AdminUserReq from "./pages/adminpages/AdminUserReq";
+import SalerUserSaleReqEdit from "./pages/sales/SalerUserSaleReqEdit";
 export default function App() {
   return (
     <>
@@ -161,6 +163,8 @@ export default function App() {
               <AdminMiddleware allowedRoles={[...Object.values(onlyAdmin)]} />
             }
           >
+                        <Route path="/Admin/UserRequest" element={<AdminUserReq />} />
+
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/dealer/:id" element={<SellForCar />} />
 
@@ -297,6 +301,7 @@ export default function App() {
               />
             }
           >
+            
             <Route
               path="/Inspector/ChangePassword"
               element={<InspectorChangePassword />}
@@ -354,6 +359,8 @@ export default function App() {
               />
             }
           >
+              <Route path="/Seller/UserRequest/Edit/:userFormId" element={<SalerUserSaleReqEdit />} />
+            <Route path="/Seller/UserRequest" element={<AdminUserReq />} />
             <Route
               path="/Seller/ChangePassword"
               element={<SalerChangePassword />}

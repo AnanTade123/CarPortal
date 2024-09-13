@@ -83,6 +83,10 @@ export function StickyNavbar() {
         {
           title: "Car Models",
           link: "/carlistmodel",
+        },
+        {
+          title: "User Request",
+          link: "/Admin/UserRequest",
         }
       );
     }
@@ -259,7 +263,7 @@ export function StickyNavbar() {
           Cars
         </Typography>
       </Link>
-
+     
       {/* <NotificationDialog /> */}
     </>
   ) : null;
@@ -279,6 +283,21 @@ export function StickyNavbar() {
           onClick={handleMenuItemClick}
         >
           Dealers
+        </Typography>
+      </Link>
+      <Link to={`/Seller/UserRequest`}>
+        <Typography
+          as="li"
+          variant="small"
+          color="white"
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === `/Seller/UserRequest`
+              ? "bg-indigo-200 text-white"
+              : ""
+          }hover:bg-indigo-400`}
+          onClick={handleMenuItemClick}
+        >
+         User Cars
         </Typography>
       </Link>
       <NavListMenu />

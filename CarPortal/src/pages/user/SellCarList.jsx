@@ -93,10 +93,10 @@ console.log(data)
     {
       Header: "Address ",
     //   accessor: "lastName",
-    // accessor: "address1",
-      Cell: (cell) => (
-        <span>{`${cell.row.original.address1}, ${cell.row.original.address2}`}</span>
-      ),
+     accessor: "address1",
+      // Cell: (cell) => (
+      //   <span>{`${cell.row.original.address1}, ${cell.row.original.address2}`}</span>
+      // ),
    
     },
     {
