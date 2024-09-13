@@ -281,6 +281,22 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
           Dealers
         </Typography>
       </Link>
+
+      <Link to={`/Seller/UserRequest`}>
+      <Typography
+          as="li"
+          variant="small"
+          color="white"
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === "/Seller/UserRequest"
+              ? "bg-indigo-200 text-white"
+              : ""
+          }hover:bg-indigo-400`}
+          onClick={handleMenuItemClick}
+        >
+         User Cars
+        </Typography>
+      </Link>
       <NavListMenu />
 
       {/* <NotificationDialog /> */}
