@@ -138,32 +138,32 @@ const SalerUserSaleReqEdit = () => {
           />
         </div>
 
-        <div className="mt-5">
+        {/* <div className="mt-5">
           <Input
             label="Brand"
             name="brand"
             value={formData.brand}
             onChange={handleChange}
           />
-        </div>
+        </div> */}
 
-        <div className="mt-5">
+        {/* <div className="mt-5">
           <Input
             label="Model"
             name="model"
             value={formData.model}
             onChange={handleChange}
           />
-        </div>
+        </div> */}
 
-        <div className="mt-5">
+        {/* <div className="mt-5">
           <Input
             label="Variant"
             name="variant"
             value={formData.variant}
             onChange={handleChange}
           />
-        </div>
+        </div> */}
 
         <div className="mt-5">
           <Input

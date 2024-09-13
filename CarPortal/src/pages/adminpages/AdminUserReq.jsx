@@ -30,13 +30,13 @@ export default function AdminUserReq() {
   const [pageSize, setPageSize] = useState(10);
   const [selectedInspectors, setSelectedInspectors] = useState({});
   const { data: userdata, isLoading: isUserDataLoading, error: userError } = useGetUserRequestDataQuery({ page: pageNo, size: pageSize });
-  console.log(userdata)
+  // console.log(userdata)
   const { data: inspectorData, isLoading: isInspectorDataLoading, error: inspectorError } = useGetallInspectorQuery({ pageNo, pageSize });
+  // console.log(inspectorData)
   const [ userReqEdit ] = useUserSaleReqFormEditMutation();
   const emptyImage = "..\\..\\cars\\emptyfolder.png";
-  const { userid, inspectorprofileid } = useParams();
-  const { data:Inspectordata, isLoading, isError, error } = useInspectorByIdQuery({ userid });
-  console.log("insp" , Inspectordata)
+  
+  
 
   const [page, setPage] = useState(0);
   const navigate = useNavigate();
@@ -44,13 +44,13 @@ export default function AdminUserReq() {
     return navigate("/signin");
   }
 
-  const handleInspectorChange = (e, userFormId) => {
-    const inspectorId = e.target.value;
-    setSelectedInspectors((prevState) => ({
-      ...prevState,
-      [userFormId]: inspectorId,
-    }));
-  };
+  // const handleInspectorChange = (e, userFormId) => {
+  //   const inspectorId = e.target.value;
+  //   setSelectedInspectors((prevState) => ({
+  //     ...prevState,
+  //     [userFormId]: inspectorId,
+  //   }));
+  // };
   
 
   // const submitHandler = () => {
@@ -147,7 +147,7 @@ export default function AdminUserReq() {
       Cell: (cell) => {
         const { row } = cell;
         const userFormId = row.original.userFormId;
-    
+    const InspectorID =row.original.inspectorId;
         // Combine handle change and submit logic
         const handleInspectorChangeAndSubmit = async (e, userFormId) => {
           const inspectorId = e.target.value;
@@ -176,7 +176,7 @@ export default function AdminUserReq() {
     
         return (
           <select
-            value={selectedInspectors[userFormId] || ""}
+            value={InspectorID || ""}
             onChange={(e) => handleInspectorChangeAndSubmit(e, userFormId)}
           >
             <option value="" disabled>Select Inspector</option>
@@ -191,7 +191,7 @@ export default function AdminUserReq() {
     },
     
     {
-      Header: "Actions",
+      Header: "Edit",
       accessor: "Actions",
       Cell: (cell) => {
         return (
