@@ -133,7 +133,7 @@ export default function App() {
             element={<CarDetailsById />}
           />
           <Route
-            path="/biddinglist/cardetails/:beadingCarId/:timerId/:bidCarId"
+            path="/biddinglist/cardetails/:beadingCarId/:timerId"
             element={<BiddingCarDetailsById1 />}
           />
 
@@ -272,7 +272,10 @@ export default function App() {
             <Route path="/dealer/winnersection" element={<WinnerSection />} />
             <Route path="/biddingcardetail" element={<BiddingCarDetail />} />
           </Route>
-
+          <Route
+              path="/user/finalInspectionreport"
+              element={<FinalReport />}
+            />
           <Route
             element={
               <InspectorMiddleware

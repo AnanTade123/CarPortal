@@ -23,11 +23,21 @@ import {
 } from "../../services/brandAPI";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 export default function SellCarForm() {
 
   const [UserSellForm] = useUserSellFormMutation();
+  const token = Cookies.get("token");
 
+  let jwtDecodes;
+
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
+  const userid = token ? jwtDecodes?.userId : null;
+console.log(userid)
   // Form state
   const [formData, setFormData] = useState({
     carOwnerName: "",
@@ -43,6 +53,7 @@ export default function SellCarForm() {
     date: "",
     datetime: "",
     status:true,
+    userId:userid
   });
 
 
@@ -65,20 +76,6 @@ export default function SellCarForm() {
     }
   );
 
-
-
-  //   const timeSlots = [
-  //     "09:00 AM - 10:00 AM",
-  //     "10:00 AM - 11:00 AM",
-  //     "11:00 AM - 12:00 PM",
-  //     "12:00 PM - 01:00 PM",
-  //     "01:00 PM - 02:00 PM",
-  //     "02:00 PM - 03:00 PM",
-  //     "03:00 PM - 04:00 PM",
-  //     "04:00 PM - 05:00 PM",
-  //     "05:00 PM - 06:00 PM",
-  //   ];
-
   const [errors, setErrors] = useState({
     mobileNo: "",
      pinCode: "",
@@ -95,7 +92,6 @@ export default function SellCarForm() {
 
   const handleBrandChange = (event, newValue) => {
     const brand = newValue;
-    // console.log(brand);
     setSelectedBrand(brand);
     setFormData({
       ...formData,
@@ -116,11 +112,11 @@ export default function SellCarForm() {
   };
 
   const handleVariantChange = (event, newValue) => {
-    const cVariant = newValue;
+    const variant = newValue;
     // console.log(cVariant);
     setFormData({
       ...formData,
-      cVariant,
+      variant,
     });
   };
   useEffect(() => {
@@ -169,9 +165,10 @@ export default function SellCarForm() {
     }
 
     try {
-      const res = await UserSellForm(formData);
-      console.log(res);
-      if (res?.data?.status === "success") {
+      const res = await UserSellForm({formData});
+      console.log("Status",res.data.status);
+      console.log("Response",res);
+      if (res.data.status === "success") {
         toast.success("Request Submited");
       } else {
         toast.error("Something is wrong");
@@ -196,7 +193,6 @@ export default function SellCarForm() {
       datetime: "",
       status:false,
     });
-    // setOpen(false);
   };
 
   return (
@@ -289,9 +285,8 @@ export default function SellCarForm() {
                         InputLabelProps={{
                           style: {
                             fontSize: "0.75rem",
-                            // paddingTop : '20px',
-                            //  background : 'black'
-                          }, // Adjust the font size here
+                            
+                          }, 
                         }}
                       />
                     )}
@@ -414,39 +409,6 @@ export default function SellCarForm() {
   type="datetime-local"
 />
 </div>
-              {/* <div className="w-full mt-2">
-              <Input
-                label="Date"
-                type="date"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                required
-              />
-              </div> */}
-
-              {/* <Input
-                label="Time"
-                type="time"
-                name="time"
-                value={formData.time}
-                onChange={handleChange}
-                required
-              /> */}
-
-              {/* <Select
-                label="Time Slot"
-                name="time"
-                value={formData.time}
-                onChange={(e) => setFormData({ ...formData, time: e })}
-                required
-              >
-                {timeSlots.map((slot) => (
-                  <Option key={slot} value={slot}>
-                    {slot}
-                  </Option>
-                ))}
-              </Select> */}
                                          
               <Button color="indigo" type="submit" className="mt-2 mb-2">
                 Submit

@@ -10,8 +10,6 @@ export const UserAPI = apiSlice.injectEndpoints({
         method: "GET",
       }),
       providesTags:["User"]
-  
-       // You probably want providesTags here instead of invalidatesTags for queries
     }),
 
     Userupdate: builder.mutation({
@@ -34,6 +32,8 @@ export const UserAPI = apiSlice.injectEndpoints({
       providesTags:["User"]
     }),
 
+   
+
     UserSellFormUpdate: builder.mutation({
       query: ({userFormId ,userformupdate})  => ({
         url: ` /userFormController/update/${userFormId}`,
@@ -50,13 +50,19 @@ export const UserAPI = apiSlice.injectEndpoints({
         url : `/user/changePassword/${userProfileId}`,
         method: "PUT",
         body : passChange,
-       
-       
-      })
-      
+       }),
+       invalidatesTags:["User"],
     }),
-    invalidatesTags:["User"],
-  }),
+    listCarSell: builder.query({
+      query: () => ({
+        url: `/userFormController/user?userId=1151`,
+        // transferResponse: console.log(userProfileId),
+        method: "GET",
+      }),
+      providesTags:["User"]
+    }),
+  })
+
 });
 
 export const { useGetUserByIdQuery ,
@@ -64,5 +70,5 @@ useUserupdateMutation,
 useUserSellFormMutation,
 useUserSellFormUpdate,
 useChangePasswordMutation,
-
+useListCarSellQuery
  } = UserAPI;

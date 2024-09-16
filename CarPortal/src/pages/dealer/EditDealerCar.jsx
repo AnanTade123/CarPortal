@@ -161,7 +161,6 @@ export default function EditDealerCar() {
 
       carInsuranceType: formData.carInsuranceType,
     };
-    // console.log(data);
 
     const res = await carUpdate({ data, carId });
     // console.log(res);
