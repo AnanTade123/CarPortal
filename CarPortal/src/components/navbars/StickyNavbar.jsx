@@ -104,6 +104,10 @@ export function StickyNavbar() {
         {
           title: "Winner Section",
           link: `/dealer/winnersection`,
+        },
+        {
+          title: "B2B",
+          link: `/dealer/b2b/${jwtDecodes?.dealerId}`,
         }
       );
     }

@@ -9,6 +9,13 @@ import {
 } from "../../services/carAPI";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import {
+  useGetOnlyBrandsQuery,
+  useGetVariantsQuery,
+  useGetSubVariantsQuery,
+} from "../../services/brandAPI";
 
 export default function EditDealerCar() {
   const { id, carId } = useParams();
@@ -16,7 +23,12 @@ export default function EditDealerCar() {
   // console.log("Carid data :- ", Carid);
   // console.log(id, carId);
   const navigate = useNavigate();
+  const { data: brandData } = useGetOnlyBrandsQuery();
+  console.log(brandData);
+  const brands = brandData?.list.map((item) => item.brand) || [];
+  console.log(brands);
   const [carUpdate] = useCarUpdateMutation(carId);
+  console.log(carId)
   const [formData, setFormData] = useState({
     //features
     acFeature: false,
@@ -27,7 +39,6 @@ export default function EditDealerCar() {
     abs: false,
     sunroof: false,
     airbag: false,
-    // adaptiveHeadlights:false,
     childSafetyLocks: false,
 
     // fields
@@ -49,7 +60,7 @@ export default function EditDealerCar() {
     carStatus: "Active",
     ownerSerial: "",
     dealer_id: "",
-    cVariant: "",
+    variant: "",
     insurancedate: "",
     carInsuranceType: "",
   });
@@ -60,12 +71,29 @@ export default function EditDealerCar() {
 
   const formattedDate = `${year}-${month}-${day}`;
   const [showCalendar, setShowCalendar] = useState(false);
+  const [selectedModel, setSelectedModel] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState(""); //Two field Brands and Model
+  const [modelOptions, setModelOptions] = useState([]);
+  const [variantOptions, setVariantOptions] = useState([]);
+
+  const { data: variantData } = useGetVariantsQuery(selectedBrand, {
+    skip: !selectedBrand,
+  });
+
+  const { data: subVariantData } = useGetSubVariantsQuery(
+    { brand: selectedBrand, variant: selectedModel },
+    {
+      skip: !selectedBrand || !selectedModel,
+    }
+  );
+
   useEffect(() => {
     if (Carid) {
       const { object } = Carid;
       setFormData({
         brand: object?.brand || "",
         model: object?.model || "",
+        variant: object?.variant || "",
         price: object?.price || "",
         year: object?.year || "",
         bodyType: object?.bodyType || "",
@@ -123,8 +151,6 @@ export default function EditDealerCar() {
 
       carStatus: "ACTIVE",
 
-      // city: formData.city,
-
       color: formData.color,
 
       description: formData.description,
@@ -134,6 +160,8 @@ export default function EditDealerCar() {
       kmDriven: formData.kmDriven,
 
       model: formData.model,
+
+      variant: formData.variant,
 
       ownerSerial: formData.ownerSerial,
 
@@ -149,8 +177,6 @@ export default function EditDealerCar() {
 
       title: formData.title,
 
-      variant: formData.cVariant,
-
       carInsuranceDate: formData.insurancedate,
 
       year: formData.year,
@@ -161,8 +187,6 @@ export default function EditDealerCar() {
 
       carInsuranceType: formData.carInsuranceType,
     };
-    // console.log(data);
-
     const res = await carUpdate({ data, carId });
     // console.log(res);
     if (res?.data?.status === "success") {
@@ -209,6 +233,50 @@ export default function EditDealerCar() {
   const handleFileChange = (e) => {
     setMult(Array.from(e.target.files));
   };
+
+  const handleBrandChange = (event, value) => {
+    setSelectedBrand(value);
+    setSelectedModel("");
+    setVariantOptions([]);
+    setFormData({
+      ...formData,
+      brand: value,
+      model: "",
+      variant: "",
+    });
+  };
+
+  const handleModelChange = (event, value) => {
+    setSelectedModel(value);
+    setFormData({
+      ...formData,
+      model: value,
+      variant: "",
+    });
+  };
+
+  const handleVariantChange = (event, value) => {
+    setFormData({
+      ...formData,
+      variant: value,
+    });
+  };
+
+  useEffect(() => {
+    if (variantData) {
+      const models = [...new Set(variantData.list.map((item) => item.variant))];
+      setModelOptions(models);
+    }
+  }, [variantData]);
+
+  useEffect(() => {
+    if (subVariantData) {
+      const variants = [
+        ...new Set(subVariantData.list.map((item) => item.subVariant)),
+      ];
+      setVariantOptions(variants);
+    }
+  }, [subVariantData]);
   return (
     <>
       <ToastContainer />
@@ -221,89 +289,122 @@ export default function EditDealerCar() {
             {/* first part */}
             <div className="md:flex gap-2">
               <div className="mt-5 w-full">
-                <Inputs
-                  required
-                  label={"Brand"}
-                  type={"text"}
-                  name={"Brand"}
-                  value={formData.brand}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      brand: event.target.value,
-                    })
+                <Autocomplete
+                  id="free-solo-demo"
+                  freeSolo
+                  options={brands}
+                  value={formData?.brand || ""}
+                  getOptionLabel={(option) => option}
+                  sx={{ width: "full" }}
+                  onChange={(event, newValue) =>
+                    handleBrandChange(event, newValue)
                   }
+                  renderInput={(params) => (
+                    <TextField
+                      required
+                      sx={{
+                        "& .MuiInputBase-root": {
+                          height: "40px",
+                          padding: "0 14px",
+                          paddingBottom: "8px",
+                          top: 0,
+                        },
+                        "& .MuiInputBase-input": {
+                          height: "100%",
+                          padding: "0",
+                        },
+                      }}
+                      {...params}
+                      label="Brands"
+                      InputLabelProps={{
+                        style: {
+                          fontSize: "0.75rem",
+                        },
+                      }}
+                    />
+                  )}
                 />
               </div>
 
               <div className="md:ml-2 mt-5 w-full">
-                <Inputs
-                  required
-                  label={"model"}
-                  type={"text"}
-                  name={"model"}
-                  value={formData.model}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      model: event.target.value,
-                    })
+                <Autocomplete
+                  id="model-autocomplete"
+                  freeSolo
+                  options={modelOptions}
+                  value={formData?.model || ""}
+                  onChange={(event, newValue) =>
+                    handleModelChange(event, newValue)
                   }
+                  getOptionLabel={(option) => option}
+                  sx={{ width: "full" }}
+                  renderInput={(params) => (
+                    <TextField
+                      required
+                      sx={{
+                        "& .MuiInputBase-root": {
+                          height: "40px",
+                          padding: "0 14px",
+                          paddingBottom: "8px",
+                          top: 0,
+                        },
+                        "& .MuiInputBase-input": {
+                          height: "100%",
+                          padding: "0",
+                        },
+                      }}
+                      {...params}
+                      label="Models"
+                      InputLabelProps={{
+                        style: {
+                          fontSize: "0.75rem",
+                        },
+                      }}
+                    />
+                  )}
                 />
               </div>
             </div>
 
             {/* second part */}
-            <div className="md:flex">
+            <div className="md:flex gap-2">
               <div className="mt-5 w-full">
-                <Inputs
-                  required
-                  label={"price"}
-                  type={"number"}
-                  name={"price"}
-                  value={formData.price}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      price: event.target.value,
-                    })
+                <Autocomplete
+                  id="variant-autocomplete"
+                  freeSolo
+                  options={variantOptions}
+                  value={formData?.variant || ""}
+                  onChange={(event, newValue) =>
+                    handleVariantChange(event, newValue)
                   }
+                  getOptionLabel={(option) => option}
+                  sx={{ width: "full" }}
+                  renderInput={(params) => (
+                    <TextField
+                      required
+                      sx={{
+                        "& .MuiInputBase-root": {
+                          height: "40px",
+                          padding: "0 14px",
+                          paddingBottom: "8px",
+                          top: 0,
+                        },
+                        "& .MuiInputBase-input": {
+                          height: "100%",
+                          padding: "0",
+                        },
+                      }}
+                      {...params}
+                      label="Car Variant"
+                      InputLabelProps={{
+                        style: {
+                          fontSize: "0.75rem",
+                        },
+                      }}
+                    />
+                  )}
                 />
               </div>
 
-              <div className="mt-5 md:ml-2 w-full">
-                <Inputs
-                  required
-                  label={"year"}
-                  type={"number"}
-                  name={"year"}
-                  value={formData.year}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      year: event.target.value,
-                    })
-                  }
-                />
-              </div>
-            </div>
-
-            {/* third part */}
-            <div className="md:flex">
-              {/* <div className="mt-5 w-full">
-            <Inputs
-              label={"bodyType"}
-              type={"text"}
-              name={"bodyType"}
-              value={formData.bodyType}
-              onChange={(event) =>
-                setFormData({
-                  ...formData,
-                  bodyType: event.target.value,
-                })
-              }
-            />
-          </div> */}
               <div className="mt-5 w-full">
                 <select
                   required
@@ -322,27 +423,41 @@ export default function EditDealerCar() {
                   <option>Manual</option>
                 </select>
               </div>
-
-              <div className="mt-5 md:ml-2 w-full">
+              </div>
+              <div className="md:flex gap-2">
+              <div className="mt-5 w-full">
                 <Inputs
                   required
-                  label={"Area"}
-                  type={"text"}
-                  name={"area"}
-                  value={formData.area}
+                  label={"price"}
+                  type={"number"}
+                  name={"price"}
+                  value={formData.price}
                   onChange={(event) =>
                     setFormData({
                       ...formData,
-                      area: event.target.value,
+                      price: event.target.value,
                     })
                   }
                 />
               </div>
-            </div>
-
-            {/* fourth part */}
-            <div className="md:flex">
-              <div className="mt-5 w-full">
+              <div className="mt-5 md:ml-2 w-full">
+                <Inputs
+                  required
+                  label={"year"}
+                  type={"number"}
+                  name={"year"}
+                  value={formData.year}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      year: event.target.value,
+                    })
+                  }
+                />
+              </div>
+              </div>
+            <div className="md:flex gap-2">
+            <div className="mt-5 w-full">
                 <Inputs
                   required
                   label={"Color"}
@@ -357,7 +472,6 @@ export default function EditDealerCar() {
                   }
                 />
               </div>
-
               <div className="mt-5 md:ml-2 w-full">
                 <select
                   required
@@ -381,27 +495,24 @@ export default function EditDealerCar() {
                   <option>5</option>
                 </select>
               </div>
-            </div>
-
-            {/* fifth part */}
-            <div className="md:flex">
-              <div className="mt-5 w-full">
+              </div>
+              <div className="md:flex gap-2">
+              <div className="mt-5 md:ml-2 w-full">
                 <Inputs
                   required
-                  label={"Registration"}
+                  label={"Area"}
                   type={"text"}
-                  name={"registration"}
-                  value={formData.registration}
+                  name={"area"}
+                  value={formData.area}
                   onChange={(event) =>
                     setFormData({
                       ...formData,
-                      registration: event.target.value,
+                      area: event.target.value,
                     })
                   }
                 />
               </div>
-
-              <div className="mt-5 md:ml-2 w-full">
+            <div className="mt-5 md:ml-2 w-full">
                 <select
                   required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -450,10 +561,9 @@ export default function EditDealerCar() {
                   </>
                 )}
               </div>
-            </div>
+              </div>
 
-            {/* sixth part */}
-            <div className="md:flex">
+              <div className="md:flex gap-2">
               <div className="mt-5 w-full">
                 <Inputs
                   required
@@ -469,7 +579,6 @@ export default function EditDealerCar() {
                   }
                 />
               </div>
-
               <div className="mt-5 md:ml-2 w-full">
                 <select
                   required
@@ -492,15 +601,12 @@ export default function EditDealerCar() {
                 </select>
               </div>
             </div>
-
-            {/* ninth part */}
-            <div className="md:flex">
+            <div className="md:flex gap-2">
               <div className="mt-5 ml-5">
                 <input
                   label={"Music Feature"}
                   type={"checkbox"}
                   name={"musicFeature"}
-                  // value={formData.musicFeature}
                   checked={formData.musicFeature}
                   onChange={(event) =>
                     setFormData({
@@ -517,7 +623,6 @@ export default function EditDealerCar() {
                   label={"Power Window Feature"}
                   type={"checkbox"}
                   name={"powerWindowFeature"}
-                  // value={formData.powerWindowFeature}
                   checked={formData.powerWindowFeature}
                   onChange={(event) =>
                     setFormData({
@@ -534,7 +639,6 @@ export default function EditDealerCar() {
                   label={"Ac Feature"}
                   type={"checkbox"}
                   name={"acFeature"}
-                  // value={formData.acFeature}
                   checked={formData.acFeature}
                   onChange={(event) =>
                     setFormData({
@@ -551,7 +655,6 @@ export default function EditDealerCar() {
                   label={"Rear Parking Camera Feature"}
                   type={"checkbox"}
                   name={"rearParkingCameraFeature"}
-                  // value={formData.rearParkingCameraFeature}
                   checked={formData.rearParkingCameraFeature}
                   onChange={(event) =>
                     setFormData({
@@ -563,15 +666,12 @@ export default function EditDealerCar() {
                 Rear Parking Camera
               </div>
             </div>
-
-            {/* tenth part */}
             <div className="md:flex">
               <div className="mt-5 ml-5">
                 <input
                   label={"Button Start"}
                   type={"checkbox"}
                   name={"buttonStart"}
-                  // value={formData.musicFeature}
                   checked={formData.buttonStart}
                   onChange={(event) =>
                     setFormData({
@@ -588,7 +688,6 @@ export default function EditDealerCar() {
                   label={"ABS"}
                   type={"checkbox"}
                   name={"abs"}
-                  // value={formData.powerWindowFeature}
                   checked={formData.abs}
                   onChange={(event) =>
                     setFormData({
@@ -605,7 +704,6 @@ export default function EditDealerCar() {
                   label={"Sunroof"}
                   type={"checkbox"}
                   name={"sunroof"}
-                  // value={formData.acFeature}
                   checked={formData.sunroof}
                   onChange={(event) =>
                     setFormData({
@@ -622,7 +720,6 @@ export default function EditDealerCar() {
                   label={"Child Safety Locks"}
                   type={"checkbox"}
                   name={"childSafetyLocks"}
-                  // value={formData.rearParkingCameraFeature}
                   checked={formData.childSafetyLocks}
                   onChange={(event) =>
                     setFormData({
@@ -638,7 +735,6 @@ export default function EditDealerCar() {
                   label={"AirBag"}
                   type={"checkbox"}
                   name={"airbag"}
-                  // value={formData.musicFeature}
                   checked={formData.airbag}
                   onChange={(event) =>
                     setFormData({
@@ -650,32 +746,6 @@ export default function EditDealerCar() {
                 AirBag
               </div>
             </div>
-
-            {/* <div className="mt-5">
-            <input
-              type="file"
-              accept="image/*"
-              multiple
-              onChange={handleFileChange}
-            />
-
-            <div>
-              {mult.map((file, index) => (
-                <img
-                  key={index}
-                  src={URL.createObjectURL(file)}
-                  alt={`Image ${index + 1}`}
-                  style={{
-                    maxWidth: "500px",
-                    maxHeight: "500px",
-                    margin: "5px",
-                  }}
-                />
-              ))}
-            </div>
-          </div> */}
-
-            {/* eleventh part */}
             <div className="mt-5">
               <h4>Title</h4>
               <div className="formrow">
@@ -713,7 +783,6 @@ export default function EditDealerCar() {
                 ></Textarea>
               </div>
             </div>
-            {/* twelth part */}
 
             <button
               type="submit"

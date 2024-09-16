@@ -110,6 +110,7 @@ import SellForCarPremium from "./pages/dealer/SellForCarPremium";
 import AddPremiumCarForm from "./pages/dealer/AddPremiumCarForm";
 import EditPremiumCar from "./pages/dealer/EditPremiumCar";
 import BuyPremiumCar from "./pages/BuyPremiumCar";
+import CarList from "./pages/b2b/CarList";
 import AdminUserReq from "./pages/adminpages/AdminUserReq";
 import SalerUserSaleReqEdit from "./pages/sales/SalerUserSaleReqEdit";
 export default function App() {
@@ -237,6 +238,7 @@ export default function App() {
           >
             <Route path="/dealer/:id" element={<SellForCar />} />
             <Route path="/dealer/premium/:id" element={<SellForCarPremium />} />
+            <Route path="/dealer/b2b/:id" element={<CarList />} />
             <Route path="/dealer/:id/addcar" element={<AddDealerCar2 />} />
             <Route
               path="/dealer/premium/:id/addcar"
