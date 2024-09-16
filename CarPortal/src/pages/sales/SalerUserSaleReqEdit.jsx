@@ -6,6 +6,7 @@ import { useGetUserRequestDataByIdQuery, useUserSaleReqFormEditMutation } from "
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 
 const SalerUserSaleReqEdit = () => {
   const { userFormId } = useParams();
@@ -28,11 +29,17 @@ const SalerUserSaleReqEdit = () => {
   // Fetch data from API using userFormId
   const { data, isLoading, isError, error } = useGetUserRequestDataByIdQuery(userFormId);
   const [userReqEdit, { isLoading: isEditing }] = useUserSaleReqFormEditMutation();
-
+  const navigate = useNavigate();
   // Populate formData with API response when data is available
   useEffect(() => {
     if (data && data.object) {
       const fetchedData = data.object;
+
+      // Ensure the inspectionDate is in the correct format for datetime-local
+      const inspectionDate = fetchedData.inspectionDate
+        ? fetchedData.inspectionDate.split(".")[0] // Remove milliseconds if present
+        : "";
+
       setFormData({
         carOwnerName: fetchedData.carOwnerName || "",
         brand: fetchedData.brand || "",
@@ -43,8 +50,8 @@ const SalerUserSaleReqEdit = () => {
         address2: fetchedData.address2 || "",
         pinCode: fetchedData.pinCode || "",
         rc: fetchedData.rc || "",
-        date: fetchedData.inspectionDate ? fetchedData.inspectionDate.split("T")[0] : "", // Extracting date part
-        datetime: fetchedData.inspectionDate || "",
+        date: inspectionDate ? inspectionDate.split("T")[0] : "", // Date part
+        datetime: inspectionDate, // Full datetime for datetime-local input
         mobileNo: fetchedData.mobileNo || ""
       });
     }
@@ -84,10 +91,10 @@ const SalerUserSaleReqEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) {
-      alert("Please fill in all required fields.");
+      toast.error("Please fill in all required fields."); // Display error message if validation fails
       return;
     }
-
+  
     const updatedData = {
       userFormId,
       carOwnerName: formData.carOwnerName,
@@ -103,15 +110,31 @@ const SalerUserSaleReqEdit = () => {
       mobileNo: formData.mobileNo,
       // Add any other fields you want to send
     };
-
+  
     try {
-      const res = await userReqEdit({ updatedData, userFormId });
-      toast.success("Form updated successfully!");
-    } catch (err) {
-      console.error("Failed to update the form:", err);
-      toast.error("Error updating the form.");
+      const res = await userReqEdit({  userFormId, updatedData }).unwrap();
+     
+      
+      if (res.status === 'success') {
+        toast.success("Changes successful", {
+         // autoClose: 2000,
+        });
+        setTimeout(() => {
+          navigate(-1);
+        }, 1000);
+      } else {
+        toast.error("Failed to update inspector", {
+          autoClose: 2000, // 2 seconds
+        });
+      }
+    } catch (error) {
+      toast.error("Error updating inspector", {
+        autoClose: 2000, // 2 seconds
+      });
+      // console.log("Error:", error);
     }
   };
+  
 
   if (isLoading || isEditing) {
     return <div>Loading...</div>;
@@ -138,6 +161,7 @@ const SalerUserSaleReqEdit = () => {
           />
         </div>
 
+        {/* Uncomment and use if needed */}
         {/* <div className="mt-5">
           <Input
             label="Brand"
@@ -145,18 +169,18 @@ const SalerUserSaleReqEdit = () => {
             value={formData.brand}
             onChange={handleChange}
           />
-        </div> */}
+        </div>
 
-        {/* <div className="mt-5">
+        <div className="mt-5">
           <Input
             label="Model"
             name="model"
             value={formData.model}
             onChange={handleChange}
           />
-        </div> */}
+        </div>
 
-        {/* <div className="mt-5">
+        <div className="mt-5">
           <Input
             label="Variant"
             name="variant"

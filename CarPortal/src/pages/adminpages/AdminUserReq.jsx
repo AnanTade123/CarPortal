@@ -22,6 +22,12 @@ import {
 import TableComponent from "../../components/table/TableComponent";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
+import Cookies from "js-cookie";
+
+
+
+import { jwtDecode } from "jwt-decode";
 import { FiLoader } from "react-icons/fi";
 
 export default function AdminUserReq() {
@@ -30,13 +36,21 @@ export default function AdminUserReq() {
   const [pageSize, setPageSize] = useState(10);
   const [selectedInspectors, setSelectedInspectors] = useState({});
   const { data: userdata, isLoading: isUserDataLoading, error: userError } = useGetUserRequestDataQuery({ page: pageNo, size: pageSize });
-  // console.log(userdata)
+   console.log(userdata)
   const { data: inspectorData, isLoading: isInspectorDataLoading, error: inspectorError } = useGetallInspectorQuery({ pageNo, pageSize });
   // console.log(inspectorData)
   const [ userReqEdit ] = useUserSaleReqFormEditMutation();
   const emptyImage = "..\\..\\cars\\emptyfolder.png";
   
-  
+  const token = Cookies.get("token");
+
+  let jwtDecodes;
+
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
+  const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
+  console.log("id" , salesPersonId)
 
   const [page, setPage] = useState(0);
   const navigate = useNavigate();
@@ -102,11 +116,6 @@ export default function AdminUserReq() {
       },
     },
     {
-      accessor: "userFormId", // Hidden column (no Header or Cell)
-      Header: "", // Empty Header
-      Cell: () => null, // Hide the cell content
-    },
-    {
       Header: "CarOwnerName",
       accessor: "carOwnerName",
     },
@@ -122,17 +131,10 @@ export default function AdminUserReq() {
       Header: "Variant",
       accessor: "model",
     },
-    // {
-    //   Header: "SubVariant",
-    //   accessor: "varian",
-    // },
-    // {
-    //   Header: "RC Available",
-    //   accessor: "rc",
-    // },
     {
       Header: "Status",
       accessor: "status",
+      
     },
     {
       Header: "Contact No",
@@ -146,42 +148,51 @@ export default function AdminUserReq() {
       Header: "Select Inspector",
       Cell: (cell) => {
         const { row } = cell;
-        const userFormId = row.original.userFormId;
-    const InspectorID =row.original.inspectorId;
-        // Combine handle change and submit logic
+        const userFormId = row.original.userFormId; // Access userFormId from row.original
+        const InspectorID = row.original.inspectorId;
+  
+        // Handle inspector change and submit logic
         const handleInspectorChangeAndSubmit = async (e, userFormId) => {
           const inspectorId = e.target.value;
-    
+  
           // Update selected inspector in state
           setSelectedInspectors((prevState) => ({
             ...prevState,
             [userFormId]: inspectorId,
           }));
-    
-          // Prepare updated data to submit
+  
+          // Prepare updated data to submit, including salesPersonId
           const updatedData = {
             inspectorId: inspectorId,
+            salesPersonId: salesPersonId, 
           };
-    
+  
           // Call submit function after the selection
           try {
-            const rse = await userReqEdit({ updatedData, userFormId });
-            console.log(rse)
-            alert("Form updated successfully!");
+            const response = await userReqEdit({ updatedData, userFormId });
+            console.log(response);
+            alert("Inspector Updated Successfully!");
           } catch (err) {
             console.error("Failed to update the form:", err);
             alert("Error updating the form.");
           }
         };
-    
+  
         return (
           <select
             value={InspectorID || ""}
             onChange={(e) => handleInspectorChangeAndSubmit(e, userFormId)}
+            className={InspectorID ? " text-green-600 " : "text-red-600"}
           >
-            <option value="" disabled>Select Inspector</option>
+            <option value="" disabled>
+              Select Inspector
+            </option>
             {inspectorData?.list.map((inspector) => (
-              <option key={inspector.inspectorProfileId} value={inspector.inspectorProfileId}>
+              <option
+                className="font-bold"
+                key={inspector.inspectorProfileId}
+                value={inspector.inspectorProfileId}
+              >
                 {`${inspector.firstName} ${inspector.lastName}`}
               </option>
             ))}
@@ -194,9 +205,10 @@ export default function AdminUserReq() {
       Header: "Edit",
       accessor: "Actions",
       Cell: (cell) => {
+        const userFormId = cell.row.original.userFormId; // Access userFormId from row.original
         return (
           <div className="flex gap-2 justify-center items-center">
-            <Link to={`/Seller/UserRequest/Edit/${cell.row.values.userFormId}`}>
+            <Link to={`/Seller/UserRequest/Edit/${userFormId}`}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -218,6 +230,7 @@ export default function AdminUserReq() {
       },
     },
   ];
+  
 
   if (isUserDataLoading || isInspectorDataLoading) {
     return (
