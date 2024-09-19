@@ -1,12 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Button, Input } from "@material-tailwind/react";
 import { useGetUserRequestDataByIdQuery, useUserSaleReqFormEditMutation } from "../../services/userAPI";
-import { ToastContainer } from 'react-toastify';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from "react-router-dom";
 
 const SalerUserSaleReqEdit = () => {
   const { userFormId } = useParams();
@@ -30,6 +28,7 @@ const SalerUserSaleReqEdit = () => {
   const { data, isLoading, isError, error } = useGetUserRequestDataByIdQuery(userFormId);
   const [userReqEdit, { isLoading: isEditing }] = useUserSaleReqFormEditMutation();
   const navigate = useNavigate();
+
   // Populate formData with API response when data is available
   useEffect(() => {
     if (data && data.object) {
@@ -91,10 +90,12 @@ const SalerUserSaleReqEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) {
-      toast.error("Please fill in all required fields."); // Display error message if validation fails
+      toast.error("Please fill in all required fields.", {
+        autoClose: 2000, // 2 seconds
+      });
       return;
     }
-  
+
     const updatedData = {
       userFormId,
       carOwnerName: formData.carOwnerName,
@@ -110,17 +111,16 @@ const SalerUserSaleReqEdit = () => {
       mobileNo: formData.mobileNo,
       // Add any other fields you want to send
     };
-  
+
     try {
-      const res = await userReqEdit({  userFormId, updatedData }).unwrap();
-     
-      
+      const res = await userReqEdit({ userFormId, updatedData }).unwrap();
+
       if (res.status === 'success') {
         toast.success("Changes successful", {
-         // autoClose: 2000,
+          autoClose: 2000, // 2 seconds
         });
         setTimeout(() => {
-          navigate(-1);
+          navigate(-1); // Navigate back after 1 second
         }, 1000);
       } else {
         toast.error("Failed to update inspector", {
@@ -131,10 +131,10 @@ const SalerUserSaleReqEdit = () => {
       toast.error("Error updating inspector", {
         autoClose: 2000, // 2 seconds
       });
-      // console.log("Error:", error);
+      // Optionally log the error
+      console.error("Error:", error);
     }
   };
-  
 
   if (isLoading || isEditing) {
     return <div>Loading...</div>;
@@ -189,7 +189,7 @@ const SalerUserSaleReqEdit = () => {
           />
         </div> */}
 
-        <div className="mt-5">
+        {/* <div className="mt-5">
           <Input
             label="Registration Number"
             name="regNo"
@@ -197,7 +197,7 @@ const SalerUserSaleReqEdit = () => {
             onChange={handleChange}
             required
           />
-        </div>
+        </div> */}
 
         <div className="mt-5">
           <Input

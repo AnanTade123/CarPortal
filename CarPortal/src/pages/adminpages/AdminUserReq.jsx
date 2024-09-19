@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
-
+import { motion } from "framer-motion"
 import { useParams } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
@@ -32,68 +34,26 @@ import { FiLoader } from "react-icons/fi";
 
 export default function AdminUserReq() {
   const [pageNo, setPageNo] = useState(0);
-  const [userFormId , SetuserFormId] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const [selectedInspectors, setSelectedInspectors] = useState({});
   const { data: userdata, isLoading: isUserDataLoading, error: userError } = useGetUserRequestDataQuery({ page: pageNo, size: pageSize });
-   console.log(userdata)
   const { data: inspectorData, isLoading: isInspectorDataLoading, error: inspectorError } = useGetallInspectorQuery({ pageNo, pageSize });
-  // console.log(inspectorData)
   const [ userReqEdit ] = useUserSaleReqFormEditMutation();
-  const emptyImage = "..\\..\\cars\\emptyfolder.png";
-  
+ 
   const token = Cookies.get("token");
 
   let jwtDecodes;
-
   if (token) {
     jwtDecodes = jwtDecode(token);
   }
   const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
-  console.log("id" , salesPersonId)
+  console.log("id", salesPersonId);
 
-  const [page, setPage] = useState(0);
   const navigate = useNavigate();
   if (userError?.status === 401) {
     return navigate("/signin");
   }
 
-  // const handleInspectorChange = (e, userFormId) => {
-  //   const inspectorId = e.target.value;
-  //   setSelectedInspectors((prevState) => ({
-  //     ...prevState,
-  //     [userFormId]: inspectorId,
-  //   }));
-  // };
-  
-
-  // const submitHandler = () => {
-  //   Object.keys(selectedInspectors).forEach((userFormId) => {
-  //     const inspectorId = selectedInspectors[userFormId];
-  //     userReqEdit({
-  //       userFormId,
-  //       inspectorId,
-  //     });
-  //   });
-  // };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  
-    
-  //   const updatedData = {
-  //     inspectorId: selectedInspectors[userFormId],
-  //   };
-  
-  //   try {
-  //     const res = await userReqEdit({ updatedData, userFormId });
-  //     alert("Form updated successfully!");
-  //   } catch (err) {
-  //     console.error("Failed to update the form:", err);
-  //     alert("Error updating the form.");
-  //   }
-  // };
-  
   const nextHandler = () => {
     if (userdata?.list?.length >= pageSize) {
       setPageNo((prevPage) => prevPage + 1);
@@ -106,6 +66,9 @@ export default function AdminUserReq() {
     }
   };
 
+  // Filter userdata based on salesPersonId being null
+  const filteredData = userdata?.list?.filter((user) => user.salesPersonId === null || user.salesPersonId === (Number (salesPersonId)));
+console.log("filteredData" ,filteredData)
   const columns = [
     {
       Header: "Sr. No",
@@ -133,8 +96,35 @@ export default function AdminUserReq() {
     },
     {
       Header: "Status",
-      accessor: "status",
-      
+      accessor: "status",  
+      Cell: (cell) => {
+        const Status = cell.row.values.status;
+        console.log("Status" ,Status)
+        return (
+          <div>
+            {Status === "pending" ? (
+             <div className="relative cursor-pointer group">
+             <motion.p
+               whileHover={{ scale: 1.3, originX: 0.5 }}
+               className="text-yellow-800 uppercase "
+             >
+               {Status}
+             </motion.p>
+             <div className="absolute left-1/2 bottom-0 w-0 h-0.5 bg-yellow-800 transition-all duration-300 group-hover:w-[50%] group-hover:-translate-x-1/2"></div>
+           </div>
+           ) : (
+              <div>
+                <motion.p whileHover={{ scale: 1.3, originX: 0.5 }}>
+                  <p className="text-green-500 uppercase cursor-pointer group">
+                    {Status}
+                  </p>
+                </motion.p>
+                <div className="absolute left-1/2 bottom-0 w-0 h-0.5 text-green-500 transition-all duration-300 group-hover:w-[50%] group-hover:-translate-x-1/2"></div>
+              </div>
+            )}
+          </div>
+        );
+      },
     },
     {
       Header: "Contact No",
@@ -148,43 +138,42 @@ export default function AdminUserReq() {
       Header: "Select Inspector",
       Cell: (cell) => {
         const { row } = cell;
-        const userFormId = row.original.userFormId; // Access userFormId from row.original
+        const userFormId = row.original.userFormId;
         const InspectorID = row.original.inspectorId;
-  
-        // Handle inspector change and submit logic
+
         const handleInspectorChangeAndSubmit = async (e, userFormId) => {
           const inspectorId = e.target.value;
-  
-          // Update selected inspector in state
           setSelectedInspectors((prevState) => ({
             ...prevState,
             [userFormId]: inspectorId,
           }));
-  
-          // Prepare updated data to submit, including salesPersonId
+
           const updatedData = {
             inspectorId: inspectorId,
-            salesPersonId: salesPersonId, 
+            salesPersonId: salesPersonId,
           };
-  
-          // Call submit function after the selection
+
           try {
             const response = await userReqEdit({ updatedData, userFormId });
-            console.log(response);
-            alert("Inspector Updated Successfully!");
+       
+            toast.success("Inspector Updated Successfully!", {
+              autoClose: 1000, 
+            });
           } catch (err) {
-            console.error("Failed to update the form:", err);
-            alert("Error updating the form.");
+            // console.error("Failed to update the form:", err);
+            toast.error("Please Try Again", {
+              autoClose: 1000, 
+            });
           }
         };
-  
+
         return (
           <select
             value={InspectorID || ""}
             onChange={(e) => handleInspectorChangeAndSubmit(e, userFormId)}
             className={InspectorID ? " text-green-600 " : "text-red-600"}
           >
-            <option value="" disabled>
+            <option value="" disabled className="font-bold">
               Select Inspector
             </option>
             {inspectorData?.list.map((inspector) => (
@@ -200,12 +189,11 @@ export default function AdminUserReq() {
         );
       },
     },
-    
     {
       Header: "Edit",
       accessor: "Actions",
       Cell: (cell) => {
-        const userFormId = cell.row.original.userFormId; // Access userFormId from row.original
+        const userFormId = cell.row.original.userFormId;
         return (
           <div className="flex gap-2 justify-center items-center">
             <Link to={`/Seller/UserRequest/Edit/${userFormId}`}>
@@ -230,27 +218,27 @@ export default function AdminUserReq() {
       },
     },
   ];
-  
 
   if (isUserDataLoading || isInspectorDataLoading) {
     return (
       <div className="w-screen h-screen flex justify-center items-center p-8">
-        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+        <FiLoader className="animate-spin text-gray-800 h-16 w-16" />
       </div>
     );
   }
 
-  if (userError?.status === 404) {
-    return (
-      <div className="flex flex-col justify-center items-center mt-10">
-        <img className="w-40" src={emptyImage} alt="No data" />
-        <p className="text-2xl md:text-3xl font-semibold">No Data Available</p>
-      </div>
-    );
-  }
+  // if (userError?.status === 404) {
+  //   return (
+  //     <div className="flex flex-col justify-center items-center mt-10">
+  //       <img className="w-40" src={emptyImage} alt="No data" />
+  //       <p className="text-2xl md:text-3xl font-semibold">No Data Available</p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <Card className="h-full w-full">
+
       <CardHeader floated={false} shadow={false} className="rounded-none">
         <div className="flex flex-col sm:flex-row justify-between gap-4">
           <div>
@@ -269,7 +257,7 @@ export default function AdminUserReq() {
         </div>
       </CardHeader>
       <CardBody className="md:overflow-auto overflow-scroll px-1">
-        <TableComponent columns={columns} data={userdata?.list || []} />
+        <TableComponent columns={columns} data={filteredData || []} />
       </CardBody>
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
         <Typography variant="medium" color="blue-gray" className="font-normal">
@@ -289,6 +277,7 @@ export default function AdminUserReq() {
           </Button>
         </div>
       </CardFooter>
+      <ToastContainer />
     </Card>
   );
 }

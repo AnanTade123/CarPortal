@@ -292,7 +292,7 @@ export function StickyNavbar() {
           color="white"
           className={`p-3 rounded-md font-normal ${
             window.location.pathname === `/Seller/UserRequest`
-              ? "bg-indigo-200 text-white"
+              ? "bg-[#5e67c7] text-white"
               : ""
           }hover:bg-indigo-400`}
           onClick={handleMenuItemClick}
