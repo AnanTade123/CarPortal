@@ -70,7 +70,7 @@ console.log("Data...",data)
         const Status = cell.row.values.status
         return (
           <div>
-            {Status === "pending" ? (
+            {Status === "active" ? (
               <Link to="/user/finalInspectionreport">
              <div className="relative cursor-pointer group">
              <motion.p
@@ -85,11 +85,18 @@ console.log("Data...",data)
            </Link>
            ) : 
               (<div>
-                <Link to="/user/finalInspectionreport">
-                <p className="text-green-500 uppercase font-bold">
-                {Status}
-              </p>
-              </Link>
+                 <Link to="/user/finalInspectionreport">
+             <div className="relative cursor-pointer group">
+             <motion.p
+               whileHover={{ scale: 1.3, originX: 0.5 , }} // Set originX to 0.5 to scale from the center
+               className="text-green-500 uppercase font-bold"
+             >
+               ACTIVE
+             </motion.p>
+             {/* Underline */}
+             <div className="absolute left-1/2 bottom-0 w-0 h-0.5 bg-green-800 transition-all duration-300 group-hover:w-[50%] group-hover:-translate-x-1/2"></div>
+           </div>
+           </Link>
               </div>)}
             
           </div>
