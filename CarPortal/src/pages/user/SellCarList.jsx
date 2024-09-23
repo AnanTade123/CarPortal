@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useNavigate } from "react-router-dom";
  
 import {
@@ -9,58 +10,29 @@ import {
   CardFooter,
  
 } from "@material-tailwind/react";
-import {
- 
-  useGetallInspectorQuery,
-} from "../../services/inspectorapi";
-// import {
- 
-// GetUserRequestData
-// ,
-// } from "../../services/userAPI"
 
 import TableComponent from "../../components/table/TableComponent";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FiLoader } from 'react-icons/fi';
 import InspectorStatusDialogBox from "../adminpages/InspectorStatusDialogBox";
+import {useListCarSellQuery} from "../../services/userAPI"
+import { motion } from "framer-motion"
  
 export default function AdminUserReq() {
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(10);
-  console.log(setPageSize)
-
-  const { data, isLoading, error } = useGetallInspectorQuery({ pageNo, pageSize });
-  const emptyImage = "..\\..\\cars\\emptyfolder.png";
-  // const { data:userdata } = GetUserRequestData();
-console.log(data)
-//   const [open, setOpen] = useState(false);
-//   const [deleteid, setDeleteid] = useState();
  
-  // const handleOpen = (id) => {
-  //   setOpen(!open);
-  //   setDeleteid(id);
-  // };
- 
-  // const handleOpen1 = (id) => {
-  //   deleteDealerHandler(deleteid);
-  //   setOpen(!open);
-  // };
- 
+const {data,error,isLoading} = useListCarSellQuery();
+console.log("Data...",data)
   const navigate = useNavigate();
   if (error?.status === 401) {
     return navigate("/signin");
   }
- 
-  // const deleteDealerHandler = async (id) => {
-  //   const res = await deleteDealer(id);
-  // };
   const nextHandler = () => {
     setPageNo((prevPageNo) => {
-      // Check if the error status is 404
       if (error?.status === 404) {
-        // console.log(prevPageNo);
-        // Display message or perform any action indicating that it's the last page
+       
         return prevPageNo; // Keep pageNo unchanged
       } else {
         // Increment pageNo
@@ -68,7 +40,9 @@ console.log(data)
       }
     });
   };
- 
+ if (!data) {
+  <div>NO Data</div>
+ }
   const columns = [
     {
       Header: "Sr. No",
@@ -79,49 +53,56 @@ console.log(data)
         return serialNumber;
       },
     },
-    {
-      Header: "ID",
-      accessor: "userFormId",
-     
-    },
-    {
-      Header: "CarOwnerName",
-    //   accessor: "carOwnerName"
-    Cell: () => <span>Akash</span>,
-    },
- 
+
     {
       Header: "Address ",
-    //   accessor: "lastName",
-    // accessor: "address1",
-      Cell: (cell) => (
-        <span>{`${cell.row.original.address1}, ${cell.row.original.address2}`}</span>
-      ),
+      accessor:"address1"
    
     },
     {
       Header: "Brand",
-    //   accessor: "brand",
-    Cell: () => <span>Pune </span>
+      accessor:"brand"
     },
     {
-        Header: "Status",
-        accessor: "status",
-        Cell: (cell) => {
-          return (
-            <div>
-              <div className="flex gap-2 justify-center items-center">
-                <InspectorStatusDialogBox
-                  data={data}
-                  userId={cell.row.values.userId}
-                  inspectorProfileId={cell.row.original.inspectorProfileId} // Accessing inspectorProfileId here
-                  status={cell.row.values.status}
-                />
-              </div>
-            </div>
-          );
-        },
+      Header: "Status",
+      accessor: "status",  
+      Cell: (cell) => {
+        const Status = cell.row.values.status
+        return (
+          <div>
+            {Status === "active" ? (
+              <Link to="/user/finalInspectionreport">
+             <div className="relative cursor-pointer group">
+             <motion.p
+               whileHover={{ scale: 1.3, originX: 0.5 , }} // Set originX to 0.5 to scale from the center
+               className="text-yellow-800 uppercase font-bold"
+             >
+               {Status}
+             </motion.p>
+             {/* Underline */}
+             <div className="absolute left-1/2 bottom-0 w-0 h-0.5 bg-yellow-800 transition-all duration-300 group-hover:w-[50%] group-hover:-translate-x-1/2"></div>
+           </div>
+           </Link>
+           ) : 
+              (<div>
+                 <Link to="/user/finalInspectionreport">
+             <div className="relative cursor-pointer group">
+             <motion.p
+               whileHover={{ scale: 1.3, originX: 0.5 , }} // Set originX to 0.5 to scale from the center
+               className="text-green-500 uppercase font-bold"
+             >
+               ACTIVE
+             </motion.p>
+             {/* Underline */}
+             <div className="absolute left-1/2 bottom-0 w-0 h-0.5 bg-green-800 transition-all duration-300 group-hover:w-[50%] group-hover:-translate-x-1/2"></div>
+           </div>
+           </Link>
+              </div>)}
+            
+          </div>
+        );
       },
+    },
       {
         Header: "Actions",
         accessor: "Actions",
@@ -166,7 +147,7 @@ console.log(data)
       </div>
     );
   } else {
-    dealerApiData = data?.list;
+    dealerApiData = data.list;
   }
  
   return (
@@ -179,11 +160,11 @@ console.log(data)
             </Link>
           </div>
           <div className="flex justify-center mt-10">
-           <img
+           {/* <img
           className="w-40"
           src={emptyImage}
           alt="no data"
-        />
+        /> */}
          </div>
           <p className="flex justify-center text-2xl md:text-3xl font-semibold">No Data Available</p>
          

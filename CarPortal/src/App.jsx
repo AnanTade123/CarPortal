@@ -106,10 +106,17 @@ import ResetPassword from "./forms/ResetPassword";
 import SellCarForm from "./pages/user/SellCarForm";
 import EditSellForm from "./pages/user/EditSellForm";
 import SellCarList from "./pages/user/SellCarList";
+import SellForCarPremium from "./pages/dealer/SellForCarPremium";
+import AddPremiumCarForm from "./pages/dealer/AddPremiumCarForm";
+import EditPremiumCar from "./pages/dealer/EditPremiumCar";
+import BuyPremiumCar from "./pages/BuyPremiumCar";
+import CarList from "./pages/b2b/CarList";
+import AdminUserReq from "./pages/adminpages/AdminUserReq";
+import SalerUserSaleReqEdit from "./pages/sales/SalerUserSaleReqEdit";
+import FinalReportUser from "./pages/user/FinalReportUser";
 export default function App() {
   return (
     <>
-
       <WebSocketConnection />
       <Routes>
         <Route path="/pendingrequest2" element={<PendingRequest2 />} />
@@ -123,9 +130,9 @@ export default function App() {
           <Route path="signup" element={<SimpleRegistrationForm />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/carlist" element={<BuyCar />} />
-          <Route path="/premiumcarlist" element={<PremiumCarList/>}/>
-          <Route path="/carimagecarousel" element={<CarImageCarousel/>}/>
-
+          <Route path="/premiumcarlist" element={<PremiumCarList />} />
+          <Route path="/buypremiumcars" element={<BuyPremiumCar />} />
+          <Route path="/carimagecarousel" element={<CarImageCarousel />} />
 
           <Route path="/wsConnction" element={<BiddingCar />} />
           <Route
@@ -133,7 +140,7 @@ export default function App() {
             element={<CarDetailsById />}
           />
           <Route
-            path="/biddinglist/cardetails/:beadingCarId/:timerId/:bidCarId"
+            path="/biddinglist/cardetails/:beadingCarId/:timerId"
             element={<BiddingCarDetailsById1 />}
           />
 
@@ -157,6 +164,8 @@ export default function App() {
               <AdminMiddleware allowedRoles={[...Object.values(onlyAdmin)]} />
             }
           >
+                        <Route path="/Admin/UserRequest" element={<AdminUserReq />} />
+
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/dealer/:id" element={<SellForCar />} />
 
@@ -217,8 +226,10 @@ export default function App() {
               path="/admin/inspection/report/:beadingCarId"
               element={<FinalReport />}
             />
-            <Route path="/admin/salesDealers/:salePersonId" element={<SalesDealer />} />
-
+            <Route
+              path="/admin/salesDealers/:salePersonId"
+              element={<SalesDealer />}
+            />
           </Route>
 
           <Route
@@ -227,7 +238,14 @@ export default function App() {
             }
           >
             <Route path="/dealer/:id" element={<SellForCar />} />
+            <Route path="/dealer/premium/:id" element={<SellForCarPremium />} />
+            <Route path="/dealer/b2b/:id" element={<CarList />} />
             <Route path="/dealer/:id/addcar" element={<AddDealerCar2 />} />
+            <Route
+              path="/dealer/premium/:id/addcar"
+              element={<AddPremiumCarForm />}
+            />
+
             <Route
               path="/dealer/:id/uploadimage/:carId"
               element={<Uploadimages2 />}
@@ -246,6 +264,10 @@ export default function App() {
             <Route
               path="/dealer/:id/car/edit/:carId"
               element={<EditDealerCar />}
+            />
+            <Route
+              path="/dealer/premium/:id/car/edit/:carId"
+              element={<EditPremiumCar />}
             />
             <Route
               path="/dealer/:carId/:id/editimage"
@@ -272,7 +294,10 @@ export default function App() {
             <Route path="/dealer/winnersection" element={<WinnerSection />} />
             <Route path="/biddingcardetail" element={<BiddingCarDetail />} />
           </Route>
-
+          <Route
+              path="/user/finalInspectionreport"
+              element={<FinalReportUser />}
+            />
           <Route
             element={
               <InspectorMiddleware
@@ -280,6 +305,7 @@ export default function App() {
               />
             }
           >
+            
             <Route
               path="/Inspector/ChangePassword"
               element={<InspectorChangePassword />}
@@ -337,6 +363,8 @@ export default function App() {
               />
             }
           >
+              <Route path="/Seller/UserRequest/Edit/:userFormId" element={<SalerUserSaleReqEdit />} />
+            <Route path="/Seller/UserRequest" element={<AdminUserReq />} />
             <Route
               path="/Seller/ChangePassword"
               element={<SalerChangePassword />}
@@ -371,9 +399,9 @@ export default function App() {
 
           <Route path="/user" element={<UserInfo />} />
         </Route>
-        <Route path="/premiumcars" element={<PremiumCars/>} />
-        <Route path="/user" element={<UserInfo/>} />
-<Route path="/DealerContact" element={<DealerContact/>}/>
+        <Route path="/premiumcars" element={<PremiumCars />} />
+        <Route path="/user" element={<UserInfo />} />
+        <Route path="/DealerContact" element={<DealerContact />} />
         {/* <Route path="/trans" element={<CardDetailss/>}/> */}
         <Route element={<AppLayout2 />}>
           <Route path="/aboutus" element={<AboutUs />} />
