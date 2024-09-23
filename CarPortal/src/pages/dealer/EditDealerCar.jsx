@@ -49,7 +49,7 @@ export default function EditDealerCar() {
     carStatus: "Active",
     ownerSerial: "",
     dealer_id: "",
-    cVariant: "",
+    variant: "",
     insurancedate: "",
     carInsuranceType: "",
   });
@@ -66,6 +66,7 @@ export default function EditDealerCar() {
       setFormData({
         brand: object?.brand || "",
         model: object?.model || "",
+        variant: object?.variant || "",
         price: object?.price || "",
         year: object?.year || "",
         bodyType: object?.bodyType || "",
@@ -149,7 +150,7 @@ export default function EditDealerCar() {
 
       title: formData.title,
 
-      variant: formData.cVariant,
+      variant: formData.variant,
 
       carInsuranceDate: formData.insurancedate,
 
@@ -252,6 +253,25 @@ export default function EditDealerCar() {
                 />
               </div>
             </div>
+
+            {/* Newly added sub-variant */}
+            <div className="md:flex">
+            <div className="mt-5 w-full">
+                <Inputs
+                  required
+                  label={"SubVarient"}
+                  type={"text"}
+                  name={"SubVarient"}
+                  value={formData.variant}
+                  onChange={(event) =>
+                    setFormData({
+                      ...formData,
+                      variant: event.target.value,
+                    })
+                  }
+                />
+              </div>
+              </div>
 
             {/* second part */}
             <div className="md:flex">
