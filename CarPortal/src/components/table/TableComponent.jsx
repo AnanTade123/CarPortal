@@ -26,7 +26,8 @@ const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow } =
             "carId",
             "userId",
             "bidCarId",
-            "biddingTimerStatus"
+            "biddingTimerStatus",
+            "userFormId"
           ], //use property option, in columns define id name "id"
         },
       },

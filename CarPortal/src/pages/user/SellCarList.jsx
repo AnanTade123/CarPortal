@@ -12,27 +12,35 @@ import {
 } from "@material-tailwind/react";
 
 import TableComponent from "../../components/table/TableComponent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FiLoader } from 'react-icons/fi';
 import InspectorStatusDialogBox from "../adminpages/InspectorStatusDialogBox";
 import {useListCarSellQuery} from "../../services/userAPI"
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
+import Cookies from "js-cookie"
+import { jwtDecode } from "jwt-decode";
  
 export default function AdminUserReq() {
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(10);
- 
-const {data,error,isLoading} = useListCarSellQuery();
-console.log("Data...",data)
+  const token = Cookies.get("token");
+  let jwtDecodes;
+  if(token){
+    jwtDecodes = jwtDecode(token) 
+  }
+const userId = token ? jwtDecodes?.userId : null;
+const {data,error, isLoading , refetch } = useListCarSellQuery(userId);
   const navigate = useNavigate();
+  useEffect(() => {
+    refetch();
+  },[refetch])
   if (error?.status === 401) {
     return navigate("/signin");
   }
   const nextHandler = () => {
     setPageNo((prevPageNo) => {
       if (error?.status === 404) {
-       
         return prevPageNo; // Keep pageNo unchanged
       } else {
         // Increment pageNo
@@ -40,6 +48,9 @@ console.log("Data...",data)
       }
     });
   };
+
+
+
  if (!data) {
   <div>NO Data</div>
  }
@@ -53,25 +64,36 @@ console.log("Data...",data)
         return serialNumber;
       },
     },
-
-    {
-      Header: "Address ",
-      accessor:"address1"
-   
-    },
     {
       Header: "Brand",
       accessor:"brand"
     },
     {
+      Header: "Model",
+      accessor:"model"
+    },
+    {
+      Header: "Variant",
+      accessor:"variant"
+    },
+    {
+      Header: "Address ",
+      accessor:"address1"
+    },
+    {
+      accessor : "userFormId",
+      isVisible : false
+    },
+    {
       Header: "Status",
       accessor: "status",  
       Cell: (cell) => {
-        const Status = cell.row.values.status
+        const Status = cell.row.values.status;
+        const carId = cell.row.values.userFormId
         return (
           <div>
             {Status === "active" ? (
-              <Link to="/user/finalInspectionreport">
+              <Link to={`/user/car/status/${carId}`}>
              <div className="relative cursor-pointer group">
              <motion.p
                whileHover={{ scale: 1.3, originX: 0.5 , }} // Set originX to 0.5 to scale from the center
@@ -85,13 +107,13 @@ console.log("Data...",data)
            </Link>
            ) : 
               (<div>
-                 <Link to="/user/finalInspectionreport">
+                 <Link to={`/user/car/status/${carId}`}>
              <div className="relative cursor-pointer group">
              <motion.p
-               whileHover={{ scale: 1.3, originX: 0.5 , }} // Set originX to 0.5 to scale from the center
-               className="text-green-500 uppercase font-bold"
+              //  whileHover={{ scale: 1.3, originX: 0.5 , }} // Set originX to 0.5 to scale from the center
+               className="text-orange-400 uppercase font-bold"
              >
-               ACTIVE
+               {Status}
              </motion.p>
              {/* Underline */}
              <div className="absolute left-1/2 bottom-0 w-0 h-0.5 bg-green-800 transition-all duration-300 group-hover:w-[50%] group-hover:-translate-x-1/2"></div>
@@ -107,11 +129,12 @@ console.log("Data...",data)
         Header: "Actions",
         accessor: "Actions",
         Cell: (cell) => {
+          const userFormId = cell.row.values.userFormId
           return (
             <div>
               <div className="flex gap-2 justify-center items-center">
-               
-                <Link to={`/editsellform/${cell.row.values.userId}/${cell.row.original.inspectorProfileId}`}>
+              <Link to={`/user/sell/edit/${userFormId}`}>
+                {/* <Link to={`/editsellform/${userFormId}/${cell.row.original.inspectorProfileId}`}> */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -139,6 +162,7 @@ console.log("Data...",data)
    
   ];
  
+  
   let dealerApiData;
   if (isLoading) {
     return (
@@ -149,7 +173,7 @@ console.log("Data...",data)
   } else {
     dealerApiData = data.list;
   }
- 
+
   return (
     <>
       {error?.status === 404 ? (

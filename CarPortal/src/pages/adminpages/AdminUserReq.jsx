@@ -47,6 +47,7 @@ export default function AdminUserReq() {
     jwtDecodes = jwtDecode(token);
   }
   const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
+  const salesUserId = token ? jwtDecodes?.userId : null;
   console.log("id", salesPersonId);
 
   const navigate = useNavigate();
@@ -99,7 +100,6 @@ console.log("filteredData" ,filteredData)
       accessor: "status",  
       Cell: (cell) => {
         const Status = cell.row.values.status;
-        console.log("Status" ,Status)
         return (
           <div>
             {Status === "pending" ? (
@@ -150,7 +150,7 @@ console.log("filteredData" ,filteredData)
 
           const updatedData = {
             inspectorId: inspectorId,
-            salesPersonId: salesPersonId,
+            salesPersonId: salesUserId,
           };
 
           try {
@@ -179,8 +179,8 @@ console.log("filteredData" ,filteredData)
             {inspectorData?.list.map((inspector) => (
               <option
                 className="font-bold"
-                key={inspector.inspectorProfileId}
-                value={inspector.inspectorProfileId}
+                key={inspector.userId}
+                value={inspector.userId}
               >
                 {`${inspector.firstName} ${inspector.lastName}`}
               </option>

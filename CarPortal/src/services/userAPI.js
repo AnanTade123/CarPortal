@@ -37,7 +37,6 @@ export const UserAPI = apiSlice.injectEndpoints({
     UserSellFormUpdate: builder.mutation({
       query: ({userFormId ,userformupdate})  => ({
         url: ` /userFormController/update/${userFormId}`,
-       
         method: 'PUT',
         body:userformupdate
       }),
@@ -69,7 +68,7 @@ export const UserAPI = apiSlice.injectEndpoints({
     UserSaleReqFormEdit: builder.mutation({
       query: ({updatedData,userFormId}) => ({
         url: `userFormController/update?userFormId=${userFormId}`,
-        transerResponse: console.log("dataaaa",updatedData,userFormId),
+        transerResponse: console.log("dataaaa",updatedData),
         method: "PUT",
         body: updatedData,
       }),
@@ -85,8 +84,8 @@ export const UserAPI = apiSlice.injectEndpoints({
        invalidatesTags:["User"],
     }),
     listCarSell: builder.query({
-      query: () => ({
-        url: `/userFormController/user?userId=1151`,
+      query: (userId) => ({
+        url: `/userFormController/user?userId=${userId}`,
         // transferResponse: console.log(userProfileId),
         method: "GET",
       }),

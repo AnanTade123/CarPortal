@@ -15,6 +15,8 @@ import { useParams } from "react-router";
 import { useUserSellFormMutation } from "../../services/userAPI";
 import { ToastContainer, toast } from "react-toastify";
 import { UserPlusIcon } from "@heroicons/react/24/solid";
+import { useNavigate } from "react-router";
+
 
 import {
   useGetOnlyBrandsQuery,
@@ -25,9 +27,12 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import dayjs from "dayjs";
+import duration from 'dayjs/plugin/duration';
+dayjs.extend(duration);
 
 export default function SellCarForm() {
-
+  const navigate = useNavigate();
   const [UserSellForm] = useUserSellFormMutation();
   const token = Cookies.get("token");
 
@@ -37,7 +42,6 @@ export default function SellCarForm() {
     jwtDecodes = jwtDecode(token);
   }
   const userid = token ? jwtDecodes?.userId : null;
-console.log(userid)
   // Form state
   const [formData, setFormData] = useState({
     carOwnerName: "",
@@ -50,8 +54,7 @@ console.log(userid)
     address2: "",
     pinCode: "",
     rc: "",
-    date: "",
-    datetime: "",
+    inspectionDate:"",
     status:true,
     userId:userid
   });
@@ -89,6 +92,15 @@ console.log(userid)
       [name]: value,
     }));
   };
+
+  const handleChangeDate = (e) => {
+    const { name,value} = e.target;
+    const selDate = dayjs(value).format('YYYY-MM-DDTHH:mm');
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: selDate,
+    }));
+  }
 
   const handleBrandChange = (event, newValue) => {
     const brand = newValue;
@@ -165,11 +177,15 @@ console.log(userid)
     }
 
     try {
-      const res = await UserSellForm({formData});
-      console.log("Status",res.data.status);
-      console.log("Response",res);
+      const convertDate = dayjs(formData.inspectionDate).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+      const data = {
+        ...formData,
+        inspectionDate : convertDate
+      }
+      const res = await UserSellForm({formData : data , });
       if (res.data.status === "success") {
-        toast.success("Request Submited");
+        toast.success(res.data.message);
+        setTimeout(() => { navigate("/sellcarlist");} ,1500)
       } else {
         toast.error("Something is wrong");
       }
@@ -190,7 +206,7 @@ console.log(userid)
       pinCode: "",
       rc: "",
       date: "",
-      datetime: "",
+      inspectionDate: "",
       status:false,
     });
   };
@@ -222,6 +238,20 @@ console.log(userid)
                 required
               />
               </div>
+              <div className="w-full mt-3">
+              <Input
+                label="Mobile Number"
+                type="tel"
+                name="mobileNo"
+                value={formData.mobileNo}
+                onChange={handleChange}
+                error={errors.mobileNo}
+                required
+              />
+              {errors.mobileNo && (
+                <Typography color="red">{errors.mobileNo}</Typography>
+              )}
+</div>
               <div className="md:flex gap-2">
                 <div className="w-full mt-3">
                   <Autocomplete
@@ -281,7 +311,7 @@ console.log(userid)
                           },
                         }}
                         {...params}
-                        label="Varient"
+                        label="Model"
                         InputLabelProps={{
                           style: {
                             fontSize: "0.75rem",
@@ -318,7 +348,7 @@ console.log(userid)
                           },
                         }}
                         {...params}
-                        label="SubVarient"
+                        label="Varient"
                         InputLabelProps={{
                           style: {
                             fontSize: "0.75rem",
@@ -339,20 +369,7 @@ console.log(userid)
                   required
                 />
               </div>
-              <div className="w-full mt-3">
-              <Input
-                label="Mobile Number"
-                type="tel"
-                name="mobileNo"
-                value={formData.mobileNo}
-                onChange={handleChange}
-                error={errors.mobileNo}
-                required
-              />
-              {errors.mobileNo && (
-                <Typography color="red">{errors.mobileNo}</Typography>
-              )}
-</div>
+             
 <div className="w-full mt-3">
               <Input
                 label="Pincode"
@@ -403,9 +420,9 @@ console.log(userid)
 
 <Input
   label="Inspection Time"
-  name="datetime"
-  value={formData.datetime}
-  onChange={handleChange}
+  name="inspectionDate"
+  value={formData.inspectionDate}
+  onChange={handleChangeDate}
   type="datetime-local"
 />
 </div>

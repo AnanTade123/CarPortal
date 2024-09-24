@@ -295,7 +295,11 @@ export default function App() {
             <Route path="/biddingcardetail" element={<BiddingCarDetail />} />
           </Route>
           <Route
-              path="/user/finalInspectionreport"
+              path="/user/car/status/:userFormId"
+              element={<FinalReportUser />}
+            />
+            <Route
+              path="/user/"
               element={<FinalReportUser />}
             />
           <Route
@@ -394,7 +398,7 @@ export default function App() {
           <Route path="/sellcarlist" element={<SellCarList/>} />
           <Route path="/sellcarform" element={<SellCarForm/>} />
 
-          <Route path="/editsellform" element={<EditSellForm/>} />
+          <Route path="/user/sell/edit/:userFormId" element={<EditSellForm/>} />
 
 
           <Route path="/user" element={<UserInfo />} />
