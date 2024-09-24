@@ -10,8 +10,6 @@ export const UserAPI = apiSlice.injectEndpoints({
         method: "GET",
       }),
       providesTags:["User"]
-  
-       // You probably want providesTags here instead of invalidatesTags for queries
     }),
 
     Userupdate: builder.mutation({
@@ -34,35 +32,76 @@ export const UserAPI = apiSlice.injectEndpoints({
       providesTags:["User"]
     }),
 
+   
+
     UserSellFormUpdate: builder.mutation({
       query: ({userFormId ,userformupdate})  => ({
         url: ` /userFormController/update/${userFormId}`,
-       
         method: 'PUT',
         body:userformupdate
       }),
       invalidatesTags:["User"],
     }),
 
+    GetUserRequestData: builder.query({
+      query: ({page ,size}) => ({
+        url: `/userFormController/all?page=${page}&size=${size}`,
+        // transferResponse: console.log(userProfileId),
+        method: "GET",
+      }),
+      providesTags:["User"]
+  
+       // You probably want providesTags here instead of invalidatesTags for queries
+    }),
+
+    GetUserRequestDataById: builder.query({
+      query: (userFormId) => ({
+        url: `userFormController/getById?userFormId=${userFormId}`,
+        // transferResponse: console.log(userProfileId),
+        method: "GET",
+      }),
+      providesTags:["User"]
+  
+       // You probably want providesTags here instead of invalidatesTags for queries
+    }),
+    
+    UserSaleReqFormEdit: builder.mutation({
+      query: ({updatedData,userFormId}) => ({
+        url: `userFormController/update?userFormId=${userFormId}`,
+        transerResponse: console.log("dataaaa",updatedData),
+        method: "PUT",
+        body: updatedData,
+      }),
+      invalidatesTags: ["User"],
+    }),
 
     changePassword : builder.mutation({
       query : ({passChange,userProfileId}) => ({
         url : `/user/changePassword/${userProfileId}`,
         method: "PUT",
         body : passChange,
-       
-       
-      })
-      
+       }),
+       invalidatesTags:["User"],
     }),
-    invalidatesTags:["User"],
-  }),
+    listCarSell: builder.query({
+      query: (userId) => ({
+        url: `/userFormController/user?userId=${userId}`,
+        // transferResponse: console.log(userProfileId),
+        method: "GET",
+      }),
+      providesTags:["User"]
+    }),
+  })
+
 });
 
 export const { useGetUserByIdQuery ,
 useUserupdateMutation,
 useUserSellFormMutation,
 useUserSellFormUpdate,
+useGetUserRequestDataQuery,
+useUserSaleReqFormEditMutation,
+useGetUserRequestDataByIdQuery,
 useChangePasswordMutation,
-
+useListCarSellQuery
  } = UserAPI;

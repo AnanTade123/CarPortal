@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import {
   Button,
@@ -14,10 +15,15 @@ import {
 // import { useUserSellFormMutation, useUserSellByIdQuery } from "../../services/userAPI";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-// import { FiLoader } from 'react-icons/fi'; 
+import { useNavigate, useParams } from "react-router-dom";
+import { useGetUserRequestDataByIdQuery, useUserSaleReqFormEditMutation } from "../../services/userAPI";
+import { FiLoader } from 'react-icons/fi'; 
+import dayjs from "dayjs";
+import duration from 'dayjs/plugin/duration';
+dayjs.extend(duration);
 
 const EditSellForm = () => {
-//   const { userid } = useParams();
+  const { userFormId } = useParams();
 //   const userId = userid;
 
   // Form state
@@ -32,13 +38,12 @@ const EditSellForm = () => {
     pinCode: "",
     rc: "",
     date: "",
-    datetime: "",
+    inspectionDate: "",
   });
 
-//   const { data, isLoading, isError, error } = useUserSellByIdQuery({ userId });
-//   const [userRegister] = useUserSellFormMutation();
-//   const navigate = useNavigate();
-
+  const { data, isLoading, isError, error } = useGetUserRequestDataByIdQuery( userFormId );
+  const navigate = useNavigate();
+  const [UserSaleReqFormEdit] = useUserSaleReqFormEditMutation();
   const { data: brandData } = useGetOnlyBrandsQuery();
   const brands = brandData?.list.map((item) => item.brand) || [];
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -56,26 +61,25 @@ const EditSellForm = () => {
     }
   );
 
-//   useEffect(() => {
-//     if (data && data.response) {
-//       const { response } = data;
-//       setFormData({
-//         carOwnerName: response.carOwnerName || "",
-//         brand: response.brand || "",
-//         model: response.model || "",
-//         variant: response.variant || "",
-//         regNo: response.regNo || "",
-//         address1: response.address1 || "",
-//         address2: response.address2 || "",
-//         pinCode: response.pinCode || "",
-//         rc: response.rc || "",
-//         date: response.date || "",
-//         datetime: response.datetime || "",
-//       });
-//       setSelectedBrand(response.brand);
-//       setSelectedModel(response.model);
-//     }
-//   }, [data]);
+  useEffect(() => {
+    if (data && data.object) {
+      const { object: response } = data;
+      setFormData({
+        carOwnerName: response.carOwnerName || "",
+        brand: response.brand || "",
+        model: response.model || "",
+        variant: response.variant || "",
+        regNo: response.regNo || "",
+        address1: response.address1 || "",
+        address2: response.address2 || "",
+        pinCode: response.pinCode || "",
+        rc: response.rc || "",
+        inspectionDate: dayjs( response.inspectionDate ).format('YYYY-MM-DDTHH:mm') || "",
+      });
+      setSelectedBrand(response.brand);
+      setSelectedModel(response.model);
+    }
+  }, [data]);
 
   useEffect(() => {
     if (variantData) {
@@ -147,29 +151,34 @@ const EditSellForm = () => {
       return;
     }
 
-    // try {
-    //   const res = await userRegister({ userId, ...formData });
-    //   if (res.data.status === "success") {
-    //     alert("Form Submitted Successfully");
-    //     navigate(-1); // Go back after successful submission
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    //   alert("An error occurred while submitting the form.");
-    // }
+    try {
+      const convertDate = dayjs(formData.inspectionDate).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+      const data = {
+        ...formData,
+        inspectionDate : convertDate
+      }
+      const res = await UserSaleReqFormEdit( { updatedData: data,userFormId} );
+      if (res.data.status === "success") {
+        alert("Form Submitted Successfully");
+        navigate(-1); // Go back after successful submission
+      }
+    } catch (error) {
+      console.error(error);
+      alert("An error occurred while submitting the form.");
+    }
   };
 
-//   if (isLoading) {
-//     return (
-//       <div className="w-screen h-screen flex justify-center items-center p-8">
-//         <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
-//       </div>
-//     );
-//   }
+  if (isLoading) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center p-8">
+        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+      </div>
+    );
+  }
 
-//   if (isError) {
-//     return <div>Error: {error.message}</div>;
-//   }
+  if (isError) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div className="mx-auto container px-4 sm:px-6 lg:px-8 flex justify-center w-full md:w-[50%] mt-10">
@@ -276,7 +285,7 @@ const EditSellForm = () => {
           </Select>
         </div>
 
-        <div className="mt-5">
+        {/* <div className="mt-5">
           <Input
             label="Date"
             type="date"
@@ -285,14 +294,14 @@ const EditSellForm = () => {
             onChange={handleChange}
             required
           />
-        </div>
+        </div> */}
 
         <div className="mt-5">
           <Input
             label="Inspection Time"
-            name="datetime"
+            name="inspectionDate"
             type="datetime-local"
-            value={formData.datetime}
+            value={formData.inspectionDate}
             onChange={handleChange}
           />
         </div>

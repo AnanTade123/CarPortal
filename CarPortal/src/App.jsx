@@ -111,6 +111,10 @@ import AddPremiumCarForm from "./pages/dealer/AddPremiumCarForm";
 import EditPremiumCar from "./pages/dealer/EditPremiumCar";
 import AdminCarList from "./pages/adminpages/AdminCarList";
 import CarDetailsByIdPremium from "./pages/CarDetailsByIdPremium";
+import CarList from "./pages/b2b/CarList";
+import AdminUserReq from "./pages/adminpages/AdminUserReq";
+import SalerUserSaleReqEdit from "./pages/sales/SalerUserSaleReqEdit";
+import FinalReportUser from "./pages/user/FinalReportUser";
 export default function App() {
   return (
     <>
@@ -141,7 +145,7 @@ export default function App() {
             element={<CarDetailsByIdPremium />}
           />
           <Route
-            path="/biddinglist/cardetails/:beadingCarId/:timerId/:bidCarId"
+            path="/biddinglist/cardetails/:beadingCarId/:timerId"
             element={<BiddingCarDetailsById1 />}
           />
 
@@ -165,6 +169,8 @@ export default function App() {
               <AdminMiddleware allowedRoles={[...Object.values(onlyAdmin)]} />
             }
           >
+                        <Route path="/Admin/UserRequest" element={<AdminUserReq />} />
+
             <Route path="/admin" element={<Admin />} />
             <Route
               path="/admin/dealer/carlist/:id"
@@ -243,6 +249,7 @@ export default function App() {
           >
             <Route path="/dealer/:id" element={<SellForCar />} />
             <Route path="/dealer/premium/:id" element={<SellForCarPremium />} />
+            <Route path="/dealer/b2b/:id" element={<CarList />} />
             <Route path="/dealer/:id/addcar" element={<AddDealerCar2 />} />
             <Route
               path="/dealer/premium/:id/addcar"
@@ -297,7 +304,14 @@ export default function App() {
             <Route path="/dealer/winnersection" element={<WinnerSection />} />
             <Route path="/biddingcardetail" element={<BiddingCarDetail />} />
           </Route>
-
+          <Route
+              path="/user/car/status/:userFormId"
+              element={<FinalReportUser />}
+            />
+            <Route
+              path="/user/"
+              element={<FinalReportUser />}
+            />
           <Route
             element={
               <InspectorMiddleware
@@ -305,6 +319,7 @@ export default function App() {
               />
             }
           >
+            
             <Route
               path="/Inspector/ChangePassword"
               element={<InspectorChangePassword />}
@@ -362,6 +377,8 @@ export default function App() {
               />
             }
           >
+              <Route path="/Seller/UserRequest/Edit/:userFormId" element={<SalerUserSaleReqEdit />} />
+            <Route path="/Seller/UserRequest" element={<AdminUserReq />} />
             <Route
               path="/Seller/ChangePassword"
               element={<SalerChangePassword />}
@@ -391,7 +408,8 @@ export default function App() {
           <Route path="/sellcarlist" element={<SellCarList />} />
           <Route path="/sellcarform" element={<SellCarForm />} />
 
-          <Route path="/editsellform" element={<EditSellForm />} />
+          <Route path="/user/sell/edit/:userFormId" element={<EditSellForm/>} />
+
 
           <Route path="/user" element={<UserInfo />} />
         </Route>

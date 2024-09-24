@@ -15,6 +15,8 @@ import { useParams } from "react-router";
 import { useUserSellFormMutation } from "../../services/userAPI";
 import { ToastContainer, toast } from "react-toastify";
 import { UserPlusIcon } from "@heroicons/react/24/solid";
+import { useNavigate } from "react-router";
+
 
 import {
   useGetOnlyBrandsQuery,
@@ -23,11 +25,23 @@ import {
 } from "../../services/brandAPI";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+import dayjs from "dayjs";
+import duration from 'dayjs/plugin/duration';
+dayjs.extend(duration);
 
 export default function SellCarForm() {
-
+  const navigate = useNavigate();
   const [UserSellForm] = useUserSellFormMutation();
+  const token = Cookies.get("token");
 
+  let jwtDecodes;
+
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
+  const userid = token ? jwtDecodes?.userId : null;
   // Form state
   const [formData, setFormData] = useState({
     carOwnerName: "",
@@ -40,9 +54,9 @@ export default function SellCarForm() {
     address2: "",
     pinCode: "",
     rc: "",
-    date: "",
-    datetime: "",
+    inspectionDate:"",
     status:true,
+    userId:userid
   });
 
 
@@ -65,20 +79,6 @@ export default function SellCarForm() {
     }
   );
 
-
-
-  //   const timeSlots = [
-  //     "09:00 AM - 10:00 AM",
-  //     "10:00 AM - 11:00 AM",
-  //     "11:00 AM - 12:00 PM",
-  //     "12:00 PM - 01:00 PM",
-  //     "01:00 PM - 02:00 PM",
-  //     "02:00 PM - 03:00 PM",
-  //     "03:00 PM - 04:00 PM",
-  //     "04:00 PM - 05:00 PM",
-  //     "05:00 PM - 06:00 PM",
-  //   ];
-
   const [errors, setErrors] = useState({
     mobileNo: "",
      pinCode: "",
@@ -93,9 +93,17 @@ export default function SellCarForm() {
     }));
   };
 
+  const handleChangeDate = (e) => {
+    const { name,value} = e.target;
+    const selDate = dayjs(value).format('YYYY-MM-DDTHH:mm');
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: selDate,
+    }));
+  }
+
   const handleBrandChange = (event, newValue) => {
     const brand = newValue;
-    // console.log(brand);
     setSelectedBrand(brand);
     setFormData({
       ...formData,
@@ -116,11 +124,11 @@ export default function SellCarForm() {
   };
 
   const handleVariantChange = (event, newValue) => {
-    const cVariant = newValue;
+    const variant = newValue;
     // console.log(cVariant);
     setFormData({
       ...formData,
-      cVariant,
+      variant,
     });
   };
   useEffect(() => {
@@ -169,10 +177,15 @@ export default function SellCarForm() {
     }
 
     try {
-      const res = await UserSellForm(formData);
-      console.log(res);
-      if (res?.data?.status === "success") {
-        toast.success("Request Submited");
+      const convertDate = dayjs(formData.inspectionDate).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+      const data = {
+        ...formData,
+        inspectionDate : convertDate
+      }
+      const res = await UserSellForm({formData : data , });
+      if (res.data.status === "success") {
+        toast.success(res.data.message);
+        setTimeout(() => { navigate("/sellcarlist");} ,1500)
       } else {
         toast.error("Something is wrong");
       }
@@ -193,10 +206,9 @@ export default function SellCarForm() {
       pinCode: "",
       rc: "",
       date: "",
-      datetime: "",
+      inspectionDate: "",
       status:false,
     });
-    // setOpen(false);
   };
 
   return (
@@ -226,6 +238,20 @@ export default function SellCarForm() {
                 required
               />
               </div>
+              <div className="w-full mt-3">
+              <Input
+                label="Mobile Number"
+                type="tel"
+                name="mobileNo"
+                value={formData.mobileNo}
+                onChange={handleChange}
+                error={errors.mobileNo}
+                required
+              />
+              {errors.mobileNo && (
+                <Typography color="red">{errors.mobileNo}</Typography>
+              )}
+</div>
               <div className="md:flex gap-2">
                 <div className="w-full mt-3">
                   <Autocomplete
@@ -285,13 +311,12 @@ export default function SellCarForm() {
                           },
                         }}
                         {...params}
-                        label="Varient"
+                        label="Model"
                         InputLabelProps={{
                           style: {
                             fontSize: "0.75rem",
-                            // paddingTop : '20px',
-                            //  background : 'black'
-                          }, // Adjust the font size here
+                            
+                          }, 
                         }}
                       />
                     )}
@@ -323,7 +348,7 @@ export default function SellCarForm() {
                           },
                         }}
                         {...params}
-                        label="SubVarient"
+                        label="Varient"
                         InputLabelProps={{
                           style: {
                             fontSize: "0.75rem",
@@ -344,20 +369,7 @@ export default function SellCarForm() {
                   required
                 />
               </div>
-              <div className="w-full mt-3">
-              <Input
-                label="Mobile Number"
-                type="tel"
-                name="mobileNo"
-                value={formData.mobileNo}
-                onChange={handleChange}
-                error={errors.mobileNo}
-                required
-              />
-              {errors.mobileNo && (
-                <Typography color="red">{errors.mobileNo}</Typography>
-              )}
-</div>
+             
 <div className="w-full mt-3">
               <Input
                 label="Pincode"
@@ -408,45 +420,12 @@ export default function SellCarForm() {
 
 <Input
   label="Inspection Time"
-  name="datetime"
-  value={formData.datetime}
-  onChange={handleChange}
+  name="inspectionDate"
+  value={formData.inspectionDate}
+  onChange={handleChangeDate}
   type="datetime-local"
 />
 </div>
-              {/* <div className="w-full mt-2">
-              <Input
-                label="Date"
-                type="date"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                required
-              />
-              </div> */}
-
-              {/* <Input
-                label="Time"
-                type="time"
-                name="time"
-                value={formData.time}
-                onChange={handleChange}
-                required
-              /> */}
-
-              {/* <Select
-                label="Time Slot"
-                name="time"
-                value={formData.time}
-                onChange={(e) => setFormData({ ...formData, time: e })}
-                required
-              >
-                {timeSlots.map((slot) => (
-                  <Option key={slot} value={slot}>
-                    {slot}
-                  </Option>
-                ))}
-              </Select> */}
                                          
               <Button color="indigo" type="submit" className="mt-2 mb-2">
                 Submit
