@@ -2,8 +2,6 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   useGetDealerQuery,
-  useGetDealerProfileQuery,
-  useLazyGetDealerByUserIdQuery,
 } from "../../services/dealerAPI";
 import { IoChevronBack } from "react-icons/io5";
 import { Button, Typography } from "@material-tailwind/react";

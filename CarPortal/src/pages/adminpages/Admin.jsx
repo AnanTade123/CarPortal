@@ -101,7 +101,7 @@ export default function Admin() {
       accessor: "userId",
       disableSortBy: true,
     },
-    
+
     {
       Header: "Cars",
       accessor: "totalCarCount", // This can remain as is, or adjust based on your needs
@@ -109,6 +109,19 @@ export default function Admin() {
         return (
           <div className="flex justify-center items-center  hover:text-blue-400">
             <Link to={`/admin/dealer/${cell.row.values.dealer_id}`}>
+              {cell.row.values.totalCarCount}
+            </Link>
+          </div>
+        );
+      },
+    },
+    {
+      Header: "Premium Cars",
+      accessor: "totalCars", // This can remain as is, or adjust based on your needs
+      Cell: (cell) => {
+        return (
+          <div className="flex justify-center items-center  hover:text-blue-400">
+            <Link to={`/admin/premium/${cell.row.values.dealer_id}`}>
               {cell.row.values.totalCarCount}
             </Link>
           </div>

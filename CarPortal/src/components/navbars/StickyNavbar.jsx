@@ -83,6 +83,10 @@ export function StickyNavbar() {
         {
           title: "Car Models",
           link: "/carlistmodel",
+        },
+        {
+          title: "Car List",
+          link: "/carlistadmin",
         }
       );
     }
@@ -301,24 +305,6 @@ export function StickyNavbar() {
         </Typography>
       </Link>
 
-      
-
-      <Link to={"/buypremiumcars"}>
-        <Typography
-          as="li"
-          variant="small"
-          color="white"
-          className={`p-3 rounded-md font-normal ${
-            window.location.pathname === "/dealer/live/cars"
-              ? "bg-[#5e67c7] text-white"
-              : ""
-          }hover:bg-indigo-400`}
-          onClick={handleMenuItemClick}
-        >
-          Buy Premium Car
-        </Typography>
-      </Link>
-
       <Link to={"/dealer/live/cars"}>
         <Typography
           as="li"
@@ -377,7 +363,7 @@ export function StickyNavbar() {
 
   const userDashboard = userRole?.includes("USER") ? (
     <>
-    <Link to={`/sellcarlist`}>
+      <Link to={`/sellcarlist`}>
         <Typography
           as="li"
           variant="small"
@@ -402,7 +388,6 @@ export function StickyNavbar() {
               ? "bg-[#5e67c7] text-white"
               : ""
           }hover:bg-indigo-400`}
-          
         >
           All Request
         </Typography>
@@ -513,7 +498,7 @@ export function StickyNavbar() {
               Buy Car
             </Typography>
           </Link>
-          <Link to={"/buypremiumcars"}>
+          {/* <Link to={"/buypremiumcars"}>
             <Typography
               as="li"
               variant="small"
@@ -527,7 +512,7 @@ export function StickyNavbar() {
             >
               Buy Premium Car
             </Typography>
-          </Link>
+          </Link> */}
         </>
       )}
       {adminDashboard}
@@ -642,7 +627,13 @@ export function StickyNavbar() {
             </Link>
 
             <Link to="/signup">
-              <Button fullWidth  color="indigo" variant="gradient" size="sm" className="">
+              <Button
+                fullWidth
+                color="indigo"
+                variant="gradient"
+                size="sm"
+                className=""
+              >
                 <span>Sign up</span>
               </Button>
             </Link>
