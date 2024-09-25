@@ -67,9 +67,16 @@ export const UserAPI = apiSlice.injectEndpoints({
     
     UserSaleReqFormEdit: builder.mutation({
       query: ({updatedData,userFormId}) => ({
-        url: `userFormController/update?userFormId=${userFormId}`,
-        transerResponse: console.log("dataaaa",updatedData),
+        url: `/userFormController/update?userFormId=${userFormId}`,
         method: "PUT",
+        body: updatedData,
+      }),
+      invalidatesTags: ["User"],
+    }),
+    UserSaleReqFormUpdate: builder.mutation({
+      query: ({updatedData,userFormId}) => ({
+        url: `/userFormController/updateStatus?userFormId=${userFormId}`,
+        method: "PATCH",
         body: updatedData,
       }),
       invalidatesTags: ["User"],
@@ -91,6 +98,13 @@ export const UserAPI = apiSlice.injectEndpoints({
       }),
       providesTags:["User"]
     }),
+    listCarStatus: builder.query({
+      query: (status) => ({
+        url: `/userFormController/status?status==${status}`,
+        method: "GET",
+      }),
+      providesTags:["User"]
+    }),
   })
 
 });
@@ -101,7 +115,9 @@ useUserSellFormMutation,
 useUserSellFormUpdate,
 useGetUserRequestDataQuery,
 useUserSaleReqFormEditMutation,
+useUserSaleReqFormUpdateMutation,
 useGetUserRequestDataByIdQuery,
 useChangePasswordMutation,
-useListCarSellQuery
+useListCarSellQuery,
+useListCarStatusQuery
  } = UserAPI;
