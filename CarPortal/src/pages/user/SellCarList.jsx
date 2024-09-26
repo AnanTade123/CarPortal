@@ -171,7 +171,7 @@ const {data,error, isLoading , refetch } = useListCarSellQuery(userId);
       </div>
     );
   } else {
-    dealerApiData = data.list;
+    dealerApiData = data?.list;
   }
 
   return (

@@ -20,6 +20,7 @@ import { useGetUserRequestDataByIdQuery, useUserSaleReqFormEditMutation } from "
 import { FiLoader } from 'react-icons/fi'; 
 import dayjs from "dayjs";
 import duration from 'dayjs/plugin/duration';
+import { toast, ToastContainer } from "react-toastify";
 dayjs.extend(duration);
 
 const EditSellForm = () => {
@@ -158,13 +159,14 @@ const EditSellForm = () => {
         inspectionDate : convertDate
       }
       const res = await UserSaleReqFormEdit( { updatedData: data,userFormId} );
-      if (res.data.status === "success") {
-        alert("Form Submitted Successfully");
-        navigate(-1); // Go back after successful submission
+      console.log(res?.data)
+      if (res?.data?.status === " success") {
+        toast.success(res.data.message);
+        setTimeout(()=>{navigate(-1);},[1000])
+         // Go back after successful submission
       }
     } catch (error) {
-      console.error(error);
-      alert("An error occurred while submitting the form.");
+      toast.error("An error occurred while submitting the form.");
     }
   };
 
@@ -315,6 +317,8 @@ const EditSellForm = () => {
           </Button>
         </div>
       </form>
+      <ToastContainer />
+
     </div>
   );
 };

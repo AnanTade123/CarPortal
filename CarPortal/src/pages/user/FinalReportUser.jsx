@@ -27,6 +27,7 @@ const {beadingCarId , userFormId} = useParams()
   const {data : saler} = useSellerByIdQuery({userId : salesPersonId});
   
   
+  
   const {data : Inspector } = useInspectorByIdQuery({userId :inspectorId });
   console.log(Inspector?.response?.firstName)
 
