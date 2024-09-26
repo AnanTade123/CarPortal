@@ -73,7 +73,6 @@ export default function AddDealerCar() {
   const { data: variantData } = useGetVariantsQuery(selectedBrand, {
     skip: !selectedBrand,
   });
-  console.log("variantData");
   const { data: subVariantData } = useGetSubVariantsQuery(
     { brand: selectedBrand, variant: selectedModel },
     {
