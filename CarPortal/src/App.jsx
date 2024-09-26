@@ -109,7 +109,8 @@ import SellCarList from "./pages/user/SellCarList";
 import SellForCarPremium from "./pages/dealer/SellForCarPremium";
 import AddPremiumCarForm from "./pages/dealer/AddPremiumCarForm";
 import EditPremiumCar from "./pages/dealer/EditPremiumCar";
-import BuyPremiumCar from "./pages/BuyPremiumCar";
+import AdminCarList from "./pages/adminpages/AdminCarList";
+import CarDetailsByIdPremium from "./pages/CarDetailsByIdPremium";
 import CarList from "./pages/b2b/CarList";
 import AdminUserReq from "./pages/adminpages/AdminUserReq";
 import SalerUserSaleReqEdit from "./pages/sales/SalerUserSaleReqEdit";
@@ -131,13 +132,17 @@ export default function App() {
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/carlist" element={<BuyCar />} />
           <Route path="/premiumcarlist" element={<PremiumCarList />} />
-          <Route path="/buypremiumcars" element={<BuyPremiumCar />} />
           <Route path="/carimagecarousel" element={<CarImageCarousel />} />
+          <Route path="/carlistadmin" element={<AdminCarList />} />
 
           <Route path="/wsConnction" element={<BiddingCar />} />
           <Route
             path="/carlist/cardetails/:carId"
             element={<CarDetailsById />}
+          />
+          <Route
+            path="/carlist/cardetails/premium/:carId"
+            element={<CarDetailsByIdPremium />}
           />
           <Route
             path="/biddinglist/cardetails/:beadingCarId/:timerId"
@@ -167,7 +172,12 @@ export default function App() {
                         <Route path="/Admin/UserRequest" element={<AdminUserReq />} />
 
             <Route path="/admin" element={<Admin />} />
+            <Route
+              path="/admin/dealer/carlist/:id"
+              element={<AdminCarList />}
+            />
             <Route path="/admin/dealer/:id" element={<SellForCar />} />
+            <Route path="/admin/premium/:id" element={<SellForCarPremium />} />
 
             <Route path="/inspector" element={<InspectorList />} />
             <Route path="/admin/salesuser" element={<SalesList />} />
@@ -295,7 +305,11 @@ export default function App() {
             <Route path="/biddingcardetail" element={<BiddingCarDetail />} />
           </Route>
           <Route
-              path="/user/finalInspectionreport"
+              path="/user/car/status/:userFormId"
+              element={<FinalReportUser />}
+            />
+            <Route
+              path="/user/"
               element={<FinalReportUser />}
             />
           <Route
@@ -391,10 +405,10 @@ export default function App() {
             <Route path="/sale/dealer/info/:id" element={<AdminDealerInfo />} />
           </Route>
           <Route path="/user/:userid/favorite" element={<FavoritePage />} />
-          <Route path="/sellcarlist" element={<SellCarList/>} />
-          <Route path="/sellcarform" element={<SellCarForm/>} />
+          <Route path="/sellcarlist" element={<SellCarList />} />
+          <Route path="/sellcarform" element={<SellCarForm />} />
 
-          <Route path="/editsellform" element={<EditSellForm/>} />
+          <Route path="/user/sell/edit/:userFormId" element={<EditSellForm/>} />
 
 
           <Route path="/user" element={<UserInfo />} />

@@ -20,6 +20,7 @@ import {
 import {
   useGetUserRequestDataQuery,
   useUserSaleReqFormEditMutation,
+  useUserSaleReqFormUpdateMutation,
 } from "../../services/userAPI";
 import TableComponent from "../../components/table/TableComponent";
 import { useState } from "react";
@@ -38,7 +39,8 @@ export default function AdminUserReq() {
   const [selectedInspectors, setSelectedInspectors] = useState({});
   const { data: userdata, isLoading: isUserDataLoading, error: userError } = useGetUserRequestDataQuery({ page: pageNo, size: pageSize });
   const { data: inspectorData, isLoading: isInspectorDataLoading, error: inspectorError } = useGetallInspectorQuery({ pageNo, pageSize });
-  const [ userReqEdit ] = useUserSaleReqFormEditMutation();
+  // const [ userReqEdit ] = useUserSaleReqFormEditMutation();
+  const [ userReqUpdate ] = useUserSaleReqFormUpdateMutation();
  
   const token = Cookies.get("token");
 
@@ -47,6 +49,7 @@ export default function AdminUserReq() {
     jwtDecodes = jwtDecode(token);
   }
   const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
+  const salesUserId = token ? jwtDecodes?.userId : null;
   console.log("id", salesPersonId);
 
   const navigate = useNavigate();
@@ -67,8 +70,7 @@ export default function AdminUserReq() {
   };
 
   // Filter userdata based on salesPersonId being null
-  const filteredData = userdata?.list?.filter((user) => user.salesPersonId === null || user.salesPersonId === (Number (salesPersonId)));
-console.log("filteredData" ,filteredData)
+  const filteredData = userdata?.list?.filter((user) => user.salesPersonId === null || user.salesPersonId === (Number (salesUserId)));
   const columns = [
     {
       Header: "Sr. No",
@@ -99,7 +101,6 @@ console.log("filteredData" ,filteredData)
       accessor: "status",  
       Cell: (cell) => {
         const Status = cell.row.values.status;
-        console.log("Status" ,Status)
         return (
           <div>
             {Status === "pending" ? (
@@ -150,11 +151,11 @@ console.log("filteredData" ,filteredData)
 
           const updatedData = {
             inspectorId: inspectorId,
-            salesPersonId: salesPersonId,
+            salesPersonId: salesUserId,
           };
 
           try {
-            const response = await userReqEdit({ updatedData, userFormId });
+            const response = await userReqUpdate({ updatedData, userFormId });
        
             toast.success("Inspector Updated Successfully!", {
               autoClose: 1000, 
@@ -179,8 +180,8 @@ console.log("filteredData" ,filteredData)
             {inspectorData?.list.map((inspector) => (
               <option
                 className="font-bold"
-                key={inspector.inspectorProfileId}
-                value={inspector.inspectorProfileId}
+                key={inspector.userId}
+                value={inspector.userId}
               >
                 {`${inspector.firstName} ${inspector.lastName}`}
               </option>
@@ -256,6 +257,24 @@ console.log("filteredData" ,filteredData)
           </div>
         </div>
       </CardHeader>
+      <div className="flex justify-center space-x-4">
+      <Card className="w-96">
+        <CardBody>
+            <Typography variant="h5" color="blue-gray" className="mb-2">
+              My User Sell Form Request
+            </Typography>
+        </CardBody>
+      </Card>
+      <Card className="w-96">
+        <CardBody>
+            <Typography variant="h5" color="blue-gray" className="mb-2">
+              Pending Request
+            </Typography>
+        </CardBody>
+      </Card>
+    </div>
+
+
       <CardBody className="md:overflow-auto overflow-scroll px-1">
         <TableComponent columns={columns} data={filteredData || []} />
       </CardBody>

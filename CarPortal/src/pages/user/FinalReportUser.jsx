@@ -4,7 +4,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { Link, Element, animateScroll as scroll } from "react-scroll";
-import {useFinalInspectionQuery} from "../../services/inspectorapi"
+import {useFinalInspectionQuery, useInspectorByIdQuery} from "../../services/inspectorapi"
 import { useParams } from "react-router-dom";
 import CarDocumentSectionUser from "./CarDocumentSectionUser";
 import ExteriorSectionUser from "./ExteriorSectionUser";
@@ -14,54 +14,65 @@ import AcSectionUser from "./AcSectionUser";
 import ElectricalSectionUser from "./ElectricalSectionUser";
 import SteeringSectionUser from "./SteeringSectionUser";
 import SalePersonInformationUser from "./SalePersonInformationUser";
+import { useGetUserRequestDataByIdQuery } from "../../services/userAPI";
+import { useSellerByIdQuery } from "../../services/salesAPI";
 
 export default function FinalReportUser() {
-const {beadingCarId} = useParams()
+const {beadingCarId , userFormId} = useParams()
 
   const {data : inspData} = useFinalInspectionQuery(beadingCarId);
+  const {data : formData } = useGetUserRequestDataByIdQuery(userFormId);
+  const salesPersonId = formData?.object?.salesPersonId;
+  const inspectorId = formData?.object?.inspectorId;
+  const {data : saler} = useSellerByIdQuery({userId : salesPersonId});
+  
+  
+  
+  const {data : Inspector } = useInspectorByIdQuery({userId :inspectorId });
+  console.log(Inspector?.response?.firstName)
 
-  const [activeTab, setActiveTab] = React.useState("important documen");
+  const [activeTab, setActiveTab] = React.useState("salePerson");
   const data = [
     {
-        label: " SalePerson",
+        label: "SalePerson",
         value: "salePerson",
-        component: <SalePersonInformationUser/>,
+        component: <SalePersonInformationUser formData={formData} saler={saler} Inspector={Inspector}/>,
    },
-    {
-      label: " Document",
-      value: "important document",
-      component: <CarDocumentSectionUser inspData={inspData} />,
-    },
-    {
-      label: "Exterior",
-      value: "exterior",
-      component: <ExteriorSectionUser />,
-    },
-    {
-      label: "Interior",
-      value: "interior",
-      component: <InteriorSectionUser />,
-    },
-    {
-      label: "Engine",
-      value: "engine",
-      component: <EngineSectionUser />,
-    },
-    {
-      label: "AC",
-      value: "ac",
-      component: <AcSectionUser />,
-    },
-    {
-      label: "Electricals",
-      value: "electricals",
-      component: <ElectricalSectionUser />,
-    },
-    {
-      label: "Steering",
-      value: "steering",
-      component: <SteeringSectionUser />,
-    },
+    // {
+    //   label: " Document",
+    //   value: "important document",
+    //   component: <CarDocumentSectionUser inspData={inspData} />,
+    // },
+    // {
+    //   label: "Exterior",
+    //   value: "exterior",
+    //   component: <ExteriorSectionUser />,
+    // },
+    // {
+    //   label: "Interior",
+    //   value: "interior",
+    //   component: <InteriorSectionUser />,
+    // },
+    // {
+    //   label: "Engine",
+    //   value: "engine",
+    //   component: <EngineSectionUser />,
+    // },
+    // {
+    //   label: "AC",
+    //   value: "ac",
+    //   component: <AcSectionUser />,
+    // },
+    // {
+    //   label: "Electricals",
+    //   value: "electricals",
+    //   component: <ElectricalSectionUser />,
+    // },
+    // {
+    //   label: "Steering",
+    //   value: "steering",
+    //   component: <SteeringSectionUser />,
+    // },
       
   
   ];

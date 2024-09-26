@@ -4,46 +4,46 @@ import UserCardPendingRequest from "../components/userRequest/UserCardPendingReq
 import { useUserAllCarRequestQuery } from "../services/carAPI";
 import { useParams } from "react-router-dom";
 import { Button, CardFooter, Typography } from "@material-tailwind/react";
-import { FiLoader } from 'react-icons/fi'; 
+import { FiLoader } from "react-icons/fi";
 const PendingRequest = () => {
-  const {userid} = useParams()
-  const [pageNo , setPageNo] = useState(0)
-  
+  const { userid } = useParams();
+  const [pageNo, setPageNo] = useState(0);
+
   const emptyImage = "..\\..\\cars\\emptyfolder.png";
 
-  const { data, isLoading, error } = useUserAllCarRequestQuery({pageNo,userid});
+  const { data, isLoading, error } = useUserAllCarRequestQuery({
+    pageNo,
+    userid,
+  });
   const nextHandler = () => {
     setPageNo((prePageNo) => {
       if (error?.status === 404) {
         // console.log("You are on the last page.");
-      }else{
+      } else {
         return prePageNo + 1;
       }
-    })
-  }
+    });
+  };
   const renderData = data?.list.map((item, index) => {
-    
     return (
       <div key={index} className="mt-5">
-        <UserCardPendingRequest item = {item} />
+        <UserCardPendingRequest item={item} />
       </div>
     );
   });
   if (!data) {
-    return <div>
-      <div className="flex justify-center mt-14">
-      <img
-          className="w-40"
-          src={emptyImage}
-          alt="no data"
-        />
-                </div>
-                <p className="flex justify-center text-2xl md:text-3xl font-semibold">No Data Available</p>
-
-
-    </div>
+    return (
+      <div>
+        <div className="flex justify-center mt-14">
+          <img className="w-40" src={emptyImage} alt="no data" />
+        </div>
+        <p className="flex justify-center text-2xl md:text-3xl font-semibold">
+          No Data Available
+        </p>
+      </div>
+    );
   }
- 
+
   if (isLoading) {
     return (
       <div className="w-screen h-screen flex justify-center items-center p-8">
@@ -51,7 +51,7 @@ const PendingRequest = () => {
       </div>
     );
   }
- 
+
   return (
     <>
       <div className="grid grid-cols-1 mb-5 md:grid md:grid-cols-1 lg:grid lg:grid-cols-2 xl:grid xl:grid-cols-3 gap-2 md:auto-cols-auto md:auto-rows-auto">
@@ -59,7 +59,7 @@ const PendingRequest = () => {
       </div>
 
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-        <Typography  color="blue-gray" className="font-normal">
+        <Typography color="blue-gray" className="font-normal">
           Page {pageNo + 1}
         </Typography>
         <div className="flex gap-2">

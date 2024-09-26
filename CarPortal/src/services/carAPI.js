@@ -17,9 +17,30 @@ export const carApi = apiSlice.injectEndpoints({
           Transmission = "",
           FuleType = "",
         } = urlState || {};
-        
+
         return {
           url: `/cars/mainFilter?minPrice=${MinPrice}&maxPrice=${MaxPrice}&area=${Area}&year=${Year}&brand=${Brand}&model=${Model}&transmission=${Transmission}&fuelType=${FuleType}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["CAR", "Dealer"],
+    }),
+    filterCarPremium: builder.query({
+      query: (urlState) => {
+        // Destructure and provide default values
+        const {
+          MinPrice = "",
+          MaxPrice = "",
+          Area = "",
+          Year = "",
+          Brand = "",
+          Model = "",
+          Transmission = "",
+          FuleType = "",
+        } = urlState || {};
+
+        return {
+          url: `/cars/mainFilter?minPrice=${MinPrice}&maxPrice=${MaxPrice}&area=${Area}&year=${Year}&brand=${Brand}&model=${Model}&transmission=${Transmission}&fuelType=${FuleType}&carType=premium`,
           method: "GET",
         };
       },
@@ -28,23 +49,25 @@ export const carApi = apiSlice.injectEndpoints({
     getCarById: builder.query({
       query: (carId) => ({
         url: `/cars/getCar?carId=${carId}`,
-        
+
         method: "GET",
       }),
-      providesTags: ["CAR","Dealer"],
-
+      providesTags: ["CAR", "Dealer"],
     }),
 
     dealerIdByCar: builder.query({
-      query: ({ id, pageNo ,status }) => ({
+      query: ({ id, pageNo, status }) => ({
         url: `/car/dealer?dealerId=${id}&carStatus=${status}&pageNo=${pageNo}`,
         method: "GET",
-        
       }),
       providesTags: ["CAR", "Dealer "],
-    
-
-      
+    }),
+    dealerIdByPremiumCar: builder.query({
+      query: ({ id, pageNo, status, carType }) => ({
+        url: `/car/dealer?dealerId=${id}&carStatus=${status}&pageNo=${pageNo}&carType=premium`,
+        method: "GET",
+      }),
+      providesTags: ["CAR", "Dealer "],
     }),
     getAllCar: builder.query({
       query: () => ({
@@ -52,11 +75,9 @@ export const carApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
       providesTags: ["CAR", "Inspector"],
-      
     }),
     bookingRequest: builder.mutation({
       query: (formData) => ({
-       
         url: `/booking/request`,
 
         method: "POST",
@@ -68,7 +89,15 @@ export const carApi = apiSlice.injectEndpoints({
       query: (data) => ({
         url: `/car/carregister`,
 
-        
+        body: data,
+        method: "POST",
+      }),
+      invalidatesTags: ["CAR"],
+    }),
+    carRegisterPremium: builder.mutation({
+      query: (data, carType) => ({
+        url: `/car/carregister?carType=premium`,
+
         body: data,
         method: "POST",
       }),
@@ -77,7 +106,7 @@ export const carApi = apiSlice.injectEndpoints({
     carUpdate: builder.mutation({
       query: ({ data, carId }) => ({
         url: `/car/edit/${carId}`,
-       
+
         method: "PUT",
         body: data,
       }),
@@ -86,7 +115,7 @@ export const carApi = apiSlice.injectEndpoints({
     carRemove: builder.mutation({
       query: ({ id, carId }) => ({
         url: `/car/removeCar?carId=${carId}&dealerId=${id}`,
-        
+
         method: "DELETE",
       }),
       invalidatesTags: ["CAR"],
@@ -94,7 +123,6 @@ export const carApi = apiSlice.injectEndpoints({
     userAllCarRequest: builder.query({
       query: ({ pageNo, userid }) => ({
         url: `/booking/getByUserId?pageNo=${pageNo}&userId=${userid}`,
-        
       }),
       providesTags: ["CAR"],
     }),
@@ -108,7 +136,7 @@ export const carApi = apiSlice.injectEndpoints({
     ConfirmBooking: builder.mutation({
       query: (formdata) => ({
         url: `/confirmBooking/book`,
-        
+
         method: "POST",
         body: formdata,
       }),
@@ -126,7 +154,7 @@ export const carApi = apiSlice.injectEndpoints({
     getCarImageById: builder.query({
       query: ({ carId }) => ({
         url: `/uploadFile/getByCarID?carId=${carId} `,
-        
+
         method: "GET",
       }),
       providesTags: ["CAR"],
@@ -135,7 +163,7 @@ export const carApi = apiSlice.injectEndpoints({
     deleteCarImageById: builder.mutation({
       query: ({ id }) => ({
         url: `uploadFile/deleteDocumentId?DocumentId=${id}`,
-        
+
         method: `DELETE`,
       }),
       invalidatesTags: ["CAR"],
@@ -162,68 +190,86 @@ export const carApi = apiSlice.injectEndpoints({
     favoriteCar: builder.mutation({
       query: (data2) => ({
         url: `/saveCar/add`,
-       
-        method : "POST",
-        body :data2
+
+        method: "POST",
+        body: data2,
       }),
-      invalidatesTags : ["CAR"],
+      invalidatesTags: ["CAR"],
     }),
 
-    getbySaveCarId : builder.query({
-      query : (saveCarIds) =>({
+    getbySaveCarId: builder.query({
+      query: (saveCarIds) => ({
         url: `/saveCar/getBySaveCar?saveCarId=${saveCarIds}`,
-       
-        method : 'GET'
+
+        method: "GET",
       }),
-      providesTags : ["CAR"],
+      providesTags: ["CAR"],
     }),
 
-    getbyUserCarId : builder.query({
-      query : ({UserId}) =>({
+    getbyUserCarId: builder.query({
+      query: ({ UserId }) => ({
         url: `/saveCar/GetByUser?userId=${UserId}`,
-        
-        method : 'GET'
+
+        method: "GET",
       }),
-      providesTags : [ "CAR","User"],
+      providesTags: ["CAR", "User"],
     }),
 
     CarremoveFavorite: builder.mutation({
-      query: ({saveCarId}) => ({
+      query: ({ saveCarId }) => ({
         url: `/saveCar/delete?saveCarId=${saveCarId}`,
-        
-        method:'DELETE'
+
+        method: "DELETE",
       }),
       providesTags: ["User"],
     }),
 
     CarFavoriteAddRemove: builder.query({
-      query: ({carid,useid}) => ({
+      query: ({ carid, useid }) => ({
         url: `/saveCar/getByCarAndUserId?userId=${useid}&carId=${carid}`,
-       
-        method:'GET'
+
+        method: "GET",
       }),
       invalidatesTags: ["User"],
     }),
 
     CarCountByStatus: builder.query({
-      query: ({status,id}) => ({
+      query: ({ status, id }) => ({
         url: `/car/count?carStatus=${status}&dealerId=${id}`,
-       
-        method:'GET'
+
+        method: "GET",
       }),
       invalidatesTags: ["User"],
     }),
+    CarCountByCartype: builder.query({
+      query: ({ status, id, carType }) => ({
+        url: `/car/count?carStatus=${status}&dealerId=${id}&carType=premium`,
 
+        method: "GET",
+      }),
+      invalidatesTags: ["User"],
+    }),
+    CarsByCartype: builder.query({
+      query: ({ pageNo, pageSize, carType }) => ({
+        url: `./car/getAllCarsWithCarType?pageNo=${pageNo}&pageSize=${pageSize}&carType=premium`,
+
+        method: "GET",
+      }),
+      providesTags: ["Admin"],
+    }),
   }),
 });
 
 export const {
   useFilterCarQuery,
+  useFilterCarPremiumQuery,
   useGetCarByIdQuery,
   useGetAllCarQuery,
   useDealerIdByCarQuery,
+  useDealerIdByPremiumCarQuery,
   useBookingRequestMutation,
   useCarRegisterMutation,
+  useCarRegisterPremiumMutation,
   useCarUpdateMutation,
   useCarRemoveMutation,
   useUserAllCarRequestQuery,
@@ -237,5 +283,7 @@ export const {
   useGetbyUserCarIdQuery,
   useCarremoveFavoriteMutation,
   useCarFavoriteAddRemoveQuery,
-  useCarCountByStatusQuery
+  useCarCountByStatusQuery,
+  useCarCountByCartypeQuery,
+  useCarsByCartypeQuery,
 } = carApi;

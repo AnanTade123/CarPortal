@@ -51,7 +51,7 @@ function UnratedIcon() {
   );
 }
 
-export function PremiumCardDefault({ data, Carid, refetch }) {
+export function PremiumCardDefault1({ data, Carid, refetch }) {
   const dispatch = useDispatch();
   const favoriteCars = useSelector((state) => state.favorites.favoriteCars);
   const [isHovered, setIsHovered] = useState(false);
@@ -105,19 +105,19 @@ export function PremiumCardDefault({ data, Carid, refetch }) {
       : combinedText;
   return (
     <div className="flex justify-center mx-auto">
-      <Card className="max-w-[19rem] overflow-hidden hover:border hover:border-3 hover:shadow-2xl hover:bg-blue-gray-300 hover:scale-105">
+      <Card className="w-[24rem] overflow-hidden hover:border hover:border-3 shadow-xl">
         <CardHeader
           floated={false}
           shadow={false}
           color="transparent"
           className="m-0 rounded-none"
         >
-          <Link to={`/carlist/cardetails/${data.carId}`}>
+          <Link to={`/carlist/cardetails/premium/${data.carId}`}>
             <CarouselCustomArrows carId={data.carId} />
           </Link>
         </CardHeader>
         <CardBody>
-          <Link to={`/carlist/cardetails/${data.carId}`}>
+          <Link to={`/carlist/cardetails/premium/${data.carId}`}>
             {userRole === "USER" ? (
               <div className="flex justify-end">
                 <div onClick={handleFavoriteToggle} className="cursor-pointer">
@@ -133,43 +133,49 @@ export function PremiumCardDefault({ data, Carid, refetch }) {
                 </div>
               </div>
             ) : null}
-            <Typography>{data.year}</Typography>
-            <Link to={`/carlist/cardetails/${data.carId}`}>
+
+            <div className="p-2">
+              <h3 className="text-xl font-[latto] font-bold text-black">₹ {data.price}</h3>
               <Typography
                 variant="h5"
                 color="blue-gray"
-                className="mb-2"
+                className="mb-2 text-xl text-black uppercase"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
               >
                 {isHovered ? data.brand + " " + data.model : truncatedText}
                 {/* {`${data.brand} ${data.model}`.length > 25 ? `${data.brand} ${data.model}`.substring(0, 22) + '...' : `${data.brand} ${data.model}`} */}
               </Typography>
-            </Link>
-            <Typography variant="h6" color="blue-gray" className="mb-2">
-              {data.title}
-            </Typography>
-            <p className="text-sm uppercase mb-3 flex-wrap gap-2">
-              <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black text-xs">
-                {data.kmDriven}KM
-              </span>
-              <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black text-xs">
-                {data.fuelType}
-              </span>
-              <span className="bg-gray-200 p-[5px] rounded-sm mr-2 text-black text-xs">
-                {data.transmission}
-              </span>
-            </p>
-            <Typography variant="h6" className="font-bold text-black text-xl">
-              ₹ {data.price}
-            </Typography>
+              <div className="grid grid-cols-2 gap-2 mt-8">
+                <div>
+                  <p className="text-xs font-semibold text-gray-500">
+                    REG. YEAR
+                  </p>
+                  <p className="text-sm font-semibold text-black font-[latto]">{data.year}</p>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-gray-500">KMS</p>
+                  <p className="text-sm font-semibold text-black font-[latto]">{data.kmDriven}</p>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-gray-500">
+                    FUEL TYPE
+                  </p>
+                  <p className="text-sm font-semibold text-black font-[latto] uppercase">{data.fuelType}</p>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-gray-500">
+                    REG. STATE
+                  </p>
+                  <p className="text-sm font-semibold text-black font-[latto] uppercase">{data.city}</p>
+                </div>
+              </div>
+            </div>
             {/* <Link to={`/carlist/cardetails/${data.carId}`}>
             <button className="mt-2 mb-4 p-[7px] bg-indigo-500 rounded-lg      text-white">
               View Car
             </button>
           </Link> */}
-            <hr />
-            <p className="text-sm">Free Test Drive Today at {data.area}</p>
           </Link>
         </CardBody>
       </Card>

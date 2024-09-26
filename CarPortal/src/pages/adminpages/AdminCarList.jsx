@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 import {
   useCarCountByCartypeQuery,
+  useCarsByCartypeQuery,
   useDealerIdByPremiumCarQuery,
 } from "../../services/carAPI";
 import { Tooltip } from "@material-tailwind/react";
@@ -30,10 +31,10 @@ import { FiLoader } from "react-icons/fi";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 
-const SellForCarPremium = () => {
+const AdminCarList = () => {
   const [pageNo, setPageNo] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
   const { id } = useParams();
-  const {carType} = useParams();
 
   const [carRemove] = useCarRemoveMutation();
   const active = "ACTIVE";
@@ -55,25 +56,25 @@ const SellForCarPremium = () => {
     isLoading: isLoadingActive,
     error: errorActive,
     refetch: refetchActive,
-  } = useDealerIdByPremiumCarQuery({ id, pageNo, status: active, carType });
+  } = useCarsByCartypeQuery({ pageNo, pageSize });
   const {
     data: pendingData = [],
     isLoading: isLoadingPending,
     error: errorPending,
     refetch: pendingRefeatch,
-  } = useDealerIdByPremiumCarQuery({ id, pageNo, status: pending });
+  } = useCarsByCartypeQuery({ pageNo, pageSize});
   const {
     data: sellData = [],
     isLoading: isLoadingSell,
     error: errorSell,
     refetch: sellRefeatch,
-  } = useDealerIdByPremiumCarQuery({ id, pageNo, status: sell });
+  } = useCarsByCartypeQuery({ pageNo, pageSize });
   const {
     data: deactiveData = [],
     isLoading: isLoadingDeactive,
     error: errorDeactive,
     refetch: refetchDeactive,
-  } = useDealerIdByPremiumCarQuery({ id, pageNo, status: deactive });
+  } = useCarsByCartypeQuery({ pageNo, pageSize });
 
   // Example of using the data safely
   const activeItems = errorActive?.status === 404 ? [] : activeData?.list || [];
@@ -368,7 +369,9 @@ const SellForCarPremium = () => {
                 </svg>
               </Link>
               {userRole !== "ADMIN" ? (
-                <Link to={`/dealer/premium/${id}/car/edit/${cell.row.values.carId}`}>
+                <Link
+                  to={`/dealer/premium/${id}/car/edit/${cell.row.values.carId}`}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -443,7 +446,7 @@ const SellForCarPremium = () => {
   return (
     <>
       <div className="justify-center  lg:grid lg:grid-cols-5  md:grid md:grid-cols-3">
-        <div className="p-5">
+        {/* <div className="p-5">
           <Card className="w-full">
             <CardBody className="justify-center items-center">
               <ApexCharts
@@ -483,7 +486,7 @@ const SellForCarPremium = () => {
               </Typography>
             </CardBody>
           </Card>
-        </div>
+        </div> */}
 
         <div
           onClick={() => {
@@ -494,7 +497,7 @@ const SellForCarPremium = () => {
         >
           {/* <div className="text-4xl font-bold text-white">{activeCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Active Cars</div> */}
-          <Card className="w-full">
+          {/* <Card className="w-full">
             <CardBody className=" justify-center items-center">
               <ApexCharts
                 options={{
@@ -532,7 +535,7 @@ const SellForCarPremium = () => {
                 {activeCars}
               </Typography>
             </CardBody>
-          </Card>
+          </Card> */}
         </div>
 
         <div
@@ -545,7 +548,7 @@ const SellForCarPremium = () => {
           {/* <div className="text-4xl font-bold text-white">{pendingCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Pending Cars</div> */}
 
-          <Card className="w-full">
+          {/* <Card className="w-full">
             <CardBody className=" justify-center items-center">
               <ApexCharts
                 options={{
@@ -583,7 +586,7 @@ const SellForCarPremium = () => {
                 {pendingCars}
               </Typography>
             </CardBody>
-          </Card>
+          </Card> */}
         </div>
         {/* <div onClick={handleFilterSellCars} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-5 text-center bg-blue-500 rounded-2xl shadow-xl sm:mb-2 mb-5 sm:mr-5 cursor-pointer">
           <div className="text-4xl font-bold text-white">{sellCars}/{totalCars}</div>
@@ -596,7 +599,7 @@ const SellForCarPremium = () => {
           }}
           className="p-5"
         >
-          <Card className="w-full">
+          {/* <Card className="w-full">
             <CardBody className=" justify-center items-center">
               <ApexCharts
                 options={{
@@ -634,7 +637,7 @@ const SellForCarPremium = () => {
                 {sellCars}
               </Typography>
             </CardBody>
-          </Card>
+          </Card> */}
         </div>
         <div
           onClick={() => {
@@ -645,7 +648,7 @@ const SellForCarPremium = () => {
         >
           {/* <div className="text-4xl font-bold text-white">{deactiveCars}/{totalCars}</div>
           <div className="mt-2 font-medium">Deactive Cars</div> */}
-          <Card className="w-full">
+          {/* <Card className="w-full">
             <CardBody className=" justify-center items-center">
               <ApexCharts
                 options={{
@@ -683,7 +686,7 @@ const SellForCarPremium = () => {
                 {deactiveCars}
               </Typography>
             </CardBody>
-          </Card>
+          </Card> */}
         </div>
       </div>
       {errorActive?.status === 404 && list?.length === 0 ? (
@@ -693,7 +696,7 @@ const SellForCarPremium = () => {
           {userRole === "DEALER" ? (
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
               <Link to={`/dealer/premium/${id}/addcar`}>
-                <Button color="indigo">Add Premium Car</Button>
+                <Button>Add Premium Car</Button>
               </Link>
             </div>
           ) : (
@@ -728,7 +731,7 @@ const SellForCarPremium = () => {
               <div className=" flex items-center justify-between gap-8">
                 <div>
                   <Typography variant="h5" color="blue-gray">
-                    Car Listing
+                    All Premium Cars 
                   </Typography>
                   <Typography color="gray" className="mt-1 font-normal">
                     See Information About All Cars
@@ -738,7 +741,7 @@ const SellForCarPremium = () => {
                 {userRole === "DEALER" ? (
                   <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
                     <Link to={`/dealer/premium/${id}/addcar`}>
-                      <Button color="indigo">Add Premium Car</Button>
+                      <Button>Add Premium Car</Button>
                     </Link>
                   </div>
                 ) : (
@@ -842,4 +845,4 @@ const SellForCarPremium = () => {
   );
 };
 
-export default SellForCarPremium;
+export default AdminCarList;
