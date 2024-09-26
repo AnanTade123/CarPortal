@@ -127,28 +127,43 @@ const FilterPremiumCars1 = ({ setUrlState }) => {
   let formattedAmountMax = new Intl.NumberFormat("en-IN").format(value[1]);
 
   const AreaData = [
-    { area: "Viman Nagar", year: 2005 },
-    { area: "Koregaon Park", year: 2006 },
-    { area: "Aundh", year: 2007 },
-    { area: "Kothrud", year: 2008 },
-    { area: "Hadapsar", year: 2009 },
-    { area: "Shivajinagar", year: 2010 },
-    { area: "Kalyani Nagar", year: 2011 },
-    { area: "Pimpri-Chinchwad", year: 2012 },
-    { area: "Magarpatta", year: 2013 },
-    { area: "Wadgaon Sheri", year: 2014 },
-    { area: "Katraj", year: 2015 },
-    { area: "Model Colony", year: 2016 },
-    { area: "Pune Cantonment", year: 2017 },
-    { area: "Senapati Bapat Road", year: 2018 },
-    { area: "Bhosari", year: 2018 },
-    { area: "Chakan", year: 2019 },
-    { area: "Bavdhan", year: 2020 },
-    { area: "Hinjewadi", year: 2021 },
-    { area: "Baner", year: 2022 },
-    { area: "Kharadi", year: 2023 },
-    { area: "Wagholi", year: 2024 },
+    { area: "Viman Nagar"},
+    { area: "Koregaon Park"},
+    { area: "Aundh"},
+    { area: "Kothrud" },
+    { area: "Hadapsar" },
+    { area: "Shivajinagar" },
+    { area: "Kalyani Nagar" },
+    { area: "Pimpri-Chinchwad" },
+    { area: "Magarpatta" },
+    { area: "Wadgaon Sheri" },
+    { area: "Katraj" },
+    { area: "Model Colony" },
+    { area: "Pune Cantonment" },
+    { area: "Senapati Bapat Road" },
+    { area: "Bhosari" },
+    { area: "Chakan" },
+    { area: "Bavdhan" },
+    { area: "Hinjewadi" },
+    { area: "Baner" },
+    { area: "Kharadi" },
+    { area: "Wagholi" },
   ];
+
+  const Year = [
+   
+    {  year: 2015 },
+    {  year: 2016 },
+    {  year: 2017 },
+    {  year: 2018 },
+    {  year: 2019 },
+    {  year: 2020 },
+    {  year: 2021 },
+    {  year: 2022 },
+    {  year: 2023 },
+    {  year: 2024 },
+  ];
+
 
   const FuleType = [
     { fuelType: "Petrol" },
@@ -342,7 +357,7 @@ const FilterPremiumCars1 = ({ setUrlState }) => {
                   id="year-autocomplete"
                   className="my-1"
                   freeSolo
-                  options={AreaData}
+                  options={Year}
                   getOptionLabel={(option) => option.year.toString()}
                   sx={{ width: "Full", background: "White" }}
                   value={

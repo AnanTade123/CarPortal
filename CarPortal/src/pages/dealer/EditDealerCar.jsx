@@ -424,8 +424,8 @@ export default function EditDealerCar() {
                   <option>Manual</option>
                 </select>
               </div>
-              </div>
-              <div className="md:flex gap-2">
+            </div>
+            <div className="md:flex gap-2">
               <div className="mt-5 w-full">
                 <Inputs
                   required
@@ -442,8 +442,9 @@ export default function EditDealerCar() {
                 />
               </div>
               <div className="mt-5 md:ml-2 w-full">
-                <Inputs
+                <select
                   required
+                  className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label={"year"}
                   type={"number"}
                   name={"year"}
@@ -454,13 +455,43 @@ export default function EditDealerCar() {
                       year: event.target.value,
                     })
                   }
-                />
+                >
+                  <option value="" disabled>
+                    Year
+                  </option>
+                  <option>2000</option>
+                  <option>2001</option>
+                  <option>2002</option>
+                  <option>2003</option>
+                  <option>2004</option>
+                  <option>2005</option>
+                  <option>2006</option>
+                  <option>2007</option>
+                  <option>2008</option>
+                  <option>2009</option>
+                  <option>2010</option>
+                  <option>2011</option>
+                  <option>2012</option>
+                  <option>2013</option>
+                  <option>2014</option>
+                  <option>2015</option>
+                  <option>2016</option>
+                  <option>2017</option>
+                  <option>2018</option>
+                  <option>2019</option>
+                  <option>2020</option>
+                  <option>2021</option>
+                  <option>2022</option>
+                  <option>2023</option>
+                  <option>2024</option>
+                </select>
               </div>
-              </div>
+            </div>
             <div className="md:flex gap-2">
-            <div className="mt-5 w-full">
-                <Inputs
+              <div className="mt-5 w-full">
+                <select
                   required
+                  className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label={"Color"}
                   type={"text"}
                   name={"color"}
@@ -471,7 +502,23 @@ export default function EditDealerCar() {
                       color: event.target.value,
                     })
                   }
-                />
+                >
+                  <option value="" disabled>
+                    Color
+                  </option>
+                  <option>Red</option>
+                  <option>Blue</option>
+                  <option>Yellow</option>
+                  <option>Pink</option>
+                  <option>Purple</option>
+                  <option>White</option>
+                  <option>Black</option>
+                  <option>Orange</option>
+                  <option>Green</option>
+                  <option>Brown</option>
+                  <option>Gold</option>
+                  <option>Aqua</option>
+                </select>
               </div>
               <div className="mt-5 md:ml-2 w-full">
                 <select
@@ -496,8 +543,8 @@ export default function EditDealerCar() {
                   <option>5</option>
                 </select>
               </div>
-              </div>
-              <div className="md:flex gap-2">
+            </div>
+            <div className="md:flex gap-2">
               <div className="mt-5 md:ml-2 w-full">
                 <Inputs
                   required
@@ -513,7 +560,7 @@ export default function EditDealerCar() {
                   }
                 />
               </div>
-            <div className="mt-5 md:ml-2 w-full">
+              <div className="mt-5 md:ml-2 w-full">
                 <select
                   required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -562,9 +609,9 @@ export default function EditDealerCar() {
                   </>
                 )}
               </div>
-              </div>
+            </div>
 
-              <div className="md:flex gap-2">
+            <div className="md:flex gap-2">
               <div className="mt-5 w-full">
                 <Inputs
                   required

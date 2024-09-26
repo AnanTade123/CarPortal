@@ -46,10 +46,24 @@ const CarImageCarousel = ({ carId }) => {
 
   return (
     <div className="container mx-auto">
-      {/* Active image */}
-      <div className="mt-10 flex justify-center content-center">
+      {/* Active image with blurred background */}
+      <div className="relative mt-10 flex justify-center items-center">
+        {/* Blurred background */}
+        <div
+          className="absolute top-0 left-0 w-full h-full" // Set z-index to keep it behind the active image
+          style={{
+            backgroundImage: `url(${activeImage})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            filter: "blur(20px)", // Apply blur to the background
+            transform: "scale(1)", // Slightly enlarge the background to avoid edges being visible
+            transition: "all 0.5s ease-in-out", // Smooth transition when active image changes
+          }}
+        />
+
+        {/* Active image */}
         <img
-          className="h-auto lg:w-4/5 w-4/5 rounded-lg object-center md:h-[480px]"
+          className="relative h-auto lg:w-4/5 w-4/5 rounded-lg object-center md:h-[400px]"
           src={activeImage}
           alt="Active Car"
         />
@@ -60,9 +74,9 @@ const CarImageCarousel = ({ carId }) => {
         {imageURLs.map((url, index) => (
           <div key={index}>
             <img
-              onClick={() => setActiveImage(url)}
+              onClick={() => setActiveImage(url)} // Clicking a thumbnail sets it as active image
               src={url}
-              className="lg:h-16 h-14 cursor-pointer rounded-lg object-cover object-center"
+              className="lg:h-14 h-14 w-20 cursor-pointer rounded-lg object-cover object-center"
               alt={`Car Thumbnail ${index}`}
             />
           </div>
