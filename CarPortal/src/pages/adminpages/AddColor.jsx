@@ -12,73 +12,32 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-//import { CarModelsForm } from "./CarModelsForm";
 import { Link} from "react-router-dom";
 import EditColorForm  from "../adminpages/EditColorForm";
-// import {
-//   useGetAllBrandsQuery,
-//   useDeleteCarBrandsMutation,
-// } from "../../services/brandAPI";
-
 import {AddColorForm} from "./AddColorForm";
 import { useDeleteColorMutation, useGetAllColorQuery } from "../../services/colorAPI";
 
-const getInitialCarList = () => {
-  const data = JSON.parse(localStorage.getItem("colorList")) || [];
-  return data;
-};
-
-const saveCarListToStorage = (colorList) => {
-  localStorage.setItem("colorList", JSON.stringify(colorList));
-};
-
-const getNextBrandDataId = () => {
-  const colorList = getInitialCarList();
-  const ids = colorList.map((car) => car.brandDataId);
-  const maxId = Math.max(0, ...ids);
-  return maxId + 1;
-};
-
 const AddColor = () => {
-  const [pageNo, setPageNo] = useState(0);
+  const [pageNo, setPageNo] = useState(1);
   const [pageSize, setPageSize] = useState(50);
   const { data, refetch, error } = useGetAllColorQuery({ pageNo,pageSize });
   const [deleteColor] = useDeleteColorMutation();
-  const [colorList, setColorList] = useState(getInitialCarList());
+  const [colorList, setColorList] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedColorId, setSelectedColorId] = useState(null);
 
   useEffect(() => {
     if (data) {
-      const updatedColorList = data?.list?.map((item) => ({
-        colorId: item.colorId,
-        name: item.name,
-        // variant: item.variant,
-        // subVariant: item.subVariant,
-      }));
-      setColorList(updatedColorList);
-      saveCarListToStorage(updatedColorList);
+      fetchNextColors();
     }
   }, [data]);
-
-  const addColors = (newColor) => {
-    const newCarWithId = {
-      ...newColor,
-      colorId: getNextBrandDataId(),
-    };
-    const updatedColorList = [...colorList, newCarWithId];
-    setColorList(updatedColorList);
-    saveCarListToStorage(updatedColorList);
+  const fetchNextColors = () => {
+    const itemsPerPage = 10;
+    const startIdx = (pageNo - 1) * itemsPerPage;
+    const nextColors =  data?.list?.slice(startIdx, startIdx + itemsPerPage);
+    setColorList(nextColors);
   };
-
-  const updateColor = (updatedColor) => {
-    const updatedColorList = colorList.map((car) =>
-      car.colorId === updatedColor.colorId ? updatedColor : car
-    );
-    setColorList(updatedColorList);
-    saveCarListToStorage(updatedColorList);
-    refetch();
-  };
+ 
 
   const handleOpen = (colorId) => {
     setSelectedColorId(colorId);
@@ -92,7 +51,6 @@ const AddColor = () => {
         (car) => car.colorId !== selectedColorId
       );
       setColorList(updatedColorList);
-      saveCarListToStorage(updatedColorList);
       refetch();
       setOpen(false);
     } catch (error) {
@@ -101,13 +59,22 @@ const AddColor = () => {
   };
   const nextHandler = () => {
     if (!error) {
-      setPageNo((prevPageNo) => prevPageNo + 1);
+      // setPageNo((prevPageNo) => prevPageNo + 1);
+      setPageNo((prevPageNo) => {
+        const newPageNo = prevPageNo + 1;
+        fetchNextColors(newPageNo); // Fetch next set of 10 colors
+        return newPageNo;
+      });
     }
   };
 
   const prevHandler = () => {
     if (pageNo > 0) {
-      setPageNo((prevPageNo) => prevPageNo - 1);
+      setPageNo((prevPageNo) => {
+        const newPageNo = prevPageNo - 1;
+        fetchNextColors(newPageNo); // Fetch next set of 10 colors
+        return newPageNo;
+      });
     }
   };
 
@@ -117,7 +84,7 @@ const AddColor = () => {
       accessor: "serialNumber",
       Cell: (cell) => {
         const { pageSize } = cell.state; // Assuming you're using React Table's useTable hook
-        const serialNumber = pageNo * pageSize + cell.row.index + 1;
+        const serialNumber = (pageNo - 1) * pageSize + cell.row.index + 1;
         return serialNumber;
       },
     },
@@ -129,14 +96,6 @@ const AddColor = () => {
       Header: "Color Name",
       accessor: "name",
     },
-    // {
-    //   Header: "Model ",
-    //   accessor: "variant",
-    // },
-    // {
-    //   Header: "Variant",
-    //   accessor: "subVariant",
-    // },
     {
       Header: "Action",
       accessor: "action",
@@ -147,7 +106,7 @@ const AddColor = () => {
             <EditColorForm
               initialData={colors}
               colorId={cell.row.values.colorId}
-              onSave={updateColor}
+              refetch={refetch}
             />
             {/* <Button
               color="red"
@@ -168,10 +127,10 @@ const AddColor = () => {
           <div className="flex items-center justify-between gap-8">
             <div>
               <Typography variant="h5" color="blue-gray">
-                Color List
+                Colors List
               </Typography>
               <Typography color="gray" className="mt-1 font-normal">
-                See Information About all colors
+                See Information About All Colors
               </Typography>
               <Typography className="hidden xl:block ">
         <div className="flex">
@@ -185,7 +144,7 @@ const AddColor = () => {
       </Typography>
             </div>
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-              <AddColorForm addCar={addColors} />
+              <AddColorForm refetch={refetch} />
             </div>
           </div>
         </CardHeader>

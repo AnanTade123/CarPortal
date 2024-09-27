@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import {
@@ -11,7 +12,7 @@ import Inputs from "../../forms/Inputs"; // Assuming this is a custom input comp
 //import { useEditBrandDataMutation } from "../../services/brandAPI";
 import { useEditColorDataMutation } from "../../services/colorAPI";
 
-const EditColorForm = ({ initialData, colorId ,onSave}) => {
+const EditColorForm = ({ initialData, colorId ,refetch }) => {
   const [open, setOpen] = useState(false);
   const [inputField, setInputField] = useState(
     initialData || { name: "", }
@@ -44,7 +45,7 @@ const EditColorForm = ({ initialData, colorId ,onSave}) => {
         id: colorId,
         inputField: inputField,
       }).unwrap();
-      onSave(res)
+      refetch();
     } catch (error) {
       // console.log(error);
     }
@@ -66,20 +67,6 @@ const EditColorForm = ({ initialData, colorId ,onSave}) => {
             name="name"
             type="text"
           />
-          {/* <Inputs
-            label="Model"
-            onChange={onChangeFormhandler}
-            value={inputField.variant}
-            name="variant"
-            type="text"
-          />
-          <Inputs
-            label="Variant"
-            onChange={onChangeFormhandler}
-            value={inputField.subVariant}
-            name="subVariant"
-            type="text"
-          /> */}
         </DialogBody>
         <DialogFooter>
           <Button

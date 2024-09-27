@@ -18,7 +18,7 @@ import {
   useGetColorNameQuery,
 } from "../../services/colorAPI";
 
-export function AddColorForm({ addColors }) {
+export function AddColorForm({ refetch }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
 
@@ -57,11 +57,7 @@ export function AddColorForm({ addColors }) {
 
     try {
       const res = await addColor(carColor).unwrap();
-
-      addColors({
-        colorId: res.id, // assuming the response contains the id of the new car brand
-        ...carColor,
-      });
+      refetch();
     } catch (error) {
       // console.error('Failed to add the car brand:', error);
     }

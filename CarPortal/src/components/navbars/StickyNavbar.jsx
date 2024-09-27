@@ -86,8 +86,8 @@ export function StickyNavbar() {
         },
 
         {
-          title: "Add Color",
-          link: "/addcolor",
+          title: "Car Colors",
+          link: "/admin/addcolor",
         },
 
         {

@@ -123,12 +123,12 @@ export default function App() {
     <>
       <WebSocketConnection />
       <Routes>
+        <Route path="signin" element={<LoginCard />} /> 
         <Route path="/pendingrequest2" element={<PendingRequest2 />} />
         <Route path="/" element={<Home />} />
 
         <Route element={<AppLayout />}>
           <Route path="/forgetPassword" element={<ForgetPassword />} />
-          <Route path="signin" element={<LoginCard />} />
           <Route path="/reset-Password" element={<ResetPassword />} />
           <Route path="signin" element={<LoginCard />} />
           <Route path="signup" element={<SimpleRegistrationForm />} />
@@ -195,7 +195,7 @@ export default function App() {
             />
 
             <Route path="/carlistmodel" element={<CarListModels />} />
-            <Route path="/addcolor" element={<AddColor />} />
+            <Route path="/admin/addcolor" element={<AddColor />} />
 
             <Route
               path="/admin/dealer/info/:id"
