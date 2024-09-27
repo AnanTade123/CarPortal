@@ -14,7 +14,7 @@ import {
 } from "@material-tailwind/react";
 //import { CarModelsForm } from "./CarModelsForm";
 import { Link} from "react-router-dom";
-import EditColorForm  from "../adminpages/EdiCarForm";
+import EditColorForm  from "../adminpages/EditColorForm";
 // import {
 //   useGetAllBrandsQuery,
 //   useDeleteCarBrandsMutation,
@@ -46,7 +46,7 @@ const AddColor = () => {
   const [deleteColor] = useDeleteColorMutation();
   const [colorList, setColorList] = useState(getInitialCarList());
   const [open, setOpen] = useState(false);
-  const [selectedCarId, setSelectedCarId] = useState(null);
+  const [selectedColorId, setSelectedColorId] = useState(null);
 
   useEffect(() => {
     if (data) {
@@ -81,15 +81,15 @@ const AddColor = () => {
   };
 
   const handleOpen = (colorId) => {
-    setSelectedCarId(colorId);
+    setSelectedColorId(colorId);
     setOpen(!open);
   };
 
   const deleteCar = async () => {
     try {
-      await deleteColor(selectedCarId).unwrap();
+      await deleteColor(selectedColorId).unwrap();
       const updatedColorList = colorList.filter(
-        (car) => car.colorId !== selectedCarId
+        (car) => car.colorId !== selectedColorId
       );
       setColorList(updatedColorList);
       saveCarListToStorage(updatedColorList);
@@ -146,15 +146,15 @@ const AddColor = () => {
           <div className="flex gap-2 justify-center items-center">
             <EditColorForm
               initialData={colors}
-              brandDataId={cell.row.values.colorId}
+              colorId={cell.row.values.colorId}
               onSave={updateColor}
             />
-            <Button
+            {/* <Button
               color="red"
               onClick={() => handleOpen(cell.row.values.colorId)}
             >
               Delete
-            </Button>
+            </Button> */}
           </div>
         );
       },

@@ -84,6 +84,12 @@ export function StickyNavbar() {
           title: "Car Models",
           link: "/carlistmodel",
         },
+
+        {
+          title: "Add Color",
+          link: "/addcolor",
+        },
+
         {
           title: "User Request",
           link: "/Admin/UserRequest",

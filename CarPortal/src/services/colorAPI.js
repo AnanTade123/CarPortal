@@ -36,6 +36,17 @@ getColorName: builder.query({
   invalidatesTags: ["Admin"],
 }),
 
+//PUT
+editColorData: builder.mutation({
+  query: ({ inputField, id }) => ({
+    url: `/colors/edit?id=${id}`,
+    method: "PUT",
+    transferResponse: console.log(id),
+    body: inputField,
+  }),
+  providesTags: ["Admin"],
+}),
+
 //DELETE
 deleteColor: builder.mutation({
   query: (colorId) => ({
@@ -54,6 +65,7 @@ export const {
   useAddColorMutation,
   useGetAllColorQuery,
   useGetColorNameQuery,
+  useEditColorDataMutation,
   useDeleteColorMutation,
 
   
