@@ -308,7 +308,7 @@ export default function AddDealerCar() {
                   onChange={handleBrandChange}
                   renderInput={(params) => (
                     <TextField
-                    required
+                      required
                       sx={{
                         "& .MuiInputBase-root": {
                           height: "40px",
@@ -344,7 +344,7 @@ export default function AddDealerCar() {
                   onChange={handleModelChange}
                   renderInput={(params) => (
                     <TextField
-                    required
+                      required
                       sx={{
                         "& .MuiInputBase-root": {
                           height: "40px",
@@ -383,7 +383,7 @@ export default function AddDealerCar() {
                   onChange={handleVariantChange}
                   renderInput={(params) => (
                     <TextField
-                    required
+                      required
                       sx={{
                         "& .MuiInputBase-root": {
                           height: "40px",
@@ -423,7 +423,9 @@ export default function AddDealerCar() {
                     });
                   }}
                 >
-                  <option value="" disabled>Transmission</option>
+                  <option value="" disabled>
+                    Transmission
+                  </option>
                   <option>Automatic</option>
                   <option>Manual</option>
                 </select>
@@ -432,7 +434,7 @@ export default function AddDealerCar() {
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <Input
-                required
+                  required
                   label="Price"
                   type="number"
                   name="price"
@@ -448,7 +450,7 @@ export default function AddDealerCar() {
 
               <div className="mt-5 md:ml-2 w-full">
                 <select
-                required
+                  required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label={"year"}
                   type={"number"}
@@ -461,7 +463,14 @@ export default function AddDealerCar() {
                     })
                   }
                 >
-                  <option value="" disabled>Year</option>
+                  <option value="" disabled>
+                    Year
+                  </option>
+                  <option>2000</option>
+                  <option>2001</option>
+                  <option>2002</option>
+                  <option>2003</option>
+                  <option>2004</option>
                   <option>2005</option>
                   <option>2006</option>
                   <option>2007</option>
@@ -490,7 +499,7 @@ export default function AddDealerCar() {
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <select
-                required
+                  required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label={"Color"}
                   type={"text"}
@@ -512,7 +521,7 @@ export default function AddDealerCar() {
 
               <div className="mt-5 md:ml-2 w-full">
                 <select
-                required
+                  required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   name="ownerSerial"
                   value={formData.ownerSerial}
@@ -539,7 +548,7 @@ export default function AddDealerCar() {
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <Inputs
-                required
+                  required
                   label={"Area"}
                   type={"text"}
                   name={"area"}
@@ -612,7 +621,7 @@ export default function AddDealerCar() {
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <Input
-                required
+                  required
                   label="Km Driven"
                   type="number"
                   name="kmDriven"
@@ -639,7 +648,9 @@ export default function AddDealerCar() {
                     });
                   }}
                 >
-                  <option value="" disabled>Fuel Type</option>
+                  <option value="" disabled>
+                    Fuel Type
+                  </option>
                   <option>Petrol</option>
                   <option>Diesel</option>
                   <option>Electric</option>
@@ -654,7 +665,7 @@ export default function AddDealerCar() {
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <select
-                required
+                  required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label="City"
                   name="city"
@@ -672,7 +683,7 @@ export default function AddDealerCar() {
 
               <div className="mt-5 md:ml-2 w-full">
                 <select
-                required
+                  required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label="Registration"
                   name="registration"

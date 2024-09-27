@@ -56,7 +56,7 @@ export const UserAPI = apiSlice.injectEndpoints({
 
     GetUserRequestDataById: builder.query({
       query: (userFormId) => ({
-        url: `userFormController/getById?userFormId=${userFormId}`,
+        url: `?userFormId=${userFormId}`,
         // transferResponse: console.log(userProfileId),
         method: "GET",
       }),
@@ -100,13 +100,26 @@ export const UserAPI = apiSlice.injectEndpoints({
     }),
     listCarStatus: builder.query({
       query: (status) => ({
-        url: `/userFormController/status?status==${status}`,
+        url: `/userFormController/status?status=${status}`,
+        method: "GET",
+      }),
+      providesTags:["User"]
+    }),
+    listbySalePersonId: builder.query({
+      query: ({salesPersonId ,page , size}) => ({
+        url: `/userFormController/salesPerson?salesPersonId=${salesPersonId}&page=${page}&size=${size}`,
+        method: "GET",
+      }),
+      providesTags:["User"]
+    }),
+    listbyInspectorId: builder.query({
+      query: ({inspectorId ,page , size}) => ({
+        url: `/userFormController/inspector?inspectorId=${inspectorId}&page=${page}&size=${size}`,
         method: "GET",
       }),
       providesTags:["User"]
     }),
   })
-
 });
 
 export const { useGetUserByIdQuery ,
@@ -119,5 +132,7 @@ useUserSaleReqFormUpdateMutation,
 useGetUserRequestDataByIdQuery,
 useChangePasswordMutation,
 useListCarSellQuery,
-useListCarStatusQuery
+useListCarStatusQuery,
+useListbySalePersonIdQuery,
+useListbyInspectorIdQuery
  } = UserAPI;

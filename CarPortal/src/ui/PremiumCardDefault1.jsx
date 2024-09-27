@@ -105,13 +105,8 @@ export function PremiumCardDefault1({ data, Carid, refetch }) {
       : combinedText;
   return (
     <div className="flex justify-center mx-auto">
-      <Card className="w-[24rem] overflow-hidden hover:border hover:border-3 shadow-xl">
-        <CardHeader
-          floated={false}
-          shadow={false}
-          color="transparent"
-          className="m-0 rounded-none"
-        >
+      <Card className="w-[20rem] mt-5 hover:border hover:border-3 border border-blue-400 shadow-md shadow-black">
+        <CardHeader className="h-full">
           <Link to={`/carlist/cardetails/premium/${data.carId}`}>
             <CarouselCustomArrows carId={data.carId} />
           </Link>
@@ -135,7 +130,9 @@ export function PremiumCardDefault1({ data, Carid, refetch }) {
             ) : null}
 
             <div className="p-2">
-              <h3 className="text-xl font-[latto] font-bold text-black">₹ {data.price}</h3>
+              <h3 className="text-xl font-[latto] font-bold text-black">
+                ₹ {data.price}
+              </h3>
               <Typography
                 variant="h5"
                 color="blue-gray"
@@ -151,23 +148,31 @@ export function PremiumCardDefault1({ data, Carid, refetch }) {
                   <p className="text-xs font-semibold text-gray-500">
                     REG. YEAR
                   </p>
-                  <p className="text-sm font-semibold text-black font-[latto]">{data.year}</p>
+                  <p className="text-sm font-semibold text-black font-[latto]">
+                    {data.year}
+                  </p>
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-gray-500">KMS</p>
-                  <p className="text-sm font-semibold text-black font-[latto]">{data.kmDriven}</p>
+                  <p className="text-sm font-semibold text-black font-[latto]">
+                    {data.kmDriven}
+                  </p>
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-gray-500">
                     FUEL TYPE
                   </p>
-                  <p className="text-sm font-semibold text-black font-[latto] uppercase">{data.fuelType}</p>
+                  <p className="text-sm font-semibold text-black font-[latto] uppercase">
+                    {data.fuelType}
+                  </p>
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-gray-500">
                     REG. STATE
                   </p>
-                  <p className="text-sm font-semibold text-black font-[latto] uppercase">{data.city}</p>
+                  <p className="text-sm font-semibold text-black font-[latto] uppercase">
+                    {data.city}
+                  </p>
                 </div>
               </div>
             </div>

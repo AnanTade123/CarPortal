@@ -259,6 +259,21 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
           Cars
         </Typography>
       </Link>
+      <Link to={`/inspector/user/cars`}>
+        <Typography
+          as="li"
+          variant="small"
+          color="white"
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === `/inspector/user/cars`
+              ? "bg-[#5e67c7] text-white"
+              : ""
+          }hover:bg-indigo-400`}
+          onClick={handleMenuItemClick}
+        >
+          User Cars
+        </Typography>
+      </Link>
 
       {/* <NotificationDialog /> */}
     </>

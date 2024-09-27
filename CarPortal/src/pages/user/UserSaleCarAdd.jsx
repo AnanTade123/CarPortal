@@ -1,81 +1,81 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
+// import React from "react";
 import Inputs from "../../forms/Inputs";
-import { Input, Textarea } from "@material-tailwind/react";
-import React from "react";
+import { Textarea } from "@material-tailwind/react";
 import {
-  useCarUpdateMutation,
-  useGetCarByIdQuery,
-} from "../../services/carAPI";
+  useBiddingCarByIdQuery,
+  useBiddingcarUpdateMutation,
+} from "../../services/biddingAPI";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
 import {
   useGetOnlyBrandsQuery,
   useGetVariantsQuery,
   useGetSubVariantsQuery,
 } from "../../services/brandAPI";
+import { useGetAllDealerListQuery } from "../../services/dealerAPI";
+import { ToastContainer, toast } from "react-toastify";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
 
-export default function EditDealerCar() {
-  const { id, carId } = useParams();
-  const { data: Carid } = useGetCarByIdQuery(carId);
-  // console.log("Carid data :- ", Carid);
-  // console.log(id, carId);
-  const navigate = useNavigate();
+export default function UserSaleCarAdd() {
+  const { saleCarId } = useParams();
+
+  const { data: Carid } = useBiddingCarByIdQuery(saleCarId);
+  console.log(Carid);
   const { data: brandData } = useGetOnlyBrandsQuery();
   console.log(brandData);
+  const { data: dealarList } = useGetAllDealerListQuery();
   const brands = brandData?.list.map((item) => item.brand) || [];
-  console.log(brands);
-  const [carUpdate] = useCarUpdateMutation(carId);
-  console.log(carId)
-  const [formData, setFormData] = useState({
-    //features
-    acFeature: false,
-    musicFeature: false,
-    powerWindowFeature: false,
-    rearParkingCameraFeature: false,
-    automaticEmergencyBraking: false,
-    abs: false,
-    sunroof: false,
-    airbag: false,
-    childSafetyLocks: false,
+  const brandss = Carid ? [Carid.brand] : [];
+  // const brandss = Carid ? Carid.map((car) => car.brand) : [];
+  console.log(brandss);
 
-    // fields
-    brand: "",
-    bodyType: "",
-    price: "",
-    model: "",
-    year: "",
-    transmission: "",
-    color: "",
-    city: "",
-    fuelType: "",
-    kmDriven: "",
-    carInsurance: "",
-    registration: "",
-    description: "",
-    title: "",
-    area: "",
-    carStatus: "Active",
-    ownerSerial: "",
-    dealer_id: "",
-    variant: "",
-    insurancedate: "",
-    carInsuranceType: "",
-  });
-  const date = new Date(); // Create a new Date object with the current date
-  const year = date.getFullYear(); // Get the year (e.g., 2024)
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // Get the month (0-indexed, so add 1), pad with leading zero if needed
-  const day = String(date.getDate()).padStart(2, "0"); // Get the day of the month, pad with leading zero if needed
-
-  const formattedDate = `${year}-${month}-${day}`;
-  const [showCalendar, setShowCalendar] = useState(false);
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedBrand, setSelectedBrand] = useState(""); //Two field Brands and Model
   const [modelOptions, setModelOptions] = useState([]);
   const [variantOptions, setVariantOptions] = useState([]);
+  const [showCalendar, setShowCalendar] = useState(false);
+  const userInfo = localStorage.getItem("userInfo");
+  const { userId: userid } = JSON.parse(userInfo);
+  const navigate = useNavigate();
 
+  const [formData, setFormData] = useState({
+    //features
+    acFeature: Carid?.acFeature,
+    musicFeature: Carid?.musicFeature,
+    powerWindowFeature: Carid?.powerWindowFeature,
+    rearParkingCameraFeature: Carid?.rearParkingCameraFeature,
+    buttonStart: Carid?.buttonStart,
+    abs: Carid?.abs,
+    sunroof: Carid?.sunroof,
+    airbag: Carid?.airbag,
+    childSafetyLocks: Carid?.childSafetyLocks,
+    // fields
+    brand: Carid?.brand,
+    bodyType: Carid?.model,
+    price: Carid?.price,
+    model: Carid?.model,
+    cVariant: Carid?.variant,
+    year: Carid?.year,
+    transmission: Carid?.transmission,
+    color: Carid?.color,
+    city: Carid?.city,
+    fuelType: Carid?.fuelType,
+    kmDriven: Carid?.kmDriven,
+    carInsurance: Carid?.carInsurance,
+    registration: Carid?.registration,
+    description: Carid?.description,
+    // safetyDescription: Carid?.safetyDescription,
+    area: Carid?.area,
+    // carStatus: "Active",
+    // noOfWheels: "",
+    ownerSerial: Carid?.ownerSerial,
+    tyre: "",
+    userId: userid,
+    dealerId: Carid?.dealerId,
+    carInsuranceType: Carid?.carInsuranceType,
+  });
   const { data: variantData } = useGetVariantsQuery(selectedBrand, {
     skip: !selectedBrand,
   });
@@ -87,121 +87,98 @@ export default function EditDealerCar() {
     }
   );
 
+  const [biddingcarUpdate] = useBiddingcarUpdateMutation();
   useEffect(() => {
     if (Carid) {
-      const { object } = Carid;
       setFormData({
-        brand: object?.brand || "",
-        model: object?.model || "",
-        variant: object?.variant || "",
-        price: object?.price || "",
-        year: object?.year || "",
-        bodyType: object?.bodyType || "",
-        transmission: object?.transmission || "",
-        color: object?.color || "",
-        city: object?.city || "",
-        fuelType: object?.fuelType || "",
-        kmDriven: object?.kmDriven || "",
+        brand: Carid?.brand || "",
+        model: Carid?.model || "",
+        price: Carid?.price || "",
+        cVariant: Carid?.variant || "",
+        year: Carid?.year || "",
+        bodyType: Carid?.bodyType || "",
+        transmission: Carid?.transmission || "",
+        color: Carid?.color || "",
+        city: Carid?.city || "",
+        fuelType: Carid?.fuelType || "",
+        kmDriven: Carid?.kmDriven || "",
         carInsurance:
-          object?.carInsurance !== undefined ? object.carInsurance : "",
-        registration: object?.registration || "",
-        description: object?.description || "",
-        area: object?.area || "",
-        ownerSerial: object?.ownerSerial || "",
-        tyre: object?.tyre || "",
-        dealer_id: object?.dealer_id || "",
-        title: object?.title || "",
-        insuranceType: object?.carInsuranceType || "",
-        musicFeature: object?.musicFeature || "",
-        acFeature: object?.acFeature || "",
-        powerWindowFeature: object?.powerWindowFeature || "",
-        rearParkingCameraFeature: object?.rearParkingCameraFeature || "",
-        buttonStart: object?.buttonStart || "",
-        abs: object?.abs || "",
-        sunroof: object?.sunroof || "",
-        airbag: object?.airbag || "",
-        childSafetyLocks: object?.childSafetyLocks || "",
+          Carid?.carInsurance !== undefined ? Carid.carInsurance : "",
+        registration: Carid?.registration || "",
+        description: Carid?.description || "",
+        area: Carid?.area || "",
+        ownerSerial: Carid?.ownerSerial || "",
+        tyre: Carid?.tyre || "",
+        dealerId: Carid?.dealerId || "",
+        title: Carid?.title || "",
+        insuranceType: Carid?.carInsuranceType || "",
+        musicFeature: Carid?.musicFeature || "",
+        acFeature: Carid?.acFeature || "",
+        powerWindowFeature: Carid?.powerWindowFeature || "",
+        rearParkingCameraFeature: Carid?.rearParkingCameraFeature || "",
+        buttonStart: Carid?.buttonStart || "",
+        abs: Carid?.abs || "",
+        sunroof: Carid?.sunroof || "",
+        airbag: Carid?.airbag || "",
+        childSafetyLocks: Carid?.childSafetyLocks || "",
       });
+      setSelectedModel(Carid?.model);
+      setSelectedBrand(Carid?.brand);
+      setVariantOptions(Carid?.cVariant);
     }
   }, [Carid]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     // Prepare the form data to send to the backend
     const data = {
       buttonStart: formData.buttonStart,
-
       abs: formData.abs,
-
       sunroof: formData.sunroof,
-
       airbag: formData.airbag,
-
       childSafetyLocks: formData.childSafetyLocks,
-
       acFeature: formData.acFeature,
-
       musicFeature: formData.musicFeature,
-
       area: formData.area,
-
+      bodyType: formData.bodyType,
       brand: formData.brand,
-
+      variant: formData.cVariant,
       carInsurance: formData.carInsurance,
-
-      carStatus: "ACTIVE",
-
+      // carStatus: "ACTIVE",
+      city: formData.city,
       color: formData.color,
-
       description: formData.description,
-
       fuelType: formData.fuelType,
-
       kmDriven: formData.kmDriven,
-
       model: formData.model,
-
-      variant: formData.variant,
-
+      noOfWheels: formData.noOfWheels,
       ownerSerial: formData.ownerSerial,
-
       powerWindowFeature: formData.powerWindowFeature,
-
       price: formData.price,
-
       rearParkingCameraFeature: formData.rearParkingCameraFeature,
-
       registration: formData.registration,
-
+      // safetyDescription: formData.safetyDescription,
       transmission: formData.transmission,
-
-      title: formData.title,
-
-      carInsuranceDate: formData.insurancedate,
-
+      tyre: formData.tyre,
       year: formData.year,
-
-      dealer_id: id,
-
-      date: formattedDate,
-
+      dealerId: formData.dealerId,
+      date: "2023-07-19",
+      saleCarId :saleCarId ,
       carInsuranceType: formData.carInsuranceType,
     };
 
-    const res = await carUpdate({ data, carId });
-    // console.log(res);
-    if (res?.data?.status === "success") {
-      toast.success("Car Edited");
-      setTimeout(() => {
-        navigate(`/dealer/${carId}/${id}/editimage`);
-      }, 1000);
+    try {
+      const res = "";//await biddingcarUpdate({ data,  });
+      if (res?.data?.status === "success") {
+        toast.success("Car edit successfully");
+        setTimeout(() => {
+          navigate(`/bidding/${saleCarId}/uploadimage`);
+        }, 1000);
+      }
+    } catch (error) {
+      // console.log(error)
     }
-    // console.log(data);
-    // addCar(data).then((responseData) => {
-    //   console.log(responseData);
-    //   if (responseData?.error) return;
-    //  // navigate("/dealer");
-    // });
   };
 
   const handleChangeType = (event) => {
@@ -212,9 +189,6 @@ export default function EditDealerCar() {
     }));
   };
 
-  const [mult, setMult] = React.useState([]);
-
-  // Car Insurance ValidDate
   const handleChange = (event) => {
     const value = event.target.value === "true";
     setFormData((prevFormData) => ({
@@ -223,7 +197,6 @@ export default function EditDealerCar() {
     }));
     setShowCalendar(value);
   };
-
   const handleDateChange = (event) => {
     const { value } = event.target;
     setFormData((prevFormData) => ({
@@ -231,10 +204,6 @@ export default function EditDealerCar() {
       insurancedate: value,
     }));
   };
-  const handleFileChange = (e) => {
-    setMult(Array.from(e.target.files));
-  };
-
   const handleBrandChange = (event, value) => {
     setSelectedBrand(value);
     setSelectedModel("");
@@ -243,7 +212,7 @@ export default function EditDealerCar() {
       ...formData,
       brand: value,
       model: "",
-      variant: "",
+      cVariant: "",
     });
   };
 
@@ -252,14 +221,14 @@ export default function EditDealerCar() {
     setFormData({
       ...formData,
       model: value,
-      variant: "",
+      cVariant: "",
     });
   };
 
   const handleVariantChange = (event, value) => {
     setFormData({
       ...formData,
-      variant: value,
+      cVariant: value,
     });
   };
 
@@ -278,16 +247,16 @@ export default function EditDealerCar() {
       setVariantOptions(variants);
     }
   }, [subVariantData]);
+
   return (
     <>
       <ToastContainer />
       <div className="md:flex justify-center m-6 md:m-0">
         <div>
-          <form onSubmit={handleSubmit} className="w-full  md:w-[45rem]">
+          <form onSubmit={handleSubmit} className="w-full xl:w-[45rem]">
             <div className="flex justify-center">
-              <p className="text-3xl font-semibold m-4">Edit Dealer Car</p>
+              <p className="text-3xl font-semibold m-4">Add Sale Car</p>
             </div>
-            {/* first part */}
             <div className="md:flex gap-2">
               <div className="mt-5 w-full">
                 <Autocomplete
@@ -327,7 +296,7 @@ export default function EditDealerCar() {
                 />
               </div>
 
-              <div className="md:ml-2 mt-5 w-full">
+              <div className="mt-5 w-full">
                 <Autocomplete
                   id="model-autocomplete"
                   freeSolo
@@ -365,15 +334,13 @@ export default function EditDealerCar() {
                 />
               </div>
             </div>
-
-            {/* second part */}
-            <div className="md:flex gap-2">
+            <div className="md:flex">
               <div className="mt-5 w-full">
                 <Autocomplete
                   id="variant-autocomplete"
                   freeSolo
                   options={variantOptions}
-                  value={formData?.variant || ""}
+                  value={formData?.cVariant || ""}
                   onChange={(event, newValue) =>
                     handleVariantChange(event, newValue)
                   }
@@ -406,12 +373,12 @@ export default function EditDealerCar() {
                 />
               </div>
 
-              <div className="mt-5 w-full">
+              <div className="mt-5 md:ml-2 w-full">
                 <select
                   required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   name="transmission"
-                  value={formData.transmission}
+                  value={formData?.transmission}
                   onChange={(event) => {
                     setFormData({
                       ...formData,
@@ -425,22 +392,27 @@ export default function EditDealerCar() {
                 </select>
               </div>
             </div>
-            <div className="md:flex gap-2">
+            <div className="md:flex">
               <div className="mt-5 w-full">
                 <Inputs
                   required
-                  label={"price"}
-                  type={"number"}
-                  name={"price"}
+                  label="Price"
+                  type="text"
+                  name="price"
                   value={formData.price}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      price: event.target.value,
-                    })
-                  }
+                  onChange={(event) => {
+                    // Ensure only numbers are accepted
+                    const value = event.target.value;
+                    if (/^[0-9]*$/.test(value)) {
+                      setFormData({
+                        ...formData,
+                        price: value,
+                      });
+                    }
+                  }}
                 />
               </div>
+
               <div className="mt-5 md:ml-2 w-full">
                 <select
                   required
@@ -448,7 +420,7 @@ export default function EditDealerCar() {
                   label={"year"}
                   type={"number"}
                   name={"year"}
-                  value={formData.year}
+                  value={formData?.year}
                   onChange={(event) =>
                     setFormData({
                       ...formData,
@@ -456,38 +428,22 @@ export default function EditDealerCar() {
                     })
                   }
                 >
-                  <option value="" disabled>
-                    Year
-                  </option>
-                  <option>2000</option>
-                  <option>2001</option>
-                  <option>2002</option>
-                  <option>2003</option>
-                  <option>2004</option>
-                  <option>2005</option>
-                  <option>2006</option>
-                  <option>2007</option>
-                  <option>2008</option>
-                  <option>2009</option>
-                  <option>2010</option>
-                  <option>2011</option>
-                  <option>2012</option>
-                  <option>2013</option>
-                  <option>2014</option>
-                  <option>2015</option>
-                  <option>2016</option>
-                  <option>2017</option>
-                  <option>2018</option>
-                  <option>2019</option>
-                  <option>2020</option>
-                  <option>2021</option>
-                  <option>2022</option>
-                  <option>2023</option>
-                  <option>2024</option>
+                  <option>Year</option>
+                  {[...Array(new Date().getFullYear() - 2004)].map(
+                    (_, index) => {
+                      const year = 2005 + index;
+                      return (
+                        <option key={year} value={year}>
+                          {year}
+                        </option>
+                      );
+                    }
+                  )}
                 </select>
               </div>
             </div>
-            <div className="md:flex gap-2">
+
+            <div className="md:flex">
               <div className="mt-5 w-full">
                 <select
                   required
@@ -503,30 +459,33 @@ export default function EditDealerCar() {
                     })
                   }
                 >
-                  <option value="" disabled>
-                    Color
-                  </option>
-                  <option>Red</option>
-                  <option>Blue</option>
-                  <option>Yellow</option>
-                  <option>Pink</option>
-                  <option>Purple</option>
-                  <option>White</option>
-                  <option>Black</option>
-                  <option>Orange</option>
-                  <option>Green</option>
-                  <option>Brown</option>
-                  <option>Gold</option>
-                  <option>Aqua</option>
+                  <option value="">Color</option>
+                  {[
+                    "Red",
+                    "Blue",
+                    "Yellow",
+                    "Pink",
+                    "Purple",
+                    "White",
+                    "Black",
+                    "Orange",
+                    "Green",
+                    "Brown",
+                    "Gold",
+                    "Aqua",
+                  ].map((color) => (
+                    <option key={color} value={color}>
+                      {color}
+                    </option>
+                  ))}
                 </select>
               </div>
+
               <div className="mt-5 md:ml-2 w-full">
                 <select
                   required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  label={"Owner Serial"}
-                  type={"number"}
-                  name={"ownerSerial"}
+                  name="ownerSerial"
                   value={formData.ownerSerial}
                   onChange={(event) =>
                     setFormData({
@@ -535,17 +494,17 @@ export default function EditDealerCar() {
                     })
                   }
                 >
-                  <option value="">Owner Serial</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                  <option value="">Select Owner Serial</option>
+                  {["1", "2", "3", "4", "5"].map((serial) => (
+                    <option key={serial} value={serial}>
+                      {serial}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
             <div className="md:flex gap-2">
-              <div className="mt-5 md:ml-2 w-full">
+              <div className="mt-5 w-full">
                 <Inputs
                   required
                   label={"Area"}
@@ -560,7 +519,7 @@ export default function EditDealerCar() {
                   }
                 />
               </div>
-              <div className="mt-5 md:ml-2 w-full">
+              <div className="mt-5 w-full">
                 <select
                   required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
@@ -576,7 +535,7 @@ export default function EditDealerCar() {
                   <>
                     <div className="mt-3">
                       <label
-                        className="block text-gray-700 text-sm font-bold "
+                        className="block text-gray-700 text-sm font-bold mb-2"
                         htmlFor="date"
                       >
                         Select Date
@@ -591,7 +550,7 @@ export default function EditDealerCar() {
                     </div>
                     <label
                       className="block text-gray-700 text-sm font-bold mt-2"
-                      htmlFor="date"
+                      htmlFor="insurance"
                     >
                       Insurance Type
                     </label>
@@ -602,6 +561,7 @@ export default function EditDealerCar() {
                       value={formData.carInsuranceType}
                       onChange={handleChangeType}
                     >
+                      <option value=""> Insurance Type</option>
                       <option value="Comprehensive">Comprehensive</option>
                       <option value="Zero Dept">Zero Depreciation </option>
                       <option value="Third Party">Third Party</option>
@@ -610,51 +570,65 @@ export default function EditDealerCar() {
                 )}
               </div>
             </div>
-
             <div className="md:flex gap-2">
               <div className="mt-5 w-full">
                 <Inputs
                   required
                   label={"Km Driven"}
-                  type={"number"}
+                  type={"text"}
                   name={"kmDriven"}
                   value={formData.kmDriven}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      kmDriven: event.target.value,
-                    })
-                  }
+                  onChange={(event) => {
+                    // Ensure only numbers are accepted
+                    const value = event.target.value;
+                    if (/^[0-9]*$/.test(value)) {
+                      setFormData({
+                        ...formData,
+                        kmDriven: value,
+                      });
+                    }
+                  }}
                 />
               </div>
-              <div className="mt-5 md:ml-2 w-full">
+              <div className="mt-5 w-full">
                 <select
                   required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  name="fuelType"
+                  label={"fuelType"}
+                  type={"text"}
+                  name={"fuelType"}
                   value={formData.fuelType}
-                  onChange={(event) => {
+                  onChange={(event) =>
                     setFormData({
                       ...formData,
                       fuelType: event.target.value,
-                    });
-                  }}
+                    })
+                  }
                 >
                   <option value="">Fuel Type</option>
-                  <option>Petrol</option>
-                  <option>Diesel</option>
-                  <option>Electric</option>
-                  <option>CNG</option>
-                  <option>Petrol+CNG</option>
+
+                  {[
+                    "Petrol",
+                    "Diesel",
+                    "CNG",
+                    "Electric",
+                    "Hybrid",
+                    "Petrol+CNG",
+                  ].map((fuel) => (
+                    <option key={fuel} value={fuel}>
+                      {fuel}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
-            <div className="md:flex gap-2">
+            <div className="md:flex">
               <div className="mt-5 ml-5">
                 <input
                   label={"Music Feature"}
                   type={"checkbox"}
                   name={"musicFeature"}
+                  // value={formData.musicFeature}
                   checked={formData.musicFeature}
                   onChange={(event) =>
                     setFormData({
@@ -671,6 +645,7 @@ export default function EditDealerCar() {
                   label={"Power Window Feature"}
                   type={"checkbox"}
                   name={"powerWindowFeature"}
+                  // value={formData.powerWindowFeature}
                   checked={formData.powerWindowFeature}
                   onChange={(event) =>
                     setFormData({
@@ -687,6 +662,7 @@ export default function EditDealerCar() {
                   label={"Ac Feature"}
                   type={"checkbox"}
                   name={"acFeature"}
+                  // value={formData.acFeature}
                   checked={formData.acFeature}
                   onChange={(event) =>
                     setFormData({
@@ -703,6 +679,7 @@ export default function EditDealerCar() {
                   label={"Rear Parking Camera Feature"}
                   type={"checkbox"}
                   name={"rearParkingCameraFeature"}
+                  // value={formData.rearParkingCameraFeature}
                   checked={formData.rearParkingCameraFeature}
                   onChange={(event) =>
                     setFormData({
@@ -714,12 +691,14 @@ export default function EditDealerCar() {
                 Rear Parking Camera
               </div>
             </div>
+            {/* tenth part */}
             <div className="md:flex">
               <div className="mt-5 ml-5">
                 <input
                   label={"Button Start"}
                   type={"checkbox"}
                   name={"buttonStart"}
+                  // value={formData.musicFeature}
                   checked={formData.buttonStart}
                   onChange={(event) =>
                     setFormData({
@@ -736,6 +715,7 @@ export default function EditDealerCar() {
                   label={"ABS"}
                   type={"checkbox"}
                   name={"abs"}
+                  // value={formData.powerWindowFeature}
                   checked={formData.abs}
                   onChange={(event) =>
                     setFormData({
@@ -752,6 +732,7 @@ export default function EditDealerCar() {
                   label={"Sunroof"}
                   type={"checkbox"}
                   name={"sunroof"}
+                  // value={formData.acFeature}
                   checked={formData.sunroof}
                   onChange={(event) =>
                     setFormData({
@@ -768,6 +749,7 @@ export default function EditDealerCar() {
                   label={"Child Safety Locks"}
                   type={"checkbox"}
                   name={"childSafetyLocks"}
+                  // value={formData.rearParkingCameraFeature}
                   checked={formData.childSafetyLocks}
                   onChange={(event) =>
                     setFormData({
@@ -783,6 +765,7 @@ export default function EditDealerCar() {
                   label={"AirBag"}
                   type={"checkbox"}
                   name={"airbag"}
+                  // value={formData.musicFeature}
                   checked={formData.airbag}
                   onChange={(event) =>
                     setFormData({
@@ -794,52 +777,67 @@ export default function EditDealerCar() {
                 AirBag
               </div>
             </div>
-            <div className="mt-5">
-              <h4>Title</h4>
-              <div className="formrow">
-                <Input
-                  required
-                  className="form-control"
-                  name="title"
-                  placeholder="Title"
-                  value={formData.title}
-                  onChange={(event) => {
-                    setFormData({
-                      ...formData,
-                      title: event.target.value,
-                    });
-                  }}
-                ></Input>
-              </div>
+            <div className="mt-5 w-50">
+              <select
+                required
+                className="w-full border-2 border-gray-400 p-2 rounded-md"
+                label={"Select Dealer"}
+                name={"dealerId"}
+                value={formData.dealerId}
+                onChange={(event) =>
+                  setFormData({
+                    ...formData,
+                    dealerId: event.target.value,
+                  })
+                }
+              >
+                <option value="">Select Dealar</option>
+                {dealarList?.list?.map((dealer) => (
+                  <option key={dealer.dealer_id} value={dealer.dealer_id}>
+                    {dealer.firstName + " " + dealer.lastName}
+                  </option>
+                ))}
+              </select>
             </div>
 
+            <div className="mt-5 w-full">
+              <Inputs
+                required
+                label={"Title"}
+                type={"text"}
+                name={"title"}
+                value={formData.title}
+                onChange={(event) =>
+                  setFormData({
+                    ...formData,
+                    title: event.target.value,
+                  })
+                }
+              />
+            </div>
             <div className="mt-5">
-              <h4>Vehicle Description</h4>
-              <div className="formrow">
-                <Textarea
-                  required
-                  className="form-control"
-                  name="description"
-                  placeholder="Vehicle Description"
-                  value={formData.description}
-                  onChange={(event) => {
-                    setFormData({
-                      ...formData,
-                      description: event.target.value,
-                    });
-                  }}
-                ></Textarea>
-              </div>
+              <Textarea
+                required
+                label="Description"
+                name="description"
+                value={formData.description}
+                onChange={(event) =>
+                  setFormData({
+                    ...formData,
+                    description: event.target.value,
+                  })
+                }
+              />
             </div>
 
-            <button
-              type="submit"
-              className="p-3 mt-3 bg-indigo-400 rounded-md w-28 text-white mb-3"
-              value="Add  Car"
-            >
-              {" "}
-              Next
-            </button>
+            <div className="mt-5 flex justify-center mb-3">
+              <button
+                type="submit"
+                className="bg-blue-500 text-white px-4 py-2 rounded-md"
+              >
+               Add Car
+              </button>
+            </div>
           </form>
         </div>
       </div>

@@ -273,6 +273,21 @@ export function StickyNavbar() {
           Cars
         </Typography>
       </Link>
+      <Link to={`/inspector/user/cars`}>
+        <Typography
+          as="li"
+          variant="small"
+          color="white"
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === `/inspector/user/cars`
+              ? "bg-[#5e67c7] text-white"
+              : ""
+          }hover:bg-indigo-400`}
+          onClick={handleMenuItemClick}
+        >
+          User Cars
+        </Typography>
+      </Link>
      
       {/* <NotificationDialog /> */}
     </>
@@ -295,7 +310,7 @@ export function StickyNavbar() {
           Dealers
         </Typography>
       </Link>
-      <Link to={`/Seller/UserRequest`}>
+      <Link to={`/seller/request/active`}>
         <Typography
           as="li"
           variant="small"
