@@ -115,6 +115,7 @@ import CarList from "./pages/b2b/CarList";
 import AdminUserReq from "./pages/adminpages/AdminUserReq";
 import SalerUserSaleReqEdit from "./pages/sales/SalerUserSaleReqEdit";
 import FinalReportUser from "./pages/user/FinalReportUser";
+import AddColor from "./pages/adminpages/AddColor";
 export default function App() {
   return (
     <>
@@ -192,6 +193,7 @@ export default function App() {
             />
 
             <Route path="/carlistmodel" element={<CarListModels />} />
+            <Route path="/addcolor" element={<AddColor />} />
 
             <Route
               path="/admin/dealer/info/:id"
