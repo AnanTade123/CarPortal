@@ -23,7 +23,7 @@ const CarSummary = ({
 }) => {
   const features = [
     { label: "Reg. State", value: registration || "N/A", icon: "🗺️" },
-    { label: "Vehicle Type", value: "Sports Sedan", icon: "🚗" }, // example static value
+    { label: "Vehicle Type", value: "Premium Car", icon: "🚗" }, // example static value
     { label: "Registration Year", value: year || "N/A", icon: "📅" },
     { label: "Engine", value: "3996cc, Turbocharged, V8, DOHC", icon: "🔧" }, // static value
     {
