@@ -115,6 +115,8 @@ import CarList from "./pages/b2b/CarList";
 import AdminUserReq from "./pages/adminpages/AdminUserReq";
 import SalerUserSaleReqEdit from "./pages/sales/SalerUserSaleReqEdit";
 import FinalReportUser from "./pages/user/FinalReportUser";
+import UserInspectionCars from "./pages/Inspector/UserInspectionCars";
+import UserSaleCarAdd from "./pages/user/UserSaleCarAdd";
 export default function App() {
   return (
     <>
@@ -338,6 +340,7 @@ export default function App() {
               element={<CarVerify />}
             />
             <Route path="/inspector/car" element={<CarListing />} />
+            <Route path="/inspector/user/cars" element={<UserInspectionCars />} />
             {/* <Route path="/inspector/carverify/:beadingCarId" element={<CarVerify />} /> */}
             {/* <Route path="/inspector/car" element={<CarListing />} /> */}
             <Route path="/inspector/car/add" element={<BiddingAddCar2 />} />
@@ -352,6 +355,10 @@ export default function App() {
           <Route
             path="/bidding/:beadingCarId/bideditcar"
             element={<BiddingEditCar />}
+          />
+          <Route
+            path="/inspector/users/car/:saleCarId"
+            element={<UserSaleCarAdd />}
           />
           <Route path="/bidding/:id/:carid/settimer" element={<SetTimer />} />
           <Route
@@ -377,8 +384,8 @@ export default function App() {
               />
             }
           >
-              <Route path="/Seller/UserRequest/Edit/:userFormId" element={<SalerUserSaleReqEdit />} />
-            <Route path="/Seller/UserRequest" element={<AdminUserReq />} />
+            <Route path="/Seller/UserRequest/Edit/:userFormId" element={<SalerUserSaleReqEdit />} />
+            <Route path="/seller/request/:status" element={<AdminUserReq />} />
             <Route
               path="/Seller/ChangePassword"
               element={<SalerChangePassword />}

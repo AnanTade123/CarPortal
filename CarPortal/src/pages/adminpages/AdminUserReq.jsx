@@ -19,6 +19,8 @@ import {
 } from "../../services/inspectorapi";
 import {
   useGetUserRequestDataQuery,
+  useListbySalePersonIdQuery,
+  useListCarStatusQuery,
   useUserSaleReqFormEditMutation,
   useUserSaleReqFormUpdateMutation,
 } from "../../services/userAPI";
@@ -34,14 +36,6 @@ import { jwtDecode } from "jwt-decode";
 import { FiLoader } from "react-icons/fi";
 
 export default function AdminUserReq() {
-  const [pageNo, setPageNo] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
-  const [selectedInspectors, setSelectedInspectors] = useState({});
-  const { data: userdata, isLoading: isUserDataLoading, error: userError } = useGetUserRequestDataQuery({ page: pageNo, size: pageSize });
-  const { data: inspectorData, isLoading: isInspectorDataLoading, error: inspectorError } = useGetallInspectorQuery({ pageNo, pageSize });
-  // const [ userReqEdit ] = useUserSaleReqFormEditMutation();
-  const [ userReqUpdate ] = useUserSaleReqFormUpdateMutation();
- 
   const token = Cookies.get("token");
 
   let jwtDecodes;
@@ -50,8 +44,15 @@ export default function AdminUserReq() {
   }
   const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
   const salesUserId = token ? jwtDecodes?.userId : null;
-  console.log("id", salesPersonId);
-
+  const {status} = useParams();
+  const [pageNo, setPageNo] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
+  const [selectedInspectors, setSelectedInspectors] = useState({});
+  const { data: userdata, isLoading: isUserDataLoading, error: userError } = useGetUserRequestDataQuery({ page: pageNo, size: pageSize });
+  const { data: acceptData, isLoading: isAcceptDataLoading, error: acceptError } = useListbySalePersonIdQuery({salesPersonId: salesUserId,  page: pageNo, size: pageSize });
+  const { data : pendingData , isLoading: isPendingLoading, error : pendingError } = useListCarStatusQuery("pending");
+  const { data: inspectorData, isLoading: isInspectorDataLoading, error: inspectorError } = useGetallInspectorQuery({ pageNo, pageSize });
+  const [ userReqUpdate ] = useUserSaleReqFormUpdateMutation();
   const navigate = useNavigate();
   if (userError?.status === 401) {
     return navigate("/signin");
@@ -70,7 +71,12 @@ export default function AdminUserReq() {
   };
 
   // Filter userdata based on salesPersonId being null
-  const filteredData = userdata?.list?.filter((user) => user.salesPersonId === null || user.salesPersonId === (Number (salesUserId)));
+  let filteredData = [];
+  if(status === "active"){
+     filteredData = acceptData?.list;
+  }else{
+    filteredData = pendingData?.list;
+  }
   const columns = [
     {
       Header: "Sr. No",
@@ -259,18 +265,22 @@ export default function AdminUserReq() {
       </CardHeader>
       <div className="flex justify-center space-x-4">
       <Card className="w-96">
+      <Link to="/seller/request/active">
         <CardBody>
-            <Typography variant="h5" color="blue-gray" className="mb-2">
+            <Typography variant="h5" color={status === "active" ? 'green' : 'blue-gray'} className="mb-2">
               My User Sell Form Request
             </Typography>
         </CardBody>
+        </Link>
       </Card>
       <Card className="w-96">
+        <Link to="/seller/request/pending" >
         <CardBody>
-            <Typography variant="h5" color="blue-gray" className="mb-2">
+            <Typography variant="h5" color={status === "pending" ? 'green' : 'blue-gray'} className="mb-2">
               Pending Request
             </Typography>
         </CardBody>
+        </Link>
       </Card>
     </div>
 
