@@ -105,12 +105,9 @@ export function PremiumCardDefault1({ data, Carid, refetch }) {
       : combinedText;
   return (
     <div className="flex justify-center mx-auto">
-      <Card className="w-[24rem] overflow-hidden hover:border hover:border-3 shadow-xl">
+      <Card className="w-[22rem] overflow-hidden hover:border hover:border-3 shadow-xl">
         <CardHeader
-          floated={false}
-          shadow={false}
-          color="transparent"
-          className="m-0 rounded-none"
+          className="h-full mt-1"
         >
           <Link to={`/carlist/cardetails/premium/${data.carId}`}>
             <CarouselCustomArrows carId={data.carId} />

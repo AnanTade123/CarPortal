@@ -272,8 +272,9 @@ export default function EditPremiumCar() {
               </div>
 
               <div className="mt-5 md:ml-2 w-full">
-                <Inputs
+                <select
                   required
+                  className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label={"year"}
                   type={"number"}
                   name={"year"}
@@ -284,7 +285,22 @@ export default function EditPremiumCar() {
                       year: event.target.value,
                     })
                   }
-                />
+                >
+                  <option value="" disabled>
+                    Year
+                  </option>
+
+                  <option>2015</option>
+                  <option>2016</option>
+                  <option>2017</option>
+                  <option>2018</option>
+                  <option>2019</option>
+                  <option>2020</option>
+                  <option>2021</option>
+                  <option>2022</option>
+                  <option>2023</option>
+                  <option>2024</option>
+                </select>
               </div>
             </div>
 
@@ -343,8 +359,9 @@ export default function EditPremiumCar() {
             {/* fourth part */}
             <div className="md:flex">
               <div className="mt-5 w-full">
-                <Inputs
+                <select
                   required
+                  className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label={"Color"}
                   type={"text"}
                   name={"color"}
@@ -355,7 +372,23 @@ export default function EditPremiumCar() {
                       color: event.target.value,
                     })
                   }
-                />
+                >
+                  <option value="" disabled>
+                    Color
+                  </option>
+                  <option>Red</option>
+                  <option>Blue</option>
+                  <option>Yellow</option>
+                  <option>Pink</option>
+                  <option>Purple</option>
+                  <option>White</option>
+                  <option>Black</option>
+                  <option>Orange</option>
+                  <option>Green</option>
+                  <option>Brown</option>
+                  <option>Gold</option>
+                  <option>Aqua</option>
+                </select>
               </div>
 
               <div className="mt-5 md:ml-2 w-full">
