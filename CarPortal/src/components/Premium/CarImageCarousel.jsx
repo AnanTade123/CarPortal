@@ -57,7 +57,7 @@ const CarImageCarousel = ({ carId }) => {
             backgroundPosition: "center",
             filter: "blur(20px)", // Apply blur to the background
             transform: "scale(1)", // Slightly enlarge the background to avoid edges being visible
-            transition: "all 0.5s ease-in-out", // Smooth transition when active image changes
+            transition: "all ease-in-out", // Smooth transition when active image changes
           }}
         />
 
