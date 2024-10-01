@@ -194,6 +194,7 @@ export default function AddDealerCar() {
     };
     try{
       const res = await carRegister(data);
+     // console.log(data);
     if (res?.data?.status === "success") {
       toast.success("Car Added");
       setTimeout(() => {
