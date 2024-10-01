@@ -16,6 +16,7 @@ import { Link} from "react-router-dom";
 import EditColorForm  from "../adminpages/EditColorForm";
 import {AddColorForm} from "./AddColorForm";
 import { useDeleteColorMutation, useGetAllColorQuery } from "../../services/colorAPI";
+import { ToastContainer } from "react-toastify";
 
 const AddColor = () => {
   const [pageNo, setPageNo] = useState(1);
@@ -123,6 +124,7 @@ const AddColor = () => {
   return (
     <>
       <Card className="h-full w-full">
+      <ToastContainer />
         <CardHeader floated={false} shadow={false} className="rounded-none">
           <div className="flex items-center justify-between gap-8">
             <div>

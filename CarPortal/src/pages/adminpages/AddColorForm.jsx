@@ -17,6 +17,9 @@ import {
   useAddColorMutation,
   useGetColorNameQuery,
 } from "../../services/colorAPI";
+import { ToastContainer, toast } from "react-toastify";
+import { Navigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 
 export function AddColorForm({ refetch }) {
   const [open, setOpen] = useState(false);
@@ -24,11 +27,10 @@ export function AddColorForm({ refetch }) {
 
   const [addColor] = useAddColorMutation();
   const { data } = useGetColorNameQuery();
-  console.log(data);
-
+  
   const colors = data?.list.map((car) => car.name);
 
-  console.log(colors);
+  
   // Form state
   const [formData, setFormData] = useState({
     name: "",
@@ -58,8 +60,15 @@ export function AddColorForm({ refetch }) {
     try {
       const res = await addColor(carColor).unwrap();
       refetch();
+      if (res?.status === "Color created successfully") {
+        toast.success(res?.status);
+      } else {
+        // Handle unexpected status
+        toast.error("An unexpected status was returned");
+      }
     } catch (error) {
-      // console.error('Failed to add the car brand:', error);
+      //console.error('Failed to add the car color:', error);
+      toast.error("Failed to add color");
     }
 
     setFormData({
@@ -82,6 +91,7 @@ export function AddColorForm({ refetch }) {
         className="bg-transparent shadow-none"
       >
         <CardUi>
+          {/* <ToastContainer/> */}
           <CardBody className="flex flex-col gap-4">
             <Typography variant="h4" color="blue-gray">
               Add Color
