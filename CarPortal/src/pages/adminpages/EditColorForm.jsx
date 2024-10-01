@@ -18,7 +18,6 @@ const EditColorForm = ({ initialData, colorId ,refetch }) => {
     initialData || { name: "", }
   );
   const [editColorData] = useEditColorDataMutation();
-  console.log(colorId)
   
   useEffect(() => {
     if (initialData) {
