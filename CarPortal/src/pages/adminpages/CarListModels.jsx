@@ -19,6 +19,7 @@ import {
   useGetAllBrandsQuery,
   useDeleteCarBrandsMutation,
 } from "../../services/brandAPI";
+import { ToastContainer } from "react-toastify";
 
 const getInitialCarList = () => {
   const data = JSON.parse(localStorage.getItem("carList")) || [];
@@ -161,6 +162,7 @@ const CarListModels = () => {
   return (
     <>
       <Card className="h-full w-full">
+      <ToastContainer />
         <CardHeader floated={false} shadow={false} className="rounded-none">
           <div className="flex items-center justify-between gap-8">
             <div>
