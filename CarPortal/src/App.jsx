@@ -114,6 +114,7 @@ import CarList from "./pages/b2b/CarList";
 import AdminUserReq from "./pages/adminpages/AdminUserReq";
 import SalerUserSaleReqEdit from "./pages/sales/SalerUserSaleReqEdit";
 import FinalReportUser from "./pages/user/FinalReportUser";
+import ActiveCarList from "./pages/b2b/ActiveCarList";
 export default function App() {
   return (
     <>
@@ -164,7 +165,7 @@ export default function App() {
               <AdminMiddleware allowedRoles={[...Object.values(onlyAdmin)]} />
             }
           >
-                        <Route path="/Admin/UserRequest" element={<AdminUserReq />} />
+            <Route path="/Admin/UserRequest" element={<AdminUserReq />} />
 
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/dealer/:id" element={<SellForCar />} />
@@ -237,6 +238,7 @@ export default function App() {
               <DealerMiddleware allowedRoles={[...Object.values(onlyDealer)]} />
             }
           >
+            <Route path="/dealer/B2B" element={<ActiveCarList/>}/>
             <Route path="/dealer/:id" element={<SellForCar />} />
             <Route path="/dealer/premium/:id" element={<SellForCarPremium />} />
             <Route path="/dealer/b2b/:id" element={<CarList />} />
@@ -245,7 +247,7 @@ export default function App() {
               path="/dealer/premium/:id/addcar"
               element={<AddPremiumCarForm />}
             />
-
+             
             <Route
               path="/dealer/:id/uploadimage/:carId"
               element={<Uploadimages2 />}

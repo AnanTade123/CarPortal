@@ -110,6 +110,7 @@ export default function BiddingCarDetailsById1() {
           closeTime={closeTime}
           refeachData = {refetch}
           biddingTimerStatus={biddingTimerStatus}
+          price={price}
         />
       </div>
     </div>

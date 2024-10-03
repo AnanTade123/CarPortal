@@ -214,6 +214,15 @@ export const carApi = apiSlice.injectEndpoints({
       invalidatesTags: ["User"],
     }),
 
+    CarStatusActive: builder.query({
+      query: () => ({
+        url: `/BeadingCarController/getByStatus/active`,
+       
+        method:'GET'
+      }),
+      invalidatesTags: ["User"],
+    }),
+
   }),
 });
 
@@ -237,5 +246,6 @@ export const {
   useGetbyUserCarIdQuery,
   useCarremoveFavoriteMutation,
   useCarFavoriteAddRemoveQuery,
-  useCarCountByStatusQuery
+  useCarCountByStatusQuery,
+  useCarStatusActiveQuery
 } = carApi;
