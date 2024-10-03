@@ -48,6 +48,28 @@ export const salesAPI = apiSlice.injectEndpoints({
       })
       
     }),
+    b2bstatuCheck : builder.query({
+      query : (statuss) => ({
+        url : `/b2b/by-status?requestStatus=${statuss}`,
+        method: "GET",
+        
+         transerResponse:console.log(statuss),
+       
+      }),
+      invalidatesTags: ["SALESPERSON"],
+      
+    }),
+    b2bAssingMesection : builder.mutation({
+      query : ({assingData,b2BId}) => ({
+        url : `/b2b/update?b2BId=${b2BId}`,
+        method: "PATCH",
+        body:assingData,
+          transerResponse:console.log(assingData,b2BId),
+       
+      }),
+      invalidatesTags: ["SALESPERSON"],
+      
+    }),
 
   }),
 });
@@ -57,5 +79,7 @@ export const {
   useDeleteSellerMutation,
   useSellerByIdQuery,
   useSellerupdateMutation,
-  useSellerChangePasswordMutation
+  useSellerChangePasswordMutation,
+  useB2bstatuCheckQuery,
+  useB2bAssingMesectionMutation
 } = salesAPI;
