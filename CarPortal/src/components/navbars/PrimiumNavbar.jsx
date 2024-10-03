@@ -259,7 +259,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
           Cars
         </Typography>
       </Link>
-      <Link to={`/inspector/user/cars`}>
+      {/* <Link to={`/inspector/user/cars`}>
         <Typography
           as="li"
           variant="small"
@@ -273,7 +273,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         >
           User Cars
         </Typography>
-      </Link>
+      </Link> */}
 
       {/* <NotificationDialog /> */}
     </>
@@ -297,7 +297,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         </Typography>
       </Link>
 
-      <Link to={`/Seller/UserRequest`}>
+      {/* <Link to={`/Seller/UserRequest`}>
       <Typography
           as="li"
           variant="small"
@@ -311,7 +311,7 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         >
          User Cars
         </Typography>
-      </Link>
+      </Link> */}
       <NavListMenu />
 
       {/* <NotificationDialog /> */}

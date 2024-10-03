@@ -84,10 +84,10 @@ export function StickyNavbar() {
           title: "Car Models",
           link: "/carlistmodel",
         },
-        {
-          title: "User Request",
-          link: "/Admin/UserRequest",
-        },
+        // {
+        //   title: "User Request",
+        //   link: "/Admin/UserRequest",
+        // },
         {
           title: "Car List",
           link: "/carlistadmin",
@@ -109,10 +109,10 @@ export function StickyNavbar() {
           title: "Winner Section",
           link: `/dealer/winnersection`,
         },
-        {
-          title: "B2B",
-          link: `/dealer/b2b/${jwtDecodes?.dealerId}`,
-        }
+        // {
+        //   title: "B2B",
+        //   link: `/dealer/b2b/${jwtDecodes?.dealerId}`,
+        // }
       );
     }
     const renderItems = navListMenuItems.map(({ title, link }, key) => (
@@ -267,7 +267,7 @@ export function StickyNavbar() {
           Cars
         </Typography>
       </Link>
-      <Link to={`/inspector/user/cars`}>
+      {/* <Link to={`/inspector/user/cars`}>
         <Typography
           as="li"
           variant="small"
@@ -281,7 +281,7 @@ export function StickyNavbar() {
         >
           User Cars
         </Typography>
-      </Link>
+      </Link> */}
      
       {/* <NotificationDialog /> */}
     </>
@@ -304,7 +304,7 @@ export function StickyNavbar() {
           Dealers
         </Typography>
       </Link>
-      <Link to={`/seller/request/active`}>
+      {/* <Link to={`/seller/request/active`}>
         <Typography
           as="li"
           variant="small"
@@ -318,7 +318,7 @@ export function StickyNavbar() {
         >
          User Cars
         </Typography>
-      </Link>
+      </Link> */}
       <NavListMenu />
 
       {/* <NotificationDialog /> */}
@@ -401,7 +401,7 @@ export function StickyNavbar() {
 
   const userDashboard = userRole?.includes("USER") ? (
     <>
-      <Link to={`/sellcarlist`}>
+      {/* <Link to={`/sellcarlist`}>
         <Typography
           as="li"
           variant="small"
@@ -414,7 +414,7 @@ export function StickyNavbar() {
         >
           Sell Car
         </Typography>
-      </Link>
+      </Link> */}
 
       <Link to={`/pendinrequest/${jwtDecodes?.userId}`}>
         <Typography
