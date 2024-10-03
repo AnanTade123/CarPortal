@@ -327,7 +327,6 @@ export function StickyNavbar() {
         </Typography>
       </Link>
 
-<<<<<<< HEAD
       
 
       <Link to={"/buypremiumcars"}>
@@ -363,8 +362,6 @@ export function StickyNavbar() {
         </Typography>
       </Link>
 
-=======
->>>>>>> 44931eedd2b7dfd80b235f322198c1e14a4e332e
       <Link to={"/dealer/live/cars"}>
         <Typography
           as="li"
