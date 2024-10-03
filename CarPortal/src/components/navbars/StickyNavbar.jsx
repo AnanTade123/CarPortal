@@ -23,7 +23,6 @@ import Profile from "../Profile/Profile";
 
 import { jwtDecode } from "jwt-decode";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-// import { NotificationDialog } from "./NotificationDialog";
 import cartechlogo2 from "/cars/cartechlogo2.png";
 
 export function StickyNavbar() {
@@ -84,6 +83,12 @@ export function StickyNavbar() {
           title: "Car Models",
           link: "/carlistmodel",
         },
+
+        {
+          title: "Car Colors",
+          link: "/admin/addcolor",
+        },
+
         // {
         //   title: "User Request",
         //   link: "/Admin/UserRequest",
@@ -109,10 +114,15 @@ export function StickyNavbar() {
           title: "Winner Section",
           link: `/dealer/winnersection`,
         },
+      );
+    }
+    if (userRole === "SALESPERSON") {
+      navListMenuItems.unshift(
         // {
         //   title: "B2B",
-        //   link: `/dealer/b2b/${jwtDecodes?.dealerId}`,
-        // }
+        //   link: `/Seller/b2b/all`,
+        // },
+       
       );
     }
     const renderItems = navListMenuItems.map(({ title, link }, key) => (
@@ -178,25 +188,7 @@ export function StickyNavbar() {
 
   const adminDashboard = userRole?.includes("ADMIN") ? (
     <>
-      {/* <Link to={"/bidding"}>
-
-        <Typography
-
-          as="li"
-
-          variant="small"
-
-          color="blue-gray"
-
-          className={`p-3 rounded-md font-normal ${window.location.pathname === "/bidding" ? "bg-indigo-200 text-white" : ""}`}
-
-        >
-
-          Live
-
-        </Typography>
-
-      </Link> */}
+      
 
       <Link to={"/admin"}>
         <Typography
@@ -343,6 +335,41 @@ export function StickyNavbar() {
         </Typography>
       </Link>
 
+      
+
+      <Link to={"/buypremiumcars"}>
+        <Typography
+          as="li"
+          variant="small"
+          color="white"
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname === "/buypremiumcars"
+              ? "bg-[#5e67c7] text-white"
+              : ""
+          }hover:bg-indigo-400`}
+          onClick={handleMenuItemClick}
+        >
+          Buy Premium Car
+        </Typography>
+      </Link>
+
+      <Link to={`/dealer/B2B`}>
+        <Typography
+          as="li"
+          variant="small"
+          color="white"
+          className={`p-3 rounded-md font-normal ${
+            window.location.pathname ===
+            `/dealer/B2B`
+              ? "bg-[#5e67c7] text-white"
+              : ""
+          }hover:bg-indigo-400`}
+          onClick={handleMenuItemClick}
+        >
+          B2B
+        </Typography>
+      </Link>
+
       <Link to={"/dealer/live/cars"}>
         <Typography
           as="li"
@@ -360,6 +387,8 @@ export function StickyNavbar() {
       </Link>
 
       <NavListMenu />
+
+      
 
       <Link to={`/dealer/${jwtDecodes?.dealerId}/allpending`}>
         <Typography

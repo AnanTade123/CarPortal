@@ -12,85 +12,46 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-import { CarModelsForm } from "./CarModelsForm";
 import { Link} from "react-router-dom";
-import EditCarForm from "../adminpages/EdiCarForm";
-import {
-  useGetAllBrandsQuery,
-  useDeleteCarBrandsMutation,
-} from "../../services/brandAPI";
+import EditColorForm  from "../adminpages/EditColorForm";
+import {AddColorForm} from "./AddColorForm";
+import { useDeleteColorMutation, useGetAllColorQuery } from "../../services/colorAPI";
 import { ToastContainer } from "react-toastify";
 
-const getInitialCarList = () => {
-  const data = JSON.parse(localStorage.getItem("carList")) || [];
-  return data;
-};
-
-const saveCarListToStorage = (carList) => {
-  localStorage.setItem("carList", JSON.stringify(carList));
-};
-
-const getNextBrandDataId = () => {
-  const carList = getInitialCarList();
-  const ids = carList.map((car) => car.brandDataId);
-  const maxId = Math.max(0, ...ids);
-  return maxId + 1;
-};
-
-const CarListModels = () => {
-  const [pageNo, setPageNo] = useState(0);
+const AddColor = () => {
+  const [pageNo, setPageNo] = useState(1);
   const [pageSize, setPageSize] = useState(50);
-  const { data, refetch, error } = useGetAllBrandsQuery({ pageNo,pageSize });
-  const [deleteCarBrands] = useDeleteCarBrandsMutation();
-  const [carList, setCarList] = useState(getInitialCarList());
+  const { data, refetch, error } = useGetAllColorQuery({ pageNo,pageSize });
+  const [deleteColor] = useDeleteColorMutation();
+  const [colorList, setColorList] = useState([]);
   const [open, setOpen] = useState(false);
-  const [selectedCarId, setSelectedCarId] = useState(null);
+  const [selectedColorId, setSelectedColorId] = useState(null);
 
   useEffect(() => {
     if (data) {
-      const updatedCarList = data?.list?.map((item) => ({
-        brandDataId: item.brandDataId,
-        brand: item.brand,
-        variant: item.variant,
-        subVariant: item.subVariant,
-      }));
-      setCarList(updatedCarList);
-      saveCarListToStorage(updatedCarList);
+      fetchNextColors();
     }
   }, [data]);
-
-  const addCar = (newCar) => {
-    const newCarWithId = {
-      ...newCar,
-      brandDataId: getNextBrandDataId(),
-    };
-    const updatedCarList = [...carList, newCarWithId];
-    setCarList(updatedCarList);
-    saveCarListToStorage(updatedCarList);
+  const fetchNextColors = () => {
+    const itemsPerPage = 10;
+    const startIdx = (pageNo - 1) * itemsPerPage;
+    const nextColors =  data?.list?.slice(startIdx, startIdx + itemsPerPage);
+    setColorList(nextColors);
   };
+ 
 
-  const updateCar = (updatedCar) => {
-    const updatedCarList = carList.map((car) =>
-      car.brandDataId === updatedCar.brandDataId ? updatedCar : car
-    );
-    setCarList(updatedCarList);
-    saveCarListToStorage(updatedCarList);
-    refetch();
-  };
-
-  const handleOpen = (carId) => {
-    setSelectedCarId(carId);
+  const handleOpen = (colorId) => {
+    setSelectedColorId(colorId);
     setOpen(!open);
   };
 
   const deleteCar = async () => {
     try {
-      await deleteCarBrands(selectedCarId).unwrap();
-      const updatedCarList = carList.filter(
-        (car) => car.brandDataId !== selectedCarId
+      await deleteColor(selectedColorId).unwrap();
+      const updatedColorList = colorList.filter(
+        (car) => car.colorId !== selectedColorId
       );
-      setCarList(updatedCarList);
-      saveCarListToStorage(updatedCarList);
+      setColorList(updatedColorList);
       refetch();
       setOpen(false);
     } catch (error) {
@@ -99,13 +60,22 @@ const CarListModels = () => {
   };
   const nextHandler = () => {
     if (!error) {
-      setPageNo((prevPageNo) => prevPageNo + 1);
+      // setPageNo((prevPageNo) => prevPageNo + 1);
+      setPageNo((prevPageNo) => {
+        const newPageNo = prevPageNo + 1;
+        fetchNextColors(newPageNo); // Fetch next set of 10 colors
+        return newPageNo;
+      });
     }
   };
 
   const prevHandler = () => {
     if (pageNo > 0) {
-      setPageNo((prevPageNo) => prevPageNo - 1);
+      setPageNo((prevPageNo) => {
+        const newPageNo = prevPageNo - 1;
+        fetchNextColors(newPageNo); // Fetch next set of 10 colors
+        return newPageNo;
+      });
     }
   };
 
@@ -115,44 +85,36 @@ const CarListModels = () => {
       accessor: "serialNumber",
       Cell: (cell) => {
         const { pageSize } = cell.state; // Assuming you're using React Table's useTable hook
-        const serialNumber = pageNo * pageSize + cell.row.index + 1;
+        const serialNumber = (pageNo - 1) * pageSize + cell.row.index + 1;
         return serialNumber;
       },
     },
     {
       Header: "ID",
-      accessor: "brandDataId",
+      accessor: "colorId",
     },
     {
-      Header: "Brand",
-      accessor: "brand",
-    },
-    {
-      Header: "Model ",
-      accessor: "variant",
-    },
-    {
-      Header: "Variant",
-      accessor: "subVariant",
+      Header: "Color Name",
+      accessor: "name",
     },
     {
       Header: "Action",
       accessor: "action",
       Cell: (cell) => {
-        const car = cell.row.original;
+        const colors = cell.row.original;
         return (
           <div className="flex gap-2 justify-center items-center">
-            <EditCarForm
-              initialData={car}
-              brandDataId={cell.row.values.brandDataId}
-              onSave={updateCar}
+            <EditColorForm
+              initialData={colors}
+              colorId={cell.row.values.colorId}
+              refetch={refetch}
             />
-            <Button
+            {/* <Button
               color="red"
-              onClick={() => handleOpen(cell.row.values.brandDataId)}
+              onClick={() => handleOpen(cell.row.values.colorId)}
             >
               Delete
-            </Button>
+            </Button> */}
           </div>
         );
       },
@@ -167,10 +129,10 @@ const CarListModels = () => {
           <div className="flex items-center justify-between gap-8">
             <div>
               <Typography variant="h5" color="blue-gray">
-                Car Variants List
+                Colors List
               </Typography>
               <Typography color="gray" className="mt-1 font-normal">
-                See Information About Car Variants
+                See Information About All Colors
               </Typography>
               <Typography className="hidden xl:block ">
         <div className="flex">
@@ -178,18 +140,18 @@ const CarListModels = () => {
               <p className="hover:text-blue-900"> Home </p> 
               </Link>
                /
-              <p>CarModels</p>
+              <p>Add Color</p>
               
               </div>
       </Typography>
             </div>
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-              <CarModelsForm addCar={addCar} />
+              <AddColorForm refetch={refetch} />
             </div>
           </div>
         </CardHeader>
         <CardBody className="md:overflow-auto overflow-scroll px-1">
-          <TableComponent columns={columns} data={carList} className="" />
+          <TableComponent columns={columns} data={colorList} className="" />
         </CardBody>
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography
@@ -244,4 +206,4 @@ const CarListModels = () => {
   );
 };
 
-export default CarListModels;
+export default AddColor;

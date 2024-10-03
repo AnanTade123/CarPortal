@@ -135,6 +135,15 @@ export const dealerAPI = apiSlice.injectEndpoints({
       }),
       providesTags: ["Dealer", "user"],
     }),
+
+    b2bpost : builder.mutation({
+      query:(interestShow) => ({
+        url: `/b2b/add`,
+        method : "POST",
+        body : interestShow
+      }),
+      providesTags: ["Dealer"],
+    })
   }),
 
 
@@ -156,5 +165,6 @@ export const {
   useGetUserQuery,
   useChnagePasswordMutation,
   useLazyGetDealerByUserIdQuery,
-  useGetDealerProfileQuery
+  useGetDealerProfileQuery,
+  useB2bpostMutation
 } = dealerAPI;

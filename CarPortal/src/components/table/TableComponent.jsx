@@ -10,8 +10,7 @@ import {
 } from "react-table";
 
 const TableComponent = ({ columns, data }) => {
-  
-const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow } =
+  const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow } =
     useTable(
       {
         columns,
@@ -27,7 +26,8 @@ const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow } =
             "userId",
             "bidCarId",
             "biddingTimerStatus",
-            "userFormId"
+            "userFormId",
+            "colorId",
           ], //use property option, in columns define id name "id"
         },
       },

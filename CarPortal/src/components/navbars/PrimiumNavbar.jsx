@@ -89,6 +89,20 @@ const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
         {
           title: "Car Models",
           link: "/carlistmodel",
+        },
+
+        {
+          title: "Car Colors",
+          link: "/admin/addcolor",
+        },
+
+        {
+          title: "User Request",
+          link: "/Admin/UserRequest",
+        },
+        {
+          title: "Car List",
+          link: "/carlistadmin",
         }
       );
     }
