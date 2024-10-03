@@ -23,7 +23,6 @@ import Profile from "../Profile/Profile";
 
 import { jwtDecode } from "jwt-decode";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-// import { NotificationDialog } from "./NotificationDialog";
 import cartechlogo2 from "/cars/cartechlogo2.png";
 
 export function StickyNavbar() {
@@ -90,10 +89,10 @@ export function StickyNavbar() {
           link: "/admin/addcolor",
         },
 
-        {
-          title: "User Request",
-          link: "/Admin/UserRequest",
-        },
+        // {
+        //   title: "User Request",
+        //   link: "/Admin/UserRequest",
+        // },
         {
           title: "Car List",
           link: "/carlistadmin",
@@ -115,6 +114,15 @@ export function StickyNavbar() {
           title: "Winner Section",
           link: `/dealer/winnersection`,
         },
+      );
+    }
+    if (userRole === "SALESPERSON") {
+      navListMenuItems.unshift(
+        {
+          title: "B2B",
+          link: `/Seller/b2b/all`,
+        },
+       
       );
     }
     const renderItems = navListMenuItems.map(({ title, link }, key) => (
@@ -177,6 +185,164 @@ export function StickyNavbar() {
       </React.Fragment>
     );
   }
+function PendingListMenu() {
+  const [isMenuOpen1, setIsMenuOpen1] = useState(false);
+  const [isMobileMenuOpen1, setIsMobileMenuOpen1] = useState(false);
+  const navListMenuItems = [
+  
+  ];
+  
+
+  if (userRole === "DEALER") {
+    navListMenuItems.unshift(
+      {
+        title: "Pending Request",
+        link: `/dealer/${jwtDecodes?.dealerId}/allpending`,
+      },
+      {
+        title: "B2B",
+        link: `/dealer/${jwtDecodes?.dealerId}/b2bpending`,
+      }
+    );
+  }
+  const renderItems1 = navListMenuItems.map(({ title, link }, key) => (
+    <Link to={link} key={key}>
+      <MenuItem className="flex items-center gap-3 rounded-lg hover:bg-[#2d3483]">
+        <div>
+          <Typography
+            variant="h6"
+            color="blue-gray"
+            className="flex items-center text-sm font-normal text-white"
+          >
+            {title}
+          </Typography>
+        </div>
+      </MenuItem>
+    </Link>
+  ));
+
+  return (
+    <React.Fragment>
+      <Menu
+        open={isMenuOpen1}
+        handler={setIsMenuOpen1}
+        offset={{ mainAxis: 20 }}
+        placement="bottom"
+        allowHover={true}
+      >
+        <MenuHandler>
+          <Typography as="div" variant="small" className="font-medium">
+            <ListItem
+              className={`flex items-center gap-2 p-3 font-medium text-white hover:bg-indigo-400`}
+              selected={isMenuOpen1 || isMobileMenuOpen1}
+              onClick={() => setIsMobileMenuOpen1((cur) => !cur)}
+            >
+              Pending Cars
+              <ChevronDownIcon
+                strokeWidth={2.5}
+                className={`hidden h-3 w-3 transition-transform lg:block ${
+                  isMenuOpen1 ? "rotate-180" : ""
+                }`}
+              />
+              <ChevronDownIcon
+                strokeWidth={2.5}
+                className={`block h-3 w-3 transition-transform lg:hidden ${
+                  isMobileMenuOpen1 ? "rotate-180" : ""
+                }`}
+              />
+            </ListItem>
+          </Typography>
+        </MenuHandler>
+        <MenuList className="hidden max-w-screen-xl rounded-xl lg:block bg-[#626deb] border-none">
+          <ul className="grid grid-cols-1 gap-y-2 outline-none outline-0">
+            {renderItems1}
+          </ul>
+        </MenuList>
+      </Menu>
+      <div className="block lg:hidden">
+        <Collapse open={isMobileMenuOpen1}>{renderItems1}</Collapse>
+      </div>
+    </React.Fragment>
+  );
+}
+
+function ConfermListMenu() {
+  const [isMenuOpen2, setIsMenuOpen2] = useState(false);
+  const [isMobileMenuOpen2, setIsMobileMenuOpen2] = useState(false);
+  const navListMenuItems = [];
+
+  if (userRole === "DEALER") {
+    navListMenuItems.unshift(
+      {
+        title: "Confirm Booking",
+        link: `/dealer/${jwtDecodes?.dealerId}/booking/confirm`,
+      },
+      {
+        title: "B2B ",
+        link: `/dealer/${jwtDecodes?.dealerId}/b2b/confirm`,
+      }
+    );
+  }
+  const renderItems2 = navListMenuItems.map(({ title, link }, key) => (
+    <Link to={link} key={key}>
+      <MenuItem className="flex items-center gap-3 rounded-lg hover:bg-[#2d3483]">
+        <div>
+          <Typography
+            variant="h6"
+            color="blue-gray"
+            className="flex items-center text-sm font-normal text-white"
+          >
+            {title}
+          </Typography>
+        </div>
+      </MenuItem>
+    </Link>
+  ));
+
+  return (
+    <React.Fragment>
+      <Menu
+        open={isMenuOpen2}
+        handler={setIsMenuOpen2}
+        offset={{ mainAxis: 20 }}
+        placement="bottom"
+        allowHover={true}
+      >
+        <MenuHandler>
+          <Typography as="div" variant="small" className="font-medium">
+            <ListItem
+              className={`flex items-center gap-2 p-3 font-medium text-white hover:bg-indigo-400`}
+              selected={isMenuOpen2 || isMobileMenuOpen2}
+              onClick={() => setIsMobileMenuOpen2((cur) => !cur)}
+            >
+              Confirm Cars
+              <ChevronDownIcon
+                strokeWidth={2.5}
+                className={`hidden h-3 w-3 transition-transform lg:block ${
+                  isMenuOpen2 ? "rotate-180" : ""
+                }`}
+              />
+              <ChevronDownIcon
+                strokeWidth={2.5}
+                className={`block h-3 w-3 transition-transform lg:hidden ${
+                  isMobileMenuOpen2 ? "rotate-180" : ""
+                }`}
+              />
+            </ListItem>
+          </Typography>
+        </MenuHandler>
+        <MenuList className="hidden max-w-screen-xl rounded-xl lg:block bg-[#626deb] border-none">
+          <ul className="grid grid-cols-1 gap-y-2 outline-none outline-0">
+            {renderItems2}
+          </ul>
+        </MenuList>
+      </Menu>
+      <div className="block lg:hidden">
+        <Collapse open={isMobileMenuOpen2}>{renderItems2}</Collapse>
+      </div>
+    </React.Fragment>
+  );
+}
 
   const adminDashboard = userRole?.includes("ADMIN") ? (
     <>
@@ -327,24 +493,6 @@ export function StickyNavbar() {
         </Typography>
       </Link>
 
-      
-
-      <Link to={"/buypremiumcars"}>
-        <Typography
-          as="li"
-          variant="small"
-          color="white"
-          className={`p-3 rounded-md font-normal ${
-            window.location.pathname === "/buypremiumcars"
-              ? "bg-[#5e67c7] text-white"
-              : ""
-          }hover:bg-indigo-400`}
-          onClick={handleMenuItemClick}
-        >
-          Buy Premium Car
-        </Typography>
-      </Link>
-
       <Link to={`/dealer/B2B`}>
         <Typography
           as="li"
@@ -380,41 +528,9 @@ export function StickyNavbar() {
 
       <NavListMenu />
 
-      
+      <PendingListMenu/>
 
-      <Link to={`/dealer/${jwtDecodes?.dealerId}/allpending`}>
-        <Typography
-          as="li"
-          variant="small"
-          color="white"
-          className={`p-3 rounded-md font-normal ${
-            window.location.pathname ===
-            `/dealer/${jwtDecodes?.dealerId}/allpending`
-              ? "bg-[#5e67c7] text-white"
-              : ""
-          }hover:bg-indigo-400`}
-          onClick={handleMenuItemClick}
-        >
-          Pending Request
-        </Typography>
-      </Link>
-
-      <Link to={`/dealer/${jwtDecodes?.dealerId}/booking/confirm`}>
-        <Typography
-          as="li"
-          variant="small"
-          color="white"
-          className={`p-3 rounded-md font-normal ${
-            window.location.pathname ===
-            `/dealer/${jwtDecodes?.dealerId}/booking/confirm`
-              ? "bg-[#5e67c7] text-white"
-              : ""
-          }hover:bg-indigo-400`}
-          onClick={handleMenuItemClick}
-        >
-          Confirm Booking
-        </Typography>
-      </Link>
+      <ConfermListMenu/>
 
       {/* <NotificationDialog /> */}
     </>

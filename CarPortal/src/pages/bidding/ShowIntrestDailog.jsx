@@ -66,10 +66,11 @@ export default function ShowIntrestDailog() {
   //   });
   // };
 const handleSubmit = async() =>{
+  console.log("currentTime",currentTime)
 const interestShow = {
   beadingCarId:beadingCarId,
   buyerDealerId:DealerId,
-  time:formdata.time
+  time:currentTime
 }
 console.log(interestShow)
 try {
@@ -93,13 +94,7 @@ try {
         <DialogHeader>Show Interest</DialogHeader>
    
         <DialogBody>
-          <Input 
-            label="Time" 
-            value={currentTime} 
-            readOnly 
-            name="time" 
-          />
-         
+         <p>Are you sure</p>
         </DialogBody>
         
         <DialogFooter>
@@ -109,10 +104,10 @@ try {
             onClick={handleClose}
             className="mr-1"
           >
-            <span>Cancel</span>
+            <span>No</span>
           </Button>
           <Button variant="gradient" color="green" onClick={handleSubmit}>
-            <span>Confirm</span>
+            <span>Yes</span>
           </Button>
         </DialogFooter>
       </Dialog>

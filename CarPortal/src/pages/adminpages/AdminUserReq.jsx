@@ -15,13 +15,12 @@ import {
   CardFooter,
 } from "@material-tailwind/react";
 import {
-  useGetallInspectorQuery,useInspectorByIdQuery
+  useGetallInspectorQuery
 } from "../../services/inspectorapi";
 import {
   useGetUserRequestDataQuery,
   useListbySalePersonIdQuery,
   useListCarStatusQuery,
-  useUserSaleReqFormEditMutation,
   useUserSaleReqFormUpdateMutation,
 } from "../../services/userAPI";
 import TableComponent from "../../components/table/TableComponent";
@@ -268,7 +267,7 @@ export default function AdminUserReq() {
       <Link to="/seller/request/active">
         <CardBody>
             <Typography variant="h5" color={status === "active" ? 'green' : 'blue-gray'} className="mb-2">
-              My User Sell Form Request
+              Pending Request
             </Typography>
         </CardBody>
         </Link>
@@ -277,7 +276,16 @@ export default function AdminUserReq() {
         <Link to="/seller/request/pending" >
         <CardBody>
             <Typography variant="h5" color={status === "pending" ? 'green' : 'blue-gray'} className="mb-2">
-              Pending Request
+              Assinge  Request
+            </Typography>
+        </CardBody>
+        </Link>
+      </Card>
+      <Card className="w-96">
+        <Link to="/seller/request/sold" >
+        <CardBody>
+            <Typography variant="h5" color={status === "sold" ? 'green' : 'blue-gray'} className="mb-2">
+             Sold Car
             </Typography>
         </CardBody>
         </Link>
