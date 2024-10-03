@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+
+/* eslint-disable no-unused-vars */
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
@@ -34,7 +36,7 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { FiLoader } from "react-icons/fi";
 
-export default function AdminUserReq() {
+export default function B2BSeller() {
   const token = Cookies.get("token");
 
   let jwtDecodes;
@@ -264,7 +266,7 @@ export default function AdminUserReq() {
       </CardHeader>
       <div className="flex justify-center space-x-4">
       <Card className="w-96">
-      <Link to="/seller/request/active">
+      <Link to="/Seller/b2b/all">
         <CardBody>
             <Typography variant="h5" color={status === "active" ? 'green' : 'blue-gray'} className="mb-2">
               Pending Request
@@ -273,7 +275,7 @@ export default function AdminUserReq() {
         </Link>
       </Card>
       <Card className="w-96">
-        <Link to="/seller/request/pending" >
+        <Link to="/Seller/b2b/active" >
         <CardBody>
             <Typography variant="h5" color={status === "pending" ? 'green' : 'blue-gray'} className="mb-2">
               Assinge  Request
@@ -282,7 +284,7 @@ export default function AdminUserReq() {
         </Link>
       </Card>
       <Card className="w-96">
-        <Link to="/seller/request/sold" >
+        <Link to="/Seller/b2b/sold" >
         <CardBody>
             <Typography variant="h5" color={status === "sold" ? 'green' : 'blue-gray'} className="mb-2">
              Sold Car

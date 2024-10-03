@@ -108,6 +108,7 @@ import UserInspectionCars from "./pages/Inspector/UserInspectionCars";
 import UserSaleCarAdd from "./pages/user/UserSaleCarAdd";
 import AddColor from "./pages/adminpages/AddColor";
 import ActiveCarList from "./pages/b2b/ActiveCarList";
+import B2BSeller from "./pages/b2b/B2BSeller";
 export default function App() {
   return (
     <>
@@ -377,6 +378,7 @@ export default function App() {
               />
             }
           >
+            <Route path="/Seller/b2b/:status" element={<B2BSeller />} />
             <Route path="/Seller/UserRequest/Edit/:userFormId" element={<SalerUserSaleReqEdit />} />
             <Route path="/seller/request/:status" element={<AdminUserReq />} />
             <Route

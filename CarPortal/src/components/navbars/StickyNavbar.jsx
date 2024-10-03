@@ -23,7 +23,6 @@ import Profile from "../Profile/Profile";
 
 import { jwtDecode } from "jwt-decode";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-// import { NotificationDialog } from "./NotificationDialog";
 import cartechlogo2 from "/cars/cartechlogo2.png";
 
 export function StickyNavbar() {
@@ -115,6 +114,15 @@ export function StickyNavbar() {
           title: "Winner Section",
           link: `/dealer/winnersection`,
         },
+      );
+    }
+    if (userRole === "SALESPERSON") {
+      navListMenuItems.unshift(
+        {
+          title: "B2B",
+          link: `/Seller/b2b/all`,
+        },
+       
       );
     }
     const renderItems = navListMenuItems.map(({ title, link }, key) => (
