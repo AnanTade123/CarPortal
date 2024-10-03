@@ -62,15 +62,6 @@ import SellForCar from "./pages/dealer/SellForCar";
 
 import BiddingDealerCars from "./pages/biddingDashboard/BiddingDealerCars";
 import CarListTable from "./pages/biddingDashboard/CarListTable";
-import BiddingDealer from "./pages/dealer/BiddingDealer";
-import BiddingCars from "./pages/adminpages/BiddingCars";
-import CarDocumentSection from "./pages/InspectionReportPage/CarDocumentSection";
-import ExteriorSection from "./pages/InspectionReportPage/ExteriorSection";
-import EngineSection from "./pages/InspectionReportPage/EngineSection";
-import AcSection from "./pages/InspectionReportPage/AcSection";
-import ElectricalSection from "./pages/InspectionReportPage/ElectricalSection";
-import SteeringSection from "./pages/InspectionReportPage/SteeringSection";
-import InteriorSection from "./pages/InspectionReportPage/InteriorSection";
 import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
 import UploadImages3 from "./ui/UploadImages3";
 import BiddingAddCar2 from "./pages/bidding/BiddingAddCar2";
@@ -79,7 +70,6 @@ import AdminSalesEdit from "./pages/adminpages/AdminSalesEdit";
 import BiddingCarDetailsById1 from "./pages/bidding/BiddingCarDetailsById1";
 import BiddingEditImage from "./pages/bidding/BiddingEditImage";
 import SalePersonMiddleware from "./middleware/SalePersonMiddleware";
-import ImageUploader from "./components/demo/uploadimage";
 import FinalReport from "./pages/InspectionReportPage/FinalReport";
 import LiveBid from "./pages/LiveBidding/LiveBid";
 import BiddingCarDetail from "./pages/LiveBidding/BiddingCarDetail";
@@ -87,7 +77,6 @@ import BiddingCar from "./pages/bidding/BiddingCar";
 import DealerContact from "./components/carDetails/DealerContact";
 import WinnerSection from "./pages/dealer/WinnerSection";
 import { FavoritePage } from "./ui/FavoritePage";
-import { CardDefault } from "./ui/CardDefault";
 import WebSocketConnection from "./Utiles/WebSocketConnection";
 import UserProfileUpdate from "./pages/user/UserProfileUpdate";
 import UserInfo from "./pages/user/UserInfo";
@@ -118,12 +107,14 @@ import FinalReportUser from "./pages/user/FinalReportUser";
 import UserInspectionCars from "./pages/Inspector/UserInspectionCars";
 import UserSaleCarAdd from "./pages/user/UserSaleCarAdd";
 import AddColor from "./pages/adminpages/AddColor";
+import ActiveCarList from "./pages/b2b/ActiveCarList";
 export default function App() {
   return (
     <>
       <WebSocketConnection />
       <Routes>
         <Route path="signin" element={<LoginCard />} /> 
+        <Route path="signup" element={<SimpleRegistrationForm />} />
         <Route path="/pendingrequest2" element={<PendingRequest2 />} />
         <Route path="/" element={<Home />} />
 
@@ -131,7 +122,6 @@ export default function App() {
           <Route path="/forgetPassword" element={<ForgetPassword />} />
           <Route path="/reset-Password" element={<ResetPassword />} />
           <Route path="signin" element={<LoginCard />} />
-          <Route path="signup" element={<SimpleRegistrationForm />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/carlist" element={<BuyCar />} />
           <Route path="/premiumcarlist" element={<PremiumCarList />} />
@@ -172,7 +162,7 @@ export default function App() {
               <AdminMiddleware allowedRoles={[...Object.values(onlyAdmin)]} />
             }
           >
-                        <Route path="/Admin/UserRequest" element={<AdminUserReq />} />
+            <Route path="/Admin/UserRequest" element={<AdminUserReq />} />
 
             <Route path="/admin" element={<Admin />} />
             <Route
@@ -251,6 +241,7 @@ export default function App() {
               <DealerMiddleware allowedRoles={[...Object.values(onlyDealer)]} />
             }
           >
+            <Route path="/dealer/B2B" element={<ActiveCarList/>}/>
             <Route path="/dealer/:id" element={<SellForCar />} />
             <Route path="/dealer/premium/:id" element={<SellForCarPremium />} />
             <Route path="/dealer/b2b/:id" element={<CarList />} />
@@ -259,7 +250,7 @@ export default function App() {
               path="/dealer/premium/:id/addcar"
               element={<AddPremiumCarForm />}
             />
-
+             
             <Route
               path="/dealer/:id/uploadimage/:carId"
               element={<Uploadimages2 />}
