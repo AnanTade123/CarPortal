@@ -19,7 +19,10 @@ import {
 } from "../../services/inspectorapi";
 import {
   useGetUserRequestDataQuery,
+  useListbySalePersonIdQuery,
+  useListCarStatusQuery,
   useUserSaleReqFormEditMutation,
+  useUserSaleReqFormUpdateMutation,
 } from "../../services/userAPI";
 import TableComponent from "../../components/table/TableComponent";
 import { useState } from "react";
@@ -33,13 +36,6 @@ import { jwtDecode } from "jwt-decode";
 import { FiLoader } from "react-icons/fi";
 
 export default function AdminUserReq() {
-  const [pageNo, setPageNo] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
-  const [selectedInspectors, setSelectedInspectors] = useState({});
-  const { data: userdata, isLoading: isUserDataLoading, error: userError } = useGetUserRequestDataQuery({ page: pageNo, size: pageSize });
-  const { data: inspectorData, isLoading: isInspectorDataLoading, error: inspectorError } = useGetallInspectorQuery({ pageNo, pageSize });
-  const [ userReqEdit ] = useUserSaleReqFormEditMutation();
- 
   const token = Cookies.get("token");
 
   let jwtDecodes;
@@ -47,8 +43,16 @@ export default function AdminUserReq() {
     jwtDecodes = jwtDecode(token);
   }
   const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
-  console.log("id", salesPersonId);
-
+  const salesUserId = token ? jwtDecodes?.userId : null;
+  const {status} = useParams();
+  const [pageNo, setPageNo] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
+  const [selectedInspectors, setSelectedInspectors] = useState({});
+  const { data: userdata, isLoading: isUserDataLoading, error: userError } = useGetUserRequestDataQuery({ page: pageNo, size: pageSize });
+  const { data: acceptData, isLoading: isAcceptDataLoading, error: acceptError } = useListbySalePersonIdQuery({salesPersonId: salesUserId,  page: pageNo, size: pageSize });
+  const { data : pendingData , isLoading: isPendingLoading, error : pendingError } = useListCarStatusQuery("pending");
+  const { data: inspectorData, isLoading: isInspectorDataLoading, error: inspectorError } = useGetallInspectorQuery({ pageNo, pageSize });
+  const [ userReqUpdate ] = useUserSaleReqFormUpdateMutation();
   const navigate = useNavigate();
   if (userError?.status === 401) {
     return navigate("/signin");
@@ -67,8 +71,12 @@ export default function AdminUserReq() {
   };
 
   // Filter userdata based on salesPersonId being null
-  const filteredData = userdata?.list?.filter((user) => user.salesPersonId === null || user.salesPersonId === (Number (salesPersonId)));
-console.log("filteredData" ,filteredData)
+  let filteredData = [];
+  if(status === "active"){
+     filteredData = acceptData?.list;
+  }else{
+    filteredData = pendingData?.list;
+  }
   const columns = [
     {
       Header: "Sr. No",
@@ -99,7 +107,6 @@ console.log("filteredData" ,filteredData)
       accessor: "status",  
       Cell: (cell) => {
         const Status = cell.row.values.status;
-        console.log("Status" ,Status)
         return (
           <div>
             {Status === "pending" ? (
@@ -150,11 +157,11 @@ console.log("filteredData" ,filteredData)
 
           const updatedData = {
             inspectorId: inspectorId,
-            salesPersonId: salesPersonId,
+            salesPersonId: salesUserId,
           };
 
           try {
-            const response = await userReqEdit({ updatedData, userFormId });
+            const response = await userReqUpdate({ updatedData, userFormId });
        
             toast.success("Inspector Updated Successfully!", {
               autoClose: 1000, 
@@ -179,8 +186,8 @@ console.log("filteredData" ,filteredData)
             {inspectorData?.list.map((inspector) => (
               <option
                 className="font-bold"
-                key={inspector.inspectorProfileId}
-                value={inspector.inspectorProfileId}
+                key={inspector.userId}
+                value={inspector.userId}
               >
                 {`${inspector.firstName} ${inspector.lastName}`}
               </option>
@@ -256,6 +263,28 @@ console.log("filteredData" ,filteredData)
           </div>
         </div>
       </CardHeader>
+      <div className="flex justify-center space-x-4">
+      <Card className="w-96">
+      <Link to="/seller/request/active">
+        <CardBody>
+            <Typography variant="h5" color={status === "active" ? 'green' : 'blue-gray'} className="mb-2">
+              My User Sell Form Request
+            </Typography>
+        </CardBody>
+        </Link>
+      </Card>
+      <Card className="w-96">
+        <Link to="/seller/request/pending" >
+        <CardBody>
+            <Typography variant="h5" color={status === "pending" ? 'green' : 'blue-gray'} className="mb-2">
+              Pending Request
+            </Typography>
+        </CardBody>
+        </Link>
+      </Card>
+    </div>
+
+
       <CardBody className="md:overflow-auto overflow-scroll px-1">
         <TableComponent columns={columns} data={filteredData || []} />
       </CardBody>

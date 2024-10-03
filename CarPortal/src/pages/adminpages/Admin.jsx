@@ -20,7 +20,8 @@ import TableComponent from "../../components/table/TableComponent";
 import { useState } from "react";
 import { AddDealerForm } from "../../components/admin/AddDealerForm";
 import { Link } from "react-router-dom";
-import { FiLoader } from 'react-icons/fi'; import { FaCar } from "react-icons/fa";
+import { FiLoader } from "react-icons/fi";
+import { FaCar } from "react-icons/fa";
 
 export default function Admin() {
   const [pageNo, setPageNo] = useState(0);
@@ -101,7 +102,7 @@ export default function Admin() {
       accessor: "userId",
       disableSortBy: true,
     },
-    
+
     {
       Header: "Cars",
       accessor: "totalCarCount", // This can remain as is, or adjust based on your needs
@@ -110,6 +111,19 @@ export default function Admin() {
           <div className="flex justify-center items-center  hover:text-blue-400">
             <Link to={`/admin/dealer/${cell.row.values.dealer_id}`}>
               {cell.row.values.totalCarCount}
+            </Link>
+          </div>
+        );
+      },
+    },
+    {
+      Header: "Premium Cars",
+      accessor: "premiumCarCount", // This can remain as is, or adjust based on your needs
+      Cell: (cell) => {
+        return (
+          <div className="flex justify-center items-center  hover:text-blue-400">
+            <Link to={`/admin/premium/${cell.row.values.dealer_id}`}>
+              {cell.row.values.premiumCarCount}
             </Link>
           </div>
         );
@@ -225,15 +239,11 @@ export default function Admin() {
             <AddDealerForm />
           </div>
           <div className="flex justify-center mt-10">
-           <img
-          className="w-40"
-          src={emptyImage}
-          alt="no data"
-        />
-         </div>
-          <p className="flex justify-center text-2xl md:text-3xl font-semibold">No Data Available</p>
-         
-          
+            <img className="w-40" src={emptyImage} alt="no data" />
+          </div>
+          <p className="flex justify-center text-2xl md:text-3xl font-semibold">
+            No Data Available
+          </p>
         </div>
       ) : (
         <div>
@@ -275,15 +285,13 @@ export default function Admin() {
                     See information about all Dealers
                   </Typography>
                   <span className="mt-1 hidden xl:block">
-                <div className="flex">
-                <Link to={"/"}>
-              <p className="hover:text-blue-900"> Home</p> 
-              </Link>
-              /
-
-              <p>Dealers</p>
-              </div>
-              </span>
+                    <div className="flex">
+                      <Link to={"/"}>
+                        <p className="hover:text-blue-900"> Home</p>
+                      </Link>
+                      /<p>Dealers</p>
+                    </div>
+                  </span>
                 </div>
                 <div className="flex shrink-0 flex-col gap-2 sm:flex-row items-center">
                   <AddDealerForm />
@@ -323,8 +331,6 @@ export default function Admin() {
           </Card>
         </div>
       )}
-           
-     
     </>
   );
 }

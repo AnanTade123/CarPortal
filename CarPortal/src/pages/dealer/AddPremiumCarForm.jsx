@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Inputs from "../../forms/Inputs";
 import { Textarea, Input } from "@material-tailwind/react";
-import { useCarRegisterMutation } from "../../services/carAPI";
+import { useCarRegisterPremiumMutation } from "../../services/carAPI";
 import { useNavigate, useParams } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
 import {
@@ -69,8 +69,8 @@ export default function AddPremiumCarForm() {
       skip: !selectedBrand || !selectedModel,
     }
   );
-
-  const [carRegister] = useCarRegisterMutation();
+  const { carType } = useParams();
+  const [carRegister] = useCarRegisterPremiumMutation({carType});
   //  const [mult, setMult] = React.useState([]);
   const [formData, setFormData] = useState({
     //features
@@ -108,6 +108,7 @@ export default function AddPremiumCarForm() {
     insuranceType: "",
     carInsuranceType: "",
   });
+  const [error, setError] = useState(false);
   const { id } = useParams();
   // console.log(id);
   const navigate = useNavigate();
@@ -120,6 +121,15 @@ export default function AddPremiumCarForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // Validate price before proceeding
+    if (formData.price < 1500000) {
+      setError(true);
+      toast.error("Price must be greater than 1,500,000");
+      return; // Stop submission if validation fails
+    } else {
+      setError(false); // Reset error if the validation passes
+    }
     // console.log(formData);
     // Prepare the form data to send to the backend
     const data = {
@@ -183,7 +193,7 @@ export default function AddPremiumCarForm() {
       carInsuranceType: formData.carInsuranceType,
     };
     // console.log(data);
-    const res = await carRegister(data);
+    const res = await carRegister(data, { carType: "premium" });
     // console.log(res);
     if (res?.data?.status === "success") {
       toast.success("Car Added");
@@ -249,6 +259,20 @@ export default function AddPremiumCarForm() {
       carInsurance: value,
     }));
     setShowCalendar(value);
+  };
+  const handlePriceChange = (event) => {
+    const value = event.target.value;
+    setFormData({
+      ...formData,
+      price: value,
+    });
+
+    // Validate price
+    if (value && value < 1500000) {
+      setError(true);
+    } else {
+      setError(false);
+    }
   };
 
   const handleDateChange = (event) => {
@@ -426,11 +450,10 @@ export default function AddPremiumCarForm() {
                   type="number"
                   name="price"
                   value={formData.price}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      price: event.target.value,
-                    })
+                  error={error} // Highlight input with error style
+                  onChange={handlePriceChange}
+                  helperText={
+                    error ? "Value should be greater than 1,500,000" : ""
                   }
                 />
               </div>
@@ -453,16 +476,6 @@ export default function AddPremiumCarForm() {
                   <option value="" disabled>
                     Year
                   </option>
-                  <option>2005</option>
-                  <option>2006</option>
-                  <option>2007</option>
-                  <option>2008</option>
-                  <option>2009</option>
-                  <option>2010</option>
-                  <option>2011</option>
-                  <option>2012</option>
-                  <option>2013</option>
-                  <option>2014</option>
                   <option>2015</option>
                   <option>2016</option>
                   <option>2017</option>

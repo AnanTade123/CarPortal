@@ -62,15 +62,6 @@ import SellForCar from "./pages/dealer/SellForCar";
 
 import BiddingDealerCars from "./pages/biddingDashboard/BiddingDealerCars";
 import CarListTable from "./pages/biddingDashboard/CarListTable";
-import BiddingDealer from "./pages/dealer/BiddingDealer";
-import BiddingCars from "./pages/adminpages/BiddingCars";
-import CarDocumentSection from "./pages/InspectionReportPage/CarDocumentSection";
-import ExteriorSection from "./pages/InspectionReportPage/ExteriorSection";
-import EngineSection from "./pages/InspectionReportPage/EngineSection";
-import AcSection from "./pages/InspectionReportPage/AcSection";
-import ElectricalSection from "./pages/InspectionReportPage/ElectricalSection";
-import SteeringSection from "./pages/InspectionReportPage/SteeringSection";
-import InteriorSection from "./pages/InspectionReportPage/InteriorSection";
 import AdminInspectorInfo from "./pages/adminpages/AdminInspectorInfo";
 import UploadImages3 from "./ui/UploadImages3";
 import BiddingAddCar2 from "./pages/bidding/BiddingAddCar2";
@@ -79,7 +70,6 @@ import AdminSalesEdit from "./pages/adminpages/AdminSalesEdit";
 import BiddingCarDetailsById1 from "./pages/bidding/BiddingCarDetailsById1";
 import BiddingEditImage from "./pages/bidding/BiddingEditImage";
 import SalePersonMiddleware from "./middleware/SalePersonMiddleware";
-import ImageUploader from "./components/demo/uploadimage";
 import FinalReport from "./pages/InspectionReportPage/FinalReport";
 import LiveBid from "./pages/LiveBidding/LiveBid";
 import BiddingCarDetail from "./pages/LiveBidding/BiddingCarDetail";
@@ -87,7 +77,6 @@ import BiddingCar from "./pages/bidding/BiddingCar";
 import DealerContact from "./components/carDetails/DealerContact";
 import WinnerSection from "./pages/dealer/WinnerSection";
 import { FavoritePage } from "./ui/FavoritePage";
-import { CardDefault } from "./ui/CardDefault";
 import WebSocketConnection from "./Utiles/WebSocketConnection";
 import UserProfileUpdate from "./pages/user/UserProfileUpdate";
 import UserInfo from "./pages/user/UserInfo";
@@ -109,36 +98,44 @@ import SellCarList from "./pages/user/SellCarList";
 import SellForCarPremium from "./pages/dealer/SellForCarPremium";
 import AddPremiumCarForm from "./pages/dealer/AddPremiumCarForm";
 import EditPremiumCar from "./pages/dealer/EditPremiumCar";
-import BuyPremiumCar from "./pages/BuyPremiumCar";
+import AdminCarList from "./pages/adminpages/AdminCarList";
+import CarDetailsByIdPremium from "./pages/CarDetailsByIdPremium";
 import CarList from "./pages/b2b/CarList";
 import AdminUserReq from "./pages/adminpages/AdminUserReq";
 import SalerUserSaleReqEdit from "./pages/sales/SalerUserSaleReqEdit";
 import FinalReportUser from "./pages/user/FinalReportUser";
+import UserInspectionCars from "./pages/Inspector/UserInspectionCars";
+import UserSaleCarAdd from "./pages/user/UserSaleCarAdd";
+import AddColor from "./pages/adminpages/AddColor";
 import ActiveCarList from "./pages/b2b/ActiveCarList";
 export default function App() {
   return (
     <>
       <WebSocketConnection />
       <Routes>
+        <Route path="signin" element={<LoginCard />} /> 
+        <Route path="signup" element={<SimpleRegistrationForm />} />
         <Route path="/pendingrequest2" element={<PendingRequest2 />} />
         <Route path="/" element={<Home />} />
 
         <Route element={<AppLayout />}>
           <Route path="/forgetPassword" element={<ForgetPassword />} />
-          <Route path="signin" element={<LoginCard />} />
           <Route path="/reset-Password" element={<ResetPassword />} />
           <Route path="signin" element={<LoginCard />} />
-          <Route path="signup" element={<SimpleRegistrationForm />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/carlist" element={<BuyCar />} />
           <Route path="/premiumcarlist" element={<PremiumCarList />} />
-          <Route path="/buypremiumcars" element={<BuyPremiumCar />} />
           <Route path="/carimagecarousel" element={<CarImageCarousel />} />
+          <Route path="/carlistadmin" element={<AdminCarList />} />
 
           <Route path="/wsConnction" element={<BiddingCar />} />
           <Route
             path="/carlist/cardetails/:carId"
             element={<CarDetailsById />}
+          />
+          <Route
+            path="/carlist/cardetails/premium/:carId"
+            element={<CarDetailsByIdPremium />}
           />
           <Route
             path="/biddinglist/cardetails/:beadingCarId/:timerId"
@@ -168,7 +165,12 @@ export default function App() {
             <Route path="/Admin/UserRequest" element={<AdminUserReq />} />
 
             <Route path="/admin" element={<Admin />} />
+            <Route
+              path="/admin/dealer/carlist/:id"
+              element={<AdminCarList />}
+            />
             <Route path="/admin/dealer/:id" element={<SellForCar />} />
+            <Route path="/admin/premium/:id" element={<SellForCarPremium />} />
 
             <Route path="/inspector" element={<InspectorList />} />
             <Route path="/admin/salesuser" element={<SalesList />} />
@@ -183,6 +185,7 @@ export default function App() {
             />
 
             <Route path="/carlistmodel" element={<CarListModels />} />
+            <Route path="/admin/addcolor" element={<AddColor />} />
 
             <Route
               path="/admin/dealer/info/:id"
@@ -297,7 +300,11 @@ export default function App() {
             <Route path="/biddingcardetail" element={<BiddingCarDetail />} />
           </Route>
           <Route
-              path="/user/finalInspectionreport"
+              path="/user/car/status/:userFormId"
+              element={<FinalReportUser />}
+            />
+            <Route
+              path="/user/"
               element={<FinalReportUser />}
             />
           <Route
@@ -326,6 +333,7 @@ export default function App() {
               element={<CarVerify />}
             />
             <Route path="/inspector/car" element={<CarListing />} />
+            <Route path="/inspector/user/cars" element={<UserInspectionCars />} />
             {/* <Route path="/inspector/carverify/:beadingCarId" element={<CarVerify />} /> */}
             {/* <Route path="/inspector/car" element={<CarListing />} /> */}
             <Route path="/inspector/car/add" element={<BiddingAddCar2 />} />
@@ -340,6 +348,10 @@ export default function App() {
           <Route
             path="/bidding/:beadingCarId/bideditcar"
             element={<BiddingEditCar />}
+          />
+          <Route
+            path="/inspector/users/car/:saleCarId"
+            element={<UserSaleCarAdd />}
           />
           <Route path="/bidding/:id/:carid/settimer" element={<SetTimer />} />
           <Route
@@ -365,8 +377,8 @@ export default function App() {
               />
             }
           >
-              <Route path="/Seller/UserRequest/Edit/:userFormId" element={<SalerUserSaleReqEdit />} />
-            <Route path="/Seller/UserRequest" element={<AdminUserReq />} />
+            <Route path="/Seller/UserRequest/Edit/:userFormId" element={<SalerUserSaleReqEdit />} />
+            <Route path="/seller/request/:status" element={<AdminUserReq />} />
             <Route
               path="/Seller/ChangePassword"
               element={<SalerChangePassword />}
@@ -393,10 +405,10 @@ export default function App() {
             <Route path="/sale/dealer/info/:id" element={<AdminDealerInfo />} />
           </Route>
           <Route path="/user/:userid/favorite" element={<FavoritePage />} />
-          <Route path="/sellcarlist" element={<SellCarList/>} />
-          <Route path="/sellcarform" element={<SellCarForm/>} />
+          <Route path="/sellcarlist" element={<SellCarList />} />
+          <Route path="/sellcarform" element={<SellCarForm />} />
 
-          <Route path="/editsellform" element={<EditSellForm/>} />
+          <Route path="/user/sell/edit/:userFormId" element={<EditSellForm/>} />
 
 
           <Route path="/user" element={<UserInfo />} />

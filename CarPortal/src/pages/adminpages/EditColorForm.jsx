@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import {
@@ -8,15 +9,16 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import Inputs from "../../forms/Inputs"; // Assuming this is a custom input component
-import { useEditBrandDataMutation } from "../../services/brandAPI";
+//import { useEditBrandDataMutation } from "../../services/brandAPI";
+import { useEditColorDataMutation } from "../../services/colorAPI";
 
-const EditCarForm = ({ initialData, brandDataId ,onSave}) => {
+const EditColorForm = ({ initialData, colorId ,refetch }) => {
   const [open, setOpen] = useState(false);
   const [inputField, setInputField] = useState(
-    initialData || { brand: "", model: "", variant: "" }
+    initialData || { name: "", }
   );
-  const [editBrandData] = useEditBrandDataMutation();
-  console.log(brandDataId);
+  const [editColorData] = useEditColorDataMutation();
+  
   useEffect(() => {
     if (initialData) {
       setInputField(initialData);
@@ -38,11 +40,11 @@ const EditCarForm = ({ initialData, brandDataId ,onSave}) => {
     // console.log(inputField);
 
     try {
-      const res = await editBrandData({
-        id: brandDataId,
+      const res = await editColorData({
+        id: colorId,
         inputField: inputField,
       }).unwrap();
-      onSave(res)
+      refetch();
     } catch (error) {
       // console.log(error);
     }
@@ -55,27 +57,13 @@ const EditCarForm = ({ initialData, brandDataId ,onSave}) => {
         Edit
       </Button>
       <Dialog open={open} handler={handleOpen}>
-        <DialogHeader>Edit Car Details</DialogHeader>
+        <DialogHeader>Edit Color Details</DialogHeader>
         <DialogBody className="flex flex-col gap-4">
           <Inputs
-            label="Brand"
+            label="color"
             onChange={onChangeFormhandler}
-            value={inputField.brand}
-            name="brand"
-            type="text"
-          />
-          <Inputs
-            label="Model"
-            onChange={onChangeFormhandler}
-            value={inputField.variant}
-            name="variant"
-            type="text"
-          />
-          <Inputs
-            label="Variant"
-            onChange={onChangeFormhandler}
-            value={inputField.subVariant}
-            name="subVariant"
+            value={inputField.name}
+            name="name"
             type="text"
           />
         </DialogBody>
@@ -97,4 +85,4 @@ const EditCarForm = ({ initialData, brandDataId ,onSave}) => {
   );
 };
 
-export default EditCarForm;
+export default EditColorForm;

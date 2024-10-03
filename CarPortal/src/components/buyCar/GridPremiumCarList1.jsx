@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 // import CardUi from "../../ui/CardUi";
 import { useEffect, useState } from "react";
-import { PremiumCardDefault } from "../../ui/PremiumCardDefault";
+// import { PremiumCardDefault } from "../../ui/PremiumCardDefault";
+import { PremiumCardDefault1 } from "../../ui/PremiumCardDefault1";
 
-const GridPremiumCarList = ({ data, error, refetch }) => {
+const GridPremiumCarList1 = ({ data, error, refetch }) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -16,12 +17,12 @@ const GridPremiumCarList = ({ data, error, refetch }) => {
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-y-6 md:grid-cols-1 md:gap-y-6 lg:grid-cols-3 lg:gap-x-4 lg:gap-y-4">
+      <div className="grid grid-cols-1 gap-y-6 md:grid-cols-2 md:gap-x-10 md:gap-y-6 lg:grid-cols-3 lg:gap-x-4 lg:gap-y-4 hover:">
         {posts?.map((items, index) => {
           return (
             <div key={index}>
               <div className="flex">
-                <PremiumCardDefault
+                <PremiumCardDefault1
                   data={items}
                   Carid={items.carId}
                   refetch={refetch}
@@ -35,4 +36,4 @@ const GridPremiumCarList = ({ data, error, refetch }) => {
   );
 };
 
-export default GridPremiumCarList;
+export default GridPremiumCarList1;

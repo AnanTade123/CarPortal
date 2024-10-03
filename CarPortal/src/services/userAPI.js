@@ -37,7 +37,6 @@ export const UserAPI = apiSlice.injectEndpoints({
     UserSellFormUpdate: builder.mutation({
       query: ({userFormId ,userformupdate})  => ({
         url: ` /userFormController/update/${userFormId}`,
-       
         method: 'PUT',
         body:userformupdate
       }),
@@ -57,7 +56,7 @@ export const UserAPI = apiSlice.injectEndpoints({
 
     GetUserRequestDataById: builder.query({
       query: (userFormId) => ({
-        url: `userFormController/getById?userFormId=${userFormId}`,
+        url: `?userFormId=${userFormId}`,
         // transferResponse: console.log(userProfileId),
         method: "GET",
       }),
@@ -68,9 +67,16 @@ export const UserAPI = apiSlice.injectEndpoints({
     
     UserSaleReqFormEdit: builder.mutation({
       query: ({updatedData,userFormId}) => ({
-        url: `userFormController/update?userFormId=${userFormId}`,
-        transerResponse: console.log("dataaaa",updatedData,userFormId),
+        url: `/userFormController/update?userFormId=${userFormId}`,
         method: "PUT",
+        body: updatedData,
+      }),
+      invalidatesTags: ["User"],
+    }),
+    UserSaleReqFormUpdate: builder.mutation({
+      query: ({updatedData,userFormId}) => ({
+        url: `/userFormController/updateStatus?userFormId=${userFormId}`,
+        method: "PATCH",
         body: updatedData,
       }),
       invalidatesTags: ["User"],
@@ -85,15 +91,35 @@ export const UserAPI = apiSlice.injectEndpoints({
        invalidatesTags:["User"],
     }),
     listCarSell: builder.query({
-      query: () => ({
-        url: `/userFormController/user?userId=1151`,
+      query: (userId) => ({
+        url: `/userFormController/user?userId=${userId}`,
         // transferResponse: console.log(userProfileId),
         method: "GET",
       }),
       providesTags:["User"]
     }),
+    listCarStatus: builder.query({
+      query: (status) => ({
+        url: `/userFormController/status?status=${status}`,
+        method: "GET",
+      }),
+      providesTags:["User"]
+    }),
+    listbySalePersonId: builder.query({
+      query: ({salesPersonId ,page , size}) => ({
+        url: `/userFormController/salesPerson?salesPersonId=${salesPersonId}&page=${page}&size=${size}`,
+        method: "GET",
+      }),
+      providesTags:["User"]
+    }),
+    listbyInspectorId: builder.query({
+      query: ({inspectorId ,page , size}) => ({
+        url: `/userFormController/inspector?inspectorId=${inspectorId}&page=${page}&size=${size}`,
+        method: "GET",
+      }),
+      providesTags:["User"]
+    }),
   })
-
 });
 
 export const { useGetUserByIdQuery ,
@@ -102,7 +128,11 @@ useUserSellFormMutation,
 useUserSellFormUpdate,
 useGetUserRequestDataQuery,
 useUserSaleReqFormEditMutation,
+useUserSaleReqFormUpdateMutation,
 useGetUserRequestDataByIdQuery,
 useChangePasswordMutation,
-useListCarSellQuery
+useListCarSellQuery,
+useListCarStatusQuery,
+useListbySalePersonIdQuery,
+useListbyInspectorIdQuery
  } = UserAPI;

@@ -90,7 +90,7 @@ export function LoginCard() {
     
    
     <ToastContainer autoClose={2000} />
-      <Card className="w-96 bg-white shadow-xl border ">
+      <Card className="w-96 bg-white shadow-black border border-blue-400 shadow-md ">
 
       <div className="items-center mb-12 ">
 <Link to={"/"}>
@@ -105,8 +105,8 @@ export function LoginCard() {
       
         <CardHeader
           variant="gradient"
-          color="gray"
-          className="mb-4 grid h-28 place-items-center"
+          // color="gray"
+          className="mb-4 grid h-28 place-items-center bg-[#8a90d4]"
         >
           <Typography variant="h3" color="white">
             Sign In
@@ -115,21 +115,27 @@ export function LoginCard() {
         <form onSubmit={handleSubmit}>
           <CardBody className="flex flex-col gap-4">
             <Input
-              label="Email"
+              placeholder="Email"
               name="username"
               type="email"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
               value={formStateData.username}
               onChange={handleChange}
             />
-            <Input label="Password"
+            <Input placeholder="Password"
               name="password"
               type={showPassword ? 'text' : 'password'}
               value={formStateData.password}
               onChange={handleChange}
+              labelProps={{
+                className: "hidden",
+              }}
               icon={showPassword ? <VisibilityOff onClick={handleTogglePassword} className="cursor-pointer" /> : <Visibility onClick={handleTogglePassword} className="cursor-pointer" />} />
           </CardBody>
           <CardFooter className="pt-0">
-            <Button variant="gradient" fullWidth type="submit">
+            <Button  className="bg-[#8a90d4]" fullWidth type="submit">
               Sign In
             </Button>
             <div className="flex items-center justify-center mt-4">
@@ -141,7 +147,7 @@ export function LoginCard() {
                 <Typography
                   variant="small"
                   color="blue-gray"
-                  className="ml-1 font-bold"
+                  className="ml-1 font-bold "
                 >
                   Sign up
                 </Typography>

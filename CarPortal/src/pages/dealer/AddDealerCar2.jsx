@@ -13,10 +13,11 @@ import {
 
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import { useGetAllColorQuery } from "../../services/colorAPI";
 
 const cityOptions = {
   Pune: ["MH-12"],
-  PimpriChichwad: ["MH-14"],
+  PimpriChinchwad: ["MH-14"],
   Mumbai: ["MH-01", "MH-02", "MH-03", "MH-47"],
   Amravati: ["MH-27"],
   Yavatmal: ["MH-29"],
@@ -30,7 +31,7 @@ const cityOptions = {
   Nashik: ["MH-15", "MH-51"],
   Beed: ["MH-32"],
   Jalna: ["MH-21"],
-  Nagpur: ["MH-31", "MH-49  "],
+  Nagpur: ["MH-31", "MH-49"],
   Gondia: ["MH-35"],
   Gadchiroli: ["MH-33"],
   Bhandara: ["MH-36"],
@@ -47,10 +48,20 @@ const cityOptions = {
   Ahmednagar: ["MH-16"],
   Dharashiv: ["MH-25"],
   SambhajiNagar: ["MH-20"],
+  Vardha: ["MH-32"],
+  Hingoli: ["MH-38"],
+  Malegaon: ["MH-41"],
+  Baramati: ["MH-42"],
+  VashiNaviMumbai: ["MH-43"],
+  AmbaJogai: ["MH-44"],
+  Panvel: ["MH-46"],
+  Karad: ["MH-50"]
 };
+
 
 export default function AddDealerCar() {
   const { data: brandData } = useGetOnlyBrandsQuery();
+  const { data : colorData } = useGetAllColorQuery();
   const brands = brandData?.list.map((item) => item.brand) || [];
   // console.log(brands);
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -58,11 +69,10 @@ export default function AddDealerCar() {
   const [modelOptions, setModelOptions] = useState([]);
   const [variantOptions, setVariantOptions] = useState([]);
   const [showCalendar, setShowCalendar] = useState(false);
-
+  const [isAdding, setIsAdding] = useState(false);
   const { data: variantData } = useGetVariantsQuery(selectedBrand, {
     skip: !selectedBrand,
   });
-  // console.log(variantData);
   const { data: subVariantData } = useGetSubVariantsQuery(
     { brand: selectedBrand, variant: selectedModel },
     {
@@ -120,7 +130,7 @@ export default function AddDealerCar() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // console.log(formData);
+    setIsAdding(true);
     // Prepare the form data to send to the backend
     const data = {
       buttonStart: formData.buttonStart,
@@ -182,15 +192,19 @@ export default function AddDealerCar() {
       date: formattedDate,
       carInsuranceType: formData.carInsuranceType,
     };
-    // console.log(data);
-    const res = await carRegister(data);
-    // console.log(res);
+    try{
+      const res = await carRegister(data);
+     // console.log(data);
     if (res?.data?.status === "success") {
       toast.success("Car Added");
       setTimeout(() => {
         navigate(`/dealer/${id}/uploadimage/${res?.data?.message}`); // Corrected URL string with backticks (`) for interpolation
-      }, 2000);
+      }, 1000);
     }
+    }catch(error){
+      console.error("Error adding car", error);
+    }
+    
   };
 
   const handleBrandChange = (event, newValue) => {
@@ -295,7 +309,7 @@ export default function AddDealerCar() {
                   onChange={handleBrandChange}
                   renderInput={(params) => (
                     <TextField
-                    required
+                      required
                       sx={{
                         "& .MuiInputBase-root": {
                           height: "40px",
@@ -331,7 +345,7 @@ export default function AddDealerCar() {
                   onChange={handleModelChange}
                   renderInput={(params) => (
                     <TextField
-                    required
+                      required
                       sx={{
                         "& .MuiInputBase-root": {
                           height: "40px",
@@ -370,7 +384,7 @@ export default function AddDealerCar() {
                   onChange={handleVariantChange}
                   renderInput={(params) => (
                     <TextField
-                    required
+                      required
                       sx={{
                         "& .MuiInputBase-root": {
                           height: "40px",
@@ -410,7 +424,9 @@ export default function AddDealerCar() {
                     });
                   }}
                 >
-                  <option value="" disabled>Transmission</option>
+                  <option value="" disabled>
+                    Transmission
+                  </option>
                   <option>Automatic</option>
                   <option>Manual</option>
                 </select>
@@ -419,7 +435,7 @@ export default function AddDealerCar() {
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <Input
-                required
+                  required
                   label="Price"
                   type="number"
                   name="price"
@@ -435,7 +451,7 @@ export default function AddDealerCar() {
 
               <div className="mt-5 md:ml-2 w-full">
                 <select
-                required
+                  required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label={"year"}
                   type={"number"}
@@ -448,7 +464,14 @@ export default function AddDealerCar() {
                     })
                   }
                 >
-                  <option value="" disabled>Year</option>
+                  <option value="" disabled>
+                    Year
+                  </option>
+                  <option>2000</option>
+                  <option>2001</option>
+                  <option>2002</option>
+                  <option>2003</option>
+                  <option>2004</option>
                   <option>2005</option>
                   <option>2006</option>
                   <option>2007</option>
@@ -477,7 +500,7 @@ export default function AddDealerCar() {
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <select
-                required
+                  required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label={"Color"}
                   type={"text"}
@@ -490,25 +513,16 @@ export default function AddDealerCar() {
                     })
                   }
                 >
-                  <option value="" disabled>Color</option>
-                  <option>Red</option>
-                  <option>Blue</option>
-                  <option>Yellow</option>
-                  <option>Pink</option>
-                  <option>Purple</option>
-                  <option>White</option>
-                  <option>Black</option>
-                  <option>Orange</option>
-                  <option>Green</option>
-                  <option>Brown</option>
-                  <option>Gold</option>
-                  <option>Aqua</option>
+                  <option value="" disabled>Select Color</option>
+                  {colorData?.list?.map((item ,i) => (
+                    <option key={item.colorId} value={item.name}>{item.name}</option>
+                  ))}
                 </select>
               </div>
 
               <div className="mt-5 md:ml-2 w-full">
                 <select
-                required
+                  required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   name="ownerSerial"
                   value={formData.ownerSerial}
@@ -535,7 +549,7 @@ export default function AddDealerCar() {
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <Inputs
-                required
+                  required
                   label={"Area"}
                   type={"text"}
                   name={"area"}
@@ -608,7 +622,7 @@ export default function AddDealerCar() {
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <Input
-                required
+                  required
                   label="Km Driven"
                   type="number"
                   name="kmDriven"
@@ -635,7 +649,9 @@ export default function AddDealerCar() {
                     });
                   }}
                 >
-                  <option value="" disabled>Fuel Type</option>
+                  <option value="" disabled>
+                    Fuel Type
+                  </option>
                   <option>Petrol</option>
                   <option>Diesel</option>
                   <option>Electric</option>
@@ -650,7 +666,7 @@ export default function AddDealerCar() {
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <select
-                required
+                  required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label="City"
                   name="city"
@@ -668,7 +684,7 @@ export default function AddDealerCar() {
 
               <div className="mt-5 md:ml-2 w-full">
                 <select
-                required
+                  required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label="Registration"
                   name="registration"
@@ -894,9 +910,10 @@ export default function AddDealerCar() {
               type="submit"
               className="p-3 mt-3 bg-indigo-400 rounded-md w-28 text-white mb-3"
               value="Add  Car"
+              disabled={isAdding}
             >
               {" "}
-              Next
+               {isAdding ? 'Adding...' : 'Next'}
             </button>
           </form>
         </div>
