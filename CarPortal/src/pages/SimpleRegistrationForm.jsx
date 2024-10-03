@@ -56,7 +56,7 @@ export function SimpleRegistrationForm() {
   return (
     <>
     <div className="">
-    <div className="  md:ml-8 ml-5">
+    <div className=" md:mt-2  md:ml-8 ml-5">
       <Link to={"/"}>
       <div className=" flex text-blue-gray-900 mr-4 cursor-pointer font-bold text-2xl gap-2 ">
       <img
