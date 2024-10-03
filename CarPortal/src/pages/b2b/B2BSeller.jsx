@@ -16,68 +16,52 @@ import {
   CardBody,
   CardFooter,
 } from "@material-tailwind/react";
-import {
-  useGetallInspectorQuery
-} from "../../services/inspectorapi";
+
 import {
   useGetUserRequestDataQuery,
-  useListbySalePersonIdQuery,
-  useListCarStatusQuery,
-  useUserSaleReqFormUpdateMutation,
 } from "../../services/userAPI";
 import TableComponent from "../../components/table/TableComponent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-import Cookies from "js-cookie";
-
-
-
-import { jwtDecode } from "jwt-decode";
-import { FiLoader } from "react-icons/fi";
+import {useB2bstatuCheckQuery} from "../../services/salesAPI"
+import B2bSellerDialogBox from './B2bSellerDialogBox';
 
 export default function B2BSeller() {
-  const token = Cookies.get("token");
-
-  let jwtDecodes;
-  if (token) {
-    jwtDecodes = jwtDecode(token);
-  }
-  const salesPersonId = token ? jwtDecodes?.salesPersonId : null;
-  const salesUserId = token ? jwtDecodes?.userId : null;
-  const {status} = useParams();
-  const [pageNo, setPageNo] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
-  const [selectedInspectors, setSelectedInspectors] = useState({});
-  const { data: userdata, isLoading: isUserDataLoading, error: userError } = useGetUserRequestDataQuery({ page: pageNo, size: pageSize });
-  const { data: acceptData, isLoading: isAcceptDataLoading, error: acceptError } = useListbySalePersonIdQuery({salesPersonId: salesUserId,  page: pageNo, size: pageSize });
-  const { data : pendingData , isLoading: isPendingLoading, error : pendingError } = useListCarStatusQuery("pending");
-  const { data: inspectorData, isLoading: isInspectorDataLoading, error: inspectorError } = useGetallInspectorQuery({ pageNo, pageSize });
-  const [ userReqUpdate ] = useUserSaleReqFormUpdateMutation();
-  const navigate = useNavigate();
-  if (userError?.status === 401) {
-    return navigate("/signin");
-  }
-
-  const nextHandler = () => {
-    if (userdata?.list?.length >= pageSize) {
-      setPageNo((prevPage) => prevPage + 1);
-    }
-  };
-
-  const prevHandler = () => {
-    if (pageNo > 0) {
-      setPageNo((prevPage) => prevPage - 1);
-    }
-  };
-
-  // Filter userdata based on salesPersonId being null
-  let filteredData = [];
-  if(status === "active"){
-     filteredData = acceptData?.list;
-  }else{
-    filteredData = pendingData?.list;
-  }
+    const [statuss, setStatuss] = useState("");
+    const { status } = useParams();
+    const [filteredData, setFilteredData] = useState([]);
+    const [pageNo, setPageNo] = useState(0);
+    const [pageSize, setPageSize] = useState(10);
+  
+    const { data } = useB2bstatuCheckQuery(statuss);
+  
+    const { data: userdata, isLoading: isUserDataLoading, error: userError } = useGetUserRequestDataQuery({
+      page: pageNo,
+      size: pageSize,
+    });
+  
+    const navigate = useNavigate();
+    useEffect(() => {
+      if (userError?.status === 401) {
+        navigate("/signin");
+      }
+    }, [userError, navigate]);
+  
+    // Update filtered data whenever data or status changes
+    useEffect(() => {
+      if (data?.list) {
+        let updatedData;
+        if (status === "active") {
+          updatedData = data?.list.filter((item) => item.requestStatus === "ACTIVE");
+        } else if (status === "pending") {
+          updatedData = data?.list.filter((item) => item.requestStatus === "PENDING");
+        } else {
+          updatedData = data?.list;
+        }
+        setFilteredData(updatedData); 
+      }
+    }, [data, status]);
+  console.log(filteredData)
   const columns = [
     {
       Header: "Sr. No",
@@ -105,22 +89,22 @@ export default function B2BSeller() {
     },
     {
       Header: "Status",
-      accessor: "status",  
+      accessor: "status",
       Cell: (cell) => {
         const Status = cell.row.values.status;
         return (
           <div>
             {Status === "pending" ? (
-             <div className="relative cursor-pointer group">
-             <motion.p
-               whileHover={{ scale: 1.3, originX: 0.5 }}
-               className="text-yellow-800 uppercase "
-             >
-               {Status}
-             </motion.p>
-             <div className="absolute left-1/2 bottom-0 w-0 h-0.5 bg-yellow-800 transition-all duration-300 group-hover:w-[50%] group-hover:-translate-x-1/2"></div>
-           </div>
-           ) : (
+              <div className="relative cursor-pointer group">
+                <motion.p
+                  whileHover={{ scale: 1.3, originX: 0.5 }}
+                  className="text-yellow-800 uppercase "
+                >
+                  {Status}
+                </motion.p>
+                <div className="absolute left-1/2 bottom-0 w-0 h-0.5 bg-yellow-800 transition-all duration-300 group-hover:w-[50%] group-hover:-translate-x-1/2"></div>
+              </div>
+            ) : (
               <div>
                 <motion.p whileHover={{ scale: 1.3, originX: 0.5 }}>
                   <p className="text-green-500 uppercase cursor-pointer group">
@@ -143,106 +127,25 @@ export default function B2BSeller() {
       accessor: "pinCode",
     },
     {
-      Header: "Select Inspector",
+      Header: "Assign me",
       Cell: (cell) => {
-        const { row } = cell;
-        const userFormId = row.original.userFormId;
-        const InspectorID = row.original.inspectorId;
-
-        const handleInspectorChangeAndSubmit = async (e, userFormId) => {
-          const inspectorId = e.target.value;
-          setSelectedInspectors((prevState) => ({
-            ...prevState,
-            [userFormId]: inspectorId,
-          }));
-
-          const updatedData = {
-            inspectorId: inspectorId,
-            salesPersonId: salesUserId,
-          };
-
-          try {
-            const response = await userReqUpdate({ updatedData, userFormId });
-       
-            toast.success("Inspector Updated Successfully!", {
-              autoClose: 1000, 
-            });
-          } catch (err) {
-            // console.error("Failed to update the form:", err);
-            toast.error("Please Try Again", {
-              autoClose: 1000, 
-            });
-          }
-        };
-
+        // Access the beadingCarId from cell.row.original
+        const beadingCarId = cell.row.original.beadingCarId;
+        const buyerDealerId = cell.row.original.buyerDealerId;
+        const sellerDealerId = cell.row.original.sellerDealerId;
+        const salesPersonId = cell.row.original.salesPersonId;
+        const b2BId = cell.row.original.b2BId;
+        console.log(beadingCarId); // You can still log or use the beadingCarId without displaying it in the table
         return (
-          <select
-            value={InspectorID || ""}
-            onChange={(e) => handleInspectorChangeAndSubmit(e, userFormId)}
-            className={InspectorID ? " text-green-600 " : "text-red-600"}
-          >
-            <option value="" disabled className="font-bold">
-              Select Inspector
-            </option>
-            {inspectorData?.list.map((inspector) => (
-              <option
-                className="font-bold"
-                key={inspector.userId}
-                value={inspector.userId}
-              >
-                {`${inspector.firstName} ${inspector.lastName}`}
-              </option>
-            ))}
-          </select>
-        );
-      },
-    },
-    {
-      Header: "Edit",
-      accessor: "Actions",
-      Cell: (cell) => {
-        const userFormId = cell.row.original.userFormId;
-        return (
-          <div className="flex gap-2 justify-center items-center">
-            <Link to={`/Seller/UserRequest/Edit/${userFormId}`}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-                color="green"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-                />
-              </svg>
-            </Link>
+          <div className="cursor-pointer">
+            <B2bSellerDialogBox beadingCarId={beadingCarId} buyerDealerId={buyerDealerId} sellerDealerId={sellerDealerId} salesPersonId={salesPersonId} b2BId={b2BId} />
           </div>
         );
       },
     },
+  
   ];
-
-  if (isUserDataLoading || isInspectorDataLoading) {
-    return (
-      <div className="w-screen h-screen flex justify-center items-center p-8">
-        <FiLoader className="animate-spin text-gray-800 h-16 w-16" />
-      </div>
-    );
-  }
-
-  // if (userError?.status === 404) {
-  //   return (
-  //     <div className="flex flex-col justify-center items-center mt-10">
-  //       <img className="w-40" src={emptyImage} alt="No data" />
-  //       <p className="text-2xl md:text-3xl font-semibold">No Data Available</p>
-  //     </div>
-  //   );
-  // }
+    
 
   return (
     <Card className="h-full w-full">
@@ -266,9 +169,9 @@ export default function B2BSeller() {
       </CardHeader>
       <div className="flex justify-center space-x-4">
       <Card className="w-96">
-      <Link to="/Seller/b2b/all">
+      <Link to="/Seller/b2b/pending">
         <CardBody>
-            <Typography variant="h5" color={status === "active" ? 'green' : 'blue-gray'} className="mb-2">
+            <Typography variant="h5" color={status === "pending" ? 'green' : 'blue-gray'} className="mb-2" onClick={()=> setStatuss(status)}>
               Pending Request
             </Typography>
         </CardBody>
@@ -277,7 +180,7 @@ export default function B2BSeller() {
       <Card className="w-96">
         <Link to="/Seller/b2b/active" >
         <CardBody>
-            <Typography variant="h5" color={status === "pending" ? 'green' : 'blue-gray'} className="mb-2">
+            <Typography variant="h5" color={status === "active" ? 'green' : 'blue-gray'} className="mb-2" onClick={()=> setStatuss(status)}>
               Assinge  Request
             </Typography>
         </CardBody>
@@ -286,7 +189,7 @@ export default function B2BSeller() {
       <Card className="w-96">
         <Link to="/Seller/b2b/sold" >
         <CardBody>
-            <Typography variant="h5" color={status === "sold" ? 'green' : 'blue-gray'} className="mb-2">
+            <Typography variant="h5" color={status === "sold" ? 'green' : 'blue-gray'} className="mb-2" onClick={()=> setStatuss(status)}>
              Sold Car
             </Typography>
         </CardBody>
@@ -303,13 +206,13 @@ export default function B2BSeller() {
           Page {pageNo + 1}
         </Typography>
         <div className="flex gap-2">
-          <Button variant="outlined" size="sm" onClick={prevHandler} disabled={pageNo <= 0}>
+          <Button variant="outlined" size="sm"  disabled={pageNo <= 0}>
             Previous
           </Button>
           <Button
             variant="outlined"
             size="sm"
-            onClick={nextHandler}
+            
             disabled={userdata?.list?.length < pageSize}
           >
             Next
