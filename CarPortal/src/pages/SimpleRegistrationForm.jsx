@@ -8,7 +8,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-
+import cartechlogo2 from "/cars/cartechlogo2.png";
 export function SimpleRegistrationForm() {
   const [SignUp] = useSignUpMutation();
   const navigate = useNavigate();
@@ -54,6 +54,21 @@ export function SimpleRegistrationForm() {
   };
 
   return (
+    <>
+    <div className="">
+    <div className="  md:ml-8 ml-5">
+      <Link to={"/"}>
+      <div className=" flex text-blue-gray-900 mr-4 cursor-pointer font-bold text-2xl gap-2 ">
+      <img
+            src={cartechlogo2}
+            alt="logo"
+            className="  w-12 lg:w-[70px] lg:h-[64px] "
+          />
+           <span className="mt-3">CarTechIndia</span> 
+    </div>
+       
+</Link>
+</div>
     <div className="h-auto mt-10 flex justify-center items-center">
       <Card className="p-5 border border-blue-400 shadow-md bg-white shadow-black">
       <ToastContainer />
@@ -252,6 +267,8 @@ export function SimpleRegistrationForm() {
         </Formik>
       </Card>
     </div>
+    </div>
+    </>
   );
 }
 
