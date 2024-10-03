@@ -350,7 +350,7 @@ const SellForCarPremium = () => {
                   <MdPendingActions color="#b09b12" className="h-6 w-6" />
                 </div>
               </Link> */}
-              <Link to={`/carlist/cardetails/${cell.row.values.carId}`}>
+              <Link to={`/carlist/cardetails/premium/${cell.row.values.carId}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

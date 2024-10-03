@@ -89,10 +89,10 @@ export function StickyNavbar() {
           link: "/admin/addcolor",
         },
 
-        {
-          title: "User Request",
-          link: "/Admin/UserRequest",
-        },
+        // {
+        //   title: "User Request",
+        //   link: "/Admin/UserRequest",
+        // },
         {
           title: "Car List",
           link: "/carlistadmin",
@@ -118,10 +118,10 @@ export function StickyNavbar() {
     }
     if (userRole === "SALESPERSON") {
       navListMenuItems.unshift(
-        {
-          title: "B2B",
-          link: `/Seller/b2b/all`,
-        },
+        // {
+        //   title: "B2B",
+        //   link: `/Seller/b2b/all`,
+        // },
        
       );
     }
@@ -259,7 +259,7 @@ export function StickyNavbar() {
           Cars
         </Typography>
       </Link>
-      <Link to={`/inspector/user/cars`}>
+      {/* <Link to={`/inspector/user/cars`}>
         <Typography
           as="li"
           variant="small"
@@ -273,7 +273,7 @@ export function StickyNavbar() {
         >
           User Cars
         </Typography>
-      </Link>
+      </Link> */}
      
       {/* <NotificationDialog /> */}
     </>
@@ -296,7 +296,7 @@ export function StickyNavbar() {
           Dealers
         </Typography>
       </Link>
-      <Link to={`/seller/request/active`}>
+      {/* <Link to={`/seller/request/active`}>
         <Typography
           as="li"
           variant="small"
@@ -310,7 +310,7 @@ export function StickyNavbar() {
         >
          User Cars
         </Typography>
-      </Link>
+      </Link> */}
       <NavListMenu />
 
       {/* <NotificationDialog /> */}
@@ -430,7 +430,7 @@ export function StickyNavbar() {
 
   const userDashboard = userRole?.includes("USER") ? (
     <>
-      <Link to={`/sellcarlist`}>
+      {/* <Link to={`/sellcarlist`}>
         <Typography
           as="li"
           variant="small"
@@ -443,7 +443,7 @@ export function StickyNavbar() {
         >
           Sell Car
         </Typography>
-      </Link>
+      </Link> */}
 
       <Link to={`/pendinrequest/${jwtDecodes?.userId}`}>
         <Typography
