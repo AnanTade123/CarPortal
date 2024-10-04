@@ -118,10 +118,10 @@ export function StickyNavbar() {
     }
     if (userRole === "SALESPERSON") {
       navListMenuItems.unshift(
-        // {
-        //   title: "B2B",
-        //   link: `/Seller/b2b/all`,
-        // },
+        {
+          title: "B2B",
+          link: `/Seller/b2b/all`,
+        },
        
       );
     }
