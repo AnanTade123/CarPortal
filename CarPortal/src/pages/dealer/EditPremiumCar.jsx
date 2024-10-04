@@ -9,6 +9,9 @@ import {
 } from "../../services/carAPI";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { useGetAllColorQuery } from "../../services/colorAPI";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
 
 export default function EditPremiumCar() {
   const { id, carId } = useParams();
@@ -17,6 +20,9 @@ export default function EditPremiumCar() {
   // console.log(id, carId);
   const navigate = useNavigate();
   const [carUpdate] = useCarUpdateMutation(carId);
+  const { data: colorData } = useGetAllColorQuery();
+  const colors = colorData?.list.map((item) => item.name) || [];
+  const [inputValue, setInputValue] = useState("");
   const [formData, setFormData] = useState({
     //features
     acFeature: false,
@@ -57,7 +63,12 @@ export default function EditPremiumCar() {
   const year = date.getFullYear(); // Get the year (e.g., 2024)
   const month = String(date.getMonth() + 1).padStart(2, "0"); // Get the month (0-indexed, so add 1), pad with leading zero if needed
   const day = String(date.getDate()).padStart(2, "0"); // Get the day of the month, pad with leading zero if needed
-
+  const filteredColors = colors
+  .filter(
+    (color) =>
+      color && color.toLowerCase().includes((inputValue || "").toLowerCase())
+  ) // Ensure both color and inputValue are strings
+  .sort(); 
   const formattedDate = `${year}-${month}-${day}`;
   const [showCalendar, setShowCalendar] = useState(false);
   useEffect(() => {
@@ -358,38 +369,43 @@ export default function EditPremiumCar() {
 
             {/* fourth part */}
             <div className="md:flex">
-              <div className="mt-5 w-full">
-                <select
-                  required
-                  className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  label={"Color"}
-                  type={"text"}
-                  name={"color"}
-                  value={formData.color}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      color: event.target.value,
-                    })
-                  }
-                >
-                  <option value="" disabled>
-                    Color
-                  </option>
-                  <option>Red</option>
-                  <option>Blue</option>
-                  <option>Yellow</option>
-                  <option>Pink</option>
-                  <option>Purple</option>
-                  <option>White</option>
-                  <option>Black</option>
-                  <option>Orange</option>
-                  <option>Green</option>
-                  <option>Brown</option>
-                  <option>Gold</option>
-                  <option>Aqua</option>
-                </select>
+            <div className="mt-5 w-full">
+                <Autocomplete
+                  disablePortal
+                  options={filteredColors} // Use the filtered and sorted color list
+                  getOptionLabel={(option) => option || ""} // Handle undefined options
+                  inputValue={inputValue} // Control the input value
+                  onInputChange={(event, newInputValue) => {
+                    setInputValue(newInputValue); // Update the input value when user types
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Select Color"
+                      sx={{
+                        "& .MuiInputBase-root": {
+                          height: "40px",
+                          padding: "0 14px",
+                          paddingBottom: "8px",
+                          top: 0,
+                        },
+                        "& .MuiInputBase-input": {
+                          height: "100%",
+                          padding: "0",
+                        },
+                      }}
+                      InputLabelProps={{
+                        style: {
+                          fontSize: "0.75rem",
+                          // paddingTop : '20px',
+                          //  background : 'black'
+                        }, // Adjust the font size here
+                      }}
+                    />
+                  )}
+                />
               </div>
+
 
               <div className="mt-5 md:ml-2 w-full">
                 <select

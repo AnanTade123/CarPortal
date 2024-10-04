@@ -16,10 +16,13 @@ import {
   useGetVariantsQuery,
   useGetSubVariantsQuery,
 } from "../../services/brandAPI";
+import { useGetAllColorQuery } from "../../services/colorAPI";
 
 export default function EditDealerCar() {
   const { id, carId } = useParams();
   const { data: Carid } = useGetCarByIdQuery(carId);
+  const { data: colorData } = useGetAllColorQuery();
+  const colors = colorData?.list.map((item) => item.name) || [];
   // console.log("Carid data :- ", Carid);
   // console.log(id, carId);
   const navigate = useNavigate();
@@ -29,6 +32,7 @@ export default function EditDealerCar() {
   console.log(brands);
   const [carUpdate] = useCarUpdateMutation(carId);
   console.log(carId)
+  const [inputValue, setInputValue] = useState("");
   const [formData, setFormData] = useState({
     //features
     acFeature: false,
@@ -86,6 +90,12 @@ export default function EditDealerCar() {
       skip: !selectedBrand || !selectedModel,
     }
   );
+  const filteredColors = colors
+    .filter(
+      (color) =>
+        color && color.toLowerCase().includes((inputValue || "").toLowerCase())
+    ) // Ensure both color and inputValue are strings
+    .sort(); 
 
   useEffect(() => {
     if (Carid) {
@@ -488,37 +498,41 @@ export default function EditDealerCar() {
               </div>
             </div>
             <div className="md:flex gap-2">
-              <div className="mt-5 w-full">
-                <select
-                  required
-                  className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  label={"Color"}
-                  type={"text"}
-                  name={"color"}
-                  value={formData.color}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      color: event.target.value,
-                    })
-                  }
-                >
-                  <option value="" disabled>
-                    Color
-                  </option>
-                  <option>Red</option>
-                  <option>Blue</option>
-                  <option>Yellow</option>
-                  <option>Pink</option>
-                  <option>Purple</option>
-                  <option>White</option>
-                  <option>Black</option>
-                  <option>Orange</option>
-                  <option>Green</option>
-                  <option>Brown</option>
-                  <option>Gold</option>
-                  <option>Aqua</option>
-                </select>
+            <div className="mt-5 w-full">
+                <Autocomplete
+                  disablePortal
+                  options={filteredColors} // Use the filtered and sorted color list
+                  getOptionLabel={(option) => option || ""} // Handle undefined options
+                  inputValue={inputValue} // Control the input value
+                  onInputChange={(event, newInputValue) => {
+                    setInputValue(newInputValue); // Update the input value when user types
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Select Color"
+                      sx={{
+                        "& .MuiInputBase-root": {
+                          height: "40px",
+                          padding: "0 14px",
+                          paddingBottom: "8px",
+                          top: 0,
+                        },
+                        "& .MuiInputBase-input": {
+                          height: "100%",
+                          padding: "0",
+                        },
+                      }}
+                      InputLabelProps={{
+                        style: {
+                          fontSize: "0.75rem",
+                          // paddingTop : '20px',
+                          //  background : 'black'
+                        }, // Adjust the font size here
+                      }}
+                    />
+                  )}
+                />
               </div>
               <div className="mt-5 md:ml-2 w-full">
                 <select

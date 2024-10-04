@@ -62,6 +62,7 @@ const cityOptions = {
 export default function AddDealerCar() {
   const { data: brandData } = useGetOnlyBrandsQuery();
   const { data : colorData } = useGetAllColorQuery();
+  const colors = colorData?.list.map((item) => item.name) || [];
   const brands = brandData?.list.map((item) => item.brand) || [];
   // console.log(brands);
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -70,6 +71,7 @@ export default function AddDealerCar() {
   const [variantOptions, setVariantOptions] = useState([]);
   const [showCalendar, setShowCalendar] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
+  const [inputValue, setInputValue] = useState(""); 
   const { data: variantData } = useGetVariantsQuery(selectedBrand, {
     skip: !selectedBrand,
   });
@@ -79,6 +81,13 @@ export default function AddDealerCar() {
       skip: !selectedBrand || !selectedModel,
     }
   );
+
+  const filteredColors = colors
+    .filter(
+      (color) =>
+        color && color.toLowerCase().includes((inputValue || "").toLowerCase())
+    ) // Ensure both color and inputValue are strings
+    .sort();
 
   const [carRegister] = useCarRegisterMutation();
   //  const [mult, setMult] = React.useState([]);
@@ -498,26 +507,41 @@ export default function AddDealerCar() {
 
             {/* fourth part */}
             <div className="md:flex">
-              <div className="mt-5 w-full">
-                <select
-                  required
-                  className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  label={"Color"}
-                  type={"text"}
-                  name={"color"}
-                  value={formData.color}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      color: event.target.value,
-                    })
-                  }
-                >
-                  <option value="" disabled>Select Color</option>
-                  {colorData?.list?.map((item ,i) => (
-                    <option key={item.colorId} value={item.name}>{item.name}</option>
-                  ))}
-                </select>
+            <div className="mt-5 w-full">
+                <Autocomplete
+                  disablePortal
+                  options={filteredColors} // Use the filtered and sorted color list
+                  getOptionLabel={(option) => option || ""} // Handle undefined options
+                  inputValue={inputValue} // Control the input value
+                  onInputChange={(event, newInputValue) => {
+                    setInputValue(newInputValue); // Update the input value when user types
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Select Color"
+                      sx={{
+                        "& .MuiInputBase-root": {
+                          height: "40px",
+                          padding: "0 14px",
+                          paddingBottom: "8px",
+                          top: 0,
+                        },
+                        "& .MuiInputBase-input": {
+                          height: "100%",
+                          padding: "0",
+                        },
+                      }}
+                      InputLabelProps={{
+                        style: {
+                          fontSize: "0.75rem",
+                          // paddingTop : '20px',
+                          //  background : 'black'
+                        }, // Adjust the font size here
+                      }}
+                    />
+                  )}
+                />
               </div>
 
               <div className="mt-5 md:ml-2 w-full">
@@ -550,9 +574,10 @@ export default function AddDealerCar() {
               <div className="mt-5 w-full">
                 <Inputs
                   required
+                  placeholder={"Area"}
                   label={"Area"}
                   type={"text"}
-                  name={"area"}
+                  name={"Area"}
                   value={formData.area}
                   onChange={(event) =>
                     setFormData({

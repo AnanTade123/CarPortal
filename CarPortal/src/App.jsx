@@ -109,12 +109,14 @@ import UserSaleCarAdd from "./pages/user/UserSaleCarAdd";
 import AddColor from "./pages/adminpages/AddColor";
 import ActiveCarList from "./pages/b2b/ActiveCarList";
 import B2BSeller from "./pages/b2b/B2BSeller";
+import B2BPendingRequest from "./pages/dealer/B2BPendingRequest";
+import OrderDealerB2B from "./pages/dealer/OrderDealerB2B";
 export default function App() {
   return (
     <>
       <WebSocketConnection />
       <Routes>
-        <Route path="signin" element={<LoginCard />} /> 
+        <Route path="signin" element={<LoginCard />} />
         <Route path="signup" element={<SimpleRegistrationForm />} />
         <Route path="/pendingrequest2" element={<PendingRequest2 />} />
         <Route path="/" element={<Home />} />
@@ -242,7 +244,7 @@ export default function App() {
               <DealerMiddleware allowedRoles={[...Object.values(onlyDealer)]} />
             }
           >
-            <Route path="/dealer/B2B" element={<ActiveCarList/>}/>
+            <Route path="/dealer/B2B" element={<ActiveCarList />} />
             <Route path="/dealer/:id" element={<SellForCar />} />
             <Route path="/dealer/premium/:id" element={<SellForCarPremium />} />
             <Route path="/dealer/b2b/:id" element={<CarList />} />
@@ -251,7 +253,7 @@ export default function App() {
               path="/dealer/premium/:id/addcar"
               element={<AddPremiumCarForm />}
             />
-             
+
             <Route
               path="/dealer/:id/uploadimage/:carId"
               element={<Uploadimages2 />}
@@ -284,8 +286,16 @@ export default function App() {
               element={<OrderDealer />}
             />
             <Route
+              path="/dealer/:id/b2b/confirm"
+              element={<OrderDealerB2B />}
+            />
+            <Route
               path="/dealer/:id/allpending"
               element={<DealerAllPendingRequest />}
+            />
+            <Route
+              path="/dealer/:id/b2bpending"
+              element={<B2BPendingRequest />}
             />
             <Route path="/dealer/biddingcar" element={<BiddingDealerCars />} />
             <Route
@@ -301,13 +311,10 @@ export default function App() {
             <Route path="/biddingcardetail" element={<BiddingCarDetail />} />
           </Route>
           <Route
-              path="/user/car/status/:userFormId"
-              element={<FinalReportUser />}
-            />
-            <Route
-              path="/user/"
-              element={<FinalReportUser />}
-            />
+            path="/user/car/status/:userFormId"
+            element={<FinalReportUser />}
+          />
+          <Route path="/user/" element={<FinalReportUser />} />
           <Route
             element={
               <InspectorMiddleware
@@ -315,7 +322,6 @@ export default function App() {
               />
             }
           >
-            
             <Route
               path="/Inspector/ChangePassword"
               element={<InspectorChangePassword />}
@@ -334,7 +340,10 @@ export default function App() {
               element={<CarVerify />}
             />
             <Route path="/inspector/car" element={<CarListing />} />
-            <Route path="/inspector/user/cars" element={<UserInspectionCars />} />
+            <Route
+              path="/inspector/user/cars"
+              element={<UserInspectionCars />}
+            />
             {/* <Route path="/inspector/carverify/:beadingCarId" element={<CarVerify />} /> */}
             {/* <Route path="/inspector/car" element={<CarListing />} /> */}
             <Route path="/inspector/car/add" element={<BiddingAddCar2 />} />
@@ -379,7 +388,10 @@ export default function App() {
             }
           >
             <Route path="/Seller/b2b/:status" element={<B2BSeller />} />
-            <Route path="/Seller/UserRequest/Edit/:userFormId" element={<SalerUserSaleReqEdit />} />
+            <Route
+              path="/Seller/UserRequest/Edit/:userFormId"
+              element={<SalerUserSaleReqEdit />}
+            />
             <Route path="/seller/request/:status" element={<AdminUserReq />} />
             <Route
               path="/Seller/ChangePassword"
@@ -410,8 +422,10 @@ export default function App() {
           <Route path="/sellcarlist" element={<SellCarList />} />
           <Route path="/sellcarform" element={<SellCarForm />} />
 
-          <Route path="/user/sell/edit/:userFormId" element={<EditSellForm/>} />
-
+          <Route
+            path="/user/sell/edit/:userFormId"
+            element={<EditSellForm />}
+          />
 
           <Route path="/user" element={<UserInfo />} />
         </Route>
