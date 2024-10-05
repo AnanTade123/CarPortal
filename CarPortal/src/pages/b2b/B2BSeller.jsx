@@ -62,10 +62,6 @@ export default function B2BSeller() {
       }
     }, [userError, navigate]);
   
-<<<<<<< HEAD
-=======
-   
->>>>>>> ef8a53e853b31d7bc8409a13746c33c491082607
     useEffect(() => {
       setLoading(true)
       const fetchBeadingCarData = async () => {
