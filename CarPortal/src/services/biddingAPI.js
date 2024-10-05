@@ -116,6 +116,13 @@ export const biddingAPI = apiSlice.injectEndpoints({
       }),
       providesTags: ["BIDDING"],
     }),
+    getbeadingCarById1: builder.query({
+      query: (carId) => ({
+        url: `/BeadingCarController/getbyId/${carId}`,
+        method: "GET",
+      }),
+      providesTags: ["BIDDING"],
+    }),
 
     getbeadingGetById: builder.query({
       query: (beadingCarId) => ({
@@ -220,6 +227,7 @@ export const {
   useGetByDealerIdQuery,
   useGetbeadingCarImageQuery,
   useGetbeadingCarByIdQuery,
+  useGetbeadingCarById1Query,
   useGetbeadingGetByIdQuery,
   useLazyGetbeadingCarByIdQuery,
   useGetbeadingImgGetByIdQuery,

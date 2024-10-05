@@ -62,6 +62,10 @@ export default function B2BSeller() {
       }
     }, [userError, navigate]);
   
+<<<<<<< HEAD
+=======
+   
+>>>>>>> ef8a53e853b31d7bc8409a13746c33c491082607
     useEffect(() => {
       setLoading(true)
       const fetchBeadingCarData = async () => {
@@ -173,11 +177,11 @@ export default function B2BSeller() {
     {
       Header: "Action",
       Cell: (cell) => {
-        // Access the beadingCarId from cell.row.original
         const beadingCarId = cell.row.original.beadingCarId;
         const buyerDealerId = cell.row.original.buyerDealerId;
         const sellerDealerId = cell.row.original.sellerDealerId;
         const b2BId = cell.row.original.b2BId;
+        console.log(beadingCarId);
         return (
           <div className="cursor-pointer flex gap-1 justify-center items-center">
           {status !== "sold" && (
