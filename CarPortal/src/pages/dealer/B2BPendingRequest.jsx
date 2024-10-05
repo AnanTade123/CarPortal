@@ -1,21 +1,36 @@
 /* eslint-disable no-unused-vars */
-import { useGetAllDealerPendingBookingQuery } from "../../services/dealerAPI";
+import {
+  useGetAllDealerPendingBookingQuery,
+  useGetAllPendingB2BRequestQuery,
+} from "../../services/dealerAPI";
 import { useParams } from "react-router-dom";
-import DealerCarPendingRequest from "../../components/carDetails/DealerCarPendingRequest";
 import { useEffect, useState } from "react";
 import { Button, CardFooter, Typography } from "@material-tailwind/react";
 import { FiLoader } from "react-icons/fi";
+import DealerCarPendingB2B from "../../components/carDetails/DealerCarPendingB2B";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
+
 const B2BPendingRequest = () => {
-  const { id } = useParams();
+
+
+  const token = Cookies.get("token");
+  let jwtDecodes;
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
+const id = jwtDecodes?.dealerId;
+// console.log(id)
+
   const [pageNo, setPageNo] = useState(0);
 
   const emptyImage = "..\\..\\cars\\emptyfolder.png";
 
-  const { data, isLoading, error, refetch } =
-    useGetAllDealerPendingBookingQuery({
-      id,
-      pageNo,
-    });
+  const { data, isLoading, error, refetch } = useGetAllPendingB2BRequestQuery({
+    id,
+  });
+
+  // console.log(data);
   useEffect(() => {
     refetch();
   }, [pageNo, refetch]);
@@ -52,7 +67,7 @@ const B2BPendingRequest = () => {
   const renderData = data?.list.map((item, index) => {
     return (
       <div key={index} className="mt-5">
-        <DealerCarPendingRequest item={item} refetch={refetch} />
+        <DealerCarPendingB2B carId={item.beadingCarId} />
       </div>
     );
   });

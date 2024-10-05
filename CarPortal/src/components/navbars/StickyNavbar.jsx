@@ -200,7 +200,7 @@ function PendingListMenu() {
         link: `/dealer/${jwtDecodes?.dealerId}/allpending`,
       },
       {
-        title: "B2B",
+        title: "B2B Pending Booking",
         link: `/dealer/${jwtDecodes?.dealerId}/b2bpending`,
       }
     );
@@ -237,7 +237,7 @@ function PendingListMenu() {
               selected={isMenuOpen1 || isMobileMenuOpen1}
               onClick={() => setIsMobileMenuOpen1((cur) => !cur)}
             >
-              Pending Cars
+              Pending Booking
               <ChevronDownIcon
                 strokeWidth={2.5}
                 className={`hidden h-3 w-3 transition-transform lg:block ${
@@ -278,7 +278,7 @@ function ConfermListMenu() {
         link: `/dealer/${jwtDecodes?.dealerId}/booking/confirm`,
       },
       {
-        title: "B2B ",
+        title: "B2B Confirm Booking ",
         link: `/dealer/${jwtDecodes?.dealerId}/b2b/confirm`,
       }
     );
@@ -315,7 +315,7 @@ function ConfermListMenu() {
               selected={isMenuOpen2 || isMobileMenuOpen2}
               onClick={() => setIsMobileMenuOpen2((cur) => !cur)}
             >
-              Confirm Cars
+              Confirm Booking
               <ChevronDownIcon
                 strokeWidth={2.5}
                 className={`hidden h-3 w-3 transition-transform lg:block ${
