@@ -7,12 +7,12 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
-  Input,
 } from "@material-tailwind/react";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { useParams } from "react-router-dom";
 import {useB2bpostMutation} from "../../services/dealerAPI"
+import { toast } from "react-toastify";
 
 export default function ShowIntrestDailog() {
   const { beadingCarId } = useParams();
@@ -75,7 +75,11 @@ const interestShow = {
 console.log(interestShow)
 try {
   const res = await b2bpost(interestShow).unwrap()
-  console.log(res)
+  console.log("response",res)
+  if (res.status === "success") {
+    toast.success("Success")
+  }
+
 } catch (error) {
   console.log(error)
 }

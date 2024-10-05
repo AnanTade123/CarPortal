@@ -79,9 +79,9 @@ export function LoginCard() {
     
    <div className=" ">
      
-     <div className="md:mt-0 mt-5 md:ml-8 ml-5">
+     <div className="md:mt-2 mt-5 md:ml-8 ml-5">
       <Link to={"/"}>
-      <div className=" flex text-blue-gray-900 cursor-pointer font-bold text-2xl gap-2 ">
+      <div className=" flex text-blue-gray-900 cursor-pointer font-bold text-2xl gap-2  ">
       <img
             src={cartechlogo2}
             alt="logo"

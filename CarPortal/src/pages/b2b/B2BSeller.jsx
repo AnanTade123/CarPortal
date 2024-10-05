@@ -47,7 +47,7 @@ export default function B2BSeller() {
       }
     }, [userError, navigate]);
   
-    // Update filtered data whenever data or status changes
+   
     useEffect(() => {
       if (data?.list) {
         let updatedData;
@@ -129,13 +129,12 @@ export default function B2BSeller() {
     {
       Header: "Assign me",
       Cell: (cell) => {
-        // Access the beadingCarId from cell.row.original
         const beadingCarId = cell.row.original.beadingCarId;
         const buyerDealerId = cell.row.original.buyerDealerId;
         const sellerDealerId = cell.row.original.sellerDealerId;
         const salesPersonId = cell.row.original.salesPersonId;
         const b2BId = cell.row.original.b2BId;
-        console.log(beadingCarId); // You can still log or use the beadingCarId without displaying it in the table
+        console.log(beadingCarId);
         return (
           <div className="cursor-pointer">
             <B2bSellerDialogBox beadingCarId={beadingCarId} buyerDealerId={buyerDealerId} sellerDealerId={sellerDealerId} salesPersonId={salesPersonId} b2BId={b2BId} />
@@ -169,32 +168,49 @@ export default function B2BSeller() {
       </CardHeader>
       <div className="flex justify-center space-x-4">
       <Card className="w-96">
-      <Link to="/Seller/b2b/pending">
-        <CardBody>
-            <Typography variant="h5" color={status === "pending" ? 'green' : 'blue-gray'} className="mb-2" onClick={()=> setStatuss(status)}>
-              Pending Request
-            </Typography>
-        </CardBody>
-        </Link>
-      </Card>
-      <Card className="w-96">
-        <Link to="/Seller/b2b/active" >
-        <CardBody>
-            <Typography variant="h5" color={status === "active" ? 'green' : 'blue-gray'} className="mb-2" onClick={()=> setStatuss(status)}>
-              Assinge  Request
-            </Typography>
-        </CardBody>
-        </Link>
-      </Card>
-      <Card className="w-96">
-        <Link to="/Seller/b2b/sold" >
-        <CardBody>
-            <Typography variant="h5" color={status === "sold" ? 'green' : 'blue-gray'} className="mb-2" onClick={()=> setStatuss(status)}>
-             Sold Car
-            </Typography>
-        </CardBody>
-        </Link>
-      </Card>
+    <Link to="/Seller/b2b/pending">
+      <CardBody>
+        <Typography
+          variant="h5"
+          color={status === "pending" ? 'green' : 'blue-gray'}
+          className="mb-2"
+          onClick={() => setStatuss("pending")}
+        >
+          Pending Request
+        </Typography>
+      </CardBody>
+    </Link>
+  </Card>
+
+  <Card className="w-96">
+    <Link to="/Seller/b2b/active">
+      <CardBody>
+        <Typography
+          variant="h5"
+          color={status === "active" ? 'green' : 'blue-gray'}
+          className="mb-2"
+          onClick={() => setStatuss("active")}
+        >
+          Assigned Request
+        </Typography>
+      </CardBody>
+    </Link>
+  </Card>
+
+  <Card className="w-96">
+    <Link to="/Seller/b2b/sold">
+      <CardBody>
+        <Typography
+          variant="h5"
+          color={status === "sold" ? 'green' : 'blue-gray'}
+          className="mb-2"
+          onClick={() => setStatuss("sold")}
+        >
+          Sold Car
+        </Typography>
+      </CardBody>
+    </Link>
+  </Card>
     </div>
 
 

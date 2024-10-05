@@ -10,9 +10,10 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import {useB2bAssingMesectionMutation} from "../../services/salesAPI"
+import { toast } from "react-toastify";
 
 export default function B2bSellerDialogBox({beadingCarId,buyerDealerId,sellerDealerId,salesPersonId,b2BId}) {
-  console.log(beadingCarId,buyerDealerId,sellerDealerId,salesPersonId,b2BId)
+
     const [open, setOpen] = useState(false);
      const [b2bAssingMesection] = useB2bAssingMesectionMutation()
     const handleOpen = () => setOpen(!open);
@@ -28,7 +29,10 @@ export default function B2bSellerDialogBox({beadingCarId,buyerDealerId,sellerDea
 
     try {
       const res = await b2bAssingMesection({assingData,b2BId});
-      console.log(res)
+      console.log("Response",res)
+      if (res.data.status === "success") {
+        toast.success("Success")
+      }
     } catch (error) {
       console.log(error)
     }
