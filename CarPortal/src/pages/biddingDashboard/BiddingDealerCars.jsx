@@ -142,14 +142,6 @@ const BiddingDealerCars = () => {
       Header: "Year",
       accessor: "year",
     },
-    {
-      Header: "Interest Show", 
-      Cell: () => (
-        <div>
-          <p>10</p>
-        </div>
-      )
-    },
     ...(userRole === "ADMIN" || userRole === "SALESPERSON"
       ? [
         {

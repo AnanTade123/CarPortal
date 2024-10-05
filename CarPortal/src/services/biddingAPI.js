@@ -129,7 +129,6 @@ export const biddingAPI = apiSlice.injectEndpoints({
     updateBidCar: builder.mutation({
       query: ({ beadingCarId, formDataTosend }) => ({
         url: `/uploadFileBidCar/update?doc=abcd&doctype=cover&subtype=images&comment=xyz&bidDocumentId=${beadingCarId}`,
-        // transerResponse:console.log("APi response",beadingCarId,formDataTosend),
         method: "PATCH",
         body: formDataTosend,
       }),
@@ -206,7 +205,8 @@ export const biddingAPI = apiSlice.injectEndpoints({
   }),
 });
 
-export const {useBiddingAllCardQuery,
+export const {
+  useBiddingAllCardQuery,
   useAllDealerFinalBidQuery,
   useBiddingCarByIdQuery, 
   useLazyBiddingCarByIdQuery,
@@ -221,6 +221,7 @@ export const {useBiddingAllCardQuery,
   useGetbeadingCarImageQuery,
   useGetbeadingCarByIdQuery,
   useGetbeadingGetByIdQuery,
+  useLazyGetbeadingCarByIdQuery,
   useGetbeadingImgGetByIdQuery,
   useGetAllLiveBiddingCarsQuery,
   useUpdateBidCarMutation,

@@ -120,7 +120,7 @@ export function StickyNavbar() {
       navListMenuItems.unshift(
         {
           title: "B2B",
-          link: `/Seller/b2b/all`,
+          link: `/Seller/b2b/pending`,
         },
        
       );

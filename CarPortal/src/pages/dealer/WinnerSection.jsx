@@ -41,12 +41,10 @@ const WinnerSection = () => {
   let [trigger] = useLazyBiddingCarByIdQuery();
   let [triggerGetDealer] = useLazyGetDealerByUserIdQuery();
   const [liveCarsWinData, setLiveCarsWinData] = useState([]);
-console.log(didData)
   useEffect(() => {
     const fetchServiceProducts = async () => {
       if (didData) {
         const liveCarsData = [];
-
         for (let i = 0; i < didData.finalBids.length; i++) {
           const carId = didData.finalBids[i]?.beadingCarId;
           const id = didData.finalBids[i]?.sellerDealerId;

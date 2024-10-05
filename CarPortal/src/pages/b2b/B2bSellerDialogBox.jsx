@@ -8,27 +8,43 @@ import {
   Dialog,
   DialogHeader,
   DialogFooter,
+  DialogBody,
+  Textarea,
 } from "@material-tailwind/react";
 import {useB2bAssingMesectionMutation} from "../../services/salesAPI"
+import { Link } from "react-router-dom";
 
-export default function B2bSellerDialogBox({beadingCarId,buyerDealerId,sellerDealerId,salesPersonId,b2BId}) {
-  console.log(beadingCarId,buyerDealerId,sellerDealerId,salesPersonId,b2BId)
+export default function B2bSellerDialogBox({beadingCarId,buyerDealerId,sellerDealerId,salesPersonId,b2BId ,status}) {
     const [open, setOpen] = useState(false);
-     const [b2bAssingMesection] = useB2bAssingMesectionMutation()
+    const [b2bAssingMesection] = useB2bAssingMesectionMutation()
     const handleOpen = () => setOpen(!open);
+    const [message , setMessage] = useState('');
+
+    const handleChange = (e) => {
+      
+      setMessage(e.target.value)
+    }
 
    const handlesubmit = async() => {
-    const assingData = { 
-      beadingCarId: beadingCarId,
-  buyerDealerId: buyerDealerId,
-  sellerDealerId: sellerDealerId,
-  salesPersonId: salesPersonId,
-  b2BId: b2BId
+   
+    let assingData ;
+    if(status == "pending"){
+      assingData = {
+        beadingCarId: beadingCarId,
+        buyerDealerId: buyerDealerId,
+        sellerDealerId: sellerDealerId,
+        salesPersonId: Number(salesPersonId),
+        requestStatus:"active",
+        b2BId: b2BId
+      }
+    }else if(status === "active"){
+      assingData = {
+      message: message,
     }
+  }
 
     try {
       const res = await b2bAssingMesection({assingData,b2BId});
-      console.log(res)
     } catch (error) {
       console.log(error)
     }
@@ -36,12 +52,17 @@ export default function B2bSellerDialogBox({beadingCarId,buyerDealerId,sellerDea
    }
     return (
       <>
-        <Button onClick={handleOpen} variant="gradient">
+        {/* <Button onClick={handleOpen} variant="gradient">
       Click Here
-        </Button>
+        </Button> */}
+        <Button size="sm" color={status === "pending" ? "blue" : "green"} onClick={handleOpen}>{ status === "pending" ? "Accept Request" : "Comment" }</Button>
         <Dialog open={open} handler={handleOpen}>
-          <DialogHeader>Are you Sure</DialogHeader>
-          
+          <DialogHeader>Modal</DialogHeader>
+          <DialogBody>
+          {status == "active" ? (
+            <Textarea label="Comment" value={message} onChange={handleChange}></Textarea>
+          ) : <div>Are you sure you want to accept request?</div>}
+          </DialogBody>
           <DialogFooter>
             <Button
               variant="text"
