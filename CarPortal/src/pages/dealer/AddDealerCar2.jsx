@@ -63,6 +63,7 @@ export default function AddDealerCar() {
   const { data: brandData } = useGetOnlyBrandsQuery();
   const { data : colorData } = useGetAllColorQuery();
   const colors = colorData?.list.map((item) => item.name) || [];
+  console.log(colors);
   const brands = brandData?.list.map((item) => item.brand) || [];
   // console.log(brands);
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -203,7 +204,7 @@ export default function AddDealerCar() {
     };
     try{
       const res = await carRegister(data);
-     // console.log(data);
+      //console.log(data);
     if (res?.data?.status === "success") {
       toast.success("Car Added");
       setTimeout(() => {
@@ -244,6 +245,17 @@ export default function AddDealerCar() {
     setFormData({
       ...formData,
       cVariant,
+    });
+  };
+
+  const handleColorChange = (event, newValue) => {
+    const color = newValue;
+    
+    setInputValue(color);
+    setFormData({
+      ...formData,
+      color,
+      
     });
   };
 
@@ -513,9 +525,8 @@ export default function AddDealerCar() {
                   options={filteredColors} // Use the filtered and sorted color list
                   getOptionLabel={(option) => option || ""} // Handle undefined options
                   inputValue={inputValue} // Control the input value
-                  onInputChange={(event, newInputValue) => {
-                    setInputValue(newInputValue); // Update the input value when user types
-                  }}
+                  onChange={handleColorChange}
+                  
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -574,7 +585,7 @@ export default function AddDealerCar() {
               <div className="mt-5 w-full">
                 <Inputs
                   required
-                  placeholder={"Area"}
+                  placeholder={"Enter Area"}
                   label={"Area"}
                   type={"text"}
                   name={"Area"}

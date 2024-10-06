@@ -227,6 +227,8 @@ export default function BiddingEditCar() {
     });
   };
 
+  
+
   const handleModelChange = (event, value) => {
     setSelectedModel(value);
     setFormData({
@@ -240,6 +242,16 @@ export default function BiddingEditCar() {
     setFormData({
       ...formData,
       cVariant: value,
+    });
+  };
+
+  const handleColorChange = (event, value) => {
+    setInputValue(value);
+    
+    setFormData({
+      ...formData,
+      color: value,
+      
     });
   };
 
@@ -461,9 +473,7 @@ export default function BiddingEditCar() {
                   options={filteredColors} // Use the filtered and sorted color list
                   getOptionLabel={(option) => option || ""} // Handle undefined options
                   inputValue={inputValue} // Control the input value
-                  onInputChange={(event, newInputValue) => {
-                    setInputValue(newInputValue); // Update the input value when user types
-                  }}
+                  onChange={(event,newValue) => handleColorChange(event, newValue)}
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -519,6 +529,7 @@ export default function BiddingEditCar() {
                 <Inputs
                   required
                   label={"Area"}
+                  placeholder={"Enter Area"}
                   type={"text"}
                   name={"area"}
                   value={formData.area}
