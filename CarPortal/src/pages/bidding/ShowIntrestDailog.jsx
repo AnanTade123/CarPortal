@@ -66,22 +66,18 @@ export default function ShowIntrestDailog() {
   //   });
   // };
 const handleSubmit = async() =>{
-  console.log("currentTime",currentTime)
 const interestShow = {
   beadingCarId:beadingCarId,
   buyerDealerId:DealerId,
   time:currentTime
 }
-console.log(interestShow)
 try {
   const res = await b2bpost(interestShow).unwrap()
-  console.log("response",res)
   if (res.status === "success") {
     toast.success("Success")
   }
-
 } catch (error) {
-  console.log(error)
+  toast.error(error?.data?.message)
 }
   setOpen(!open);
 }
