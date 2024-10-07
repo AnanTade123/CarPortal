@@ -14,7 +14,7 @@ import {
 } from "@material-tailwind/react";
 import {useAddB2BConfirmationApiMutation} from "../../services/salesAPI"
 
-export default function B2BsellerConfirmationModel({b2BId ,refetch ,tostifyMsg}) {
+export default function B2BsellerConfirmationModel({b2BId ,refetch ,tostifyMsg ,requestStatus}) {
     const [open, setOpen] = useState(false);
     const [AddB2BConfirmationApi] = useAddB2BConfirmationApiMutation()
     const handleOpen = () => setOpen(!open);
@@ -47,7 +47,7 @@ export default function B2BsellerConfirmationModel({b2BId ,refetch ,tostifyMsg})
 
     return (
       <>
-        <Button size="sm" color="blue" onClick={handleOpen}>Sold</Button>
+        <Button size="sm" color="blue" onClick={handleOpen} disabled={requestStatus=== "Cancel" ? true : null}>Sold</Button>
         <Dialog open={open} handler={handleOpen}>
           <DialogHeader>Modal</DialogHeader>
           <DialogBody>
@@ -68,7 +68,7 @@ export default function B2BsellerConfirmationModel({b2BId ,refetch ,tostifyMsg})
             <Button
               variant="text"
               color="red"
-              onClick={handlesubmit}
+              onClick={() =>{setOpen(!open)}}
               className="mr-1"
             >
               <span>Cancel</span>

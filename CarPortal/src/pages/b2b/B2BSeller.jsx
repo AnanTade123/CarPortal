@@ -32,6 +32,7 @@ import { jwtDecode } from "jwt-decode";
 import B2BsellerConfirmationModel from './B2BsellerConfirmationModel';
 import { FiLoader } from "react-icons/fi";
 import B2BBuyerSellerInfoModel from './B2BBuyer&SellerInfoModel';
+import B2BCancelRequest from './B2BCancelRequest';
 const emptyImage = "..\\..\\cars\\emptyfolder.png";
 
 
@@ -110,19 +111,6 @@ export default function B2BSeller() {
       tableData = carData
     }         
     
-    // if(status === "pending" && error){
-    //   return (
-    //     <div>
-    //       <div className="flex justify-center mt-14">
-    //         <img className="w-40" src={emptyImage} alt="no data" />
-    //       </div>
-    //       <p className="flex justify-center text-2xl md:text-3xl font-semibold">
-    //         No Data Available
-    //       </p>
-    //     </div>
-    //   );
-    // }
-
     const columns = [
     {
       Header: "Sr. No",
@@ -218,7 +206,7 @@ export default function B2BSeller() {
         const sellerDealerId = cell.row.original.sellerDealerId;
         const b2BId = cell.row.original.b2BId;
         const message = cell.row.original.message;
-        console.log(sellerDealerId);
+        const requestStatus = cell.row.original.requestStatus;
         return (
           <div className="cursor-pointer flex gap-1 justify-center items-center">
           {status !== "sold" && (
@@ -233,10 +221,20 @@ export default function B2BSeller() {
                 refetch={refetch} 
                 tostifyMsg={tostifyMsg}
                 messageParam={message}
-
               />
               {status === "active" && (
-                <B2BsellerConfirmationModel b2BId={b2BId} refetch={refetch} tostifyMsg={tostifyMsg}  />
+                <>
+                <B2BsellerConfirmationModel b2BId={b2BId} refetch={refetch} tostifyMsg={tostifyMsg}  requestStatus={requestStatus} />
+                <B2BCancelRequest beadingCarId={beadingCarId} 
+                buyerDealerId={buyerDealerId} 
+                sellerDealerId={sellerDealerId} 
+                salesPersonId={salesPersonId} 
+                b2BId={b2BId} 
+                status={status}
+                refetch={refetch} 
+                tostifyMsg={tostifyMsg}
+                messageParam={message} />
+                </>
               )}
             </>
           )}
@@ -302,7 +300,7 @@ export default function B2BSeller() {
         <Link to="/Seller/b2b/active" >
         <CardBody>
             <Typography variant="h5" color={status === "active" ? 'green' : 'blue-gray'} className="mb-2">
-              Assinge  Request
+              Assigned  Request
             </Typography>
         </CardBody>
         </Link>
