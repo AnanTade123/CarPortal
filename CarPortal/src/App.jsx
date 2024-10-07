@@ -111,6 +111,7 @@ import ActiveCarList from "./pages/b2b/ActiveCarList";
 import B2BSeller from "./pages/b2b/B2BSeller";
 import B2BPendingRequest from "./pages/dealer/B2BPendingRequest";
 import OrderDealerB2B from "./pages/dealer/OrderDealerB2B";
+import AdminB2BList from "./pages/b2b/AdminB2BList";
 export default function App() {
   return (
     <>
@@ -130,6 +131,7 @@ export default function App() {
           <Route path="/premiumcarlist" element={<PremiumCarList />} />
           <Route path="/carimagecarousel" element={<CarImageCarousel />} />
           <Route path="/carlistadmin" element={<AdminCarList />} />
+          <Route path="/adminB2B" element={<AdminB2BList />} />
 
           <Route path="/wsConnction" element={<BiddingCar />} />
           <Route
@@ -392,7 +394,10 @@ export default function App() {
             }
           >
             <Route path="/Seller/b2b/:status" element={<B2BSeller />} />
-            <Route path="/Seller/b2b/car/:status/:beadingCarId" element={<BiddingCarDetailsById1 />} />
+            <Route
+              path="/Seller/b2b/car/:status/:beadingCarId"
+              element={<BiddingCarDetailsById1 />}
+            />
             <Route
               path="/Seller/UserRequest/Edit/:userFormId"
               element={<SalerUserSaleReqEdit />}

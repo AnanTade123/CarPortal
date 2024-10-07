@@ -209,6 +209,13 @@ export const biddingAPI = apiSlice.injectEndpoints({
       }),
       providesTags: ["BIDDING"],
     }),
+    getallB2Bcars: builder.query({
+      query: () => ({
+        url: `b2b/all`,
+        method: "GET",
+      }),
+      providesTags: ["BIDDING"],
+    }),
   }),
 });
 
@@ -238,5 +245,6 @@ export const {
   useBiddingCarImageRemoveMutation,
   useUpdateBiddingTimeMutation,
   useBiddingTimerIdQuery,
-  useGetByBidCarIdQuery
+  useGetByBidCarIdQuery,
+  useGetallB2BcarsQuery
 } = biddingAPI;

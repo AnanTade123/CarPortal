@@ -67,7 +67,10 @@ const id = jwtDecodes?.dealerId;
   const renderData = data?.list.map((item, index) => {
     return (
       <div key={index} className="mt-5">
-        <DealerCarPendingB2B carId={item.beadingCarId} />
+        <DealerCarPendingB2B
+          beadingCarId={item.beadingCarId}
+          status={item.requestStatus}
+        />
       </div>
     );
   });
