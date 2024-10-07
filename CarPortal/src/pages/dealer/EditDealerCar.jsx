@@ -273,6 +273,16 @@ export default function EditDealerCar() {
     });
   };
 
+  const handleColorChange = (event, value) => {
+    setInputValue(value);
+    
+    setFormData({
+      ...formData,
+      color: value,
+      
+    });
+  };
+
   useEffect(() => {
     if (variantData) {
       const models = [...new Set(variantData.list.map((item) => item.variant))];
@@ -501,12 +511,13 @@ export default function EditDealerCar() {
             <div className="mt-5 w-full">
                 <Autocomplete
                   disablePortal
-                  options={filteredColors} // Use the filtered and sorted color list
+                 
+                  options={filteredColors}
+                  value={formData?.color || ""} // Use the filtered and sorted color list
                   getOptionLabel={(option) => option || ""} // Handle undefined options
                   inputValue={inputValue} // Control the input value
-                  onInputChange={(event, newInputValue) => {
-                    setInputValue(newInputValue); // Update the input value when user types
-                  }}
+                  
+                  onChange={(event,newValue) => handleColorChange(event, newValue)}
                   renderInput={(params) => (
                     <TextField
                       {...params}

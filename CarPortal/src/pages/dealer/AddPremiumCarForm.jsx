@@ -245,6 +245,17 @@ export default function AddPremiumCarForm() {
     });
   };
 
+  const handleColorChange = (event, newValue) => {
+    const color = newValue;
+    
+    setInputValue(color);
+    setFormData({
+      ...formData,
+      color,
+      
+    });
+  };
+
   const handleCityChange = (event) => {
     const selectedCity = event.target.value;
     setFormData({
@@ -509,9 +520,8 @@ export default function AddPremiumCarForm() {
                   options={filteredColors} // Use the filtered and sorted color list
                   getOptionLabel={(option) => option || ""} // Handle undefined options
                   inputValue={inputValue} // Control the input value
-                  onInputChange={(event, newInputValue) => {
-                    setInputValue(newInputValue); // Update the input value when user types
-                  }}
+                  
+                  onChange={handleColorChange}
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -572,6 +582,7 @@ export default function AddPremiumCarForm() {
                   required
                   label={"Area"}
                   type={"text"}
+                  placeholder={"Enter Area"}
                   name={"area"}
                   value={formData.area}
                   onChange={(event) =>
