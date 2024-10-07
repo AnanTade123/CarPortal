@@ -94,9 +94,13 @@ export function StickyNavbar() {
         //   link: "/Admin/UserRequest",
         // },
         {
-          title: "Car List",
+          title: "Premium Car List",
           link: "/carlistadmin",
-        }
+        },
+        // {
+        //   title: "B2B Cars",
+        //   link: "/adminB2B",
+        // }
       );
     }
 

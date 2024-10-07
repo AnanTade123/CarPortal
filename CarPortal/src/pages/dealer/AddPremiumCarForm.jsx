@@ -514,14 +514,18 @@ export default function AddPremiumCarForm() {
 
             {/* fourth part */}
             <div className="md:flex">
-            <div className="mt-5 w-full">
+              <div className="mt-5 w-full">
                 <Autocomplete
                   disablePortal
                   options={filteredColors} // Use the filtered and sorted color list
                   getOptionLabel={(option) => option || ""} // Handle undefined options
                   inputValue={inputValue} // Control the input value
-                  
-                  onChange={handleColorChange}
+                  onInputChange={(event, newInputValue) => {
+                    setInputValue(newInputValue); // Update the input value when user types
+                  }}
+                  onChange={(event, newValue) =>
+                    handleColorChange(event, newValue)
+                  }
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -578,7 +582,7 @@ export default function AddPremiumCarForm() {
             {/* fifth part */}
             <div className="md:flex">
               <div className="mt-5 w-full">
-                <Inputs
+                <Input
                   required
                   label={"Area"}
                   type={"text"}

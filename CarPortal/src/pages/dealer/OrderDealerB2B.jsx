@@ -31,6 +31,7 @@ import {
   useGetbeadingCarById1Query,
   useLazyBiddingCarByIdQuery,
 } from "../../services/biddingAPI";
+import B2Bimage from "../b2b/B2Bimage";
 
 const OrderDealerB2B = () => {
   const [pageNo, setPageNo] = useState(0);
@@ -160,7 +161,7 @@ console.log(biddingdata)
                 className="m-0 rounded-none"
               >
                 <Link to={`/biddinglist/cardetails/${carId}/success`}>
-                  <CarouselCustomArrows carId={carId} />
+                  <B2Bimage beadingCarId={carId} />
                 </Link>
               </CardHeader>
             </div>

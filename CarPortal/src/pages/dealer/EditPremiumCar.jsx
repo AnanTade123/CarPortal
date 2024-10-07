@@ -380,14 +380,18 @@ export default function EditPremiumCar() {
 
             {/* fourth part */}
             <div className="md:flex">
-            <div className="mt-5 w-full">
+              <div className="mt-5 w-full">
                 <Autocomplete
                   disablePortal
                   options={filteredColors} // Use the filtered and sorted color list
                   getOptionLabel={(option) => option || ""} // Handle undefined options
                   inputValue={inputValue} // Control the input value
-                  
-                  onChange={(event,newValue) => handleColorChange(event, newValue)}
+                  onInputChange={(event, newInputValue) => {
+                    setInputValue(newInputValue); // Update the input value when user types
+                  }}
+                  onChange={(event, newValue) =>
+                    handleColorChange(event, newValue)
+                  }
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -415,7 +419,6 @@ export default function EditPremiumCar() {
                   )}
                 />
               </div>
-
 
               <div className="mt-5 md:ml-2 w-full">
                 <select

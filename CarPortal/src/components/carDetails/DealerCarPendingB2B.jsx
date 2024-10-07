@@ -18,8 +18,9 @@ import { toast, ToastContainer } from "react-toastify";
 import { useState } from "react";
 import { CarouselCustomArrows } from "../../ui/CarouselCustomArrows";
 import { useGetbeadingCarByIdQuery } from "../../services/biddingAPI";
+import B2Bimage from "../../pages/b2b/B2Bimage";
 
-const DealerCarPendingB2B = ({ carId }) => {
+const DealerCarPendingB2B = ({ beadingCarId, status }) => {
   const { id } = useParams();
 
   const [open, setOpen] = useState(false);
@@ -29,10 +30,11 @@ const DealerCarPendingB2B = ({ carId }) => {
   const navigate = useNavigate();
 
   const { data, error, isLoading, isFetching } =
-    useGetbeadingCarByIdQuery(carId);
-//   console.log(carId);
+    useGetbeadingCarByIdQuery(beadingCarId);
+  console.log(beadingCarId);
+  console.log(status);
   const car = data;
-//   console.log(data)
+  console.log(data);
 
   return (
     <div className="w-full flex justify-center">
@@ -48,8 +50,8 @@ const DealerCarPendingB2B = ({ carId }) => {
                   color="transparent"
                   className="m-0 rounded-none"
                 >
-                  <Link to={`/biddinglist/cardetails/${carId}/success`}>
-                    <CarouselCustomArrows carId={carId} />
+                  <Link to={`/biddinglist/cardetails/${beadingCarId}/success`}>
+                    <B2Bimage beadingCarId={beadingCarId} />
                   </Link>
                 </CardHeader>
               </div>
@@ -62,19 +64,19 @@ const DealerCarPendingB2B = ({ carId }) => {
                   />
                   <Chip
                     color="amber"
-                    value={`${car?.carStatus}`}
+                    value={`${status}`}
                     className="font-[latto] text-sm"
                   />
                 </div>
                 <div className="w-full flex flex-col justify-center">
                   <div className="pl-4 mt-2 flex flex-col justify-center">
                     <div>
-                      <div className="text-lg mt-1 font-[latto] font-medium text-black">
+                      {/* <div className="text-lg mt-1 font-[latto] font-medium text-black">
                         <span className="font-bold font-[latto]">
                           Car Price:
                         </span>{" "}
                         ₹{car?.price}
-                      </div>
+                      </div> */}
                       <p className="mt-4 mb-2 text-lg">
                         <span className="font-[latto] text-black font-bold">
                           Car Name:
@@ -94,7 +96,9 @@ const DealerCarPendingB2B = ({ carId }) => {
                     <div>
                       <div className="flex gap-2 p-2 md:p-0 md:pt-2 ">
                         <div>
-                          <Link to={`/biddinglist/cardetails/${carId}/success`}>
+                          <Link
+                            to={`/biddinglist/cardetails/${beadingCarId}/success`}
+                          >
                             <Button
                               color="blue"
                               className="flex items-center text-xs font-[latto]"

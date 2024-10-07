@@ -86,7 +86,7 @@ export default function AddDealerCar() {
   const filteredColors = colors
     .filter(
       (color) =>
-        color && color.toLowerCase().includes((inputValue || "").toLowerCase())
+        color && color.toLowerCase().includes((inputValue || "")?.toLowerCase())
     ) // Ensure both color and inputValue are strings
     .sort();
 
@@ -519,14 +519,18 @@ export default function AddDealerCar() {
 
             {/* fourth part */}
             <div className="md:flex">
-            <div className="mt-5 w-full">
+              <div className="mt-5 w-full">
                 <Autocomplete
                   disablePortal
                   options={filteredColors} // Use the filtered and sorted color list
                   getOptionLabel={(option) => option || ""} // Handle undefined options
                   inputValue={inputValue} // Control the input value
-                  onChange={handleColorChange}
-                  
+                  onInputChange={(event, newInputValue) => {
+                    setInputValue(newInputValue); // Update the input value when user types
+                  }}
+                  onChange={(event, newValue) =>
+                    handleColorChange(event, newValue)
+                  }
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -583,7 +587,7 @@ export default function AddDealerCar() {
             {/* fifth part */}
             <div className="md:flex">
               <div className="mt-5 w-full">
-                <Inputs
+                <Input
                   required
                   placeholder={"Enter Area"}
                   label={"Area"}
@@ -949,7 +953,7 @@ export default function AddDealerCar() {
               disabled={isAdding}
             >
               {" "}
-               {isAdding ? 'Adding...' : 'Next'}
+              {isAdding ? "Adding..." : "Next"}
             </button>
           </form>
         </div>

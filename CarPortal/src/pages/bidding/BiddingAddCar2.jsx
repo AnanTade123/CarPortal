@@ -531,7 +531,12 @@ export default function BiddingAddCar2() {
                   options={filteredColors} // Use the filtered and sorted color list
                   getOptionLabel={(option) => option || ""} // Handle undefined options
                   inputValue={inputValue} // Control the input value
-                  onChange={handleColorChange}
+                  onInputChange={(event, newInputValue) => {
+                    setInputValue(newInputValue); // Update the input value when user types
+                  }}
+                  onChange={(event, newValue) =>
+                    handleColorChange(event, newValue)
+                  }
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -588,7 +593,7 @@ export default function BiddingAddCar2() {
             {/* fifth part */}
             <div className="md:flex gap-4">
               <div className="mt-5 w-full">
-                <Inputs
+                <Input
                   required
                   label={"Area"}
                   type={"text"}

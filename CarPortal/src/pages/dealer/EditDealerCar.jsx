@@ -508,16 +508,18 @@ export default function EditDealerCar() {
               </div>
             </div>
             <div className="md:flex gap-2">
-            <div className="mt-5 w-full">
+              <div className="mt-5 w-full">
                 <Autocomplete
                   disablePortal
-                 
-                  options={filteredColors}
-                  value={formData?.color || ""} // Use the filtered and sorted color list
+                  options={filteredColors} // Use the filtered and sorted color list
                   getOptionLabel={(option) => option || ""} // Handle undefined options
                   inputValue={inputValue} // Control the input value
-                  
-                  onChange={(event,newValue) => handleColorChange(event, newValue)}
+                  onInputChange={(event, newInputValue) => {
+                    setInputValue(newInputValue); // Update the input value when user types
+                  }}
+                  onChange={(event, newValue) =>
+                    handleColorChange(event, newValue)
+                  }
                   renderInput={(params) => (
                     <TextField
                       {...params}
