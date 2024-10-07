@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
 
 /* eslint-disable no-unused-vars */
@@ -30,6 +31,10 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import B2BsellerConfirmationModel from './B2BsellerConfirmationModel';
 import { FiLoader } from "react-icons/fi";
+import B2BBuyerSellerInfoModel from './B2BBuyer&SellerInfoModel';
+import B2BCancelRequest from './B2BCancelRequest';
+const emptyImage = "..\\..\\cars\\emptyfolder.png";
+
 
 export default function B2BSeller() {
     const { status } = useParams();
@@ -44,11 +49,19 @@ export default function B2BSeller() {
     const [pageSize, setPageSize] = useState(10);
     const [carData , setCarData] = useState([]);
     const [loading ,setLoading] = useState(true);
-  
-    const { data ,isLoading ,error } = useB2bstatuCheckQuery({status : "pending"});
-    const {data : activeData ,isLoading : activeIsLoading , error : activeError} = useGetB2BSalesPersonIdQuery(salesPersonId);
-    const { data :soldCarData ,isLoading :soldIsLoading ,error : soldError } = useGetB2BconfirmSalePersonQuery(salesPersonId);
-    const [trigger, { error : carDeatilsError, data: carDetails }] = useLazyBiddingCarByIdQuery();
+    let queryHook;
+
+    if(status === "pending") {
+      queryHook = useB2bstatuCheckQuery({ status: "pending" });
+    } else if(status === "active") {
+      queryHook = useGetB2BSalesPersonIdQuery(salesPersonId);
+    } else if(status === "sold") {
+      queryHook = useGetB2BconfirmSalePersonQuery(salesPersonId);
+    }
+    
+    const { data, isLoading, error , refetch} = queryHook || [];
+    
+      const [trigger, { error : carDeatilsError, data: carDetails }] = useLazyBiddingCarByIdQuery();
 
     const { data: userdata, isLoading: isUserDataLoading, error: userError } = useGetUserRequestDataQuery({
       page: pageNo,
@@ -56,25 +69,18 @@ export default function B2BSeller() {
     });
   
     const navigate = useNavigate();
-    useEffect(() => {
-      if (carDeatilsError?.status === 401) {
-        navigate("/signin");
-      }
-    }, [userError, navigate]);
+    if (error?.status === 401) {
+      Cookies.remove("token");
+      navigate("/signin");
+    }
   
     useEffect(() => {
       setLoading(true)
       const fetchBeadingCarData = async () => {
-        if (data || activeData || soldCarData) {
+        if (data ) {
           const carDataArray = []; 
           let list ;
-          if(status === "pending"){
             list = data?.list;
-          }else if(status === "active"){
-            list = activeData?.list;
-          }else if(status === "sold"){
-            list = soldCarData?.list;
-          }
           for (let i = 0; i < list?.length; i++) {
             const carId = list[i]?.beadingCarId;
             if (carId) {
@@ -95,13 +101,16 @@ export default function B2BSeller() {
         }
       };
       fetchBeadingCarData();
-    }, [data, trigger ,status,activeData ,soldCarData]);
+    }, [data, trigger ,status]);
     
+    const tostifyMsg = (msg,status) => {
+      status === "error" ? toast.error(msg) : toast.success(msg)
+    }
     let tableData ;
     if(status === "pending" || status === "active" || status === "sold" ) {
       tableData = carData
-    }                                    
-
+    }         
+    
     const columns = [
     {
       Header: "Sr. No",
@@ -130,6 +139,25 @@ export default function B2BSeller() {
     {
       Header: "Year",
       accessor: "year",
+    },
+    {
+      Header : "Seller & Buyer Info",
+      Cell : (cell) => {
+        const beadingCarId = cell.row.original.beadingCarId;
+        const buyerDealerId = cell.row.original.buyerDealerId;
+        const sellerDealerId = cell.row.original.sellerDealerId;
+        const b2BId = cell.row.original.b2BId;
+        return(
+          <>
+          <B2BBuyerSellerInfoModel
+              beadingCarId={beadingCarId} 
+              buyerDealerId={buyerDealerId} 
+              sellerDealerId={sellerDealerId} 
+              salesPersonId={salesPersonId} 
+          />
+          </>
+        )
+      }
     },
     // {
     //   Header: "Status",
@@ -177,7 +205,8 @@ export default function B2BSeller() {
         const buyerDealerId = cell.row.original.buyerDealerId;
         const sellerDealerId = cell.row.original.sellerDealerId;
         const b2BId = cell.row.original.b2BId;
-        console.log(beadingCarId);
+        const message = cell.row.original.message;
+        const requestStatus = cell.row.original.requestStatus;
         return (
           <div className="cursor-pointer flex gap-1 justify-center items-center">
           {status !== "sold" && (
@@ -188,10 +217,24 @@ export default function B2BSeller() {
                 sellerDealerId={sellerDealerId} 
                 salesPersonId={salesPersonId} 
                 b2BId={b2BId} 
-                status={status} 
+                status={status}
+                refetch={refetch} 
+                tostifyMsg={tostifyMsg}
+                messageParam={message}
               />
               {status === "active" && (
-                <B2BsellerConfirmationModel b2BId={b2BId} />
+                <>
+                <B2BsellerConfirmationModel b2BId={b2BId} refetch={refetch} tostifyMsg={tostifyMsg}  requestStatus={requestStatus} />
+                <B2BCancelRequest beadingCarId={beadingCarId} 
+                buyerDealerId={buyerDealerId} 
+                sellerDealerId={sellerDealerId} 
+                salesPersonId={salesPersonId} 
+                b2BId={b2BId} 
+                status={status}
+                refetch={refetch} 
+                tostifyMsg={tostifyMsg}
+                messageParam={message} />
+                </>
               )}
             </>
           )}
@@ -257,7 +300,7 @@ export default function B2BSeller() {
         <Link to="/Seller/b2b/active" >
         <CardBody>
             <Typography variant="h5" color={status === "active" ? 'green' : 'blue-gray'} className="mb-2">
-              Assinge  Request
+              Assigned  Request
             </Typography>
         </CardBody>
         </Link>
@@ -272,12 +315,23 @@ export default function B2BSeller() {
         </Link>
       </Card>
     </div>
-      {loading ?  <div className="w-screen h-screen flex justify-center mt-5">
-        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
-      </div> : (
-        
-        <>
-          <CardBody className="md:overflow-auto overflow-scroll px-1">
+    {
+  error ? (
+    <div>
+      <div className="flex justify-center mt-14">
+        <img className="w-40" src={emptyImage} alt="no data" />
+      </div>
+      <p className="flex justify-center text-2xl md:text-3xl font-semibold">
+        No Data Available
+      </p>
+    </div>
+  ) : loading ? (
+    <div className="w-screen h-screen flex justify-center mt-5">
+      <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
+    </div>
+  ) : (
+    <>
+      <CardBody className="md:overflow-auto overflow-scroll px-1">
         <TableComponent columns={columns} data={tableData || []} />
       </CardBody>
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
@@ -285,23 +339,21 @@ export default function B2BSeller() {
           Page {pageNo + 1}
         </Typography>
         <div className="flex gap-2">
-          <Button variant="outlined" size="sm"  disabled={pageNo <= 0}>
+          <Button variant="outlined" size="sm" disabled={pageNo <= 0}>
             Previous
           </Button>
           <Button
             variant="outlined"
             size="sm"
-            
             disabled={userdata?.list?.length < pageSize}
-            >
+          >
             Next
           </Button>
         </div>
       </CardFooter>
-      </>
-          )}
-        
-      
+    </>
+  )
+}
 
       
       <ToastContainer />

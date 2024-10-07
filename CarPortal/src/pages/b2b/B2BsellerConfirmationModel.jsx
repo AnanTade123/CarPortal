@@ -14,7 +14,7 @@ import {
 } from "@material-tailwind/react";
 import {useAddB2BConfirmationApiMutation} from "../../services/salesAPI"
 
-export default function B2BsellerConfirmationModel({b2BId}) {
+export default function B2BsellerConfirmationModel({b2BId ,refetch ,tostifyMsg ,requestStatus}) {
     const [open, setOpen] = useState(false);
     const [AddB2BConfirmationApi] = useAddB2BConfirmationApiMutation()
     const handleOpen = () => setOpen(!open);
@@ -29,8 +29,16 @@ export default function B2BsellerConfirmationModel({b2BId}) {
     }
     try {
       const res = await AddB2BConfirmationApi(assingData);
+      refetch();
+      if(res?.error?.status === 400){
+      tostifyMsg(res?.error?.data?.message,"error" )
+
+      }else{
+        tostifyMsg(res?.data?.message,"success")
+
+      }
     } catch (error) {
-      console.log(error)
+      tostifyMsg("error" ,error);
     }
     setOpen(!open);
    }
@@ -39,7 +47,7 @@ export default function B2BsellerConfirmationModel({b2BId}) {
 
     return (
       <>
-        <Button size="sm" color="blue" onClick={handleOpen}>Sold</Button>
+        <Button size="sm" color="blue" onClick={handleOpen} disabled={requestStatus=== "Cancel" ? true : null}>Sold</Button>
         <Dialog open={open} handler={handleOpen}>
           <DialogHeader>Modal</DialogHeader>
           <DialogBody>
@@ -60,7 +68,7 @@ export default function B2BsellerConfirmationModel({b2BId}) {
             <Button
               variant="text"
               color="red"
-              onClick={handlesubmit}
+              onClick={() =>{setOpen(!open)}}
               className="mr-1"
             >
               <span>Cancel</span>
