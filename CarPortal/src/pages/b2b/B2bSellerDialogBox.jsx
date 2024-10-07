@@ -12,13 +12,13 @@ import {
   Textarea,
 } from "@material-tailwind/react";
 import {useB2bAssingMesectionMutation} from "../../services/salesAPI"
-import { Link } from "react-router-dom";
 
-export default function B2bSellerDialogBox({beadingCarId,buyerDealerId,sellerDealerId,salesPersonId,b2BId ,status}) {
+export default function B2bSellerDialogBox({beadingCarId,buyerDealerId,sellerDealerId,salesPersonId,b2BId ,status ,refetch , tostifyMsg ,messageParam}) {
     const [open, setOpen] = useState(false);
-    const [b2bAssingMesection] = useB2bAssingMesectionMutation()
+    const [b2bAssingMesection] = useB2bAssingMesectionMutation();
+    
     const handleOpen = () => setOpen(!open);
-    const [message , setMessage] = useState('');
+    const [message , setMessage] = useState(messageParam);
 
     const handleChange = (e) => {
       
@@ -45,8 +45,10 @@ export default function B2bSellerDialogBox({beadingCarId,buyerDealerId,sellerDea
 
     try {
       const res = await b2bAssingMesection({assingData,b2BId});
+      tostifyMsg(res?.data?.message)
+      refetch();
     } catch (error) {
-      console.log(error)
+      tostifyMsg("error" , error);
     }
     setOpen(!open);
    }
@@ -67,7 +69,7 @@ export default function B2bSellerDialogBox({beadingCarId,buyerDealerId,sellerDea
             <Button
               variant="text"
               color="red"
-              onClick={handlesubmit}
+              onClick={()=>{ setOpen(!open)}}
               className="mr-1"
             >
               <span>Cancel</span>
