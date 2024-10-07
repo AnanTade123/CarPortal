@@ -49,12 +49,9 @@ export const salesAPI = apiSlice.injectEndpoints({
       
     }),
     b2bstatuCheck : builder.query({
-      query : (statuss) => ({
-        url : `/b2b/by-status?requestStatus=${statuss}`,
+      query : ({status}) => ({
+        url : `/b2b/by-status?requestStatus=${status}`,
         method: "GET",
-        
-         transerResponse:console.log(statuss),
-       
       }),
       invalidatesTags: ["SALESPERSON"],
       
@@ -70,6 +67,30 @@ export const salesAPI = apiSlice.injectEndpoints({
       invalidatesTags: ["SALESPERSON"],
       
     }),
+    getB2BSalesPersonId : builder.query({
+      query : (salesPersonId) => ({
+        url : `/b2b/by-sales-person?salesPersonId=${salesPersonId}`,
+        method: "GET",
+      }),
+      invalidatesTags: ["SALESPERSON"],
+      
+    }),
+    addB2BConfirmationApi : builder.mutation({
+      query : (formData) => ({
+        url : `b2bConfirm/add`,
+        method: "POST",
+        body : formData
+      }),
+      invalidatesTags : ["SALESPERSON"]
+    }),
+    getB2BconfirmSalePerson : builder.query({
+      query : (salesPersonId) => ({
+        url : `/b2bConfirm/salespersonId?salesPersonId=${salesPersonId}`,
+        method: "GET",
+      }),
+      invalidatesTags: ["SALESPERSON"],
+      
+    }),
 
   }),
 });
@@ -81,5 +102,8 @@ export const {
   useSellerupdateMutation,
   useSellerChangePasswordMutation,
   useB2bstatuCheckQuery,
-  useB2bAssingMesectionMutation
+  useB2bAssingMesectionMutation,
+  useGetB2BSalesPersonIdQuery,
+  useAddB2BConfirmationApiMutation,
+  useGetB2BconfirmSalePersonQuery
 } = salesAPI;

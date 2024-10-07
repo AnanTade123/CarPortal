@@ -36,7 +36,7 @@ const BiddingPriceCard = ({
   }
   const userRole = jwtDecodes?.authorities[0];
   const UserId = token ? jwtDecodes?.userId : null;
-  const {page , timerId} = useParams()
+  const {page , timerId ,status} = useParams()
   const {data} = useGetbeadingGetByIdQuery(beadingCarId);
   const { isConnected, topThreeBidsAmount } = useWebSocket();
   const [timeLeft, setTimeLeft] = useState('');
@@ -210,7 +210,8 @@ const getTopThreeBids = (bidCarId) => {
            
           </div>
         </div>
-        <div className="flex justify-center items-center align-middle mb-3">
+        {status != "info" ? (
+          <div className="flex justify-center items-center align-middle mb-3">
           {((userRole === "SALESPERSON" || userRole === "ADMIN") && biddingTimerStatus !== "CLOSED"  ) ? (
             <div>
               <div className="flex">
@@ -270,6 +271,8 @@ const getTopThreeBids = (bidCarId) => {
           <ShowIntrestDailog/>
         </div>):null}
         </div>
+        ) : null}
+          
       </div>
     </CardUi>
     </div>

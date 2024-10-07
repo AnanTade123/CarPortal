@@ -144,6 +144,10 @@ export default function App() {
             path="/biddinglist/cardetails/:beadingCarId/:timerId"
             element={<BiddingCarDetailsById1 />}
           />
+          <Route
+            path="/biddinglist/cardetails/:beadingCarId/success/:timerId"
+            element={<BiddingCarDetailsById1 />}
+          />
 
           <Route
             path="/biddinglist/cardetails/:beadingCarId"
@@ -388,6 +392,7 @@ export default function App() {
             }
           >
             <Route path="/Seller/b2b/:status" element={<B2BSeller />} />
+            <Route path="/Seller/b2b/car/:status/:beadingCarId" element={<BiddingCarDetailsById1 />} />
             <Route
               path="/Seller/UserRequest/Edit/:userFormId"
               element={<SalerUserSaleReqEdit />}

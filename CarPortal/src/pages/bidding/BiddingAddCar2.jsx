@@ -286,6 +286,17 @@ export default function BiddingAddCar2() {
     }));
   };
 
+  const handleColorChange = (event, newValue) => {
+    const color = newValue;
+    
+    setInputValue(color);
+    setFormData({
+      ...formData,
+      color,
+      
+    });
+  };
+
   useEffect(() => {
     if (variantData) {
       const models = [...new Set(variantData.list.map((item) => item.variant))];
@@ -520,9 +531,7 @@ export default function BiddingAddCar2() {
                   options={filteredColors} // Use the filtered and sorted color list
                   getOptionLabel={(option) => option || ""} // Handle undefined options
                   inputValue={inputValue} // Control the input value
-                  onInputChange={(event, newInputValue) => {
-                    setInputValue(newInputValue); // Update the input value when user types
-                  }}
+                  onChange={handleColorChange}
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -584,6 +593,7 @@ export default function BiddingAddCar2() {
                   label={"Area"}
                   type={"text"}
                   name={"area"}
+                  placeholder={"Enter Area"}
                   value={formData.area}
                   onChange={(event) =>
                     setFormData({

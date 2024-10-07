@@ -13,7 +13,7 @@ import {
 } from "@material-tailwind/react";
 import {useB2bAssingMesectionMutation} from "../../services/salesAPI"
 
-export default function B2bSellerDialogBox({beadingCarId,buyerDealerId,sellerDealerId,salesPersonId,b2BId ,status ,refetch , tostifyMsg ,messageParam}) {
+export default function B2BCancelRequest({beadingCarId,buyerDealerId,sellerDealerId,salesPersonId,b2BId ,status ,refetch , tostifyMsg ,messageParam}) {
     const [open, setOpen] = useState(false);
     const [b2bAssingMesection] = useB2bAssingMesectionMutation();
     
@@ -28,21 +28,15 @@ export default function B2bSellerDialogBox({beadingCarId,buyerDealerId,sellerDea
    const handlesubmit = async() => {
    
     let assingData ;
-    if(status == "pending"){
+   
       assingData = {
         beadingCarId: beadingCarId,
         buyerDealerId: buyerDealerId,
         sellerDealerId: sellerDealerId,
         salesPersonId: Number(salesPersonId),
-        requestStatus:"active",
+        requestStatus:"Cancel",
         b2BId: b2BId
       }
-    }else if(status === "active"){
-      assingData = {
-      message: message,
-    }
-  }
-
     try {
       const res = await b2bAssingMesection({assingData,b2BId});
       tostifyMsg(res?.data?.message)
@@ -57,13 +51,15 @@ export default function B2bSellerDialogBox({beadingCarId,buyerDealerId,sellerDea
         {/* <Button onClick={handleOpen} variant="gradient">
       Click Here
         </Button> */}
-        <Button size="sm" color={status === "pending" ? "blue" : "green"} onClick={handleOpen}>{ status === "pending" ? "Accept Request" : "Comment" }</Button>
+        <Button size="sm" color="red" onClick={handleOpen}>Cancel</Button>
         <Dialog open={open} handler={handleOpen}>
           <DialogHeader>Modal</DialogHeader>
           <DialogBody>
-          {status == "active" ? (
+            <>
+            <div>Are you sure you want to cancel request?</div>
+            <br/>
             <Textarea label="Comment" value={message} onChange={handleChange}></Textarea>
-          ) : <div>Are you sure you want to accept request?</div>}
+            </>
           </DialogBody>
           <DialogFooter>
             <Button
@@ -72,10 +68,10 @@ export default function B2bSellerDialogBox({beadingCarId,buyerDealerId,sellerDea
               onClick={()=>{ setOpen(!open)}}
               className="mr-1"
             >
-              <span>Cancel</span>
+              <span>Close</span>
             </Button>
-            <Button variant="gradient" color="green" onClick={handlesubmit}>
-              <span>Confirm</span>
+            <Button variant="gradient" color="red" onClick={handlesubmit}>
+              <span>Cancel Request</span>
             </Button>
           </DialogFooter>
         </Dialog>

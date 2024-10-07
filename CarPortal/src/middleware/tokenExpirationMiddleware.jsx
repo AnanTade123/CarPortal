@@ -2,13 +2,13 @@ import { apiSlice } from '../services/apiSlice';
 import { useNavigate } from 'react-router-dom';
 
 const tokenExpirationMiddleware = () => (next) => async (action) => {
-//  console.log(action.error)
+ console.log(action)
 // console.log(action.type.startsWith(apiSlice.reducerPath))
 if(action?.payload?.status && action.error){
   // console.log('click')
 }
 
-  if (action.type.startsWith(apiSlice.reducerPath) && action.error && action.payload?.status === 401) {
+  if (action.type.startsWith(apiSlice.reducerPath) && action.error && action.payload?.status === 401 && action.code == 401) {
     
     // console.log('click')
     // console.log(action?.payload?.status)

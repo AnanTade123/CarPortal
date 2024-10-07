@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import {
   useCancelStatusSetMutation,
   useGetAllDealerCompleteBookingQuery,
+  useGetAllB2BCompleteBookingQuery,
+  useGetAllPendingB2BRequestQuery,
 } from "../../services/dealerAPI";
 import CardUi from "../../ui/CardUi";
 import emptyfolder from "/cars/emptyfolder.png";
@@ -23,27 +25,94 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { CarouselCustomArrows } from "../../ui/CarouselCustomArrows";
 import { toast, ToastContainer } from "react-toastify";
-const OrderDealerB2B = () => {
-  const { id } = useParams();
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
+import {
+  useGetbeadingCarById1Query,
+  useLazyBiddingCarByIdQuery,
+} from "../../services/biddingAPI";
 
+const OrderDealerB2B = () => {
   const [pageNo, setPageNo] = useState(0);
   const [revertId, setRevertId] = useState("");
 
-  const { data, isLoading, error, refetch } =
-    useGetAllDealerCompleteBookingQuery({
-      pageNo,
-      id,
-    });
+  const token = Cookies.get("token");
+  let jwtDecodes;
+  if (token) {
+    jwtDecodes = jwtDecode(token);
+  }
+  const id = jwtDecodes?.dealerId;
+  // console.log(id);
 
-  const [cancelStatusSet] = useCancelStatusSetMutation();
+  const { data, isLoading, error, refetch } = useGetAllB2BCompleteBookingQuery({
+    id,
+  });
+  // console.log(data);
+
+  // const carId = data?.list?.[0]?.[0]?.beadingCarId;
+  // console.log("carId:", carId);
+
+  // const {
+  //   data: data1,
+  //   isLoading: isLoadingCar,
+  //   isError: isErrorCar,
+  // } = useGetbeadingCarById1Query(carId);
+  // console.log(data1);
+const [biddingdata, setbiddingdata] = useState([]);
+
+  let [trigger] = useLazyBiddingCarByIdQuery();
+
   useEffect(() => {
-    refetch();
-  }, [id]);
+    const fetchServiceProducts = async () => {
+      if (data) {
+        const liveCarsData = [];
+        console.log(data.list.length);
+        for (let i = 0; i < data?.list?.length; i++) {
+          const carId = data.list[i]?.beadingCarId;
+          console.log(carId);
+          if (carId) {
+            const { data: carData, error: carError } = await trigger(carId);
+            if (carError) {
+              console.error("Error fetching car data:", carError);
+              continue;
+            }
+
+            const combinedData = {
+              ...carData,
+              // ...dealerName,
+            };
+
+            liveCarsData.push(combinedData);
+          }
+        }
+
+        setbiddingdata(liveCarsData);
+        
+        // setLoading(true);
+      } else {
+        // setLoading(true);
+      }
+    };
+
+    fetchServiceProducts();
+  }, [data, trigger]);
+
+  // useEffect(() => {
+  //   if (isLoadingCar) {
+  //     console.log("Fetching car data...");
+  //   } else if (isErrorCar) {
+  //     console.log("Error fetching car data");
+  //   } else if (data1) {
+  //     console.log("Fetched car data: ", data1);
+  //   }
+  // }, [data1, isLoadingCar, isErrorCar]);
+console.log(biddingdata)
+  const car = [];
 
   const nextHandler = () => {
     setPageNo((prePageNo) => {
       if (error?.status === 404) {
-        // console.log("You are on the last page.");
+        console.log("You are on the last page.");
       } else {
         return prePageNo + 1;
       }
@@ -56,16 +125,6 @@ const OrderDealerB2B = () => {
     setRevertId(revertID);
   };
 
-  const handleRevertConfirmation = async () => {
-    try {
-      const res = await cancelStatusSet(revertId);
-      toast.success(res?.data?.status);
-      handleOpen(false);
-      refetch();
-    } catch (error) {
-      // console.log("Error :", error);
-    }
-  };
   if (isLoading) {
     return (
       <div className="w-screen h-screen flex justify-center items-center p-8">
@@ -86,9 +145,9 @@ const OrderDealerB2B = () => {
     );
   }
 
-  const renderData = data?.bookings?.map((item, index) => {
-    const carid = item?.carId;
-
+  const renderData = biddingdata?.map((item, index) => {
+    const carId = item.beadingCarId;
+    
     return (
       <div className="md:mx-10 mx-5 mt-3 mb-3" key={index}>
         <CardUi>
@@ -100,37 +159,40 @@ const OrderDealerB2B = () => {
                 color="transparent"
                 className="m-0 rounded-none"
               >
-                <Link to={`/carlist/cardetails/${carid}`}>
-                  <CarouselCustomArrows carId={carid} />
+                <Link to={`/biddinglist/cardetails/${carId}/success`}>
+                  <CarouselCustomArrows carId={carId} />
                 </Link>
               </CardHeader>
             </div>
             <div>
+              <p className="mt-4 mb-2 text-lg">
+                <span className="font-[latto] text-black font-bold">
+                  Car Name:
+                </span>
+                <span className="font-[latto]">
+                  {" "}
+                  {item?.brand} {item?.model}
+                </span>
+              </p>
+              <p className="mt-4 mb-2 text-lg">
+                <span className="font-[latto] text-black font-bold">
+                  Varient:
+                </span>
+                <span className="font-[latto]"> {item?.variant}</span>
+              </p>
               <p className="mt-4 md:mt-0 text-lg">
                 <span className="font-[latto] text-black font-bold">Date:</span>{" "}
-                {item?.date}
+                <span className="font-[latto]"> {item?.date}</span>
               </p>
               <p className="mt-2 text-lg">
                 <span className="font-[latto] text-black font-bold">
                   Price:{" "}
                 </span>
-                {item?.price}
+                <span className="font-[latto]">{item?.price}</span>
               </p>
-              <div>
-                <div className="font-[latto] mt-2 text-lg font-bold text-black">
-                  Contact Details of the User
-                </div>
-                <div className="font-[latto] mt-1 text-lg font-medium text-black">
-                  <span className="font-bold text-lg">User Name: </span>
-                  {item?.firstName}
-                </div>
-                <div className="font-[latto] text-lg font-medium text-black">
-                  <span className="font-bold text-lg">Contact No:</span>{" "}
-                  {item?.mobileNo}
-                </div>
-              </div>
+
               <div className="flex gap-2 align-middle items-center">
-                <Link to={`/carlist/cardetails/${item?.carId}`}>
+                <Link to={`/biddinglist/cardetails/${carId}/success`}>
                   <Button
                     fullWidth
                     className="flex items-center text-xs mt-5 bg-blue-400 w-full"
@@ -152,7 +214,7 @@ const OrderDealerB2B = () => {
                     </svg>
                   </Button>
                 </Link>
-                {item?.status === "cancel" ? (
+                {/* {item?.status === "cancel" ? (
                   <Button className="flex items-center text-xs gap-2 mt-5 bg-red-300">
                     Canceled Booking
                     <svg
@@ -191,7 +253,7 @@ const OrderDealerB2B = () => {
                       />
                     </svg>
                   </Button>
-                )}
+                )} */}
               </div>
             </div>
           </div>
@@ -199,13 +261,6 @@ const OrderDealerB2B = () => {
       </div>
     );
   });
-  if (isLoading) {
-    return (
-      <div className="w-screen h-screen flex justify-center items-center p-8">
-        <FiLoader className="animate-spin text-blue-gray-800 h-16 w-16" />
-      </div>
-    );
-  }
 
   return (
     <>
@@ -231,32 +286,12 @@ const OrderDealerB2B = () => {
             variant="outlined"
             size="sm"
             onClick={nextHandler}
-            disabled={data?.bookings.length < 10}
+            disabled={data?.bookings?.length < 10}
           >
             Next
           </Button>
         </div>
       </CardFooter>
-      <Dialog open={open} handler={handleOpen}>
-        <DialogHeader>Do you really want to Revert the Car?</DialogHeader>
-        <DialogFooter>
-          <Button
-            variant="text"
-            color="red"
-            onClick={handleOpen}
-            className="mr-1"
-          >
-            <span>Cancel</span>
-          </Button>
-          <Button
-            variant="gradient"
-            color="green"
-            onClick={handleRevertConfirmation}
-          >
-            <span>Confirm</span>
-          </Button>
-        </DialogFooter>
-      </Dialog>
     </>
   );
 };

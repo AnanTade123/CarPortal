@@ -127,14 +127,14 @@ export function LoginCard() {
         <CardHeader
           variant="gradient"
           // color="gray"
-          className="mb-4 grid h-28 place-items-center bg-[#8a90d4]"
+          className="grid h-28 place-items-center bg-[#8a90d4]"
         >
           <Typography variant="h3" color="white">
             Sign In
           </Typography>
         </CardHeader>
         <form onSubmit={handleSubmit}>
-          <CardBody className="flex flex-col gap-4">
+          <CardBody className="flex flex-col gap-1">
           <Typography variant="h6" color="blue-gray" className="">
                   Email
                 </Typography>
