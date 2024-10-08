@@ -97,10 +97,10 @@ export function StickyNavbar() {
           title: "Premium Car List",
           link: "/carlistadmin",
         },
-        // {
-        //   title: "B2B Cars",
-        //   link: "/adminB2B",
-        // }
+        {
+          title: "B2B Cars",
+          link: "/adminB2B",
+        }
       );
     }
 
