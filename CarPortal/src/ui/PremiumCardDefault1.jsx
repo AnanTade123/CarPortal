@@ -112,7 +112,6 @@ export function PremiumCardDefault1({ data, Carid, refetch }) {
           </Link>
         </CardHeader>
         <CardBody>
-          <Link to={`/carlist/cardetails/premium/${data.carId}`}>
             {userRole === "USER" ? (
               <div className="flex justify-end">
                 <div onClick={handleFavoriteToggle} className="cursor-pointer">
@@ -181,7 +180,7 @@ export function PremiumCardDefault1({ data, Carid, refetch }) {
               View Car
             </button>
           </Link> */}
-          </Link>
+         
         </CardBody>
       </Card>
     </div>
