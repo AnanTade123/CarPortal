@@ -56,8 +56,7 @@ export const UserAPI = apiSlice.injectEndpoints({
 
     GetUserRequestDataById: builder.query({
       query: (userFormId) => ({
-        url: `?userFormId=${userFormId}`,
-        // transferResponse: console.log(userProfileId),
+        url: `/userFormController/getById?userFormId=${userFormId}`,
         method: "GET",
       }),
       providesTags:["User"]
