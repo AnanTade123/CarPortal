@@ -440,7 +440,7 @@ export default function App() {
           <Route path="/user" element={<UserInfo />} />
         </Route>
         <Route path="/premiumcars" element={<PremiumCars />} />
-        <Route path="/user" element={<UserInfo />} />
+        <Route path="/user/info" element={<UserInfo />} />
         <Route path="/DealerContact" element={<DealerContact />} />
         {/* <Route path="/trans" element={<CardDetailss/>}/> */}
         <Route element={<AppLayout2 />}>

@@ -308,7 +308,7 @@ const Profile = ({
                 </Typography>
               </MenuItem>
 
-              <Link to={`/user`}>
+              <Link to={`/user/info`}>
                 <MenuItem className="flex items-center gap-2">
                   <GrUserSettings className="text-xl" />
                   <span className="text-l"> Profile</span>
