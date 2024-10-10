@@ -53,7 +53,7 @@ function UnratedIcon() {
 
 export function CardDefault({ data, Carid, refetch }) {
   const dispatch = useDispatch();
-  const favoriteCars = useSelector(state => state.favorites.favoriteCars);
+  const favoriteCars = useSelector((state) => state.favorites.favoriteCars);
   const [isHovered, setIsHovered] = useState(false);
 
   const [favoriteCar] = useFavoriteCarMutation();
@@ -72,17 +72,20 @@ export function CardDefault({ data, Carid, refetch }) {
   const carid = data2.carId;
   const useid = data2.userId;
 
-  const { data: favData, error, refetch: refetchFavCarData } = useCarFavoriteAddRemoveQuery({ carid, useid });
+  const {
+    data: favData,
+    error,
+    refetch: refetchFavCarData,
+  } = useCarFavoriteAddRemoveQuery({ carid, useid });
 
   const [CarremoveFavorite] = useCarremoveFavoriteMutation();
-
 
   const handleFavoriteToggle = async () => {
     const data2 = {
       carId: Carid,
       userId: UserId,
     };
-    if (favoriteCars?.find(favCar => favCar.carId === data.carId)) {
+    if (favoriteCars?.find((favCar) => favCar.carId === data.carId)) {
       dispatch(removeFavoriteCar(data));
       const res = await CarremoveFavorite({
         saveCarId: favData?.object?.saveCarId,
@@ -96,11 +99,13 @@ export function CardDefault({ data, Carid, refetch }) {
   };
 
   const combinedText = `${data.brand} ${data.model}`;
-  const truncatedText = combinedText.length > 25 ? combinedText.substring(0, 22 ) + '...' : combinedText;
+  const truncatedText =
+    combinedText.length > 25
+      ? combinedText.substring(0, 22) + "..."
+      : combinedText;
   return (
     <div className="flex justify-center mx-auto">
-      <Card className="max-w-[19rem] overflow-hidden hover:border hover:border-3 hover:shadow-2xl hover:scale-105">
-
+      <Card className="max-w-[19rem] overflow-hidden hover:border hover:border-3 hover:shadow-2xl hover:scale-105 border-indigo-200 border">
         <CardHeader
           floated={false}
           shadow={false}
@@ -112,24 +117,32 @@ export function CardDefault({ data, Carid, refetch }) {
           </Link>
         </CardHeader>
         <CardBody>
-          <Link to={`/carlist/cardetails/${data.carId}`}>
             {userRole === "USER" ? (
               <div className="flex justify-end">
                 <div onClick={handleFavoriteToggle} className="cursor-pointer">
                   <div className="-mb-6">
-                    {favoriteCars?.some(favCar => favCar.carId === data.carId) ? <RatedIcon /> : <UnratedIcon />}
+                    {favoriteCars?.some(
+                      (favCar) => favCar.carId === data.carId
+                    ) ? (
+                      <RatedIcon />
+                    ) : (
+                      <UnratedIcon />
+                    )}
                   </div>
                 </div>
               </div>
             ) : null}
             <Typography>{data.year}</Typography>
-            <Link to={`/carlist/cardetails/${data.carId}`}>
-            <Typography variant="h5" color="blue-gray" className="mb-2" onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}>
-              {isHovered ? data.brand +" "+ data.model : truncatedText}
-              {/* {`${data.brand} ${data.model}`.length > 25 ? `${data.brand} ${data.model}`.substring(0, 22) + '...' : `${data.brand} ${data.model}`} */}
-            </Typography>
-            </Link>
+              <Typography
+                variant="h5"
+                color="blue-gray"
+                className="mb-2"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
+                {isHovered ? data.brand + " " + data.model : truncatedText}
+                {/* {`${data.brand} ${data.model}`.length > 25 ? `${data.brand} ${data.model}`.substring(0, 22) + '...' : `${data.brand} ${data.model}`} */}
+              </Typography>
             <Typography variant="h6" color="blue-gray" className="mb-2">
               {data.title}
             </Typography>
@@ -154,7 +167,7 @@ export function CardDefault({ data, Carid, refetch }) {
           </Link> */}
             <hr />
             <p className="text-sm">Free Test Drive Today at {data.area}</p>
-          </Link>
+         
         </CardBody>
       </Card>
     </div>

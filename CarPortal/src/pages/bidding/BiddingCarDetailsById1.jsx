@@ -21,7 +21,7 @@ export default function BiddingCarDetailsById1() {
   const navigate = useNavigate();
   const [bids, setBids] = useState([]);
   const [topThreeBids, setTopThreeBids] = useState([]);
-  const { beadingCarId, bidCarId } = useParams();
+  const { beadingCarId, bidCarId ,status} = useParams();
   const { data, isLoading, error } = useGetbeadingCarByIdQuery(beadingCarId);
   const { data : timingData , isLoading : timeIsLoding , error: timeError , refetch } = useGetByBidCarIdQuery(beadingCarId) 
   const closeTime = timingData?.object?.closingTime;
@@ -110,6 +110,7 @@ export default function BiddingCarDetailsById1() {
           closeTime={closeTime}
           refeachData = {refetch}
           biddingTimerStatus={biddingTimerStatus}
+          price={price}
         />
       </div>
     </div>

@@ -62,6 +62,8 @@ const cityOptions = {
 export default function AddDealerCar() {
   const { data: brandData } = useGetOnlyBrandsQuery();
   const { data : colorData } = useGetAllColorQuery();
+  const colors = colorData?.list.map((item) => item.name) || [];
+  console.log(colors);
   const brands = brandData?.list.map((item) => item.brand) || [];
   // console.log(brands);
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -70,6 +72,7 @@ export default function AddDealerCar() {
   const [variantOptions, setVariantOptions] = useState([]);
   const [showCalendar, setShowCalendar] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
+  const [inputValue, setInputValue] = useState(""); 
   const { data: variantData } = useGetVariantsQuery(selectedBrand, {
     skip: !selectedBrand,
   });
@@ -79,6 +82,13 @@ export default function AddDealerCar() {
       skip: !selectedBrand || !selectedModel,
     }
   );
+
+  const filteredColors = colors
+    .filter(
+      (color) =>
+        color && color.toLowerCase().includes((inputValue || "")?.toLowerCase())
+    ) // Ensure both color and inputValue are strings
+    .sort();
 
   const [carRegister] = useCarRegisterMutation();
   //  const [mult, setMult] = React.useState([]);
@@ -194,6 +204,7 @@ export default function AddDealerCar() {
     };
     try{
       const res = await carRegister(data);
+      //console.log(data);
     if (res?.data?.status === "success") {
       toast.success("Car Added");
       setTimeout(() => {
@@ -234,6 +245,17 @@ export default function AddDealerCar() {
     setFormData({
       ...formData,
       cVariant,
+    });
+  };
+
+  const handleColorChange = (event, newValue) => {
+    const color = newValue;
+    
+    setInputValue(color);
+    setFormData({
+      ...formData,
+      color,
+      
     });
   };
 
@@ -308,7 +330,7 @@ export default function AddDealerCar() {
                   onChange={handleBrandChange}
                   renderInput={(params) => (
                     <TextField
-                    required
+                      required
                       sx={{
                         "& .MuiInputBase-root": {
                           height: "40px",
@@ -344,7 +366,7 @@ export default function AddDealerCar() {
                   onChange={handleModelChange}
                   renderInput={(params) => (
                     <TextField
-                    required
+                      required
                       sx={{
                         "& .MuiInputBase-root": {
                           height: "40px",
@@ -383,7 +405,7 @@ export default function AddDealerCar() {
                   onChange={handleVariantChange}
                   renderInput={(params) => (
                     <TextField
-                    required
+                      required
                       sx={{
                         "& .MuiInputBase-root": {
                           height: "40px",
@@ -423,7 +445,9 @@ export default function AddDealerCar() {
                     });
                   }}
                 >
-                  <option value="" disabled>Transmission</option>
+                  <option value="" disabled>
+                    Transmission
+                  </option>
                   <option>Automatic</option>
                   <option>Manual</option>
                 </select>
@@ -432,7 +456,7 @@ export default function AddDealerCar() {
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <Input
-                required
+                  required
                   label="Price"
                   type="number"
                   name="price"
@@ -448,7 +472,7 @@ export default function AddDealerCar() {
 
               <div className="mt-5 md:ml-2 w-full">
                 <select
-                required
+                  required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label={"year"}
                   type={"number"}
@@ -461,7 +485,14 @@ export default function AddDealerCar() {
                     })
                   }
                 >
-                  <option value="" disabled>Year</option>
+                  <option value="" disabled>
+                    Year
+                  </option>
+                  <option>2000</option>
+                  <option>2001</option>
+                  <option>2002</option>
+                  <option>2003</option>
+                  <option>2004</option>
                   <option>2005</option>
                   <option>2006</option>
                   <option>2007</option>
@@ -489,30 +520,48 @@ export default function AddDealerCar() {
             {/* fourth part */}
             <div className="md:flex">
               <div className="mt-5 w-full">
-                <select
-                required
-                  className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  label={"Color"}
-                  type={"text"}
-                  name={"color"}
-                  value={formData.color}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      color: event.target.value,
-                    })
+                <Autocomplete
+                  disablePortal
+                  options={filteredColors} // Use the filtered and sorted color list
+                  getOptionLabel={(option) => option || ""} // Handle undefined options
+                  inputValue={inputValue} // Control the input value
+                  onInputChange={(event, newInputValue) => {
+                    setInputValue(newInputValue); // Update the input value when user types
+                  }}
+                  onChange={(event, newValue) =>
+                    handleColorChange(event, newValue)
                   }
-                >
-                  <option value="" disabled>Select Color</option>
-                  {colorData?.list?.map((item ,i) => (
-                    <option key={item.colorId} value={item.name}>{item.name}</option>
-                  ))}
-                </select>
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Select Color"
+                      sx={{
+                        "& .MuiInputBase-root": {
+                          height: "40px",
+                          padding: "0 14px",
+                          paddingBottom: "8px",
+                          top: 0,
+                        },
+                        "& .MuiInputBase-input": {
+                          height: "100%",
+                          padding: "0",
+                        },
+                      }}
+                      InputLabelProps={{
+                        style: {
+                          fontSize: "0.75rem",
+                          // paddingTop : '20px',
+                          //  background : 'black'
+                        }, // Adjust the font size here
+                      }}
+                    />
+                  )}
+                />
               </div>
 
               <div className="mt-5 md:ml-2 w-full">
                 <select
-                required
+                  required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   name="ownerSerial"
                   value={formData.ownerSerial}
@@ -538,11 +587,12 @@ export default function AddDealerCar() {
             {/* fifth part */}
             <div className="md:flex">
               <div className="mt-5 w-full">
-                <Inputs
-                required
+                <Input
+                  required
+                  placeholder={"Enter Area"}
                   label={"Area"}
                   type={"text"}
-                  name={"area"}
+                  name={"Area"}
                   value={formData.area}
                   onChange={(event) =>
                     setFormData({
@@ -612,7 +662,7 @@ export default function AddDealerCar() {
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <Input
-                required
+                  required
                   label="Km Driven"
                   type="number"
                   name="kmDriven"
@@ -639,7 +689,9 @@ export default function AddDealerCar() {
                     });
                   }}
                 >
-                  <option value="" disabled>Fuel Type</option>
+                  <option value="" disabled>
+                    Fuel Type
+                  </option>
                   <option>Petrol</option>
                   <option>Diesel</option>
                   <option>Electric</option>
@@ -654,7 +706,7 @@ export default function AddDealerCar() {
             <div className="md:flex">
               <div className="mt-5 w-full">
                 <select
-                required
+                  required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label="City"
                   name="city"
@@ -672,7 +724,7 @@ export default function AddDealerCar() {
 
               <div className="mt-5 md:ml-2 w-full">
                 <select
-                required
+                  required
                   className="w-full border-2 border-gray-400 p-2 rounded-md"
                   label="Registration"
                   name="registration"
@@ -896,12 +948,12 @@ export default function AddDealerCar() {
 
             <button
               type="submit"
-              className="p-3 mt-3 bg-indigo-400 rounded-md w-28 text-white"
+              className="p-3 mt-3 bg-indigo-400 rounded-md w-28 text-white mb-3"
               value="Add  Car"
               disabled={isAdding}
             >
               {" "}
-               {isAdding ? 'Adding...' : 'Next'}
+              {isAdding ? "Adding..." : "Next"}
             </button>
           </form>
         </div>

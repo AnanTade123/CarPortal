@@ -16,12 +16,12 @@ const FeaturedCars = ({ data, error }) => {
     <>
     <div className="text-3xl font-bold p-10 font-[latto]">Recently Added Cars</div>
         <div className="w-full lg:pl-0 ">
-          <div className="flex flex-wrap gap-y-6 justify-center md:justify-evenly ">
+          <div className="md:grid md:grid-cols-4 mx-2">
             
             {posts?.slice(0,4).map((items, index) => {
               return (
                 <div key={index}>
-                  <div className="flex mb-5 md:mb-0">
+                  <div className="flex mb-5 mx-3 md:mb-0">
                     <CardDefault2 data={items} />
                   </div>
                 </div>

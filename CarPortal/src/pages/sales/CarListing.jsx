@@ -529,7 +529,7 @@ export default function CarListing() {
             <div className="flex ml-6 mt-2 shrink-0 flex-col gap-2 sm:flex-row">
               
                 <Link to={`/inspector/car/add`}>
-                  <Button>Add Bid Car</Button>
+                  <Button color="indigo">Add Bid Car</Button>
                 </Link>
               </div>
           </div>
@@ -565,7 +565,7 @@ export default function CarListing() {
                   </Typography>
                 </div>
                 <Link to={`/inspector/car/add`}>
-                  <Button>Add Bid Car</Button>
+                  <Button color="indigo">Add Bid Car</Button>
                 </Link>
               </div>
             </CardHeader>
@@ -574,7 +574,7 @@ export default function CarListing() {
               </CardBody>
               <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
               <Typography
-                  variant="medium"
+                  variant="h6"
                   color="blue-gray"
                   className="font-normal"
                 >

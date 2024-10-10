@@ -19,6 +19,7 @@ import {
 const FilterCars = ({ setUrlState }) => {
   const { data: brandData } = useGetOnlyBrandsQuery();
   const brands = brandData?.list.map((item) => item.brand) || [];
+  console.log(brands);
 
   const [selectedBrand, setSelectedBrand] = useState("");
   const [modelOptions, setModelOptions] = useState([]);
@@ -127,27 +128,55 @@ const FilterCars = ({ setUrlState }) => {
   let formattedAmountMax = new Intl.NumberFormat("en-IN").format(value[1]);
 
   const AreaData = [
-    { area: "Viman Nagar", year: 2005 },
-    { area: "Koregaon Park", year: 2006 },
-    { area: "Aundh", year: 2007 },
-    { area: "Kothrud", year: 2008 },
-    { area: "Hadapsar", year: 2009 },
-    { area: "Shivajinagar", year: 2010 },
-    { area: "Kalyani Nagar", year: 2011 },
-    { area: "Pimpri-Chinchwad", year: 2012 },
-    { area: "Magarpatta", year: 2013 },
-    { area: "Wadgaon Sheri", year: 2014 },
-    { area: "Katraj", year: 2015 },
-    { area: "Model Colony", year: 2016 },
-    { area: "Pune Cantonment", year: 2017 },
-    { area: "Senapati Bapat Road", year: 2018 },
-    { area: "Bhosari", year: 2018 },
-    { area: "Chakan", year: 2019 },
-    { area: "Bavdhan", year: 2020 },
-    { area: "Hinjewadi", year: 2021 },
-    { area: "Baner", year: 2022 },
-    { area: "Kharadi", year: 2023 },
-    { area: "Wagholi", year: 2024 },
+    { area: "Viman Nagar" },
+    { area: "Koregaon Park" },
+    { area: "Aundh" },
+    { area: "Kothrud" },
+    { area: "Hadapsar" },
+    { area: "Shivajinagar" },
+    { area: "Kalyani Nagar" },
+    { area: "Pimpri-Chinchwad" },
+    { area: "Magarpatta" },
+    { area: "Wadgaon Sheri" },
+    { area: "Katraj" },
+    { area: "Model Colony" },
+    { area: "Pune Cantonment" },
+    { area: "Senapati Bapat Road" },
+    { area: "Bhosari" },
+    { area: "Chakan" },
+    { area: "Bavdhan" },
+    { area: "Hinjewadi" },
+    { area: "Baner" },
+    { area: "Kharadi" },
+    { area: "Wagholi" },
+  ];
+
+  const Year = [
+    { year: 2000 },
+    { year: 2001 },
+    { year: 2002 },
+    { year: 2003 },
+    { year: 2004 },
+    { year: 2005 },
+    { year: 2006 },
+    { year: 2007 },
+    { year: 2008 },
+    { year: 2009 },
+    { year: 2010 },
+    { year: 2011 },
+    { year: 2012 },
+    { year: 2013 },
+    { year: 2014 },
+    { year: 2015 },
+    { year: 2016 },
+    { year: 2017 },
+    { year: 2018 },
+    { year: 2019 },
+    { year: 2020 },
+    { year: 2021 },
+    { year: 2022 },
+    { year: 2023 },
+    { year: 2024 },
   ];
 
   const FuleType = [
@@ -163,33 +192,33 @@ const FilterCars = ({ setUrlState }) => {
     { transmission: "Manual" },
   ];
 
- const handleSliderChange = (event, newValue) => {
-   let [min, max] = newValue;
+  const handleSliderChange = (event, newValue) => {
+    let [min, max] = newValue;
 
-   // Ensure the min slider value takes steps of 50000 until 1000000
-   if (min < 1000000) {
-     min = Math.floor(min / 50000) * 50000;
-   } else {
-     min = Math.floor(min / 500000) * 500000;
-   }
+    // Ensure the min slider value takes steps of 50000 until 1000000
+    if (min < 1000000) {
+      min = Math.floor(min / 50000) * 50000;
+    } else {
+      min = Math.floor(min / 500000) * 500000;
+    }
 
-   // Ensure the max slider value follows its logic
-   if (max < 1000000) {
-     max = Math.floor(max / 50000) * 50000;
-   } else {
-     max = Math.floor(max / 500000) * 500000;
-   }
+    // Ensure the max slider value follows its logic
+    if (max < 1000000) {
+      max = Math.floor(max / 50000) * 50000;
+    } else {
+      max = Math.floor(max / 500000) * 500000;
+    }
 
-   // Apply constraints
-   if (min > max) {
-     min = max; // Ensure min does not exceed max
-   }
+    // Apply constraints
+    if (min > max) {
+      min = max; // Ensure min does not exceed max
+    }
 
-   // Update state
-   setValue([min, max]);
-   setMinPrice(min.toString());
-   setMaxPrice(max.toString());
- };
+    // Update state
+    setValue([min, max]);
+    setMinPrice(min.toString());
+    setMaxPrice(max.toString());
+  };
   const calculateStep = (value) => {
     return value < 7000000 ? 50000 : 500000;
   };
@@ -333,7 +362,17 @@ const FilterCars = ({ setUrlState }) => {
                 <div className="w-full flex items-center px-2 mx-1">
                   <Slider
                     className="w-full"
-                    color="black"
+                    sx={{
+                      "& .MuiSlider-thumb": {
+                        color: "#6366F1",
+                      },
+                      "& .MuiSlider-track": {
+                        color: "#6366F1",
+                      },
+                      "& .MuiSlider-rail": {
+                        color: "#E5E7EB",
+                      },
+                    }}
                     value={value}
                     onChange={handleSliderChange}
                     valueLabelDisplay="auto"
@@ -497,7 +536,7 @@ const FilterCars = ({ setUrlState }) => {
               <Autocomplete
                 id="year-autocomplete"
                 freeSolo
-                options={AreaData}
+                options={Year}
                 getOptionLabel={(option) => option.year.toString()}
                 sx={{ width: "Full", background: "White" }}
                 value={

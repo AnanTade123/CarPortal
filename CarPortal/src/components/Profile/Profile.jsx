@@ -30,12 +30,9 @@ const Profile = ({
   salesPersonId,
   userProfileId,
 }) => {
-
-
-   const [selectedFile, setSelectedFile] = useState(null); // State to manage selected file
-   const [uploadedImageUrl, setUploadedImageUrl] = useState(""); // State to store uploaded image URL
-   const fileInputRef = useRef(null);
-
+  const [selectedFile, setSelectedFile] = useState(null); // State to manage selected file
+  const [uploadedImageUrl, setUploadedImageUrl] = useState(""); // State to store uploaded image URL
+  const fileInputRef = useRef(null);
 
   const userLocal = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -311,7 +308,7 @@ const Profile = ({
                 </Typography>
               </MenuItem>
 
-              <Link to={`/user`}>
+              <Link to={`/user/info`}>
                 <MenuItem className="flex items-center gap-2">
                   <GrUserSettings className="text-xl" />
                   <span className="text-l"> Profile</span>

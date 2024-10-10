@@ -7,7 +7,6 @@ import Interior from "../Img_UI/Interior.webp";
 import Features from "../Img_UI/Features.webp";
 import Tyres from "../Img_UI/Tyres.webp";
 import Engine from "../Img_UI/Engine.webp";
-
 import { useGetCarImageByIdQuery } from "../../services/carAPI";
 import "../../../src/index.css";
 import { FiLoader } from 'react-icons/fi'; 
@@ -41,7 +40,7 @@ const CarView1 = ({ carId }) => {
         ...data.object.filter((item) => item.documentType === "coverImage"),
         ...data.object.filter((item) => item.documentType !== "coverImage"),
       ];
-
+ 
       // Extract the URLs from the reordered data
       const urls = reorderedData.map((item) => item.documentLink);
       // console.log(urls)

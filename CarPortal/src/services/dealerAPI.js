@@ -5,7 +5,7 @@ export const dealerAPI = apiSlice.injectEndpoints({
     getAllDealer: builder.query({
       query: (pageNo) => ({
         url: `/dealer/allDealers/${pageNo}`,
-        
+
         method: "GET",
       }),
       providesTags: (result) =>
@@ -18,8 +18,7 @@ export const dealerAPI = apiSlice.injectEndpoints({
         // transferResponce: console.log(userid),
         method: "GET",
       }),
-        providesTags: ["Dealer", "user"],
-
+      providesTags: ["Dealer", "user"],
     }),
     deleteDealer: builder.mutation({
       query: (id) => ({
@@ -32,7 +31,6 @@ export const dealerAPI = apiSlice.injectEndpoints({
     getDealer: builder.query({
       query: ({ id }) => ({
         url: `/dealer/${id}`,
-        
       }),
       providesTags: ["Dealer", "user"],
     }),
@@ -50,7 +48,13 @@ export const dealerAPI = apiSlice.injectEndpoints({
     getAllDealerCompleteBooking: builder.query({
       query: ({ pageNo, id }) => ({
         url: `/confirmBooking/getAllBookingsByDealerId?pageNo=${pageNo}&dealerId=${id}`,
-        
+      }),
+      providesTags: ["DEALERBOOKING"],
+    }),
+
+    getAllB2BCompleteBooking: builder.query({
+      query: ({ id }) => ({
+        url: `/b2bConfirm/buyerId?buyerDealerId=${id}`,
       }),
       providesTags: ["DEALERBOOKING"],
     }),
@@ -58,6 +62,14 @@ export const dealerAPI = apiSlice.injectEndpoints({
     getAllDealerPendingBooking: builder.query({
       query: ({ id, pageNo }) => ({
         url: `/booking/getPendingBookingDetailsByDealerID?pageNo=${pageNo}&dealerId=${id}`,
+        // transerResponse: console.log(pageNo, id),
+      }),
+      providesTags: ["DEALERBOOKING"],
+    }),
+
+    getAllPendingB2BRequest: builder.query({
+      query: ({ id }) => ({
+        url: `/b2b/by-buyer-dealer?buyerDealerId=${id}`,
         // transerResponse: console.log(pageNo, id),
       }),
       providesTags: ["DEALERBOOKING"],
@@ -131,13 +143,19 @@ export const dealerAPI = apiSlice.injectEndpoints({
     getDealerProfile: builder.query({
       query: ({ userId }) => ({
         url: `/ProfilePhoto/getbyuserid?${userId}`,
-        
       }),
       providesTags: ["Dealer", "user"],
     }),
+
+    b2bpost: builder.mutation({
+      query: (interestShow) => ({
+        url: `/b2b/add`,
+        method: "POST",
+        body: interestShow,
+      }),
+      providesTags: ["Dealer"],
+    }),
   }),
-
-
 });
 
 export const {
@@ -148,7 +166,9 @@ export const {
   useLazyGetDealerQuery,
   useGetEditDealerMutation,
   useGetAllDealerCompleteBookingQuery,
+  useGetAllB2BCompleteBookingQuery,
   useGetAllDealerPendingBookingQuery,
+  useGetAllPendingB2BRequestQuery,
   useAddCarImagesMutation,
   useDealerStatusMutation,
   useGetAllDealerListQuery,
@@ -156,5 +176,6 @@ export const {
   useGetUserQuery,
   useChnagePasswordMutation,
   useLazyGetDealerByUserIdQuery,
-  useGetDealerProfileQuery
+  useGetDealerProfileQuery,
+  useB2bpostMutation,
 } = dealerAPI;

@@ -17,6 +17,7 @@ import { useGetAllDealerListQuery } from "../../services/dealerAPI";
 import { ToastContainer, toast } from "react-toastify";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import { useGetAllColorQuery } from "../../services/colorAPI";
 
 export default function BiddingEditCar() {
   const { beadingCarId } = useParams();
@@ -28,6 +29,8 @@ export default function BiddingEditCar() {
   const { data: dealarList } = useGetAllDealerListQuery();
   const brands = brandData?.list.map((item) => item.brand) || [];
   const brandss = Carid ? [Carid.brand] : [];
+  const { data: colorData } = useGetAllColorQuery();
+  const colors = colorData?.list.map((item) => item.name) || [];
   // const brandss = Carid ? Carid.map((car) => car.brand) : [];
   console.log(brandss);
 
@@ -39,6 +42,7 @@ export default function BiddingEditCar() {
   const userInfo = localStorage.getItem("userInfo");
   const { userId: userid } = JSON.parse(userInfo);
   const navigate = useNavigate();
+  const [inputValue, setInputValue] = useState("");
 
   const [formData, setFormData] = useState({
     //features
@@ -86,6 +90,13 @@ export default function BiddingEditCar() {
       skip: !selectedBrand || !selectedModel,
     }
   );
+
+  const filteredColors = colors
+    .filter(
+      (color) =>
+        color && color.toLowerCase().includes((inputValue || "").toLowerCase())
+    ) // Ensure both color and inputValue are strings
+    .sort(); 
 
   const [biddingcarUpdate] = useBiddingcarUpdateMutation();
   useEffect(() => {
@@ -216,6 +227,8 @@ export default function BiddingEditCar() {
     });
   };
 
+  
+
   const handleModelChange = (event, value) => {
     setSelectedModel(value);
     setFormData({
@@ -229,6 +242,16 @@ export default function BiddingEditCar() {
     setFormData({
       ...formData,
       cVariant: value,
+    });
+  };
+
+  const handleColorChange = (event, value) => {
+    setInputValue(value);
+    
+    setFormData({
+      ...formData,
+      color: value,
+      
     });
   };
 
@@ -445,40 +468,43 @@ export default function BiddingEditCar() {
 
             <div className="md:flex">
               <div className="mt-5 w-full">
-                <select
-                  required
-                  className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  label={"Color"}
-                  type={"text"}
-                  name={"color"}
-                  value={formData.color}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      color: event.target.value,
-                    })
+                <Autocomplete
+                  disablePortal
+                  options={filteredColors} // Use the filtered and sorted color list
+                  getOptionLabel={(option) => option || ""} // Handle undefined options
+                  inputValue={inputValue} // Control the input value
+                  onInputChange={(event, newInputValue) => {
+                    setInputValue(newInputValue); // Update the input value when user types
+                  }}
+                  onChange={(event, newValue) =>
+                    handleColorChange(event, newValue)
                   }
-                >
-                  <option value="">Color</option>
-                  {[
-                    "Red",
-                    "Blue",
-                    "Yellow",
-                    "Pink",
-                    "Purple",
-                    "White",
-                    "Black",
-                    "Orange",
-                    "Green",
-                    "Brown",
-                    "Gold",
-                    "Aqua",
-                  ].map((color) => (
-                    <option key={color} value={color}>
-                      {color}
-                    </option>
-                  ))}
-                </select>
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Select Color"
+                      sx={{
+                        "& .MuiInputBase-root": {
+                          height: "40px",
+                          padding: "0 14px",
+                          paddingBottom: "8px",
+                          top: 0,
+                        },
+                        "& .MuiInputBase-input": {
+                          height: "100%",
+                          padding: "0",
+                        },
+                      }}
+                      InputLabelProps={{
+                        style: {
+                          fontSize: "0.75rem",
+                          // paddingTop : '20px',
+                          //  background : 'black'
+                        }, // Adjust the font size here
+                      }}
+                    />
+                  )}
+                />
               </div>
 
               <div className="mt-5 md:ml-2 w-full">
@@ -508,6 +534,7 @@ export default function BiddingEditCar() {
                 <Inputs
                   required
                   label={"Area"}
+                  placeholder={"Enter Area"}
                   type={"text"}
                   name={"area"}
                   value={formData.area}
@@ -830,7 +857,7 @@ export default function BiddingEditCar() {
               />
             </div>
 
-            <div className="mt-5 flex justify-center">
+            <div className="mt-5 flex justify-center mb-3">
               <button
                 type="submit"
                 className="bg-blue-500 text-white px-4 py-2 rounded-md"

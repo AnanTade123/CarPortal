@@ -103,7 +103,7 @@ export function AddDealerForm() {
 
   return (
     <>
-      <Button onClick={handleOpen} className="flex gap-2">
+      <Button onClick={handleOpen} color="indigo" className="flex gap-2">
         <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add Dealer
       </Button>
       <Dialog
@@ -196,7 +196,7 @@ export function AddDealerForm() {
                 onChange={handleChange}
                 required
               />
-              <Button type="submit">Add</Button>
+              <Button color="indigo" type="submit">Add</Button>
             </form>
           </CardBody>
           

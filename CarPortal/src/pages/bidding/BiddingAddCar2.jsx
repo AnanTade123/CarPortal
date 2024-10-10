@@ -17,6 +17,7 @@ import {
 } from "../../services/dealerAPI";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import { useGetAllColorQuery } from "../../services/colorAPI";
 
 const cityOptions = {
   Pune: ["MH-12"],
@@ -55,6 +56,10 @@ const cityOptions = {
 
 export default function BiddingAddCar2() {
   const { data: brandData } = useGetOnlyBrandsQuery();
+  const { data: colorData } = useGetAllColorQuery();
+  const colors = colorData?.list.map((item) => item.name) || [];
+  console.log(colors);
+  console.log(colorData);
   const { data: dealarList } = useGetAllDealerListQuery();
   const brands = brandData?.list.map((item) => item.brand) || [];
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -62,8 +67,9 @@ export default function BiddingAddCar2() {
   const [modelOptions, setModelOptions] = useState([]);
   const [variantOptions, setVariantOptions] = useState([]);
   const [showCalendar, setShowCalendar] = useState(false);
-  const [submitDisabled , setSubmitDisabled] =useState(false);
- 
+  const [submitDisabled, setSubmitDisabled] = useState(false);
+  const [inputValue, setInputValue] = useState(""); // Store the input value from the search
+
   const { data: variantData } = useGetVariantsQuery(selectedBrand, {
     skip: !selectedBrand,
   });
@@ -74,6 +80,13 @@ export default function BiddingAddCar2() {
       skip: !selectedBrand || !selectedModel,
     }
   );
+
+  const filteredColors = colors
+    .filter(
+      (color) =>
+        color && color.toLowerCase().includes((inputValue || "").toLowerCase())
+    ) // Ensure both color and inputValue are strings
+    .sort(); // Sort alphabetically
 
   const [biddingCarRegister] = useBiddingCarRegisterMutation();
   //  const [mult, setMult] = React.useState([]);
@@ -110,7 +123,7 @@ export default function BiddingAddCar2() {
     cVariant: "",
     insurancedate: "",
     carInsuranceType: "",
-    insuranceType: ""
+    insuranceType: "",
   });
   const userInfo = localStorage.getItem("userInfo");
   const { userId: userid } = JSON.parse(userInfo);
@@ -273,6 +286,17 @@ export default function BiddingAddCar2() {
     }));
   };
 
+  const handleColorChange = (event, newValue) => {
+    const color = newValue;
+    
+    setInputValue(color);
+    setFormData({
+      ...formData,
+      color,
+      
+    });
+  };
+
   useEffect(() => {
     if (variantData) {
       const models = [...new Set(variantData.list.map((item) => item.variant))];
@@ -343,7 +367,7 @@ export default function BiddingAddCar2() {
                   freeSolo
                   options={modelOptions}
                   getOptionLabel={(option) => option}
-                  sx={{ width:"Full", height: 50 }}
+                  sx={{ width: "Full", height: 50 }}
                   onChange={handleModelChange}
                   renderInput={(params) => (
                     <TextField
@@ -383,7 +407,7 @@ export default function BiddingAddCar2() {
                   freeSolo
                   options={variantOptions}
                   getOptionLabel={(option) => option}
-                  sx={{ width:"Full" }}
+                  sx={{ width: "Full" }}
                   onChange={handleVariantChange}
                   renderInput={(params) => (
                     <TextField
@@ -445,15 +469,15 @@ export default function BiddingAddCar2() {
                   value={formData.price}
                   // max={9}
                   onChange={(event) => {
-                  const value = event.target.value;
-                  if (value <= 99999999) { // Ensure the value doesn't exceed 9
-                    setFormData({
-                      ...formData,
-                      price: value,
-                    });
-                  }
-                }}
-                   
+                    const value = event.target.value;
+                    if (value <= 99999999) {
+                      // Ensure the value doesn't exceed 9
+                      setFormData({
+                        ...formData,
+                        price: value,
+                      });
+                    }
+                  }}
                 />
               </div>
 
@@ -472,7 +496,9 @@ export default function BiddingAddCar2() {
                     })
                   }
                 >
-                  <option value="" disabled>Year</option>
+                  <option value="" disabled>
+                    Year
+                  </option>
                   <option value={2005}>2005</option>
                   <option value={2006}>2006</option>
                   <option value={2007}>2007</option>
@@ -500,34 +526,43 @@ export default function BiddingAddCar2() {
             {/* fourth part */}
             <div className="md:flex gap-4">
               <div className="mt-5 w-full">
-                <select
-                  className="w-full border-2 border-gray-400 p-2 rounded-md"
-                  required
-                  label={"Color"}
-                  type={"text"}
-                  name={"color"}
-                  value={formData.color}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      color: event.target.value,
-                    })
+                <Autocomplete
+                  disablePortal
+                  options={filteredColors} // Use the filtered and sorted color list
+                  getOptionLabel={(option) => option || ""} // Handle undefined options
+                  inputValue={inputValue} // Control the input value
+                  onInputChange={(event, newInputValue) => {
+                    setInputValue(newInputValue); // Update the input value when user types
+                  }}
+                  onChange={(event, newValue) =>
+                    handleColorChange(event, newValue)
                   }
-                >
-                  <option value="" disabled>Color</option>
-                  <option>Red</option>
-                  <option>Blue</option>
-                  <option>Yellow</option>
-                  <option>Pink</option>
-                  <option>Purple</option>
-                  <option>White</option>
-                  <option>Black</option>
-                  <option>Orange</option>
-                  <option>Green</option>
-                  <option>Brown</option>
-                  <option>Gold</option>
-                  <option>Aqua</option>
-                </select>
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Select Color"
+                      sx={{
+                        "& .MuiInputBase-root": {
+                          height: "40px",
+                          padding: "0 14px",
+                          paddingBottom: "8px",
+                          top: 0,
+                        },
+                        "& .MuiInputBase-input": {
+                          height: "100%",
+                          padding: "0",
+                        },
+                      }}
+                      InputLabelProps={{
+                        style: {
+                          fontSize: "0.75rem",
+                          // paddingTop : '20px',
+                          //  background : 'black'
+                        }, // Adjust the font size here
+                      }}
+                    />
+                  )}
+                />
               </div>
 
               <div className="mt-5 md:ml-2 w-full">
@@ -558,11 +593,12 @@ export default function BiddingAddCar2() {
             {/* fifth part */}
             <div className="md:flex gap-4">
               <div className="mt-5 w-full">
-                <Inputs
+                <Input
                   required
                   label={"Area"}
                   type={"text"}
                   name={"area"}
+                  placeholder={"Enter Area"}
                   value={formData.area}
                   onChange={(event) =>
                     setFormData({
@@ -656,7 +692,9 @@ export default function BiddingAddCar2() {
                     });
                   }}
                 >
-                  <option value="" disabled>Fuel Type</option>
+                  <option value="" disabled>
+                    Fuel Type
+                  </option>
                   <option>Petrol</option>
                   <option>Diesel</option>
                   <option>Electric</option>
@@ -869,27 +907,50 @@ export default function BiddingAddCar2() {
               </div>
             </div>
 
-            <div className="mt-5 md:ml-2 w-50">
-              <select
-                required
-                className="w-full border-2 border-gray-400 p-2 rounded-md"
-                label={"Select Dealer"}
-                name={"userid"}
-                value={formData.dealerId}
-                onChange={(event) =>
+            <div className="mt-5 w-full h-10">
+              <Autocomplete
+                disablePortal
+                options={dealarList?.list || []}
+                getOptionLabel={(dealer) =>
+                  dealer.firstName + " " + dealer.lastName
+                }
+                onChange={(event, newValue) => {
                   setFormData({
                     ...formData,
-                    dealerId: event.target.value,
-                  })
+                    dealerId: newValue?.dealer_id || "", // Handles case where no dealer is selected
+                  });
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Select Dealer"
+                    variant="outlined"
+                    required
+                    sx={{
+                      "& .MuiInputBase-root": {
+                        height: "40px",
+                        padding: "0 14px",
+                        paddingBottom: "8px",
+                        top: 0,
+                      },
+                      "& .MuiInputBase-input": {
+                        height: "100%",
+                        padding: "0",
+                      },
+                    }}
+                    InputLabelProps={{
+                      style: {
+                        fontSize: "0.75rem",
+                        // paddingTop : '20px',
+                        //  background : 'black'
+                      }, // Adjust the font size here
+                    }}
+                  />
+                )}
+                isOptionEqualToValue={(option, value) =>
+                  option.dealer_id === value.dealer_id
                 }
-              >
-                <option>Select Dealar</option>
-                {dealarList?.list?.map((dealer) => (
-                  <option key={dealer.dealer_id} value={dealer.dealer_id}>
-                    {dealer.firstName + " " + dealer.lastName}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
             {/* tenth part */}
             <div className="mt-5 mb-2">
@@ -934,7 +995,7 @@ export default function BiddingAddCar2() {
 
             <Button
               type="submit"
-              className="p-3 mt-3 bg-indigo-400 rounded-md w-28 text-white"
+              className="p-3 mt-3 bg-indigo-400 rounded-md w-28 text-white mb-3"
               value="Add  Car"
               disabled={submitDisabled}
             >

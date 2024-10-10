@@ -17,7 +17,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useDispatch } from "react-redux";
 import { jwtDecode } from "jwt-decode";
 import { Visibility, VisibilityOff } from '@material-ui/icons';
-
+import cartechlogo2 from "/cars/cartechlogo2.png";
 export function LoginCard() {
   const [formStateData, setFormStateData] = useState({
     username: "",
@@ -75,9 +75,27 @@ export function LoginCard() {
   };
 
   return (
-    <div>
+    <>
+    
+   <div className=" ">
+     
+     <div className="md:mt-2 mt-5 md:ml-8 ml-5">
+      <Link to={"/"}>
+      <div className=" flex text-blue-gray-900 cursor-pointer font-bold text-2xl gap-2  ">
+      <img
+            src={cartechlogo2}
+            alt="logo"
+            className="  w-12 lg:w-[70px] lg:h-[64px] "
+          />
+           <span className="mt-3">CarTechIndia</span> 
+    </div>
+       
+</Link>
+</div>
 
-    <div className="flex justify-center items-center h-screen mx-2" 
+
+    <div className="flex justify-center items-center mx-2 mt-10" 
+    
     
     // style={{
     //     backgroundImage: "url('../public/new/bgn6.jpg')",
@@ -87,17 +105,20 @@ export function LoginCard() {
     //     height: "90vh"
     //   }}
       >
-    
+   
    
     <ToastContainer autoClose={2000} />
-      <Card className="w-96 bg-white shadow-xl border ">
-
-      <div className="items-center mb-12 ">
+    
+      <Card className="w-96 bg-white shadow-black border border-blue-400 shadow-md ">
+      
+      <div className=" mb-12 ">
 <Link to={"/"}>
           {/* <Typography className="flex cursor-pointer mt-2  font-bold text-3xl justify-center items-center 
            ">
             CarTechIndia
           </Typography> */}
+
+
         </Link>
         </div>
 
@@ -105,31 +126,43 @@ export function LoginCard() {
       
         <CardHeader
           variant="gradient"
-          color="gray"
-          className="mb-4 grid h-28 place-items-center"
+          // color="gray"
+          className="grid h-28 place-items-center bg-[#8a90d4]"
         >
           <Typography variant="h3" color="white">
             Sign In
           </Typography>
         </CardHeader>
         <form onSubmit={handleSubmit}>
-          <CardBody className="flex flex-col gap-4">
+          <CardBody className="flex flex-col gap-1">
+          <Typography variant="h6" color="blue-gray" className="">
+                  Email
+                </Typography>
             <Input
-              label="Email"
+              placeholder="Enter your email-id"
               name="username"
               type="email"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
               value={formStateData.username}
               onChange={handleChange}
             />
-            <Input label="Password"
+             <Typography variant="h6" color="blue-gray" className="">
+                  Password
+                </Typography>
+            <Input placeholder="enter your password"
               name="password"
               type={showPassword ? 'text' : 'password'}
               value={formStateData.password}
               onChange={handleChange}
+              labelProps={{
+                className: "hidden",
+              }}
               icon={showPassword ? <VisibilityOff onClick={handleTogglePassword} className="cursor-pointer" /> : <Visibility onClick={handleTogglePassword} className="cursor-pointer" />} />
           </CardBody>
           <CardFooter className="pt-0">
-            <Button variant="gradient" fullWidth type="submit">
+            <Button  className="bg-[#8a90d4]" fullWidth type="submit">
               Sign In
             </Button>
             <div className="flex items-center justify-center mt-4">
@@ -141,7 +174,7 @@ export function LoginCard() {
                 <Typography
                   variant="small"
                   color="blue-gray"
-                  className="ml-1 font-bold"
+                  className="ml-1 font-bold "
                 >
                   Sign up
                 </Typography>
@@ -163,5 +196,6 @@ export function LoginCard() {
       </Card>
     </div>
     </div>
+    </>
   );
 }

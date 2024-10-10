@@ -3,7 +3,7 @@
 import { useCarCountByStatusQuery, useDealerIdByCarQuery } from "../../services/carAPI";
 import { Tooltip } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
-// eslint-disable-next-line no-unused-vars
+ 
 import ApexCharts from "react-apexcharts";
 import TableComponent from "../../components/table/TableComponent";
 import {
@@ -237,7 +237,7 @@ const SellForCar = () => {
     });
   };
 
-  // eslint-disable-next-line no-unused-vars
+   
   const columns = [
     {
       Header: "Sr. No",
@@ -633,7 +633,7 @@ let dealersCarData ;
 
           {userRole === "DEALER" ? (<div className="flex shrink-0 flex-col gap-2 sm:flex-row">
             <Link to={`/dealer/${id}/addcar`}>
-              <Button>Add Car</Button>
+              <Button color="indigo">Add Car</Button>
             </Link>
           </div>):(
               <p className="hover:text-blue-900"> </p>
@@ -680,7 +680,7 @@ let dealersCarData ;
                 {userRole === "DEALER" ? (
                   <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
                     <Link to={`/dealer/${id}/addcar`}>
-                      <Button>Add Car</Button>
+                      <Button color="indigo">Add Car</Button>
                     </Link>
                   </div>
                 ) : (

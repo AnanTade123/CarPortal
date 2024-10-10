@@ -48,6 +48,49 @@ export const salesAPI = apiSlice.injectEndpoints({
       })
       
     }),
+    b2bstatuCheck : builder.query({
+      query : ({status}) => ({
+        url : `/b2b/by-status?requestStatus=${status}`,
+        method: "GET",
+      }),
+      invalidatesTags: ["SALESPERSON"],
+      
+    }),
+    b2bAssingMesection : builder.mutation({
+      query : ({assingData,b2BId}) => ({
+        url : `/b2b/update?b2BId=${b2BId}`,
+        method: "PATCH",
+        body:assingData,
+          transerResponse:console.log(assingData,b2BId),
+       
+      }),
+      invalidatesTags: ["SALESPERSON"],
+      
+    }),
+    getB2BSalesPersonId : builder.query({
+      query : (salesPersonId) => ({
+        url : `/b2b/by-sales-person?salesPersonId=${salesPersonId}`,
+        method: "GET",
+      }),
+      invalidatesTags: ["SALESPERSON"],
+      
+    }),
+    addB2BConfirmationApi : builder.mutation({
+      query : (formData) => ({
+        url : `b2bConfirm/add`,
+        method: "POST",
+        body : formData
+      }),
+      invalidatesTags : ["SALESPERSON"]
+    }),
+    getB2BconfirmSalePerson : builder.query({
+      query : (salesPersonId) => ({
+        url : `/b2bConfirm/salespersonId?salesPersonId=${salesPersonId}`,
+        method: "GET",
+      }),
+      invalidatesTags: ["SALESPERSON"],
+      
+    }),
 
   }),
 });
@@ -57,5 +100,10 @@ export const {
   useDeleteSellerMutation,
   useSellerByIdQuery,
   useSellerupdateMutation,
-  useSellerChangePasswordMutation
+  useSellerChangePasswordMutation,
+  useB2bstatuCheckQuery,
+  useB2bAssingMesectionMutation,
+  useGetB2BSalesPersonIdQuery,
+  useAddB2BConfirmationApiMutation,
+  useGetB2BconfirmSalePersonQuery
 } = salesAPI;

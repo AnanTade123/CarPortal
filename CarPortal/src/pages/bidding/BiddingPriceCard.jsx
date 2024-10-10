@@ -4,7 +4,7 @@
 import Cookies from "js-cookie";
 import CardUi from "../../ui/CardUi";
 import { jwtDecode } from "jwt-decode";
-import { Chip } from "@material-tailwind/react";
+import { Button, Chip } from "@material-tailwind/react";
 import { IoHome } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaFileAlt } from "react-icons/fa";
@@ -16,6 +16,8 @@ import { useWebSocket } from "../../Utiles/WebSocketConnection";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import duration from 'dayjs/plugin/duration';
+// import DialogBox from "../../ui/DialogBox";
+import ShowIntrestDailog from "./ShowIntrestDailog";
 dayjs.extend(duration);
 
 const BiddingPriceCard = ({
@@ -24,7 +26,8 @@ const BiddingPriceCard = ({
   handleMessage,
   closeTime,
   refeachData,
-  biddingTimerStatus
+  biddingTimerStatus,
+  price
 }) => {
   const token = Cookies.get("token");
   let jwtDecodes;
@@ -33,7 +36,7 @@ const BiddingPriceCard = ({
   }
   const userRole = jwtDecodes?.authorities[0];
   const UserId = token ? jwtDecodes?.userId : null;
-  const {page , timerId} = useParams()
+  const {page , timerId ,status} = useParams()
   const {data} = useGetbeadingGetByIdQuery(beadingCarId);
   const { isConnected, topThreeBidsAmount } = useWebSocket();
   const [timeLeft, setTimeLeft] = useState('');
@@ -187,7 +190,7 @@ const getTopThreeBids = (bidCarId) => {
         <div className="flex justify-center align-middle items-center my-3">
           <div className="text-center">
             <div className="text-xl font-bold text-black font-[latto]">
-             Amount: {highestBid || "-"}  ₹
+             Amount: {highestBid || null}  ₹
             </div>
             <div className="uppercase text-gray-700 text-xs font-[latto]">
               Fixed Road Price
@@ -207,7 +210,8 @@ const getTopThreeBids = (bidCarId) => {
            
           </div>
         </div>
-        <div className="flex justify-center items-center align-middle mb-3">
+        {status != "info" ? (
+          <div className="flex justify-center items-center align-middle mb-3">
           {((userRole === "SALESPERSON" || userRole === "ADMIN") && biddingTimerStatus !== "CLOSED"  ) ? (
             <div>
               <div className="flex">
@@ -262,7 +266,13 @@ const getTopThreeBids = (bidCarId) => {
             </div>
           </div>
         </div>) : null}
+
+        {userRole === "DEALER" ? (<div className="cursor-pointer">
+          <ShowIntrestDailog/>
+        </div>):null}
         </div>
+        ) : null}
+          
       </div>
     </CardUi>
     </div>

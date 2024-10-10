@@ -116,6 +116,13 @@ export const biddingAPI = apiSlice.injectEndpoints({
       }),
       providesTags: ["BIDDING"],
     }),
+    getbeadingCarById1: builder.query({
+      query: (carId) => ({
+        url: `/BeadingCarController/getbyId/${carId}`,
+        method: "GET",
+      }),
+      providesTags: ["BIDDING"],
+    }),
 
     getbeadingGetById: builder.query({
       query: (beadingCarId) => ({
@@ -129,7 +136,6 @@ export const biddingAPI = apiSlice.injectEndpoints({
     updateBidCar: builder.mutation({
       query: ({ beadingCarId, formDataTosend }) => ({
         url: `/uploadFileBidCar/update?doc=abcd&doctype=cover&subtype=images&comment=xyz&bidDocumentId=${beadingCarId}`,
-        // transerResponse:console.log("APi response",beadingCarId,formDataTosend),
         method: "PATCH",
         body: formDataTosend,
       }),
@@ -203,10 +209,18 @@ export const biddingAPI = apiSlice.injectEndpoints({
       }),
       providesTags: ["BIDDING"],
     }),
+    getallB2Bcars: builder.query({
+      query: () => ({
+        url: `b2b/all`,
+        method: "GET",
+      }),
+      providesTags: ["BIDDING"],
+    }),
   }),
 });
 
-export const {useBiddingAllCardQuery,
+export const {
+  useBiddingAllCardQuery,
   useAllDealerFinalBidQuery,
   useBiddingCarByIdQuery, 
   useLazyBiddingCarByIdQuery,
@@ -220,7 +234,9 @@ export const {useBiddingAllCardQuery,
   useGetByDealerIdQuery,
   useGetbeadingCarImageQuery,
   useGetbeadingCarByIdQuery,
+  useGetbeadingCarById1Query,
   useGetbeadingGetByIdQuery,
+  useLazyGetbeadingCarByIdQuery,
   useGetbeadingImgGetByIdQuery,
   useGetAllLiveBiddingCarsQuery,
   useUpdateBidCarMutation,
@@ -229,5 +245,6 @@ export const {useBiddingAllCardQuery,
   useBiddingCarImageRemoveMutation,
   useUpdateBiddingTimeMutation,
   useBiddingTimerIdQuery,
-  useGetByBidCarIdQuery
+  useGetByBidCarIdQuery,
+  useGetallB2BcarsQuery
 } = biddingAPI;

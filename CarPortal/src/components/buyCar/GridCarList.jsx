@@ -3,7 +3,7 @@ import { CardDefault } from "../../ui/CardDefault";
 // import CardUi from "../../ui/CardUi";
 import { useEffect, useState } from "react";
 
-const GridCarList = ({ data, error,refetch }) => {
+const GridCarList = ({ data, error,refetch ,isLoading , loadMoreRef }) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const GridCarList = ({ data, error,refetch }) => {
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-y-6 md:grid-cols-1 md:gap-y-6 lg:grid-cols-3 lg:gap-x-4 lg:gap-y-4">
+      <div className="grid grid-cols-1 gap-y-6 md:grid-cols-1 md:gap-y-6 lg:grid-cols-3 lg:gap-x-4 lg:gap-y-4 mb-5">
         {posts?.map((items, index) => {
           return (
             <div key={index}>
@@ -26,6 +26,10 @@ const GridCarList = ({ data, error,refetch }) => {
             </div>
           );
         })}
+        <div ref={loadMoreRef} style={{ height: '100px', background: 'transparent' }}>
+        {/* This is the sentinel for triggering infinite scroll */}
+        {isLoading && <p>Loading more cars...</p>}
+      </div>
       </div>
     </>
   );

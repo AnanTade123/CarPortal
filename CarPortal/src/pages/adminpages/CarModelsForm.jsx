@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 // import { UserPlusIcon } from "@heroicons/react/24/solid";
@@ -6,6 +7,7 @@ import { Button, Dialog, CardBody, Typography, Input } from "@material-tailwind/
 import CardUi from "../../ui/CardUi";
 import { useAddCarBrandsMutation } from "../../services/brandAPI"; 
 import { useGetOnlyBrandsQuery } from "../../services/brandAPI"; 
+import { ToastContainer, toast } from "react-toastify";
 
 export function CarModelsForm({ addCar }) {
   const [open, setOpen] = useState(false);
@@ -46,13 +48,21 @@ export function CarModelsForm({ addCar }) {
 
     try {
       const res = await addCarBrands(carBrand).unwrap();
-      
+
+      if (res?.status === "success") {
+        toast.success(res?.message);
+      } else {
+        // Handle unexpected status
+        toast.error("An unexpected status was returned");
+      }
+
       addCar({ 
         brandDataId: res.id, // assuming the response contains the id of the new car brand
         ...carBrand 
       });
     } catch (error) {
       // console.error('Failed to add the car brand:', error);
+      toast.error("Failed to add color");
     }
 
     setFormData({
@@ -65,7 +75,7 @@ export function CarModelsForm({ addCar }) {
 
   return (
     <>
-      <Button onClick={handleOpen} className="flex gap-2">
+      <Button onClick={handleOpen} color="indigo" className="flex gap-2">
         <FaCarAlt strokeWidth={2} className="h-4 w-4" /> Add Car Variant
       </Button>
       <Dialog
@@ -110,7 +120,7 @@ export function CarModelsForm({ addCar }) {
                   required
                 />
               </div>
-              <Button type="submit">Add</Button>
+              <Button color="indigo" type="submit">Add</Button>
             </form>
           </CardBody>
         </CardUi>
